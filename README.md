@@ -1,17 +1,23 @@
 # mycustomers
 
-A new Flutter project.
+## Work on this Project with the following rules
 
-## Getting Started
+1. The app will be using  “Flutter ScreenUtil” package to ensure the app design is consistent across all mobile devices. import package: screenutil extension.
 
-This project is a starting point for a Flutter application.
+iphone 11 Pro max for our Maximum screen size
 
-A few resources to get you started if this is your first Flutter project:
+2. The app will be developed using “Stacked” architecture.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+3. The app Font size will scale according to the device’s accessibility setting “font size”.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# mycustomers
+4. The app will be using Travis CI/Code Magic for CI/CD, to checkmate when develop, so as bugs or errors don’t be added to the repo.
+
+5. The layout of the codebase will just implement stacked architecture.
+
+6. NO STATEFUL WIDGET! {We will be using reactive and non reactive Extended classes}
+
+7. EVERYTHING MUST BE TESTED FROM 
+
+UNIT | INTEGRATION | SOME WIDGETS.
+
+8. The app will use Responsive Builder package.
