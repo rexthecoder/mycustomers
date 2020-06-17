@@ -11,14 +11,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
-  # Architecture
+
+  # State Management
   stacked: ^1.5.7+1
 
-  # Services
+  # Utilities
   stacked_services: ^0.3.4
   get_it: ^4.0.2
   injectable:
+  device_preview: ^0.4.5
+  
 
   # Navigation
   auto_route:
@@ -37,6 +39,16 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+  flutter_launcher_icons: ^0.7.5
+
+  #Run this script to generate the app icon: "flutter pub pub run flutter_launcher_icons:main"
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_icon.png"
+
+
 
 flutter:
 
