@@ -35,13 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('mycustomers'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Welcome',
-            ),
-          ],
+        child: Text(
+          'Welcome',
         ),
       ),
     );
