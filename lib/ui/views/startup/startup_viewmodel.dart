@@ -13,7 +13,7 @@ class StartupViewModel extends BaseViewModel {
   //    permissions manager,
   
   Future setup() async {
-    await Future.value();
-    await _navigationService.replaceWith(Routes.homeViewRoute);
+    await locator.allReady();
+    await _navigationService.replaceWith(Routes.languageViewRoute);
   }
 }

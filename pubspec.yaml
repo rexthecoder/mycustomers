@@ -34,6 +34,9 @@ dependencies:
   # add flutter_screenutil
   flutter_screenutil: ^1.1.0
 
+  # For persisting settings
+  shared_preferences: ^0.5.7+3
+
 
 
 dev_dependencies:

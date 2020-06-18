@@ -1,12 +1,13 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
+import 'package:mycustomers/ui/views/language/language_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 abstract class Routes {
   static const startupViewRoute = '/';
   static const homeViewRoute = '/home';
+  static const languageViewRoute = '/language';
 }
 
 class Router {
@@ -17,9 +18,14 @@ class Router {
           builder: (context) => StartupView(),
           settings: settings,
         );
-        case Routes.homeViewRoute:
+      case Routes.homeViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => HomeView(),
+          settings: settings,
+        );
+      case Routes.languageViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => LanguageView(),
           settings: settings,
         );
       default:
