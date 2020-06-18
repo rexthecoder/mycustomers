@@ -1,0 +1,1 @@
+//TODO: A super Widget for the details when added

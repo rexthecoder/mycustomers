@@ -33,6 +33,8 @@ dependencies:
   responsive_builder: ^0.2.0+2
   # add flutter_screenutil
   flutter_screenutil: ^1.1.0
+  # add international numbers
+  intl_phone_number_input: ^0.4.5
 
 
 
@@ -62,6 +64,30 @@ flutter:
   fonts:
     - family: Lato
       fonts:
+        - asset: assets/fonts/Lato/Lato-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Lato/Lato-ThinItalic.ttf
+          weight: 100
+          style: italic
+
+        - asset: assets/fonts/Lato/Lato-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Lato/Lato-LightItalic.ttf
+          weight: 300
+          style: italic
+
         - asset: assets/fonts/Lato/Lato-Regular.ttf
+        - asset: assets/fonts/Lato/Lato-Italic.ttf
+          style: italic
+
         - asset: assets/fonts/Lato/Lato-Bold.ttf
           weight: 700
+        - asset: assets/fonts/Lato/Lato-BoldItalic.ttf
+          weight: 700
+          style: italic
+
+        - asset: assets/fonts/Lato/Lato-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Lato/Lato-BlackItalic.ttf
+          weight: 900
+          style: italic
