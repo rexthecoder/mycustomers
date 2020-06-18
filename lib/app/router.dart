@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
-import 'package:mycustomers/ui/views/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 abstract class Routes {
@@ -20,7 +19,7 @@ class Router {
         );
         case Routes.homeViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => SignUpView(),
+          builder: (context) => HomeView(),
           settings: settings,
         );
       default:
