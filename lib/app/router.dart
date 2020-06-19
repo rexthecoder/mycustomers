@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/add_customer_manually/add_customer_manually_view.dart';
+import 'package:mycustomers/ui/views/addcustomer/add_customer_view.dart';
 import 'package:mycustomers/ui/views/authentication/authentication_view.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
-import 'package:mycustomers/ui/views/language/language_view.dart';
+import 'package:mycustomers/ui/views/language/language_view.dart'; 
 import 'package:mycustomers/ui/views/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
@@ -15,6 +17,7 @@ abstract class Routes {
   static const startupViewRoute = '/';
   static const onboardingViewRoute = '/onboarding';
   static const homeViewRoute = '/home';
+  static const addcustomerRoute = '/addcustomer';
   static const languageViewRoute = '/language';
   static const authenticationViewRoute = '/auth';
    static const signupViewRoute = '/signup';
@@ -35,9 +38,19 @@ class Router {
           builder: (context) => OnboardingView(),
           settings: settings,
         );
-      case Routes.languageViewRoute:
+case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => LanguageView(),
+          settings: settings,
+        );
+
+      case Routes.addcustomerRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerView(),
+        );
+      case Routes.languageViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerManuallyView(),
           settings: settings,
         );
       case Routes.authenticationViewRoute:
@@ -63,6 +76,11 @@ class Router {
       case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DetailsView(),
+          settings: settings,
+        );
+      case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
           settings: settings,
         );
       default:

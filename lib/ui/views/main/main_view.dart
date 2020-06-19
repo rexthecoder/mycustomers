@@ -11,7 +11,6 @@ import 'package:stacked/stacked.dart';
 import 'main_viewmodel.dart';
 
 
-
 class MainView extends StatelessWidget {
 
   final _views = <Widget>[

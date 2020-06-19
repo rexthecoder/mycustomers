@@ -11,6 +11,8 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
+            child: Container(
+          child: Center(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -122,7 +124,8 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => HomeViewModel(),
+    )), viewModelBuilder: () => HomeViewModel(),
+    
     );
   }
 }
