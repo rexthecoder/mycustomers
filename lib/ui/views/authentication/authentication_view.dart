@@ -113,25 +113,32 @@ class AuthenticationView extends StatelessWidget with Validators {
             // reverse: true,
             // physics: NeverScrollableScrollPhysics(),
             child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Stack(
                   children: <Widget>[
                     Image.asset(
                       'assets/images/auth_background.png',
-                      fit: BoxFit.cover,
                     ),
-                    SizedBox(height: 40.h),
-                    Text(
-                      'Last Step, I promise',
-                      style: TextStyle(
-                              fontSize: 60.sp,
-                              color: Color(0xFF333CC1),
-                              fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+                    Positioned(
+                      // bottom: 5.h,
+                      right: 0.h,
+                      top: 10.h,
+                      left: 0.w,
+                      child: Text(
+                        'Last Step, I \n promise',
+                        style: TextStyle(
+                            fontSize: 40.sp,
+                            color: Color(0xFF333CC1),
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     )
                   ],
                 ),
-                
+                Expanded(
+                  child: Container(child: Text('Build'),),
+                )
               ],
             ),
           ),
