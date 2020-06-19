@@ -6,12 +6,15 @@ import 'package:mycustomers/ui/views/phone/phone_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/otp/otp_view.dart';
 
+import '../ui/views/details/details_view.dart';
+
 abstract class Routes {
   static const startupViewRoute = '/';
   static const homeViewRoute = '/home';
   static const languageViewRoute = '/language';
   static const phoneViewRoute = '/phone';
   static const otpViewRoute = '/otp';
+  static const detailsViewRoute = '/details';
 }
 
 class Router {
@@ -40,6 +43,11 @@ class Router {
       case Routes.otpViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => OTPView(),
+          settings: settings,
+        );
+      case Routes.detailsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => DetailsView(),
           settings: settings,
         );
       default:
