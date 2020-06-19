@@ -2,12 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/addcustomer/add_customer_view.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
-import 'package:mycustomers/ui/views/startup/startup_view.dart';
+import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
+import 'package:mycustomers/ui/views/language/language_view.dart';
+import 'package:mycustomers/ui/views/phone/phone_view.dart';
+import 'package:mycustomers/ui/views/startup/startup_view.dart'; 
+import 'package:mycustomers/ui/views/otp/otp_view.dart';
+
+import '../ui/views/details/details_view.dart';
 
 abstract class Routes {
   static const startupViewRoute = '/';
   static const homeViewRoute = '/home';
   static const addcustomerRoute = '/addcustomer';
+  static const languageViewRoute = '/language';
+  static const phoneViewRoute = '/phone';
+  static const otpViewRoute = '/otp';
+  static const detailsViewRoute = '/details';
 }
 
 class Router {
@@ -15,7 +25,7 @@ class Router {
     switch (settings.name) {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
+          builder: (context) => OnboardingView(),
           settings: settings,
         );
       case Routes.homeViewRoute:
@@ -23,9 +33,28 @@ class Router {
           builder: (context) => HomeView(),
           settings: settings,
         );
+
       case Routes.addcustomerRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddCustomerView(),
+      case Routes.languageViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => LanguageView(),
+          settings: settings,
+        );
+      case Routes.phoneViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => PhoneView(),
+          settings: settings,
+        );
+      case Routes.otpViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => OTPView(),
+          settings: settings,
+        );
+      case Routes.detailsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => DetailsView(),
           settings: settings,
         );
       default:
