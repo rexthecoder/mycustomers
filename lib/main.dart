@@ -27,14 +27,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp
-    ]); // Settting preferred Screen Orientation
+    ]); // Setting preferred Screen Orientation
     return CupertinoApp(
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
       ],
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.startupViewRoute,
+      initialRoute: Routes.detailsViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );

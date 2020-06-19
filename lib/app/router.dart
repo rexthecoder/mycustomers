@@ -6,40 +6,48 @@ import 'package:mycustomers/ui/views/phone/phone_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/otp/otp_view.dart';
 
+import '../ui/views/details/details_view.dart';
+
 abstract class Routes {
   static const startupViewRoute = '/';
   static const homeViewRoute = '/home';
   static const languageViewRoute = '/language';
   static const phoneViewRoute = '/phone';
   static const otpViewRoute = '/otp';
+  static const detailsViewRoute = '/details';
 }
 
 class Router {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.startupViewRoute:
+//      case Routes.startupViewRoute:
+//        return CupertinoPageRoute<dynamic>(
+//          builder: (context) => StartupView(),
+//          settings: settings,
+//        );
+//      case Routes.homeViewRoute:
+//        return CupertinoPageRoute<dynamic>(
+//          builder: (context) => HomeView(),
+//          settings: settings,
+//        );
+//      case Routes.languageViewRoute:
+//        return CupertinoPageRoute<dynamic>(
+//          builder: (context) => LanguageView(),
+//          settings: settings,
+//        );
+//      case Routes.phoneViewRoute:
+//        return CupertinoPageRoute<dynamic>(
+//          builder: (context) => PhoneView(),
+//          settings: settings,
+//        );
+//      case Routes.otpViewRoute:
+//        return CupertinoPageRoute<dynamic>(
+//          builder: (context) => OTPView(),
+//          settings: settings,
+//        );
+      case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
-          settings: settings,
-        );
-      case Routes.homeViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => HomeView(),
-          settings: settings,
-        );
-      case Routes.languageViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => LanguageView(),
-          settings: settings,
-        );
-      case Routes.phoneViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => PhoneView(),
-          settings: settings,
-        );
-      case Routes.otpViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => OTPView(),
+          builder: (context) => DetailsView(),
           settings: settings,
         );
       default:
