@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/authentication/authentication_view.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
+import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/language/language_view.dart';
+import 'package:mycustomers/ui/views/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 
@@ -15,6 +17,8 @@ abstract class Routes {
   static const homeViewRoute = '/home';
   static const languageViewRoute = '/language';
   static const authenticationViewRoute = '/auth';
+   static const signupViewRoute = '/signup';
+    static const mainViewRoute = '/main';
   static const detailsViewRoute = '/details';
 }
 
@@ -36,14 +40,24 @@ class Router {
           builder: (context) => LanguageView(),
           settings: settings,
         );
-      case Routes.homeViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => HomeView(),
-          settings: settings,
-        );
       case Routes.authenticationViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AuthenticationView(),
+          settings: settings,
+        );
+         case Routes.signupViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SignUpView(),
+          settings: settings,
+        );
+         case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
+          settings: settings,
+        );
+      case Routes.homeViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => HomeView(),
           settings: settings,
         );
       case Routes.detailsViewRoute:
