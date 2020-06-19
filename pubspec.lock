@@ -78,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.5"
+  fancy_on_boarding:
+    dependency: "direct main"
+    description:
+      name: fancy_on_boarding
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -112,7 +119,8 @@ packages:
     source: hosted
     version: "1.1.0"
   flutter_svg:
-    dependency: "direct main"
+    dependency: transitive
+
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"

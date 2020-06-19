@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
+import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/language/language_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/phone/phone_view.dart';
-import 'package:mycustomers/ui/views/startup/startup_view.dart';
+import 'package:mycustomers/ui/views/startup/startup_view.dart'; 
 import 'package:mycustomers/ui/views/otp/otp_view.dart';
 
 import '../ui/views/details/details_view.dart';
@@ -24,7 +25,7 @@ class Router {
     switch (settings.name) {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
+          builder: (context) => OnboardingView(),
           settings: settings,
         );
       case Routes.homeViewRoute:
