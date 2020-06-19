@@ -27,16 +27,15 @@ final String notification = 'assets/icons/notification.svg';
 final String search = 'assets/icons/search.svg';
 
 class MainView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
-        appBar: mainViewAppBar(model),
-        bottomNavBar: mainViewNavBar(model, model.controller),
-        backgroundColor: const Color(0xFCFCFCFF),
-        body: SafeArea(
-          child: Column(
+      builder: (context, model, child) => SafeArea(
+        child: PlatformScaffold(
+          appBar: mainViewAppBar(model),
+          bottomNavBar: mainViewNavBar(model, model.controller),
+          backgroundColor: const Color(0xFCFCFCFF),
+          body: Column(
             children: [
               MainViewSearchBar(),
               Expanded(

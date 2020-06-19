@@ -8,7 +8,7 @@ PlatformNavBar mainViewNavBar(MainViewModel model, PageController controller) {
     itemChanged: (int index) {
       model.pageIndex = index;
       controller.animateToPage(index,
-          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     },
     items: [
       BottomNavigationBarItem(
