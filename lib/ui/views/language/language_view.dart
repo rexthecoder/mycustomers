@@ -77,7 +77,7 @@ class LanguageView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.arrow_back_ios,
+                        Icons.arrow_forward_ios,
                         color: Color(0xFF333333),
                       ),
                     ],
