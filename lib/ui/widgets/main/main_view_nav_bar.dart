@@ -16,7 +16,12 @@ PlatformNavBar mainViewNavBar(MainViewModel model, PageController controller) {
           home,
           semanticsLabel: 'Home',
         ),
-        title: PlatformText("Home"),
+        title: Text(
+          "Home",
+          style: TextStyle(
+            color: const Color.fromRGBO(51, 60, 193, 1),
+          ),
+        ),
         activeIcon: SvgPicture.asset(
           homeActive,
           semanticsLabel: 'Home',
@@ -27,7 +32,12 @@ PlatformNavBar mainViewNavBar(MainViewModel model, PageController controller) {
           marketing,
           semanticsLabel: 'Marketing',
         ),
-        title: PlatformText("Marketing"),
+        title: Text(
+          "Marketing",
+          style: TextStyle(
+            color: const Color.fromRGBO(51, 60, 193, 1),
+          ),
+        ),
         activeIcon: SvgPicture.asset(
           marketingActive,
           semanticsLabel: 'Marketing',
@@ -38,7 +48,12 @@ PlatformNavBar mainViewNavBar(MainViewModel model, PageController controller) {
           profile,
           semanticsLabel: 'Profile',
         ),
-        title: PlatformText("Your Company"),
+        title: Text(
+          "Your Company",
+          style: TextStyle(
+            color: const Color.fromRGBO(51, 60, 193, 1),
+          ),
+        ),
         activeIcon: SvgPicture.asset(
           profileActive,
           semanticsLabel: 'Profile',
