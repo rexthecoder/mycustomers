@@ -4,8 +4,7 @@ part of '../main_view.dart';
 
 PlatformAppBar mainViewAppBar(MainViewModel model) {
   return PlatformAppBar(
-
-    backgroundColor: Colors.white,
+    backgroundColor: const Color(0xFCFCFCFF),
     title: Text(
       model.currentUsername.capitalize ?? "",
       style: TextStyle(color: Colors.black),

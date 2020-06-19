@@ -23,15 +23,18 @@ final String profile = 'assets/icons/profile.svg';
 final String profileActive = 'assets/icons/profile_active.svg';
 final String noNotification = 'assets/icons/no_notification.svg';
 final String notification = 'assets/icons/notification.svg';
+final String search = 'assets/icons/search.svg';
 
 class MainView extends StatelessWidget {
+
+  // TODO Fix SVG props
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       builder: (context, model, child) => PlatformScaffold(
         appBar: mainViewAppBar(model),
         bottomNavBar: mainViewNavBar(model, model.controller),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFCFCFCFF),
         body: SafeArea(
           child: Column(
             children: [
