@@ -10,21 +10,28 @@ class MainViewSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      margin: EdgeInsets.all(10.sp),
+      padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xE8E8E8FF)),
-        color: const Color(0xF6F6F6FF),
+        border: Border.all(color: const Color.fromRGBO(232, 232, 232, 1)),
+        color: const Color.fromRGBO(246, 246, 246, 1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextFormField(
-        style: TextStyle(color: Colors.white),
+        cursorColor: const Color.fromRGBO(189, 189, 189, 1),
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.sp,
+        ),
         decoration: InputDecoration(
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           icon: SvgPicture.asset(search),
           hintText: "Search",
-          hintStyle: TextStyle(color: Colors.white),
+          hintStyle: TextStyle(
+            fontSize: 20.sp,
+            color: const Color.fromRGBO(189, 189, 189, 1),
+          ),
         ),
       ),
     );

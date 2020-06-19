@@ -6,6 +6,7 @@ import 'package:mycustomers/ui/views/marketing/marketing_view.dart';
 import 'package:mycustomers/ui/views/profile/profile_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/core/extensions/string_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'main_viewmodel.dart';
 
