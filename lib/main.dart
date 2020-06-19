@@ -34,7 +34,7 @@ class App extends StatelessWidget {
         DefaultWidgetsLocalizations.delegate,
       ],
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.detailsViewRoute,
+      initialRoute: Routes.startupViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );

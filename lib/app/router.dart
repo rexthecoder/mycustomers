@@ -20,31 +20,31 @@ abstract class Routes {
 class Router {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-//      case Routes.startupViewRoute:
-//        return CupertinoPageRoute<dynamic>(
-//          builder: (context) => StartupView(),
-//          settings: settings,
-//        );
-//      case Routes.homeViewRoute:
-//        return CupertinoPageRoute<dynamic>(
-//          builder: (context) => HomeView(),
-//          settings: settings,
-//        );
-//      case Routes.languageViewRoute:
-//        return CupertinoPageRoute<dynamic>(
-//          builder: (context) => LanguageView(),
-//          settings: settings,
-//        );
-//      case Routes.phoneViewRoute:
-//        return CupertinoPageRoute<dynamic>(
-//          builder: (context) => PhoneView(),
-//          settings: settings,
-//        );
-//      case Routes.otpViewRoute:
-//        return CupertinoPageRoute<dynamic>(
-//          builder: (context) => OTPView(),
-//          settings: settings,
-//        );
+      case Routes.startupViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => StartupView(),
+          settings: settings,
+        );
+      case Routes.homeViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => HomeView(),
+          settings: settings,
+        );
+      case Routes.languageViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => LanguageView(),
+          settings: settings,
+        );
+      case Routes.phoneViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => PhoneView(),
+          settings: settings,
+        );
+      case Routes.otpViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => OTPView(),
+          settings: settings,
+        );
       case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DetailsView(),
