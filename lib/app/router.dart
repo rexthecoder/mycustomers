@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/add_customer_manually/add_customer_manually_view.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/language/language_view.dart';
+import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/phone/phone_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart'; 
 import 'package:mycustomers/ui/views/otp/otp_view.dart';
@@ -14,6 +16,7 @@ abstract class Routes {
   static const homeViewRoute = '/home';
   static const languageViewRoute = '/language';
   static const phoneViewRoute = '/phone';
+  static const mainViewRoute = '/main';
   static const otpViewRoute = '/otp';
   static const detailsViewRoute = '/details';
 }
@@ -33,7 +36,7 @@ class Router {
         );
       case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => LanguageView(),
+          builder: (context) => AddCustomerManuallyView(),
           settings: settings,
         );
       case Routes.phoneViewRoute:
@@ -49,6 +52,11 @@ class Router {
       case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DetailsView(),
+          settings: settings,
+        );
+      case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
           settings: settings,
         );
       default:
