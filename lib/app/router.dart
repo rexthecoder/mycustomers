@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/add_customer_manually/add_customer_manually_view.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/language/language_view.dart';
 import 'package:mycustomers/ui/views/phone/phone_view.dart';
@@ -32,7 +33,7 @@ class Router {
         );
       case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => LanguageView(),
+          builder: (context) => AddCustomerManuallyView(),
           settings: settings,
         );
       case Routes.phoneViewRoute:
