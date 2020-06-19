@@ -39,7 +39,7 @@ class LanguageView extends StatelessWidget {
                     BoxShadow(
                       color: Color.fromARGB(13, 71, 126, 200),
                       offset: Offset(0, 4),
-                      spreadRadius: 4,
+                      blurRadius: 4,
                     )
                   ],
                   borderRadius: BorderRadius.circular(5),

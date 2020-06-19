@@ -18,3 +18,4 @@ class LanguageViewModel extends BaseViewModel {
   }
 
 }
+

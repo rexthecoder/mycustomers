@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 
-import 'home_viewmodel.dart';
+import 'marketing_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
+class MarketingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
+    return ViewModelBuilder<MarketingViewModel>.reactive(
       builder: (context, model, child) => PlatformScaffold(
         body: SafeArea(
             child: Container(
@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
           ),
         )),
       ),
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => MarketingViewModel(),
     );
   }
 }
