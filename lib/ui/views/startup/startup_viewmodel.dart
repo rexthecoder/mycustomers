@@ -13,6 +13,6 @@ class StartupViewModel extends BaseViewModel {
 
   Future setup() async {
     await Future.value();
-    await _navigationService.replaceWith(Routes.homeViewRoute);
+    await _navigationService.replaceWith(Routes.mainViewRoute);
   }
 }

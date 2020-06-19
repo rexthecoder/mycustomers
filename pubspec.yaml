@@ -1,7 +1,7 @@
 name: mycustomers
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -11,16 +11,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: ^0.17.4
 
   # State Management
   stacked: ^1.5.7+1
 
   # Utilities
-  stacked_services: ^0.3.4
+  stacked_services: 0.4.3
   get_it: ^4.0.2
   injectable:
   device_preview: ^0.4.5
-  
+
   # Navigation
   auto_route:
 
@@ -34,11 +35,10 @@ dependencies:
   # add flutter_screenutil
   flutter_screenutil: ^1.1.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
+
   flutter_launcher_icons: ^0.7.5
 
   #Run this script to generate the app icon: "flutter pub pub run flutter_launcher_icons:main"
@@ -47,16 +47,14 @@ flutter_icons:
   ios: true
   image_path: "assets/images/app_icon.png"
 
-
-
 flutter:
-
   uses-material-design: true
 
   assets:
     - assets/
+    - assets/icons/
     - assets/images/
-    - assets/fonts/  
+    - assets/fonts/
 
   fonts:
     - family: Lato

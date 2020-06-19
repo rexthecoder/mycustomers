@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/phone/phone_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
+import 'package:mycustomers/ui/views/main/main_view.dart';
+
 
 abstract class Routes {
   static const startupViewRoute = '/';
   static const homeViewRoute = '/home';
   static const phoneViewRoute = '/phone';
+  static const mainViewRoute = '/main';
 }
 
 class Router {
@@ -26,6 +29,11 @@ class Router {
       case Routes.phoneViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => PhoneView(),
+          settings: settings,
+        );
+      case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
           settings: settings,
         );
       default:
