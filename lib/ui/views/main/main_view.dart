@@ -44,10 +44,17 @@ class MainView extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: PlatformWidget(
-                android: (_) => Icon(Icons.settings),
-                ios: (_) => Icon(CupertinoIcons.settings),
+                android: (_) => Icon(Icons.shopping_cart),
+                ios: (_) => Icon(CupertinoIcons.shopping_cart),
               ),
               title: Text('Marketing'),
+            ),
+             BottomNavigationBarItem(
+              icon: PlatformWidget(
+                android: (_) => Icon(Icons.person),
+                ios: (_) => Icon(CupertinoIcons.person),
+              ),
+              title: Text('Your Company'),
             ),
           ],
           itemChanged: model.changeTab,
