@@ -42,7 +42,6 @@ class Router {
           builder: (context) => HomeView(),
           settings: settings,
         );
-     
       case Routes.phoneViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => PhoneView(),
