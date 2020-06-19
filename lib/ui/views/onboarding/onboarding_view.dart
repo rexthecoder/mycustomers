@@ -12,13 +12,13 @@ class OnboardingView extends StatelessWidget {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
       builder: (context, model, child) => PlatformScaffold(
         body: FancyOnBoarding(
-          doneButtonText: "Get Started",
+          doneButtonText: "Let's Go",
           skipButtonText: "Skip",
           pageList: pageList,
           onDoneButtonPressed: () =>
-              Navigator.of(context).pushReplacementNamed('/mainPage'),
+              model.setup(),
           onSkipButtonPressed: () =>
-              Navigator.of(context).pushReplacementNamed('/mainPage'),
+              model.setup(),
         ),
       ),
       viewModelBuilder: () => OnboardingViewModel(),
@@ -29,53 +29,53 @@ class OnboardingView extends StatelessWidget {
 //list of PageModel to be set on the onBoarding Screens.
 final pageList = [
   PageModel(
-      color: const Color(0xFF678FB4),
-      heroAssetPath: 'assets/images/onboarding/onboarding2.png',
-      title: Text('Hotels',
+      color: const Color(0xFF45ADA7),
+      heroAssetPath: 'assets/images/onboarding/onboarding1.png',
+      title: Text('MyCustomer',
           style: TextStyle(
             fontWeight: FontWeight.w800,
-            color: Colors.white,
-            fontSize: 34.0,
+            color: Color(0xFFFDA741),
+            fontSize:36.0,
           )),
-      body: Text('All hotels and hostels are sorted by hospitality rating',
+      body: Text('Track your debts',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white,
+            color: Color(0xFF1D6AFF),
             fontSize: 18.0,
           )),
-      iconAssetPath: 'assets/png/key.png'),
+      iconAssetPath: 'assets/images/onboarding/track.png'),
   PageModel(
-      color: const Color(0xFF65B0B4),
-      heroAssetPath: 'assets/images/onboarding/onboarding2.png',
-      title: Text('Banks',
+      color: const Color(0xFF3DBED0),
+      heroAssetPath: 'assets/images/onboarding/onboarding2.jpg',
+      title: Text('MyCustomer',
           style: TextStyle(
             fontWeight: FontWeight.w800,
-            color: Colors.white,
-            fontSize: 34.0,
+            color: Color(0xFFFDA741),
+            fontSize: 36.0,
           )),
       body:
-          Text('We carefully verify all banks before adding them into the app',
+          Text('Market your Business',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xFF1D6AFF),
                 fontSize: 18.0,
               )),
-      iconAssetPath: 'assets/png/wallet.png'),
+      iconAssetPath: 'assets/images/onboarding/market.png'),
   PageModel(
-    color: const Color(0xFF9B90BC),
-    heroAssetPath: 'assets/images/onboarding/onboarding3.png',
-    title: Text('Store',
+    color: const Color(0xFF7ED8CA),
+    heroAssetPath: 'assets/images/onboarding/onboarding3.jpg',
+    title: Text('MyCustomer',
         style: TextStyle(
           fontWeight: FontWeight.w800,
-          color: Colors.white,
-          fontSize: 34.0,
+          color: Color(0xFFFDA741),
+          fontSize: 36.0,
         )),
-    body: Text('All local stores are categorized for your convenience',
+    body: Text('Manage your business',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Colors.white,
+          color: Color(0xFF1D6AFF),
           fontSize: 18.0,
         )),
-    iconAssetPath: 'assets/png/shopping_cart.png',
+    iconAssetPath: 'assets/images/onboarding/manage.png',
   ),
 ];
