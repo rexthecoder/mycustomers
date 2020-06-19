@@ -24,10 +24,9 @@ class AddCustomerView extends StatelessWidget {
                             child: IconButton(
                                 color: kblack,
                                 icon: Icon(Icons.arrow_back),
-                                onPressed: (){
+                                onPressed: () {
                                   model.navigateToHome();
-                                }
-                                ),
+                                }),
                           ),
                           Container(
                             child: Text(kaddCustomerHeadingText,

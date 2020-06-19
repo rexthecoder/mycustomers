@@ -12,14 +12,8 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       builder: (context, model, child) => PlatformScaffold(
         body: SafeArea(
-
             child: Container(
           child: Center(
-            child: InkWell(
-              onTap: (){
-                model.navigateToHome();
-              },
-              child: Text('BUILD')),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -131,7 +125,8 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => HomeViewModel(),
+    )), viewModelBuilder: () => HomeViewModel(),
+    
     );
   }
 }

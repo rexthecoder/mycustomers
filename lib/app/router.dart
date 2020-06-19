@@ -37,6 +37,7 @@ class Router {
       case Routes.addcustomerRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddCustomerView(),
+        );
       case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => LanguageView(),
