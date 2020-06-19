@@ -1,4 +1,4 @@
-part of '../main_view.dart';
+part of '../../views/main/main_view.dart';
 
 ///Created by Demilade Oladugba on 6/19/2020
 

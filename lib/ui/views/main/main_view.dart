@@ -10,11 +10,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'main_viewmodel.dart';
 
-part './widgets/main_view_app_bar.dart';
+part '../../widgets/main/main_view_app_bar.dart';
 
-part './widgets/main_view_nav_bar.dart';
+part '../../widgets/main/main_view_nav_bar.dart';
 
-part './widgets/main_view_search_bar.dart';
+part '../../widgets/main/main_view_search_bar.dart';
 
 final String home = 'assets/icons/home.svg';
 final String homeActive = 'assets/icons/home_active.svg';
