@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 /// Contains useful functions to reduce boilerplate code
 /// 
 /// @Eternity
-/// 
 class UIHelper {
   // Vertical spacing constants. Adjust to your liking.
   static const double _VerticalSpaceSmall = 4;

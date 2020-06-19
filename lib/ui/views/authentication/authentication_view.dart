@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/mixings/validators.dart';
@@ -194,74 +195,74 @@ Widget modalBottomWidget() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            mediumVerticalHeight,
-                      Text(
-                        'PASTE FROM SMS',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                      smallVerticalHeight,
-                      Expanded(
-                        child: Text(
-                          '0349',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+            SizedBox(height: 10),
+            Text(
+              'PASTE FROM SMS',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              child: Text(
+                '0349',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-                Container(
-                  height: ScreenUtil.screenHeightDp * 0.25,
-                  width: ScreenUtil.screenWidthDp,
-                  padding: EdgeInsets.all(32.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24.0),
-                      topRight: Radius.circular(24.0),
+              ),
+            ),
+            Container(
+              height: ScreenUtil.screenHeightDp * 0.25,
+              width: ScreenUtil.screenWidthDp,
+              padding: EdgeInsets.all(32.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24.0),
+                  topRight: Radius.circular(24.0),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(
+                    child: PinCodeTextField(
+                      length: 4,
+                      obsecureText: false,
+                      animationType: AnimationType.scale,
+                      textInputType: TextInputType.number,
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.underline,
+                        selectedColor: Colors.black,
+                        activeColor: Colors.black,
+                        inactiveColor: Colors.grey,
+                        borderWidth: 1,
+                        fieldWidth: ScreenUtil.screenWidthDp * 0.15,
+                      ),
+                      animationDuration: Duration(milliseconds: 300),
+                      //errorAnimationController: errorController,
+                      //controller: textEditingController,
+                      autoDisposeControllers: false,
+                      onCompleted: (v) {},
+                      onChanged: (value) {},
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Expanded(
-                        child: PinCodeTextField(
-                          length: 4,
-                          obsecureText: false,
-                          animationType: AnimationType.scale,
-                          textInputType: TextInputType.number,
-                          pinTheme: PinTheme(
-                            shape: PinCodeFieldShape.underline,
-                            selectedColor: Colors.black,
-                            activeColor: Colors.black,
-                            inactiveColor: Colors.grey,
-                            borderWidth: 1,
-                            fieldWidth: ScreenUtil.screenWidthDp * 0.15,
-                          ),
-                          animationDuration: Duration(milliseconds: 300),
-                          //errorAnimationController: errorController,
-                          //controller: textEditingController,
-                          autoDisposeControllers: false,
-                          onCompleted: (v) {},
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      smallVerticalHeight,
-                      Text(
-                        'Please enter 4-digit code we sent on \nyour number as SMS',
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black,
-                        ),
-                      ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Please enter 4-digit code we sent on \nyour number as SMS',
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

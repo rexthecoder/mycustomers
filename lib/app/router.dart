@@ -5,7 +5,7 @@ import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/language/language_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
-import 'package:mycustomers/ui/views/otp/otp_view.dart';
+
 
 import '../ui/views/details/details_view.dart';
 
@@ -15,7 +15,6 @@ abstract class Routes {
   static const homeViewRoute = '/home';
   static const languageViewRoute = '/language';
   static const authenticationViewRoute = '/auth';
-  static const otpViewRoute = '/otp';
   static const detailsViewRoute = '/details';
 }
 
@@ -45,11 +44,6 @@ class Router {
       case Routes.authenticationViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AuthenticationView(),
-          settings: settings,
-        );
-      case Routes.otpViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => OTPView(),
           settings: settings,
         );
       case Routes.detailsViewRoute:
