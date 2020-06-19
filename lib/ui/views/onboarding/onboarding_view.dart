@@ -26,7 +26,7 @@ class OnboardingView extends StatelessWidget {
   }
 }
 
-//Create a list of PageModel to be set on the onBoarding Screens.
+//list of PageModel to be set on the onBoarding Screens.
 final pageList = [
   PageModel(
       color: const Color(0xFF678FB4),
