@@ -9,6 +9,12 @@ PlatformAppBar mainViewAppBar(MainViewModel model) {
       model.currentUsername.capitalize ?? "",
       style: TextStyle(color: Colors.black),
     ),
+    material: (_, __) {
+      return MaterialAppBarData(
+        centerTitle: false,
+        elevation: 0,
+      );
+    },
     trailingActions: [
       FlatButton(
         onPressed: () {},

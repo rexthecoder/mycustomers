@@ -15,6 +15,7 @@ dependencies:
   flutter_hooks: ^0.9.0
   observable_ish: ^2.1.4
   flutter_svg: ^0.17.4
+  pin_code_fields: ^3.1.2
 
   # State Management
   stacked: ^1.5.7+1

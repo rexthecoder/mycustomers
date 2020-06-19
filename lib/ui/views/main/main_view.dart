@@ -27,7 +27,6 @@ final String search = 'assets/icons/search.svg';
 
 class MainView extends StatelessWidget {
 
-  // TODO Fix SVG props
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
