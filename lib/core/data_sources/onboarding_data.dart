@@ -39,7 +39,7 @@ OnboardingModel(
       Color(0xFFE6E6E6),
       Color(0xFF005699),
       1,
-      'images/flutter_onboarding_4.png',
+      'images/flutter_onboarding_4.jpg',
       'EDUCATIONAL',
       'PROGRAMMING',
       'Learn coding with examples, in a fun, somewhat structured, way. Enjoy!',
