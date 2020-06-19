@@ -9,9 +9,9 @@ class LanguageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LanguageViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         backgroundColor: Color(0xFFFAFAFA),
-        appBar: PlatformAppBar(
+        appBar: AppBar(
           title: Text(
             'Select Language',
             style: TextStyle(
@@ -21,14 +21,14 @@ class LanguageView extends StatelessWidget {
             ),
           ),
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          material: (_, __) {
-            return MaterialAppBarData(
-              centerTitle: false,
-              elevation: 0,
-            );
-          },
-        ),
+          backgroundColor: Colors.white ),
+          // material: (_, __) {
+        //      MaterialAppBarData(
+        //       centerTitle: false,
+        //       elevation: 0,
+        //     );
+        //   },
+        // ),
         body: SafeArea(
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
@@ -86,7 +86,7 @@ class LanguageView extends StatelessWidget {
                     horizontal: 15.w,
                     vertical: 11.5.h,
                   ),
-                  onTap: () {model.setLanguage(index);},
+                  onTap: () {model.setup();},
                 ),
               );
             },
