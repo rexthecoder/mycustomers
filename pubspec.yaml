@@ -62,10 +62,14 @@ flutter:
 
   assets:
     - assets/
+    - assets/images/  
+    - assets/images/
+    - assets/fonts/  
     - assets/icons/
     - assets/images/
     - assets/images/onboarding/
     - assets/fonts/
+
 
   fonts:
     - family: Lato

@@ -1,4 +1,9 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+import '../../../app/locator.dart';
+import '../../../app/router.dart';
+
 
 class HomeViewModel extends BaseViewModel {
   String _title = 'Home View';
@@ -11,3 +16,4 @@ class HomeViewModel extends BaseViewModel {
     print('hello');
   }
 }
+
