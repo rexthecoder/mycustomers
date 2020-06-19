@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/authentication/authentication_view.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/language/language_view.dart';
-import 'package:mycustomers/ui/views/phone/phone_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/otp/otp_view.dart';
 
@@ -14,7 +14,7 @@ abstract class Routes {
   static const onboardingViewRoute = '/onboarding';
   static const homeViewRoute = '/home';
   static const languageViewRoute = '/language';
-  static const phoneViewRoute = '/phone';
+  static const authenticationViewRoute = '/auth';
   static const otpViewRoute = '/otp';
   static const detailsViewRoute = '/details';
 }
@@ -42,9 +42,9 @@ class Router {
           builder: (context) => HomeView(),
           settings: settings,
         );
-      case Routes.phoneViewRoute:
+      case Routes.authenticationViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => PhoneView(),
+          builder: (context) => AuthenticationView(),
           settings: settings,
         );
       case Routes.otpViewRoute:

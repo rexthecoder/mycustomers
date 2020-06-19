@@ -3,12 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 
-import 'phone_viewmodel.dart';
+
 import '../../../core/mixings/validators.dart';
 import '../../widgets/shared/custom_raised_button.dart';
 import '../../widgets/shared/social_icon.dart';
+import 'authentication_viewmodel.dart';
 
-class PhoneView extends StatelessWidget with Validators {
+class AuthenticationView extends StatelessWidget with Validators {
   /// A reusable text style
   /// Can be moved to a mixin or constant
   final regularTextStyle = TextStyle(
@@ -29,7 +30,7 @@ class PhoneView extends StatelessWidget with Validators {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PhoneViewModel>.reactive(
+    return ViewModelBuilder<AuthenticationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
@@ -159,7 +160,7 @@ class PhoneView extends StatelessWidget with Validators {
           ),
         ),
       ),
-      viewModelBuilder: () => PhoneViewModel(),
+      viewModelBuilder: () => AuthenticationViewModel(),
     );
   }
 }

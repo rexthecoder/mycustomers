@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
 
-class PhoneViewModel extends BaseViewModel {
+class AuthenticationViewModel extends BaseViewModel {
   String _dropdownValue = '+234';
 
   String get dropdownValue => _dropdownValue;
