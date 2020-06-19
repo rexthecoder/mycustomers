@@ -11,9 +11,10 @@ class MainViewSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.4),
+        border: Border.all(color: const Color(0xE8E8E8FF)),
+        color: const Color(0xF6F6F6FF),
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextFormField(
@@ -21,7 +22,7 @@ class MainViewSearchBar extends StatelessWidget {
         decoration: InputDecoration(
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
-          icon: Icon(Icons.search),
+          icon: SvgPicture.asset(search),
           hintText: "Search",
           hintStyle: TextStyle(color: Colors.white),
         ),
