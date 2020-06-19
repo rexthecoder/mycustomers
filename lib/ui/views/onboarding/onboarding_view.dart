@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+// import 'package:flutter_platform_widgets/flutter_platform_widgets.dart'; 
 import 'package:mycustomers/core/data_sources/onboarding_data.dart';
 import 'package:stacked/stacked.dart';
 
+import 'components/onboard_page.dart';
+import 'components/page_view_indicator.dart';
 import 'onboarding_viewmodel.dart';
 
 
@@ -41,7 +43,7 @@ class OnboardingView extends StatelessWidget {
                   child: Text(
                     'fun with',
                     style: Theme.of(context).textTheme.title.copyWith(
-                          color: colorProvider.color,
+                          color: model.color,
                         ),
                   ),
                 ),
@@ -50,7 +52,7 @@ class OnboardingView extends StatelessWidget {
                   child: Text(
                     'Skip',
                     style: TextStyle(
-                      color: colorProvider.color,
+                      color: model.color,
                     ),
                   ),
                 ),
@@ -65,7 +67,7 @@ class OnboardingView extends StatelessWidget {
             child: PageViewIndicator(
               controller: pageController,
               itemCount: onboardData.length,
-              color: colorProvider.color,
+              color: model.color,
             ),
           ),
         )
