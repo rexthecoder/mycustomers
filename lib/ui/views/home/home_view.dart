@@ -12,7 +12,11 @@ class HomeView extends StatelessWidget {
         body: SafeArea(
             child: Container(
           child: Center(
-            child: Text('BUILD'),
+            child: InkWell(
+              onTap: (){
+                model.navigateToHome();
+              },
+              child: Text('BUILD')),
           ),
         )),
       ),
