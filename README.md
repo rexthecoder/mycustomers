@@ -17,3 +17,5 @@
 7. EVERYTHING MUST BE TESTED FROM  **UNIT | INTEGRATION | SOME WIDGETS.**
 
 8. The app will use Responsive Builder package to ensure responsiveness across all screens.
+
+9. We will be making use of Platform Widget for both ios and andriod.
