@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../widgets/shared/breakdownCard.dart';
@@ -10,7 +9,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
