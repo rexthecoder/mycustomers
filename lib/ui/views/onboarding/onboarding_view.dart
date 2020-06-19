@@ -11,9 +11,8 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
       builder: (context, model, child) => PlatformScaffold(
-        //Pass pageList and the mainPage route.
         body: FancyOnBoarding(
-          doneButtonText: "Done",
+          doneButtonText: "Get Started",
           skipButtonText: "Skip",
           pageList: pageList,
           onDoneButtonPressed: () =>
@@ -31,7 +30,7 @@ class OnboardingView extends StatelessWidget {
 final pageList = [
   PageModel(
       color: const Color(0xFF678FB4),
-      heroAssetPath: 'assets/png/hotels.png',
+      heroAssetPath: 'assets/images/onboarding/onboarding2.png',
       title: Text('Hotels',
           style: TextStyle(
             fontWeight: FontWeight.w800,
@@ -47,7 +46,7 @@ final pageList = [
       iconAssetPath: 'assets/png/key.png'),
   PageModel(
       color: const Color(0xFF65B0B4),
-      heroAssetPath: 'assets/png/banks.png',
+      heroAssetPath: 'assets/images/onboarding/onboarding2.png',
       title: Text('Banks',
           style: TextStyle(
             fontWeight: FontWeight.w800,
@@ -64,7 +63,7 @@ final pageList = [
       iconAssetPath: 'assets/png/wallet.png'),
   PageModel(
     color: const Color(0xFF9B90BC),
-    heroAssetPath: 'assets/png/stores.png',
+    heroAssetPath: 'assets/images/onboarding/onboarding3.png',
     title: Text('Store',
         style: TextStyle(
           fontWeight: FontWeight.w800,
