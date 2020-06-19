@@ -37,6 +37,7 @@ class App extends StatelessWidget {
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return PlatformApp(
+      builder: DevicePreview.appBuilder,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,

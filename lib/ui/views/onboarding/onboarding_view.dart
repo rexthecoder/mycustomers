@@ -1,79 +1,82 @@
+import 'package:fancy_on_boarding/fancy_on_boarding.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_platform_widgets/flutter_platform_widgets.dart'; 
-import 'package:mycustomers/core/data_sources/onboarding_data.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
 import 'package:stacked/stacked.dart';
 
-import 'components/onboard_page.dart';
-import 'components/page_view_indicator.dart';
 import 'onboarding_viewmodel.dart';
 
-
 class OnboardingView extends StatelessWidget {
-
-  final PageController pageController = PageController();
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
-      builder: (context, model, child) => Stack(
-      children: <Widget>[
-        PageView.builder(
-          controller: pageController,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: onboardData.length,
-          itemBuilder: (context, index) {
-            return OnboardPage(
-              pageController: pageController,
-              pageModel: onboardData[index],
-            );
-          },
+      builder: (context, model, child) => PlatformScaffold(
+        //Pass pageList and the mainPage route.
+        body: FancyOnBoarding(
+          doneButtonText: "Done",
+          skipButtonText: "Skip",
+          pageList: pageList,
+          onDoneButtonPressed: () =>
+              Navigator.of(context).pushReplacementNamed('/mainPage'),
+          onSkipButtonPressed: () =>
+              Navigator.of(context).pushReplacementNamed('/mainPage'),
         ),
-        Container(
-          width: double.infinity,
-          height: 70,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 32.0),
-                  child: Text(
-                    'fun with',
-                    style: Theme.of(context).textTheme.title.copyWith(
-                          color: model.color,
-                        ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 32.0),
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: model.color,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 80.0, left: 40),
-            child: PageViewIndicator(
-              controller: pageController,
-              itemCount: onboardData.length,
-              color: model.color,
-            ),
-          ),
-        )
-      ],
       ),
       viewModelBuilder: () => OnboardingViewModel(),
     );
   }
 }
+
+//Create a list of PageModel to be set on the onBoarding Screens.
+final pageList = [
+  PageModel(
+      color: const Color(0xFF678FB4),
+      heroAssetPath: 'assets/png/hotels.png',
+      title: Text('Hotels',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            fontSize: 34.0,
+          )),
+      body: Text('All hotels and hostels are sorted by hospitality rating',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+          )),
+      iconAssetPath: 'assets/png/key.png'),
+  PageModel(
+      color: const Color(0xFF65B0B4),
+      heroAssetPath: 'assets/png/banks.png',
+      title: Text('Banks',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            fontSize: 34.0,
+          )),
+      body:
+          Text('We carefully verify all banks before adding them into the app',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              )),
+      iconAssetPath: 'assets/png/wallet.png'),
+  PageModel(
+    color: const Color(0xFF9B90BC),
+    heroAssetPath: 'assets/png/stores.png',
+    title: Text('Store',
+        style: TextStyle(
+          fontWeight: FontWeight.w800,
+          color: Colors.white,
+          fontSize: 34.0,
+        )),
+    body: Text('All local stores are categorized for your convenience',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 18.0,
+        )),
+    iconAssetPath: 'assets/png/shopping_cart.png',
+  ),
+];
