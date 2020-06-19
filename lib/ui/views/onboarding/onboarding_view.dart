@@ -6,6 +6,9 @@ import 'onboarding_viewmodel.dart';
 
 
 class OnboardingView extends StatelessWidget {
+
+  final PageController pageController = PageController();
+  
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
