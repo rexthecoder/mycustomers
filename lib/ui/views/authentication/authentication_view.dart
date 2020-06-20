@@ -276,10 +276,7 @@ class AuthenticationView extends StatelessWidget with Validators {
                       autoDisposeControllers: false,
                       onCompleted: (v) {},
                       onChanged: (value) {
-                        // model.init();
-                        // model.isBusy
-                        //     ? _LoadingAnimation()
-                        //     : inputNameBottomWidget(height, model, context);
+                        //TODO: Listens and Obey
                       },
                     ),
                     Center(
