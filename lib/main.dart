@@ -20,13 +20,13 @@ void main() {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => App(),
-    ),
-  );
+  runApp(App());
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => App(),
+  //   ),
+  // );
 }
 
 class App extends StatelessWidget {
@@ -36,7 +36,7 @@ class App extends StatelessWidget {
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return MaterialApp(
-      builder: DevicePreview.appBuilder,
+   //   builder: DevicePreview.appBuilder,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
