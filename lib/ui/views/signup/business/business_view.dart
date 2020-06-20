@@ -61,7 +61,7 @@ class BusinessView extends StatelessWidget {
       double height, BusinessViewModel model, BuildContext context) {
     return Container(
       height: height / 2.0,
-      color: Colors.black,
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
