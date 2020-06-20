@@ -24,6 +24,7 @@ class LanguageView extends StatelessWidget {
           elevation: 0,
 //          automaticallyImplyLeading: false,
         ),
+
         body: SafeArea(
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {

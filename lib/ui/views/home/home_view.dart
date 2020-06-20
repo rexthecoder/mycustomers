@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-          body: SafeArea(
+        body: SafeArea(
             child: Container(
               child: Center(
                 child: Padding(

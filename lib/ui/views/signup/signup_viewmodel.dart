@@ -1,5 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/services/page_service.dart';
+import 'package:mycustomers/core/services/page_service.dart';
 import 'package:stacked/stacked.dart';
 
 class SignUpViewModel extends ReactiveViewModel{

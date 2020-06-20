@@ -1,5 +1,6 @@
 import 'package:fancy_on_boarding/fancy_on_boarding.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -34,13 +35,13 @@ final pageList = [
           style: TextStyle(
             fontWeight: FontWeight.w800,
             color: Color(0xFFFDA741),
-            fontSize:36.0,
+            fontSize:36.sp,
           )),
       body: Text('Track your debts',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Color(0xFF1D6AFF),
-            fontSize: 18.0,
+            fontSize: 18.sp,
           )),
       iconAssetPath: 'assets/images/onboarding/track.png'),
   PageModel(
@@ -50,14 +51,14 @@ final pageList = [
           style: TextStyle(
             fontWeight: FontWeight.w800,
             color: Color(0xFFFDA741),
-            fontSize: 36.0,
+            fontSize: 36.sp,
           )),
       body:
           Text('Market your Business',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF1D6AFF),
-                fontSize: 18.0,
+                fontSize: 18.sp,
               )),
       iconAssetPath: 'assets/images/onboarding/market.png'),
   PageModel(
@@ -67,13 +68,13 @@ final pageList = [
         style: TextStyle(
           fontWeight: FontWeight.w800,
           color: Color(0xFFFDA741),
-          fontSize: 36.0,
+          fontSize: 36.sp,
         )),
     body: Text('Manage your business',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Color(0xFF1D6AFF),
-          fontSize: 18.0,
+          fontSize: 18.sp,
         )),
     iconAssetPath: 'assets/images/onboarding/manage.png',
   ),
