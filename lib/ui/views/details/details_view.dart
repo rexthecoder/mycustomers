@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'details_viewmodel.dart';
+import 'package:flutter_screenutil/size_extension.dart';
 
 class DetailsView extends StatelessWidget {
   @override
@@ -10,14 +10,15 @@ class DetailsView extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
+
     return ViewModelBuilder<DetailsViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         body: SafeArea(
             child: Container(
-              height: height,
+            //  height:  ,
               child: Column(
                 children: <Widget>[
-                  Container(height: ScreenUtil().setHeight(80),
+                  Container(height: 80.h,
                     child: Center(child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
@@ -155,7 +156,7 @@ class DetailsView extends StatelessWidget {
                               },
                               child: Container(
                                 width: ScreenUtil().setWidth(width/2-14),
-                                height: ScreenUtil().setHeight(50),
+                                height: 50.h,
 
                                 decoration: BoxDecoration(
                                     color: Color(0xFFBF0413),

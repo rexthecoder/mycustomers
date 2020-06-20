@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../core/mixings/validators.dart';
 import '../../widgets/shared/custom_raised_button.dart';
-import '../../widgets/shared/social_icon.dart';
+import '../../widgets/shared/social_icon.dart'; 
 import 'authentication_viewmodel.dart';
 
 class AuthenticationView extends StatelessWidget with Validators {
@@ -28,82 +28,6 @@ class AuthenticationView extends StatelessWidget with Validators {
     height: 8.0,
   );
 
-  // Expanded(
-  //                   child: Container(
-  //                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-  //                     child: Column(
-  //                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //                       crossAxisAlignment: CrossAxisAlignment.start,
-  //                       children: <Widget>[
-  //                         Text(
-  //                           'What\'s The Name Of Your Company',
-  //                           style: Theme.of(context).textTheme.headline5.copyWith(
-  //                               fontSize: ScreenUtil()
-  //                                   .setSp(70, allowFontScalingSelf: true),
-  //                               fontWeight: FontWeight.w400),
-  //                         ),
-  //                         // _CompanyForm(),
-  //                         Row(
-  //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                           children: <Widget>[
-  //                             GestureDetector(
-  //                               onTap: () {}, // model.updatePage,
-  //                               child: Container(
-  //                                 width: 160.w,
-  //                                 height: 120.h,
-  //                                 decoration: BoxDecoration(
-  //                                   borderRadius: BorderRadius.circular(5),
-  //                                   color: Color(0xFF000E66),
-  //                                 ),
-  //                                 child: Center(
-  //                                   child: IconButton(
-  //                                       icon: Icon(
-  //                                         Icons.arrow_back,
-  //                                         color: Colors.white,
-  //                                       ),
-  //                                       onPressed: null),
-  //                                 ),
-  //                               ),
-  //                             ),
-  //                             Container(
-  //                               width: 600.h,
-  //                               height: 120.h,
-  //                               decoration: BoxDecoration(
-  //                                 borderRadius: BorderRadius.circular(5),
-  //                                 color: Color(0xFF333CC1),
-  //                               ),
-  //                               child: Center(
-  //                                 child: Row(
-  //                                   mainAxisAlignment: MainAxisAlignment.center,
-  //                                   children: <Widget>[
-  //                                     Text(
-  //                                       'Finish',
-  //                                       style: Theme.of(context)
-  //                                           .textTheme
-  //                                           .headline5
-  //                                           .copyWith(
-  //                                               fontSize: ScreenUtil().setSp(60,
-  //                                                   allowFontScalingSelf: true),
-  //                                               color: Colors.white,
-  //                                               fontWeight: FontWeight.bold),
-  //                                       textAlign: TextAlign.center,
-  //                                     ),
-  //                                     SizedBox(width: 8),
-  //                                     Icon(
-  //                                       Icons.arrow_forward,
-  //                                       color: Colors.white,
-  //                                     ),
-  //                                   ],
-  //                                 ),
-  //                               ),
-  //                             )
-  //                           ],
-  //                         )
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 )
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AuthenticationViewModel>.reactive(
@@ -112,34 +36,116 @@ class AuthenticationView extends StatelessWidget with Validators {
           child: SingleChildScrollView(
             // reverse: true,
             // physics: NeverScrollableScrollPhysics(),
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/auth_background.png',
-                    ),
-                    Positioned(
-                      // bottom: 5.h,
-                      right: 0.h,
-                      top: 10.h,
-                      left: 0.w,
-                      child: Text(
-                        'Last Step, I \n promise',
-                        style: TextStyle(
-                            fontSize: 40.sp,
-                            color: Color(0xFF333CC1),
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
+            child: Container(
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(
+                    flex: 3,
+                                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 600.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                            'assets/images/auth_background.png',
+                          ),
+                        ),
                       ),
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: Container(child: Text('Build'),),
-                )
-              ],
+                    ),
+                  ),
+                  // Positioned(
+                  //   right: 0.h,
+                  //   top: 250.h,
+                  //   left: 0.w,
+                  //   child: Text(
+                  //     'Last Step, I \n promise',
+                  //     style: TextStyle(
+                  //         fontSize: 40.sp,
+                  //         color: Color(0xFF333CC1),
+                  //         fontWeight: FontWeight.bold),
+                  //     textAlign: TextAlign.center,
+                  //   ),
+                  // ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'What\'s The Name Of Your Company',
+                            style: Theme.of(context).textTheme.headline5.copyWith(
+                                fontSize: ScreenUtil()
+                                    .setSp(70, allowFontScalingSelf: true),
+                                fontWeight: FontWeight.w400),
+                          ),
+                          // _CompanyForm(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: () {}, // model.updatePage,
+                                child: Container(
+                                  width: 160.w,
+                                  height: 120.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Color(0xFF000E66),
+                                  ),
+                                  child: Center(
+                                    child: IconButton(
+                                        icon: Icon(
+                                          Icons.arrow_back,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: null),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 600.h,
+                                height: 120.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xFF333CC1),
+                                ),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'Finish',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5
+                                            .copyWith(
+                                                fontSize: ScreenUtil().setSp(60,
+                                                    allowFontScalingSelf: true),
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.white,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

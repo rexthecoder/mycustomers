@@ -1,6 +1,5 @@
 import 'package:fancy_on_boarding/fancy_on_boarding.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:stacked/stacked.dart';
@@ -11,7 +10,7 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         body: FancyOnBoarding(
           doneButtonText: "Let's Go",
           skipButtonText: "Skip",
@@ -27,7 +26,7 @@ class OnboardingView extends StatelessWidget {
   }
 }
 
-//list of PageModel to be set on the onBoarding Screens.
+//list of PageModel to be set on the onBoarding Screens
 final pageList = [
   PageModel(
       color: const Color(0xFF45ADA7),
