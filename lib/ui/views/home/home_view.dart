@@ -24,7 +24,11 @@ class HomeView extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: <Widget>[
-                    _HeaderBar(),
+                    Container(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: _HeaderBar(),
+                    )),
                     TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -149,12 +153,25 @@ class _HeaderBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-     // crossAxisAlignment: CrossAxisAlignment.stretch,
+      // crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Expanded(child: BusinessSelector()),
-       SizedBox(width: 200.w),
-        Expanded(child: Icon(Icons.alarm)),
+        Expanded(flex: 3, child: BusinessSelector()),
+        SizedBox(width: 210.w),
+        Expanded(
+            flex: 2,
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                Icon(Icons.alarm),
+                CircleAvatar(
+                  backgroundColor: Colors.red.shade800,
+                  radius: 5.0,
+                ),
+                    
+              ],
+              overflow: Overflow.clip,
+            )),
       ],
     );
   }
@@ -173,7 +190,14 @@ class BusinessSelector extends HookViewModelWidget<HomeViewModel> {
             items: Business.business.map((business) {
               return DropdownMenuItem<Business>(
                 value: business,
-                child: Text(business.businessName),
+                child: Text(
+                  business.businessName,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w900,
+                    //     color: Colors.blueAccent,
+                  ),
+                ),
               );
             }).toList(),
             onChanged: (value) {
