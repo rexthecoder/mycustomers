@@ -2,10 +2,10 @@ part of '../../views/main/main_view.dart';
 
 ///Created by Demilade Oladugba on 6/19/2020
 
-PlatformNavBar mainViewNavBar(MainViewModel model, PageController controller) {
-  return PlatformNavBar(
+BottomNavigationBar mainViewNavBar(MainViewModel model, PageController controller) {
+  return BottomNavigationBar(
     currentIndex: model.currentPageIndex,
-    itemChanged: (int index) {
+    onTap: (int index) {
       model.pageIndex = index;
       controller.animateToPage(index,
           duration: const Duration(milliseconds: 300), curve: Curves.easeIn);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'details_viewmodel.dart';
@@ -11,7 +10,7 @@ class DetailsView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<DetailsViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         body: SafeArea(
             child: Container(
               height: height,

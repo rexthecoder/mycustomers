@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,9 +8,9 @@ class LanguageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LanguageViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         backgroundColor: Color(0xFFFAFAFA),
-        appBar: PlatformAppBar(
+        appBar: AppBar(
           title: Text(
             'Select Language',
             style: TextStyle(
@@ -20,14 +19,10 @@ class LanguageView extends StatelessWidget {
               color: Color(0xFF191919),
             ),
           ),
-          automaticallyImplyLeading: false,
+          centerTitle: false,
           backgroundColor: Colors.transparent,
-          material: (_, __) {
-            return MaterialAppBarData(
-              centerTitle: false,
-              elevation: 0,
-            );
-          },
+          elevation: 0,
+//          automaticallyImplyLeading: false,
         ),
         body: SafeArea(
           child: ListView.builder(
@@ -48,45 +43,49 @@ class LanguageView extends StatelessWidget {
                   ),
                   color: Colors.white,
                 ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 0.5 * 48.h,
-                    backgroundColor: Color(0xFF1D6AFF),
-                    child: Text(
-                      model.languages[index]['code'].toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Color(0xFFF2F2F2),
-                      ),
-                    ),
-                  ),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        model.languages[index]['name'],
+                child: Material(
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 0.5 * 48.h,
+                      backgroundColor: Color(0xFF1D6AFF),
+                      child: Text(
+                        model.languages[index]['code'].toUpperCase(),
                         style: TextStyle(
-                          color: Color(0xFF333333),
                           fontSize: 18.sp,
-                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFF2F2F2),
                         ),
                       ),
-                    ],
+                    ),
+                    title: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          model.languages[index]['name'],
+                          style: TextStyle(
+                            color: Color(0xFF333333),
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color(0xFF333333),
+                        ),
+                      ],
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 15.w,
+                      vertical: 11.5.h,
+                    ),
+                    onTap: () {
+                      model.setLanguage(index);
+                    },
                   ),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color(0xFF333333),
-                      ),
-                    ],
-                  ),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 15.w,
-                    vertical: 11.5.h,
-                  ),
-                  onTap: () {model.setLanguage(index);},
                 ),
               );
             },

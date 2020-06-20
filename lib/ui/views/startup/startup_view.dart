@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,9 +16,9 @@ class StartupView extends StatelessWidget {
     ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: true);
 
 return ViewModelBuilder<StartupViewModel>.nonReactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         body: Center(
-          child: PlatformCircularProgressIndicator(),
+          child: CircularProgressIndicator(),
         ),
       ),
       viewModelBuilder: () => StartupViewModel(),

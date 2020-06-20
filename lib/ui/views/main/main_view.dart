@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_view.dart';
@@ -31,9 +30,9 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       builder: (context, model, child) => SafeArea(
-        child: PlatformScaffold(
+        child: Scaffold(
           appBar: mainViewAppBar(model),
-          bottomNavBar: mainViewNavBar(model, model.controller),
+          bottomNavigationBar: mainViewNavBar(model, model.controller),
           backgroundColor: const Color(0xFCFCFCFF),
           body: Column(
             children: [

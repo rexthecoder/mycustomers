@@ -14,8 +14,8 @@ import 'package:mycustomers/ui/views/otp/otp_view.dart';
 import '../ui/views/details/details_view.dart';
 
 abstract class Routes {
-  static const startupViewRoute = '/';
-  static const homeViewRoute = '/home';
+  static const startupViewRoute = '/onboard';
+  static const homeViewRoute = '/';
   static const addcustomerRoute = '/addcustomer';
   static const languageViewRoute = '/language';
   static const phoneViewRoute = '/phone';
@@ -44,7 +44,7 @@ class Router {
         );
       case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddCustomerManuallyView(),
+          builder: (context) => LanguageView(),
           settings: settings,
         );
       case Routes.phoneViewRoute:

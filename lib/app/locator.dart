@@ -7,6 +7,6 @@ final GetIt locator = GetIt.instance;
 
 void setupLocator() {
   locator.registerLazySingleton(() => NavigationService());
-  locator.registerSingletonAsync(() => SharedStorageUtil.getInstance());
+  locator.registerSingletonAsync<IStorageUtil>(() => SharedStorageUtil.getInstance());
   locator.registerLazySingleton(() => PageService());
 }
