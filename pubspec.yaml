@@ -16,6 +16,10 @@ dependencies:
   observable_ish: ^2.1.4
   flutter_svg: ^0.17.4
   pin_code_fields: ^3.1.2
+  pdf: ^1.5.0
+  path_provider: ^1.6.5
+  flutter_full_pdf_viewer: ^1.0.6
+  open_file: ^3.0.1
 
   # State Management
   stacked: ^1.5.7+1
