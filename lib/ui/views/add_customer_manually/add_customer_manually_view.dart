@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/views/add_customer_manually/partial_build_view.dart';
 import 'package:stacked/stacked.dart';
@@ -9,14 +8,7 @@ import 'add_customer_manually_viewmodel.dart';
 
 class AddCustomerManuallyView extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-
-      SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
+  Widget build(BuildContext context) 
   
     return ViewModelBuilder<AddCustomerManuallyViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
