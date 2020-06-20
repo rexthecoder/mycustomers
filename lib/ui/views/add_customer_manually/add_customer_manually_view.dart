@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/views/add_customer_manually/partial_build_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,63 +9,54 @@ import 'add_customer_manually_viewmodel.dart';
 class AddCustomerManuallyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size.height;
-
     return ViewModelBuilder<AddCustomerManuallyViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Color(0xFFFAFAFA),
+        backgroundColor: ThemeColors.background,
         appBar: AppBar(
-          backgroundColor: Color(0xfffafafa),
-          centerTitle: false,
-          elevation: 0,
+          backgroundColor: ThemeColors.background,
+          centerTitle: true,
+          elevation: 1,
           title: Text(
             model.title,
             style: TextStyle(
-                fontSize: 18.sp,
-                fontFamily: 'assets/fonts/Lato/Lato-Bold',
-                color: Color(0xff000000)),
+              fontSize: 18.sp,
+              color: ThemeColors.black,
+            ),
           ),
+          iconTheme: IconThemeData(color: ThemeColors.black),
         ),
         body: SafeArea(
-          child: Container(
-            height: size * 0.45,
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(color: Color(0xffE8E8E8), width: 1.5))),
+          child: Padding(
+            padding: EdgeInsets.all(20.w),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Text(model.subTitle,
-                        style: TextStyle(
-                            fontSize: 18.sp,
-                            fontFamily: 'assets/fonts/Lato/Lato-Regular',
-                            color: Color(0xff000000))),
-                  ),
+                Text(
+                  model.subTitle,
+                  style: TextStyle(fontSize: 18.sp, color: ThemeColors.black),
                 ),
-                Expanded(child: PartialBuildsView()),
-                Expanded(
-                  child: Center(
-                    child: ButtonTheme(
-                      minWidth: 300,
-                      child: RaisedButton(
-                        color: Color(0xff333CC1),
-                        onPressed: () {},
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                        child: Text('Next',
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: 'assets/fonts/Lato/Lato-Regular',
-                                color: Color(0xFFFFFFFF))),
-                      ),
+                SizedBox(height: 16.0),
+                PartialBuildsView(),
+                Spacer(),
+                Container(
+                  width: double.infinity,
+                  child: FlatButton(
+                    color: BrandColors.secondary,
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

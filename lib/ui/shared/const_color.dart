@@ -9,6 +9,7 @@ class ThemeColors {
   static const cta = Color(0xFFFF8C5F);
   static const secondary = Color(0xFF5855FF);
   static const primary = Color(0xFF62E6AC);
+  static const background = Color(0xFFFAFAFA);
   static const gray = MaterialColor(
     0xFFD1D1D1,
     {
