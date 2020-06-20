@@ -3,7 +3,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 
 TextStyle kheadingText = TextStyle(
     fontFamily: '',
-    color: kblack,
+    color: ThemeColors.black,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.bold,
     fontSize: 11,);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -19,9 +18,9 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 1080, height: 1920, allowFontScaling: false);
     return ViewModelBuilder<SignUpViewModel>.reactive(
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         body: SafeArea(
-          child: PlatformScaffold(
+          child: Scaffold(
             body: model.page == 0 ? Name(model: model,) : Company(model: model,)
           )
         ),

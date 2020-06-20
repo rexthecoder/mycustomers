@@ -1,5 +1,6 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -14,13 +15,7 @@ class LanguageViewModel extends BaseViewModel {
   List get languages => _supportedLanguages;
 
   Future<void> setLanguage(int index) async {
-    await locator<IStorageUtil>()
-        .saveString('LANGUAGE', _supportedLanguages[index]['code']);
-    setup();
-  }
-
-  Future setup() async {
-    await Future.value();
-    await _navigationService.replaceWith(Routes.detailsViewRoute);
+    await locator<IStorageUtil>().saveString(AppPreferenceKey.USER_PREF_LANGUAGE, _supportedLanguages[index]['code']);
+    _navigationService.replaceWith(Routes.detailsViewRoute);
   }
 }

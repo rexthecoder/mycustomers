@@ -5,14 +5,13 @@ import 'package:mycustomers/ui/shared/const_text.dart';
 import 'package:mycustomers/ui/shared/const_text_style.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'add_customer_viewmodel.dart';
 
 class AddCustomerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddCustomerViewModel>.reactive(
-        builder: (context, model, child) => PlatformScaffold(
+        builder: (context, model, child) => Scaffold(
               body: SafeArea(
                 child: Container(
                   child: Column(
@@ -21,19 +20,21 @@ class AddCustomerView extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Container(
-                            child: IconButton(
-                                color: kblack,
-                                icon: Icon(Icons.arrow_back),
-                                onPressed: () {
-                                  model.navigateToHome();
-                                }),
+                            child: Material(
+                              child: IconButton(
+                                  color: ThemeColors.black,
+                                  icon: Icon(Icons.arrow_back),
+                                  onPressed: () {
+                                    model.navigateToHome();
+                                  }),
+                            ),
                           ),
                           Container(
                             child: Text(kaddCustomerHeadingText,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  color: kblack,
+                                  color: ThemeColors.black,
                                 )),
                           )
                         ],
@@ -74,15 +75,20 @@ class AddCustomerView extends StatelessWidget {
                         height: 40,
                       ),
                       // ======================== Center Section End here ==================================
-                      Column(
-                        children: <Widget>[
-                          btnDesign(model.btnText1, Colors.white, kblue),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          btnDesign(model.btnText2, kblue, kwhiteAsh),
-                        ],
-                      )
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            btnDesign(model.btnText1, Colors.white, BrandColors.secondary),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            btnDesign(model.btnText2, BrandColors.secondary, ThemeColors.gray.shade400),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
                     ],
                   ),
                 ),

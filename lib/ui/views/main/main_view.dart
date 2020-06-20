@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_view.dart';
 import 'package:mycustomers/ui/views/profile/profile_view.dart';
@@ -22,41 +22,33 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
      return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      builder: (context, model, child) => PlatformScaffold(
+      builder: (context, model, child) => Scaffold(
         body: LazyIndexedStack(
           reuse: true,
           index: model.index,
           itemCount: _views.length,
           itemBuilder: (_, index) => _views[index],
         ),
-        bottomNavBar: PlatformNavBar(
+        bottomNavigationBar: BottomNavigationBar(
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: PlatformWidget(
-                android: (_) => Icon(Icons.home),
-                ios: (_) => Icon(CupertinoIcons.home),
-              ),
+              icon: Icon(Icons.home),
               title: Text('Home'),
             ),
             BottomNavigationBarItem(
-              icon: PlatformWidget(
-                android: (_) => Icon(Icons.shopping_cart),
-                ios: (_) => Icon(CupertinoIcons.shopping_cart),
-              ),
+              icon: Icon(Icons.shopping_cart),
               title: Text('Marketing'),
             ),
              BottomNavigationBarItem(
-              icon: PlatformWidget(
-                android: (_) => Icon(Icons.person),
-                ios: (_) => Icon(CupertinoIcons.person),
-              ),
+              icon: Icon(Icons.person),
               title: Text('Your Company'),
             ),
           ],
-          itemChanged: model.changeTab,
+          onTap: model.changeTab,
         ),
       ),
     );
