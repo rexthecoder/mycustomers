@@ -14,9 +14,9 @@ class LanguageView extends StatelessWidget {
 
      SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-    //  statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.dark,
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    //  statusBarBrightness: Brightness.dark,
     ),
      );
 
@@ -33,7 +33,7 @@ class LanguageView extends StatelessWidget {
             ),
           ),
           centerTitle: false,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.grey.shade200,
           elevation: 0,
 //          automaticallyImplyLeading: false,
         ),

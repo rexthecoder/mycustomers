@@ -7,7 +7,14 @@ import 'name_viewmodel.dart';
 
 class NameView extends StatelessWidget {
   TextEditingController inputNumberController = new TextEditingController();
-  final _key = GlobalKey<ScaffoldState>();
+  static final _key = new GlobalKey<ScaffoldState>();
+
+
+
+static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+ final _k1 = new GlobalKey();
 
 
 @override
@@ -101,6 +108,7 @@ Widget inputNameBottomWidget(
                   ),
                   Expanded(
                     child: TextField(
+                      key: _k1,
                       controller: inputNumberController,
                       decoration: InputDecoration(
                           border: InputBorder.none,

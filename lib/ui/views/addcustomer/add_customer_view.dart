@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -17,6 +18,13 @@ class AddCustomerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+      SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
     return ViewModelBuilder<AddCustomerViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(

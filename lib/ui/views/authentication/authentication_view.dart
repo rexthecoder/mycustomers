@@ -4,14 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_screenutil/size_extension.dart';
 
 import '../../../core/mixings/validators.dart';
 import '../../widgets/shared/social_icon.dart';
 import 'authentication_viewmodel.dart';
 
 class AuthenticationView extends StatelessWidget with Validators {
-  TextEditingController inputNumberController = TextEditingController(); 
-  final _key = GlobalKey<ScaffoldState>();
+  TextEditingController inputNumberController = TextEditingController();
+  static final _key = new GlobalKey<ScaffoldState>();
+
+  static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final _k1 = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,8 @@ class AuthenticationView extends StatelessWidget with Validators {
         builder: (context, model, child) => Scaffold(
               key: _key,
               body: SingleChildScrollView(
-                              child: Container(
+                // padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Container(
                   height: height / 2,
                   child: Stack(
                     children: <Widget>[
@@ -122,6 +128,8 @@ class AuthenticationView extends StatelessWidget with Validators {
                   ),
                   Expanded(
                     child: TextField(
+                      key: _k1,
+                      keyboardType: TextInputType.phone,
                       controller: inputNumberController,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: 'Phone Number'),
@@ -167,17 +175,12 @@ class AuthenticationView extends StatelessWidget with Validators {
                     child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
+                      child: Stack(alignment: Alignment.center, children: [
                         modalBottomWidget(height, model, context),
-                       Center(child: _LoadingAnimation()),
-                      ]
-                      ),
-
+                        Center(child: _LoadingAnimation()),
+                      ]),
                     ),
                   ),
-                  
                 );
                 model.init();
               },
