@@ -8,9 +8,9 @@ import 'add_customer_manually_viewmodel.dart';
 
 class AddCustomerManuallyView extends StatelessWidget {
   @override
-  Widget build(BuildContext context) 
+  Widget build(BuildContext context) {
   
-    return ViewModelBuilder<AddCustomerManuallyViewModel>.reactive(
+  return ViewModelBuilder<AddCustomerManuallyViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: ThemeColors.background,
         appBar: AppBar(
