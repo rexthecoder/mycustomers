@@ -21,41 +21,46 @@ class AuthenticationView extends StatelessWidget with Validators {
     return ViewModelBuilder<AuthenticationViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               key: _key,
-              body: Container(
-                height: height / 2,
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            'assets/images/auth_background.png',
+              body: SingleChildScrollView(
+                              child: Container(
+                  height: height / 2,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                              'assets/images/auth_background.png',
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 50),
-                        child: Container(
-                          height: 100.h,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: AssetImage(
-                                'assets/images/logo.png',
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
+                          child: Container(
+                            height: 100.h,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: AssetImage(
+                                  'assets/images/logo.png',
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 //        bottomSheet: inputNameBottomWidget(height, model, context),
-              bottomSheet: inputNumberBottomWidget(height, model, context),
+              bottomSheet: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: inputNumberBottomWidget(height, model, context),
+              ),
 //        bottomSheet: modalBottomWidget(height),
             ),
         viewModelBuilder: () => AuthenticationViewModel(),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_view.dart';
 import 'package:mycustomers/ui/views/profile/profile_view.dart';
@@ -12,6 +13,7 @@ import 'main_viewmodel.dart';
 
 class MainView extends StatelessWidget {
 
+ 
   final _views = <Widget>[
     FadeIn(child: HomeView()),
     FadeIn(child: MarketingView()),
@@ -21,6 +23,14 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
+
 
      return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),

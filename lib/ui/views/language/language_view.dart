@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'language_viewmodel.dart';
 
 class LanguageView extends StatelessWidget {
+
+  
   @override
+  
   Widget build(BuildContext context) {
+
+     SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+    //  statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.dark,
+    ),
+     );
+
     return ViewModelBuilder<LanguageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: Color(0xFFFAFAFA),
