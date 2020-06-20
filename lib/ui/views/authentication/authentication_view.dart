@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../core/mixings/validators.dart';
-import '../../widgets/shared/custom_raised_button.dart';
 import '../../widgets/shared/social_icon.dart';
 import 'authentication_viewmodel.dart';
 
@@ -37,47 +37,47 @@ class AuthenticationView extends StatelessWidget with Validators {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<AuthenticationViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        key: _key,
-        body: Container(
-          height: height / 2,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/images/auth_background.png',
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Container(
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.contain,
-                        image: AssetImage(
-                          'assets/images/heading.png',
+        builder: (context, model, child) => Scaffold(
+              key: _key,
+              body: Container(
+                height: height / 2,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(
+                            'assets/images/auth_background.png',
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: Container(
+                          height: 100.h,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: AssetImage(
+                                'assets/images/heading.png',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
 //        bottomSheet: inputNameBottomWidget(height, model, context),
-        bottomSheet: inputNumberBottomWidget(height, model, context),
+              bottomSheet: inputNumberBottomWidget(height, model, context),
 //        bottomSheet: modalBottomWidget(height),
-      ),
-      viewModelBuilder: () => AuthenticationViewModel(),
-    );
+            ),
+        viewModelBuilder: () => AuthenticationViewModel(),
+        onModelReady: (model) => model.isBusy);
   }
 
   Widget inputNumberBottomWidget(
@@ -180,13 +180,19 @@ class AuthenticationView extends StatelessWidget with Validators {
                     child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: modalBottomWidget(height),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                        modalBottomWidget(height, model, context),
+                       Center(child: _LoadingAnimation()),
+                      ]
+                      ),
+
                     ),
                   ),
+                  
                 );
-                // _key.currentState.
-                // showBottomSheet( (context)=> modalBottomWidget(height),
-                // );
+                model.init();
               },
               child: Container(
                 height: 50.h,
@@ -219,7 +225,8 @@ class AuthenticationView extends StatelessWidget with Validators {
     );
   }
 
-  Widget modalBottomWidget(double height) {
+  Widget modalBottomWidget(
+      double height, AuthenticationViewModel model, BuildContext context) {
     return Container(
       height: height / 2.0,
       color: Colors.black,
@@ -286,7 +293,12 @@ class AuthenticationView extends StatelessWidget with Validators {
                       //controller: textEditingController,
                       autoDisposeControllers: false,
                       onCompleted: (v) {},
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        // model.init();
+                        // model.isBusy
+                        //     ? _LoadingAnimation()
+                        //     : inputNameBottomWidget(height, model, context);
+                      },
                     ),
                     Center(
                       child: Text(
@@ -312,8 +324,8 @@ class AuthenticationView extends StatelessWidget with Validators {
   Widget inputNameBottomWidget(
       double height, AuthenticationViewModel model, BuildContext context) {
     return Container(
-      height: height / 2.5,
-      color: Colors.white,
+      height: height / 2.0,
+      color: Colors.black,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -408,6 +420,15 @@ class AuthenticationView extends StatelessWidget with Validators {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _LoadingAnimation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: LoadingAnimation(),
     );
   }
 }

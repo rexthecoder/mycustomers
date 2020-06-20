@@ -9,11 +9,6 @@ import 'signup_viewmodel.dart';
 
 class SignUpView extends StatelessWidget {
 
-  List<Widget> pages = [
-    Name(),
-    Company()
-  ];
-
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 1080, height: 1920, allowFontScaling: false);
