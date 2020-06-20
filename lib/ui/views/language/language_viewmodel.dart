@@ -16,7 +16,7 @@ class LanguageViewModel extends BaseViewModel {
 
   Future<void> setLanguage(int index) async {
     await locator<IStorageUtil>()
-        .saveString('LANGUAGE', _supportedLanguages[index]['code']);
+        .saveString('AppPreferenceKey.USER_PREF_LANGUAGE', _supportedLanguages[index]['code']);
     setup();
   }
 
