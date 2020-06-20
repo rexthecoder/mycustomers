@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/core/models/business_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:flutter_screenutil/size_extension.dart';
-
 import '../../widgets/shared/breakdownCard.dart';
 import '../../widgets/shared/tabs.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
-  final NavigationService _navigatorService = locator<NavigationService>();
+
   @override
   Widget build(BuildContext context) {
+
     return ViewModelBuilder<HomeViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
@@ -155,7 +152,7 @@ class _HeaderBar extends StatelessWidget {
       // crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Expanded(flex: 3, child: BusinessSelector()),
+        Expanded(flex: 4, child: BusinessSelector()),
         SizedBox(width: 210.w),
         Expanded(
             flex: 2,

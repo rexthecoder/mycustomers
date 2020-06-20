@@ -28,7 +28,6 @@ class HomeViewModel extends BaseViewModel {
   }
 
 
-
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future navigateToAddCustomer() async {

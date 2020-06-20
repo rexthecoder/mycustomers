@@ -6,6 +6,5 @@ class AddCustomerManuallyViewModel extends BaseViewModel {
 
   String get title => _title;
   String get subTitle =>_subTitle;
-
  
 }

@@ -12,6 +12,7 @@ import 'main_viewmodel.dart';
 
 class MainView extends StatelessWidget {
 
+ 
   final _views = <Widget>[
     FadeIn(child: HomeView()),
     FadeIn(child: MarketingView()),

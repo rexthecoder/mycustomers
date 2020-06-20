@@ -10,7 +10,7 @@ class OnboardingViewModel extends BaseViewModel {
 
   Future setup() async {
     await Future.value();
-    await _navigationService.replaceWith(Routes.languageViewRoute);
+    await _navigationService.clearStackAndShow(Routes.languageViewRoute);
   }
 
 
