@@ -18,6 +18,7 @@ abstract class Routes {
   static const homeViewRoute = '/';
   static const onboardingViewRoute = '/onboarding';
   static const addcustomerRoute = '/addcustomer';
+  static const addCustomerManually = '/addCusMan';
   static const languageViewRoute = '/language';
   static const authenticationViewRoute = '/auth';
    static const signupViewRoute = '/signup';
@@ -81,6 +82,11 @@ case Routes.languageViewRoute:
       case Routes.mainViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
+          settings: settings,
+        );
+      case Routes.addCustomerManually:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerManuallyView(),
           settings: settings,
         );
       default:
