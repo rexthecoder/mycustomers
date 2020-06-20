@@ -3,11 +3,11 @@ import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SignUpViewModel extends BaseViewModel{
+class NameViewModel extends BaseViewModel{
   final NavigationService _navigationService = locator<NavigationService>(); 
 
   Future<void> init() async {
     await Future.delayed(Duration(seconds: 1));
- await _navigationService.replaceWith(Routes.mainViewRoute);
+ await _navigationService.replaceWith(Routes.businessViewRoute);
   }
 }

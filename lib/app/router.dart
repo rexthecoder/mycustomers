@@ -6,10 +6,10 @@ import 'package:mycustomers/ui/views/authentication/authentication_view.dart';
 import 'package:mycustomers/ui/views/home/home_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/onboarding/onboarding_view.dart';
-import 'package:mycustomers/ui/views/language/language_view.dart'; 
-import 'package:mycustomers/ui/views/signup/signup_view.dart';
+import 'package:mycustomers/ui/views/language/language_view.dart';
+import 'package:mycustomers/ui/views/signup/business/business_view.dart';
+import 'package:mycustomers/ui/views/signup/name/name_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
-
 
 import '../ui/views/details/details_view.dart';
 
@@ -17,12 +17,13 @@ abstract class Routes {
   static const startupViewRoute = '/startup';
   static const homeViewRoute = '/';
   static const onboardingViewRoute = '/onboarding';
-  static const addcustomerRoute = '/addcustomer';
-  static const addCustomerManually = '/addCusMan';
   static const languageViewRoute = '/language';
   static const authenticationViewRoute = '/auth';
-   static const signupViewRoute = '/signup';
-    static const mainViewRoute = '/main';
+  static const nameViewRoute = '/name';
+  static const businessViewRoute = '/business';
+  static const mainViewRoute = '/main';
+  static const addcustomerRoute = '/addcustomer';
+  static const addCustomerManually = '/addCusMan';
   static const detailsViewRoute = '/details';
 }
 
@@ -39,12 +40,11 @@ class Router {
           builder: (context) => OnboardingView(),
           settings: settings,
         );
-case Routes.languageViewRoute:
+      case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => LanguageView(),
           settings: settings,
         );
-
       case Routes.addcustomerRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddCustomerView(),
@@ -59,12 +59,17 @@ case Routes.languageViewRoute:
           builder: (context) => AuthenticationView(),
           settings: settings,
         );
-         case Routes.signupViewRoute:
+      case Routes.nameViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => SignUpView(),
+          builder: (context) => NameView(),
           settings: settings,
         );
-         case Routes.mainViewRoute:
+      case Routes.businessViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => BusinessView(),
+          settings: settings,
+        );
+      case Routes.mainViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
           settings: settings,
