@@ -12,7 +12,6 @@ import 'package:flutter/widgets.dart';
 class FadeIn extends StatefulWidget {
   final Widget child;
 
-  /// How long it takes to fade in
   final Duration duration;
 
   const FadeIn({
