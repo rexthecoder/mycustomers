@@ -13,6 +13,6 @@ void navigateBack() {
 
   Future<void> navigateForward() async {
   //  await Future.delayed(Duration(seconds: 1));
- await _navigationService.replaceWith(Routes.mainViewRoute);
+ await _navigationService.clearStackAndShow(Routes.mainViewRoute);
   }
 }
