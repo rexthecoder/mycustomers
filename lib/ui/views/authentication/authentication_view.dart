@@ -10,9 +10,9 @@ import '../../widgets/shared/social_icon.dart';
 import 'authentication_viewmodel.dart';
 
 class AuthenticationView extends StatelessWidget with Validators {
-
   TextEditingController inputNumberController = new TextEditingController();
   final _key = GlobalKey<ScaffoldState>();
+
   /// A reusable text style
   /// Can be moved to a mixin or constant
   final regularTextStyle = TextStyle(
@@ -31,7 +31,6 @@ class AuthenticationView extends StatelessWidget with Validators {
     height: 8.0,
   );
 
-
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -41,7 +40,7 @@ class AuthenticationView extends StatelessWidget with Validators {
       builder: (context, model, child) => Scaffold(
         key: _key,
         body: Container(
-          height: height/2,
+          height: height / 2,
           child: Stack(
             children: <Widget>[
               Container(
@@ -80,11 +79,11 @@ class AuthenticationView extends StatelessWidget with Validators {
       viewModelBuilder: () => AuthenticationViewModel(),
     );
   }
-  Widget inputNumberBottomWidget(double height,
-      AuthenticationViewModel model,
-      BuildContext context) {
+
+  Widget inputNumberBottomWidget(
+      double height, AuthenticationViewModel model, BuildContext context) {
     return Container(
-      height: height/2,
+      height: height / 2,
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -92,16 +91,22 @@ class AuthenticationView extends StatelessWidget with Validators {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('Please, Enter your Phone Number',
-              style: TextStyle(color: Colors.black, fontSize: 16.sp,),),
-            SizedBox(width: 5.h,),
+            Text(
+              'Please, Enter your Phone Number',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.sp,
+              ),
+            ),
+            SizedBox(
+              width: 5.h,
+            ),
             Container(
               height: 50.h,
               decoration: BoxDecoration(
                 color: Colors.grey[400].withOpacity(0.5),
                 borderRadius: BorderRadius.circular(10.w),
               ),
-
               padding: EdgeInsets.symmetric(vertical: 10.h),
               child: Row(
                 children: <Widget>[
@@ -110,33 +115,45 @@ class AuthenticationView extends StatelessWidget with Validators {
                     icon: Icon(Icons.keyboard_arrow_down),
                     iconSize: 25.w,
                     elevation: 16,
-                    onChanged: (String data){
+                    onChanged: (String data) {
                       model.setDropdownValue(data);
                     },
-                    items: model.dropdownItems.map<DropdownMenuItem<String>>((String value){
+                    items: model.dropdownItems
+                        .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
                       );
                     }).toList(),
                   ),
-                  Container(width: 1.w,color: Colors.black.withOpacity(0.3),),
-                  SizedBox(width: 10.w,),
+                  Container(
+                    width: 1.w,
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
                   Expanded(
                     child: TextField(
-                      controller: inputNumberController, decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Phone Number'
-                    ),
+                      controller: inputNumberController,
+                      decoration: InputDecoration(
+                          border: InputBorder.none, hintText: 'Phone Number'),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 5.h,),
-            Text('or Continue with your social accounts',
+            SizedBox(
+              width: 5.h,
+            ),
+            Text(
+              'or Continue with your social accounts',
               textAlign: TextAlign.center,
-              style: TextStyle(color: Color(0xFF02034A), fontSize: 16.sp,),),
+              style: TextStyle(
+                color: Color(0xFF02034A),
+                fontSize: 16.sp,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -155,24 +172,43 @@ class AuthenticationView extends StatelessWidget with Validators {
               ],
             ),
             InkWell(
-              onTap: (){
-                _key.currentState.
-                showBottomSheet( (context)=> modalBottomWidget(height),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) => SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: modalBottomWidget(height),
+                    ),
+                  ),
                 );
+                // _key.currentState.
+                // showBottomSheet( (context)=> modalBottomWidget(height),
+                // );
               },
               child: Container(
                 height: 50.h,
-                decoration:BoxDecoration(
+                decoration: BoxDecoration(
                   color: Color(0xFF333CC1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Next',
-                      style: TextStyle(color: Colors.white, fontSize: 16.sp,),),
+                    Text(
+                      'Next',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                      ),
+                    ),
                     SizedBox(width: 10.h),
-                    Icon(Icons.arrow_forward, color: Colors.white,),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               ),
@@ -182,10 +218,11 @@ class AuthenticationView extends StatelessWidget with Validators {
       ),
     );
   }
+
   Widget modalBottomWidget(double height) {
     return Container(
-      height: height/2.5,
-      color: Colors.white,
+      height: height / 2.0,
+      color: Colors.black,
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xFF263BBA),
@@ -262,7 +299,6 @@ class AuthenticationView extends StatelessWidget with Validators {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -272,11 +308,11 @@ class AuthenticationView extends StatelessWidget with Validators {
       ),
     );
   }
-  Widget inputNameBottomWidget(double height,
-      AuthenticationViewModel model,
-      BuildContext context){
+
+  Widget inputNameBottomWidget(
+      double height, AuthenticationViewModel model, BuildContext context) {
     return Container(
-      height: height/2.5,
+      height: height / 2.5,
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -284,28 +320,36 @@ class AuthenticationView extends StatelessWidget with Validators {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text("What's your name",
-              style: TextStyle(color: Colors.black, fontSize: 16.sp,),),
+            Text(
+              "What's your name",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.sp,
+              ),
+            ),
             Container(
               height: 50.h,
               decoration: BoxDecoration(
                 color: Colors.grey[400].withOpacity(0.5),
                 borderRadius: BorderRadius.circular(10.w),
               ),
-
               padding: EdgeInsets.symmetric(vertical: 10.h),
               child: Row(
                 children: <Widget>[
                   Container(width: 30.w),
-                  Container(width: 1.w,color: Colors.black.withOpacity(0.3),),
-                  SizedBox(width: 10.w,),
+                  Container(
+                    width: 1.w,
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
                   Expanded(
                     child: TextField(
                       controller: inputNumberController,
                       decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Enter Your Name'
-                      ),
+                          hintText: 'Enter Your Name'),
                     ),
                   ),
                 ],
@@ -315,34 +359,45 @@ class AuthenticationView extends StatelessWidget with Validators {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 InkWell(
-                  onTap: (){},
+                  onTap: () {},
                   child: Container(
                     height: 50.h,
                     width: 60.w,
-                    decoration:BoxDecoration(
+                    decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFF000E66)
+                        color: Color(0xFF000E66)),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
                     ),
-                    child: Icon(Icons.arrow_back, color: Colors.white,),
                   ),
                 ),
-                SizedBox(width: 10.w,),
+                SizedBox(
+                  width: 10.w,
+                ),
                 Expanded(
                   child: InkWell(
-                    onTap: (){},
+                    onTap: () {},
                     child: Container(
                       height: 50.h,
-                      decoration:BoxDecoration(
+                      decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Color(0xFF333CC1)
-                      ),
+                          color: Color(0xFF333CC1)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('Next',
-                            style: TextStyle(color: Colors.white, fontSize: 16.sp,),),
+                          Text(
+                            'Next',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                            ),
+                          ),
                           SizedBox(width: 10.h),
-                          Icon(Icons.arrow_forward, color: Colors.white,),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
                         ],
                       ),
                     ),
@@ -356,7 +411,3 @@ class AuthenticationView extends StatelessWidget with Validators {
     );
   }
 }
-
-
-
-
