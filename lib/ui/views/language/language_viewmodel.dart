@@ -16,6 +16,6 @@ class LanguageViewModel extends BaseViewModel {
 
   Future<void> setLanguage(int index) async {
     await locator<IStorageUtil>().saveString(AppPreferenceKey.USER_PREF_LANGUAGE, _supportedLanguages[index]['code']);
-    _navigationService.replaceWith(Routes.mainViewRoute);
+    _navigationService.replaceWith(Routes.detailsViewRoute);
   }
 }

@@ -26,7 +26,7 @@ class OnboardingView extends StatelessWidget {
   }
 }
 
-//list of PageModel to be set on the onBoarding Screens.
+//list of PageModel to be set on the onBoarding Screens
 final pageList = [
   PageModel(
       color: const Color(0xFF45ADA7),
@@ -43,7 +43,7 @@ final pageList = [
             color: Color(0xFF1D6AFF),
             fontSize: 18.sp,
           )),
-      iconAssetPath: 'assets/images/onboarding/track.png'),
+      iconAssetPath: ''),
   PageModel(
       color: const Color(0xFF3DBED0),
       heroAssetPath: 'assets/images/onboarding/onboarding2.jpg',
@@ -60,7 +60,7 @@ final pageList = [
                 color: Color(0xFF1D6AFF),
                 fontSize: 18.sp,
               )),
-      iconAssetPath: 'assets/images/onboarding/market.png'),
+      iconAssetPath: ''),
   PageModel(
     color: const Color(0xFF7ED8CA),
     heroAssetPath: 'assets/images/onboarding/onboarding3.jpg',
@@ -76,6 +76,6 @@ final pageList = [
           color: Color(0xFF1D6AFF),
           fontSize: 18.sp,
         )),
-    iconAssetPath: 'assets/images/onboarding/manage.png',
+    iconAssetPath: '',
   ),
 ];
