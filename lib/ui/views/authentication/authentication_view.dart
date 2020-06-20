@@ -6,10 +6,13 @@ import 'package:stacked/stacked.dart';
 
 import '../../../core/mixings/validators.dart';
 import '../../widgets/shared/custom_raised_button.dart';
-import '../../widgets/shared/social_icon.dart'; 
+import '../../widgets/shared/social_icon.dart';
 import 'authentication_viewmodel.dart';
 
 class AuthenticationView extends StatelessWidget with Validators {
+
+  TextEditingController inputNumberController = new TextEditingController();
+  final _key = GlobalKey<ScaffoldState>();
   /// A reusable text style
   /// Can be moved to a mixin or constant
   final regularTextStyle = TextStyle(
@@ -28,187 +31,207 @@ class AuthenticationView extends StatelessWidget with Validators {
     height: 8.0,
   );
 
+
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<AuthenticationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            // reverse: true,
-            // physics: NeverScrollableScrollPhysics(),
-            child: Container(
-              child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 600.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage(
-                            'assets/images/auth_background.png',
-                          ),
+        key: _key,
+        body: Container(
+          height: height/2,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      'assets/images/auth_background.png',
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Container(
+                    height: 100.h,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.contain,
+                        image: AssetImage(
+                          'assets/images/heading.png',
                         ),
                       ),
                     ),
                   ),
-                  // Positioned(
-                  //   right: 0.h,
-                  //   top: 250.h,
-                  //   left: 0.w,
-                  //   child: Text(
-                  //     'Last Step, I \n promise',
-                  //     style: TextStyle(
-                  //         fontSize: 40.sp,
-                  //         color: Color(0xFF333CC1),
-                  //         fontWeight: FontWeight.bold),
-                  //     textAlign: TextAlign.center,
-                  //   ),
-                  // ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'What\'s The Name Of Your Company',
-                            style: Theme.of(context).textTheme.headline5.copyWith(
-                                fontSize: ScreenUtil()
-                                    .setSp(70, allowFontScalingSelf: true),
-                                fontWeight: FontWeight.w400),
-                          ),
-                          // _CompanyForm(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () {}, // model.updatePage,
-                                child: Container(
-                                  width: 160.w,
-                                  height: 120.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Color(0xFF000E66),
-                                  ),
-                                  child: Center(
-                                    child: IconButton(
-                                        icon: Icon(
-                                          Icons.arrow_back,
-                                          color: Colors.white,
-                                        ),
-                                        onPressed: null),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: 600.h,
-                                height: 120.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Color(0xFF333CC1),
-                                ),
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        'Finish',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5
-                                            .copyWith(
-                                                fontSize: ScreenUtil().setSp(60,
-                                                    allowFontScalingSelf: true),
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
+//        bottomSheet: inputNameBottomWidget(height, model, context),
+        bottomSheet: inputNumberBottomWidget(height, model, context),
+//        bottomSheet: modalBottomWidget(height),
       ),
       viewModelBuilder: () => AuthenticationViewModel(),
     );
   }
-}
+  Widget inputNumberBottomWidget(double height,
+      AuthenticationViewModel model,
+      BuildContext context) {
+    return Container(
+      height: height/2,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text('Please, Enter your Phone Number',
+              style: TextStyle(color: Colors.black, fontSize: 16.sp,),),
+            SizedBox(width: 5.h,),
+            Container(
+              height: 50.h,
+              decoration: BoxDecoration(
+                color: Colors.grey[400].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10.w),
+              ),
 
-@override
-Widget modalBottomWidget() {
-  return Container(
-    height: 1520.h,
-    color: Color(0xff757575),
-    child: Container(
-      padding: EdgeInsets.all(50.h),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(100.w),
-          topRight: Radius.circular(100.w),
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              child: Row(
+                children: <Widget>[
+                  DropdownButton<String>(
+                    value: model.dropdownValue,
+                    icon: Icon(Icons.keyboard_arrow_down),
+                    iconSize: 25.w,
+                    elevation: 16,
+                    onChanged: (String data){
+                      model.setDropdownValue(data);
+                    },
+                    items: model.dropdownItems.map<DropdownMenuItem<String>>((String value){
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  Container(width: 1.w,color: Colors.black.withOpacity(0.3),),
+                  SizedBox(width: 10.w,),
+                  Expanded(
+                    child: TextField(
+                      controller: inputNumberController, decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Phone Number'
+                    ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: 5.h,),
+            Text('or Continue with your social accounts',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Color(0xFF02034A), fontSize: 16.sp,),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SocialIconButton(
+                  onTap: () {},
+                  socialIconUrl: 'assets/images/google_icon.png',
+                ),
+                SocialIconButton(
+                  onTap: () {},
+                  socialIconUrl: 'assets/images/facebook_icon.png',
+                ),
+                SocialIconButton(
+                  onTap: () {},
+                  socialIconUrl: 'assets/images/apple_icon.png',
+                ),
+              ],
+            ),
+            InkWell(
+              onTap: (){
+                _key.currentState.
+                showBottomSheet( (context)=> modalBottomWidget(height),
+                );
+              },
+              child: Container(
+                height: 50.h,
+                decoration:BoxDecoration(
+                  color: Color(0xFF333CC1),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Next',
+                      style: TextStyle(color: Colors.white, fontSize: 16.sp,),),
+                    SizedBox(width: 10.h),
+                    Icon(Icons.arrow_forward, color: Colors.white,),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(40.h),
+    );
+  }
+  Widget modalBottomWidget(double height) {
+    return Container(
+      height: height/2.5,
+      color: Colors.white,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFF263BBA),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24.w),
+            topRight: Radius.circular(24.w),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Text(
               'PASTE FROM SMS',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: 12.sp,
               ),
             ),
-            SizedBox(height: 10),
-            Expanded(
-              child: Text(
-                '0349',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            Container(
-              height: ScreenUtil.screenHeightDp * 0.25,
-              width: ScreenUtil.screenWidthDp,
-              padding: EdgeInsets.all(32.0),
-              decoration: BoxDecoration(
+            SizedBox(height: 5.h),
+            Text(
+              '0349',
+              textAlign: TextAlign.center,
+              style: TextStyle(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(24.0),
-                  topRight: Radius.circular(24.0),
-                ),
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child: PinCodeTextField(
+            ),
+            SizedBox(height: 10.h),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(32.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24.0),
+                    topRight: Radius.circular(24.0),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    PinCodeTextField(
                       length: 4,
                       obsecureText: false,
                       animationType: AnimationType.scale,
@@ -228,168 +251,112 @@ Widget modalBottomWidget() {
                       onCompleted: (v) {},
                       onChanged: (value) {},
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Please enter 4-digit code we sent on \nyour number as SMS',
-                    style: TextStyle(
-                      fontFamily: 'Lato',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
+                    Center(
+                      child: Text(
+                        'Please enter 4-digit code we sent on \nyour number as SMS',
+                        style: TextStyle(
+                          fontFamily: 'Lato',
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+
+                  ],
+                ),
               ),
             ),
           ],
         ),
       ),
-    ),
-  );
+    );
+  }
+  Widget inputNameBottomWidget(double height,
+      AuthenticationViewModel model,
+      BuildContext context){
+    return Container(
+      height: height/2.5,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text("What's your name",
+              style: TextStyle(color: Colors.black, fontSize: 16.sp,),),
+            Container(
+              height: 50.h,
+              decoration: BoxDecoration(
+                color: Colors.grey[400].withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10.w),
+              ),
+
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              child: Row(
+                children: <Widget>[
+                  Container(width: 30.w),
+                  Container(width: 1.w,color: Colors.black.withOpacity(0.3),),
+                  SizedBox(width: 10.w,),
+                  Expanded(
+                    child: TextField(
+                      controller: inputNumberController,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Enter Your Name'
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                InkWell(
+                  onTap: (){},
+                  child: Container(
+                    height: 50.h,
+                    width: 60.w,
+                    decoration:BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color(0xFF000E66)
+                    ),
+                    child: Icon(Icons.arrow_back, color: Colors.white,),
+                  ),
+                ),
+                SizedBox(width: 10.w,),
+                Expanded(
+                  child: InkWell(
+                    onTap: (){},
+                    child: Container(
+                      height: 50.h,
+                      decoration:BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Color(0xFF333CC1)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Next',
+                            style: TextStyle(color: Colors.white, fontSize: 16.sp,),),
+                          SizedBox(width: 10.h),
+                          Icon(Icons.arrow_forward, color: Colors.white,),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-// Scaffold(
-//   body: AnnotatedRegion<SystemUiOverlayStyle>(
-//     value: SystemUiOverlayStyle.light,
-//     child: Column(
-//       children: <Widget>[
-//         Container(
-//           height: 500.h,
 
-//           decoration: BoxDecoration(
-//             image: DecorationImage(
-//               image: AssetImage('assets/images/auth_background.png'),
-//               fit: BoxFit.cover,
-//             ),
-//           ),
-//           child: SafeArea(
-//             child: Center(
-//               child: Image.asset('assets/images/logo.png'),
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),
-//   ),
-//   bottomSheet: Container(
-//     height: ScreenUtil.screenHeightDp * 0.4,
-//     width: ScreenUtil.screenWidthDp,
-//     padding: EdgeInsets.all(16.0),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       children: <Widget>[
-//         Text(
-//           'Please, Enter your Phone number',
-//           style: regularTextStyle,
-//         ),
-//         mediumVerticalHeight,
-//         IntrinsicHeight(
-//           child: Container(
-//             decoration: BoxDecoration(
-//               color: Colors.grey.shade200,
-//               borderRadius: BorderRadius.circular(8.0),
-//             ),
-//             child: Row(
-//               children: <Widget>[
-//                 DropdownButton<String>(
-//                   value: model.dropdownValue,
-//                   icon: Icon(Icons.keyboard_arrow_down),
-//                   iconSize: 16,
-//                   elevation: 16,
-//                   style: regularTextStyle,
-//                   onChanged: model.setDropdownValue,
-//                   underline: Container(
-//                     color: Colors.transparent,
-//                   ),
-//                   items:
-//                       model.dropdownItems.map<DropdownMenuItem<String>>(
-//                     (String value) {
-//                       return DropdownMenuItem<String>(
-//                         value: value,
-//                         child: Padding(
-//                           padding: EdgeInsets.only(left: 16.0),
-//                           child: Text(value),
-//                         ),
-//                       );
-//                     },
-//                   ).toList(),
-//                 ),
-//                 Padding(
-//                   padding: EdgeInsets.symmetric(vertical: 8.0),
-//                   child: VerticalDivider(
-//                     color: Colors.black,
-//                   ),
-//                 ),
-//                 Expanded(
-//                   child: TextFormField(
-//                     keyboardType: TextInputType.number,
-//                     validator: validatePhoneNumber,
-//                     onFieldSubmitted: (String value) {},
-//                     onSaved: (String value) {},
-//                     decoration: InputDecoration(
-//                       hintText: 'Phone number',
-//                       border: InputBorder.none,
-//                       hintStyle: TextStyle(
-//                         fontFamily: 'Lato',
-//                         fontSize: 14,
-//                       ),
-//                       contentPadding: EdgeInsets.all(8.0),
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//         mediumVerticalHeight,
-//         Text(
-//           'Or Continue with your social account',
-//           textAlign: TextAlign.center,
-//           style: TextStyle(
-//             fontFamily: 'Lato',
-//             fontSize: 14,
-//             fontWeight: FontWeight.w300,
-//             color: Colors.black,
-//           ),
-//         ),
-//         smallVerticalHeight,
-//         Expanded(
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               SocialIconButton(
-//                 onTap: () {},
-//                 socialIconUrl: 'assets/images/google_icon.png',
-//               ),
-//               SocialIconButton(
-//                 onTap: () {},
-//                 socialIconUrl: 'assets/images/facebook_icon.png',
-//               ),
-//               SocialIconButton(
-//                 onTap: () {},
-//                 socialIconUrl: 'assets/images/apple_icon.png',
-//               ),
-//             ],
-//           ),
-//         ),
-//         smallVerticalHeight,
-//         CustomRaisedButton(
-//           label: 'Next',
-//           onPressed: () {
-//             showModalBottomSheet(
-//               context: context,
-//               isScrollControlled: true,
-//               builder: (BuildContext context) => SingleChildScrollView(
-//                 child: Container(
-//                     padding: EdgeInsets.only(
-//                         bottom: MediaQuery.of(context).viewInsets.bottom),
-//                     child: modalBottomWidget()),
-//               ),
-//             );
-//           },
-//         )
-//       ],
-//     ),
-//   ),
-// ),
+
+
