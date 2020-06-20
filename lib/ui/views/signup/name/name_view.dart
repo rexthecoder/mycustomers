@@ -127,7 +127,9 @@ Widget inputNameBottomWidget(
                 // ),
                 Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      model.navigateNext();
+                    },
                     child: Container(
                       height: 50.h,
                       decoration: BoxDecoration(

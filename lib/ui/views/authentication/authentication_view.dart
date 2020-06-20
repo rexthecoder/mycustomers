@@ -10,7 +10,7 @@ import '../../widgets/shared/social_icon.dart';
 import 'authentication_viewmodel.dart';
 
 class AuthenticationView extends StatelessWidget with Validators {
-  TextEditingController inputNumberController = new TextEditingController();
+  TextEditingController inputNumberController = TextEditingController(); 
   final _key = GlobalKey<ScaffoldState>();
 
   @override

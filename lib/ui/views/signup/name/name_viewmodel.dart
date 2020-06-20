@@ -6,8 +6,8 @@ import 'package:stacked_services/stacked_services.dart';
 class NameViewModel extends BaseViewModel{
   final NavigationService _navigationService = locator<NavigationService>(); 
 
-  Future<void> init() async {
-    await Future.delayed(Duration(seconds: 1));
- await _navigationService.replaceWith(Routes.businessViewRoute);
+  Future<void> navigateNext() async {
+//    await Future.delayed(Duration(seconds: 1));
+ await _navigationService.navigateTo(Routes.businessViewRoute);
   }
 }

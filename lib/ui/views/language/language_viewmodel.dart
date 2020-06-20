@@ -22,6 +22,6 @@ class LanguageViewModel extends BaseViewModel {
 
   Future setup() async {
     await Future.value();
-    await _navigationService.replaceWith(Routes.mainViewRoute);
+    await _navigationService.replaceWith(Routes.authenticationViewRoute);
   }
 }
