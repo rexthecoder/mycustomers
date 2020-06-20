@@ -30,6 +30,6 @@ class AuthenticationViewModel extends BaseViewModel {
   // Playing
   Future<void> init() async {
     await Future.delayed(Duration(seconds: 5));
- await _navigationService.replaceWith(Routes.mainViewRoute);
+ await _navigationService.replaceWith(Routes.signupViewRoute);
   }
 }

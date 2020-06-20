@@ -13,24 +13,6 @@ class AuthenticationView extends StatelessWidget with Validators {
   TextEditingController inputNumberController = new TextEditingController();
   final _key = GlobalKey<ScaffoldState>();
 
-  /// A reusable text style
-  /// Can be moved to a mixin or constant
-  final regularTextStyle = TextStyle(
-    fontFamily: 'Lato',
-    fontSize: 14,
-    color: Colors.black,
-  );
-
-  /// Reusable height space weights
-  /// Can be moved to a mixin or constant
-  final mediumVerticalHeight = SizedBox(
-    height: 16.0,
-  );
-
-  final smallVerticalHeight = SizedBox(
-    height: 8.0,
-  );
-
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -62,7 +44,7 @@ class AuthenticationView extends StatelessWidget with Validators {
                             image: DecorationImage(
                               fit: BoxFit.contain,
                               image: AssetImage(
-                                'assets/images/heading.png',
+                                'assets/images/logo.png',
                               ),
                             ),
                           ),
@@ -314,108 +296,6 @@ class AuthenticationView extends StatelessWidget with Validators {
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget inputNameBottomWidget(
-      double height, AuthenticationViewModel model, BuildContext context) {
-    return Container(
-      height: height / 2.0,
-      color: Colors.black,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              "What's your name",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16.sp,
-              ),
-            ),
-            Container(
-              height: 50.h,
-              decoration: BoxDecoration(
-                color: Colors.grey[400].withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.w),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Row(
-                children: <Widget>[
-                  Container(width: 30.w),
-                  Container(
-                    width: 1.w,
-                    color: Colors.black.withOpacity(0.3),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: inputNumberController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Your Name'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    height: 50.h,
-                    width: 60.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFF000E66)),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Color(0xFF333CC1)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                          SizedBox(width: 10.h),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ),
           ],
         ),
