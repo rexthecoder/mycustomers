@@ -116,8 +116,7 @@ class HomeView extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: RaisedButton.icon(
                                 onPressed: () {
-                                  _navigatorService
-                                      .navigateTo(Routes.addcustomerRoute);
+                                  model.navigateToAddCustomer();
                                 },
                                 color: Theme.of(context).primaryColor,
                                 icon: Icon(

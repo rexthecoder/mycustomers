@@ -25,6 +25,7 @@ class DetailsView extends StatelessWidget {
                         IconButton(
                           onPressed: (){
                             //onPressed Method
+                            model.navigateToHome();
                           },
                           icon: Icon(Icons.arrow_back, size: ScreenUtil().setWidth(30),
                             color: Colors.black,
