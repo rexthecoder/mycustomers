@@ -3,10 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 
 import 'business_viewmodel.dart';
-import 'signup_viewmodel.dart';
 
 class BusinessView extends StatelessWidget {
-  TextEditingController inputNumberController = new TextEditingController();
+ TextEditingController inputNumberController = new TextEditingController();
   final _key = GlobalKey<ScaffoldState>();
 
   @override
