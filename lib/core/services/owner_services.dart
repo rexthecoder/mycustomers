@@ -17,7 +17,7 @@ class OwnerServices implements IOwnerServices {
         await _permission.getContactsPermission();
     if (isPermitted) {
       final Iterable<Contact> rawContacts = await ContactsService.getContacts();
-      contacts = rawContacts.toList();
+      return rawContacts.toList();    
     }
     return contacts;
   }
