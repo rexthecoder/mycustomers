@@ -5,6 +5,7 @@ class UnderConstruction extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.grey.shade100,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +32,7 @@ class UnderConstruction extends StatelessWidget{
                 ),
                 SizedBox(height: 10.h,),
                 Text(
-                  'Team Sentry \n MB Dev At Work!!!',
+                  'Team Sentry \n MB Devs At Work!!!',
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,

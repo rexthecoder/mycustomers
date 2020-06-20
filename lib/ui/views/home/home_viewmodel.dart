@@ -1,8 +1,7 @@
+import 'package:mycustomers/core/models/business_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../../../app/locator.dart';
-import '../../../app/router.dart';
 
 
 class HomeViewModel extends BaseViewModel {
@@ -14,6 +13,16 @@ class HomeViewModel extends BaseViewModel {
 
   void btnViewDetails() {
     print('hello');
+  } 
+
+  Business selectedBusiness = Business.business[0];
+
+  void changeBusiness(value) {
+    selectedBusiness = value;
+    notifyListeners();
+    // print(value.businessName); //Uncomment to see value in terminal
+
+    // TODO: Create additional Function to Use Value and Change the Operation.
   }
 }
 
