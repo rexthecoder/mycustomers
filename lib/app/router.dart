@@ -14,9 +14,9 @@ import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import '../ui/views/details/details_view.dart';
 
 abstract class Routes {
-  static const startupViewRoute = '/';
+  static const startupViewRoute = '/startup';
+  static const homeViewRoute = '/';
   static const onboardingViewRoute = '/onboarding';
-  static const homeViewRoute = '/home';
   static const addcustomerRoute = '/addcustomer';
   static const languageViewRoute = '/language';
   static const authenticationViewRoute = '/auth';
@@ -50,7 +50,7 @@ case Routes.languageViewRoute:
         );
       case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddCustomerManuallyView(),
+          builder: (context) => LanguageView(),
           settings: settings,
         );
       case Routes.authenticationViewRoute:

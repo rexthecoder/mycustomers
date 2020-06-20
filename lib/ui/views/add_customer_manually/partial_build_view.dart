@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mycustomers/ui/views/add_customer_manually/partial_build_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

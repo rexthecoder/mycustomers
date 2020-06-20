@@ -24,7 +24,7 @@ abstract class IStorageUtil {
 
 }
 
-class SharedStorageUtil extends IStorageUtil {
+class SharedStorageUtil implements IStorageUtil {
 
   SharedPreferences _preferences;
   static SharedStorageUtil _storage;

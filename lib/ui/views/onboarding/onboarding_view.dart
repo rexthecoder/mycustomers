@@ -21,7 +21,7 @@ class OnboardingView extends StatelessWidget {
               model.setup(),
         ),
       ),
-      viewModelBuilder: () => OnboardingViewModel(),
+      viewModelBuilder: () => OnboardingViewModel(context),
     );
   }
 }
