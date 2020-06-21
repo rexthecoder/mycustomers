@@ -17,6 +17,7 @@ dependencies:
   observable_ish: ^2.1.4
   flutter_svg: ^0.17.4
   pin_code_fields: ^3.1.2
+  sms: ^0.2.4 
 
   # State Management
   stacked: ^1.5.7+1

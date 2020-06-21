@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
+import 'package:sms/sms.dart';
 
 import 'app/locator.dart';
 import 'app/router.dart';
@@ -27,6 +28,8 @@ void main() {
       builder: (context) => App(),
     ),
   );
+
+
 }
 
 class App extends StatelessWidget {
