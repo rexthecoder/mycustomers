@@ -18,4 +18,4 @@
 
 8. The app will use Responsive Builder package to ensure responsiveness across all screens.
 
-9. We will be making use of Platform Widget for both ios and andriod.
+9. The app will debug with Device Preview and ensure each screen MEET all screen size.
