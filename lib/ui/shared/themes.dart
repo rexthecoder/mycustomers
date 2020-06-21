@@ -6,12 +6,12 @@ final _darkThemeData = ThemeData.dark();
 
 final primaryMaterialTheme = _lightThemeData.copyWith(
   textTheme: _lightThemeData.textTheme.apply(
-    fontFamily: 'Loto',
+    fontFamily: 'Lato',
   ),
 );
 final darkMaterialTheme = _darkThemeData.copyWith(
   textTheme: _darkThemeData.textTheme.apply(
-    fontFamily: 'Loto',
+    fontFamily: 'Lato',
   ),
 );
 
