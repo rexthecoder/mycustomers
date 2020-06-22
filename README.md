@@ -1,3 +1,6 @@
+[![Codemagic build status](https://api.codemagic.io/apps/5ee9e3cfed34a91a67567284/5ee9e3cfed34a91a67567283/status_badge.svg)](https://codemagic.io/apps/5ee9e3cfed34a91a67567284/5ee9e3cfed34a91a67567283/latest_build)
+
+
 # mycustomers
 
 ## Work on this Project with the following rules
@@ -6,7 +9,6 @@
 
 2. The app will be developed using “Stacked” architecture.
 
-3. The app Font size will scale according to the device’s accessibility setting “font size”.
 
 4. The app will be using Travis CI/Code Magic for CI/CD, to checkmate when develop, so as bugs or errors don’t be added to the repo.
 
