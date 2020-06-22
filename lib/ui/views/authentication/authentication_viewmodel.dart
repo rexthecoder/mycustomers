@@ -1,6 +1,11 @@
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AuthenticationViewModel extends BaseViewModel {
+  final NavigationService _navigationService = locator<NavigationService>(); 
+
   String _dropdownValue = '+234';
 
   String get dropdownValue => _dropdownValue;
@@ -20,5 +25,11 @@ class AuthenticationViewModel extends BaseViewModel {
 
   void setPhoneNumber(String value) {
     _phoneNumber = value;
+  }
+
+  // Playing
+  Future<void> init() async {
+    await Future.delayed(Duration(seconds: 5));
+ await _navigationService.replaceWith(Routes.nameViewRoute);
   }
 }

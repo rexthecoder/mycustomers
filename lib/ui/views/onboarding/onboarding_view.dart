@@ -15,13 +15,11 @@ class OnboardingView extends StatelessWidget {
           doneButtonText: "Let's Go",
           skipButtonText: "Skip",
           pageList: pageList,
-          onDoneButtonPressed: () =>
-              model.setup(),
-          onSkipButtonPressed: () =>
-              model.setup(),
+          onDoneButtonPressed: () => model.setup(),
+          onSkipButtonPressed: () => model.setup(),
         ),
       ),
-      viewModelBuilder: () => OnboardingViewModel(context),
+      viewModelBuilder: () => OnboardingViewModel(),
     );
   }
 }
@@ -35,7 +33,7 @@ final pageList = [
           style: TextStyle(
             fontWeight: FontWeight.w800,
             color: Color(0xFFFDA741),
-            fontSize:36.sp,
+            fontSize: 36.sp,
           )),
       body: Text('Track your debts',
           textAlign: TextAlign.center,
@@ -53,13 +51,12 @@ final pageList = [
             color: Color(0xFFFDA741),
             fontSize: 36.sp,
           )),
-      body:
-          Text('Market your Business',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF1D6AFF),
-                fontSize: 18.sp,
-              )),
+      body: Text('Market your Business',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color(0xFF1D6AFF),
+            fontSize: 18.sp,
+          )),
       iconAssetPath: ''),
   PageModel(
     color: const Color(0xFF7ED8CA),

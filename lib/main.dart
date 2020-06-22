@@ -1,18 +1,29 @@
-import 'package:device_preview/device_preview.dart';
+import 'package:device_preview/device_preview.dart';  
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart'; 
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
-import 'package:sms/sms.dart';
 
 import 'app/locator.dart';
 import 'app/router.dart';
 
 void main() {
   setupLocator();
-  debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+
+  runApp(App());
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => App(),
+  //   ),
+  // );
+}
+
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    
 
   // Status bar
   SystemChrome.setSystemUIOverlayStyle(
@@ -22,24 +33,11 @@ void main() {
     ),
   );
 
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => App(),
-    ),
-  );
-
-
-}
-
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return MaterialApp(
-      builder: DevicePreview.appBuilder,
+   //   builder: DevicePreview.appBuilder,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,

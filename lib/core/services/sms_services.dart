@@ -1,17 +1,16 @@
+import 'dart:async';
 import 'package:sms/sms.dart';
 
-
   class SmsService {
-  SmsReceiver receiver = new SmsReceiver();
-
-   receiver.onSmsReceived.listen(handler);
+  SmsReceiver _receiver = new SmsReceiver();
+  SmsService() {
+    _receiver.onSmsReceived.listen(handler);
 }
-
-  SmsReciever receiver = SmsReciever();
-
-     final otpController = StreamController<SmsMessage>();
-
+     final _otpController = StreamController<SmsMessage>();
 void handler(SmsMessage message) {
-
-   otpController.sink.add(message);
+   var add = _otpController.sink.add(message);
 }
+}
+
+
+
