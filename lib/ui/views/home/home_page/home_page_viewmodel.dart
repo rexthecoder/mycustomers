@@ -6,7 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 
 
-class HomeViewModel extends BaseViewModel {
+class HomePageViewModel extends BaseViewModel {
   String _title = 'Home View';
   String get title => _title;
 

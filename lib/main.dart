@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';  
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; 
 import 'package:stacked_services/stacked_services.dart';
@@ -11,13 +12,13 @@ import 'app/router.dart';
 void main() {
   setupLocator();
 
-  runApp(App());
-  // runApp(
-  //   DevicePreview(
-  //     enabled: !kReleaseMode,
-  //     builder: (context) => App(),
-  //   ),
-  // );
+  // runApp(App());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => App(),
+    ),
+  );
 }
 
 class App extends StatelessWidget {
@@ -36,7 +37,7 @@ class App extends StatelessWidget {
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return MaterialApp(
-   //   builder: DevicePreview.appBuilder,
+     builder: DevicePreview.appBuilder,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,

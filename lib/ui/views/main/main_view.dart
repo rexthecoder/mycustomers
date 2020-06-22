@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/views/home/home_view.dart';
-import 'package:mycustomers/ui/views/marketing/marketing_view.dart';
-import 'package:mycustomers/ui/views/profile/profile_view.dart';
+import 'package:mycustomers/ui/views/business/business_home_page/business_homepage_view.dart';
+import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
+import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
@@ -14,9 +14,9 @@ class MainView extends StatelessWidget {
 
  
   final _views = <Widget>[
-    FadeIn(child: HomeView()),
-    FadeIn(child: MarketingView()),
-    FadeIn(child: ProfileView()),
+    FadeIn(child: HomePageView()),
+    FadeIn(child: MarketingHomePageView()),
+    FadeIn(child: BusinessHomePageView()),
   ];
 
 
