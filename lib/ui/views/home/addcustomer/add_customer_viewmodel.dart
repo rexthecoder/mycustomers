@@ -1,7 +1,8 @@
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import '../../../app/locator.dart';
-import '../../../app/router.dart';
+
 
 class AddCustomerViewModel extends BaseViewModel {
   final String btnText1 = "Add from Contact Book";
