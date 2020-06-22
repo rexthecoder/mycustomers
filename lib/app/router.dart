@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
@@ -25,11 +26,11 @@ class Router {
           builder: (context) => StartupView(),
           settings: settings,
         );
-      // case Routes.onboardingViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => OnboardingView(),
-      //     settings: settings,
-      //   );
+      case Routes.onboardingViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => OnboardingView(),
+          settings: settings,
+        );
       // case Routes.languageViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => LanguageView(),
