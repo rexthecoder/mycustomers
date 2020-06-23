@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
+import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 
 abstract class Routes {
   static const startupViewRoute = '/startup';
@@ -15,6 +16,7 @@ abstract class Routes {
   static const addcustomerRoute = '/addcustomer';
   static const addCustomerManually = '/addCusMan';
   static const detailsViewRoute = '/details';
+  static const supportViewRoute = '/support';
 }
 
 class Router {
@@ -22,7 +24,7 @@ class Router {
     switch (settings.name) {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
+          builder: (context) => SupportPageView(),
           settings: settings,
         );
       // case Routes.onboardingViewRoute:

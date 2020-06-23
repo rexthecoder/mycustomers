@@ -12,13 +12,13 @@ import 'app/router.dart';
 void main() {
   setupLocator();
 
-  // runApp(App());
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => App(),
-    ),
-  );
+  runApp(App());
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => App(),
+  //   ),
+  // );
 }
 
 class App extends StatelessWidget {
