@@ -33,6 +33,9 @@ class MainView extends StatelessWidget {
           itemBuilder: (_, index) => _views[index],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color(0xFF333CC1),
+          selectedItemColor: Color(0xFFFFFFFF),
+          unselectedItemColor: Color(0xFFA1A7FF),
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -44,8 +47,8 @@ class MainView extends StatelessWidget {
               title: Text('Marketing'),
             ),
              BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Your Company'),
+              icon: Icon(Icons.work),
+              title: Text('Business'),
             ),
           ],
           onTap: model.changeTab,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
 // import 'package:mycustomers/core/models/business_model.dart';
 import 'package:stacked/stacked.dart';
 // import 'package:stacked_hooks/stacked_hooks.dart';
@@ -16,11 +17,8 @@ class HomePageView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
           child: Container(
-            child: Center(
-              child:
-              Text('Start Build'),
-            ),
-          ),
+            child: UnderConstruction(),
+        ),
         ),
       ),
       viewModelBuilder: () => HomePageViewModel(),
