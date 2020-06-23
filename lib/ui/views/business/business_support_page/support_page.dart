@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'support_page_viewmodel.dart';
 
@@ -23,11 +23,11 @@ class SupportPageView extends StatelessWidget {
                         Text('Customer Support',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: ScreenUtil().setSp(18))),
+                                fontSize: 18.sp)),
                         SizedBox()
                       ],
                     ),
-                    SizedBox(height: ScreenUtil().setHeight(78)),
+                    SizedBox(height: 78.h),
                     Form(
                         key: _formKey,
                         child: Column(
@@ -40,41 +40,41 @@ class SupportPageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                     hintText: 'Name',
                                     hintStyle: TextStyle(
-                                        fontSize: ScreenUtil().setSp(16)),
+                                        fontSize: 16.sp),
                                     contentPadding: EdgeInsets.fromLTRB(
-                                        ScreenUtil().setHeight(16),
+                                        16.h,
                                         20,
                                         0,
-                                        ScreenUtil().setHeight(16)),
+                                        16.h),
                                     border: new OutlineInputBorder(
                                       borderRadius:
                                           new BorderRadius.circular(5.0),
                                       borderSide: new BorderSide(
                                           color: Color(0xffd1d1d1), width: 2),
                                     ))),
-                            SizedBox(height: ScreenUtil().setHeight(15)),
+                            SizedBox(height: 15.h),
                             TextFormField(
                               validator: (value) => model.validateFields(value),
                                 decoration: InputDecoration(
                                     hintText: 'Email',
                                     hintStyle: TextStyle(
-                                        fontSize: ScreenUtil().setSp(16)),
+                                        fontSize: 16.sp),
                                     contentPadding: EdgeInsets.fromLTRB(
-                                        ScreenUtil().setHeight(16),
+                                        16.h,
                                         20,
                                         0,
-                                        ScreenUtil().setHeight(16)),
+                                        16.h),
                                     border: new OutlineInputBorder(
                                       borderRadius:
                                           new BorderRadius.circular(5.0),
                                       borderSide: new BorderSide(
                                           color: Color(0xffd1d1d1), width: 2),
                                     ))),
-                            SizedBox(height: ScreenUtil().setHeight(20)),
+                            SizedBox(height: 20.h),
                             Container(
                                 // padding: EdgeInsets.fromLTRB(20, 16, 0, 16),
                                 height: MediaQuery.of(context).size.width > 375
-                                    ? ScreenUtil().setHeight(52)
+                                    ? 52.h
                                     : 52,
                                 decoration: BoxDecoration(
                                     border: Border.all(
@@ -93,7 +93,7 @@ class SupportPageView extends StatelessWidget {
                                         model.item,
                                         style: TextStyle(
                                             color: Color(0xff8c8c8c),
-                                            fontSize: ScreenUtil().setSp(18)),
+                                            fontSize: 18.sp),
                                       ),
                                       new DropdownButton<String>(
                                         underline: SizedBox(),
@@ -118,7 +118,7 @@ class SupportPageView extends StatelessWidget {
                                     ],
                                   ),
                                 )),
-                            SizedBox(height: ScreenUtil().setHeight(19)),
+                            SizedBox(height: 19.h),
                             TextFormField(
                               validator: (value) => model.validateFields(value),
                                 minLines: 8,
@@ -126,25 +126,25 @@ class SupportPageView extends StatelessWidget {
                                 decoration: InputDecoration(
                                     hintText: 'Write Your Message Here',
                                     hintStyle: TextStyle(
-                                        fontSize: ScreenUtil().setSp(16)),
+                                        fontSize: 16.sp),
                                     contentPadding: EdgeInsets.fromLTRB(
-                                        ScreenUtil().setHeight(16),
+                                        16.h,
                                         20,
                                         0,
-                                        ScreenUtil().setHeight(16)),
+                                        16.h),
                                     border: new OutlineInputBorder(
                                       borderRadius:
                                           new BorderRadius.circular(11.0),
                                       borderSide: new BorderSide(
                                           color: Color(0xffd1d1d1), width: 2),
                                     ))),
-                            SizedBox(height: ScreenUtil().setHeight(31)),
+                            SizedBox(height: 31.h),
                           ],
                         )),
                     RaisedButton(
                       padding: EdgeInsets.only(
-                          top: ScreenUtil().setHeight(16),
-                          bottom: ScreenUtil().setHeight(16)),
+                          top: 16.h,
+                          bottom: 16.h),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -156,7 +156,7 @@ class SupportPageView extends StatelessWidget {
                       child: Text('Send',
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: ScreenUtil().setSp(16))),
+                              fontSize: 16.sp)),
                       color: Color(0xff333cc1),
                     )
                   ]),
