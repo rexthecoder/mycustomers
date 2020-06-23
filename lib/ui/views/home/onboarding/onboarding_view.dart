@@ -7,37 +7,19 @@ import 'package:stacked/stacked.dart';
 import 'onboarding_viewmodel.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
-// @override
-// void initState() {
-//   super.initState();
-//   Timer.periodic(Duration(seconds: 5), (Timer timer) {
-//     if (_currentPage < 2) {
-//       _currentPage++;
-//     } else {
-//       _currentPage = 0;
-//     }
-
-//     _pageController.animateToPage(
-//       _currentPage,
-//       duration: Duration(milliseconds: 350),
-//       curve: Curves.easeIn,
-//     );
-//   });
-// }5
-
 class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
-    var h = MediaQuery.of(context).size.height;
-    ScreenUtil.init(context, width: w, height: h);
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    ScreenUtil.init(context, width: width, height: height);
 
     return ViewModelBuilder<OnboardingViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: Container(
-          height: h,
+          height: height,
           child: Stack(
-            alignment: Alignment.bottomCenter,
+          alignment: Alignment.center,
             children: <Widget>[
               PageView(
                 onPageChanged: model.onChangedFunction,
@@ -73,7 +55,24 @@ class OnboardingView extends StatelessWidget {
                 ],
               ),
               Positioned(
-                bottom: h/2 - 100,
+                bottom: 350.h,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Container(
+                    height: 100.h,
+                    child: Text(
+                      'welcome',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 50.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 260,
                 // left: 150.h,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -101,14 +100,35 @@ class OnboardingView extends StatelessWidget {
                   ],
                 ),
               ),
+               Positioned(
+                bottom: 180.h,
+                child: Image(
+                  height: 40.h,
+                      fit: BoxFit.contain,
+                      image: AssetImage(
+                        'assets/images/onboarding/whitelogo1.png',
+                      ),
+                    ),
+              ),
+               Positioned(
+                bottom: 140.h,
+              
+                child: Image(
+                  height: 30.h,
+                      fit: BoxFit.contain,
+                      image: AssetImage(
+                        'assets/images/onboarding/whitelogo2.png',
+                      ),
+                    ),
+              ),
               Positioned(
-                bottom: 50.h,
-                              child: InkWell(
+                bottom: 40.h,
+                child: InkWell(
                   onTap: () {
                     model.nextFunction();
                   },
                   child: Container(
-                    height: 45.h,
+                    height: 50.h,
                     width: 300.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -126,6 +146,36 @@ class OnboardingView extends StatelessWidget {
                       ],
                     ),
                   ),
+                ),
+              ),
+            
+              Positioned(
+                bottom: 10.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Already have an account?',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    SizedBox(width: 10.h),
+                    InkWell(
+                      onTap: () {
+                        model.nextFunction();
+                      },
+                      child: Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.yellowAccent,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -149,7 +199,7 @@ class Indicator extends StatelessWidget {
           border: Border.all(color: Colors.white),
           color:
               positionIndex == currentIndex ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(100)),
+          borderRadius: BorderRadius.circular(20)),
     );
   }
 }

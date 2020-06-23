@@ -8,8 +8,30 @@ import 'package:stacked_services/stacked_services.dart';
 
 
 class OnboardingViewModel extends BaseViewModel {
- 
- PageController pageController;
+ @override
+
+
+  // Timer.periodic(d                                                                      uration(seconds: 5), (Timer timer) {
+  //   if (_currentPage < 2) {
+  //     _currentPage++;
+  //   } else {
+  //     _currentPage = 0;
+  //   }
+
+  //   _pageController.animateToPage(
+  //     _currentPage,
+  //     duration: Duration(milliseconds: 350),
+  //     curve: Curves.easeIn,
+  //   );
+  // });
+
+
+
+ PageController pageController =PageController(
+  initialPage: 0,
+  viewportFraction: 0.8
+);
+
   int currentIndex = 0;
 
   static const _kDuration = const Duration(milliseconds: 300);
