@@ -150,8 +150,7 @@ class SupportPageView extends StatelessWidget {
                       ),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          // If the form is valid, display a Snackbar.
-                          print('valid');
+                          // TODO: Implement Send report service 
                         }
                       },
                       child: Text('Send',
