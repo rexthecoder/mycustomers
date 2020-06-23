@@ -102,7 +102,6 @@ class SupportPageView extends StatelessWidget {
                                           color: Colors.black,
                                         ),
                                         elevation: 0,
-                                        // isExpanded: t,
                                         isDense: false,
                                         items: (model.items).map((String value) {
                                           return new DropdownMenuItem<String>(
