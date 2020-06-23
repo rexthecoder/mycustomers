@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 
@@ -25,33 +23,9 @@ class GetStartedView extends StatelessWidget {
                 onPageChanged: model.onChangedFunction,
                 controller: model.pageController,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/onboarding/onboarding1.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/onboarding/onboarding2.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/onboarding/onboarding3.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
+                  _pages('assets/images/onboarding/onboarding1.png'),
+                  _pages('assets/images/onboarding/onboarding2.png'),
+                  _pages('assets/images/onboarding/onboarding3.png'),
                 ],
               ),
               Positioned(
@@ -124,7 +98,7 @@ class GetStartedView extends StatelessWidget {
                 bottom: 50.h,
                 child: InkWell(
                   onTap: () {
-                    model.nextFunction();
+                    model.navigateToNextScreen();
                   },
                   child: Container(
                     height: 50.h,
@@ -161,9 +135,7 @@ class GetStartedView extends StatelessWidget {
                     ),
                     SizedBox(width: 10.h),
                     InkWell(
-                      onTap: () {
-                        model.nextFunction();
-                      },
+                      onTap: () {},
                       child: Text(
                         'Login',
                         style: TextStyle(
@@ -181,6 +153,17 @@ class GetStartedView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => GetStartedViewModel(),
+    );
+  }
+
+  Widget _pages(image) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

@@ -22,6 +22,7 @@ class OnboardingView extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
               PageView(
+                 physics: ClampingScrollPhysics(),
                 onPageChanged: model.onChangedFunction,
                 controller: model.pageController,
                 children: [

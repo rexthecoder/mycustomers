@@ -17,7 +17,7 @@ final darkMaterialTheme = _darkThemeData.copyWith(
 
 final primaryCupertinoTheme = CupertinoThemeData(
   primaryColor: CupertinoDynamicColor.withBrightness(
-    color: Colors.purple,
+    color: Color(0xFF333CC1),
     darkColor: Colors.cyan,
   ),
 );

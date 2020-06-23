@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 abstract class Routes {
-  static const startupViewRoute = '/startup';
-  static const homeViewRoute = '/';
+  static const startupViewRoute = '/';
+  static const getstartedViewRoute ='/getstarted';
   static const onboardingViewRoute = '/onboarding';
   static const languageViewRoute = '/language';
+  static const homeViewRoute = '/home';
   static const authenticationViewRoute = '/auth';
   static const nameViewRoute = '/name';
   static const businessViewRoute = '/business';
@@ -24,6 +26,11 @@ class Router {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => StartupView(),
+          settings: settings,
+        );
+      case Routes.getstartedViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => GetStartedView(),
           settings: settings,
         );
       case Routes.onboardingViewRoute:
