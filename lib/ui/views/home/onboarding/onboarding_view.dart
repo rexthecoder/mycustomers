@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 
@@ -8,6 +6,8 @@ import 'onboarding_viewmodel.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
 class OnboardingView extends StatelessWidget {
+  PageController _pageController;
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -17,167 +17,29 @@ class OnboardingView extends StatelessWidget {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: Container(
-          height: height,
+          height: height / 2,
           child: Stack(
-            alignment: Alignment.center,
             children: <Widget>[
-              PageView(
-                 physics: ClampingScrollPhysics(),
-                onPageChanged: model.onChangedFunction,
-                controller: model.pageController,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/onboarding/onboarding1.png'),
-                        fit: BoxFit.cover,
-                      ),
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      'assets/images/onboarding/ob1.png',
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/onboarding/onboarding2.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/onboarding/onboarding3.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Positioned(
-                bottom: 350.h,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Container(
-                    height: 100.h,
-                    child: Text(
-                      'welcome',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 270,
-                // left: 150.h,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Indicator(
-                      positionIndex: 0,
-                      currentIndex: model.currentIndex,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Indicator(
-                      positionIndex: 1,
-                      currentIndex: model.currentIndex,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Indicator(
-                      positionIndex: 2,
-                      currentIndex: model.currentIndex,
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 180.h,
-                child: Image(
-                  height: 50.h,
-                  fit: BoxFit.contain,
-                  image: AssetImage(
-                    'assets/images/onboarding/whitelogo1.png',
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 140.h,
-                child: Image(
-                  height: 30.h,
-                  fit: BoxFit.contain,
-                  image: AssetImage(
-                    'assets/images/onboarding/whitelogo2.png',
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 50.h,
-                child: InkWell(
-                  onTap: () {
-                    model.nextFunction();
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: 300.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFF333CC1)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Get Started',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 10.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Already have an account?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    SizedBox(width: 10.h),
-                    InkWell(
-                      onTap: () {
-                        model.nextFunction();
-                      },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
-                          color: Colors.yellowAccent,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ],
+          ),
+        ),
+        bottomSheet: Container(
+          height: height / 2.0,
+          color: Colors.grey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[],
           ),
         ),
       ),
@@ -185,6 +47,58 @@ class OnboardingView extends StatelessWidget {
     );
   }
 }
+
+//     builder: (context, model, child) => Scaffold(
+//       body: Container(
+//         height: height,
+//         child: Stack(
+//           //alignment: Alignment.center,
+//           children: <Widget>[
+//             PageView(
+//               physics: ClampingScrollPhysics(),
+//               onPageChanged: model.onChangedFunction,
+//               controller: _pageController,
+//               children: [
+//                 //       _pages('assets/images/onboarding/onboarding1.png'),
+
+//                               //   _pages('assets/images/onboarding/onboarding2.png'),
+//                //   _pages('assets/images/onboarding/onboarding3.png'),
+//                 Row(
+//                   children: <Widget>[
+//                     Container(
+//                       height: height / 2,
+//                       decoration: BoxDecoration(
+//                         image: DecorationImage(
+//                           image: AssetImage(
+//                               'assets/images/onboarding/onboarding1.png'),
+//                           fit: BoxFit.cover,
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//     viewModelBuilder: () => OnboardingViewModel(),
+//   );
+// }
+
+// Widget _pages(image) {
+//   // return Container(
+//   //   height: height/2,
+//   //   decoration: BoxDecoration(
+//   //     image: DecorationImage(
+//   //       image: AssetImage(image),
+//   //       fit: BoxFit.cover,
+//   //     ),
+//   //   ),
+//   // );
+// }
+// }
 
 class Indicator extends StatelessWidget {
   final int positionIndex, currentIndex;
@@ -202,3 +116,77 @@ class Indicator extends StatelessWidget {
     );
   }
 }
+
+// Positioned(
+//   bottom: 270,
+//   // left: 150.h,
+//   child: Row(
+//     mainAxisSize: MainAxisSize.max,
+//     mainAxisAlignment: MainAxisAlignment.center,
+//     crossAxisAlignment: CrossAxisAlignment.center,
+//     children: <Widget>[
+//       Indicator(
+//         positionIndex: 0,
+//         currentIndex: model.currentIndex,
+//       ),
+//       SizedBox(
+//         width: 10,
+//       ),
+//       Indicator(
+//         positionIndex: 1,
+//         currentIndex: model.currentIndex,
+//       ),
+//       SizedBox(
+//         width: 10,
+//       ),
+//       Indicator(
+//         positionIndex: 2,
+//         currentIndex: model.currentIndex,
+//       ),
+//     ],
+//   ),
+// ),
+// Positioned(
+//   bottom: 180.h,
+//   child: Image(
+//     height: 50.h,
+//     fit: BoxFit.contain,
+//     image: AssetImage(
+//       'assets/images/onboarding/whitelogo1.png',
+//     ),
+//   ),
+// ),
+// Positioned(
+//   bottom: 50.h,
+//   child: InkWell(
+//     onTap: () {
+//       if (_pageController.hasClients) {
+//         _pageController.animateToPage(
+//           0,
+//           duration: const Duration(milliseconds: 400),
+//           curve: Curves.easeInOut,
+//         );
+//       }
+//       //   model.nextFunction();
+//     },
+//     child: Container(
+//       height: 50.h,
+//       width: 300.w,
+//       decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(5),
+//           color: Color(0xFF333CC1)),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: <Widget>[
+//           Text(
+//             'Get Started',
+//             style: TextStyle(
+//               color: Colors.white,
+//               fontSize: 16.sp,
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   ),
+// ),
