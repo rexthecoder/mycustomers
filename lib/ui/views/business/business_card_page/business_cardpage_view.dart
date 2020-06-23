@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'business_cardpage_viewmodel.dart';
 
+part '../../../widgets/business/business_card_page/business_card_widget.dart';
+
 class BusinessCardPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,16 +41,7 @@ class BusinessCardPageView extends StatelessWidget {
                   SizedBox(
                     height: 10.sp,
                   ),
-                  // TODO STORE NAME FORM FIELD
-                  _DefaultFormField(),
-                  // TODO PERSONAL NAME FORM FIELD
-                  _DefaultFormField(),
-                  // TODO PHONE NUMBER FORM FIELD
-                  _DefaultFormField(),
-                  // TODO EMAIL ADDRESS FORM FIELD
-                  _DefaultFormField(),
-                  // TODO SHOP/OFFICE ADDRESS FORM FIELD
-                  _DefaultFormField(),
+                  _BusinessCardForm(),
                   CustomShareRaisedButton(
                     label: "Share",
                     onPressed: () {},
@@ -72,115 +65,56 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
-    var text = useTextEditingController();
-    return Container();
-  }
-}
-
-class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
-  _BusinessCard({Key key}) : super(key: key, reactive: true);
-
-  @override
-  Widget buildViewModelWidget(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
-    var text = useTextEditingController();
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: ScreenUtil.defaultHeight / 8,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/business_card.png"),
-                fit: BoxFit.contain),
+    return Form(
+      autovalidate: true,
+      child: Column(
+        children: <Widget>[
+          // TODO STORE NAME FORM FIELD
+          _DefaultFormField(
+            label: "Store Name",
+            onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
-        ),
-        Positioned(
-          top: 20.sp,
-          left: 150.sp,
-//          right: 20.sp,
-          child: Text(
-            "Store Name".toUpperCase(),
-            style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+          // TODO PERSONAL NAME FORM FIELD
+          _DefaultFormField(
+            label: "Personal Name",
+            onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
-        ),
-        Positioned(
-          left: 150.sp,
-          bottom: 90.sp,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.account_circle,
-                    size: 15.sp,
-                  ),
-                  Text(
-                    " Personal Name",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.phone,
-                    size: 15.sp,
-                  ),
-                  Text(
-                    " Phone Number",
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.email,
-                    size: 15.sp,
-                  ),
-                  Text(
-                    " Email Address",
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          // TODO PHONE NUMBER FORM FIELD
+          _DefaultFormField(
+            label: "Phone Number",
+            onChange: (value) => model.updateBusinessCard(phoneNumber: value),
           ),
-        ),
-        Positioned(
-          bottom: 20.sp,
-          left: 150.sp,
-          child: Text(
-            "Store Name",
-            style: TextStyle(
-              fontSize: 15.sp,
-            ),
+          // TODO EMAIL ADDRESS FORM FIELD
+          _DefaultFormField(
+            label: "Email Address",
+            onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
-        ),
-      ],
+          // TODO SHOP/OFFICE ADDRESS FORM FIELD
+          _DefaultFormField(
+            label: "Shop/Office Address",
+            onChange: (value) {
+              model.updateBusinessCard(address: value);
+            },
+          ),
+        ],
+      ),
     );
   }
 }
 
 class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
-  _DefaultFormField({Key key}) : super(key: key, reactive: false);
+  final String label;
+  final onChange;
+  final validate;
+
+  _DefaultFormField({this.validate, this.onChange, this.label, Key key})
+      : super(key: key, reactive: false);
 
   @override
   Widget buildViewModelWidget(
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
-    var text = useTextEditingController();
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.sp),
       padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
@@ -190,6 +124,8 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
         borderRadius: BorderRadius.circular(10.sp),
       ),
       child: TextFormField(
+        onChanged: onChange,
+        validator: validate,
         cursorColor: Colors.black,
         style: TextStyle(
           color: Colors.black,
@@ -198,7 +134,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
         decoration: InputDecoration(
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
-          hintText: "Store Name",
+          hintText: label,
           hintStyle: TextStyle(
             fontSize: 20.sp,
             color: const Color.fromRGBO(25, 25, 25, 0.6),
