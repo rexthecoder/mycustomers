@@ -34,7 +34,7 @@ class SupportPageView extends StatelessWidget {
                           children: <Widget>[
                             // Expanded(child: null),
                             TextFormField(
-                                controller: k,
+                              validator: (value) => model.validateFields(value),
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {},
                                 decoration: InputDecoration(
@@ -54,6 +54,7 @@ class SupportPageView extends StatelessWidget {
                                     ))),
                             SizedBox(height: ScreenUtil().setHeight(15)),
                             TextFormField(
+                              validator: (value) => model.validateFields(value),
                                 decoration: InputDecoration(
                                     hintText: 'Email',
                                     hintStyle: TextStyle(
@@ -89,12 +90,13 @@ class SupportPageView extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
-                                        'Subject',
+                                        model.item,
                                         style: TextStyle(
                                             color: Color(0xff8c8c8c),
                                             fontSize: ScreenUtil().setSp(18)),
                                       ),
                                       new DropdownButton<String>(
+                                        underline: SizedBox(),
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
                                           color: Colors.black,
@@ -102,16 +104,16 @@ class SupportPageView extends StatelessWidget {
                                         elevation: 0,
                                         // isExpanded: t,
                                         isDense: false,
-                                        items: <String>[
-                                          // TODO: Add Drpdownmenu
-                                        ].map((String value) {
+                                        items: (model.items).map((String value) {
                                           return new DropdownMenuItem<String>(
                                             value: value,
                                             child: new Text(value),
                                           );
                                         }).toList(),
-                                        onChanged: (_) {
+                                        onChanged: (item) {
                                           //TODO: implement dropdown
+                                          model.setItem(item);
+                                          print(model.item);
                                         },
                                       ),
                                     ],
@@ -119,6 +121,7 @@ class SupportPageView extends StatelessWidget {
                                 )),
                             SizedBox(height: ScreenUtil().setHeight(19)),
                             TextFormField(
+                              validator: (value) => model.validateFields(value),
                                 minLines: 8,
                                 maxLines: 12,
                                 decoration: InputDecoration(
