@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 
 import 'package:stacked/stacked.dart';
-import 'onboarding_viewmodel.dart';
+import 'getstarted_viewmodel.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
-class OnboardingView extends StatelessWidget {
+class GetStartedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
 
-    return ViewModelBuilder<OnboardingViewModel>.reactive(
+    return ViewModelBuilder<GetStartedViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: Container(
           height: height,
@@ -180,7 +180,7 @@ class OnboardingView extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => OnboardingViewModel(),
+      viewModelBuilder: () => GetStartedViewModel(),
     );
   }
 }
