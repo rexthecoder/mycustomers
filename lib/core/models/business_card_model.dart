@@ -13,9 +13,10 @@ abstract class BusinessCard with _$BusinessCard {
   }) = _BusinessCard;
 
   factory BusinessCard.empty() => BusinessCard(
-      storeName: "Store Name",
-      personalName: "John Doe",
-      phoneNumber: "+2348012345678",
-      emailAddress: "johndoe@mycustomer.com",
-      address: "We are all over the earth");
+        storeName: "Store Name",
+        personalName: "John Doe",
+        phoneNumber: "+2348012345678",
+        emailAddress: "johndoe@mycustomer.com",
+        address: "We are all over the earth",
+      );
 }
