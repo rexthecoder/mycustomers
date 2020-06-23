@@ -2,7 +2,7 @@
 
 [![Travis Build Status](https://travis-ci.com/isaacadariku/mycustomers.svg?branch=master)](https://travis-ci.com/isaacadariku/mycustomers)
 
-# mycustomers
+# myCustomer Mobile App
 
 ## Work on this Project with the following rules
 
@@ -12,12 +12,10 @@
 
 3. The app will be using Travis CI/Code Magic for CI/CD, to checkmate when develop, so as bugs or errors don’t be added to the repo.
 
-4. The layout of the codebase will just implement stacked architecture.
+4. **NO STATEFUL WIDGET!**
 
-5. **NO STATEFUL WIDGET!** {We will be using reactive and non reactive Extended classes}
+5. EVERYTHING MUST BE TESTED FROM  **UNIT | INTEGRATION | SOME WIDGETS.**
 
-6. EVERYTHING MUST BE TESTED FROM  **UNIT | INTEGRATION | SOME WIDGETS.**
+6. The app will use Responsive Builder package to ensure responsiveness across all screens.
 
-7. The app will use Responsive Builder package to ensure responsiveness across all screens.
-
-8. The app will debug with Device Preview and ensure each screen MEET all screen size.
+7. The app will be debug with Device Preview and ensure each screen MEET all screen size.

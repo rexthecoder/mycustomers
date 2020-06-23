@@ -32,7 +32,7 @@ class App extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-
+  
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/screenutil.dart';
  import 'package:mycustomers/core/models/business_model.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/all_customers_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
+
 import 'package:stacked/stacked.dart';
  import 'package:stacked_hooks/stacked_hooks.dart';
  import 'package:flutter_screenutil/size_extension.dart';
@@ -18,6 +20,7 @@ class HomePageView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<HomePageViewModel>.reactive(
+
       builder: (context, model, child) => DefaultTabController(
         length: 3,
         child: Scaffold(
