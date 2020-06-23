@@ -36,7 +36,6 @@ class BusinessCardPageView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  // TODO BUSINESS CARD
                   _BusinessCard(),
                   SizedBox(
                     height: 10.sp,
@@ -69,27 +68,27 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
       autovalidate: true,
       child: Column(
         children: <Widget>[
-          // TODO STORE NAME FORM FIELD
+          // TODO VALIDATE STORE NAME FORM FIELD
           _DefaultFormField(
             label: "Store Name",
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
-          // TODO PERSONAL NAME FORM FIELD
+          // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
             label: "Personal Name",
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
-          // TODO PHONE NUMBER FORM FIELD
+          // TODO VALIDATE PHONE NUMBER FORM FIELD
           _DefaultFormField(
             label: "Phone Number",
             onChange: (value) => model.updateBusinessCard(phoneNumber: value),
           ),
-          // TODO EMAIL ADDRESS FORM FIELD
+          // TODO VALIDATE EMAIL ADDRESS FORM FIELD
           _DefaultFormField(
             label: "Email Address",
             onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
-          // TODO SHOP/OFFICE ADDRESS FORM FIELD
+          // TODO VALIDATE SHOP/OFFICE ADDRESS FORM FIELD
           _DefaultFormField(
             label: "Shop/Office Address",
             onChange: (value) {
