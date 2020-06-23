@@ -6,6 +6,10 @@ import 'getstarted_viewmodel.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
 class GetStartedView extends StatelessWidget {
+  
+
+PageController _pageController;
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -20,8 +24,9 @@ class GetStartedView extends StatelessWidget {
             alignment: Alignment.center,
             children: <Widget>[
               PageView(
+                 physics: ClampingScrollPhysics(),
                 onPageChanged: model.onChangedFunction,
-                controller: model.pageController,
+                controller: _pageController,
                 children: [
                   _pages('assets/images/onboarding/onboarding1.png'),
                   _pages('assets/images/onboarding/onboarding2.png'),
@@ -135,7 +140,11 @@ class GetStartedView extends StatelessWidget {
                     ),
                     SizedBox(width: 10.h),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+
+                        //TODO: Implement Naviagtion to Login
+                      }
+                    ,
                       child: Text(
                         'Login',
                         style: TextStyle(
