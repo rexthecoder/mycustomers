@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/size_extension.dart';
 
 class ProfilePartialBuildsView extends StatelessWidget {
   const ProfilePartialBuildsView({Key key}) : super(key: key);
@@ -25,19 +25,18 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
   Widget buildViewModelWidget(
       BuildContext context, 
       ProfilePartialBuildViewModel model) {
-        var size = MediaQuery.of(context).size;
     var userName = useTextEditingController();
     var businessName=useTextEditingController();
     var phoneNumber = useTextEditingController();
 
     return Container(
-      height:450.h,
+      height:380.h,
       child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
       Expanded(
           child: Container(
-          height:21,
+          height:21.h,
           decoration: BoxDecoration(
             border:Border.all(
               color: ThemeColors.gray.shade700,
@@ -65,7 +64,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
              GestureDetector(
                onTap:(){},
                child:Padding(
-                 padding:  EdgeInsets.all(8.0),
+                 padding:  EdgeInsets.all(8.h),
                  child: Icon(
                    Icons.border_color,
                    color: ThemeColors.gray.shade700,
@@ -75,7 +74,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
             ],)
         ),
       ),
-      SizedBox(height: 24.0,),
+      SizedBox(height: 24.h,),
 
       Expanded(
           child: Container(
@@ -109,7 +108,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
               GestureDetector(
                 onTap:(){},
                 child:Padding(
-                  padding:  EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(8.h),
                   child: Icon(
                     Icons.border_color,
                     color:ThemeColors.gray.shade700
@@ -119,7 +118,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
             ],)
         ),
       ),
-      SizedBox(height:24.0),
+      SizedBox(height:24.h),
 
        Expanded(
             child: Container(
@@ -133,7 +132,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.h),
                   child: DropdownButton(
                     underline: Container(),
                     value: model.dropDownValue,
@@ -154,7 +153,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
                   ),
                 ),
                 Container(
-                    height: 24.0,
+                    height: 24.h,
                     decoration: BoxDecoration(
                         border: Border(
                             left: BorderSide(
@@ -176,7 +175,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
             )),
        ),
 
-SizedBox(height:24.0),
+ SizedBox(height:24.h),
        Expanded(
          child: Container(
            decoration: BoxDecoration(
@@ -187,15 +186,33 @@ SizedBox(height:24.0),
            ),
            child:Column(
              children: <Widget>[
-               Expanded(
-                   child: ListTile(
-                   onTap: (){},
-                   leading:Icon(Icons.people_outline),
-                   title: Text('Add Assistant'),
-                   trailing: Icon(Icons.add,
-                   semanticLabel: 'Add',),
-                 ),
-               ),
+              Expanded(
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal:10.0),
+                  child: Row(
+                    children: <Widget>[
+                    Icon(Icons.people_outline,
+                    color:ThemeColors.black),
+                    SizedBox(width:16.0),
+                    Text('Add Assistant',
+                    style:TextStyle(
+                      color:ThemeColors.gray.shade800
+                    )),
+                    SizedBox(width: 65.0),
+                    Spacer(),
+                    Icon(Icons.add,
+                    color: BrandColors.secondary,
+                    ),
+                    SizedBox(width:12.0),
+                    
+                    Text('Add',
+                    style: TextStyle(
+                      color:BrandColors.secondary
+                    ),)
+
+                    ],
+                  ),
+                ),)
 
              ],
            ),

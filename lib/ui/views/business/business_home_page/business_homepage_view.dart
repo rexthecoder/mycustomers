@@ -13,7 +13,6 @@ class BusinessHomePageView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
             child: ProfilePageView(),
-            //TODO: Implement Profile Page
       ),
       ),
       viewModelBuilder: () => BusinessHomePageViewModel(),
