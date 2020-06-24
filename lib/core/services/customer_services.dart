@@ -1,17 +1,19 @@
 
-abstract class ICustomerServices{
+import 'package:mycustomers/core/models/customer.dart';
+
+abstract class ICustomerService {
 
   // to add a customer
-  void addCustomer(String name, String phoneNumber) {} 
+  Future<void> addCustomer(String name, String phoneNumber);
 
   // to get customers of a particular owner
-  void getCustomers(String ownerName) {} 
+  Future<List<Customer>> getCustomers(String ownerName);
 
   // to update a customers details
-  void updateCustomerDetails(String name, String phoneNumber) {} 
+  Future<Customer> updateCustomerDetails(String name, String phoneNumber);
 
   // to delete a customer
-  void deleteCustomer(String name, String phoneNumber) {} 
+  Future<void> deleteCustomer(String name, String phoneNumber);
 
 }
 
@@ -20,28 +22,28 @@ abstract class ICustomerServices{
 // then the Read, Update and Delete methods can make 
 // use of that property easily
 
-class CustomerServices implements ICustomerServices {
+class CustomerService implements ICustomerService {
 
   @override
-  void addCustomer(String name, String phoneNumber) async{
+  Future<void> addCustomer(String name, String phoneNumber) async {
     // TODO: implement addCustomerManually
     // awaiting API completion
   }
 
   @override
-  void deleteCustomer(String name, String phoneNumber) {
+  Future<void> deleteCustomer(String name, String phoneNumber) async {
     // TODO: implement deleteCustomer
     // awaiting API completion
   }
 
   @override
-  void getCustomers(String ownerName) {
+  Future<List<Customer>> getCustomers(String ownerName) async {
     // TODO: implement getCustomers
     // awaiting API completion
   }
 
   @override
-  void updateCustomerDetails(String name, String phoneNumber) {
+  Future<Customer> updateCustomerDetails(String name, String phoneNumber) async {
     // TODO: implement updateCustomerDetails
     // awaiting API completion
   }
