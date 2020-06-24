@@ -20,6 +20,7 @@ dependencies:
   path_provider: ^1.6.5
   flutter_full_pdf_viewer: ^1.0.6
   open_file: ^3.0.1
+  intl: ^0.16.1
 
   # State Management
   stacked: ^1.5.7+1
