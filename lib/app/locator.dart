@@ -9,4 +9,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => NavigationService());
   locator.registerSingletonAsync<IStorageUtil>(() => SharedStorageUtil.getInstance());
   locator.registerLazySingleton(() => PageService());
+
+
+  
 }
