@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -79,7 +80,7 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
           // TODO VALIDATE PHONE NUMBER FORM FIELD
-          _DefaultFormField(
+          _DefaultPhoneFormField(
             label: "Phone Number",
             onChange: (value) => model.updateBusinessCard(phoneNumber: value),
           ),
@@ -139,6 +140,81 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
             color: const Color.fromRGBO(25, 25, 25, 0.6),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _DefaultPhoneFormField
+    extends HookViewModelWidget<BusinessCardPageViewModel> {
+  final String label;
+  final onChange;
+  final validate;
+
+  _DefaultPhoneFormField({this.validate, this.onChange, this.label, Key key})
+      : super(key: key, reactive: false);
+
+  @override
+  Widget buildViewModelWidget(
+    BuildContext context,
+    BusinessCardPageViewModel model,
+  ) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10.sp),
+      padding: EdgeInsets.symmetric(horizontal: 10.sp),
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xFFD1D1D1)),
+        color: const Color.fromRGBO(246, 246, 246, 1),
+        borderRadius: BorderRadius.circular(10.sp),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          DropdownButton(
+            underline: Container(),
+            value: model.dropDownValue,
+            items:
+                model.countryCode.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: TextStyle(color: Colors.black),
+                ),
+              );
+            }).toList(),
+            onChanged: (String newValue) {
+              model.updateCountryCode(newValue);
+            },
+            icon: Icon(
+              Icons.arrow_drop_down,
+              color: ThemeColors.black,
+            ),
+          ),
+          Container(
+            height: 24.h,
+            decoration: BoxDecoration(
+              border: Border(
+                left: BorderSide(color: ThemeColors.gray.shade700),
+              ),
+            ),
+          ),
+          Expanded(
+            child: TextField(
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20.sp,
+              ),
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                hintText: '0903 9393 9383',
+                border: OutlineInputBorder(borderSide: BorderSide.none),
+              ),
+              onChanged: onChange,
+            ),
+          )
+        ],
       ),
     );
   }
