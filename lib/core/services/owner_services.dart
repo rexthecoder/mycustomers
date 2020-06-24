@@ -1,3 +1,4 @@
+import 'package:mycustomers/core/models/customer.dart';
 import 'permissions.dart';
 import 'package:contacts_service/contacts_service.dart';
 
@@ -17,7 +18,14 @@ class OwnerServices implements IOwnerServices {
         await _permission.getContactsPermission();
     if (isPermitted) {
       final Iterable<Contact> rawContacts = await ContactsService.getContacts();
-      return rawContacts.toList();    
+      contacts = rawContacts.toList();
+      var newContacts = contacts.map((contact) => Customer.fromJson({
+        'name': contact.givenName,
+        'lastname': contact.familyName,
+        'phone': contact.phones.toList().isEmpty ? '' : contact.phones.toList()[0].value,
+        'email': contact.emails.toList().isEmpty ? '' : contact.emails.toList()[0].value,
+      })).toList(); 
+      return newContacts;
     }
     return contacts;
   }

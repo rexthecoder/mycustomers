@@ -2,16 +2,19 @@
 abstract class ICustomerServices{
 
   // to add a customer
-  void addCustomer(String name, String phoneNumber) {} 
+  void createCustomer(String name, String phoneNumber, String email) {} 
 
   // to get customers of a particular owner
   void getCustomers(String ownerName) {} 
 
+  // to get customers of a particular owner
+  void getCustomerbyId(String custId) {} 
+
   // to update a customers details
-  void updateCustomerDetails(String name, String phoneNumber) {} 
+  void updateCustomerDetails(String name, String phoneNumber, String email) {} 
 
   // to delete a customer
-  void deleteCustomer(String name, String phoneNumber) {} 
+  void deleteCustomer(String customerId) {} 
 
 }
 
@@ -21,29 +24,30 @@ abstract class ICustomerServices{
 // use of that property easily
 
 class CustomerServices implements ICustomerServices {
-
   @override
-  void addCustomer(String name, String phoneNumber) async{
-    // TODO: implement addCustomerManually
-    // awaiting API completion
+  void createCustomer(String name, String phoneNumber, String email) {
+    // TODO: implement createCustomer
   }
 
   @override
-  void deleteCustomer(String name, String phoneNumber) {
+  void deleteCustomer(String customerId) {
     // TODO: implement deleteCustomer
-    // awaiting API completion
+  }
+
+  @override
+  void getCustomerbyId(String customerId) {
+    // TODO: implement getCustomerbyId
   }
 
   @override
   void getCustomers(String ownerName) {
     // TODO: implement getCustomers
-    // awaiting API completion
   }
 
   @override
-  void updateCustomerDetails(String name, String phoneNumber) {
+  void updateCustomerDetails(String name, String phoneNumber, String email) {
     // TODO: implement updateCustomerDetails
-    // awaiting API completion
   }
+
 
 }
