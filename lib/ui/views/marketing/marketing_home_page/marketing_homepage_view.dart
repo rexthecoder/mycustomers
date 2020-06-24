@@ -13,7 +13,6 @@ class MarketingHomePageView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context,
         width: 375, height: height, allowFontScaling: true);
-//    var height = MediaQuery.of(context).size.height;
     return ViewModelBuilder<MarketingHomePageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: Stack(
@@ -48,7 +47,7 @@ class MarketingHomePageView extends StatelessWidget {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Text( 
+                                Text(
                                   'Marketing',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -98,9 +97,9 @@ class MarketingHomePageView extends StatelessWidget {
                                     Text(
                                       'Celebrate the new year with your customers. Send them a message.',
                                       style: TextStyle(
-                                          color: Color(0xffacacac),
-                                          fontSize: 12.sp > 24 ? 24 : 12.sp,
-                                          ),
+                                        color: Color(0xffacacac),
+                                        fontSize: 12.sp > 24 ? 24 : 12.sp,
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 10.h,
@@ -116,9 +115,9 @@ class MarketingHomePageView extends StatelessWidget {
                                           Text(
                                             'Send a Happy new Year Message',
                                             style: TextStyle(
-                                                color: Color(0xff333cc1),
-                                                fontSize: 12.sp > 24 ? 24 : 12.sp,
-                                                ),
+                                              color: Color(0xff333cc1),
+                                              fontSize: 12.sp > 24 ? 24 : 12.sp,
+                                            ),
                                           ),
                                           SizedBox(
                                             width: 2,
@@ -176,7 +175,7 @@ class MarketingHomePageView extends StatelessWidget {
                             itemBuilder: (context, index) {
                               var person = model.persons[index];
                               return InkWell(
-                                onTap: (){
+                                onTap: () {
                                   // TODO: implement message route
                                 },
                                 child: ListTile(
