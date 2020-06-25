@@ -136,7 +136,7 @@ class CreditorsView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: InkWell(
-                onTap: (){},
+                onTap: ()=> Navigator.pushNamed(context, '/addCustomer'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
