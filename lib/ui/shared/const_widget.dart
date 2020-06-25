@@ -26,7 +26,7 @@ Widget btnHome(String btnText, context) {
   double screenHeight = MediaQuery.of(context).size.height / 100;
   double screenWidth = MediaQuery.of(context).size.width / 100;
   return Container(
-    height: screenHeight * 8,
+    height: screenHeight * 7,
     width: screenWidth * 80,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
