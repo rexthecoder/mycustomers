@@ -85,12 +85,7 @@ class Router {
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => SignInView(),
       //     settings: settings,
-      //   );
-      // case Routes.nameViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => NameView(),
-      //     settings: settings,
-      //   );
+      //   )
       
 
       // case Routes.homeViewRoute:
