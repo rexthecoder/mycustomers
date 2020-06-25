@@ -25,6 +25,7 @@ abstract class Routes {
   static const addCustomerManually = '/addCusMan';
   static const detailsViewRoute = '/details';
   static const addCustomer = '/addCustomer';
+  static const supportViewRoute = '/support';
 }
 
 class Router {
@@ -86,7 +87,17 @@ class Router {
       //     builder: (context) => SignInView(),
       //     settings: settings,
       //   )
-      
+      //   );
+      // case Routes.supportViewRoute:
+      //   return CupertinoPageRoute<dynamic>(
+      //     builder: (context) => SupportPageView(),
+      //     settings: settings,
+      //   );
+      case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
+          settings: settings,
+        );
 
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
