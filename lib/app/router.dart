@@ -10,7 +10,7 @@ import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 abstract class Routes {
   static const startupViewRoute = '/';
-  static const getstartedViewRoute ='/getstarted';
+  static const getstartedViewRoute = '/getstarted';
   static const onboardingViewRoute = '/onboarding';
   static const languageViewRoute = '/language';
   static const homeViewRoute = '/home';
@@ -43,7 +43,7 @@ class Router {
           builder: (context) => OnboardingView(),
           settings: settings,
         );
-          case Routes.languageViewRoute:
+      case Routes.languageViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => LanguageView(),
           settings: settings,
@@ -57,18 +57,18 @@ class Router {
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => AddCustomerView(),
       //   );
-      case Routes.signupViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => SignUpView(),
-          settings: settings,
-        );
+      // case Routes.signupViewRoute:
+      //   return CupertinoPageRoute<dynamic>(
+      //     builder: (context) => SignUpView(),
+      //     settings: settings,
+      //   );
 
-     case Routes.signinViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => SignInView(),
-          settings: settings,
-        );
-            // case Routes.nameViewRoute:
+      // case Routes.signinViewRoute:
+      //   return CupertinoPageRoute<dynamic>(
+      //     builder: (context) => SignInView(),
+      //     settings: settings,
+      //   );
+      // case Routes.nameViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => NameView(),
       //     settings: settings,

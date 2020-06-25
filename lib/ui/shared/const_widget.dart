@@ -25,7 +25,6 @@ Widget btnDesign(String btnText, Color textColor, Color bgColor) {
 Widget btnHome(String btnText, context) {
   double screenHeight = MediaQuery.of(context).size.height / 100;
   double screenWidth = MediaQuery.of(context).size.width / 100;
-
   return Container(
     height: screenHeight * 8,
     width: screenWidth * 80,
@@ -46,18 +45,46 @@ Widget btnHome(String btnText, context) {
   );
 }
 
+Widget btnAuth(String btnText, context) {
+  double screenHeight = MediaQuery.of(context).size.height / 100;
+  double screenWidth = MediaQuery.of(context).size.width / 100;
+  return Container(
+    height: screenHeight * 6,
+    width: screenWidth * 90,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          btnText,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: screenWidth * 4,
+          ),
+        ),
+        SizedBox(width: screenWidth * 5),
+        Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.white,
+          size: screenHeight * 2,
+        ),
+      ],
+    ),
+  );
+}
+
 class HomeBackgrouWidget extends StatelessWidget {
   const HomeBackgrouWidget({
     Key key,
+    
     @required this.height,
-    @required this.config,
     @required this.width,
     @required this.widget,
     @required this.context,
   }) : super(key: key);
 
   final double height;
-  final SizeConfig config;
   final double width;
   final BuildContext context;
   final Widget widget;
@@ -77,7 +104,7 @@ class HomeBackgrouWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: config.yMargin(context, 20)),
+            margin: EdgeInsets.only(top: SizeConfig.yMargin(context, 20)),
             height: height,
             width: width,
             decoration: BoxDecoration(
@@ -89,28 +116,7 @@ class HomeBackgrouWidget extends StatelessWidget {
             ),
             child: Column(
               children: <Widget>[
-                SizedBox(height: config.yMargin(context, 7)),
-                Text(
-                  'LANGUAGE',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: config.yMargin(context, 4),
-                  ),
-                ),
-                SizedBox(height: config.yMargin(context, 4)),
-                Text(
-                  'Select your language',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: config.yMargin(context, 3),
-                  ),
-                ),
-                SizedBox(height: config.yMargin(context, 0.2)),
-                Container(
-                    height: config.yMargin(context, 40),
-                    width: config.xMargin(context, 90),
-                    child: widget),
+               widget
               ],
             ),
           ),

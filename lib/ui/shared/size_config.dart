@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 ///Inspired By Abigail Nonyelim <Abbie>
 class SizeConfig{
 
-  double yMargin(BuildContext context, double height){
+  static double yMargin(BuildContext context, double height){
     double screenHeight =  MediaQuery.of(context).size.height/ 100;
     return height * screenHeight;
   }
-  double xMargin(BuildContext context, double width){
+  static double xMargin(BuildContext context, double width){
     double screenWidth =  MediaQuery.of(context).size.width/ 100;
     return width * screenWidth;
   }
 
-  double textSize(BuildContext context, double textSize){
+  static double textSize(BuildContext context, double textSize){
     double screenWidth =  MediaQuery.of(context).size.width/ 100;
     return textSize * screenWidth;
   }
