@@ -2,79 +2,179 @@
 // import 'package:flutter/services.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:mycustomers/core/mixings/validators.dart';
+// import 'package:mycustomers/ui/shared/const_widget.dart';
+// import 'package:mycustomers/ui/shared/size_config.dart';
 // import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
 // import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 // import 'package:pin_code_fields/pin_code_fields.dart';
 // import 'package:stacked/stacked.dart';
 // import 'package:flutter_screenutil/size_extension.dart';
 
-// import 'authentication_viewmodel.dart';
+// import 'signup_viewmodel.dart';
 
-// class AuthenticationView extends StatelessWidget with Validators { 
-//   TextEditingController inputNumberController = TextEditingController();
-//   static final _key = new GlobalKey<ScaffoldState>();
-
-//   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+// class SignUpView extends StatelessWidget with Validators {
+//   TextEditingController _inputNumberController;
+//   final _formPageKey = GlobalKey<FormState>();
+//   final _pageKey = GlobalKey<ScaffoldState>();
 
 //   final _k1 = new GlobalKey();
 
 //   @override
 //   Widget build(BuildContext context) {
-//     var width = MediaQuery.of(context).size.width;
-//     var height = MediaQuery.of(context).size.height;
+//     double width = MediaQuery.of(context).size.width;
+//     double height = MediaQuery.of(context).size.height;
+
 //     ScreenUtil.init(context, width: width, height: height);
-//     return ViewModelBuilder<AuthenticationViewModel>.reactive(
-//         builder: (context, model, child) => Scaffold(
-//               key: _key,
-//               body: SingleChildScrollView(
-//                 // padding: const EdgeInsets.symmetric(horizontal: 20.0),
-//                 child: Container(
-//                   height: height / 2,
-//                   child: Stack(
+//     return ViewModelBuilder<SignUpViewModel>.reactive(
+//       builder: (context, model, child) => Scaffold(
+//         key: _pageKey,
+//         body: HomeBackgrouWidget(
+//           context: context,
+//           height: height,
+//           width: width,
+//           widget: Form(
+//             key: _formPageKey,
+//             child: Column(
+//               children: <Widget>[
+//                  SizedBox(height: SizeConfig.yMargin(context, 7)),
+//                 Text(
+//                   'SIGN UP',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w900,
+//                     fontSize: SizeConfig.yMargin(context, 4),
+//                   ),
+//                 ),
+//                 SizedBox(height: SizeConfig.xMargin(context, 4)),
+//                 Text(
+//                   'Please Enter your Phone number',
+//                   textAlign: TextAlign.center,
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.bold,
+//                     fontSize: SizeConfig.yMargin(context, 2),
+//                   ),
+//                 ),
+//                 // SizedBox(height: SizeConfig.yMargin(context, 0.2)),
+//                 // Container(
+//                 //     height: SizeConfig.yMargin(context, 60),
+//                 //     width: SizeConfig.xMargin(context, 90),
+               
+//                 // ),
+//                 SizedBox(height: SizeConfig.yMargin(context, 5)),
+//                 Padding(
+//                   padding: EdgeInsets.all(
+//                     SizeConfig.yMargin(context, 0.8),
+//                   ),
+//                   child: 
+//                 Row(
+//                     // crossAxisAlignment: CrossAxisAlignment.center,
+//                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                     children: <Widget>[
-//                       Container(
-//                         decoration: BoxDecoration(
-//                           image: DecorationImage(
-//                             fit: BoxFit.cover,
-//                             image: AssetImage(
-//                               'assets/images/auth_background.png',
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                       Center(
-//                         child: Padding(
-//                           padding: const EdgeInsets.symmetric(horizontal: 50),
-//                           child: Container(
-//                             height: 100.h,
-//                             decoration: BoxDecoration(
-//                               image: DecorationImage(
-//                                 fit: BoxFit.contain,
-//                                 image: AssetImage(
-//                                   'assets/images/logo.png',
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
+//                       // Expanded(
+//                       //   flex: 1,
+//                       //   child: DropdownButton<String>(
+//                       //     value: model.dropdownValue,
+//                       //     icon: Icon(Icons.keyboard_arrow_down),
+//                       //     iconSize: 25.w,
+//                       //     elevation: 16,
+//                       //     onChanged: (String data) {
+//                       //       model.setDropdownValue(data);
+//                       //     },
+//                       //     items: model.dropdownItems
+//                       //         .map<DropdownMenuItem<String>>((String value) {
+//                       //       return DropdownMenuItem<String>(
+//                       //         value: value,
+//                       //         child: Text(value),
+//                       //       );
+//                       //     }).toList(),
+//                       //   ),
+//                       // ),
+//                       // Container(
+//                       //   width: SizeConfig.xMargin(context, 10),
+//                       //   color: Colors.black,
+//                       // ),
+//                       Expanded(
+//                         child: TextFormField(
+//                           key: Key('num'),
+//                           controller: _inputNumberController,
+//                           validator: (value) => (value.isEmpty)
+//                               ? "Please Enter Phone Number"
+//                               : null,
+//                           style:
+//                               TextStyle(fontFamily: 'Roboto', fontSize: 20.0),
+//                           decoration:
+//                               InputDecoration(border: OutlineInputBorder()),
 //                         ),
 //                       ),
 //                     ],
 //                   ),
 //                 ),
-//               ),
-// //        bottomSheet: inputNameBottomWidget(height, model, context),
-//               bottomSheet: Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: 20.w),
-//                 child: inputNumberBottomWidget(height, model, context),
-//               ),
-// //        bottomSheet: modalBottomWidget(height),
+//                 SizedBox(height: SizeConfig.yMargin(context, 3)),
+//                 Text(
+//                   'or Continue with your social accounts',
+//                   textAlign: TextAlign.center,
+//                   style: TextStyle(
+//                     color: Color(0xFF02034A),
+//                     fontSize: 16.sp,
+//                   ),
+//                 ),
+//                 SizedBox(height: SizeConfig.yMargin(context, 3)),
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: <Widget>[
+//                     SocialIconButton(
+//                       onTap: () {},
+//                       socialIconUrl: 'assets/icons/google_icon.png',
+//                     ),
+//                     SocialIconButton(
+//                       onTap: () {},
+//                       socialIconUrl: 'assets/icons/facebook_icon.png',
+//                     ),
+//                     SocialIconButton(
+//                       onTap: () {},
+//                       socialIconUrl: 'assets/icons/apple_icon.png',
+//                     ),
+//                   ],
+//                 ),
+//                 SizedBox(height: SizeConfig.yMargin(context, 2)),
+//                 btnAuth('Next', context),
+//                 SizedBox(height: SizeConfig.yMargin(context, 2)),
+//                 Row(
+//                   children: <Widget>[
+//                     Text(
+//                       'Already have an account?',
+//                       style: TextStyle(
+//                         color: Color(0xFF2F80ED),
+//                         fontSize: SizeConfig.yMargin(context, 2),
+//                       ),
+//                     ),
+//                     SizedBox(width: SizeConfig.xMargin(context, 1)),
+//                     InkWell(
+//                       onTap: () {
+//                         //TODO: Implement Navigation to Login
+//                       },
+//                       child: Text(
+//                         'Login',
+//                         style: TextStyle(
+//                           color: Color(0xFF2F80ED),
+//                           fontSize: SizeConfig.yMargin(context, 2),
+//                           fontWeight: FontWeight.w900,
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ],
 //             ),
-//         viewModelBuilder: () => AuthenticationViewModel(),
-//         onModelReady: (model) => model.isBusy);
+//           ),
+//         ),
+//       ),
+      
+//       viewModelBuilder: () => SignUpViewModel(),
+//     );
 //   }
 
 //   Widget inputNumberBottomWidget(
-//       double height, AuthenticationViewModel model, BuildContext context) {
+//       double height, SignUpViewModel model, BuildContext context) {
 //     return Container(
 //       height: height / 2,
 //       color: Colors.white,
@@ -130,7 +230,7 @@
 //                     child: TextField(
 //                       key: _k1,
 //                       keyboardType: TextInputType.phone,
-//                       controller: inputNumberController,
+//                       controller: _inputNumberController,
 //                       decoration: InputDecoration(
 //                           border: InputBorder.none, hintText: 'Phone Number'),
 //                     ),
@@ -216,7 +316,7 @@
 //   }
 
 //   Widget modalBottomWidget(
-//       double height, AuthenticationViewModel model, BuildContext context) {
+//       double height, SignUpViewModel model, BuildContext context) {
 //     return Container(
 //       height: height / 2.0,
 //       color: Colors.black,
