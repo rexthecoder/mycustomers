@@ -189,28 +189,33 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
               Expanded(
                 child: Padding(
                   padding:  EdgeInsets.symmetric(horizontal:10.0),
-                  child: Row(
-                    children: <Widget>[
-                    Icon(Icons.people_outline,
-                    color:ThemeColors.black),
-                    SizedBox(width:16.0),
-                    Text('Add Assistant',
-                    style:TextStyle(
-                      color:ThemeColors.gray.shade800
-                    )),
-                    SizedBox(width: 65.0),
-                    Spacer(),
-                    Icon(Icons.add,
-                    color: BrandColors.secondary,
-                    ),
-                    SizedBox(width:12.0),
-                    
-                    Text('Add',
-                    style: TextStyle(
-                      color:BrandColors.secondary
-                    ),)
+                  child: GestureDetector(
+                    onTap: (){
+                       model.navigateToAddAssistantPage();
+                    },
+                        child: Row(
+                      children: <Widget>[
+                      Icon(Icons.people_outline,
+                      color:ThemeColors.black),
+                      SizedBox(width:16.0),
+                      Text('Add Assistant',
+                      style:TextStyle(
+                        color:ThemeColors.gray.shade800
+                      )),
+                      SizedBox(width: 65.0),
+                      Spacer(),
+                      Icon(Icons.add,
+                      color: BrandColors.secondary,
+                      ),
+                      SizedBox(width:12.0),
+                      
+                      Text('Add',
+                      style: TextStyle(
+                        color:BrandColors.secondary
+                      ),)
 
-                    ],
+                      ],
+                    ),
                   ),
                 ),)
 

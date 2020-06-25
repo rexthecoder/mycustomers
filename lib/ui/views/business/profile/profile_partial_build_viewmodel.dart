@@ -1,7 +1,12 @@
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 
 class ProfilePartialBuildViewModel extends BaseViewModel{
+  final NavigationService _navigationService = locator<NavigationService>(); 
+
   String _userName;
   String _businessName;
   String _userPhoneNumber;
@@ -39,4 +44,8 @@ void updateCountryCode(String value){
     notifyListeners();
   }
 
+
+  Future<void> navigateToAddAssistantPage() async {
+ await _navigationService.clearStackAndShow(Routes.addAssistantRoute);
+  }
 }

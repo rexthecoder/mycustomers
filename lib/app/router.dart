@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/business/addAssistant/addAssitant_view.dart';
+import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
@@ -15,6 +17,9 @@ abstract class Routes {
   static const addcustomerRoute = '/addcustomer';
   static const addCustomerManually = '/addCusMan';
   static const detailsViewRoute = '/details';
+  static const supportViewRoute = '/support';
+  static const businessCardRoute = '/businessCard';
+  static const addAssistantRoute='/addAssistant';
 }
 
 class Router {
@@ -59,11 +64,22 @@ class Router {
       //     builder: (context) => BusinessView(),
       //     settings: settings,
       //   );
+      // case Routes.supportViewRoute:
+      //   return CupertinoPageRoute<dynamic>(
+      //     builder: (context) => SupportPageView(),
+      //     settings: settings,
+      //   );
       case Routes.mainViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
           settings: settings,
         );
+      case Routes.addAssistantRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context)=>AddAssistantView(),
+          settings:settings
+        );
+
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => HomeView(),
@@ -79,6 +95,11 @@ class Router {
       //     builder: (context) => AddCustomerManuallyView(),
       //     settings: settings,
       //   );
+//     case Routes.businessCardRoute:
+//       return CupertinoPageRoute<dynamic>(
+//         builder: (context) => BusinessCardPageView(),
+//         settings: settings,
+//       );
       default:
         return unknownRoutePage(settings.name);
     }

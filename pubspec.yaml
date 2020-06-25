@@ -54,7 +54,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
+  build_runner: ^1.10.0
+  freezed: ^0.10.9
   flutter_launcher_icons: ^0.7.5
 
   #Run this script to generate the app icon: "flutter pub pub run flutter_launcher_icons:main"

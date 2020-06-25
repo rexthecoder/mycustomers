@@ -22,6 +22,7 @@ class ProfilePageView extends StatelessWidget {
           ),
           iconTheme: IconThemeData(
             color: BrandColors.secondary),
+         
         ),
       
         
@@ -66,7 +67,9 @@ class ProfilePageView extends StatelessWidget {
                           
                         ),
                         child:FlatButton(
-                          onPressed: null, 
+                          onPressed:(){
+                            //TODO Implement the action to be completed once the user clicks the save button
+                          } ,
                           child: Text(
                             model.btnText,
                             textAlign: TextAlign.center,
