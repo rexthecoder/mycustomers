@@ -6,7 +6,6 @@ import 'package:stacked/stacked.dart';
 import 'onboarding_viewmodel.dart';
 
 class OnboardingView extends StatelessWidget {
-  SizeConfig config = SizeConfig();
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +35,19 @@ class OnboardingView extends StatelessWidget {
                 ],
               ),
               Positioned(
-                top: config.yMargin(context, 7),
-                right: config.yMargin(context, 6),
+                top: SizeConfig.yMargin(context, 7),
+                right: SizeConfig.yMargin(context, 6),
                 child: Text(
                   'Skip',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: config.xMargin(context, 5),
+                    fontSize: SizeConfig.xMargin(context, 5),
                   ),
                 ),
               ),
               Positioned(
-                bottom: config.yMargin(context, 57),
-                left: config.xMargin(context, 45),
+                bottom: SizeConfig.yMargin(context, 57),
+                left: SizeConfig.xMargin(context, 45),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +75,7 @@ class OnboardingView extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: config.yMargin(context, 50)),
+                margin: EdgeInsets.only(top: SizeConfig.yMargin(context, 50)),
                 height: height * 0.8,
                 width: width,
                 decoration: BoxDecoration(
@@ -88,24 +87,24 @@ class OnboardingView extends StatelessWidget {
                 ),
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: config.yMargin(context, 7)),
+                    SizedBox(height: SizeConfig.yMargin(context, 7)),
                     Text(
                       'Invoice Reminders',
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
-                        fontSize: config.yMargin(context, 5),
+                        fontSize: SizeConfig.yMargin(context, 5),
                       ),
                     ),
-                    SizedBox(height: config.yMargin(context, 3)),
+                    SizedBox(height: SizeConfig.yMargin(context, 3)),
                     Text(
                       'Send overdue invoice reminders to \n customers',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: config.yMargin(context, 2.3),
+                        fontSize: SizeConfig.yMargin(context, 2.3),
                       ),
                     ),
-                    SizedBox(height: config.yMargin(context, 16)),
+                    SizedBox(height: SizeConfig.yMargin(context, 16)),
                     InkWell(
                         onTap: () {
                           //TODO: Next Page View

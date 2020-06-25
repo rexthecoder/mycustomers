@@ -6,12 +6,10 @@ import 'package:stacked/stacked.dart';
 import 'getstarted_viewmodel.dart';
 
 class GetStartedView extends StatelessWidget {
-  SizeConfig config = SizeConfig();
   PageController _pageController;
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return ViewModelBuilder<GetStartedViewModel>.reactive(
@@ -32,17 +30,17 @@ class GetStartedView extends StatelessWidget {
                 ],
               ),
               Positioned(
-                bottom: config.yMargin(context, 55),
+                bottom: SizeConfig.yMargin(context, 55),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: config.yMargin(context, 5)),
+                      horizontal: SizeConfig.yMargin(context, 5)),
                   child: Container(
-                    height: config.yMargin(context, 10),
+                    height: SizeConfig.yMargin(context, 10),
                     child: Text(
                       'welcome',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: config.yMargin(context, 6),
+                        fontSize: SizeConfig.yMargin(context, 6),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -50,7 +48,7 @@ class GetStartedView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: config.yMargin(context, 35),
+                bottom: SizeConfig.yMargin(context, 35),
                 // left: 150.h,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -79,9 +77,9 @@ class GetStartedView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: config.yMargin(context, 22),
+                bottom: SizeConfig.yMargin(context, 22),
                 child: Image(
-                  height: config.yMargin(context, 10),
+                  height: SizeConfig.yMargin(context, 10),
                   fit: BoxFit.contain,
                   image: AssetImage(
                     'assets/images/onboarding/whitelogo1.png',
@@ -89,9 +87,9 @@ class GetStartedView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: config.yMargin(context, 15),
+                bottom: SizeConfig.yMargin(context, 15),
                 child: Image(
-                  height: config.yMargin(context, 5),
+                  height: SizeConfig.yMargin(context, 5),
                   fit: BoxFit.contain,
                   image: AssetImage(
                     'assets/images/onboarding/whitelogo2.png',
@@ -99,7 +97,7 @@ class GetStartedView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: config.yMargin(context, 5),
+                bottom: SizeConfig.yMargin(context, 5),
                 child: InkWell(
                     onTap: () {
                       model.navigateToNextScreen();
@@ -107,7 +105,7 @@ class GetStartedView extends StatelessWidget {
                     child: btnHome('Get Started', context)),
               ),
               Positioned(
-                bottom: config.yMargin(context, 1),
+                bottom: SizeConfig.yMargin(context, 1),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -115,20 +113,20 @@ class GetStartedView extends StatelessWidget {
                       'Already have an account?',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: config.yMargin(context, 2),
+                        fontSize: SizeConfig.yMargin(context, 2),
                       ),
                     ),
-                    SizedBox(width: config.xMargin(context, 1)),
+                    SizedBox(width: SizeConfig.xMargin(context, 1)),
                     InkWell(
                       onTap: () {
-                        print('tap');                     
-                           //TODO: Implement Navigation to Login
+                        print('tap');
+                        //TODO: Implement Navigation to Login
                       },
                       child: Text(
                         'Login',
                         style: TextStyle(
                           color: Colors.yellowAccent,
-                          fontSize: config.yMargin(context, 2),
+                          fontSize: SizeConfig.yMargin(context, 2),
                           fontWeight: FontWeight.w900,
                         ),
                       ),
