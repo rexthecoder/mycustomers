@@ -14,15 +14,16 @@ class AddCustomerMessageViewModel extends FutureViewModel {
   List<Customer> get selectedCustomers => _selectedCustomers;
 
   String _searchTerm = '';
+  Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
 
   List<Customer> _allCustomers = [];
   List<Customer> get allCustomers => _allCustomers.where(
         (Customer customer) =>
-            customer.name.contains(_searchTerm) ||
-            customer.lastName.contains(_searchTerm) ||
-            customer.phone.contains(_searchTerm) ||
-            customer.email.contains(_searchTerm),
-      );
+            customer.name.contains(searchPattern) ||
+            customer.lastName.contains(searchPattern) ||
+            customer.phone.contains(searchPattern) ||
+            customer.email.contains(searchPattern),
+      ).toList();
 
 
   /// Data checking section
@@ -31,6 +32,7 @@ class AddCustomerMessageViewModel extends FutureViewModel {
   bool get hasSelected => _selectedCustomers.isNotEmpty;
   int get numberOfSelected => _selectedCustomers.length;
   bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
+  bool get allSelected => _allCustomers.length == _selectedCustomers.length;
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) {
@@ -49,7 +51,8 @@ class AddCustomerMessageViewModel extends FutureViewModel {
   }
 
   void selectAllCustomers() {
-    _selectedCustomers = _allCustomers;
+    _selectedCustomers.clear();
+    _selectedCustomers.addAll(_allCustomers);
     notifyListeners();
   }
 
@@ -71,7 +74,7 @@ class AddCustomerMessageViewModel extends FutureViewModel {
 
   @override
   Future futureToRun() async {
-    _allCustomers = await _customerService.getCustomers('Olumide');
+    _allCustomers = await _customerService.getCustomers(1);
   }
 
 }
