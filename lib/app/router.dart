@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
@@ -15,6 +16,7 @@ abstract class Routes {
   static const addcustomerRoute = '/addcustomer';
   static const addCustomerManually = '/addCusMan';
   static const detailsViewRoute = '/details';
+  static const addCustomer = '/addCustomer';
 }
 
 class Router {
@@ -23,6 +25,17 @@ class Router {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => StartupView(),
+          settings: settings,
+        );
+
+      case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
+          settings: settings,
+        );
+      case Routes.addCustomer:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerView(),
           settings: settings,
         );
       // case Routes.onboardingViewRoute:
@@ -59,11 +72,7 @@ class Router {
       //     builder: (context) => BusinessView(),
       //     settings: settings,
       //   );
-      case Routes.mainViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => MainView(),
-          settings: settings,
-        );
+
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => HomeView(),
