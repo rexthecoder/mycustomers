@@ -15,7 +15,7 @@ abstract class ICustomerService {
   Future<List<Customer>> getCustomers(int ownerId);
 
   // to get customers of a particular owner
-  void getCustomerbyId(String custId) {} 
+  void getCustomerbyId(int custId);
 
   // to update a customers details
   Future<Customer> updateCustomerDetails(
@@ -52,7 +52,7 @@ class CustomerService implements ICustomerService {
   }
 
   @override
-  void getCustomerbyId(String customerId) {
+  void getCustomerbyId(int customerId) {
     // TODO: implement getCustomerbyId
   }
 
@@ -146,5 +146,14 @@ class MockCustomerService implements ICustomerService {
 
     // return the new customer
     return customerReplacement;
+  }
+
+  @override
+  Future<Customer> getCustomerbyId(int custId) async {
+    // Simulate network delay
+    await Future.delayed(Duration(milliseconds: 400));
+
+    // Return the customers
+    return _customers.firstWhere((element) => element.id == custId);
   }
 }
