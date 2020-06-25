@@ -48,7 +48,8 @@ class LanguageView extends StatelessWidget {
                 padding: EdgeInsets.all(SizeConfig.yMargin(context, 1)),
                 child: InkWell(
                   onTap: () {
-                    model.setLanguage(index);
+                    //TODO: Uncomment
+                   // model.setLanguage(index);
                   },
                   child: Container(
                     height: SizeConfig.yMargin(context, 10),
