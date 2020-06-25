@@ -14,6 +14,9 @@ abstract class ICustomerService {
   // to get customers of a particular owner
   Future<List<Customer>> getCustomers(int ownerId);
 
+  // to get customers of a particular owner
+  void getCustomerbyId(String custId) {} 
+
   // to update a customers details
   Future<Customer> updateCustomerDetails(
     int customerId, {
@@ -46,13 +49,16 @@ class CustomerService implements ICustomerService {
   @override
   Future<void> deleteCustomer(int customerId) async {
     // TODO: implement deleteCustomer
-    // awaiting API completion
+  }
+
+  @override
+  void getCustomerbyId(String customerId) {
+    // TODO: implement getCustomerbyId
   }
 
   @override
   Future<List<Customer>> getCustomers(int ownerId) async {
     // TODO: implement getCustomers
-    // awaiting API completion
   }
 
   @override
@@ -64,7 +70,6 @@ class CustomerService implements ICustomerService {
     String lastName,
   }) async {
     // TODO: implement updateCustomerDetails
-    // awaiting API completion
   }
 }
 
