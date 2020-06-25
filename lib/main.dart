@@ -1,4 +1,4 @@
-import 'package:device_preview/device_preview.dart';  
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class App extends StatelessWidget {
   
   Widget build(BuildContext context) {
 
-    double width = MediaQuery.of(context).size.width;
+   double width = MediaQuery.of(context).size.width;
    double height = MediaQuery.of(context).size.height;
 
      /* 

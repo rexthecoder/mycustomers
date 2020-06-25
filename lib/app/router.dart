@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:mycustomers/ui/views/home/authentication/sigin/signin_view.dart';
 import 'package:mycustomers/ui/views/home/authentication/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
+=======
+import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
+>>>>>>> 88bc1f920cd74e874610c3593f2ca247b969feb0
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
@@ -23,6 +27,7 @@ abstract class Routes {
   static const addcustomerRoute = '/addcustomer';
   static const addCustomerManually = '/addCusMan';
   static const detailsViewRoute = '/details';
+  static const addCustomer = '/addCustomer';
 }
 
 class Router {
@@ -48,6 +53,22 @@ class Router {
           builder: (context) => LanguageView(),
           settings: settings,
         );
+
+      case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
+          settings: settings,
+        );
+      case Routes.addCustomer:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerView(),
+          settings: settings,
+        );
+      // case Routes.onboardingViewRoute:
+      //   return CupertinoPageRoute<dynamic>(
+      //     builder: (context) => OnboardingView(),
+      //     settings: settings,
+      //   );
       // case Routes.languageViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => LanguageView(),
@@ -78,11 +99,7 @@ class Router {
       //     builder: (context) => BusinessView(),
       //     settings: settings,
       //   );
-      case Routes.mainViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => MainView(),
-          settings: settings,
-        );
+
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => HomeView(),
