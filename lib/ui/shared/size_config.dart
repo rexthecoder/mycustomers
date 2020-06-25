@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-///A Media Query custom class for scaling text sizes, margins and everything that needs to be responsive across different screens
+///A Media Query Custom Class for scaling text sizes, margins and everything that needs to be responsive across different screens
 ///Inspired By Abigail Nonyelim <Abbie>
 class SizeConfig{
 
