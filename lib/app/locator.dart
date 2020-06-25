@@ -13,4 +13,5 @@ void setupLocator() {
   locator.registerSingletonAsync<IStorageUtil>(() => SharedStorageUtil.getInstance());
   locator.registerLazySingleton(() => PageService());
   locator.registerLazySingleton<ICustomerService>(() => USE_MOCK_CUSTOMER ? MockCustomerService() : CustomerService());
+
 }
