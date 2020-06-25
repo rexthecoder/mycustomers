@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:mycustomers/ui/views/home/creditor_screen/creditor_viewmodel.dart';
 import 'package:stacked/stacked.dart';
+
+import 'add_credit_viewmodel.dart';
 
 class CreditorView extends StatelessWidget {
   
@@ -13,7 +14,7 @@ class CreditorView extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
-    return ViewModelBuilder<CreditorViewModel>.reactive(
+    return ViewModelBuilder<AddCreditViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,
@@ -250,7 +251,7 @@ class CreditorView extends StatelessWidget {
           ),
         )
       ),
-      viewModelBuilder: () => CreditorViewModel()
+      viewModelBuilder: () => AddCreditViewModel()
     );
   }
 }
