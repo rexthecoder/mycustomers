@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 
 import 'package:stacked/stacked.dart';
 import 'getstarted_viewmodel.dart';
-import 'package:flutter_screenutil/size_extension.dart';
 
 class GetStartedView extends StatelessWidget {
-  
-
-PageController _pageController;
+  SizeConfig config = SizeConfig();
+  PageController _pageController;
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    ScreenUtil.init(context, width: width, height: height);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     return ViewModelBuilder<GetStartedViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
@@ -24,7 +22,7 @@ PageController _pageController;
             alignment: Alignment.center,
             children: <Widget>[
               PageView(
-                 physics: ClampingScrollPhysics(),
+                physics: ClampingScrollPhysics(),
                 onPageChanged: model.onChangedFunction,
                 controller: _pageController,
                 children: [
@@ -34,16 +32,17 @@ PageController _pageController;
                 ],
               ),
               Positioned(
-                bottom: 350.h,
+                bottom: config.yMargin(context, 55),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: config.yMargin(context, 5)),
                   child: Container(
-                    height: 100.h,
+                    height: config.yMargin(context, 10),
                     child: Text(
                       'welcome',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 50.sp,
+                        fontSize: config.yMargin(context, 6),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -51,7 +50,7 @@ PageController _pageController;
                 ),
               ),
               Positioned(
-                bottom: 270,
+                bottom: config.yMargin(context, 35),
                 // left: 150.h,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -80,9 +79,9 @@ PageController _pageController;
                 ),
               ),
               Positioned(
-                bottom: 180.h,
+                bottom: config.yMargin(context, 22),
                 child: Image(
-                  height: 50.h,
+                  height: config.yMargin(context, 10),
                   fit: BoxFit.contain,
                   image: AssetImage(
                     'assets/images/onboarding/whitelogo1.png',
@@ -90,9 +89,9 @@ PageController _pageController;
                 ),
               ),
               Positioned(
-                bottom: 140.h,
+                bottom: config.yMargin(context, 15),
                 child: Image(
-                  height: 30.h,
+                  height: config.yMargin(context, 5),
                   fit: BoxFit.contain,
                   image: AssetImage(
                     'assets/images/onboarding/whitelogo2.png',
@@ -100,34 +99,15 @@ PageController _pageController;
                 ),
               ),
               Positioned(
-                bottom: 50.h,
+                bottom: config.yMargin(context, 5),
                 child: InkWell(
-                  onTap: () {
-                    model.navigateToNextScreen();
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: 300.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFF333CC1)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Get Started',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                    onTap: () {
+                      model.navigateToNextScreen();
+                    },
+                    child: btnHome('Get Started', context)),
               ),
               Positioned(
-                bottom: 10.h,
+                bottom: config.yMargin(context, 1),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -135,21 +115,20 @@ PageController _pageController;
                       'Already have an account?',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.sp,
+                        fontSize: config.yMargin(context, 2),
                       ),
                     ),
-                    SizedBox(width: 10.h),
+                    SizedBox(width: config.xMargin(context, 1)),
                     InkWell(
                       onTap: () {
-
-                        //TODO: Implement Naviagtion to Login
-                      }
-                    ,
+                        print('tap');                     
+                           //TODO: Implement Navigation to Login
+                      },
                       child: Text(
                         'Login',
                         style: TextStyle(
                           color: Colors.yellowAccent,
-                          fontSize: 18.sp,
+                          fontSize: config.yMargin(context, 2),
                           fontWeight: FontWeight.w900,
                         ),
                       ),
