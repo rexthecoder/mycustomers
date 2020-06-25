@@ -8,7 +8,6 @@ import 'package:stacked/stacked.dart';
 class TransactionDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = 'All';
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);

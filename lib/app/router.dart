@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
@@ -22,7 +23,7 @@ class Router {
     switch (settings.name) {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
+          builder: (context) => MainTransaction(),
           settings: settings,
         );
       // case Routes.onboardingViewRoute:
