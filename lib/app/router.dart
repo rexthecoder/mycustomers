@@ -1,14 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:mycustomers/ui/views/home/authentication/sigin/signin_view.dart';
-import 'package:mycustomers/ui/views/home/authentication/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
-=======
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
->>>>>>> 88bc1f920cd74e874610c3593f2ca247b969feb0
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
