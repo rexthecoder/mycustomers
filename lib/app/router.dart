@@ -4,6 +4,8 @@ import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
+import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
+import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
@@ -15,7 +17,7 @@ abstract class Routes {
   static const homeViewRoute = '/home';
   static const signinViewRoute = '/signin';
   static const signupViewRoute = '/signup';
-  // static const authenticationViewRoute = '/auth';
+  static const verificationViewRoute = '/verify';
   static const nameViewRoute = '/name';
   static const businessViewRoute = '/business';
   static const mainViewRoute = '/main';
@@ -48,7 +50,11 @@ class Router {
           builder: (context) => LanguageView(),
           settings: settings,
         );
-
+      case Routes.verificationViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => VerificationView(),
+          settings: settings,
+        );
       case Routes.mainViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
@@ -59,16 +65,12 @@ class Router {
           builder: (context) => AddCustomerView(),
           settings: settings,
         );
-      // case Routes.onboardingViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => OnboardingView(),
-      //     settings: settings,
-      //   );
-      // case Routes.languageViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => LanguageView(),
-      //     settings: settings,
-      //   );
+    case Routes.businessViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => BusinessView(),
+          settings: settings,
+        ); 
+    
       // case Routes.addcustomerRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => AddCustomerView(),
@@ -89,11 +91,7 @@ class Router {
       //     builder: (context) => NameView(),
       //     settings: settings,
       //   );
-      // case Routes.businessViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => BusinessView(),
-      //     settings: settings,
-      //   );
+      
 
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
