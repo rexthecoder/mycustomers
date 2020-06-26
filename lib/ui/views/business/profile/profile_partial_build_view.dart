@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_partial_build_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +12,8 @@ class ProfilePartialBuildsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        ScreenUtil.init(context, height: 1440, width: 720, allowFontScaling: true);
+
     return ViewModelBuilder<ProfilePartialBuildViewModel>.reactive(
       builder: (context, model, child) => _StringForm(),
       viewModelBuilder: () => ProfilePartialBuildViewModel(),
@@ -30,7 +33,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
     var phoneNumber = useTextEditingController();
 
     return Container(
-      height:380.h,
+      height:580.h,
       child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -41,7 +44,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
             border:Border.all(
               color: ThemeColors.gray.shade700,
               width: 1),
-              borderRadius: BorderRadius.circular(5.0)
+              borderRadius: BorderRadius.circular(5.sp)
           ),
           
           child:Row(
@@ -55,6 +58,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
                   onChanged: model.updateBusinessName,
                   decoration:InputDecoration(
                     hintText:'John Wayforf',
+                    hintStyle: model.fontSize,
                     border: OutlineInputBorder(
                       borderSide:BorderSide.none
                     )
@@ -82,7 +86,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
             border:Border.all(
               color: ThemeColors.gray.shade700,
               width: 1),
-              borderRadius: BorderRadius.circular(5.0)
+              borderRadius: BorderRadius.circular(5.sp)
 
           ),
           child:Row(
@@ -97,6 +101,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
                     onChanged: model.updateBusinessName,
                     decoration:InputDecoration(
                       hintText: 'Wike Oshiomole',
+                      hintStyle: model.fontSize,
                       border: OutlineInputBorder(
                         borderSide:BorderSide.none
                       )
@@ -127,12 +132,12 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
                   color: ThemeColors.gray.shade700,
                   width: 1,
                 ),
-                borderRadius: BorderRadius.circular(4.0)),
+                borderRadius: BorderRadius.circular(4.sp)),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(8.h),
+                  padding: EdgeInsets.all(14.h),
                   child: DropdownButton(
                     underline: Container(),
                     value: model.dropDownValue,
@@ -165,6 +170,7 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       hintText: '0903 9393 9383',
+                      hintStyle: model.fontSize,
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                     ),
                     controller: phoneNumber,
@@ -182,13 +188,13 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
              border:Border.all(
                color:ThemeColors.gray.shade700,
                width: 1 ),
-               borderRadius: BorderRadius.circular(5.0)
+               borderRadius: BorderRadius.circular(5.sp)
            ),
            child:Column(
              children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal:10.0),
+                  padding:  EdgeInsets.symmetric(horizontal:14.w),
                   child: GestureDetector(
                     onTap: (){
                        model.navigateToAddAssistantPage();
@@ -197,21 +203,23 @@ class _StringForm extends HookViewModelWidget<ProfilePartialBuildViewModel> {
                       children: <Widget>[
                       Icon(Icons.people_outline,
                       color:ThemeColors.black),
-                      SizedBox(width:16.0),
+                      SizedBox(width:16.w),
                       Text('Add Assistant',
                       style:TextStyle(
-                        color:ThemeColors.gray.shade800
+                        color:ThemeColors.gray.shade800,
+                        fontSize: 28.sp,
                       )),
-                      SizedBox(width: 65.0),
+                      SizedBox(width: 65.w),
                       Spacer(),
                       Icon(Icons.add,
                       color: BrandColors.secondary,
                       ),
-                      SizedBox(width:12.0),
+                      SizedBox(width:12.w),
                       
                       Text('Add',
                       style: TextStyle(
-                        color:BrandColors.secondary
+                        color:BrandColors.secondary,
+                        fontSize: 30.sp
                       ),)
 
                       ],
