@@ -16,6 +16,7 @@ dependencies:
   observable_ish: ^2.1.4
   flutter_svg: ^0.17.4
   pin_code_fields: ^3.1.2
+  sms: ^0.2.4 
   pdf: ^1.5.0
   path_provider: ^1.6.5
   flutter_full_pdf_viewer: ^1.0.6
@@ -51,12 +52,21 @@ dependencies:
   # to obatin contacts on the phone
   contacts_service: ^0.4.6
 
+  # JSON serialization
+  json_annotation: ^3.0.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   
   flutter_launcher_icons: ^0.7.5
+
+  # JSON serialization
+  json_serializable: ^3.3.0
+
+  # Code generation
+  build_runner: ^1.10.0
 
   #Run this script to generate the app icon: "flutter pub pub run flutter_launcher_icons:main"
 flutter_icons:

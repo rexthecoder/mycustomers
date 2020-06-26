@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   return Container(
@@ -26,7 +27,7 @@ Widget btnHome(String btnText, context) {
   double screenHeight = MediaQuery.of(context).size.height / 100;
   double screenWidth = MediaQuery.of(context).size.width / 100;
   return Container(
-    height: screenHeight * 8,
+    height: screenHeight * 7,
     width: screenWidth * 80,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
@@ -77,7 +78,7 @@ Widget btnAuth(String btnText, context) {
 class HomeBackgrouWidget extends StatelessWidget {
   const HomeBackgrouWidget({
     Key key,
-    
+
     @required this.height,
     @required this.width,
     @required this.widget,
@@ -116,7 +117,7 @@ class HomeBackgrouWidget extends StatelessWidget {
             ),
             child: Column(
               children: <Widget>[
-               widget
+                widget
               ],
             ),
           ),
@@ -125,3 +126,42 @@ class HomeBackgrouWidget extends StatelessWidget {
     );
   }
 }
+
+Widget notificationBell(bool isNewNotification) {
+  String notification = isNewNotification ? 'notification' : 'no_notification';
+  final String assetName = "assets/icons/$notification.png";
+  final Widget notificationIcon = Image.asset(assetName);
+  return notificationIcon;
+}
+
+Widget arrow(bool forward) {
+  String direction = forward ? 'foward' : 'back';
+  final String assetName = "assets/icons/arrow_$direction.svg";
+  final Widget svgIcon = SvgPicture.asset(assetName,
+      color: Color(0xff333cc1),
+      semanticsLabel: 'An arrow');
+  return svgIcon;
+}
+
+
+Widget circleDesign(double outerRadius, double innerRadius){
+  return Container(
+    height: outerRadius * 2,
+    width: outerRadius * 2,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(outerRadius),
+      color: Color(0xff1d6aff),
+    ),
+    child: Center(
+      child: Container(
+        height: innerRadius * 2,
+        width: innerRadius * 2,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(outerRadius),
+          color: Color(0xff333cc1),
+        ),
+      ),
+    ),
+  );
+}
+

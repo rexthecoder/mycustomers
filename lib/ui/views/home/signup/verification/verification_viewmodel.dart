@@ -3,11 +3,12 @@ import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class NameViewModel extends BaseViewModel{
+class VerificationViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>(); 
 
-  Future<void> navigateNext() async {
-//    await Future.delayed(Duration(seconds: 1));
- await _navigationService.navigateTo(Routes.businessViewRoute);
+  // TODO: 
+  Future<void> naviagateToNext() async {
+    await Future.delayed(Duration(seconds: 2));
+ await _navigationService.replaceWith(Routes.businessViewRoute);
   }
 }
