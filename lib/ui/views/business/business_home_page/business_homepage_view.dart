@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_page_view.dart';
+// import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
 import 'package:stacked/stacked.dart';
 
 
@@ -11,8 +12,7 @@ class BusinessHomePageView extends StatelessWidget {
     return ViewModelBuilder<BusinessHomePageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
-            child: UnderConstruction(),
-            //TODO: Implement Profile Page
+            child: ProfilePageView(),
       ),
       ),
       viewModelBuilder: () => BusinessHomePageViewModel(),

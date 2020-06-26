@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
+import '../../../shared/const_color.dart';
 
 class TransactionDetails extends StatelessWidget {
-  final Color color = Colors.blueAccent[700];
+  final Color color = ThemeColors.primary;
   final Color bgColor = Colors.grey[200];
   final Color containerColor = Colors.white;
 
