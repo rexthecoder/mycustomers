@@ -27,9 +27,8 @@ class SignInViewModel extends BaseViewModel {
     _phoneNumber = value;
   }
 
-  // Playing
-  Future<void> init() async {
-    await Future.delayed(Duration(seconds: 5));
- await _navigationService.replaceWith(Routes.nameViewRoute);
+  // Navigate
+  Future navigateToNextScreen() async {
+ await _navigationService.replaceWith(Routes.mainViewRoute);
   }
 }
