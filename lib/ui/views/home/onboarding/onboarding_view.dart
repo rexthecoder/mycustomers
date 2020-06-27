@@ -1,123 +1,69 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/shared/const_widget.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
+//import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 import 'onboarding_viewmodel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return ViewModelBuilder<OnboardingViewModel>.nonReactive(
       builder: (context, model, child) => Material(
-        child: Container(
-          child: Stack(
-            children: <Widget>[
-              PageView(
-                physics: ClampingScrollPhysics(),
-                onPageChanged: model.onChangedFunction,
-                // controller: model.pageController,
-                children: <Widget>[
-                  Imagepages(
-                    image: 'assets/images/onboarding/ob1.png',
-                  ),
-                  Imagepages(
-                    // height: height,
-                    image: 'assets/images/onboarding/ob2.png',
-                  ),
-                  Imagepages(
-                    // height: height,
-                    image: 'assets/images/onboarding/ob3.png',
-                  ),
-                ],
-              ),
-              Positioned(
-                top: SizeConfig.yMargin(context, 7),
-                right: SizeConfig.yMargin(context, 6),
-                child: Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: SizeConfig.xMargin(context, 5),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: SizeConfig.yMargin(context, 57),
-                left: SizeConfig.xMargin(context, 45),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Indicator(
-                      positionIndex: 0,
-                      currentIndex: model.currentIndex,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Indicator(
-                      positionIndex: 1,
-                      currentIndex: model.currentIndex,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Indicator(
-                      positionIndex: 2,
-                      currentIndex: model.currentIndex,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: SizeConfig.yMargin(context, 50)),
-                height: height * 0.8,
-                width: width,
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: _BackGroundImage(),
+            ),
+            Positioned.fill(
+              top: 406.h,
+              child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(height * 0.05),
-                    topRight: Radius.circular(height * 0.05),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20.w),
+                  ),
+                  color: Colors.white,
+                ),
+                padding: EdgeInsets.all(30.w),
+                child: _ForegroundContent(
+                  // TODO: Move this into the VIEW_MODEL
+                  texts: [
+                    {
+                      'heading': 'Lorem ipsum heading one',
+                      'body': 'Lorem ipsum body which is longer '
+                          'than heading for some unknown reasons. '
+                          'There are different variations of loren.',
+                    },
+                    {
+                      'heading': 'Lorem ipsum heading a two',
+                      'body': 'Lorem ipsum body which is longer '
+                          'than heading for some unknown reasons. '
+                          'Also a bit different from the first. Dunno why..',
+                    },
+                    {
+                      'heading': 'Lorem ipsum three. You know it.',
+                      'body': 'So I\'ll keep it simple on this one. Or Imma.',
+                    },
+                  ],
                   ),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: SizeConfig.yMargin(context, 7)),
-                    Text(
-                      'Invoice Reminders',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: SizeConfig.yMargin(context, 5),
-                      ),
-                    ),
-                    SizedBox(height: SizeConfig.yMargin(context, 3)),
-                    Text(
-                      'Send overdue invoice reminders to \n customers',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: SizeConfig.yMargin(context, 2.3),
-                      ),
-                    ),
-                    SizedBox(height: SizeConfig.yMargin(context, 16)),
-                    InkWell(
-                        onTap: () {
-                          //TODO: Next Page View
-
-                          // Using this for testing, clear to work on this page
-                          model.navigateToNext();
-                        },
-                        child: btnHome('Next', context)),
-                  ],
-                ),
               ),
-            ],
-          ),
+            Positioned(
+              right: 0,
+              top: 15.w,
+              child: FlatButton(
+                // TODO: Make text bold
+                child: Text('Skip'),
+                onPressed: model.navigateToNext,
+                color: Colors.transparent,
+                textColor: Colors.white,
+                padding: EdgeInsets.zero,
+              ),
+            ),
+          ],
         ),
       ),
       viewModelBuilder: () => OnboardingViewModel(),
@@ -125,40 +71,166 @@ class OnboardingView extends StatelessWidget {
   }
 }
 
-class Imagepages extends StatelessWidget {
-  final String image;
-  const Imagepages({
-    this.image,
-  });
+// ignore: must_be_immutable
+class _BackGroundImage extends HookViewModelWidget<OnboardingViewModel> {
+  _BackGroundImage({Key key}) : super(key: key, reactive: true);
+
+  bool isCompleted = false;
+  Widget previous = Container();
+  Widget previousPlaceholder;
+  Widget current;
+  bool shouldReassign = false;
+
+  String imageWithIndex(int index) =>
+      'assets/images/onboarding/onboarding${index + 1}.png';
 
   @override
-  Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    return Container(
-      height: height * 0.8,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(image),
-          fit: BoxFit.cover,
-        ),
+  Widget buildViewModelWidget(BuildContext context, OnboardingViewModel model) {
+
+    previousPlaceholder = previousPlaceholder ?? previous;
+    var controller = useAnimationController(
+      duration: Duration(milliseconds: 800),
+    );
+    var animation = useAnimation<double>(controller);
+
+    // Store the old previous to use in the current build
+
+    current = current ?? Image.asset(
+      imageWithIndex(model.currentIndex % model.numPages),
+      fit: BoxFit.cover,
+    );
+
+    if (shouldReassign) {
+      current = Image.asset(
+        imageWithIndex(model.currentIndex % model.numPages),
+        fit: BoxFit.cover,
+      );
+      previousPlaceholder = previous;
+      previous = current;
+
+      shouldReassign = false;
+    }
+    if (isCompleted) {
+      controller.reset();
+      shouldReassign = true;
+    }
+
+    isCompleted = controller.isCompleted;
+    controller.forward();
+    return SizedBox.expand(
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Opacity(
+              child: current,
+              opacity: animation,
+            ),
+          ),
+          Positioned.fill(
+            child: Opacity(
+              child: previousPlaceholder,
+              opacity: 1 - animation,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class Indicator extends StatelessWidget {
-  final int positionIndex, currentIndex;
-  const Indicator({this.currentIndex, this.positionIndex});
+// ignore: must_be_immutable
+class _ForegroundContent extends HookViewModelWidget<OnboardingViewModel> {
+
+  _ForegroundContent({Key key, this.texts}) : super(key: key, reactive: true);
+
+  final List<Map<String, String>> texts;
+
+  bool isCompleted = false;
+  Widget previous = Container();
+  Widget previousPlaceholder;
+  Widget current;
+  bool shouldReassign = false;
+
+  Widget getChild(int index) => Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Text(
+        texts[index]['heading'],
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 18.sp,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      SizedBox(height: 20.h),
+      Text(
+        texts[index]['body'],
+        style: TextStyle(
+          fontSize: 16.sp,
+          height: 1.5,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    ],
+  );
+
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 12,
-      width: 12,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          color:
-              positionIndex == currentIndex ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(20)),
+  Widget buildViewModelWidget(BuildContext context, OnboardingViewModel model) {
+    previousPlaceholder = previousPlaceholder ?? previous;
+    var controller = useAnimationController(
+      duration: Duration(milliseconds: 800),
+    );
+    var animation = useAnimation<double>(controller);
+
+    // Store the old previous to use in the current build
+
+    current = current ?? getChild(model.currentIndex % model.numPages);
+
+    if (shouldReassign) {
+      current = getChild(model.currentIndex % model.numPages);
+      previousPlaceholder = previous;
+      // Assign the previous to current for use in next build
+      // if only the animation has been completed
+      previous = current;
+
+      shouldReassign = false;
+    }
+    if (isCompleted) {
+      controller.reset();
+      shouldReassign = true;
+    }
+
+    // build the current
+    isCompleted = controller.isCompleted;
+    controller.forward();
+    return SizedBox.expand(
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Opacity(
+              child: current,
+              opacity: animation,
+            ),
+            bottom: 60.h,
+          ),
+          Positioned.fill(
+            child: Opacity(
+              child: previousPlaceholder,
+              opacity: 1 - animation,
+            ),
+            bottom: 60.h,
+          ),
+          Positioned(
+            bottom: 10.h,
+            left: 30.w,
+            right: 30.w,
+            child: CustomRaisedButton(
+              label: 'Get started',
+              onPressed: model.navigateToNext,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

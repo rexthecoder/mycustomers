@@ -37,7 +37,7 @@ class GetStartedView extends StatelessWidget {
                   child: Container(
                     height: SizeConfig.yMargin(context, 10),
                     child: Text(
-                      'welcome',
+                      'Welcome',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: SizeConfig.yMargin(context, 6),
