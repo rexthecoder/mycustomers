@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
-//import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'onboarding_viewmodel.dart';
@@ -11,52 +11,61 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return ViewModelBuilder<OnboardingViewModel>.nonReactive(
       builder: (context, model, child) => Material(
         child: Stack(
           children: <Widget>[
-            Positioned.fill(
-              child: _BackGroundImage(),
-            ),
-            Positioned.fill(
-              top: 406.h,
+            Container(
+                height: SizeConfig.yMargin(context, 65),
+                child: _BackGroundImage()),
+            Positioned(
               child: Container(
+                margin: EdgeInsets.only(top: SizeConfig.yMargin(context, 60)),
+                height: SizeConfig.yMargin(context, 43),
+                width: SizeConfig.xMargin(context, 100),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20.w),
+                  color: Color(0xffffffff),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(height * 0.05),
+                    topRight: Radius.circular(height * 0.05),
                   ),
-                  color: Colors.white,
                 ),
-                padding: EdgeInsets.all(30.w),
+                padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
                 child: _ForegroundContent(
                   // TODO: Move this into the VIEW_MODEL
                   texts: [
                     {
-                      'heading': 'Lorem ipsum heading one',
-                      'body': 'Lorem ipsum body which is longer '
-                          'than heading for some unknown reasons. '
-                          'There are different variations of loren.',
+                      'heading': 'Invoice reminders',
+                      'body':
+                          'Send overdue invoice reminders to your \n customers',
                     },
                     {
-                      'heading': 'Lorem ipsum heading a two',
-                      'body': 'Lorem ipsum body which is longer '
-                          'than heading for some unknown reasons. '
-                          'Also a bit different from the first. Dunno why..',
+                      'heading': 'Debt Collection',
+                      'body':
+                          'Easier to keep track and manage \n debt collection',
                     },
                     {
-                      'heading': 'Lorem ipsum three. You know it.',
-                      'body': 'So I\'ll keep it simple on this one. Or Imma.',
+                      'heading': 'Sales Messaging',
+                      'body':
+                          'Push unique sales messaging \n directly to your customers',
                     },
                   ],
-                  ),
                 ),
               ),
+            ),
             Positioned(
-              right: 0,
-              top: 15.w,
+              right: SizeConfig.xMargin(context, 1),
+              top: SizeConfig.yMargin(context, 3),
               child: FlatButton(
-                // TODO: Make text bold
-                child: Text('Skip'),
+                child: Text(
+                  'Skip',
+                  style: TextStyle(
+                    fontSize: SizeConfig.yMargin(context, 2),
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
                 onPressed: model.navigateToNext,
                 color: Colors.transparent,
                 textColor: Colors.white,
@@ -82,11 +91,10 @@ class _BackGroundImage extends HookViewModelWidget<OnboardingViewModel> {
   bool shouldReassign = false;
 
   String imageWithIndex(int index) =>
-      'assets/images/onboarding/onboarding${index + 1}.png';
+      'assets/images/onboarding/ob${index + 1}.png';
 
   @override
   Widget buildViewModelWidget(BuildContext context, OnboardingViewModel model) {
-
     previousPlaceholder = previousPlaceholder ?? previous;
     var controller = useAnimationController(
       duration: Duration(milliseconds: 800),
@@ -95,10 +103,11 @@ class _BackGroundImage extends HookViewModelWidget<OnboardingViewModel> {
 
     // Store the old previous to use in the current build
 
-    current = current ?? Image.asset(
-      imageWithIndex(model.currentIndex % model.numPages),
-      fit: BoxFit.cover,
-    );
+    current = current ??
+        Image.asset(
+          imageWithIndex(model.currentIndex % model.numPages),
+          fit: BoxFit.cover,
+        );
 
     if (shouldReassign) {
       current = Image.asset(
@@ -140,7 +149,6 @@ class _BackGroundImage extends HookViewModelWidget<OnboardingViewModel> {
 
 // ignore: must_be_immutable
 class _ForegroundContent extends HookViewModelWidget<OnboardingViewModel> {
-
   _ForegroundContent({Key key, this.texts}) : super(key: key, reactive: true);
 
   final List<Map<String, String>> texts;
@@ -151,28 +159,28 @@ class _ForegroundContent extends HookViewModelWidget<OnboardingViewModel> {
   Widget current;
   bool shouldReassign = false;
 
-  Widget getChild(int index) => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      Text(
-        texts[index]['heading'],
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 18.sp,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      SizedBox(height: 20.h),
-      Text(
-        texts[index]['body'],
-        style: TextStyle(
-          fontSize: 16.sp,
-          height: 1.5,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    ],
-  );
+  Widget getChild(int index, context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            texts[index]['heading'],
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: SizeConfig.yMargin(context, 4),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 20.h),
+          Text(
+            texts[index]['body'],
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: SizeConfig.yMargin(context, 2),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      );
 
   @override
   Widget buildViewModelWidget(BuildContext context, OnboardingViewModel model) {
@@ -184,10 +192,10 @@ class _ForegroundContent extends HookViewModelWidget<OnboardingViewModel> {
 
     // Store the old previous to use in the current build
 
-    current = current ?? getChild(model.currentIndex % model.numPages);
+    current = current ?? getChild(model.currentIndex % model.numPages, context);
 
     if (shouldReassign) {
-      current = getChild(model.currentIndex % model.numPages);
+      current = getChild(model.currentIndex % model.numPages, context);
       previousPlaceholder = previous;
       // Assign the previous to current for use in next build
       // if only the animation has been completed
@@ -224,10 +232,11 @@ class _ForegroundContent extends HookViewModelWidget<OnboardingViewModel> {
             bottom: 10.h,
             left: 30.w,
             right: 30.w,
-            child: CustomRaisedButton(
-              label: 'Get started',
-              onPressed: model.navigateToNext,
-            ),
+            child: InkWell(
+                onTap: () {
+                  model.navigateToNext();
+                },
+                child: btnHome('Get Started', context)),
           ),
         ],
       ),
