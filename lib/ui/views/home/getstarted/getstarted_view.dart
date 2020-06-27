@@ -119,7 +119,7 @@ class GetStartedView extends StatelessWidget {
                     SizedBox(width: SizeConfig.xMargin(context, 1)),
                     InkWell(
                       onTap: () {
-                        // TODO: Implement Navigation to Login
+                        model.navigateToLogin();
                       },
                       child: Text(
                         'Login',

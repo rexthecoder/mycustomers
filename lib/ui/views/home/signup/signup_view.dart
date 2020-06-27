@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/size_extension.dart';
 import 'signup_viewmodel.dart';
 
 class SignUpView extends StatelessWidget with Validators {
+
   TextEditingController _inputNumberController = TextEditingController();
   final _formPageKey = GlobalKey<FormState>();
   final _pageKey = GlobalKey<ScaffoldState>();
@@ -149,7 +150,7 @@ class SignUpView extends StatelessWidget with Validators {
                       SizedBox(width: SizeConfig.xMargin(context, 1)),
                       InkWell(
                         onTap: () {
-                          model.navigateToNextLogin();
+                          model.navigateToLogin();
                         },
                         child: Text(
                           'Login',

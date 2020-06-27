@@ -2,9 +2,10 @@
 class ApiRoutes {
   ApiRoutes._();
 
+  // BASE_URL
   static const base_url = 'https://dev.customerpay.me';
 
-  // CREATE USER
+  // USER
   static const user = '$base_url/user';
 
   static const all_user = '$user/all';
@@ -12,14 +13,9 @@ class ApiRoutes {
   static const user_id = '$user/:user_id';
   static const update_user = '$user/update/:user_id';
   static const delete_user = '$user/delete/:user_id';
-}
 
-// CRUD ENDPOINTS FOR USER
-// Create user, customer - /user/new
-// Retrieve all users - /user/all
-// Retrieve user - /user/:user_id
-// Update user - /user/update/:user_id
-// Delete user (logical delete) - /user/delete/:user_id
+  // 
+}
 
 // CRUD FOR TRANSACTIONS
 // Add new transaction - /transaction/new
