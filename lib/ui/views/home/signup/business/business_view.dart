@@ -22,7 +22,7 @@ class BusinessView extends StatelessWidget with Validators {
       builder: (context, model, child) => Scaffold(
         key: _pageKey,
         body: SingleChildScrollView(
-          // physics: ScrollableScrollPhysics(),
+          physics: ClampingScrollPhysics(),
           child: Column(
             children: <Widget>[
               HomeBackgrouWidget(
@@ -73,8 +73,9 @@ class BusinessView extends StatelessWidget with Validators {
                         child: TextFormField(
                           key: Key("userBusinessName"),
                           controller: _userBusinessName,
-                          validator: (value) =>
-                              (value.isEmpty) ? "Please Enter Business Name" : null,
+                          validator: (value) => (value.isEmpty)
+                              ? "Please Enter Business Name"
+                              : null,
                           style: TextStyle(
                             fontFamily: 'Lato',
                             fontSize: SizeConfig.yMargin(context, 2),

@@ -7,7 +7,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 class GetStartedViewModel extends BaseViewModel {
  
- 
  //Page controller Index
   int currentIndex = 0;
   int numPages = 3;
