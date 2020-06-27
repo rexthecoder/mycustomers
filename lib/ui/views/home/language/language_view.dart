@@ -13,8 +13,8 @@ class LanguageView extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
 
     return ViewModelBuilder<LanguageViewModel>.reactive(
-      builder: (context, model, child) => Material(
-        child: HomeBackgroundWidget(
+      builder: (context, model, child) => Scaffold(
+        body: HomeBackgroundWidget(
           height: height,
           width: width,
           child: Column(
@@ -41,6 +41,7 @@ class LanguageView extends StatelessWidget {
                     height: SizeConfig.yMargin(context, 60),
                     width: SizeConfig.xMargin(context, 90),
                     child: ListView.builder(
+                      shrinkWrap: true,
             itemCount: model.languages.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
@@ -110,8 +111,7 @@ class LanguageView extends StatelessWidget {
                 ),
             
             ],
-          ) 
-          
+          ) ,
         ),
       ),
       viewModelBuilder: () => LanguageViewModel(),

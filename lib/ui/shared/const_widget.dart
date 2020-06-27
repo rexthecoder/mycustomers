@@ -1,7 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
+
+class ProgressIndicator extends StatelessWidget {
+
+  final int progress, total;
+
+  ProgressIndicator(this.progress, this.total, {Key key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: List<Widget>.generate(total*2 - 1, (int index) {
+        return index % 2 == 0
+            ? CircleAvatar(
+          radius: 15,
+          child: index <= progress ? Text('${index ~/ 2 + 1}', style: TextStyle(
+            color: Colors.white,
+          ),) : null,
+          backgroundColor: index <= progress
+              ? ThemeColors.cta
+              : ThemeColors.gray,
+        )
+            : Expanded(
+          child: Divider(
+            thickness: 5,
+            color: index <= progress
+                ? ThemeColors.cta
+                : ThemeColors.gray,
+          ),
+        );
+      }),
+    );
+  }
+}
+
 
 Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   return Container(
@@ -82,11 +116,13 @@ class HomeBackgroundWidget extends StatelessWidget {
     @required this.height,
     @required this.width,
     @required this.child,
+    this.offset,
   }) : super(key: key);
 
   final double height;
   final double width;
   final Widget child;
+  final double offset;
 
   @override
   Widget build(BuildContext context) {
@@ -104,15 +140,21 @@ class HomeBackgroundWidget extends StatelessWidget {
             ),
           ),
           Positioned.fill(
-            top: SizeConfig.yMargin(context, 20),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xffffffff),
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20),
+            child: SingleChildScrollView(
+              reverse: true,
+              physics: ClampingScrollPhysics(),
+              child: Container(
+                constraints: BoxConstraints(
+                  minHeight: SizeConfig.yMargin(context, 70),
                 ),
+                decoration: BoxDecoration(
+                  color: Color(0xffffffff),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                child: child,
               ),
-              child: child,
             ),
           ),
         ],
