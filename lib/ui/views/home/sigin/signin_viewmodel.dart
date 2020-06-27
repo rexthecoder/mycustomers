@@ -31,4 +31,6 @@ class SignInViewModel extends BaseViewModel {
   Future navigateToNextScreen() async {
  await _navigationService.replaceWith(Routes.mainViewRoute);
   }
+
+  void init() {}
 }

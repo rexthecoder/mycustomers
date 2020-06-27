@@ -14,11 +14,10 @@ class LanguageView extends StatelessWidget {
 
     return ViewModelBuilder<LanguageViewModel>.reactive(
       builder: (context, model, child) => Material(
-        child: HomeBackgrouWidget(
-          context: context,
+        child: HomeBackgroundWidget(
           height: height,
           width: width,
-          widget: Column(
+          child: Column(
             children: <Widget>[
                SizedBox(height: SizeConfig.yMargin(context, 7)),
                 Text(
