@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/views/business/business_home_page/business_homepage_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
@@ -9,21 +11,20 @@ import 'package:stacked/stacked.dart';
 
 import 'main_viewmodel.dart';
 
-
 class MainView extends StatelessWidget {
+  final String home = 'assets/icons/svg/home.svg';
+  final String marketing = 'assets/icons/svg/marketing.svg';
+  final String business = 'assets/icons/svg/business.svg';
 
- 
   final _views = <Widget>[
     FadeIn(child: HomePageView()),
     FadeIn(child: MarketingHomePageView()),
     FadeIn(child: BusinessHomePageView()),
   ];
 
-
   @override
   Widget build(BuildContext context) {
-
-     return ViewModelBuilder<MainViewModel>.reactive(
+    return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
       builder: (context, model, child) => Scaffold(
         body: LazyIndexedStack(
@@ -33,23 +34,51 @@ class MainView extends StatelessWidget {
           itemBuilder: (_, index) => _views[index],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color(0xFF333CC1),
-          selectedItemColor: Color(0xFFFFFFFF),
-          unselectedItemColor: Color(0xFFA1A7FF),
+          backgroundColor: BrandColors.primary,
+          selectedItemColor: ThemeColors.background,
+          unselectedItemColor: ThemeColors.unselect,
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
+                title: Text('Home'),
+                icon: SvgPicture.asset(
+                  home,
+                  color: ThemeColors.unselect,
+                  semanticsLabel: 'Home',
+                ),
+                activeIcon: SvgPicture.asset(
+                  home,
+                  color: ThemeColors.background,
+                  semanticsLabel: 'Home Navigator is Active',
+                )),
+            // Icon(Icons.home),
+
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              title: Text('Marketing'),
-            ),
-             BottomNavigationBarItem(
-              icon: Icon(Icons.work),
-              title: Text('Business'),
-            ),
+                title: Text('Marketing'),
+                icon: SvgPicture.asset(
+                  marketing,
+                  color: ThemeColors.unselect,
+                  semanticsLabel: 'Marketing',
+                ),
+                activeIcon: SvgPicture.asset(
+                  marketing,
+                  color: ThemeColors.background,
+                  semanticsLabel: 'Marketing Navigator is Active',
+                )),
+
+            BottomNavigationBarItem(
+                // icon: Icon(Icons.work),
+                title: Text('Business'),
+                icon: SvgPicture.asset(
+                  business,
+                  color: ThemeColors.unselect,
+                  semanticsLabel: 'Business',
+                ),
+                activeIcon: SvgPicture.asset(
+                  business,
+                  color: ThemeColors.background,
+                  semanticsLabel: 'Business Navigator is Active',
+                )),
           ],
           onTap: model.changeTab,
         ),
