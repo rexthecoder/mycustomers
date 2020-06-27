@@ -75,50 +75,44 @@ Widget btnAuth(String btnText, context) {
   );
 }
 
-class HomeBackgrouWidget extends StatelessWidget {
-  const HomeBackgrouWidget({
+class HomeBackgroundWidget extends StatelessWidget {
+  const HomeBackgroundWidget({
     Key key,
 
     @required this.height,
     @required this.width,
-    @required this.widget,
-    @required this.context,
+    @required this.child,
   }) : super(key: key);
 
   final double height;
   final double width;
-  final BuildContext context;
-  final Widget widget;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox.expand(
       child: Stack(
         children: <Widget>[
-          Container(
-            height: height * 0.8,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/onboarding/ob1.png'),
-                fit: BoxFit.cover,
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/onboarding/ob1.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: SizeConfig.yMargin(context, 20)),
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-              color: Color(0xffffffff),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(height * 0.05),
-                topRight: Radius.circular(height * 0.05),
+          Positioned.fill(
+            top: SizeConfig.yMargin(context, 20),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xffffffff),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
               ),
-            ),
-            child: Column(
-              children: <Widget>[
-                widget
-              ],
+              child: child,
             ),
           ),
         ],

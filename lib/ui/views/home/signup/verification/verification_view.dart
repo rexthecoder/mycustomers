@@ -20,74 +20,70 @@ class VerificationView extends StatelessWidget with Validators {
     return ViewModelBuilder<VerificationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         key: _pageKey,
-        body: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
-          child: HomeBackgrouWidget(
-            context: context,
-            height: height,
-            width: width,
-            widget: Form(
-              key: _formPageKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: SizeConfig.yMargin(context, 7)),
-                  Text(
-                    'VERIFY CODE',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: SizeConfig.yMargin(context, 4),
-                    ),
+        body: HomeBackgroundWidget(
+          height: height,
+          width: width,
+          child: Form(
+            key: _formPageKey,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: SizeConfig.yMargin(context, 7)),
+                Text(
+                  'VERIFY CODE',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: SizeConfig.yMargin(context, 4),
                   ),
-                  SizedBox(height: SizeConfig.yMargin(context, 5)),
+                ),
+                SizedBox(height: SizeConfig.yMargin(context, 5)),
 
-                  Padding(
-                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
-                    child: PinCodeTextField(
-                      length: 4,
-                      obsecureText: false,
-                      animationType: AnimationType.scale,
-                      textInputType: TextInputType.number,
-                      pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.underline,
-                        selectedColor: Colors.black,
-                        activeColor: Colors.black,
-                        inactiveColor: Colors.grey,
-                        borderWidth: 1,
-                        fieldWidth: SizeConfig.yMargin(context, 8),
-                      ),
-                      animationDuration: Duration(milliseconds: 300),
-                      //errorAnimationController: errorController,
-                      //controller: textEditingController,
-                      autoDisposeControllers: false,
-                      onCompleted: (v) {},
-                      onChanged: (value) {
-                        //TODO: Listens and Obey
-                      },
+                Padding(
+                  padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
+                  child: PinCodeTextField(
+                    length: 4,
+                    obsecureText: false,
+                    animationType: AnimationType.scale,
+                    textInputType: TextInputType.number,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.underline,
+                      selectedColor: Colors.black,
+                      activeColor: Colors.black,
+                      inactiveColor: Colors.grey,
+                      borderWidth: 1,
+                      fieldWidth: SizeConfig.yMargin(context, 8),
                     ),
-                  ),
-                  Center(
-                    child: Text(
-                      'Please enter 4-digit code we sent on \nyour number as SMS',
-                      style: TextStyle(
-                        fontFamily: 'Lato',
-                        fontSize: SizeConfig.yMargin(context, 2),
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: SizeConfig.yMargin(context, 15)),
-                  InkWell(
-                    onTap: () {
-                      model.naviagateToNext();
+                    animationDuration: Duration(milliseconds: 300),
+                    //errorAnimationController: errorController,
+                    //controller: textEditingController,
+                    autoDisposeControllers: false,
+                    onCompleted: (v) {},
+                    onChanged: (value) {
+                      //TODO: Listens and Obey
                     },
-                    child: btnAuth('Next', context),
                   ),
-                  SizedBox(height: SizeConfig.yMargin(context, 2)),
+                ),
+                Center(
+                  child: Text(
+                    'Please enter 4-digit code we sent on \nyour number as SMS',
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontSize: SizeConfig.yMargin(context, 2),
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                SizedBox(height: SizeConfig.yMargin(context, 15)),
+                InkWell(
+                  onTap: () {
+                    model.naviagateToNext();
+                  },
+                  child: btnAuth('Next', context),
+                ),
+                SizedBox(height: SizeConfig.yMargin(context, 2)),
 
-                  //TODO: Build scrollbar
-                ],
-              ),
+                //TODO: Build scrollbar
+              ],
             ),
           ),
         ),

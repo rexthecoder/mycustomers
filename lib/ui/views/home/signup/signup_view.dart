@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/mixings/validators.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
-import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
 import 'signup_viewmodel.dart';
 
 class SignUpView extends StatelessWidget with Validators {
-  TextEditingController _inputNumberController;
+  TextEditingController _inputNumberController = TextEditingController();
   final _formPageKey = GlobalKey<FormState>();
   final _pageKey = GlobalKey<ScaffoldState>();
 
@@ -23,14 +20,13 @@ class SignUpView extends StatelessWidget with Validators {
     double height = MediaQuery.of(context).size.height;
 
     ScreenUtil.init(context, width: width, height: height);
-    return ViewModelBuilder<SignUpViewModel>.reactive(
+    return ViewModelBuilder<SignUpViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
         key: _pageKey,
-        body: HomeBackgrouWidget(
-          context: context,
+        body: HomeBackgroundWidget(
           height: height,
           width: width,
-          widget: Form(
+          child: Form(
             key: _formPageKey,
             child: Column(
               children: <Widget>[

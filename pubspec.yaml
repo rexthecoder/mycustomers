@@ -50,7 +50,7 @@ dependencies:
   # to attain permissions required to get contacts
   permission_handler: ^5.0.0
   
-  # to obatin contacts on the phone
+  # to obtain contacts on the phone
   contacts_service: ^0.4.6
 
   # JSON serialization
