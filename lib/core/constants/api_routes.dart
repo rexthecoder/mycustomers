@@ -14,7 +14,7 @@ class ApiRoutes {
   static const delete_user = '$user/delete/:user_id';
 }
 
-// CRUD EDPOINTS FOR USER
+// CRUD ENDPOINTS FOR USER
 // Create user, customer - /user/new
 // Retrieve all users - /user/all
 // Retrieve user - /user/:user_id
