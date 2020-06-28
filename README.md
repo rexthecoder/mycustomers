@@ -4,6 +4,9 @@
 
 # myCustomer Mobile App
 
+<img src="https://img.shields.io/badge/made%20with-dart-blue.svg" alt="made with dart">
+<img src="https://img.shields.io/badge/version-1.0.0-orange.svg" alt="1.0.0">
+
 ## Work on this Project with the following rules
 
 1. The app will be using  “Flutter ScreenUtil” package to ensure the app design is consistent across all mobile devices.
