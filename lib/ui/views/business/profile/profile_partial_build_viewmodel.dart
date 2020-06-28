@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:flutter_screenutil/size_extension.dart';
+
 
 
 class ProfilePartialBuildViewModel extends BaseViewModel{
@@ -21,6 +24,10 @@ class ProfilePartialBuildViewModel extends BaseViewModel{
   String get userName => _userName;
   String get businessName => _businessName;
   String get userPhoneNumber => _userPhoneNumber;
+
+  final fontSize=new TextStyle(
+    fontSize: 34.sp
+  );
 
   void updateUserName(String name){
      _userName=name;

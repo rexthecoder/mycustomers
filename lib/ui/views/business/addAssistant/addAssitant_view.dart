@@ -17,6 +17,8 @@ class AddAssistantView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, height: 1440, width: 720, allowFontScaling: true);
+
     return ViewModelBuilder<AddAssistantViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         key:_key ,
@@ -36,14 +38,14 @@ class AddAssistantView extends StatelessWidget {
         ),
         body: SafeArea(
             child: Padding(
-                padding: EdgeInsets.all(14.0),
+                padding: EdgeInsets.all(28.sp),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:<Widget>[
                     Text(model.subTitle,
                     textAlign: TextAlign.justify,
                     style:model.textStyle),
-                    SizedBox(height:32.0),  
+                    SizedBox(height:34.h),  
                     Row(
                       children: <Widget>[
                         GestureDetector(
@@ -58,22 +60,22 @@ class AddAssistantView extends StatelessWidget {
                               )
                           )
                         ),
-                        SizedBox(width:14.0),
+                        SizedBox(width:14.w),
                         Text(model.frmContact,
                         style:TextStyle(
                           color:ThemeColors.black,
-                          fontSize:18.sp,
+                          fontSize:20.sp,
                           letterSpacing: -0.02
                         ) ,)
 
                     ],),
-                    SizedBox(height:30.0),
+                    SizedBox(height:32.h),
                     Text(model.addManually,
                     style: model.textStyle,),
                     Expanded(
                        child: Container(
-                         height:227.h,
-                         margin: EdgeInsets.only(top:8.0),
+                         height:240.h,
+                         margin: EdgeInsets.only(top:8.h),
                         decoration: BoxDecoration(
                            color: Color.fromRGBO(196, 196, 196, 0.05),
                            border:Border.all(
@@ -81,85 +83,94 @@ class AddAssistantView extends StatelessWidget {
                              width: 0.5
                              
                            ),
-                           borderRadius: BorderRadius.circular(11.0)
+                           borderRadius: BorderRadius.circular(11.sp)
                          ),
                           child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Form(
-                              key: _formKey,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Expanded(
-                                      child: TextFormField(
-                                      validator:(value)=> model.validateFields(value),
-                                      controller:assistantNameController,
-                                      keyboardType: TextInputType.text,
-                                      decoration:InputDecoration(
-                                        hintText: 'Enter Name',
-                                        hintStyle: model.hinttextStyle,
-                                        labelText: model.nameLabel,
-                                        labelStyle: model.formTextStyle,
-                                        border:OutlineInputBorder(
-                                          borderSide: BorderSide.none
-                                        ),
-                                        contentPadding: EdgeInsets.all(14.0)
-                                      ),
-                                      
-                                    ),
-                                  ),
-                                  SizedBox(height:20),
-
-                                  Expanded(
-                                      child: TextFormField(
-                                      validator:(value)=>model.validateFields(value),
-                                      controller: assistantRoleController,
-                                      keyboardType: TextInputType.text,
-                                      decoration: InputDecoration(
-                                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                                        hintText:'Enter Role',
-                                        hintStyle: model.hinttextStyle,
-                                        labelText: model.roleLabel,
-                                        labelStyle: model.formTextStyle,
-                                        border:OutlineInputBorder(
-                                          borderSide: BorderSide.none
-                                        ),
-                                        contentPadding: EdgeInsets.all(14.0)
+                            padding:  EdgeInsets.all(16.sp),
+                            
+                                child: Form(
+                                key: _formKey,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(model.nameLabel,
+                                    textAlign: TextAlign.left,
+                                    style: model.formTextStyle,),
+                                    
+                                    Expanded(
+                                        child: TextFormField(
+                                          validator:(value)=> model.validateFields(value),
+                                          controller:assistantNameController,
+                                          keyboardType: TextInputType.text,
+                                          decoration:InputDecoration(
+                                            hintText: model.nameHintText,
+                                            hintStyle: model.hinttextStyle,
+                                            border:OutlineInputBorder(
+                                              borderSide: BorderSide.none
+                                            ),
+                                            contentPadding: EdgeInsets.all(14.sp)
+                                          ),
+                                        
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(height:20),
+                                    SizedBox(height:20.h),
+                                    Text(model.roleLabel,
+                                      textAlign: TextAlign.left,
+                                      style: model.formTextStyle,),
 
-                                  Expanded(
-                                      child: TextFormField(
-                                      validator:(value)=>model.validateFields(value),
-                                      controller:inputNumberController,
-                                      keyboardType:TextInputType.number,
-                                      decoration: InputDecoration(
-                                        hintText:'Enter Phone Number',
-                                        hintStyle: model.hinttextStyle,
-                                        labelText: model.phoneNumberLabel,
-                                        labelStyle: model.formTextStyle,
-                                        border:OutlineInputBorder(
-                                          borderSide: BorderSide.none
+                                    Expanded(
+                                        child: TextFormField(
+                                        validator:(value)=>model.validateFields(value),
+                                        controller: assistantRoleController,
+                                        keyboardType: TextInputType.text,
+                                        decoration: InputDecoration(
+                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                          hintText:model.roleHintText,
+                                          hintStyle: model.hinttextStyle,
+                                          border:OutlineInputBorder(
+                                            borderSide: BorderSide.none
+                                          ),
+                                          contentPadding: EdgeInsets.all(14.sp)
                                         ),
-                                        contentPadding: EdgeInsets.all(14.0)
                                       ),
                                     ),
-                                  )
-                                 
+                                    SizedBox(height:20.h),
 
-                                ],),
+                                    Text(model.phoneNumberLabel,
+                                    textAlign: TextAlign.left,
+                                    style: model.formTextStyle,),
+
+
+                                    Expanded(
+                                        child: TextFormField(
+                                        validator:(value)=>model.validateFields(value),
+                                        controller:inputNumberController,
+                                        keyboardType:TextInputType.number,
+                                        decoration: InputDecoration(
+                                          hintText:model.phoneNumberHintText,
+                                          hintStyle: model.hinttextStyle,
+                                          border:OutlineInputBorder(
+                                            borderSide: BorderSide.none
+                                          ),
+                                          contentPadding: EdgeInsets.all(14.sp)
+                                        ),
+                                      ),
+                                    )
+                                   
+
+                                  ],),
+                              ),
                             ),
                           ),),
-                    ),
+                    
                     Spacer(),
                      Container(
-                        height: 65.h,
+                        height: 105.h,
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(bottom:15.0),
+                        margin: EdgeInsets.only(bottom:18.h),
                         decoration: BoxDecoration(
-                          borderRadius:BorderRadius.circular(5.0),
+                          borderRadius:BorderRadius.circular(8.sp),
                           color: BrandColors.secondary
                           
                         ),
@@ -168,13 +179,13 @@ class AddAssistantView extends StatelessWidget {
                             //TODO Implement the action to be completed once the user clicks the save button
                           } ,
                           child: Text(
-                            'Save',
+                            model.btnText,
                             textAlign: TextAlign.center,
                             style:TextStyle(
                               color:ThemeColors.background,
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              fontSize: 32.sp,
                             )
                           )) ,),
                   ]

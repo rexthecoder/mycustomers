@@ -27,20 +27,32 @@ String get nameLabel => _nameLabel;
 String get roleLabel => _roleLabel;
 String get phoneNumberLabel => _phoneNumberLabel;
 
+String _nameHintText='Enter Name';
+String _roleHintText='Enter Role';
+String _phoneNumberHintText='Enter Phone Number';
+
+String get nameHintText => _nameHintText;
+String get roleHintText => _roleHintText;
+String get phoneNumberHintText => _phoneNumberHintText;
+
+String _btnText='Save';
+String get btnText=> _btnText;
+
+
 final textStyle = new TextStyle(
-  fontSize:14.sp,
+  fontSize:20.sp,
   letterSpacing: 0.270833,
   color: ThemeColors.gray.shade800
 );
 
 final formTextStyle= new TextStyle(
-  fontSize: 18.sp,
+  fontSize: 20.sp,
   color:Color(0xff595959),
 
 );
 
 final hinttextStyle =new TextStyle(
-  fontSize: 12.sp,
+  fontSize: 16.sp,
   color:Color(0xffd9d9d9)
 );
 
