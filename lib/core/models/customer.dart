@@ -23,8 +23,7 @@ const customerLastNames = [
 
 @JsonSerializable()
 class Customer {
-  final int id;
-  final String name, phone, email;
+  final String id, name, phone, email;
 
   @JsonKey(name: 'lastname')
   final String lastName;
@@ -36,7 +35,7 @@ class Customer {
   Map<String, dynamic> toJson() => _$CustomerToJson(this);
 
   Customer.random()
-      : id = Random().nextInt(100000),
+      : id = Random().nextInt(100000).toString(),
         name = customerNames[Random().nextInt(customerNames.length)],
         phone = '+3248163259874',
         email = 'example@domain.com',
