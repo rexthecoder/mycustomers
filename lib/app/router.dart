@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
@@ -8,6 +9,10 @@ import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
+
+import 'package:mycustomers/ui/views/business/addAssistant/addAssitant_view.dart';
+import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
+
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
@@ -36,10 +41,15 @@ abstract class Routes {
   static const addCustomer = '/addCustomer';
   static const addCustomerMessageRoute = '/addCusMess'; // (^ = ^)
   static const supportViewRoute = '/support';
+
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
   static const transactionDetails = '/transactionDetails';
   static const transactionHistory = '/transactionHistory';
+
+  static const businessCardRoute = '/businessCard';
+  static const addAssistantRoute='/addAssistant';
+
 }
 
 class Router {
@@ -136,6 +146,14 @@ class Router {
           settings: settings,
         );
 
+
+      case Routes.addAssistantRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context)=>AddAssistantView(),
+          settings:settings
+        );
+
+
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => HomeView(),
@@ -151,6 +169,11 @@ class Router {
       //     builder: (context) => AddCustomerManuallyView(),
       //     settings: settings,
       //   );
+//     case Routes.businessCardRoute:
+//       return CupertinoPageRoute<dynamic>(
+//         builder: (context) => BusinessCardPageView(),
+//         settings: settings,
+//       );
       default:
         return unknownRoutePage(settings.name);
     }
