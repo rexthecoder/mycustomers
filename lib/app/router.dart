@@ -102,11 +102,11 @@ class Router {
           builder: (context) => MainView(),
           settings: settings,
         );
-      // case Routes.addAssistantRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context)=>AddAssistantView(),
-      //     settings:settings
-      //   );
+      case Routes.addAssistantRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context)=>AddAssistantView(),
+          settings:settings
+        );
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => HomeView(),
