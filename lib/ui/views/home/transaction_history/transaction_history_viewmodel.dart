@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-class TransactionDetailsViewModel extends BaseViewModel{
+class TransactionHistoryViewModel extends BaseViewModel{
   String value = 'All';
   List date = ['09/06/2020', '15/06/2020', '30/06/2020', '10/06/2020', '09/06/2020', '15/06/2020', '30/06/2020', '10/06/2020'];
   List time = ['09:00', '11:00', '09:00', '12:00', '09:00', '11:00', '09:00', '12:00'];
