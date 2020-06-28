@@ -150,7 +150,7 @@ class HomeBackgroundWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20),
+                    top: Radius.circular(SizeConfig.yMargin(context, 4)),
                   ),
                 ),
                 child: child,
@@ -178,7 +178,6 @@ Widget arrow(bool forward) {
       semanticsLabel: 'An arrow');
   return svgIcon;
 }
-
 
 Widget circleDesign(double outerRadius, double innerRadius){
   return Container(
