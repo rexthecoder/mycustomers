@@ -22,6 +22,7 @@ dependencies:
   open_file: ^3.0.1
   intl: ^0.16.1
   sticky_headers: ^0.1.8+1
+  intl_phone_number_input: ^0.4.6+2
 
   # State Management
   stacked: ^1.5.7+1
