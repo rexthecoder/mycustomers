@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:mycustomers/ui/views/home/transaction_detail_screen/transaction_details_viewmodel.dart';
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_viewmodel.dart';
 
-class TransactionDetails extends StatelessWidget {
+class TransactionHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
-    return ViewModelBuilder<TransactionDetailsViewModel>.reactive(
+    return ViewModelBuilder<TransactionHistoryViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,
@@ -239,7 +239,7 @@ class TransactionDetails extends StatelessWidget {
           ),
         ),
       ),
-      viewModelBuilder: () => TransactionDetailsViewModel()
+      viewModelBuilder: () => TransactionHistoryViewModel()
     );
   }
 }

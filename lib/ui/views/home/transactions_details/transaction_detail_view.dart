@@ -26,7 +26,9 @@ class TransactionDetails extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       IconButton(
-                        onPressed: (){},//TODO: implement backbutton
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },//TODO: implement backbutton
                         icon: Icon(
                           Icons.keyboard_backspace,
                           size: 50.sp,

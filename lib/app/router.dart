@@ -12,6 +12,12 @@ import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
+import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
+import 'package:mycustomers/ui/views/home/add_credit/add_credit_view.dart';
+import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
+import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
+import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
+
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
   static const startupViewRoute = '/';
@@ -30,6 +36,10 @@ abstract class Routes {
   static const addCustomer = '/addCustomer';
   static const addCustomerMessageRoute = '/addCusMess'; // (^ = ^)
   static const supportViewRoute = '/support';
+  static const addCredit = '/addCredit';
+  static const addDebt = '/addDebt';
+  static const transactionDetails = '/transactionDetails';
+  static const transactionHistory = '/transactionHistory';
 }
 
 class Router {
@@ -68,6 +78,26 @@ class Router {
       case Routes.addCustomer:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddCustomerView(),
+          settings: settings,
+        );
+      case Routes.addDebt:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddDebtView(),
+          settings: settings,
+        );
+      case Routes.addCredit:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCreditView(),
+          settings: settings,
+        );
+      case Routes.transactionHistory:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => TransactionHistory(),
+          settings: settings,
+        );
+      case Routes.transactionDetails:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => TransactionDetails(),
           settings: settings,
         );
       case Routes.businessViewRoute:

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-class AddDebtorViewModel extends BaseViewModel{
+class AddDebtViewModel extends BaseViewModel{
   final _debouncer = Debouncer(milliseconds: 800);
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = false;
