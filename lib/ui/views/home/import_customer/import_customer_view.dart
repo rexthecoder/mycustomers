@@ -29,7 +29,7 @@ class ImportCustomerView extends StatelessWidget {
                   child: Text(
                     'Cancel',
                     style: TextStyle(
-                      color: ThemeColors.error,
+                      color: ThemeColors.link,
                     ),
                   ),
                   padding: EdgeInsets.all(2),
@@ -55,23 +55,21 @@ class ImportCustomerView extends StatelessWidget {
                           bgColor: ThemeColors.gray.shade500,
                         ),
                         title: InkWell(
-                          onTap: model.selectAllCustomers,
+                          onTap: () {
+                            // TODO: Implement add customer manually screen function
+                          },
                           child: Text(
-                            'Select all customers',
+                            'Add New Customer',
                             style: TextStyle(
-                              color: model.allSelected
-                                  ? ThemeColors.gray.shade800
-                                  : ThemeColors.cta,
+                              color: ThemeColors.cta,
                             ),
                           ),
                         ),
-                        trailing: FlatButton.icon(
+                        trailing: IconButton(
                           onPressed: () {
-                            // TODO: Implement Go to new customer screen function
+                            // TODO: Implement add customer manually screen function
                           },
-                          icon: Icon(Icons.add),
-                          label: Text('Add'),
-                          textColor: BrandColors.secondary,
+                          icon: Icon(Icons.add, color: ThemeColors.cta,),
                           padding: EdgeInsets.symmetric(horizontal: 0),
                         ),
                       ),
@@ -83,7 +81,7 @@ class ImportCustomerView extends StatelessWidget {
               bottom: PreferredSize(child: Container(), preferredSize: Size.fromHeight(10)),
               expandedHeight: 150,
             ),
-            SliverPersistentHeader(delegate: CustomerCount(40, model), pinned: true,),
+            SliverPersistentHeader(delegate: TitleHeader(40), pinned: true,),
             model.isBusy
                 ? SliverToBoxAdapter(
               child: Center(
@@ -113,26 +111,23 @@ class ImportCustomerView extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      trailing: FlatButton(
+                      trailing: FlatButton.icon(
+                        icon: Icon(Icons.add, color: Colors.white),
                         onPressed: () {
+                          // TODO: Change function to route to Transaction screen
                           _isSelected
                               ? model.deselectCustomer(customer)
                               : model.addCustomer(customer);
                         },
-                        child: Text(
-                          _isSelected ? 'Selected' : 'Select',
+                        label: Text(
+                          'ADD',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        textColor: _isSelected
-                            ? ThemeColors.gray.shade600
-                            : Colors.white,
-                        color: _isSelected
-                            ? Colors.transparent
-                            : BrandColors.secondary,
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.h, horizontal: 8.w),
+                        textColor: Colors.white,
+                        color: BrandColors.secondary,
+                        padding: EdgeInsets.zero,
                       ),
                     );
                   },
@@ -142,22 +137,17 @@ class ImportCustomerView extends StatelessWidget {
             ),
           ],
         ),
-        bottomSheet: Padding(
-          padding: EdgeInsets.all(30.w),
-          child: CustomRaisedButton(label: 'Continue', onPressed: model.returnCustomers),
-        ),
       ),
       viewModelBuilder: () => ImportCustomerViewModel(),
     );
   }
 }
 
-class CustomerCount extends SliverPersistentHeaderDelegate {
+class TitleHeader extends SliverPersistentHeaderDelegate {
 
   final double height;
-  final ImportCustomerViewModel model;
 
-  CustomerCount(this.height, this.model);
+  TitleHeader(this.height);
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -175,13 +165,10 @@ class CustomerCount extends SliverPersistentHeaderDelegate {
       ),
       child: Text(
         // This is just the text formatting for singular and plural
-        '${!model.hasSelected ? 'No' : model.numberOfSelected} ' // 0 or more
-            'Customer${model.numberOfSelected == 1 ? '' : 's'} ' // 1 or another number
-            'Selected',
+        'Add Debtor from Contacts',
         style: TextStyle(
-          color: model.hasSelected
-              ? ThemeColors.link
-              : ThemeColors.gray.shade800,
+          color: ThemeColors.black,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -202,7 +189,7 @@ class CustomerCount extends SliverPersistentHeaderDelegate {
 
 
 class _SearchBar extends StatefulWidget {
-  final ImportCustomereViewModel model;
+  final ImportCustomerViewModel model;
 
   const _SearchBar({Key key, this.model}) : super(key: key);
 

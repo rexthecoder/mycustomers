@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ImportCustomerViewModel extends FutureViewModel {
+  // TODO: Change the functions and fields to match import contacts
   // Get the services required
   NavigationService _navigationService = locator<NavigationService>();
   ICustomerService _customerService = locator<ICustomerService>();
