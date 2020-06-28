@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -25,7 +26,10 @@ class BusinessCardPageView extends StatelessWidget {
           centerTitle: true,
           title: Text(
             "Business Card",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: SizeConfig.textSize(context, 8),
+            ),
           ),
           iconTheme: IconThemeData(color: Colors.black),
         ),
@@ -41,6 +45,9 @@ class BusinessCardPageView extends StatelessWidget {
                     height: 10.sp,
                   ),
                   _BusinessCardForm(),
+                  SizedBox(
+                    height: 10.sp,
+                  ),
                   CustomShareRaisedButton(
                     label: "Share",
                     onPressed: () {},
@@ -115,8 +122,10 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
     BusinessCardPageViewModel model,
   ) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.sp),
-      padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 5.sp),
+      margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1)),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.xMargin(context, 4),
+          vertical: SizeConfig.yMargin(context, 0.5)),
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xFFD1D1D1)),
         color: const Color.fromRGBO(246, 246, 246, 1),
@@ -128,14 +137,14 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
         cursorColor: Colors.black,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: SizeConfig.textSize(context, 5),
         ),
         decoration: InputDecoration(
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           hintText: label,
           hintStyle: TextStyle(
-            fontSize: 20.sp,
+            fontSize: SizeConfig.textSize(context, 5),
             color: const Color.fromRGBO(25, 25, 25, 0.6),
           ),
         ),
@@ -159,8 +168,8 @@ class _DefaultPhoneFormField
     BusinessCardPageViewModel model,
   ) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.sp),
-      padding: EdgeInsets.symmetric(horizontal: 10.sp),
+      margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1)),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 4)),
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xFFD1D1D1)),
         color: const Color.fromRGBO(246, 246, 246, 1),
@@ -191,7 +200,7 @@ class _DefaultPhoneFormField
             ),
           ),
           Container(
-            height: 24.h,
+            height: SizeConfig.yMargin(context, 5),
             decoration: BoxDecoration(
               border: Border(
                 left: BorderSide(color: ThemeColors.gray.shade700),
@@ -202,12 +211,16 @@ class _DefaultPhoneFormField
             child: TextField(
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 20.sp,
+                fontSize: SizeConfig.textSize(context, 5),
               ),
               keyboardType: TextInputType.number,
               textAlign: TextAlign.left,
               decoration: InputDecoration(
                 hintText: '0903 9393 9383',
+                hintStyle: TextStyle(
+                  color: const Color.fromRGBO(25, 25, 25, 0.6),
+                  fontSize: SizeConfig.textSize(context, 5),
+                ),
                 border: OutlineInputBorder(borderSide: BorderSide.none),
               ),
               onChanged: onChange,
