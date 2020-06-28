@@ -9,6 +9,7 @@ import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
+import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 /// An abstract class that is responsible for navigation and route
@@ -27,6 +28,7 @@ abstract class Routes {
   static const addCustomerManually = '/addCusMan';
   static const detailsViewRoute = '/details';
   static const addCustomer = '/addCustomer';
+  static const addCustomerMessageRoute = '/addCusMess'; // (^ = ^)
   static const supportViewRoute = '/support';
 }
 
@@ -73,7 +75,11 @@ class Router {
           builder: (context) => BusinessView(),
           settings: settings,
         );
-      //   );
+      case Routes.addCustomerMessageRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerMessageView(),
+          settings: settings,
+        );
       case Routes.signupViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SignUpView(),
