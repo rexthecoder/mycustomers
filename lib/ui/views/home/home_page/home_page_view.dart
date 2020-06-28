@@ -14,6 +14,9 @@ import 'home_page_viewmodel.dart';
 import 'tabs/creditors_view.dart';
 
 class HomePageView extends StatelessWidget {
+
+  //TODO: Position notification bell dot properly
+  
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

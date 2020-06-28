@@ -19,6 +19,11 @@ class GetStartedViewModel extends BaseViewModel {
 // Navigation
   final NavigationService _navigationService = locator<NavigationService>();
 
+   Future navigateToLogin() async {
+    // await Future.delayed(Duration(seconds: 5));
+ await _navigationService.replaceWith(Routes.signinViewRoute);
+  }
+
   Future navigateToNextScreen() async {
     // await Future.value();
     await _navigationService.clearStackAndShow(Routes.onboardingViewRoute);
