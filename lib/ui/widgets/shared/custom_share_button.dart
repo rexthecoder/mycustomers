@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 
 class CustomShareRaisedButton extends StatelessWidget {
   final String label;
@@ -15,9 +16,9 @@ class CustomShareRaisedButton extends StatelessWidget {
     return RaisedButton(
       onPressed: onPressed,
       color: Color(0xFF333CC1),
-      padding: EdgeInsets.symmetric(vertical: 22.sp),
+      padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.5)),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.sp),
+        borderRadius: BorderRadius.circular(10.sp),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

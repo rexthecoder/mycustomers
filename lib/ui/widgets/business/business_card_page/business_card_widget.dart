@@ -1,4 +1,3 @@
-
 part of '../../../views/business/business_card_page/business_cardpage_view.dart';
 
 class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
@@ -6,35 +5,38 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
 
   @override
   Widget buildViewModelWidget(
-      BuildContext context,
-      BusinessCardPageViewModel model,
-      ) {
+    BuildContext context,
+    BusinessCardPageViewModel model,
+  ) {
     return Stack(
       children: <Widget>[
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.sp),
-          ),
-          child: Container(
-            height: ScreenUtil.screenHeightDp / 3,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/business_card.png"),
-                  fit: BoxFit.contain),
+        Container(
+          height: SizeConfig.yMargin(context, 30),
+          decoration: BoxDecoration(
+            color: ThemeColors.background,
+            borderRadius: BorderRadius.circular(10),
+            shape: BoxShape.rectangle,
+            image: DecorationImage(
+              image: AssetImage("assets/images/business_card.png"),
+              fit: BoxFit.cover,
             ),
           ),
         ),
         Positioned(
-          top: 20.sp,
-          left: 150.sp,
+          top: SizeConfig.yMargin(context, 4),
+          left: SizeConfig.xMargin(context, 25),
           child: Text(
             model.businessCard.storeName.toUpperCase(),
-            style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: SizeConfig.textSize(context, 8),
+              fontWeight: FontWeight.bold,
+              color: ThemeColors.black,
+            ),
           ),
         ),
         Positioned(
-          left: 150.sp,
-          bottom: 90.sp,
+          left: SizeConfig.xMargin(context, 25),
+          bottom: SizeConfig.yMargin(context, 8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -42,13 +44,15 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                 children: <Widget>[
                   Icon(
                     Icons.account_circle,
-                    size: 15.sp,
+                    size: SizeConfig.textSize(context, 5),
+                    color: ThemeColors.black,
                   ),
                   Text(
                     " ${model.businessCard.personalName}",
                     style: TextStyle(
-                      fontSize: 20.sp,
+                      fontSize: SizeConfig.textSize(context, 4),
                       fontWeight: FontWeight.bold,
+                      color: ThemeColors.black,
                     ),
                   ),
                 ],
@@ -57,12 +61,14 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                 children: <Widget>[
                   Icon(
                     Icons.phone,
-                    size: 15.sp,
+                    size: SizeConfig.textSize(context, 5),
+                    color: ThemeColors.black,
                   ),
                   Text(
                     " ${model.businessCard.phoneNumber}",
                     style: TextStyle(
-                      fontSize: 15.sp,
+                      fontSize: SizeConfig.textSize(context, 3.2),
+                      color: ThemeColors.black,
                     ),
                   ),
                 ],
@@ -71,12 +77,14 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                 children: <Widget>[
                   Icon(
                     Icons.email,
-                    size: 15.sp,
+                    size: SizeConfig.textSize(context, 5),
+                    color: ThemeColors.black,
                   ),
                   Text(
                     " ${model.businessCard.emailAddress}",
                     style: TextStyle(
-                      fontSize: 15.sp,
+                      fontSize: SizeConfig.textSize(context, 3.2),
+                      color: ThemeColors.black,
                     ),
                   ),
                 ],
@@ -85,12 +93,13 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
           ),
         ),
         Positioned(
-          bottom: 20.sp,
-          left: 150.sp,
+          bottom: SizeConfig.yMargin(context, 2),
+          left: SizeConfig.xMargin(context, 25),
           child: Text(
             model.businessCard.address,
             style: TextStyle(
-              fontSize: 15.sp,
+              fontSize: SizeConfig.textSize(context, 3.2),
+              color: ThemeColors.black,
             ),
           ),
         ),
