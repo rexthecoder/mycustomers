@@ -13,6 +13,6 @@ class StartupViewModel extends BaseViewModel {
 
   Future setup() async {
     await locator.allReady();
-    await _navigationService.replaceWith(Routes.addCustomerMessageRoute);
+    await _navigationService.replaceWith(Routes.getstartedViewRoute);
   }
 }

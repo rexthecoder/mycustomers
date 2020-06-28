@@ -6,24 +6,22 @@ import 'package:stacked_services/stacked_services.dart';
 
 class LanguageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
+   
+   List get languages => _supportedLanguages;
 
   List<Map<String, String>> _supportedLanguages = [
-    {'code': 'en', 'name': 'English'},
-    {'code': 'ig', 'name': 'Igbo'},
-    {'code': 'yb', 'name': 'Yoruba'},
-    {'code': 'hs', 'name': 'Hausa'},
+    {'image': 'assets/icons/uk.png','code': 'en', 'name': 'English'},
+    {'image': 'assets/icons/fr.png','code': 'fr', 'name': 'Francias'},
   ];
-
-  List get languages => _supportedLanguages;
 
   Future<void> setLanguage(int index) async {
     await locator<IStorageUtil>()
         .saveString('AppPreferenceKey.USER_PREF_LANGUAGE', _supportedLanguages[index]['code']);
-    setup();
+    navigateToNext();
   }
 
-  Future setup() async {
+  Future navigateToNext() async {
     await Future.value();
-    await _navigationService.clearStackAndShow(Routes.authenticationViewRoute);
+    await _navigationService.clearStackAndShow(Routes.signupViewRoute);
   }
 }
