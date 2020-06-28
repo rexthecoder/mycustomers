@@ -1,9 +1,15 @@
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class SettingsHomePageViewModel extends BaseViewModel {
+
+  final NavigationService _navigationService = locator<NavigationService>(); 
+
 
   String _pageTitle='Settings';
   String get pageTitle => _pageTitle;
@@ -50,6 +56,10 @@ class SettingsHomePageViewModel extends BaseViewModel {
   void onChanged( bool value){
     _swichValue=value;
     notifyListeners();
+  }
+
+  Future<void> navigateToChangeLanguagePage() async {
+  await _navigationService.clearStackAndShow(Routes.changeLanguagePref);
   }
 
   

@@ -33,5 +33,5 @@ class BrandColors {
   static const secondary = Color(0xFFFF8C5F);
 }
 
-}
+
 

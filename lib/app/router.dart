@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/business/settings/language/language_page_view.dart';
 
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
@@ -49,6 +50,8 @@ abstract class Routes {
 
   static const businessCardRoute = '/businessCard';
   static const addAssistantRoute='/addAssistant';
+
+  static const changeLanguagePref = '/changeLang';
 
 }
 
@@ -152,6 +155,12 @@ class Router {
           builder: (context)=>AddAssistantView(),
           settings:settings
         );
+       
+      case Routes.changeLanguagePref:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context)=>LanguageSettingPageView(),
+          settings: settings
+          );
 
 
       // case Routes.homeViewRoute:

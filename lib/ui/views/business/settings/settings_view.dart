@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_text_style.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,8 @@ class SettingsHomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 1440, width: 720, allowFontScaling: true);
+    // var width = MediaQuery.of(context).size.width;
+    // var height = MediaQuery.of(context).size.height;
 
     return ViewModelBuilder<SettingsHomePageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
@@ -20,7 +23,7 @@ class SettingsHomePageView extends StatelessWidget {
           title:Text(model.pageTitle,
           style: kheadingText
           ),
-          elevation:1.0,
+          elevation:0.0,
           centerTitle: true,
           backgroundColor: ThemeColors.background,
           iconTheme: IconThemeData(
@@ -29,13 +32,12 @@ class SettingsHomePageView extends StatelessWidget {
         ),
         body: SafeArea(
             child:Container(
-
               padding: EdgeInsets.symmetric(horizontal:24.w),
               margin: EdgeInsets.only(top:8.h),
               child: Column(
                 children : <Widget>[
                   Container(
-                    height: 80.h,
+                    height: SizeConfig.yMargin(context,80),
                     margin: EdgeInsets.only(top:6.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),
@@ -53,7 +55,7 @@ class SettingsHomePageView extends StatelessWidget {
                         Text(model.userLanguage, style: model.prefTextStyle),
                         IconButton(
                           onPressed: (){
-                            //TODO Implement function to navigate to Language screen
+                            model.navigateToChangeLanguagePage();
                           },
                           icon: Icon(Icons.arrow_forward_ios,
                           color: Color(0xff4f4f4f),
@@ -65,7 +67,7 @@ class SettingsHomePageView extends StatelessWidget {
                   Divider(),
 
                   Container(
-                    height:80.h,
+                    height:SizeConfig.yMargin(context,80),
                     margin: EdgeInsets.only(top:6.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),
@@ -97,7 +99,7 @@ class SettingsHomePageView extends StatelessWidget {
                   Divider(),
 
                   Container(
-                    height: 75.h,
+                    height: SizeConfig.yMargin(context,80),
                     margin: EdgeInsets.only(top:6.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),
@@ -176,9 +178,9 @@ Expanded buildListTileSwitch(String heading, Function onChanged,bool value){
 
 Widget togglePrefSection(SettingsHomePageViewModel model, BuildContext context) => Expanded(
   child: Container(
-    margin: EdgeInsets.only(top: 12.h),
+    margin: EdgeInsets.all(SizeConfig.yMargin(context, 12)),
     padding: EdgeInsets.symmetric(horizontal:14.w),
-    height: 400.h,
+    height: SizeConfig.yMargin(context,400),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12.sp),
       color: Color.fromRGBO(196, 196, 196, 0.05),
