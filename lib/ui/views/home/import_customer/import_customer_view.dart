@@ -1,9 +1,8 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -69,7 +68,7 @@ class ImportCustomerView extends StatelessWidget {
                           onPressed: () {
                             // TODO: Implement add customer manually screen function
                           },
-                          icon: Icon(Icons.add, color: ThemeColors.cta,),
+                          icon: Icon(Icons.arrow_forward_ios, size: 20.sp, color: ThemeColors.cta,),
                           padding: EdgeInsets.symmetric(horizontal: 0),
                         ),
                       ),
@@ -82,7 +81,7 @@ class ImportCustomerView extends StatelessWidget {
               expandedHeight: 150,
             ),
             SliverPersistentHeader(delegate: TitleHeader(40), pinned: true,),
-            model.isBusy
+            model.isBusy || !model.dataReady
                 ? SliverToBoxAdapter(
               child: Center(
                 child: CircularProgressIndicator(),
@@ -93,45 +92,46 @@ class ImportCustomerView extends StatelessWidget {
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                    Customer customer = model.allCustomers[index];
-                    bool _isSelected = model.isSelected(customer);
+                    Contact customer = model.data[index];
                     return MyListTile(
-                      leading: CustomerCircleAvatar(customer: customer),
+                      leading: CustomerCircleAvatar(contact: customer),
                       title: Text(
-                        '${customer.name} '
-                            '${customer.lastName}',
+                        '${customer.displayName}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       subtitle: Text(
-                        '${customer.phone}',
+                        '${customer.phones.isNotEmpty ? customer.phones.first.value : 'No number'}',
                         style: TextStyle(
                           color: ThemeColors.gray.shade600,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      trailing: FlatButton.icon(
-                        icon: Icon(Icons.add, color: Colors.white),
-                        onPressed: () {
-                          // TODO: Change function to route to Transaction screen
-                          _isSelected
-                              ? model.deselectCustomer(customer)
-                              : model.addCustomer(customer);
-                        },
-                        label: Text(
-                          'ADD',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
+                      trailing: SizedBox(
+                        width: 80.w,
+                                              child: FlatButton.icon(
+                          icon: Icon(Icons.add, color: Colors.white, size: 20.sp,),
+                          onPressed: () {
+                            // TODO: Change function to route to Transaction screen with a customer object
+                            
+                          },
+                          label: Text(
+                            'ADD',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13.sp,
+                            ),
                           ),
+                          textColor: Colors.white,
+                          color: BrandColors.primary,
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4),),
                         ),
-                        textColor: Colors.white,
-                        color: BrandColors.secondary,
-                        padding: EdgeInsets.zero,
                       ),
                     );
                   },
-                  childCount: model.allCustomers.length,
+                  childCount: model.data.length,
                 ),
               ),
             ),
@@ -139,6 +139,7 @@ class ImportCustomerView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => ImportCustomerViewModel(),
+      onModelReady: (model) {model.init();},
     );
   }
 }

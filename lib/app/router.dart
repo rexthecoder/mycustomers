@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
+import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
@@ -30,6 +31,7 @@ abstract class Routes {
   static const addCustomer = '/addCustomer';
   static const addCustomerMessageRoute = '/addCusMess'; // (^ = ^)
   static const supportViewRoute = '/support';
+  static const importCustomerViewRoute = '/importCustomer';
 }
 
 class Router {
@@ -83,6 +85,11 @@ class Router {
       case Routes.signupViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SignUpView(),
+          settings: settings,
+        );
+      case Routes.importCustomerViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ImportCustomerView(),
           settings: settings,
         );
 
