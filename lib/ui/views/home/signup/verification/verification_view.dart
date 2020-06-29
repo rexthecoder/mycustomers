@@ -58,13 +58,18 @@ class VerificationView extends StatelessWidget with Validators {
                     autoDisposeControllers: false,
                     onCompleted: (v) {},
                     onChanged: (value) {
-                      //TODO: Listens and Obey
+                      //TODO: Listens and move below code to viewmodel
+
+                      //   if (value != null && value.length == 6) {
+
+                      // }
                     },
                   ),
                 ),
                 Center(
                   child: Text(
-                    'Please enter 4-digit code we sent on \nyour number as SMS',
+                    'Please enter 4-digit code we sent \nto your number as SMS',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Lato',
                       fontSize: SizeConfig.yMargin(context, 2),
@@ -73,16 +78,18 @@ class VerificationView extends StatelessWidget with Validators {
                     ),
                   ),
                 ),
-                SizedBox(height: SizeConfig.yMargin(context, 15)),
+                SizedBox(height: SizeConfig.yMargin(context, 13)),
                 InkWell(
                   onTap: () {
                     model.naviagateToNext();
                   },
-                  child: btnAuth('Next', context),
+                  child: btnAuth('Verify and Proceed', context),
                 ),
-                SizedBox(height: SizeConfig.yMargin(context, 2)),
-
-                //TODO: Build scrollbar
+                SizedBox(height: SizeConfig.yMargin(context, 18)),
+                Container(
+                    width: SizeConfig.xMargin(context, 60),
+                    child: CustomizeProgressIndicator(2, 4)),
+                SizedBox(height: SizeConfig.yMargin(context, 6)),
               ],
             ),
           ),

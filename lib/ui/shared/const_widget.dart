@@ -86,7 +86,7 @@ Widget btnAuth(String btnText, context) {
   double screenHeight = MediaQuery.of(context).size.height / 100;
   double screenWidth = MediaQuery.of(context).size.width / 100;
   return Container(
-    height: screenHeight * 6,
+    height: screenHeight * 7,
     width: screenWidth * 90,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
@@ -147,7 +147,7 @@ class HomeBackgroundWidget extends StatelessWidget {
               physics: ClampingScrollPhysics(),
               child: Container(
                 constraints: BoxConstraints(
-                  minHeight: SizeConfig.yMargin(context, 70),
+                  minHeight: SizeConfig.yMargin(context, 60),
                 ),
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),

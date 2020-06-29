@@ -19,11 +19,11 @@ class SignUpViewModel extends BaseViewModel {
   // Navigation
   Future navigateToLogin() async {
     // await Future.delayed(Duration(seconds: 5));
-    await _navigationService.replaceWith(Routes.signinViewRoute);
+    await _navigationService.navigateTo(Routes.signinViewRoute);
   }
 
   Future navigateToNextScreen() async {
     // await Future.delayed(Duration(seconds: 5));
-    await _navigationService.clearStackAndShow(Routes.businessViewRoute);
+    await _navigationService.clearStackAndShow(Routes.verificationViewRoute);
   }
 }
