@@ -50,12 +50,12 @@ class SignUpView extends StatelessWidget with Validators {
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
                 Container(
-                 // padding: EdgeInsets.all(SizeConfig.yMargin(context, 0.2)),
-                  height: SizeConfig.yMargin(context, 9.3),
+                  padding: EdgeInsets.all(SizeConfig.yMargin(context, 0.2)),
+                  height: SizeConfig.yMargin(context, 14),
                   width: SizeConfig.xMargin(context, 90),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.grey),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  // decoration: BoxDecoration(
+                  //     border: Border.all(width: 2, color: Colors.grey),
+                  //     borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: InternationalPhoneNumberInput(
                     onInputChanged: (PhoneNumber number) {
                       //TODO:
@@ -69,11 +69,10 @@ class SignUpView extends StatelessWidget with Validators {
                     selectorTextStyle: TextStyle(color: Colors.black),
                     initialValue: model.number,
                     textFieldController: _inputNumberController,
-                    inputBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none),
+                    inputBorder: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: SizeConfig.yMargin(context, 3)),
+                SizedBox(height: SizeConfig.yMargin(context, 4)),
                 Text(
                   'or Continue with your social accounts',
                   textAlign: TextAlign.center,
@@ -103,7 +102,9 @@ class SignUpView extends StatelessWidget with Validators {
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
                 InkWell(
                     onTap: () {
-                      model.navigateToNextScreen();
+                      if (_formPageKey.currentState.validate()) {
+                        model.navigateToNextScreen();
+                      }
                     },
                     child: btnAuth('Next', context)),
                 SizedBox(height: SizeConfig.yMargin(context, 3)),
