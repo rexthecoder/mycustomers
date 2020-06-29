@@ -29,26 +29,26 @@ class GetStartedView extends StatelessWidget {
                   _pages('assets/images/onboarding/onboarding3.png'),
                 ],
               ),
+              // Positioned(
+              //   bottom: SizeConfig.yMargin(context, 55),
+              //   child: Padding(
+              //     padding: EdgeInsets.symmetric(
+              //         horizontal: SizeConfig.yMargin(context, 5)),
+              //     child: Container(
+              //       height: SizeConfig.yMargin(context, 10),
+              //       child: Text(
+              //         'Welcome',
+              //         style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: SizeConfig.yMargin(context, 6),
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Positioned(
-                bottom: SizeConfig.yMargin(context, 55),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.yMargin(context, 5)),
-                  child: Container(
-                    height: SizeConfig.yMargin(context, 10),
-                    child: Text(
-                      'welcome',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 6),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: SizeConfig.yMargin(context, 35),
+                bottom: SizeConfig.yMargin(context, 40),
                 // left: 150.h,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -119,7 +119,7 @@ class GetStartedView extends StatelessWidget {
                     SizedBox(width: SizeConfig.xMargin(context, 1)),
                     InkWell(
                       onTap: () {
-                        // TODO: Implement Navigation to Login
+                        model.navigateToLogin();
                       },
                       child: Text(
                         'Login',
@@ -159,13 +159,13 @@ class Indicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 12,
-      width: 12,
+      height: SizeConfig.yMargin(context, 1.5),
+      width: SizeConfig.xMargin(context, 3),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.white),
           color:
               positionIndex == currentIndex ? Colors.white : Colors.transparent,
-          borderRadius: BorderRadius.circular(20)),
+          borderRadius: BorderRadius.circular(SizeConfig.yMargin(context, 20))),
     );
   }
 }

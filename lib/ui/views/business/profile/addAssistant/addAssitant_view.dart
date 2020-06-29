@@ -8,12 +8,12 @@ import 'package:flutter_screenutil/size_extension.dart';
 
 
 class AddAssistantView extends StatelessWidget {
-  TextEditingController assistantNameController = new TextEditingController();
-  TextEditingController inputNumberController = new TextEditingController();
-  TextEditingController assistantRoleController = new TextEditingController();
+  TextEditingController _assistantNameController;
+  TextEditingController _inputNumberController ;
+  TextEditingController _assistantRoleController;
 
     final _formKey = GlobalKey<FormState>();
-    static final _key = new GlobalKey<ScaffoldState>();
+    static final _pageKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class AddAssistantView extends StatelessWidget {
 
     return ViewModelBuilder<AddAssistantViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        key:_key ,
+        key:_pageKey ,
         appBar: AppBar(
           elevation: 1.0,
           backgroundColor: ThemeColors.background,
@@ -101,7 +101,7 @@ class AddAssistantView extends StatelessWidget {
                                     Expanded(
                                         child: TextFormField(
                                           validator:(value)=> model.validateFields(value),
-                                          controller:assistantNameController,
+                                          controller:_assistantNameController,
                                           keyboardType: TextInputType.text,
                                           decoration:InputDecoration(
                                             hintText: model.nameHintText,
@@ -122,7 +122,7 @@ class AddAssistantView extends StatelessWidget {
                                     Expanded(
                                         child: TextFormField(
                                         validator:(value)=>model.validateFields(value),
-                                        controller: assistantRoleController,
+                                        controller: _assistantRoleController,
                                         keyboardType: TextInputType.text,
                                         decoration: InputDecoration(
                                           floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -145,7 +145,7 @@ class AddAssistantView extends StatelessWidget {
                                     Expanded(
                                         child: TextFormField(
                                         validator:(value)=>model.validateFields(value),
-                                        controller:inputNumberController,
+                                        controller:_inputNumberController,
                                         keyboardType:TextInputType.number,
                                         decoration: InputDecoration(
                                           hintText:model.phoneNumberHintText,

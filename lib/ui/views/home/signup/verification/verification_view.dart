@@ -20,11 +20,10 @@ class VerificationView extends StatelessWidget with Validators {
     return ViewModelBuilder<VerificationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         key: _pageKey,
-        body: HomeBackgrouWidget(
-          context: context,
+        body: HomeBackgroundWidget(
           height: height,
           width: width,
-          widget: Form(
+          child: Form(
             key: _formPageKey,
             child: Column(
               children: <Widget>[
@@ -75,12 +74,12 @@ class VerificationView extends StatelessWidget with Validators {
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 15)),
-                RaisedButton(
-                    onPressed: null,
-
-                    // model.naviagateToNext();
-
-                    child: btnAuth('Next', context)),
+                InkWell(
+                  onTap: () {
+                    model.naviagateToNext();
+                  },
+                  child: btnAuth('Next', context),
+                ),
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
 
                 //TODO: Build scrollbar

@@ -4,16 +4,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-import 'add_debtor_viewmodel.dart';
+import 'add_debt_viewmodel.dart';
 
-class DebtorView extends StatelessWidget {
+class AddDebtView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _controller = TextEditingController();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
-    return ViewModelBuilder<AddDebtorViewModel>.reactive(
+    return ViewModelBuilder<AddDebtViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
               brightness: Brightness.light,
@@ -326,12 +326,12 @@ class DebtorView extends StatelessWidget {
                 ],
               ),
             )),
-        viewModelBuilder: () => AddDebtorViewModel());
+        viewModelBuilder: () => AddDebtViewModel());
   }
 }
 
 InkWell saveButton(
-    AddDebtorViewModel model, double width, BuildContext context) {
+    AddDebtViewModel model, double width, BuildContext context) {
   return InkWell(
     onTap: () {},
     child: Container(
