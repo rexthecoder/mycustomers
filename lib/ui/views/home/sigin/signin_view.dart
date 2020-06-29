@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/core/mixings/validators.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -10,11 +11,8 @@ import 'package:flutter_screenutil/size_extension.dart';
 import 'signin_viewmodel.dart';
 
 class SignInView extends StatelessWidget with Validators {
-
-  //TODO: Fix textfield according to design and the keyboard issue.
-
-  TextEditingController _inputNumberController;
-  final _formPageKey = GlobalKey<FormState>();
+  TextEditingController _inputNumberController = TextEditingController();
+  static final _formPageKey = GlobalKey<FormState>();
   final _pageKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -23,7 +21,7 @@ class SignInView extends StatelessWidget with Validators {
     double height = MediaQuery.of(context).size.height;
 
     ScreenUtil.init(context, width: width, height: height);
-    return ViewModelBuilder<SignInViewModel>.reactive(
+    return ViewModelBuilder<SignInViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
         key: _pageKey,
         body: HomeBackgroundWidget(
@@ -33,7 +31,7 @@ class SignInView extends StatelessWidget with Validators {
             key: _formPageKey,
             child: Column(
               children: <Widget>[
-                SizedBox(height: SizeConfig.yMargin(context, 7)),
+                SizedBox(height: SizeConfig.yMargin(context, 3)),
                 Text(
                   'SIGN IN',
                   style: TextStyle(
@@ -41,7 +39,7 @@ class SignInView extends StatelessWidget with Validators {
                     fontSize: SizeConfig.yMargin(context, 4),
                   ),
                 ),
-                SizedBox(height: SizeConfig.xMargin(context, 4)),
+                SizedBox(height: SizeConfig.xMargin(context, 6)),
                 Text(
                   'Please Enter your Phone number',
                   textAlign: TextAlign.center,
@@ -50,58 +48,29 @@ class SignInView extends StatelessWidget with Validators {
                     fontSize: SizeConfig.yMargin(context, 2),
                   ),
                 ),
-                // SizedBox(height: SizeConfig.yMargin(context, 0.2)),
-                // Container(
-                //     height: SizeConfig.yMargin(context, 60),
-                //     width: SizeConfig.xMargin(context, 90),
-
-                // ),
-                SizedBox(height: SizeConfig.yMargin(context, 5)),
-                Padding(
-                  padding: EdgeInsets.all(
-                    SizeConfig.yMargin(context, 0.8),
-                  ),
-                  child: Row(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      // Expanded(
-                      //   flex: 1,
-                      //   child: DropdownButton<String>(
-                      //     value: model.dropdownValue,
-                      //     icon: Icon(Icons.keyboard_arrow_down),
-                      //     iconSize: 25.w,
-                      //     elevation: 16,
-                      //     onChanged: (String data) {
-                      //       model.setDropdownValue(data);
-                      //     },
-                      //     items: model.dropdownItems
-                      //         .map<DropdownMenuItem<String>>((String value) {
-                      //       return DropdownMenuItem<String>(
-                      //         value: value,
-                      //         child: Text(value),
-                      //       );
-                      //     }).toList(),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   width: SizeConfig.xMargin(context, 10),
-                      //   color: Colors.black,
-                      // ),
-                      Expanded(
-                        child: TextFormField(
-                          key: Key('num'),
-                          controller: _inputNumberController,
-                          validator: (value) => (value.isEmpty)
-                              ? "Please Enter Phone Number"
-                              : null,
-                          style:
-                              TextStyle(fontFamily: 'Roboto', fontSize: 20.0),
-                          decoration:
-                              InputDecoration(border: OutlineInputBorder()),
-                        ),
-                      ),
-                    ],
+                SizedBox(height: SizeConfig.yMargin(context, 2)),
+                Container(
+                  // padding: EdgeInsets.all(SizeConfig.yMargin(context, 0.2)),
+                  height: SizeConfig.yMargin(context, 9.3),
+                  width: SizeConfig.xMargin(context, 90),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: InternationalPhoneNumberInput(
+                    onInputChanged: (PhoneNumber number) {
+                      //TODO:
+                    },
+                    onInputValidated: (bool value) {
+                      //TODO: Validation
+                    },
+                    ignoreBlank: false,
+                    autoValidate: false,
+                    errorMessage: 'Invalid Phone Number',
+                    selectorTextStyle: TextStyle(color: Colors.black),
+                    initialValue: model.number,
+                    textFieldController: _inputNumberController,
+                    inputBorder:
+                        OutlineInputBorder(borderSide: BorderSide.none),
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 3)),
@@ -137,7 +106,11 @@ class SignInView extends StatelessWidget with Validators {
                       model.navigateToNextScreen();
                     },
                     child: btnAuth('Next', context)),
-                SizedBox(height: SizeConfig.yMargin(context, 2)),
+                SizedBox(height: SizeConfig.yMargin(context, 18)),
+                Container(
+                    width: SizeConfig.xMargin(context, 60),
+                    child: CustomizeProgressIndicator(1, 4)),
+                SizedBox(height: SizeConfig.yMargin(context, 6)),
               ],
             ),
           ),

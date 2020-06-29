@@ -1,35 +1,24 @@
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SignInViewModel extends BaseViewModel {
-  final NavigationService _navigationService = locator<NavigationService>(); 
+  final NavigationService _navigationService = locator<NavigationService>();
 
-  String _dropdownValue = '+234';
+  String phoneNumber;
 
-  String get dropdownValue => _dropdownValue;
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
 
-  List<String> _dropdownItems = ['+234', '+229', '+256', '+209'];
+  void getPhoneNumber(String phoneNumber) async {}
 
-  List<String> get dropdownItems => _dropdownItems;
-
-  void setDropdownValue(String value) {
-    _dropdownValue = value;
-    notifyListeners();
-  }
-
-  String _phoneNumber;
-
-  String get phoneNumber => _phoneNumber;
-
-  void setPhoneNumber(String value) {
-    _phoneNumber = value;
-  }
+  Future onInputChange() async {}
 
   // Navigate
   Future navigateToNextScreen() async {
- await _navigationService.replaceWith(Routes.mainViewRoute);
+    await _navigationService.clearStackAndShow(Routes.verificationViewRoute);
   }
 
   void init() {}
