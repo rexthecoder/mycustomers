@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
+import 'package:mycustomers/ui/views/business/settings_page/settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
-
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
@@ -34,6 +34,7 @@ abstract class Routes {
   static const addCustomer = '/addCustomer';
   static const supportViewRoute = '/support';
   static const businessCardRoute = '/businessCard';
+  static const bussinessSettingsPage ='/bussinessSettingsPage';
   static const addAssistantRoute = '/addAssistant';
   static const currencySettingsViewRoute = '/currencySettings';
   static const profileViewRoute = '/profile';
@@ -83,6 +84,11 @@ class Router {
           builder: (context) => BusinessView(),
           settings: settings,
         );
+    case Routes.bussinessSettingsPage:
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SettingsPage(),
+        settings: settings,
+      );
       case Routes.profileViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => ProfilePageView(),
