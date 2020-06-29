@@ -7,7 +7,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 class GetStartedViewModel extends BaseViewModel {
  
- 
  //Page controller Index
   int currentIndex = 0;
   int numPages = 3;
@@ -19,6 +18,11 @@ class GetStartedViewModel extends BaseViewModel {
 
 // Navigation
   final NavigationService _navigationService = locator<NavigationService>();
+
+   Future navigateToLogin() async {
+    // await Future.delayed(Duration(seconds: 5));
+ await _navigationService.replaceWith(Routes.signinViewRoute);
+  }
 
   Future navigateToNextScreen() async {
     // await Future.value();

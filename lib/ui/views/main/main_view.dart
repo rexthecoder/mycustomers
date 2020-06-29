@@ -13,6 +13,9 @@ import 'package:stacked/stacked.dart';
 import 'main_viewmodel.dart';
 
 class MainView extends StatelessWidget {
+  final String home = 'assets/icons/svg/home.svg';
+  final String marketing = 'assets/icons/svg/marketing.svg';
+  final String business = 'assets/icons/svg/business.svg';
   final String profile = 'assets/icons/svg/profile.svg';
   final String settings = 'assets/icons/svg/settings.svg';
   final String support = 'assets/icons/svg/support.svg';
@@ -122,23 +125,51 @@ class MainView extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color(0xFF333CC1),
-          selectedItemColor: Color(0xFFFFFFFF),
-          unselectedItemColor: Color(0xFFA1A7FF),
+          backgroundColor: BrandColors.primary,
+          selectedItemColor: ThemeColors.background,
+          unselectedItemColor: ThemeColors.unselect,
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
+                title: Text('Home'),
+                icon: SvgPicture.asset(
+                  home,
+                  color: ThemeColors.unselect,
+                  semanticsLabel: 'Home',
+                ),
+                activeIcon: SvgPicture.asset(
+                  home,
+                  color: ThemeColors.background,
+                  semanticsLabel: 'Home Navigator is Active',
+                )),
+            // Icon(Icons.home),
+
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              title: Text('Marketing'),
-            ),
+                title: Text('Marketing'),
+                icon: SvgPicture.asset(
+                  marketing,
+                  color: ThemeColors.unselect,
+                  semanticsLabel: 'Marketing',
+                ),
+                activeIcon: SvgPicture.asset(
+                  marketing,
+                  color: ThemeColors.background,
+                  semanticsLabel: 'Marketing Navigator is Active',
+                )),
+
             BottomNavigationBarItem(
-              icon: Icon(Icons.work),
-              title: Text('Business'),
-            ),
+                // icon: Icon(Icons.work),
+                title: Text('Business'),
+                icon: SvgPicture.asset(
+                  business,
+                  color: ThemeColors.unselect,
+                  semanticsLabel: 'Business',
+                ),
+                activeIcon: SvgPicture.asset(
+                  business,
+                  color: ThemeColors.background,
+                  semanticsLabel: 'Business Navigator is Active',
+                )),
           ],
           onTap: model.changeTab,
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -54,10 +53,7 @@ class SavedDialogView extends StatelessWidget {
             ],
           ),
         ),
-        /*body: SafeArea(
-            child: UnderConstruction(),
-            //TODO: Implement Profile Page
-      ),*/
+        
       ),
       viewModelBuilder: () => SavedDialogViewModel(),
     );

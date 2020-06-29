@@ -53,6 +53,6 @@ void updateCountryCode(String value){
 
 
   Future<void> navigateToAddAssistantPage() async {
- await _navigationService.clearStackAndShow(Routes.addAssistantRoute);
+  await _navigationService.clearStackAndShow(Routes.addAssistantRoute);
   }
 }

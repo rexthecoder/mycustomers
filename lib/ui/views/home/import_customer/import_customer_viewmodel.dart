@@ -5,7 +5,8 @@ import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AddCustomerMessageViewModel extends FutureViewModel {
+class ImportCustomerViewModel extends FutureViewModel {
+  // TODO: Change the functions and fields to match import contacts
   // Get the services required
   NavigationService _navigationService = locator<NavigationService>();
   ICustomerService _customerService = locator<ICustomerService>();
@@ -19,15 +20,14 @@ class AddCustomerMessageViewModel extends FutureViewModel {
   List<Customer> _allCustomers = [];
   List<Customer> get allCustomers => _allCustomers.where(
         (Customer customer) =>
-            customer.name.contains(searchPattern) ||
-            customer.lastName.contains(searchPattern) ||
-            customer.phone.contains(searchPattern) ||
-            customer.email.contains(searchPattern),
-      ).toList();
+    customer.name.contains(searchPattern) ||
+        customer.lastName.contains(searchPattern) ||
+        customer.phone.contains(searchPattern) ||
+        customer.email.contains(searchPattern),
+  ).toList();
 
 
   /// Data checking section
-
   bool get hasData => _allCustomers.isNotEmpty;
   bool get hasSelected => _selectedCustomers.isNotEmpty;
   int get numberOfSelected => _selectedCustomers.length;
@@ -63,7 +63,6 @@ class AddCustomerMessageViewModel extends FutureViewModel {
 
 
   /// View initialize and close section
-
   popView() {
     _navigationService.back();
   }
