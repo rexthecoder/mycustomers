@@ -6,8 +6,10 @@ import 'package:sms/sms.dart';
   SmsService() {
     _receiver.onSmsReceived.listen(handler);
 }
+     // ignore: close_sinks
      final _otpController = StreamController<SmsMessage>();
 void handler(SmsMessage message) {
+   // ignore: unused_local_variable
    var add = _otpController.sink.add(message);
 }
 }
