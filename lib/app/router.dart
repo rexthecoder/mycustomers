@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/addAssistant/addAssitant_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
+import 'package:mycustomers/ui/views/business/settings_page/applock/applock_view.dart';
+import 'package:mycustomers/ui/views/business/settings_page/select_currency/select_currency_view.dart';
+import 'package:mycustomers/ui/views/business/settings_page/select_language/select_language_view.dart';
+import 'package:mycustomers/ui/views/business/settings_page/settings_page_view.dart';
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
@@ -30,6 +34,10 @@ abstract class Routes {
   static const supportViewRoute = '/support';
   static const businessCardRoute = '/businessCard';
   static const addAssistantRoute='/addAssistant';
+  static const bussinessSettingsPage ='/bussinessSettingsPage';
+  static const selectLanguage='/selectLanguage';
+  static const selectCurrency='/selectCurrency';
+  static const appLockoptions='/appLockoptions';
 }
 
 class Router {
@@ -74,7 +82,28 @@ class Router {
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessView(),
           settings: settings,
-        ); 
+        );
+        
+    case Routes.bussinessSettingsPage:
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SettingsPage(),
+        settings: settings,
+      );
+    case Routes.selectLanguage:
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SelectLanguage(),
+        settings: settings,
+      );
+    case Routes.selectCurrency:
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => SelectCurrency(),
+        settings: settings,
+      );
+    case Routes.appLockoptions:
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => AppLockView(),
+        settings: settings,
+      );
     
       // case Routes.addcustomerRoute:
       //   return CupertinoPageRoute<dynamic>(
