@@ -8,6 +8,8 @@ class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   Permissions _permission = new Permissions();
 
+  bool previewImport = false;
+
   // TODO:
   //    loading,
   //    authentication,
@@ -17,7 +19,7 @@ class StartupViewModel extends BaseViewModel {
     await locator.allReady();
     final bool isPermitted =
         await _permission.getContactsPermission();
-    if (isPermitted) await _navigationService.replaceWith(Routes.importCustomerViewRoute);
+    if (isPermitted && previewImport) await _navigationService.replaceWith(Routes.importCustomerViewRoute);
     else await _navigationService.replaceWith(Routes.getstartedViewRoute);
   }
 }
