@@ -1,15 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
-import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class LanguageSettingsViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
    
-   List get languages => _supportedLanguages;
+  List get languages => _supportedLanguages;
+  String get btnText => 'Save';
+   
+  String _pageTitle='Settings';
+  String get pageTitle => _pageTitle;
 
   List<Map<String, String>> _supportedLanguages = [
     {'image': 'assets/icons/uk.png','code': 'en', 'name': 'English'},
@@ -21,9 +23,8 @@ class LanguageSettingsViewModel extends BaseViewModel {
         .saveString('AppPreferenceKey.USER_PREF_LANGUAGE', _supportedLanguages[index]['code']);
   }
 
-  Future navigateToNext() async {
-    await Future.value();
-    await _navigationService.clearStackAndShow(Routes.signupViewRoute);
+  Future showDialogModal() async {
+    await _navigationService.replaceWith(Routes.showDialogModal);
   }
  
 

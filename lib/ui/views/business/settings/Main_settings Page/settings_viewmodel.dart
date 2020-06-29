@@ -51,7 +51,7 @@ class SettingsHomePageViewModel extends BaseViewModel {
     letterSpacing: -0.02
   );
 
-  String get btnText => 'Save';
+  
 
   void onChanged( bool value){
     _swichValue=value;

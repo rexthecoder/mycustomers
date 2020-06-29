@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:mycustomers/ui/views/business/profile/profile_partial_build_viewmodel.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_page/profile_partial_build_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';

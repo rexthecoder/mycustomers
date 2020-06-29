@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/shared/alert_dialog.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_text_style.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/business/settings/settings_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -14,7 +12,7 @@ import 'language_view_model.dart';
 class LanguageSettingPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SettingsHomePageViewModel>.reactive(
+    return ViewModelBuilder<LanguageSettingsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title:Text(model.pageTitle,
@@ -32,8 +30,8 @@ class LanguageSettingPageView extends StatelessWidget {
               decoration: BoxDecoration(
                 border:Border(
                   top:BorderSide(
-                    color:Color.fromRGBO(196, 196, 196, 0.05),
-                    width: 1
+                    // color:Color.fromRGBO(196, 196, 196, 0.05),
+                    // width: 0.5
                   ) )
               ),
               child: Column(
@@ -52,7 +50,7 @@ class LanguageSettingPageView extends StatelessWidget {
                    ),
                    child:FlatButton(
                      onPressed:(){
-                         showConfirmationMessage(context);
+                       // Implement show dialog page
                      } ,
                      child: Text(
                        model.btnText,
@@ -69,10 +67,12 @@ class LanguageSettingPageView extends StatelessWidget {
             ),
       ),
       ),
-      viewModelBuilder: () => SettingsHomePageViewModel(),
+      viewModelBuilder: () => LanguageSettingsViewModel(),
     );
   }
 }
+
+
 
 
 class LanguageSelectionPageView extends StatelessWidget {
