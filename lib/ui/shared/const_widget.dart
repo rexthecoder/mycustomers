@@ -147,7 +147,7 @@ class HomeBackgroundWidget extends StatelessWidget {
               physics: ClampingScrollPhysics(),
               child: Container(
                 constraints: BoxConstraints(
-                  minHeight: SizeConfig.yMargin(context, 60),
+                  minHeight: SizeConfig.yMargin(context, 65),
                 ),
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
