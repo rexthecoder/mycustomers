@@ -48,7 +48,7 @@ class PinField extends StatelessWidget {
                   ),
                   child: PinCodeTextField(
                     length: 4,
-                    backgroundColor: Theme.of(context).bottomAppBarTheme.color,
+                    backgroundColor: const Color(0xFF333CC1),
                     obsecureText: true,
                     autoFocus: true,
                     animationType: AnimationType.scale,

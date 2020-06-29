@@ -44,4 +44,8 @@ class SettingsPageViewModel extends BaseViewModel{
   Future navigateToAppLock() async {
     await _navigationService.navigateTo(Routes.appLockSettingsViewRoute);
   }
+
+  Future navigateToLanguageSettings() async {
+    await _navigationService.navigateTo(Routes.languageSettingsViewRoute);
+  }
 }
