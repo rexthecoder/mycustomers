@@ -10,9 +10,9 @@ import 'package:flutter_screenutil/size_extension.dart';
 import 'signup_viewmodel.dart';
 
 class SignUpView extends StatelessWidget{
-  TextEditingController _inputNumberController = TextEditingController();
-  static final _formPageKey = GlobalKey<FormState>();
-  final _pageKey = GlobalKey<ScaffoldState>();
+  TextEditingController _inputSignupNumberController = TextEditingController();
+  static final _signupFormPageKey = GlobalKey<FormState>();
+  final _signupPageKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,12 @@ class SignUpView extends StatelessWidget{
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<SignUpViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
-        key: _pageKey,
+        key: _signupPageKey,
         body: HomeBackgroundWidget(
           height: height,
           width: width,
           child: Form(
-            key: _formPageKey,
+            key: _signupFormPageKey,
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.yMargin(context, 3)),
@@ -67,7 +67,7 @@ class SignUpView extends StatelessWidget{
                     errorMessage: 'Invalid Phone Number',
                     selectorTextStyle: TextStyle(color: Colors.black),
                     initialValue: model.number,
-                    textFieldController: _inputNumberController,
+                    textFieldController: _inputSignupNumberController,
                     inputBorder: OutlineInputBorder(),
                   ),
                 ),
@@ -101,7 +101,7 @@ class SignUpView extends StatelessWidget{
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
                 InkWell(
                     onTap: () {
-                      if (_formPageKey.currentState.validate()) {
+                      if (_signupFormPageKey.currentState.validate()) {
                         model.navigateToNextScreen();
                       }
                     },
@@ -139,7 +139,7 @@ class SignUpView extends StatelessWidget{
                 SizedBox(height: SizeConfig.yMargin(context, 14)),
                 Container(
                     width: SizeConfig.xMargin(context, 60),
-                    child: CustomizeProgressIndicator(1, 4)),
+                    child: CustomizeProgressIndicator(2, 4)),
                 SizedBox(height: SizeConfig.yMargin(context, 6)),
               ],
             ),

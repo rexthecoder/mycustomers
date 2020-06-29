@@ -7,8 +7,8 @@ import 'business_viewmodel.dart';
 
 class BusinessView extends StatelessWidget  {
   
-  static final _formPageKey = GlobalKey<FormState>();
-  final _pageKey = GlobalKey<ScaffoldState>();
+  static final _businessFormPageKey = GlobalKey<FormState>();
+  final _businessPageKey = GlobalKey<ScaffoldState>();
 
   TextEditingController _userFullName;
   TextEditingController _userBusinessName;
@@ -20,12 +20,12 @@ class BusinessView extends StatelessWidget  {
 
     return ViewModelBuilder<BusinessViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        key: _pageKey,
+        key: _businessPageKey,
         body: HomeBackgroundWidget(
           height: height,
           width: width,
           child: Form(
-            key: _formPageKey,
+            key: _businessFormPageKey,
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.yMargin(context, 7)),
@@ -84,7 +84,7 @@ class BusinessView extends StatelessWidget  {
                 SizedBox(height: SizeConfig.yMargin(context, 4)),
                 InkWell(
                     onTap: () {
-                      if (_formPageKey.currentState.validate()) {
+                      if (_businessFormPageKey.currentState.validate()) {
                         model.navigateToNext();
                       }
                     },
@@ -92,7 +92,7 @@ class BusinessView extends StatelessWidget  {
                 SizedBox(height: SizeConfig.yMargin(context, 14)),
                 Container(
                     width: SizeConfig.xMargin(context, 60),
-                    child: CustomizeProgressIndicator(3, 4)),
+                    child: CustomizeProgressIndicator(4, 4)),
                 SizedBox(height: SizeConfig.yMargin(context, 4)),
               ],
             ),
