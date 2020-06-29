@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'language_viewmodel.dart';
-import '../../../shared/const_color.dart';
-
 class LanguageSettings extends StatelessWidget {
 
   final Color color = ThemeColors.primary;

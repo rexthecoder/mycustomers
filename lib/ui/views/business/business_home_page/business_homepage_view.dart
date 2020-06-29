@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/views/business/profile/profile_page_view.dart';
-// import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';
 import 'package:stacked/stacked.dart';
 
 

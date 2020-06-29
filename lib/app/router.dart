@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/views/business/addAssistant/addAssitant_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
+import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
+import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
+
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
@@ -29,7 +34,10 @@ abstract class Routes {
   static const addCustomer = '/addCustomer';
   static const supportViewRoute = '/support';
   static const businessCardRoute = '/businessCard';
-  static const addAssistantRoute='/addAssistant';
+  static const addAssistantRoute = '/addAssistant';
+  static const currencySettingsViewRoute = '/currencySettings';
+  static const profileViewRoute = '/profile';
+  static const appLockSettingsViewRoute = '/appLockSettings';
 }
 
 class Router {
@@ -70,12 +78,16 @@ class Router {
           builder: (context) => AddCustomerView(),
           settings: settings,
         );
-    case Routes.businessViewRoute:
+      case Routes.businessViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessView(),
           settings: settings,
-        ); 
-    
+        );
+      case Routes.profileViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ProfilePageView(),
+          settings: settings,
+        );
       // case Routes.addcustomerRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => AddCustomerView(),
@@ -92,21 +104,14 @@ class Router {
       //     settings: settings,
       //   )
       //   );
-      // case Routes.supportViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => SupportPageView(),
-      //     settings: settings,
-      //   );
-      case Routes.mainViewRoute:
+      case Routes.supportViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => MainView(),
+          builder: (context) => SupportPageView(),
           settings: settings,
         );
       case Routes.addAssistantRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context)=>AddAssistantView(),
-          settings:settings
-        );
+            builder: (context) => AddAssistantView(), settings: settings);
       // case Routes.homeViewRoute:
       //   return CupertinoPageRoute<dynamic>(
       //     builder: (context) => HomeView(),
@@ -122,11 +127,21 @@ class Router {
       //     builder: (context) => AddCustomerManuallyView(),
       //     settings: settings,
       //   );
-//     case Routes.businessCardRoute:
-//       return CupertinoPageRoute<dynamic>(
-//         builder: (context) => BusinessCardPageView(),
-//         settings: settings,
-//       );
+      case Routes.businessCardRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => BusinessCardPageView(),
+          settings: settings,
+        );
+      case Routes.currencySettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CurrencySettingsPageView(),
+          settings: settings,
+        );
+      case Routes.appLockSettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AppLockSettingsPageView(),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }

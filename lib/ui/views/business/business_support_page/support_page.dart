@@ -7,45 +7,39 @@ import 'support_page_viewmodel.dart';
 class SupportPageView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController k = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: true);
     return ViewModelBuilder<SupportPageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                title: Text(
+                  'Customer Support',
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                ),
+              ),
               body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: ListView(children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Icon(Icons.arrow_back),
-                        Text('Customer Support',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.sp)),
-                        SizedBox()
-                      ],
-                    ),
-                    SizedBox(height: 78.h),
                     Form(
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
                             // Expanded(child: null),
                             TextFormField(
-                              validator: (value) => model.validateFields(value),
+                                validator: (value) =>
+                                    model.validateFields(value),
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {},
                                 decoration: InputDecoration(
                                     hintText: 'Name',
-                                    hintStyle: TextStyle(
-                                        fontSize: 16.sp),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        16.h,
-                                        20,
-                                        0,
-                                        16.h),
+                                    hintStyle: TextStyle(fontSize: 16.sp),
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),
                                     border: new OutlineInputBorder(
                                       borderRadius:
                                           new BorderRadius.circular(5.0),
@@ -54,16 +48,13 @@ class SupportPageView extends StatelessWidget {
                                     ))),
                             SizedBox(height: 15.h),
                             TextFormField(
-                              validator: (value) => model.validateFields(value),
+                                validator: (value) =>
+                                    model.validateFields(value),
                                 decoration: InputDecoration(
                                     hintText: 'Email',
-                                    hintStyle: TextStyle(
-                                        fontSize: 16.sp),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        16.h,
-                                        20,
-                                        0,
-                                        16.h),
+                                    hintStyle: TextStyle(fontSize: 16.sp),
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),
                                     border: new OutlineInputBorder(
                                       borderRadius:
                                           new BorderRadius.circular(5.0),
@@ -103,7 +94,8 @@ class SupportPageView extends StatelessWidget {
                                         ),
                                         elevation: 0,
                                         isDense: false,
-                                        items: (model.items).map((String value) {
+                                        items:
+                                            (model.items).map((String value) {
                                           return new DropdownMenuItem<String>(
                                             value: value,
                                             child: new Text(value),
@@ -120,18 +112,15 @@ class SupportPageView extends StatelessWidget {
                                 )),
                             SizedBox(height: 19.h),
                             TextFormField(
-                              validator: (value) => model.validateFields(value),
+                                validator: (value) =>
+                                    model.validateFields(value),
                                 minLines: 8,
                                 maxLines: 12,
                                 decoration: InputDecoration(
                                     hintText: 'Write Your Message Here',
-                                    hintStyle: TextStyle(
-                                        fontSize: 16.sp),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        16.h,
-                                        20,
-                                        0,
-                                        16.h),
+                                    hintStyle: TextStyle(fontSize: 16.sp),
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),
                                     border: new OutlineInputBorder(
                                       borderRadius:
                                           new BorderRadius.circular(11.0),
@@ -142,21 +131,18 @@ class SupportPageView extends StatelessWidget {
                           ],
                         )),
                     RaisedButton(
-                      padding: EdgeInsets.only(
-                          top: 16.h,
-                          bottom: 16.h),
+                      padding: EdgeInsets.only(top: 16.h, bottom: 16.h),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          // TODO: Implement Send report service 
+                          // TODO: Implement Send report service
                         }
                       },
                       child: Text('Send',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.sp)),
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 16.sp)),
                       color: Color(0xff333cc1),
                     )
                   ]),

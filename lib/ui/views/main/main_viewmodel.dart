@@ -60,7 +60,7 @@ class MainViewModel extends BaseViewModel {
   }
 
   Future navigateToProfilePage() async {
-//    await _navigationService.navigateTo(Routes.);
+    await _navigationService.navigateTo(Routes.profileViewRoute);
   }
 
   Future navigateToBusinessCardPage() async {
