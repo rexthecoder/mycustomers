@@ -36,7 +36,7 @@ class VerificationView extends StatelessWidget with Validators {
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 5)),
-
+//TODO: Pin Validation
                 Padding(
                   padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
                   child: PinCodeTextField(
@@ -81,7 +81,9 @@ class VerificationView extends StatelessWidget with Validators {
                 SizedBox(height: SizeConfig.yMargin(context, 13)),
                 InkWell(
                   onTap: () {
-                    model.naviagateToNext();
+                     if (_formPageKey.currentState.validate()) {
+                        model.navigateToNextScreen();
+                      }
                   },
                   child: btnAuth('Verify and Proceed', context),
                 ),

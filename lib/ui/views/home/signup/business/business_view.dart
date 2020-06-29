@@ -38,13 +38,13 @@ class BusinessView extends StatelessWidget with Validators {
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 5)),
                 Text(
-                  'One last step',
+                  'One last step...',
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: SizeConfig.yMargin(context, 2),
                   ),
                 ),
-                SizedBox(height: SizeConfig.yMargin(context, 5)),
+                SizedBox(height: SizeConfig.yMargin(context, 2)),
                 Padding(
                   padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
                   child: TextFormField(
@@ -68,9 +68,8 @@ class BusinessView extends StatelessWidget with Validators {
                   child: TextFormField(
                     key: Key("userBusinessName"),
                     controller: _userBusinessName,
-                    validator: (value) => (value.isEmpty)
-                        ? "Please Enter Business Name"
-                        : null,
+                    validator: (value) =>
+                        (value.isEmpty) ? "Please Enter Business Name" : null,
                     style: TextStyle(
                       fontFamily: 'Lato',
                       fontSize: SizeConfig.yMargin(context, 2),
@@ -82,16 +81,19 @@ class BusinessView extends StatelessWidget with Validators {
                         border: OutlineInputBorder()),
                   ),
                 ),
-
-                SizedBox(height: SizeConfig.yMargin(context, 5)),
+                SizedBox(height: SizeConfig.yMargin(context, 4)),
                 InkWell(
                     onTap: () {
-                      model.navigateToNext();
+                      if (_formPageKey.currentState.validate()) {
+                        model.navigateToNext();
+                      }
                     },
-                    child: btnAuth('Next', context)),
-                SizedBox(height: SizeConfig.yMargin(context, 2)),
-
-                //TODO: Build scrollbar
+                    child: btnAuth('Submit and Finish', context)),
+                SizedBox(height: SizeConfig.yMargin(context, 14)),
+                Container(
+                    width: SizeConfig.xMargin(context, 60),
+                    child: CustomizeProgressIndicator(3, 4)),
+                SizedBox(height: SizeConfig.yMargin(context, 4)),
               ],
             ),
           ),
