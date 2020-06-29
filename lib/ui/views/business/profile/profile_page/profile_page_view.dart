@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/views/business/profile/profile_page_viewmodel.dart';
-import 'package:mycustomers/ui/views/business/profile/profile_partial_build_view.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_viewmodel.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_page/profile_partial_build_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/const_text_style.dart';
 import 'package:flutter_screenutil/size_extension.dart';
