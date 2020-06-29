@@ -27,17 +27,24 @@ class SettingsHomePageView extends StatelessWidget {
           centerTitle: true,
           backgroundColor: ThemeColors.background,
           iconTheme: IconThemeData(
-            color: BrandColors.primary
+            color: Colors.red
           ),
         ),
         body: SafeArea(
             child:Container(
               padding: EdgeInsets.symmetric(horizontal:24.w),
               margin: EdgeInsets.only(top:8.h),
+              decoration: BoxDecoration(
+              border:Border(
+                top:BorderSide(
+                  color:Color.fromRGBO(196, 196, 196, 0.05),
+                  width: 1
+                ) )
+            ),
               child: Column(
                 children : <Widget>[
                   Container(
-                    height: SizeConfig.yMargin(context,80),
+                    height: SizeConfig.yMargin(context,6),
                     margin: EdgeInsets.only(top:6.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),
@@ -59,6 +66,7 @@ class SettingsHomePageView extends StatelessWidget {
                           },
                           icon: Icon(Icons.arrow_forward_ios,
                           color: Color(0xff4f4f4f),
+                          size:12.0
                           ),
                         )
                       ]
@@ -67,7 +75,7 @@ class SettingsHomePageView extends StatelessWidget {
                   Divider(),
 
                   Container(
-                    height:SizeConfig.yMargin(context,80),
+                    height:SizeConfig.yMargin(context,6),
                     margin: EdgeInsets.only(top:6.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),
@@ -87,10 +95,13 @@ class SettingsHomePageView extends StatelessWidget {
                         style:model.prefTextStyle),
                         IconButton(
                           onPressed: (){
-                             //TODO Implement function to navigate to Language screen
+                             //TODO Implement function to navigate to Currency screen
                           },
-                          icon: Icon(Icons.arrow_forward_ios),
+                          icon: Icon(Icons.arrow_forward_ios,
+                          size:12.0
+                          ),
                           color: Color(0xff4f4f4f),
+                          
                           )
 
                       ]
@@ -99,7 +110,7 @@ class SettingsHomePageView extends StatelessWidget {
                   Divider(),
 
                   Container(
-                    height: SizeConfig.yMargin(context,80),
+                    height: SizeConfig.yMargin(context,6),
                     margin: EdgeInsets.only(top:6.h),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.sp),
@@ -115,6 +126,7 @@ class SettingsHomePageView extends StatelessWidget {
                         IconButton(
                           icon: Icon(Icons.arrow_forward_ios,
                           color: Color(0xff4f4f4f),
+                          size: 12.0,
                           ), 
                           onPressed: null)
 
@@ -161,24 +173,21 @@ class SettingsHomePageView extends StatelessWidget {
 
 Expanded buildListTileSwitch(String heading, Function onChanged,bool value){
   return Expanded(
-    child: Padding(
-      padding: EdgeInsets.symmetric(vertical:6.h),
-      child: SwitchListTile(
-        title:Text(heading),
-        value: value, 
-        onChanged:onChanged,
-        activeColor:ThemeColors.background ,
-        activeTrackColor:BrandColors.primary ,
-        
-        ),
-    ));
+    child: SwitchListTile(
+      title:Text(heading),
+      value: value, 
+      onChanged:onChanged,
+      activeColor:ThemeColors.background ,
+      activeTrackColor:BrandColors.primary ,
+      
+      ));
 }
 
 
 
 Widget togglePrefSection(SettingsHomePageViewModel model, BuildContext context) => Expanded(
   child: Container(
-    margin: EdgeInsets.all(SizeConfig.yMargin(context, 12)),
+    margin: EdgeInsets.all(SizeConfig.yMargin(context, 0.05)),
     padding: EdgeInsets.symmetric(horizontal:14.w),
     height: SizeConfig.yMargin(context,400),
     decoration: BoxDecoration(
@@ -195,6 +204,7 @@ Widget togglePrefSection(SettingsHomePageViewModel model, BuildContext context) 
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         buildListTileSwitch(model.notification, model.onChanged, model.switchValue),
+        
         Divider(
           color: Color.fromRGBO(151, 151, 151, 0.1),
           height: 0.5.h,

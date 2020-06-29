@@ -6,7 +6,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class LanguageViewModel extends BaseViewModel {
+class LanguageSettingsViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
    
    List get languages => _supportedLanguages;
@@ -19,14 +19,13 @@ class LanguageViewModel extends BaseViewModel {
   Future<void> setLanguage(int index) async {
     await locator<IStorageUtil>()
         .saveString('AppPreferenceKey.USER_PREF_LANGUAGE', _supportedLanguages[index]['code']);
-    navigateToNext();
   }
 
   Future navigateToNext() async {
     await Future.value();
     await _navigationService.clearStackAndShow(Routes.signupViewRoute);
   }
-  
+ 
 
   
 }
