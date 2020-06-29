@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mycustomers/ui/views/business/settings_page/select_currency/select_currency_viewmodel.dart';
-import 'package:mycustomers/ui/views/business/settings_page/select_language/select_language_viewmodel.dart';
 import 'package:mycustomers/ui/views/business/settings_page/settings_page_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
@@ -42,9 +40,24 @@ class SettingsPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      cardTile('Change Language', SelectLanguageViewModel().langs[SelectLanguageViewModel().index]['name'], model.navigateToLanguage, context),
-                      cardTile('Change Currency', SelectCurrencyViewModel().currencies[SelectCurrencyViewModel().index]['name'], model.navigateToCurrency, context),
-                      cardTile('App Lock', '', model.navigateToAppLock, context),
+                      cardTile(
+                        'Change Language',
+                        'English',//Todo: Set Functionality to Change when Language is Changed
+                        (){},//Todo: Navigate to Language Selection Screen
+                        context
+                      ),
+                      cardTile(
+                        'Change Currency',
+                        'Naira(NGN)',//Todo: Set Functionality to Change when Language is Changed
+                        model.navigateToCurrency,
+                        context
+                        ),
+                      cardTile(
+                        'App Lock',
+                        '',
+                        model.navigateToAppLock,
+                        context
+                      ),
                       SizedBox(height: ScreenUtil().setHeight(50),),
                       switchTile(context, model.notification, model.setNotification, 'Recieve Notifications'),
                       switchTile(context, model.newsletter, model.setNewsletter, 'Recieve NewsLetter'),
@@ -57,7 +70,9 @@ class SettingsPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20)),
                 child: InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      //Todo: Save User Settings Functionality
+                    },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15)),
                       decoration: BoxDecoration(

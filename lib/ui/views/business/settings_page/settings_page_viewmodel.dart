@@ -38,13 +38,10 @@ class SettingsPageViewModel extends BaseViewModel{
     print(index);
     notifyListeners();
   }
-  Future navigateToLanguage() async {
-    await _navigationService.navigateTo(Routes.selectLanguage);
-  }
   Future navigateToCurrency() async {
-    await _navigationService.navigateTo(Routes.selectCurrency);
+    await _navigationService.navigateTo(Routes.currencySettingsViewRoute);
   }
   Future navigateToAppLock() async {
-    await _navigationService.navigateTo(Routes.appLockoptions);
+    await _navigationService.navigateTo(Routes.appLockSettingsViewRoute);
   }
 }
