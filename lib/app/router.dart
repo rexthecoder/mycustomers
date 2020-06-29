@@ -46,7 +46,7 @@ class Router {
     switch (settings.name) {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => SettingsPage(),
+          builder: (context) => StartupView(),
           settings: settings,
         );
       case Routes.getstartedViewRoute:
