@@ -4,11 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
-class ProgressIndicator extends StatelessWidget {
+/// A customize Progress Indicator By Ufe Adeojo
+class CustomizeProgressIndicator extends StatelessWidget {
 
   final int progress, total;
 
-  ProgressIndicator(this.progress, this.total, {Key key}) : super(key: key);
+  const CustomizeProgressIndicator(this.progress, this.total, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
