@@ -6,7 +6,7 @@ import 'package:mycustomers/core/services/permissions.dart';
 
 class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  Permissions _permission = new Permissions();
+  Permissions _permission =  locator<Permissions>();
 
   bool previewImport = false;
 

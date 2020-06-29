@@ -4,7 +4,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/customer.dart';
-import 'package:mycustomers/core/services/customer_services.dart';
+import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -13,12 +13,15 @@ class ImportCustomerViewModel extends StreamViewModel {
   // Get the services required
   NavigationService _navigationService = locator<NavigationService>();
 
-  StreamController _contactStream = StreamController<List<Contact>>();
+  StreamController _contactStream = StreamController<List<Customer>>();
+  IOwnerServices iOwnerServices = locator<IOwnerServices>();
 
   ImportCustomerViewModel();
 
+
+  // TODO: Extract owner service init into field
   init() async {
-    List<Contact> contacts = (await ContactsService.getContacts(query: _searchTerm)).toList();
+    List<Customer> contacts = iOwnerServices.getPhoneContacts();
     _contactStream.add(contacts);
   }
 
@@ -27,8 +30,8 @@ class ImportCustomerViewModel extends StreamViewModel {
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) async {
-    _searchTerm = keyword;
-    List<Contact> contacts = (await ContactsService.getContacts(query: _searchTerm)).toList();
+    _searchTerm = keyword;    
+        List<Customer> contacts = iOwnerServices.getPhoneContacts();
     _contactStream.add(contacts);
   }
 

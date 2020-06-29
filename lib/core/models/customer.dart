@@ -23,6 +23,9 @@ const customerLastNames = [
 
 @JsonSerializable()
 class Customer {
+
+  String get displayName => '${this.name ?? ''} ${this.lastName ?? ''}';
+
   final String id, name, phone, email;
 
   @JsonKey(name: 'lastname')
