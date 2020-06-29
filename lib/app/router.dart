@@ -5,6 +5,7 @@ import 'package:mycustomers/ui/views/business/business_support_page/support_page
 import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/change_pin_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
@@ -38,6 +39,7 @@ abstract class Routes {
   static const currencySettingsViewRoute = '/currencySettings';
   static const profileViewRoute = '/profile';
   static const appLockSettingsViewRoute = '/appLockSettings';
+  static const changePinSettingsViewRoute = '/changePinSettings';
 }
 
 class Router {
@@ -140,6 +142,11 @@ class Router {
       case Routes.appLockSettingsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AppLockSettingsPageView(),
+          settings: settings,
+        );
+      case Routes.changePinSettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ChangePinSettingsPageView() ,
           settings: settings,
         );
       default:
