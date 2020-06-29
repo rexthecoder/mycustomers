@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mycustomers/core/mixings/validators.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -8,7 +7,7 @@ import 'package:stacked/stacked.dart';
 
 import 'verification_viewmodel.dart';
 
-class VerificationView extends StatelessWidget with Validators {
+class VerificationView extends StatelessWidget {
   static final _formPageKey = GlobalKey<FormState>();
   final _pageKey = GlobalKey<ScaffoldState>();
 

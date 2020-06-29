@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:mycustomers/core/mixings/validators.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_screenutil/size_extension.dart';
 
 import 'signup_viewmodel.dart';
 
-class SignUpView extends StatelessWidget with Validators {
+class SignUpView extends StatelessWidget{
   TextEditingController _inputNumberController = TextEditingController();
   static final _formPageKey = GlobalKey<FormState>();
   final _pageKey = GlobalKey<ScaffoldState>();

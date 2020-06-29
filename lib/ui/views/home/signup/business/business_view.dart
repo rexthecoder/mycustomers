@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/core/mixings/validators.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 
 import 'business_viewmodel.dart';
 
-class BusinessView extends StatelessWidget with Validators {
+class BusinessView extends StatelessWidget  {
+  
   static final _formPageKey = GlobalKey<FormState>();
   final _pageKey = GlobalKey<ScaffoldState>();
 
