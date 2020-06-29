@@ -74,7 +74,7 @@ class AddCustomerMessageViewModel extends FutureViewModel {
 
   @override
   Future futureToRun() async {
-    _allCustomers = await _customerService.getCustomers(1);
+    _allCustomers = await _customerService.getCustomers('1');
   }
 
 }

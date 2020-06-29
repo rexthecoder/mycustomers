@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 
 class MainTransaction extends StatelessWidget {
   @override
@@ -101,7 +103,7 @@ class MainTransaction extends StatelessWidget {
               ),
               body: Column(
                 children: <Widget>[
-                  Container(
+                  model.formattedate !=null?Container(): Container(
                     padding: EdgeInsets.symmetric(
                         vertical: ScreenUtil().setHeight(20)),
                     width: width,
@@ -190,7 +192,22 @@ class MainTransaction extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(
+                  model.formattedate !=null?Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                          child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset('assets/images/safe.png',),
+                                  SizedBox(height: 20.h,),
+                                  Text('MyCustomer is 100% safe and secure, only you and Seyi Onifade can view this transaction',
+                                  textAlign: TextAlign.center,),
+                                ],
+                              ))),
+                    ),
+                  ): Expanded(
                     child: ListView.builder(
                         itemCount: model.formattedate.length,
                         itemBuilder: (context, index) {
@@ -466,7 +483,7 @@ class MainTransaction extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
+                        model.formattedate !=null?Container(): Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: ScreenUtil().setWidth(15),
                               vertical: ScreenUtil().setHeight(10),
@@ -547,32 +564,37 @@ class MainTransaction extends StatelessWidget {
                                       ],
                                     ),
                                   )),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: ScreenUtil().setHeight(15),
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: Color(0xFF333CC1),
-                            ),
-                            width: width,
-                            child: Center(
-                              child: Text(
-                                'Add Transaction',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6
-                                    .copyWith(
-                                      fontSize: ScreenUtil().setSp(16),
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            ),
-                          ),
-                        )
+                        AddTransaction(width),
+//                        InkWell(
+//                          onTap: () {
+//
+//                            showBottomSheet(context: context,
+//                            builder: (context)=> Container());
+//                          },
+//                          child: Container(
+//                            padding: EdgeInsets.symmetric(
+//                              vertical: ScreenUtil().setHeight(15),
+//                            ),
+//                            decoration: BoxDecoration(
+//                              borderRadius: BorderRadius.circular(5.0),
+//                              color: Color(0xFF333CC1),
+//                            ),
+//                            width: width,
+//                            child: Center(
+//                              child: Text(
+//                                'Add Transaction',
+//                                style: Theme.of(context)
+//                                    .textTheme
+//                                    .headline6
+//                                    .copyWith(
+//                                      fontSize: ScreenUtil().setSp(16),
+//                                      color: Colors.white,
+//                                      fontWeight: FontWeight.bold,
+//                                    ),
+//                              ),
+//                            ),
+//                          ),
+//                        )
                       ],
                     ),
                   )
@@ -581,14 +603,96 @@ class MainTransaction extends StatelessWidget {
             ),
         viewModelBuilder: () => MainTransactionViewModel());
   }
+
+  void itemAction(String item, BuildContext context) {
+    if (item == 'SMS') {
+      Navigator.pushNamed(context, '/transactionHistory');
+      //Code to send sms
+    } else if (item == 'Call') {
+      Navigator.pushNamed(context, '/transactionDetails');
+      //Code to call customer
+    } else {
+      //Code to Set Reminder
+    }
+  }
 }
 
-void itemAction(String item, BuildContext context) {
-  if (item == 'SMS') {
-    //Code to send sms
-  } else if (item == 'Call') {
-    //Code to call customer
-  } else {
-    //Code to Set Reminder
+
+
+class AddTransaction extends StatelessWidget {
+  final double width;
+  AddTransaction(this.width);
+  @override
+  Widget build(BuildContext context) {
+    return   InkWell(
+      onTap: () {
+
+        showModalBottomSheet(
+            context: context,
+            barrierColor: Colors.black.withOpacity(0.5),
+            builder: (context)=> Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                height: 200.h,
+                child: Column(
+                  children: <Widget>[
+                    InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, '/addDebt');
+                      },
+                        child: Container(
+                          height: 50.h,
+                            child: Center(child: Text('Add Debt',style: TextStyle(
+                              color: BrandColors.secondary
+                            ),)))),
+                    Divider(color: Colors.black),
+                    InkWell(
+                        onTap: (){
+                          Navigator.pushNamed(context, '/addCredit');
+                        },
+                        child: Container(
+                            height: 50.h,
+                            child: Center(child: Text('Add Credit',style: TextStyle(
+                                color: BrandColors.primary
+                            ),)))),
+                    Divider(color: Colors.black),
+                    InkWell(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                            height: 50.h,
+                            child: Center(child: Text('Cancel',style: TextStyle(
+                                color: Colors.red
+                            ),)))),
+                  ],
+                ),
+              ),
+            ));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: ScreenUtil().setHeight(15),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          color: Color(0xFF333CC1),
+        ),
+        width: width,
+        child: Center(
+          child: Text(
+            'Add Transaction',
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                .copyWith(
+              fontSize: ScreenUtil().setSp(16),
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

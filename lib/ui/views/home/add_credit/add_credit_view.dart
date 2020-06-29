@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 
 import 'add_credit_viewmodel.dart';
 
-class CreditorView extends StatelessWidget {
+class AddCreditView extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
