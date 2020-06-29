@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
-import 'package:mycustomers/ui/views/business/settings_page/settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';

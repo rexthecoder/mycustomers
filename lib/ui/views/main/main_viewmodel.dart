@@ -72,7 +72,6 @@ class MainViewModel extends BaseViewModel {
   }
 
   Future navigateToSettingsPage() async {
-    // TODO Add navigate to settings page
-//    await _navigationService.navigateTo(Routes);
+    await _navigationService.navigateTo(Routes.bussinessSettingsPage);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mycustomers/ui/views/business/settings_page/settings_page_viewmodel.dart';
+import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class SettingsPage extends StatelessWidget {
