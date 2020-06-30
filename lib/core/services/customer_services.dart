@@ -93,7 +93,12 @@ class MockCustomerService implements ICustomerService {
     // Add the new customer while assigning a random Id to it
     // TODO: Make sure to take care of duplicate IDs
     _customers.add(
-        Customer(Random().nextInt(100000).toString(), name, phoneNumber, email, lastName));
+        Customer()
+        ..name = name
+        ..phone = phoneNumber
+        ..email = email
+        ..lastName = lastName
+        );
   }
 
   @override
@@ -133,13 +138,12 @@ class MockCustomerService implements ICustomerService {
     Customer _customerToUpdate = _customers.elementAt(indexToUpdate);
 
     // Create a new customer object while replacing with the specified fields
-    Customer customerReplacement = Customer(
-      customerId,
-      name ?? _customerToUpdate.name,
-      phoneNumber ?? _customerToUpdate.phone,
-      email ?? _customerToUpdate.email,
-      lastName ?? _customerToUpdate.lastName,
-    );
+    Customer customerReplacement = Customer()
+      ..id = customerId
+      ..name = name ?? _customerToUpdate.name
+      ..phone =phoneNumber ?? _customerToUpdate.phone
+      ..email = email ?? _customerToUpdate.email
+      ..lastName = lastName ?? _customerToUpdate.lastName;
 
     // Update the customer at the position
     _customers[indexToUpdate] = customerReplacement;

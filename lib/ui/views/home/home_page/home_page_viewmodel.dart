@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/business_model.dart';
+import 'package:mycustomers/core/services/permissions.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -48,9 +49,13 @@ class HomePageViewModel extends BaseViewModel {
 
 
   final NavigationService _navigationService = locator<NavigationService>();
+   Permissions _permission =  locator<Permissions>();
 
   Future navigateToAddCustomer() async {
-    await _navigationService.navigateTo(Routes.addcustomerRoute);
+    final bool isPermitted =
+        await _permission.getContactsPermission();
+    if (isPermitted) _navigationService.navigateTo(Routes.importCustomerViewRoute);
+    else _navigationService.navigateTo(Routes.addCustomerManually);
   }
 
   TextEditingController debtorsController = TextEditingController();

@@ -8,11 +8,11 @@ part of 'store.dart';
 
 Store _$StoreFromJson(Map<String, dynamic> json) {
   return Store(
-    json['id'] as int,
-    json['name'] as String,
-    json['address'] as String,
-    json['phone'] as String,
-    json['tagline'] as String,
+    id: json['id'] as int,
+    name: json['name'] as String,
+    address: json['address'] as String,
+    phone: json['phone'] as String,
+    tagline: json['tagline'] as String,
   );
 }
 
