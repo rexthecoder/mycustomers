@@ -7,7 +7,7 @@ class VerificationViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>(); 
 
   // TODO: 
-  Future<void> naviagateToNext() async {
+  Future<void> navigateToNextScreen() async {
     await Future.delayed(Duration(seconds: 2));
  await _navigationService.replaceWith(Routes.businessViewRoute);
   }

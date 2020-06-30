@@ -12,6 +12,7 @@ import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
+import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
@@ -22,6 +23,7 @@ import 'package:mycustomers/ui/views/home/signup/verification/verification_view.
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
+import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/add_credit/add_credit_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
@@ -44,18 +46,15 @@ abstract class Routes {
   static const detailsViewRoute = '/details';
   static const addCustomer = '/addCustomer';
   static const addCustomerMessageRoute = '/addCusMess'; // (^ = ^)
-
+  static const supportViewRoute = '/support';
+  static const importCustomerViewRoute = '/importCustomer';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
   static const transactionDetails = '/transactionDetails';
   static const transactionHistory = '/transactionHistory';
-
   static const addAssistantRoute = '/addAssistant';
-
   static const changeLanguagePref = '/changeLang';
   static const showDialogModal = '/saveDialogModal';
-
-  static const supportViewRoute = '/support';
   static const businessCardRoute = '/businessCard';
   static const bussinessSettingsPage = '/bussinessSettingsPage';
   static const currencySettingsViewRoute = '/currencySettings';

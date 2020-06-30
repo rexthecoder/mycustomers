@@ -4,11 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
-class ProgressIndicator extends StatelessWidget {
+/// A customize Progress Indicator By Ufe Adeojo
+class CustomizeProgressIndicator extends StatelessWidget {
 
   final int progress, total;
 
-  ProgressIndicator(this.progress, this.total, {Key key}) : super(key: key);
+  const CustomizeProgressIndicator(this.progress, this.total, {Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -84,7 +86,7 @@ Widget btnAuth(String btnText, context) {
   double screenHeight = MediaQuery.of(context).size.height / 100;
   double screenWidth = MediaQuery.of(context).size.width / 100;
   return Container(
-    height: screenHeight * 6,
+    height: screenHeight * 7,
     width: screenWidth * 90,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
@@ -145,12 +147,12 @@ class HomeBackgroundWidget extends StatelessWidget {
               physics: ClampingScrollPhysics(),
               child: Container(
                 constraints: BoxConstraints(
-                  minHeight: SizeConfig.yMargin(context, 70),
+                  minHeight: SizeConfig.yMargin(context, 65),
                 ),
                 decoration: BoxDecoration(
                   color: Color(0xffffffff),
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20),
+                    top: Radius.circular(SizeConfig.yMargin(context, 4)),
                   ),
                 ),
                 child: child,
@@ -178,7 +180,6 @@ Widget arrow(bool forward) {
       semanticsLabel: 'An arrow');
   return svgIcon;
 }
-
 
 Widget circleDesign(double outerRadius, double innerRadius){
   return Container(
