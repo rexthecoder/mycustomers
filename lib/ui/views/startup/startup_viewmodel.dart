@@ -5,6 +5,9 @@ import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
+ 
+
+  bool previewImport = false;
 
   // TODO:
   //    loading,
@@ -12,7 +15,7 @@ class StartupViewModel extends BaseViewModel {
   //    permissions manager,
 
   Future setup() async {
-    await locator.allReady();
-    await _navigationService.replaceWith(Routes.addCustomerMessageRoute);
+    await locator.allReady();    
+    _navigationService.replaceWith(Routes.getstartedViewRoute);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:permission_handler/permission_handler.dart';
+import 'package:mockito/mockito.dart';
 
 class Permissions {
 
@@ -15,4 +16,8 @@ class Permissions {
     }
   }
 
+}
+
+class MockPermissions extends Mock implements Permissions {
+  
 }

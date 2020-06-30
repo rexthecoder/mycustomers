@@ -5,17 +5,17 @@ part 'transaction.g.dart';
 
 @JsonSerializable()
 class Transaction {
-  final int id, customerId;
-  final num amount;
-  final String description;
+  int id, customerId;
+  num amount;
+  String description;
 
   @JsonKey(fromJson: typeFromJson, toJson: typeToJson)
-  final TransactionType type;
+  TransactionType type;
 
   @JsonKey(toJson: dateToJson, fromJson: dateFromJson)
-  final DateTime date;
+  DateTime date;
 
-  Transaction(this.id, this.customerId, this.amount, this.date, this.description, this.type);
+  Transaction({this.id, this.customerId, this.amount, this.date, this.description, this.type});
 
   factory Transaction.fromJson(Map<String, dynamic> json) => _$TransactionFromJson(json);
   Map<String, dynamic> toJson() => _$TransactionToJson(this);

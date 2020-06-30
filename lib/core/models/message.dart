@@ -5,13 +5,13 @@ part 'message.g.dart';
 
 @JsonSerializable()
 class Message {
-  final int id;
-  final String message, subject;
+  int id;
+  String message, subject;
 
   @JsonKey(fromJson: typeFromJson, name: 'type', toJson: typeToJson)
-  final MessageType messageType;
+  MessageType messageType;
 
-  Message(this.id, this.message, this.messageType, this.subject);
+  Message({this.id, this.message, this.messageType, this.subject});
 
   factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
   Map<String, dynamic> toJson() => _$MessageToJson(this);

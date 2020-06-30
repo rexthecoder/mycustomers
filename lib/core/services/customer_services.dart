@@ -12,14 +12,14 @@ abstract class ICustomerService {
   });
 
   // to get customers of a particular owner
-  Future<List<Customer>> getCustomers(int ownerId);
+  Future<List<Customer>> getCustomers(String ownerId);
 
   // to get customers of a particular owner
-  void getCustomerbyId(int custId);
+  void getCustomerbyId(String custId);
 
   // to update a customers details
   Future<Customer> updateCustomerDetails(
-    int customerId, {
+    String customerId, {
     String name,
     String phoneNumber,
     String email,
@@ -27,7 +27,7 @@ abstract class ICustomerService {
   });
 
   // to delete a customer
-  Future<void> deleteCustomer(int customerId);
+  Future<void> deleteCustomer(String customerId);
 }
 
 // if the database has an ID for each of the customers,
@@ -47,23 +47,23 @@ class CustomerService implements ICustomerService {
   }
 
   @override
-  Future<void> deleteCustomer(int customerId) async {
+  Future<void> deleteCustomer(String customerId) async {
     // TODO: implement deleteCustomer
   }
 
   @override
-  void getCustomerbyId(int customerId) {
+  void getCustomerbyId(String customerId) {
     // TODO: implement getCustomerbyId
   }
 
   @override
-  Future<List<Customer>> getCustomers(int ownerId) async {
+  Future<List<Customer>> getCustomers(String ownerId) async {
     // TODO: implement getCustomers
   }
 
   @override
   Future<Customer> updateCustomerDetails(
-    int customerId, {
+    String customerId, {
     String name,
     String phoneNumber,
     String email,
@@ -93,11 +93,16 @@ class MockCustomerService implements ICustomerService {
     // Add the new customer while assigning a random Id to it
     // TODO: Make sure to take care of duplicate IDs
     _customers.add(
-        Customer(Random().nextInt(100000), name, phoneNumber, email, lastName));
+        Customer()
+        ..name = name
+        ..phone = phoneNumber
+        ..email = email
+        ..lastName = lastName
+        );
   }
 
   @override
-  Future<void> deleteCustomer(int customerId) async {
+  Future<void> deleteCustomer(String customerId) async {
     // Simulate network delay
     await Future.delayed(Duration(milliseconds: 400));
 
@@ -106,7 +111,7 @@ class MockCustomerService implements ICustomerService {
   }
 
   @override
-  Future<List<Customer>> getCustomers(int ownerId) async {
+  Future<List<Customer>> getCustomers(String ownerId) async {
     // Simulate network delay
     await Future.delayed(Duration(milliseconds: 400));
 
@@ -116,7 +121,7 @@ class MockCustomerService implements ICustomerService {
 
   @override
   Future<Customer> updateCustomerDetails(
-    int customerId, {
+    String customerId, {
     String name,
     String phoneNumber,
     String email,
@@ -133,13 +138,12 @@ class MockCustomerService implements ICustomerService {
     Customer _customerToUpdate = _customers.elementAt(indexToUpdate);
 
     // Create a new customer object while replacing with the specified fields
-    Customer customerReplacement = Customer(
-      customerId,
-      name ?? _customerToUpdate.name,
-      phoneNumber ?? _customerToUpdate.phone,
-      email ?? _customerToUpdate.email,
-      lastName ?? _customerToUpdate.lastName,
-    );
+    Customer customerReplacement = Customer()
+      ..id = customerId
+      ..name = name ?? _customerToUpdate.name
+      ..phone =phoneNumber ?? _customerToUpdate.phone
+      ..email = email ?? _customerToUpdate.email
+      ..lastName = lastName ?? _customerToUpdate.lastName;
 
     // Update the customer at the position
     _customers[indexToUpdate] = customerReplacement;
@@ -149,7 +153,7 @@ class MockCustomerService implements ICustomerService {
   }
 
   @override
-  Future<Customer> getCustomerbyId(int custId) async {
+  Future<Customer> getCustomerbyId(String custId) async {
     // Simulate network delay
     await Future.delayed(Duration(milliseconds: 400));
 
