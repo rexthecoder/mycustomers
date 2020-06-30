@@ -43,9 +43,7 @@ class AppLockSettingsPageView extends StatelessWidget {
                           selectedColor:
                               const Color.fromARGB(50, 196, 196, 196),
                           child: ListTile(
-                            onTap: () {
-                              // TODO move to change lock view page
-                            },
+                            onTap: () => model.navigateToChangePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title: Text(
                               'Change App lock Pin',
@@ -67,11 +65,9 @@ class AppLockSettingsPageView extends StatelessWidget {
                         child: ListTileTheme(
                           style: ListTileStyle.list,
                           selectedColor:
-                          const Color.fromARGB(50, 196, 196, 196),
+                              const Color.fromARGB(50, 196, 196, 196),
                           child: ListTile(
-                            onTap: () {
-                              // TODO move to remove lock view page
-                            },
+                            onTap: () => model.navigateToRemovePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title: Text(
                               'Remove App lock',
