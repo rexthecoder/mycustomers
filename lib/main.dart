@@ -10,9 +10,9 @@ import 'app/locator.dart';
 import 'app/router.dart';
 import 'core/utils/logger.dart';
 
-void main()  {
+void main() async {
   setupLogger();
-  setupLocator();
+  await setupLocator();
   
   // runApp(App());
   runApp(
