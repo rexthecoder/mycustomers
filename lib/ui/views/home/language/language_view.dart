@@ -1,117 +1,122 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'language_viewmodel.dart';
 
 class LanguageView extends StatelessWidget {
 
-  
   @override
-  
   Widget build(BuildContext context) {
-
-     SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    //  statusBarBrightness: Brightness.dark,
-    ),
-     );
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     return ViewModelBuilder<LanguageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        backgroundColor: Color(0xFFFAFAFA),
-        appBar: AppBar(
-          title: Text(
-            'Select Language',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.sp,
-              color: Color(0xFF191919),
-            ),
-          ),
-          centerTitle: false,
-          backgroundColor: Colors.grey.shade200,
-          elevation: 0,
-//          automaticallyImplyLeading: false,
-        ),
-
-        body: SafeArea(
-          child: ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin: EdgeInsets.only(bottom: 23.h),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromARGB(13, 71, 126, 200),
-                      offset: Offset(0, 4),
-                      blurRadius: 4,
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: Color(0xFFE8E8E8),
+        body: HomeBackgroundWidget(
+          height: height,
+          width: width,
+          child: Column(
+            children: <Widget>[
+               SizedBox(height: SizeConfig.yMargin(context, 7)),
+                Text(
+                  'LANGUAGE',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: SizeConfig.yMargin(context, 4),
                   ),
-                  color: Colors.white,
                 ),
-                child: Material(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 0.5 * 48.h,
-                      backgroundColor: Color(0xFF1D6AFF),
-                      child: Text(
-                        model.languages[index]['code'].toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Color(0xFFF2F2F2),
-                        ),
+                SizedBox(height: SizeConfig.xMargin(context, 4)),
+                Text(
+                  'Select your Language',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.yMargin(context, 2),
+                  ),
+                ),
+                SizedBox(height: SizeConfig.yMargin(context, 0.2)),
+                Container(
+                    height: SizeConfig.yMargin(context, 60),
+                    width: SizeConfig.xMargin(context, 90),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+            itemCount: model.languages.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.all(SizeConfig.yMargin(context, 1)),
+                child: InkWell(
+                  onTap: () {
+                    //TODO: Uncomment
+                   model.setLanguage(index);
+                  },
+                  child: Container(
+                    height: SizeConfig.yMargin(context, 10),
+                    width: SizeConfig.xMargin(context, 100),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(13, 71, 126, 200),
+                          offset: Offset(0, 4),
+                          blurRadius: 4,
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Color(0xFFE8E8E8),
                       ),
+                      color: Colors.white,
                     ),
-                    title: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(SizeConfig.yMargin(context, 1)),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.yMargin(context, 5)),
+                            child: Image(
+                              height: SizeConfig.yMargin(context, 10),
+                              fit: BoxFit.contain,
+                              image: AssetImage(
+                                model.languages[index]['image'],
+                              ),
+                            ),
+                          ),
+                        ),
                         Text(
                           model.languages[index]['name'],
                           style: TextStyle(
                             color: Color(0xFF333333),
-                            fontSize: 18.sp,
+                            fontSize: SizeConfig.yMargin(context, 2),
                             fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color(0xFF333333),
+                            size: SizeConfig.yMargin(context, 2),
                           ),
                         ),
                       ],
                     ),
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color(0xFF333333),
-                        ),
-                      ],
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 15.w,
-                      vertical: 11.5.h,
-                    ),
-                    onTap: () {
-                      model.setLanguage(index);
-                    },
                   ),
                 ),
               );
             },
-            itemCount: model.languages.length,
-            padding: EdgeInsets.symmetric(
-              horizontal: 19.w,
-              vertical: 18.h,
-            ),
           ),
+                ),
+            
+            ],
+          ) ,
         ),
       ),
       viewModelBuilder: () => LanguageViewModel(),
     );
   }
 }
+
+

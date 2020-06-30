@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ThemeColors {
@@ -10,6 +9,7 @@ class ThemeColors {
   static const secondary = Color(0xFF5855FF);
   static const primary = Color(0xFF62E6AC);
   static const background = Color(0xFFFAFAFA);
+  static const unselect = Color(0xFFA1A7FF);
   static const gray = MaterialColor(
     0xFFD1D1D1,
     {
@@ -25,6 +25,6 @@ class ThemeColors {
 class BrandColors {
   static const orange = Color(0xFFFDA741);
   static const yellow = Color(0xFFFFD43C);
-  static const secondary = Color(0xFF333CC1);
-  static const primary = Color(0xFF1D6AFF);
+  static const primary = Color(0xFF333CC1);
+  static const secondary = Color(0xFFFF8C5F);
 }
