@@ -38,12 +38,9 @@ class AuthServiceImpl implements AuthService {
       await Future.delayed(Duration(milliseconds: 250));
 
     //  // fetch current user from server
-    // TODD: Uncomment below
-      // _currentUser = User(
-      //   (u) => u
-      //     ..phonenumber = phonenumber,
-      //     ..Password == password,
-      // );
+    // TODO: Uncomment below
+      _currentUser = User()
+      ..phone = phonenumber;
     } on Exception {
       Logger.e('AuthService: Error signing in');
       throw AuthException('Error signing in');
@@ -57,7 +54,7 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Future<bool> isUserLoggedIn() async {
+  Future<bool> get isUserLoggedIn async {
     // check server for login status
     await Future.delayed(Duration(seconds: 1));
 

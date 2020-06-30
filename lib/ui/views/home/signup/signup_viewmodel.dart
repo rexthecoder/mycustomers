@@ -2,7 +2,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
-import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
+import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
@@ -19,7 +19,7 @@ class SignUpViewModel extends BaseViewModel {
   Future onInputChange() async {}
 
   final NavigationService _navigationService = locator<NavigationService>();
-  final AuthServiceImpl _authService = locator<AuthServiceImpl>();
+  final _authService = locator<AuthService>();
 
 
   // Navigation

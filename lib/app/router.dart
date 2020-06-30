@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
+import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/remove_pin_settings_page/remove_pin_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_view.dart';
-import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
@@ -23,7 +24,6 @@ import 'package:mycustomers/ui/views/home/signup/verification/verification_view.
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
-import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/add_credit/add_credit_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
@@ -42,12 +42,12 @@ abstract class Routes {
   static const businessViewRoute = '/business';
   static const mainViewRoute = '/main';
   static const addcustomerRoute = '/addcustomer';
-  static const addCustomerManually = '/addCusMan';
+  static const addCustomerManually = '/addcusman';
   static const detailsViewRoute = '/details';
-  static const addCustomer = '/addCustomer';
-  static const addCustomerMessageRoute = '/addCusMess'; // (^ = ^)
+  static const addCustomer = '/addcustomer';
+  static const addCustomerMessageRoute = '/addcusmess'; // (^ = ^)
   static const supportViewRoute = '/support';
-  static const importCustomerViewRoute = '/importCustomer';
+  static const importCustomerViewRoute = '/importcustomer';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
   static const transactionDetails = '/transactionDetails';
@@ -101,6 +101,11 @@ class Router {
       case Routes.addCustomer:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddCustomerView(),
+          settings: settings,
+        );
+      case Routes.importCustomerViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ImportCustomerView(),
           settings: settings,
         );
       case Routes.addDebt:
@@ -157,6 +162,11 @@ class Router {
           builder: (context) => SupportPageView(),
           settings: settings,
         );
+      case Routes.mainViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainView(),
+          settings: settings,
+        );
       case Routes.addAssistantRoute:
         return CupertinoPageRoute<dynamic>(
             builder: (context) => AddAssistantView(), settings: settings);
@@ -193,21 +203,11 @@ class Router {
           builder: (context) => RemovePinSettingsPageView(),
           settings: settings,
         );
-      // case Routes.homeViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => HomeView(),
-      //     settings: settings,
-      //   );
-      // case Routes.detailsViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => DetailsView(),
-      //     settings: settings,
-      //   );
-      // case Routes.addCustomerManually:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => AddCustomerManuallyView(),
-      //     settings: settings,
-      //   );
+      case Routes.detailsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => DetailsView(),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }

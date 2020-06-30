@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/business_home_page/business_homepage_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
@@ -35,8 +34,8 @@ class MainView extends StatelessWidget {
           itemBuilder: (_, index) => _views[index],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: BrandColors.primary,
-          selectedItemColor: ThemeColors.background,
+          backgroundColor: ThemeColors.background,
+          selectedItemColor: BrandColors.primary,
           unselectedItemColor: ThemeColors.unselect,
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
@@ -49,11 +48,9 @@ class MainView extends StatelessWidget {
                 ),
                 activeIcon: SvgPicture.asset(
                   home,
-                  color: ThemeColors.background,
+                  color: BrandColors.primary,
                   semanticsLabel: 'Home Navigator is Active',
                 )),
-            // Icon(Icons.home),
-
             BottomNavigationBarItem(
                 title: Text('Marketing'),
                 icon: SvgPicture.asset(
@@ -63,12 +60,10 @@ class MainView extends StatelessWidget {
                 ),
                 activeIcon: SvgPicture.asset(
                   marketing,
-                  color: ThemeColors.background,
+                  color: BrandColors.primary,
                   semanticsLabel: 'Marketing Navigator is Active',
                 )),
-
             BottomNavigationBarItem(
-                // icon: Icon(Icons.work),
                 title: Text('Business'),
                 icon: SvgPicture.asset(
                   business,
@@ -77,44 +72,12 @@ class MainView extends StatelessWidget {
                 ),
                 activeIcon: SvgPicture.asset(
                   business,
-                  color: ThemeColors.background,
+                  color: BrandColors.primary,
                   semanticsLabel: 'Business Navigator is Active',
                 )),
           ],
           onTap: model.changeTab,
         ),
-      ),
-    );
-  }
-
-  GestureDetector sideBarMenuButton(
-      {BuildContext context,
-      String label,
-      Function onTap,
-      bool active,
-      String icon}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: <Widget>[
-          SvgPicture.asset(
-            icon,
-            color: active ? const Color(0xFFFFFFFF) : const Color(0xFFADB1E6),
-            semanticsLabel: label,
-          ),
-          SizedBox(
-            width: SizeConfig.textSize(context, 4),
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 8),
-              color: active ? const Color(0xFFFFFFFF) : const Color(0xFFADB1E6),
-              fontWeight: FontWeight.bold,
-              letterSpacing: SizeConfig.textSize(context, -0.2),
-            ),
-          ),
-        ],
       ),
     );
   }

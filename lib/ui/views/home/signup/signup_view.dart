@@ -108,6 +108,7 @@ class SignUpView extends StatelessWidget{
                     //         _inputSignupNumberController.text,
                     //         passwordController.text,
                     //       );
+                    model.navigateToNextScreen();
                       }
                     },
                     child: btnAuth('Next', context)),

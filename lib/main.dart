@@ -13,6 +13,7 @@ import 'core/utils/logger.dart';
 void main() async {
   setupLogger();
   await setupLocator();
+  
   // runApp(App());
   runApp(
     DevicePreview(
