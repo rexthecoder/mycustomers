@@ -15,6 +15,6 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
     final postsMap = await httpService.getHttp('${ApiRoutes.user}/$id')
         as Map<String, dynamic>;
 
-    return User.fromJson(postsMap);
+    // return User.fromJson(postsMap); 
   }
 }
