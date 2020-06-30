@@ -8,11 +8,11 @@ part of 'customer.dart';
 
 Customer _$CustomerFromJson(Map<String, dynamic> json) {
   return Customer(
-    json['id'] as String,
-    json['name'] as String,
-    json['phone'] as String,
-    json['email'] as String,
-    json['lastname'] as String,
+    id: json['id'] as String,
+    name: json['name'] as String,
+    phone: json['phone'] as String,
+    email: json['email'] as String,
+    lastName: json['lastname'] as String,
   );
 }
 
