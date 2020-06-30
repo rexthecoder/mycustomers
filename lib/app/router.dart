@@ -13,6 +13,7 @@ import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
+import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
@@ -100,6 +101,11 @@ class Router {
       case Routes.addCustomer:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddCustomerView(),
+          settings: settings,
+        );
+      case Routes.importCustomerViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ImportCustomerView(),
           settings: settings,
         );
       case Routes.addDebt:
