@@ -1,178 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 
 import 'business_viewmodel.dart';
 
-class BusinessView extends StatelessWidget {
- TextEditingController inputNumberController = new TextEditingController();
-   static final _key = new GlobalKey<ScaffoldState>();
+class BusinessView extends StatelessWidget  {
+  
+  static final _businessFormPageKey = GlobalKey<FormState>();
+  final _businessPageKey = GlobalKey<ScaffoldState>();
 
-
-
-static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-
- final _k1 = new GlobalKey();
+  TextEditingController _userFullName;
+  TextEditingController _userBusinessName;
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    ScreenUtil.init(context, width: width, height: height);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return ViewModelBuilder<BusinessViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        key: _key,
-        body: SingleChildScrollView(
-                  child: Container(
-            height: height / 2,
-            child: Stack(
+        key: _businessPageKey,
+        body: HomeBackgroundWidget(
+          height: height,
+          width: width,
+          child: Form(
+            key: _businessFormPageKey,
+            child: Column(
               children: <Widget>[
+                SizedBox(height: SizeConfig.yMargin(context, 7)),
+                Text(
+                  'BUSINESS DETAILS',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: SizeConfig.yMargin(context, 4),
+                  ),
+                ),
+                SizedBox(height: SizeConfig.yMargin(context, 5)),
+                Text(
+                  'One last step...',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: SizeConfig.yMargin(context, 2),
+                  ),
+                ),
+                SizedBox(height: SizeConfig.yMargin(context, 2)),
+                Padding(
+                  padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                  child: TextFormField(
+                    key: Key("userFullName"),
+                    controller: _userFullName,
+                    validator: (value) =>
+                        (value.isEmpty) ? "Please Enter Full Name" : null,
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontSize: SizeConfig.yMargin(context, 2),
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                        labelText: "Enter Your Full Name",
+                        border: OutlineInputBorder()),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                  child: TextFormField(
+                    key: Key("userBusinessName"),
+                    controller: _userBusinessName,
+                    validator: (value) =>
+                        (value.isEmpty) ? "Please Enter Business Name" : null,
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontSize: SizeConfig.yMargin(context, 2),
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                        labelText: "Enter Your Business Name",
+                        border: OutlineInputBorder()),
+                  ),
+                ),
+                SizedBox(height: SizeConfig.yMargin(context, 4)),
+                InkWell(
+                    onTap: () {
+                      if (_businessFormPageKey.currentState.validate()) {
+                        model.navigateToNext();
+                      }
+                    },
+                    child: btnAuth('Submit and Finish', context)),
+                SizedBox(height: SizeConfig.yMargin(context, 14)),
                 Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage(
-                        'assets/images/auth_background.png',
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Container(
-                      height: 100.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.contain,
-                          image: AssetImage(
-                            'assets/images/heading2.png',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                    width: SizeConfig.xMargin(context, 60),
+                    child: CustomizeProgressIndicator(4, 4)),
+                SizedBox(height: SizeConfig.yMargin(context, 4)),
               ],
             ),
           ),
         ),
-//        bottomSheet: inputNameBottomWidget(height, model, context),
-        bottomSheet: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: inputBusinessBottomWidget(height, model, context),
-        ),
-//        bottomSheet: modalBottomWidget(height),
       ),
       viewModelBuilder: () => BusinessViewModel(),
-    );
-  }
-
-  Widget inputBusinessBottomWidget(
-      double height, BusinessViewModel model, BuildContext context) {
-    return Container(
-      height: height / 2.0,
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              "What's The Name of Your Business",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16.sp,
-              ),
-            ),
-            Container(
-              height: 50.h,
-              decoration: BoxDecoration(
-                color: Colors.grey[400].withOpacity(0.5),
-                borderRadius: BorderRadius.circular(10.w),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10.h),
-              child: Row(
-                children: <Widget>[
-                  Container(width: 30.w),
-                  Container(
-                    width: 1.w,
-                    color: Colors.black.withOpacity(0.3),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Expanded(
-                    child: TextField(
-                      key: _k1,
-                      controller: inputNumberController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Enter Business Name'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    model.navigateBack();
-                  },
-                  child: Container(
-                    height: 50.h,
-                    width: 60.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFF000E66)),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      model.navigateForward();
-                    },
-                    child: Container(
-                      height: 50.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Color(0xFF333CC1)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Finish',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                          SizedBox(width: 10.h),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
