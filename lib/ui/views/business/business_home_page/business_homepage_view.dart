@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
+import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
+import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:stacked/stacked.dart';
 
 
@@ -11,8 +12,7 @@ class BusinessHomePageView extends StatelessWidget {
     return ViewModelBuilder<BusinessHomePageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
-            child: UnderConstruction(),
-            //TODO: Implement Profile Page
+            child:LanguageSettingPageView(),
       ),
       ),
       viewModelBuilder: () => BusinessHomePageViewModel(),

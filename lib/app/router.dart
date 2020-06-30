@@ -2,8 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
+import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
+import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/remove_pin_settings_page/remove_pin_settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/change_pin_settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
-import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
@@ -42,6 +51,17 @@ abstract class Routes {
   static const addDebt = '/addDebt';
   static const transactionDetails = '/transactionDetails';
   static const transactionHistory = '/transactionHistory';
+  static const addAssistantRoute = '/addAssistant';
+  static const changeLanguagePref = '/changeLang';
+  static const showDialogModal = '/saveDialogModal';
+  static const businessCardRoute = '/businessCard';
+  static const bussinessSettingsPage = '/bussinessSettingsPage';
+  static const currencySettingsViewRoute = '/currencySettings';
+  static const profileViewRoute = '/profile';
+  static const appLockSettingsViewRoute = '/appLockSettings';
+  static const changePinSettingsViewRoute = '/changePinSettings';
+  static const removePinSettingsViewRoute = '/removePinSettings';
+  static const languageSettingsViewRoute = '/languagePinSettings';
 }
 
 class Router {
@@ -117,15 +137,18 @@ class Router {
           builder: (context) => SignUpView(),
           settings: settings,
         );
-      case Routes.importCustomerViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => ImportCustomerView(),
-          settings: settings,
-        );
-
       case Routes.signinViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => SignInView(),
+            builder: (context) => SignInView(), settings: settings);
+
+      case Routes.bussinessSettingsPage:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SettingsPage(),
+          settings: settings,
+        );
+      case Routes.profileViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ProfilePageView(),
           settings: settings,
         );
       case Routes.supportViewRoute:
@@ -136,6 +159,42 @@ class Router {
       case Routes.mainViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
+          settings: settings,
+        );
+      case Routes.addAssistantRoute:
+        return CupertinoPageRoute<dynamic>(
+            builder: (context) => AddAssistantView(), settings: settings);
+      case Routes.showDialogModal:
+        return CupertinoPageRoute<dynamic>(
+            builder: (context) => SavedDialogView(), settings: settings);
+      case Routes.businessCardRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => BusinessCardPageView(),
+          settings: settings,
+        );
+      case Routes.currencySettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CurrencySettingsPageView(),
+          settings: settings,
+        );
+      case Routes.languageSettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => LanguageSettingPageView(),
+          settings: settings,
+        );
+      case Routes.appLockSettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AppLockSettingsPageView(),
+          settings: settings,
+        );
+      case Routes.changePinSettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ChangePinSettingsPageView(),
+          settings: settings,
+        );
+      case Routes.removePinSettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => RemovePinSettingsPageView(),
           settings: settings,
         );
       case Routes.detailsViewRoute:
