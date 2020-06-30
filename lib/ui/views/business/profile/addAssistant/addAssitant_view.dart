@@ -11,7 +11,7 @@ class AddAssistantView extends StatelessWidget {
   static TextEditingController _inputNumberController;
   static TextEditingController _assistantRoleController;
 
-  final _formKey = GlobalKey<FormState>();
+  final _formKey1 = GlobalKey<FormState>();
   static final _pageKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -83,7 +83,7 @@ class AddAssistantView extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(16.sp),
                       child: Form(
-                        key: _formKey,
+                        key: _formKey1,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,

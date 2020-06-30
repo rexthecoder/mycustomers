@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/core/models/business_model.dart';
+
 import 'package:stacked/stacked.dart';
 
 import 'business_homepage_viewmodel.dart';
@@ -19,6 +23,37 @@ class BusinessHomePageView extends StatelessWidget {
           child: Container(
             child: Column(
               children: <Widget>[
+                Container(
+                  color: Color(0xff333cc1),
+                  height: SizeConfig.yMargin(context, 10),
+                  child: Stack(
+                    children: <Widget>[
+                      // Container(
+                      //   height: SizeConfig.yMargin(context, 10),
+                      //   color: Color(0xff333cc1),
+                      // ),
+                      Positioned(
+                        top: SizeConfig.yMargin(context, -12.0),
+                        left: SizeConfig.yMargin(context, -10.0),
+                        child: circleDesign(SizeConfig.yMargin(context, 10),
+                            SizeConfig.yMargin(context, 7)),
+                      ),
+                      Positioned(
+                        top: SizeConfig.yMargin(context, -12.0),
+                        right: SizeConfig.yMargin(context, -12.0),
+                        child: circleDesign(SizeConfig.yMargin(context, 10),
+                            SizeConfig.yMargin(context, 7)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
+                        child: _HeaderBar(),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   height: SizeConfig.yMargin(context, 11),
                   decoration: BoxDecoration(
@@ -120,4 +155,65 @@ class BusinessHomePageView extends StatelessWidget {
       ),
     );
   }
+}
+
+class _HeaderBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        BusinessSelector(),
+        Expanded(
+          child: SizedBox(),
+        ),
+        Container(
+          child: Stack(
+            //  alignment: Alignment.topRight,
+            children: [
+              Icon(
+                Icons.notifications_none,
+                color: Colors.white,
+              ),
+            ],
+            overflow: Overflow.clip,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BusinessSelector extends HookViewModelWidget<BusinessHomePageViewModel> {
+  BusinessSelector({Key key}) : super(key: key, reactive: false);
+
+  @override
+  Widget buildViewModelWidget(
+          BuildContext context, BusinessHomePageViewModel model) =>
+      Container(
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<Business>(
+            dropdownColor: Colors.black,
+            value: model.selectedBusiness,
+            items: Business.business.map((business) {
+              return DropdownMenuItem<Business>(
+                value: business,
+                child: Text(
+                  business.businessName,
+                  style: TextStyle(
+                    fontSize: SizeConfig.yMargin(context, 2),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    //     color: Colors.blueAccent,
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (value) {
+              model.changeBusiness(value);
+            },
+          ),
+        ),
+      );
 }
