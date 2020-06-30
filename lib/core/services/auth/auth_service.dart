@@ -15,5 +15,5 @@ abstract class AuthService {
 
   Future<void> signOut();
 
-  Future<bool> isUserLoggedIn();
+  Future<bool> get isUserLoggedIn;
 }

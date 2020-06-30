@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mycustomers/core/models/customer.dart';
 
 part 'user.g.dart';
 
@@ -15,6 +14,6 @@ class User {
 
   User({this.id, this.email, this.firstName, this.lastName, this.userRole, this.phone});
 
-  // factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  // Map<String, dynamic> toJson() => _$UserToJson(this);
+   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
