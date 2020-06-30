@@ -4,7 +4,6 @@
     <!-- the following are required to get the contacts from the device -->
 
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
 

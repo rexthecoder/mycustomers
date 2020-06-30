@@ -25,8 +25,7 @@ const bool USE_MOCK_CUSTOMER = true;
 ///   - Sets up singletons that can be called from anywhere
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
-Future<void> setupLocator(
-    {bool useMockContacts: false, bool useMockCustomer: true}) async {
+void setupLocator({bool useMockContacts: false, bool useMockCustomer: true}) {
   // Services
   locator.registerLazySingleton(
     () => NavigationService(),
