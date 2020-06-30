@@ -23,9 +23,11 @@ dependencies:
   intl: ^0.16.1
   sticky_headers: ^0.1.8+1
   intl_phone_number_input: ^0.4.6+2
+  mockito: ^4.1.1
   http: ^0.12.1
   dio: ^3.0.9
   logger: ^0.9.1
+  pedantic: ^1.9.0
 
   # State Management
   stacked: ^1.5.7+1
