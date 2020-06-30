@@ -13,6 +13,7 @@ class SignUpView extends StatelessWidget{
   TextEditingController _inputSignupNumberController = TextEditingController();
   static final _signupFormPageKey = GlobalKey<FormState>();
   final _signupPageKey = GlobalKey<ScaffoldState>();
+  bool busy;
 
   @override
   Widget build(BuildContext context) {
@@ -100,9 +101,13 @@ class SignUpView extends StatelessWidget{
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
                 InkWell(
+                        // busy: model.isBusy,
                     onTap: () {
                       if (_signupFormPageKey.currentState.validate()) {
-                        model.navigateToNextScreen();
+                    //  model.signUp(
+                    //         _inputSignupNumberController.text,
+                    //         passwordController.text,
+                    //       );
                       }
                     },
                     child: btnAuth('Next', context)),
