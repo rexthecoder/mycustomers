@@ -4,9 +4,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/core/models/business_model.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/home/home_page/tabs/all_customers_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
-import 'package:mycustomers/ui/views/home/home_page/tabs/new_debtors_view.dart';
 
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -97,7 +95,7 @@ class HomePageView extends StatelessWidget {
                   child: Container(
                     child: TabBarView(
                       children: <Widget>[
-                        DebtorsViewer(),
+                        DebtorsView(),
                         CreditorsView(),
                       ],
                     ),
@@ -132,14 +130,14 @@ class _HeaderBar extends StatelessWidget {
                 Icons.notifications_none,
                 color: Colors.white,
               ),
-              Positioned(
-               right: SizeConfig.yMargin(context, 2.6),
-                top: SizeConfig.yMargin(context, 2.6),
-                              child: CircleAvatar(
-                  backgroundColor: Color(0xFFFDA741),
-                  radius: SizeConfig.xMargin(context, 0.9 ),
-                ),
-              ),
+//              Positioned(
+//               right: SizeConfig.yMargin(context, 2.6),
+//                top: SizeConfig.yMargin(context, 2.6),
+//                              child: CircleAvatar(
+//                  backgroundColor: Color(0xFFFDA741),
+//                  radius: SizeConfig.xMargin(context, 0.9 ),
+//                ),
+//              ),
             ],
             overflow: Overflow.clip,
           ),
