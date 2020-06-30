@@ -1,40 +1,46 @@
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/exceptions/auth_exception.dart';
+import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
+import 'package:mycustomers/core/utils/logger.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SignUpViewModel extends BaseViewModel {
-  final NavigationService _navigationService = locator<NavigationService>(); 
+  String phoneNumber;
 
-  String _dropdownValue = '+234';
+  String initialCountry = 'NG';
+  PhoneNumber number = PhoneNumber(isoCode: 'NG');
 
-  String get dropdownValue => _dropdownValue;
+  void getPhoneNumber(String phoneNumber) async {}
 
-  List<String> _dropdownItems = ['+234', '+229', '+256', '+209'];
+  Future onInputChange() async {}
 
-  List<String> get dropdownItems => _dropdownItems;
+  final NavigationService _navigationService = locator<NavigationService>();
+  final AuthServiceImpl _authService = locator<AuthServiceImpl>();
 
-  void setDropdownValue(String value) {
-    _dropdownValue = value;
-    notifyListeners();
-  }
-
-  String _phoneNumber;
-
-  String get phoneNumber => _phoneNumber;
-
-  void setPhoneNumber(String value) {
-    _phoneNumber = value;
-  }
 
   // Navigation
   Future navigateToLogin() async {
     // await Future.delayed(Duration(seconds: 5));
- await _navigationService.replaceWith(Routes.signinViewRoute);
+    await _navigationService.navigateTo(Routes.signinViewRoute);
   }
 
   Future navigateToNextScreen() async {
     // await Future.delayed(Duration(seconds: 5));
- await _navigationService.replaceWith(Routes.businessViewRoute);
+    await _navigationService.clearStackAndShow(Routes.verificationViewRoute);
   }
+
+  Future<void> signUp(String phoneNumber, String password) async {
+    setBusy(true);
+    try {
+      await _authService.signUpWithPhoneNumber(phoneNumber, password);
+      unawaited(navigateToNextScreen());
+    } on AuthException catch (e) {
+      Logger.e(e.message);
+      setBusy(false);
+    }
+}
 }

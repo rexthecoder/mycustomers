@@ -9,6 +9,6 @@ class SmsService {
   final _otpController = StreamController<SmsMessage>();
 
   void handler(SmsMessage message) {
-    var add = _otpController.add(message);
+    _otpController.add(message);
   }
 }

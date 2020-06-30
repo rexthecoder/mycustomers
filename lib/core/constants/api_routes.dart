@@ -3,19 +3,26 @@ class ApiRoutes {
   ApiRoutes._();
 
   // BASE_URL
-  static const base_url = 'https://dev.customerpay.me';
+  static const base_url = 'https://dev.api.customerpay.me';
 
-  // USER
+  //USER
   static const user = '$base_url/user';
+  //TRANSACTION
+  static const transaction = '$base_url/transaction';
+  //NOTIFICATION
+  static const notification = '$base_url/reminder';
+  //AUTHENTICATION
+  static const authentication = '$base_url/register/user';
+  
 
-  static const all_user = '$user/all';
-  static const create_user = '$user/new';
-  static const user_id = '$user/:user_id';
-  static const update_user = '$user/update/:user_id';
-  static const delete_user = '$user/delete/:user_id';
-
-  // 
 }
+
+  //CRUD FOR USER
+  // static const all_user = '$user/all';
+  // static const create_user = '$user/new';
+  // static const user_id = '$user/:user_id';
+  // static const update_user = '$user/update/:user_id';
+  // static const delete_user = '$user/delete/:user_id';
 
 // CRUD FOR TRANSACTIONS
 // Add new transaction - /transaction/new
