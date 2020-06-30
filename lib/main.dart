@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/screenutil.dart'; 
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
 
@@ -11,8 +10,8 @@ import 'app/locator.dart';
 import 'app/router.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-
   // runApp(App());
   runApp(
     DevicePreview(
