@@ -18,6 +18,7 @@ void main() {
       when(_permission.getContactsPermission()).thenAnswer((realInvocation) => Future.value(false));
       await tester.pumpWidget(App());
     });
+    await tester.pumpWidget(App());
     await tester.pumpAndSettle(const Duration(milliseconds: 200));
   });
 }
