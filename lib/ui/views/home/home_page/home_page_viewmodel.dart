@@ -15,19 +15,7 @@ class HomePageViewModel extends BaseViewModel {
   String expectedTime = 'Expected a week ago';
   int amountOwing= 500;
 //  String deadLineStatus = 'Not Paid';
-  List<String>  deadLineStatus = [
-    'Overdue','Not Paid','Not Paid','Not Paid'
-  ];
-  List<String> customerNames = [
-    'Seyi Onifade', 'Olumide John', 'Olamide Ufedojo', 'Isaac Eternity',
-  ];
 
-  List<String>  dueDate= ['Expected a week ago', 'Expected in 2 week',
-    'Expected in 2 week', 'Expected in a week',
-  ];
-  List<String>  debtAmount=[
-    '500', '500', '800', '2000',
-  ];
 
 
   final double _amount = 100.86;
