@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:mycustomers/core/mixings/validators.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
@@ -10,10 +9,10 @@ import 'package:flutter_screenutil/size_extension.dart';
 
 import 'signin_viewmodel.dart';
 
-class SignInView extends StatelessWidget with Validators {
-  TextEditingController _inputNumberController = TextEditingController();
-  static final _formPageKey = GlobalKey<FormState>();
-  final _pageKey = GlobalKey<ScaffoldState>();
+class SignInView extends StatelessWidget {
+  TextEditingController _inputSigninNumberController = TextEditingController();
+  static final _siginFormPageKey = GlobalKey<FormState>();
+  final _siginPageKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +22,12 @@ class SignInView extends StatelessWidget with Validators {
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<SignInViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
-        key: _pageKey,
+        key: _siginPageKey,
         body: HomeBackgroundWidget(
           height: height,
           width: width,
           child: Form(
-            key: _formPageKey,
+            key: _siginFormPageKey,
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.yMargin(context, 3)),
@@ -68,7 +67,7 @@ class SignInView extends StatelessWidget with Validators {
                     errorMessage: 'Invalid Phone Number',
                     selectorTextStyle: TextStyle(color: Colors.black),
                     initialValue: model.number,
-                    textFieldController: _inputNumberController,
+                    textFieldController: _inputSigninNumberController,
                     inputBorder:
                         OutlineInputBorder(),
                   ),
@@ -103,7 +102,7 @@ class SignInView extends StatelessWidget with Validators {
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
                 InkWell(
                     onTap: () {
-                      if (_formPageKey.currentState.validate()) {
+                      if (_siginFormPageKey.currentState.validate()) {
                         model.navigateToNextScreen();
                       }
                     },
@@ -111,7 +110,7 @@ class SignInView extends StatelessWidget with Validators {
                 SizedBox(height: SizeConfig.yMargin(context, 18)),
                 Container(
                     width: SizeConfig.xMargin(context, 60),
-                    child: CustomizeProgressIndicator(1, 4)),
+                    child: CustomizeProgressIndicator(2, 4)),
                 SizedBox(height: SizeConfig.yMargin(context, 6)),
               ],
             ),

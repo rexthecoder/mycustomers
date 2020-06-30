@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mycustomers/core/mixings/validators.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -8,9 +7,12 @@ import 'package:stacked/stacked.dart';
 
 import 'verification_viewmodel.dart';
 
-class VerificationView extends StatelessWidget with Validators {
-  static final _formPageKey = GlobalKey<FormState>();
-  final _pageKey = GlobalKey<ScaffoldState>();
+class VerificationView extends StatelessWidget {
+  TextEditingController _pinCodeController = TextEditingController();
+
+  static final _pinFormPageKey = GlobalKey<FormState>();
+  final _pinPageKey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +21,12 @@ class VerificationView extends StatelessWidget with Validators {
 
     return ViewModelBuilder<VerificationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        key: _pageKey,
+        key: _pinPageKey,
         body: HomeBackgroundWidget(
           height: height,
           width: width,
           child: Form(
-            key: _formPageKey,
+            key: _pinFormPageKey,
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.yMargin(context, 7)),
@@ -36,10 +38,11 @@ class VerificationView extends StatelessWidget with Validators {
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 5)),
-//TODO: Pin Validation
+                //TODO: Pin Validation
                 Padding(
                   padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
                   child: PinCodeTextField(
+                    controller: _pinCodeController,
                     length: 4,
                     obsecureText: false,
                     animationType: AnimationType.scale,
@@ -53,14 +56,13 @@ class VerificationView extends StatelessWidget with Validators {
                       fieldWidth: SizeConfig.yMargin(context, 8),
                     ),
                     animationDuration: Duration(milliseconds: 300),
-                    //errorAnimationController: errorController,
-                    //controller: textEditingController,
+                    // errorAnimationController: errorController,
                     autoDisposeControllers: false,
                     onCompleted: (v) {},
                     onChanged: (value) {
                       //TODO: Listens and move below code to viewmodel
 
-                      //   if (value != null && value.length == 6) {
+                      // if (value != null && value.length == 4) {
 
                       // }
                     },
@@ -81,16 +83,16 @@ class VerificationView extends StatelessWidget with Validators {
                 SizedBox(height: SizeConfig.yMargin(context, 13)),
                 InkWell(
                   onTap: () {
-                     if (_formPageKey.currentState.validate()) {
-                        model.navigateToNextScreen();
-                      }
+                    if (_pinFormPageKey.currentState.validate()) {
+                      model.navigateToNextScreen();
+                    }
                   },
                   child: btnAuth('Verify and Proceed', context),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 18)),
                 Container(
                     width: SizeConfig.xMargin(context, 60),
-                    child: CustomizeProgressIndicator(2, 4)),
+                    child: CustomizeProgressIndicator(3, 4)),
                 SizedBox(height: SizeConfig.yMargin(context, 6)),
               ],
             ),

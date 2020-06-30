@@ -13,8 +13,8 @@ class User {
   final phone;
   
 
-  User(this.id, this.email);
+  User(this.id, this.email, this.firstName, this.lastName, this.userRole, this.phone);
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  // factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  // Map<String, dynamic> toJson() => _$UserToJson(this);
 }
