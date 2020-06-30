@@ -34,8 +34,8 @@ class MainView extends StatelessWidget {
           itemBuilder: (_, index) => _views[index],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: BrandColors.primary,
-          selectedItemColor: ThemeColors.background,
+          backgroundColor: ThemeColors.background,
+          selectedItemColor: BrandColors.primary,
           unselectedItemColor: ThemeColors.unselect,
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
@@ -48,11 +48,9 @@ class MainView extends StatelessWidget {
                 ),
                 activeIcon: SvgPicture.asset(
                   home,
-                  color: ThemeColors.background,
+                  color: BrandColors.primary,
                   semanticsLabel: 'Home Navigator is Active',
                 )),
-            // Icon(Icons.home),
-
             BottomNavigationBarItem(
                 title: Text('Marketing'),
                 icon: SvgPicture.asset(
@@ -62,12 +60,10 @@ class MainView extends StatelessWidget {
                 ),
                 activeIcon: SvgPicture.asset(
                   marketing,
-                  color: ThemeColors.background,
+                  color: BrandColors.primary,
                   semanticsLabel: 'Marketing Navigator is Active',
                 )),
-
             BottomNavigationBarItem(
-                // icon: Icon(Icons.work),
                 title: Text('Business'),
                 icon: SvgPicture.asset(
                   business,
@@ -76,7 +72,7 @@ class MainView extends StatelessWidget {
                 ),
                 activeIcon: SvgPicture.asset(
                   business,
-                  color: ThemeColors.background,
+                  color: BrandColors.primary,
                   semanticsLabel: 'Business Navigator is Active',
                 )),
           ],

@@ -1,15 +1,13 @@
 import 'dart:async';
-
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ImportCustomerViewModel extends StreamViewModel {
-  // TODO: Change the functions and fields to match import contacts
   // Get the services required
   NavigationService _navigationService = locator<NavigationService>();
 
@@ -19,7 +17,6 @@ class ImportCustomerViewModel extends StreamViewModel {
   ImportCustomerViewModel();
 
 
-  // TODO: Extract owner service init into field
   init() async {
     List<Customer> contacts = iOwnerServices.getPhoneContacts();
     _contactStream.add(contacts);
@@ -38,6 +35,10 @@ class ImportCustomerViewModel extends StreamViewModel {
   /// View initialize and close section
   popView() {
     _navigationService.back();
+  }
+
+  goToManual() {
+    _navigationService.navigateTo(Routes.addCustomerManually);
   }
 
 

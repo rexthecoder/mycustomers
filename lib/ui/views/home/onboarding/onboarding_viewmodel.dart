@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -25,7 +26,7 @@ class OnboardingViewModel extends BaseViewModel {
     Timer.periodic(Duration(seconds: 3), (Timer timer) {
       currentIndex++;
       notifyListeners();
-      print('Timer is: $timer, Index is: $currentIndex');
+    // Logger.w('Timer is: $timer, Index is: $currentIndex');
     });
   }
 
@@ -33,13 +34,12 @@ class OnboardingViewModel extends BaseViewModel {
   void dispose() {
     _disposed = true;
     super.dispose();
-    print('dispose');
+   // print('dispose');
   }
 
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future navigateToNext() async {
-    dispose();
     await Future.value();
     await _navigationService.clearStackAndShow(Routes.languageViewRoute);
   }

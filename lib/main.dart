@@ -10,11 +10,10 @@ import 'app/locator.dart';
 import 'app/router.dart';
 import 'core/utils/logger.dart';
 
-void main() async {
+void main()  {
   setupLogger();
-
-  await setupLocator();
-
+  setupLocator();
+  
   // runApp(App());
   runApp(
     DevicePreview(
@@ -26,11 +25,11 @@ void main() async {
 
 class App extends StatelessWidget {
   @override
-  
-  Widget build(BuildContext context) {
-    
 
-  //    /* 
+  Widget build(BuildContext context) {
+
+
+  //    /*
   //   1. Setup for screenutil, only needed once here
   //   2. screen resolution (in px) according to phone screen
   //   3. Import screen util to all views
@@ -45,7 +44,7 @@ class App extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  
+
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation

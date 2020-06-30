@@ -54,9 +54,7 @@ class ImportCustomerView extends StatelessWidget {
                           bgColor: ThemeColors.gray.shade500,
                         ),
                         title: InkWell(
-                          onTap: () {
-                            // TODO: Implement add customer manually screen function
-                          },
+                          onTap: model.goToManual,
                           child: Text(
                             'Add New Customer',
                             style: TextStyle(
@@ -65,9 +63,7 @@ class ImportCustomerView extends StatelessWidget {
                           ),
                         ),
                         trailing: IconButton(
-                          onPressed: () {
-                            // TODO: Implement add customer manually screen function
-                          },
+                          onPressed: model.goToManual,
                           icon: Icon(
                             Icons.arrow_forward_ios,
                             size: 20.sp,
