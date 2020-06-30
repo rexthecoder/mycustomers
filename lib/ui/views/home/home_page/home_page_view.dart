@@ -129,14 +129,14 @@ class _HeaderBar extends StatelessWidget {
                 Icons.notifications_none,
                 color: Colors.white,
               ),
-              Positioned(
-               right: SizeConfig.yMargin(context, 2.6),
-                top: SizeConfig.yMargin(context, 2.6),
-                              child: CircleAvatar(
-                  backgroundColor: Color(0xFFFDA741),
-                  radius: SizeConfig.xMargin(context, 0.9 ),
-                ),
-              ),
+//              Positioned(
+//               right: SizeConfig.yMargin(context, 2.6),
+//                top: SizeConfig.yMargin(context, 2.6),
+//                              child: CircleAvatar(
+//                  backgroundColor: Color(0xFFFDA741),
+//                  radius: SizeConfig.xMargin(context, 0.9 ),
+//                ),
+//              ),
             ],
             overflow: Overflow.clip,
           ),
