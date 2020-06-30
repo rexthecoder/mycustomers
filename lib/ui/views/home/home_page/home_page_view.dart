@@ -6,6 +6,7 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/all_customers_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
+import 'package:mycustomers/ui/views/home/home_page/tabs/new_debtors_view.dart';
 
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -24,7 +25,7 @@ class HomePageView extends StatelessWidget {
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<HomePageViewModel>.reactive(
       builder: (context, model, child) => DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           body: Container(
             child: Column(
@@ -77,7 +78,7 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("Debtors"),
+                            child: Text("Customers owing you"),
                           ),
                         ),
                       ),
@@ -85,15 +86,7 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("Creditors"),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("All customers"),
+                            child: Text("People you owe"),
                           ),
                         ),
                       ),
@@ -104,9 +97,8 @@ class HomePageView extends StatelessWidget {
                   child: Container(
                     child: TabBarView(
                       children: <Widget>[
-                        DebtorsView(),
+                        DebtorsViewer(),
                         CreditorsView(),
-                        AllCustomersView()
                       ],
                     ),
                   ),
