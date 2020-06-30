@@ -1,8 +1,9 @@
 import 'package:mycustomers/core/models/business_card_model.dart';
-import 'package:mycustomers/core/models/business_card_model.dart';
 import 'package:stacked/stacked.dart';
 
 class BusinessCardPageViewModel extends BaseViewModel {
+//  final BusinessCardService _businessCardService = locator<IBusinessCardService>();
+
   BusinessCard _businessCard = BusinessCard.empty();
 
   BusinessCard get businessCard => _businessCard;
@@ -41,4 +42,14 @@ class BusinessCardPageViewModel extends BaseViewModel {
     }
     notifyListeners();
   }
+//
+//  Future<void> saveBusinessCard() async {
+//    await _businessCardService.saveBusinessCard(businessCard);
+//    notifyListeners();
+//  }
+//
+//  Future<void> init() async {
+//    _businessCard = await _businessCardService.getBusinessCard();
+//    notifyListeners();
+//  }
 }

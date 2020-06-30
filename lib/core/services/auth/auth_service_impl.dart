@@ -54,7 +54,7 @@ class AuthServiceImpl implements AuthService {
   }
 
   @override
-  Future<bool> isUserLoggedIn() async {
+  Future<bool> get isUserLoggedIn async {
     // check server for login status
     await Future.delayed(Duration(seconds: 1));
 
