@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -28,10 +29,6 @@ class BusinessHomePageView extends StatelessWidget {
                   height: SizeConfig.yMargin(context, 10),
                   child: Stack(
                     children: <Widget>[
-                      // Container(
-                      //   height: SizeConfig.yMargin(context, 10),
-                      //   color: Color(0xff333cc1),
-                      // ),
                       Positioned(
                         top: SizeConfig.yMargin(context, -12.0),
                         left: SizeConfig.yMargin(context, -10.0),
@@ -203,7 +200,7 @@ class BusinessSelector extends HookViewModelWidget<BusinessHomePageViewModel> {
                   business.businessName,
                   style: TextStyle(
                     fontSize: SizeConfig.yMargin(context, 2),
-                    color: Colors.white,
+                    color: ThemeColors.background,
                     fontWeight: FontWeight.w900,
                     //     color: Colors.blueAccent,
                   ),
