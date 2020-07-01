@@ -1,8 +1,11 @@
+import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/business_card_model.dart';
+import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:stacked/stacked.dart';
 
 class BusinessCardPageViewModel extends BaseViewModel {
-//  final BusinessCardService _businessCardService = locator<IBusinessCardService>();
+  final BusinessCardService _businessCardService =
+      locator<IBusinessCardService>();
 
   BusinessCard _businessCard = BusinessCard.empty();
 
@@ -26,8 +29,9 @@ class BusinessCardPageViewModel extends BaseViewModel {
     _businessCard = _businessCard.copyWith(
       storeName: storeName ?? _businessCard.storeName,
       personalName: personalName ?? _businessCard.personalName,
-      phoneNumber:
-          '$_dropDownValue ${phoneNumber ?? _businessCard.phoneNumber}',
+      phoneNumber: phoneNumber != null
+          ? '$_dropDownValue  $phoneNumber'
+          : _businessCard.phoneNumber,
       emailAddress: emailAddress ?? _businessCard.emailAddress,
       address: address ?? _businessCard.address,
     );
@@ -38,18 +42,20 @@ class BusinessCardPageViewModel extends BaseViewModel {
     _dropDownValue = value;
     if (_businessCard.phoneNumber.contains('+')) {
       _businessCard = _businessCard.copyWith(
-          phoneNumber: '$dropDownValue ${_businessCard.phoneNumber.substring(4)}');
+        phoneNumber: '$dropDownValue ${_businessCard.phoneNumber.substring(4)}',
+      );
     }
     notifyListeners();
   }
-//
-//  Future<void> saveBusinessCard() async {
-//    await _businessCardService.saveBusinessCard(businessCard);
-//    notifyListeners();
-//  }
-//
-//  Future<void> init() async {
-//    _businessCard = await _businessCardService.getBusinessCard();
-//    notifyListeners();
-//  }
+
+  Future<void> saveBusinessCard() async {
+    await _businessCardService.saveBusinessCard(businessCard);
+    // TODO Show saved display
+    notifyListeners();
+  }
+
+  Future<void> init() async {
+    _businessCard = await _businessCardService.getBusinessCard();
+    notifyListeners();
+  }
 }

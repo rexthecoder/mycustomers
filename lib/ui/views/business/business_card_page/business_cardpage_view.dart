@@ -52,7 +52,7 @@ class BusinessCardPageView extends StatelessWidget {
                   ),
                   CustomShareRaisedButton(
                     label: "Save and Share",
-                    onPressed: (){},
+                    onPressed: model.saveBusinessCard,
                   )
                 ],
               ),
@@ -61,7 +61,7 @@ class BusinessCardPageView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => BusinessCardPageViewModel(),
-//      onModelReady: (model) => model.init(),
+      onModelReady: (model) => model.init(),
     );
   }
 }
