@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
@@ -24,7 +25,7 @@ class MarketingHomePageView extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       height: 200.h,
-                      color: Color(0xff333cc1),
+                      color: BrandColors.primary
                     ),
                     Positioned(
                       top: -86.h,
@@ -45,20 +46,21 @@ class MarketingHomePageView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
                                   'Marketing',
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20.sp,
+                                      fontSize: 17.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(width: 205.w),
-                                notificationBell(model.notification)
+                                SizedBox(width: 200.w),
+                                notificationBell(model.notification, 35.w)
                               ],
                             ),
                             SizedBox(
-                              height: 17,
+                              // height: 10,
                             ),
                             Text(
                               'Show your customers how much you care.',
@@ -69,7 +71,6 @@ class MarketingHomePageView extends StatelessWidget {
                               height: 19,
                             ),
                             Container(
-                              height: height > 900 ? 200.h : 140,
                               width: 315.w,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -110,16 +111,17 @@ class MarketingHomePageView extends StatelessWidget {
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'Send a Happy new Year Message',
                                             style: TextStyle(
-                                              color: Color(0xff333cc1),
+                                              color: BrandColors.primary,
                                               fontSize: 12.sp > 24 ? 24 : 12.sp,
                                             ),
                                           ),
                                           SizedBox(
-                                            width: 2,
+                                            width: 9,
                                           ),
                                           arrow(true)
                                         ],
@@ -145,13 +147,14 @@ class MarketingHomePageView extends StatelessWidget {
                             new EdgeInsets.only(top: 12.h, bottom: 12.h),
                         prefixIcon: Icon(
                           Icons.search,
-                          color: Color(0xff939393),
+                          color: ThemeColors.gray[800],
                         ),
                         hintText: 'Search Customers',
+                        hintStyle: TextStyle(color: ThemeColors.gray[700]),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: BorderSide(
-                                color: Color(0xffd1d1d1),
+                                color: ThemeColors.gray[700],
                                 width: 1,
                                 style: BorderStyle.solid))),
                   ),
@@ -164,8 +167,8 @@ class MarketingHomePageView extends StatelessWidget {
                           Text(
                             'Frequently Contacted',
                             style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 16.sp,
+                                color: ThemeColors.gray[800],
+                                fontSize: 12.sp > 24 ? 24 : 12.sp,
                                 fontWeight: FontWeight.w600),
                           ),
                           ListView.builder(
@@ -209,7 +212,7 @@ class MarketingHomePageView extends StatelessWidget {
                         ),
                         child: Text('Send Message',
                             style: TextStyle(color: Colors.white)),
-                        color: Color(0xFFFF8C5F),
+                        color: ThemeColors.cta,
                       ),
                     ),
                     SizedBox(
@@ -224,9 +227,9 @@ class MarketingHomePageView extends StatelessWidget {
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
-                              side: BorderSide(color: Color(0xffff8c5f))),
+                              side: BorderSide(color: ThemeColors.cta)),
                           child: Text('Send Bulk SMS',
-                              style: TextStyle(color: Color(0xFFFF8C5F))),
+                              style: TextStyle(color: ThemeColors.cta)),
                           color: Colors.white),
                     ),
                     SizedBox(
