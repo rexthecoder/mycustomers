@@ -13,76 +13,72 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: Container(
-          height: SizeConfig.yMargin(context, 100),
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              PageView(
-                // onPageChanged: ,
-                physics: ClampingScrollPhysics(),
+        body: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            PageView(
+              physics: ClampingScrollPhysics(),
+              controller: model.pageController,
+              children: [
+                _Pages(
+                  'assets/images/onboarding/onboarding1.png',
+                  'Welcome to myCustomer',
+                  'We help you to manage your business and \n keep track of records',
+                ),
+                _Pages(
+                  'assets/images/onboarding/onboarding2.png',
+                  'Push a Reminder',
+                  'Send sms reminders to customers that are \n owing you money',
+                ),
+                _Pages(
+                  'assets/images/onboarding/onboarding3.png',
+                  'Collect your money',
+                  'Easily manage customers owing you and \n increase your cash flow',
+                ),
+                _Pages(
+                  'assets/images/onboarding/onboarding4.png',
+                  'Engage with your people',
+                  'Interact with your customers through \n pushing of unique sales messaging',
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: SizeConfig.yMargin(context, 22),
+              left: 0,
+              right: 0,
+              child: WormIndicator(
+                indicatorColor: BrandColors.primary,
+                color: ThemeColors.gray.shade800,
+                length: 4,
                 controller: model.pageController,
-                children: [
-                  _Pages(
-                    'assets/images/onboarding/onboarding1.png',
-                    'Welcome to myCustomer',
-                    'We help you to manage your business and \n keep track of records',
-                  ),
-                  _Pages(
-                    'assets/images/onboarding/onboarding2.png',
-                    'Push a Reminder',
-                    'Send sms reminders to customers that are \n owing you money',
-                  ),
-                  _Pages(
-                    'assets/images/onboarding/onboarding3.png',
-                    'Collect your money',
-                    'Easily manage customers owing you and \n increase your cash flow',
-                  ),
-                  _Pages(
-                    'assets/images/onboarding/onboarding4.png',
-                    'Engage with your people',
-                    'Interact with your customers through \n pushing of unique sales messaging',
-                  ),
-                ],
-              ),
-              Positioned(
-                bottom: SizeConfig.yMargin(context, 22),
-                left: 0,
-                right: 0,
-                child: WormIndicator(
-                  indicatorColor: BrandColors.primary,
-                  color: ThemeColors.gray.shade800,
-                  length: 4,
-                  controller: model.pageController,
-                  shape: Shape(
-                    size: SizeConfig.yMargin(context, 1.2),
-                    shape: DotShape.Circle,
-                    spacing: SizeConfig.xMargin(context, 5),
-                  ),
+                shape: Shape(
+                  size: SizeConfig.yMargin(context, 1.2),
+                  shape: DotShape.Circle,
+                  spacing: SizeConfig.xMargin(context, 5),
                 ),
               ),
-              Positioned(
-                bottom: SizeConfig.yMargin(context, 12),
-                child: InkWell(
-                  onTap: () {
-                    model.navigateToSignUp();
-                  },
-                  child: btnHome('Get Started', BrandColors.primary,
-                      ThemeColors.background, context),
-                ),
+            ),
+            Positioned(
+              bottom: SizeConfig.yMargin(context, 12),
+              child: InkWell(
+                onTap: () {
+                  model.navigateToSignUp();
+                },
+                child: btnHome('Get Started', BrandColors.primary,
+                    ThemeColors.background, context),
               ),
-              Positioned(
-                bottom: SizeConfig.yMargin(context, 3),
-                child: InkWell(
-                  onTap: () {
-                    model.navigateToSignIn();
-                  },
-                  child: btnHome('Sign in', ThemeColors.background,
-                      BrandColors.primary, context),
-                ),
+            ),
+            Positioned(
+              bottom: SizeConfig.yMargin(context, 3),
+              child: InkWell(
+                onTap: () {
+                  model.navigateToSignIn();
+                },
+                child: btnHome('Sign in', ThemeColors.background,
+                    BrandColors.primary, context),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       viewModelBuilder: () => OnboardingViewModel(),
@@ -100,20 +96,17 @@ class _Pages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Expanded(
       child: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(
-              SizeConfig.yMargin(context, 5),
-            ),
+          ClipRect(
             child: Image(
               height: SizeConfig.yMargin(context, 50),
-              width: SizeConfig.xMargin(context, 100),
               image: AssetImage(img1),
               fit: BoxFit.contain,
             ),
           ),
+          SizedBox(height: SizeConfig.yMargin(context, 8)),
           Text(
             txt1,
             style: TextStyle(
@@ -131,23 +124,6 @@ class _Pages extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class Indicator extends StatelessWidget {
-  final int positionIndex, currentIndex;
-  const Indicator({this.currentIndex, this.positionIndex});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: SizeConfig.yMargin(context, 1.3),
-      width: SizeConfig.yMargin(context, 1.3),
-      decoration: BoxDecoration(
-          color: positionIndex == currentIndex
-              ? BrandColors.primary
-              : ThemeColors.gray.shade800,
-          borderRadius: BorderRadius.circular(15)),
     );
   }
 }
