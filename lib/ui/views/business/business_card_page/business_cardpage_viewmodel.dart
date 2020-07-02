@@ -57,12 +57,10 @@ class BusinessCardPageViewModel extends BaseViewModel {
 
   Future<void> saveBusinessCard() async {
     await _businessCardService.saveBusinessCard(businessCard);
-    // TODO Show saved display
-    await _shareImageAndText();
     notifyListeners();
   }
 
-  _shareImageAndText() async {
+  Future<void> shareImageAndText() async {
     try {
       final Uint8List bytes = await imageFile.readAsBytes();
       await WcFlutterShare.share(

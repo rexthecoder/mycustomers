@@ -9,6 +9,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flushbar/flushbar_helper.dart';
 
 import 'business_cardpage_viewmodel.dart';
 
@@ -61,14 +62,25 @@ class BusinessCardPageView extends StatelessWidget {
                     label: "Save and Share",
                     onPressed: () {
                       screenshotController
-                          .capture(pixelRatio: ScreenUtil.pixelRatio)
-                          .then((File image) {
+                          .capture(
+                        pixelRatio: ScreenUtil.pixelRatio,
+                        delay: Duration(milliseconds: 10),
+                      )
+                          .then((File image) async {
                         //Capture Done
                         model.imageFile = image;
+                        await model.saveBusinessCard();
+                        FlushbarHelper.createSuccess(
+                          duration: const Duration(seconds: 5),
+                          message: 'Save Successful',
+                        ).show(context);
+                        model.shareImageAndText();
                       }).catchError((onError) {
-                        print(onError);
+                        FlushbarHelper.createError(
+                          duration: const Duration(seconds: 5),
+                          message: 'Error Occurred',
+                        ).show(context);
                       });
-                      model.saveBusinessCard();
                       return;
                     },
                   )

@@ -73,6 +73,9 @@ dependencies:
   # Sharing Images And Files
   wc_flutter_share: ^0.2.2
 
+  # SnackBar
+  flushbar: ^1.10.4
+
 dependency_overrides:
   dartx: ^0.3.0
 
