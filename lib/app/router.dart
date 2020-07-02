@@ -15,6 +15,7 @@ import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_
 import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
+import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
@@ -70,7 +71,7 @@ class Router {
     switch (settings.name) {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
+          builder: (context) => MainTransaction(),
           settings: settings,
         );
       case Routes.getstartedViewRoute:

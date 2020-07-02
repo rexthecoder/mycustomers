@@ -11,7 +11,7 @@ import 'app/router.dart';
 import 'core/utils/logger.dart';
 
 void main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   setupLogger();
   await setupLocator();
   

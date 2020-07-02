@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
@@ -17,182 +18,101 @@ class MainTransaction extends StatelessWidget {
     final currency = new NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<MainTransactionViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-              appBar: AppBar(
-                brightness: Brightness.light,
-                elevation: .5,
-                title: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin:
-                            EdgeInsets.only(right: ScreenUtil().setWidth(15)),
-                        width: ScreenUtil().setWidth(50),
-                        height: ScreenUtil().setHeight(50),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                ScreenUtil().setWidth(50)),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/man.png',
-                                ),
-                                fit: BoxFit.cover)),
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                'Seyi Onifade',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6
-                                    .copyWith(
-                                        fontSize: ScreenUtil().setSp(20),
-                                        fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                '08035678290',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6
-                                    .copyWith(
-                                        fontSize: ScreenUtil().setSp(14),
-                                        fontWeight: FontWeight.w400),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                leading: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(18),
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: SvgPicture.asset(
-                      'assets/icons/backarrow.svg',
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                actions: <Widget>[
-                  PopupMenuButton<String>(
-                    onSelected: (String item) {
-                      itemAction(item, context);
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return model.items.map((String item) {
-                        return PopupMenuItem<String>(
-                          value: item,
-                          child: Text(item),
-                        );
-                      }).toList();
-                    },
-                  )
-                ],
-                actionsIconTheme: IconThemeData(color: Colors.black),
-                backgroundColor: Colors.white,
-                centerTitle: true,
-              ),
-              body: Column(
-                children: <Widget>[
-                  model.formattedate !=null?Container(): Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(20)),
-                    width: width,
-                    color: Colors.white,
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(70.0),
+                child: AppBar(
+                  brightness: Brightness.light,
+                  elevation: .5,
+                  title: Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      bottom: ScreenUtil().setHeight(5)),
-                                  child: SvgPicture.asset(
-                                    'assets/icons/book.svg',
+                        Container(
+                          margin:
+                              EdgeInsets.only(right: ScreenUtil().setWidth(15)),
+                          width: ScreenUtil().setWidth(50),
+                          height: ScreenUtil().setHeight(50),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  ScreenUtil().setWidth(50)),
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                    'assets/images/man.png',
                                   ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    'Download',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5
-                                        .copyWith(
-                                          fontSize: ScreenUtil().setSp(16),
-                                          color: Color(0xFF333CC1),
-                                        ),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    'Report',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5
-                                        .copyWith(
-                                          fontSize: ScreenUtil().setSp(16),
-                                          color: Color(0xFF333CC1),
-                                        ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                                  fit: BoxFit.cover)),
                         ),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    bottom: ScreenUtil().setHeight(5),
-                                  ),
-                                  child: SvgPicture.asset(
-                                      'assets/icons/message.svg'),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  'Seyi Onifade',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: SizeConfig.yMargin(context, 2.5),
+                                          fontWeight: FontWeight.w500),
                                 ),
-                                Container(
-                                  child: Text(
-                                    'Send',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5
-                                        .copyWith(
-                                            fontSize: ScreenUtil().setSp(16),
-                                            color: Color(0xFF333CC1)),
-                                  ),
+                              ),
+                              Container(
+                                child: Text(
+                                  '08035678290',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: SizeConfig.yMargin(context, 2),
+                                          fontWeight: FontWeight.w400),
                                 ),
-                                Container(
-                                  child: Text(
-                                    'Reminder',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5
-                                        .copyWith(
-                                            fontSize: ScreenUtil().setSp(16),
-                                            color: Color(0xFF333CC1)),
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         )
                       ],
                     ),
                   ),
-                  model.formattedate !=null?Expanded(
+                  leading: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(18),
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: SvgPicture.asset(
+                        'assets/icons/backarrow.svg',
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  actions: <Widget>[
+                    PopupMenuButton<String>(
+                      onSelected: (String item) {
+                        itemAction(item, context);
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return model.items.map((String item) {
+                          return PopupMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: Theme.of(context).textTheme.headline6.copyWith(fontSize: SizeConfig.yMargin(context, 2)),
+                            ),
+                          );
+                        }).toList();
+                      },
+                    )
+                  ],
+                  actionsIconTheme: IconThemeData(color: Colors.white),
+                  backgroundColor: BrandColors.primary,
+                  centerTitle: true,
+                ),
+              ),
+              body: Column(
+                children: <Widget>[
+                  model.formattedate ==null?Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
@@ -229,14 +149,14 @@ class MainTransaction extends StatelessWidget {
                                         .textTheme
                                         .headline5
                                         .copyWith(
-                                          fontSize: ScreenUtil().setSp(16),
+                                          fontSize: SizeConfig.yMargin(context, 2.5),
                                         ),
                                   ),
                                 ),
                               ),
                               content: Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: ScreenUtil().setWidth(25),
+                                  horizontal: ScreenUtil().setWidth(20),
                                 ),
                                 child: Column(
                                   children: <Widget>[
@@ -301,9 +221,7 @@ class MainTransaction extends StatelessWidget {
                                                                     .textTheme
                                                                     .headline5
                                                                     .copyWith(
-                                                                      fontSize:
-                                                                          ScreenUtil()
-                                                                              .setSp(20),
+                                                                      fontSize: SizeConfig.yMargin(context, 2.6),
                                                                       color: Color(
                                                                           0xFF333CC1),
                                                                       fontWeight:
@@ -321,8 +239,7 @@ class MainTransaction extends StatelessWidget {
                                                                       .textTheme
                                                                       .headline5
                                                                       .copyWith(
-                                                                        fontSize:
-                                                                            ScreenUtil().setSp(16),
+                                                                        fontSize: SizeConfig.yMargin(context, 2.5),
                                                                         color: Colors
                                                                             .black38,
                                                                         fontWeight:
@@ -343,9 +260,7 @@ class MainTransaction extends StatelessWidget {
                                                                   .textTheme
                                                                   .headline5
                                                                   .copyWith(
-                                                                    fontSize: ScreenUtil()
-                                                                        .setSp(
-                                                                            14),
+                                                                    fontSize:  SizeConfig.yMargin(context, 2),
                                                                     color: Colors
                                                                         .black38,
                                                                   ),
@@ -382,8 +297,7 @@ class MainTransaction extends StatelessWidget {
                                                                       .textTheme
                                                                       .headline5
                                                                       .copyWith(
-                                                                        fontSize:
-                                                                            ScreenUtil().setSp(16),
+                                                                        fontSize:SizeConfig.yMargin(context, 2.5),
                                                                         color: Colors
                                                                             .black38,
                                                                         fontWeight:
@@ -433,9 +347,7 @@ class MainTransaction extends StatelessWidget {
                                                                     .textTheme
                                                                     .headline5
                                                                     .copyWith(
-                                                                      fontSize:
-                                                                          ScreenUtil()
-                                                                              .setSp(20),
+                                                                      fontSize: SizeConfig.yMargin(context, 2.6),
                                                                       color: Color(
                                                                           0xFF21D184),
                                                                       fontWeight:
@@ -456,9 +368,7 @@ class MainTransaction extends StatelessWidget {
                                                                   .textTheme
                                                                   .headline5
                                                                   .copyWith(
-                                                                    fontSize: ScreenUtil()
-                                                                        .setSp(
-                                                                            14),
+                                                                    fontSize: SizeConfig.yMargin(context, 2),
                                                                     color: Colors
                                                                         .black38,
                                                                   ),
@@ -476,95 +386,191 @@ class MainTransaction extends StatelessWidget {
                         }),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(25),
-                      vertical: ScreenUtil().setHeight(12),
-                    ),
+                    // padding: EdgeInsets.symmetric(
+                    //   horizontal: ScreenUtil().setWidth(25),
+                    //   vertical: ScreenUtil().setHeight(12),
+                    // ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        model.formattedate !=null?Container(): Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setWidth(15),
-                              vertical: ScreenUtil().setHeight(10),
-                            ),
-                            margin: EdgeInsets.only(
-                              bottom: ScreenUtil().setHeight(15),
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: Colors.white),
-                            width: width,
-                            child: model.bought() > model.paid()
-                                ? Center(
-                                    child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'Customer Owes you ',
+                        model.formattedate ==null?Container(): Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(25),
+                            vertical: SizeConfig.yMargin(context, 2),
+                          ),
+                          child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.xMargin(context, 3),
+                                vertical: ScreenUtil().setHeight(10),
+                              ),
+                              // margin: EdgeInsets.only(
+                              //   bottom: ScreenUtil().setHeight(5),
+                              // ),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.white),
+                              width: width,
+                              child: model.bought() > model.paid()
+                                  ? Center(
+                                      child: Wrap(
+                                        alignment: WrapAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            'Customer Owes you ',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                  fontSize:SizeConfig.yMargin(context, 2.3),
+                                                  color: Colors.black38,
+                                                ),
+                                          ),
+                                          Text(
+                                            'NGN' +
+                                                currency
+                                                    .format(model.bought() -
+                                                        model.paid())
+                                                    .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                  fontSize: SizeConfig.yMargin(context, 2.5),
+                                                  color: Color(0xFFEB5757),
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : Center(
+                                      child: Wrap(
+                                        alignment: WrapAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            'You owe this customer ',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                  fontSize: SizeConfig.yMargin(context, 2.5),
+                                                  color: Colors.black38,
+                                                ),
+                                          ),
+                                          Text(
+                                            'NGN' +
+                                                currency
+                                                    .format(model.paid() -
+                                                        model.bought())
+                                                    .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                  fontSize: SizeConfig.yMargin(context, 3),
+                                                  color: Color(0xFFEB5757),
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                        ),
+                        model.formattedate ==null?Container(): Container(
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+                          width: width,
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            bottom: ScreenUtil().setHeight(5)),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/book.svg',
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          'Download',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5
                                               .copyWith(
-                                                fontSize:
-                                                    ScreenUtil().setSp(16),
-                                                color: Colors.black38,
+                                                fontSize: SizeConfig.yMargin(context, 2.3),
+                                                color: Color(0xFF333CC1),
                                               ),
                                         ),
-                                        Text(
-                                          'NGN' +
-                                              currency
-                                                  .format(model.bought() -
-                                                      model.paid())
-                                                  .toString(),
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          'Report',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5
                                               .copyWith(
-                                                fontSize:
-                                                    ScreenUtil().setSp(20),
-                                                color: Color(0xFFEB5757),
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                : Center(
-                                    child: Wrap(
-                                      alignment: WrapAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          'You owe this customer ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              .copyWith(
-                                                fontSize:
-                                                    ScreenUtil().setSp(16),
-                                                color: Colors.black38,
+                                                fontSize: SizeConfig.yMargin(context, 2.3),
+                                                color: Color(0xFF333CC1),
                                               ),
                                         ),
-                                        Text(
-                                          'NGN' +
-                                              currency
-                                                  .format(model.paid() -
-                                                      model.bought())
-                                                  .toString(),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                          bottom: ScreenUtil().setHeight(5),
+                                        ),
+                                        child: SvgPicture.asset(
+                                            'assets/icons/message.svg'),
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          'Send',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5
                                               .copyWith(
-                                                fontSize:
-                                                    ScreenUtil().setSp(20),
-                                                color: Color(0xFFEB5757),
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                        )
-                                      ],
-                                    ),
-                                  )),
-                        AddTransaction(width),
+                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                  color: Color(0xFF333CC1)),
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          'Reminder',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5
+                                              .copyWith(
+                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                  color: Color(0xFF333CC1)),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(25),
+                            vertical: SizeConfig.yMargin(context, 2),
+                          ),
+                          child: AddTransaction(width)
+                        ),
 //                        InkWell(
 //                          onTap: () {
 //
@@ -633,7 +639,7 @@ class AddTransaction extends StatelessWidget {
             builder: (context)=> Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
-                height: 200.h,
+                height: SizeConfig.yMargin(context, 30),
                 child: Column(
                   children: <Widget>[
                     InkWell(
@@ -641,29 +647,32 @@ class AddTransaction extends StatelessWidget {
                         Navigator.pushNamed(context, '/addDebt');
                       },
                         child: Container(
-                          height: 50.h,
+                          height: SizeConfig.yMargin(context, 8),
                             child: Center(child: Text('Add Debt',style: TextStyle(
-                              color: BrandColors.secondary
+                              color: BrandColors.secondary,
+                              fontSize: SizeConfig.yMargin(context, 2.3)
                             ),)))),
-                    Divider(color: Colors.black),
+                    Divider(color: Colors.black.withOpacity(0.5)),
                     InkWell(
                         onTap: (){
                           Navigator.pushNamed(context, '/addCredit');
                         },
                         child: Container(
-                            height: 50.h,
+                            height: SizeConfig.yMargin(context, 8),
                             child: Center(child: Text('Add Credit',style: TextStyle(
-                                color: BrandColors.primary
+                                color: BrandColors.primary,
+                                fontSize: SizeConfig.yMargin(context, 2.3)
                             ),)))),
-                    Divider(color: Colors.black),
+                    Divider(color: Colors.black.withOpacity(0.5)),
                     InkWell(
                         onTap: (){
                           Navigator.pop(context);
                         },
                         child: Container(
-                            height: 50.h,
+                            height: SizeConfig.yMargin(context, 8),
                             child: Center(child: Text('Cancel',style: TextStyle(
-                                color: Colors.red
+                                color: Colors.red,
+                                fontSize: SizeConfig.yMargin(context, 2.3)
                             ),)))),
                   ],
                 ),
@@ -686,7 +695,7 @@ class AddTransaction extends StatelessWidget {
                 .textTheme
                 .headline6
                 .copyWith(
-              fontSize: ScreenUtil().setSp(16),
+              fontSize: SizeConfig.yMargin(context, 2.3),
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
