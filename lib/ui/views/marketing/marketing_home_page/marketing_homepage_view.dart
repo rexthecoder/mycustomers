@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
-//import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
@@ -18,6 +16,7 @@ class MarketingHomePageView extends StatelessWidget {
         body: Stack(
           children: <Widget>[
             SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

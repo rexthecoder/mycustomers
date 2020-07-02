@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:async';
 import 'package:sms/sms.dart';
 
@@ -16,3 +17,19 @@ void handler(SmsMessage message) {
 
 
 
+=======
+// import 'dart:async';
+// import 'package:sms/sms.dart';
+
+// class SmsService {
+//   SmsReceiver _receiver = new SmsReceiver();
+//   SmsService() {
+//     _receiver.onSmsReceived.listen(handler);
+//   }
+//   final _otpController = StreamController<SmsMessage>();
+
+//   void handler(SmsMessage message) {
+//     _otpController.add(message);
+//   }
+// }
+>>>>>>> upstream/master
