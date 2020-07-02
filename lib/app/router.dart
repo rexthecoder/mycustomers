@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
+import 'package:mycustomers/ui/views/business/profile/Edit_profile_screen/edit_profile_view.dart';
+import 'package:mycustomers/ui/views/business/profile/main_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/remove_pin_settings_page/remove_pin_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
-import 'package:mycustomers/ui/views/business/profile/profile_page/profile_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/change_pin_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
@@ -28,6 +29,8 @@ import 'package:mycustomers/ui/views/home/add_credit/add_credit_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
 import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
+import 'package:mycustomers/ui/views/home/schedule_reminder/schedule_remider_view.dart';
+import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
@@ -59,10 +62,13 @@ abstract class Routes {
   static const bussinessSettingsPage = '/bussinessSettingsPage';
   static const currencySettingsViewRoute = '/currencySettings';
   static const profileViewRoute = '/profile';
+  static const editProfileViewRoute = '/editProfile';
   static const appLockSettingsViewRoute = '/appLockSettings';
   static const changePinSettingsViewRoute = '/changePinSettings';
   static const removePinSettingsViewRoute = '/removePinSettings';
   static const languageSettingsViewRoute = '/languagePinSettings';
+  static const scheduleReminder = '/scheduleReminder';
+  static const sendReminder = '/sendReminder';
 }
 
 class Router {
@@ -154,9 +160,14 @@ class Router {
         );
       case Routes.profileViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => ProfilePageView(),
+          builder: (context) => MainProfilePageView(),
           settings: settings,
         );
+      case Routes.editProfileViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => EditProfileView(),
+          settings: settings
+          );
       case Routes.supportViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SupportPageView(),
@@ -206,6 +217,16 @@ class Router {
       case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DetailsView(),
+          settings: settings,
+        );
+      case Routes.sendReminder:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SendReminders(),
+          settings: settings,
+        );
+      case Routes.scheduleReminder:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ScheduleReminders(),
           settings: settings,
         );
       default:

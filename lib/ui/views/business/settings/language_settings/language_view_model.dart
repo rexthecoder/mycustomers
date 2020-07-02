@@ -13,6 +13,9 @@ class LanguageSettingsViewModel extends BaseViewModel {
   String _pageTitle='Settings';
   String get pageTitle => _pageTitle;
 
+  String _pageSubtitle='Select your language';
+  String get pageSubtitle => _pageSubtitle;
+
   List<Map<String, String>> _supportedLanguages = [
     {'image': 'assets/icons/uk.png','code': 'en', 'name': 'English'},
     {'image': 'assets/icons/fr.png','code': 'fr', 'name': 'Francias'},
