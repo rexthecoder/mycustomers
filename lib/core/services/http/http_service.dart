@@ -13,5 +13,11 @@ abstract class HttpService {
   /// - throws `NetworkException` if POST request fails
   Future<dynamic> postHttp(String route, dynamic body);
 
+  /// Set the header to use for further requests
+  setHeader(Map<String, dynamic> header);
+
+  /// Clear headers set
+  clearHeaders();
+
   void dispose();
 }

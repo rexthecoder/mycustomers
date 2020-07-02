@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:mycustomers/core/exceptions/network_exception.dart';
 import 'package:mycustomers/core/utils/logger.dart';
@@ -13,8 +11,12 @@ class HttpServiceImpl implements HttpService {
 
   final _dio = Dio();
 
+  setHeader(Map<String, dynamic> header) {
+    _dio.options.headers.addAll(header);
+  }
+
   @override
-  Future<dynamic> getHttp(String route) async {
+  Future<dynamic> getHttp(String route, {Map<String, dynamic> params}) async {
     Response response;
 
     Logger.d('Sending GET to $route');
@@ -23,12 +25,13 @@ class HttpServiceImpl implements HttpService {
       final fullRoute = '$route';
       response = await _dio.get(
         fullRoute,
+        queryParameters: params,
         options: Options(
           contentType: 'application/json',
         ),
       );
     } on DioError catch (e) {
-      Logger.e('HttpService: Failed to GET ${e.message}');
+      Logger.e('HttpService: Failed to GET $route: Error message: ${e.message}');
       throw NetworkException(e.message);
     }
 
@@ -39,7 +42,7 @@ class HttpServiceImpl implements HttpService {
   }
 
   @override
-  Future<dynamic> postHttp(String route, dynamic body) async {
+  Future<dynamic> postHttp(String route, dynamic body, {Map<String, dynamic> params}) async {
     Response response;
 
     Logger.d('Sending $body to $route');
@@ -49,6 +52,7 @@ class HttpServiceImpl implements HttpService {
       response = await _dio.post(
         fullRoute,
         data: body,
+        queryParameters: params,
         onSendProgress: network_utils.showLoadingProgress,
         onReceiveProgress: network_utils.showLoadingProgress,
         options: Options(
@@ -112,5 +116,10 @@ class HttpServiceImpl implements HttpService {
   void dispose() {
     _dio.clear();
     _dio.close(force: true);
+  }
+
+  @override
+  clearHeaders() {
+    _dio.options.headers.clear();
   }
 }

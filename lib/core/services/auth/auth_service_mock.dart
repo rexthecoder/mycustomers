@@ -1,3 +1,4 @@
+import 'package:mockito/mockito.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/api_routes.dart';
@@ -11,13 +12,13 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'auth_service.dart';
 
-class AuthServiceImpl implements AuthService {
+class AuthServiceMock extends Mock implements AuthService {
   User _currentUser;
   @override
   User get currentUser => _currentUser;
 
   // The service to use for requests
-  HttpService _http = locator<HttpService>();
+//  HttpService _http = locator<HttpService>();
 
   // Service for persisting data
   IStorageUtil _storage = locator<IStorageUtil>();
@@ -28,11 +29,11 @@ class AuthServiceImpl implements AuthService {
   Future authUser(String url, Map<String, String> params) async {
     try {
       // Send the request to the API with the data
-      Map response = await _http.postHttp(url, params);
+      Map response = await Future.value({}); // TODO: Add mock data
 
       // Check if the status is true
       if (response.containsKey('status') && response['status']) {
-        _http.setHeader({'x-access-token': response['access_token']});
+
       } else {
         throw Exception(response.containsKey('message')
             ? response['message']
@@ -48,9 +49,9 @@ class AuthServiceImpl implements AuthService {
 
   @override
   Future<void> signUpWithPhoneNumber(
-    String phoneNumber,
-    String password,
-  ) async {
+      String phoneNumber,
+      String password,
+      ) async {
     try {
       // authenticate with server
       await Future.delayed(Duration(milliseconds: 250));
@@ -62,12 +63,8 @@ class AuthServiceImpl implements AuthService {
       );
 
       // Build the user object from the API response
-      _currentUser = User()
-        ..lastName = response.containsKey('last_name') ? response['last_name'] : null
-        ..firstName = response.containsKey('first_name') ? response['first_name'] : null
-        ..email = response.containsKey('email') ? response['email'] : null
-        ..phoneNumber = response.containsKey('phone_number') ? response['phone_number'] : null
-        ..id = response.containsKey('_id') ? response['_id'] : null
+      _currentUser = User.fromJson(response['local'])
+        ..id = response['_id']
       ;
 
     } on Exception catch(e, s) {
@@ -82,9 +79,9 @@ class AuthServiceImpl implements AuthService {
 
   @override
   Future<void> signInWithPhoneNumber(
-    String phoneNumber,
-    String password,
-  ) async {
+      String phoneNumber,
+      String password,
+      ) async {
     try {
       // authenticate with server
       await Future.delayed(Duration(milliseconds: 250));
@@ -96,12 +93,8 @@ class AuthServiceImpl implements AuthService {
       );
 
       // Build the user object from the API response
-      _currentUser = User()
-        ..lastName = response.containsKey('last_name') ? response['last_name'] : null
-        ..firstName = response.containsKey('first_name') ? response['first_name'] : null
-        ..email = response.containsKey('email') ? response['email'] : null
-        ..phoneNumber = response.containsKey('phone_number') ? response['phone_number'] : null
-        ..id = response.containsKey('_id') ? response['_id'] : null
+      _currentUser = User.fromJson(response['local'])
+        ..id = response['_id']
       ;
     } on Exception {
       Logger.e('AuthService: Error signing in');
@@ -117,7 +110,6 @@ class AuthServiceImpl implements AuthService {
   Future<void> signOut() async {
 //    await Future.delayed(Duration(milliseconds: 250));
     _currentUser = null;
-    _http.clearHeaders();
     _storage.removeKey(AppPreferenceKey.USER_SIGNED_IN);
   }
 
