@@ -30,12 +30,20 @@ class LanguageSettingPageView extends StatelessWidget {
               decoration: BoxDecoration(
                 border:Border(
                   top:BorderSide(
-                    // color:Color.fromRGBO(196, 196, 196, 0.05),
-                    // width: 0.5
+                    color: ThemeColors.gray.shade600
                   ) )
               ),
               child: Column(
                 children:<Widget>[
+                  SizedBox(height:SizeConfig.yMargin(context, 2)),
+                   Text(model.pageSubtitle,
+                   textAlign: TextAlign.left,
+                   style: TextStyle(
+                     color: ThemeColors.black,
+                     fontSize: SizeConfig.textSize(context, 5)
+                   ),
+                   ),
+                   SizedBox(height:SizeConfig.yMargin(context, 2)),
                    Expanded(child: LanguageSelectionPageView()),
                    Spacer(),          
                    Container(
@@ -80,9 +88,7 @@ class LanguageSelectionPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<LanguageSettingsViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: SafeArea(
-            child:languageSelection(model,context),
-      ),
+        body: languageSelection(model,context),
       ),
       viewModelBuilder: () =>LanguageSettingsViewModel(),
     );

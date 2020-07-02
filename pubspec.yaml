@@ -27,6 +27,7 @@ dependencies:
   dio: ^3.0.9
   logger: ^0.9.1
   pedantic: ^1.9.0
+  image_picker: ^0.6.7+3
 
   # State Management
   stacked: ^1.5.7+1
