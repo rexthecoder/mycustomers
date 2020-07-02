@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
 import 'package:mycustomers/ui/widgets/shared/dot_pin_field.dart';
@@ -14,6 +15,10 @@ class ChangePinSettingsPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 1440, width: 720);
+    TextEditingController createPinController =
+        new TextEditingController(text: "");
+    TextEditingController confirmPinController =
+        new TextEditingController(text: "");
 
     return ViewModelBuilder<ChangePinSettingsPageViewModel>.reactive(
       viewModelBuilder: () => ChangePinSettingsPageViewModel(),
@@ -22,18 +27,14 @@ class ChangePinSettingsPageView extends StatelessWidget {
           FadeIn(
             child: PinField(
               title: 'Create a New PIN',
-//              validator: (String value) {},
-//              onSubmitted: (String value) {},
-//              onChange: (String value) {},
+              textEditingController: createPinController,
               onCompleted: (value) => model.onCreatePinCompleted(value),
             ),
           ),
           FadeIn(
             child: PinField(
               title: 'Confirm New PIN',
-//              validator: (String value) {},
-//              onSubmitted: (String value) {},
-//              onChange: (String value) {},
+              textEditingController: confirmPinController,
               onCompleted: (value) => model.onConfirmPinCompleted(value),
             ),
           ),
@@ -44,8 +45,9 @@ class ChangePinSettingsPageView extends StatelessWidget {
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(SizeConfig.yMargin(context, 20)),
               child: AppBar(
+                iconTheme: IconThemeData(color: ThemeColors.background),
                 centerTitle: true,
-                backgroundColor: const Color(0xFF333CC1),
+                backgroundColor: BrandColors.primary,
                 elevation: 0,
                 flexibleSpace: Padding(
                   padding: EdgeInsets.symmetric(
@@ -58,7 +60,7 @@ class ChangePinSettingsPageView extends StatelessWidget {
                 ),
               ),
             ),
-            backgroundColor: const Color(0xFF333CC1),
+            backgroundColor: BrandColors.primary,
             body: LazyIndexedStack(
               reuse: true,
               index: model.index,
