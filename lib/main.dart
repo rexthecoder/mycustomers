@@ -11,6 +11,8 @@ import 'app/router.dart';
 import 'core/utils/logger.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   setupLogger();
   await setupLocator();
   
@@ -57,6 +59,7 @@ class App extends StatelessWidget {
       theme: themes.primaryMaterialTheme,
       darkTheme: themes.darkMaterialTheme,
       debugShowCheckedModeBanner: true,
+
       initialRoute: Routes.startupViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
