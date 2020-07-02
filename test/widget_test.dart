@@ -7,7 +7,10 @@ import 'package:mycustomers/core/services/permissions.dart';
 import 'package:mycustomers/core/models/customer.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('App should work', (tester) async {
+
+    TestWidgetsFlutterBinding.ensureInitialized();
    
     //DI && IC
     setupLocator(useMockContacts: true);
