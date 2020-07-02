@@ -6,38 +6,39 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 
 /// A customize Progress Indicator By Ufe Adeojo
 class CustomizeProgressIndicator extends StatelessWidget {
-
   final int progress, total;
 
-  const CustomizeProgressIndicator(this.progress, this.total, {Key key}) : super(key: key);
+  const CustomizeProgressIndicator(this.progress, this.total, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: List<Widget>.generate(total*2 - 1, (int index) {
+      children: List<Widget>.generate(total * 2 - 1, (int index) {
         return index % 2 == 0
             ? CircleAvatar(
-          radius: 15,
-          child: index <= progress ? Text('${index ~/ 2 + 1}', style: TextStyle(
-            color: Colors.white,
-          ),) : null,
-          backgroundColor: index <= progress
-              ? ThemeColors.cta
-              : ThemeColors.gray,
-        )
+                radius: 15,
+                child: index <= progress
+                    ? Text(
+                        '${index ~/ 2 + 1}',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )
+                    : null,
+                backgroundColor:
+                    index <= progress ? ThemeColors.cta : ThemeColors.gray,
+              )
             : Expanded(
-          child: Divider(
-            thickness: 5,
-            color: index <= progress
-                ? ThemeColors.cta
-                : ThemeColors.gray,
-          ),
-        );
+                child: Divider(
+                  thickness: 5,
+                  color: index <= progress ? ThemeColors.cta : ThemeColors.gray,
+                ),
+              );
       }),
     );
   }
 }
-
 
 Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   return Container(
@@ -59,22 +60,24 @@ Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   );
 }
 
-Widget btnHome(String btnText, context) {
-  double screenHeight = MediaQuery.of(context).size.height / 100;
-  double screenWidth = MediaQuery.of(context).size.width / 100;
+///Button for the Onboarding Screen
+Widget btnHome(String btnText, Color colorBtn, Color colorText,  context) {
   return Container(
-    height: screenHeight * 7,
-    width: screenWidth * 80,
+    height: SizeConfig.yMargin(context, 7),
+    width: SizeConfig.xMargin(context, 90),
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
+      border: Border.all(color: colorText),
+      borderRadius: BorderRadius.circular(6),
+      color: colorBtn,
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
           btnText,
           style: TextStyle(
-            color: Colors.white,
-            fontSize: screenWidth * 4,
+            color: colorText,
+            fontSize: SizeConfig.textSize(context, 4),
           ),
         ),
       ],
@@ -82,39 +85,111 @@ Widget btnHome(String btnText, context) {
   );
 }
 
-Widget btnAuth(String btnText, context) {
+///New Auth Button with variable for string
+///color
+///context
+Widget newBtnAuth(String btnText, Color colorBtn, context) {
   double screenHeight = MediaQuery.of(context).size.height / 100;
   double screenWidth = MediaQuery.of(context).size.width / 100;
   return Container(
     height: screenHeight * 7,
     width: screenWidth * 90,
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
+        borderRadius: BorderRadius.circular(10), color: colorBtn),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
           btnText,
           style: TextStyle(
-            color: Colors.white,
+            color: BrandColors.primary,
+            fontSize: screenWidth * 4,
+            fontWeight: FontWeight.w900,
+
+          ),
+        ),
+        
+      ],
+    ),
+  );
+}
+
+Widget btnAuth(String btnText, Color colorBtn, context) {
+  double screenHeight = MediaQuery.of(context).size.height / 100;
+  double screenWidth = MediaQuery.of(context).size.width / 100;
+  return Container(
+    height: screenHeight * 7,
+    width: screenWidth * 90,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10), color: colorBtn),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          btnText,
+          style: TextStyle(
+            color: ThemeColors.background,
             fontSize: screenWidth * 4,
           ),
         ),
         SizedBox(width: screenWidth * 5),
         Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.white,
-          size: screenHeight * 2,
+        
+          Icons.arrow_forward,
+          color: ThemeColors.background,
+          size: screenHeight * 3.2,
         ),
       ],
     ),
   );
 }
 
+///CustomScroll Background to hold all other widget
+///
+/// 
+class CustomBackground extends StatelessWidget {
+
+final Widget child;
+  const CustomBackground({
+
+    Key key, this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          backgroundColor: BrandColors.primary,
+          floating: false,
+          expandedHeight: SizeConfig.yMargin(context, 7),
+        ),
+        SliverFixedExtentList(
+          itemExtent: SizeConfig.yMargin(context, 100),
+          delegate: SliverChildListDelegate([
+            Container(
+              constraints: BoxConstraints(
+                  // minHeight: SizeConfig.yMargin(context, 100),
+                  ),
+              decoration: BoxDecoration(
+                color: ThemeColors.background,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(SizeConfig.yMargin(context, 4)),
+                ),
+              ),
+              child: child,
+            ),
+          ]),
+        ),
+      ],
+    );
+  }
+}
+
+
 class HomeBackgroundWidget extends StatelessWidget {
   const HomeBackgroundWidget({
     Key key,
-
     @required this.height,
     @required this.width,
     @required this.child,
@@ -181,7 +256,7 @@ Widget arrow(bool forward) {
   return svgIcon;
 }
 
-Widget circleDesign(double outerRadius, double innerRadius){
+Widget circleDesign(double outerRadius, double innerRadius) {
   return Container(
     height: outerRadius * 2,
     width: outerRadius * 2,
@@ -201,4 +276,3 @@ Widget circleDesign(double outerRadius, double innerRadius){
     ),
   );
 }
-
