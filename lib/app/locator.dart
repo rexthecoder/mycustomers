@@ -52,7 +52,7 @@ Future<void> setupLocator({bool useMockContacts: false, bool useMockCustomer: tr
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
   );
 
-  Directory appDocDir = await getApplicationDocumentsDirectory();
-  Hive.initFlutter(appDocDir.path);
-  Hive.registerAdapter(BusinessCardAdapter());
+  // Directory appDocDir = await getApplicationDocumentsDirectory();
+  // Hive.initFlutter(appDocDir.path);
+  // Hive.registerAdapter(BusinessCardAdapter());
 }
