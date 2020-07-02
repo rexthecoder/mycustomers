@@ -245,7 +245,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.5"
-<<<<<<< HEAD
   fake_async:
     dependency: transitive
     description:
@@ -254,9 +253,6 @@ packages:
     source: hosted
     version: "1.1.0"
   fancy_on_boarding:
-=======
-  dio:
->>>>>>> upstream/master
     dependency: "direct main"
     description:
       name: dio
