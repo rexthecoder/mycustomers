@@ -51,8 +51,11 @@ Future<void> setupLocator({bool useMockContacts: false, bool useMockCustomer: tr
   locator.registerLazySingleton<IOwnerServices>(
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
   );
+  locator.registerLazySingleton<IBusinessCardService>(
+        () => BusinessCardService(),
+  );
 
-  Directory appDocDir = await getApplicationDocumentsDirectory();
-  Hive.initFlutter(appDocDir.path);
-  Hive.registerAdapter(BusinessCardAdapter());
+  // Directory appDocDir = await getApplicationDocumentsDirectory();
+  // Hive.initFlutter(appDocDir.path);
+  // Hive.registerAdapter(BusinessCardAdapter());
 }

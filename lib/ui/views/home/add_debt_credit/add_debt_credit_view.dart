@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 
-import 'add_credit_viewmodel.dart';
+import 'add_debt_credit_viewmodel.dart';
 
-class AddCreditView extends StatelessWidget {
+class AddDebtCreditView extends StatelessWidget {
+  final String action;
+
+  const AddDebtCreditView({Key key, this.action}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -14,21 +18,22 @@ class AddCreditView extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
-    return ViewModelBuilder<AddCreditViewModel>.reactive(
+    return ViewModelBuilder<AddDebtCreditViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           brightness: Brightness.light,
           elevation: 1,
           title: Text(
-            model.amount != null ? 'Sheyi paid you \$' + model.amount.toString() : 'Sheyi paid you',
-            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: Color(0xFF333CC1),),
+            action == 'debit' ? model.amount != null ? 'Sheyi owes you \$' + model.amount.round().toString() : 'Sheyi owes you' : model.amount != null ? 'Sheyi paid you \$' + model.amount.round().toString() : 'Sheyi paid you',
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,),
           ),
           leading: InkWell(
             onTap: () => Navigator.pop(context),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(18), vertical: ScreenUtil().setHeight(10)),
               child: SvgPicture.asset(
-                'assets/icons/backarrow.svg'
+                'assets/icons/backarrow.svg',
+                color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
               ),
             ),
           ),
@@ -59,19 +64,19 @@ class AddCreditView extends StatelessWidget {
                             maxLines: null,
                             maxLengthEnforced: false,
                             keyboardType: TextInputType.number,
-                            style: Theme.of(context).textTheme.headline6.copyWith(color: Color(0xFF333CC1), fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline6.copyWith(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.bold),
                             decoration: new InputDecoration(
-                              border: const OutlineInputBorder(
-                                borderSide: const BorderSide(color: Color(0xFF333CC1), width: 2.0),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
-                              disabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(color: Color(0xFF333CC1), width: 2.0),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(color: Color(0xFF333CC1), width: 2.0),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(color: Color(0xFF333CC1), width: 2.0),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
                               errorBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(color: Colors.red, width: 2.0),
@@ -116,13 +121,14 @@ class AddCreditView extends StatelessWidget {
                                       Container(
                                         margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                                         child: SvgPicture.asset(
-                                          'assets/icons/calendar.svg'
+                                          'assets/icons/calendar.svg',
+                                          color: action == 'debit' ? BrandColors.secondary : BrandColors.primary
                                         ),
                                       ),
                                       Container(
                                         child: Text(
                                           model.newDate ?? 'Select Due Date',
-                                          style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(16), color: Color(0xFF333CC1),),
+                                          style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(16), color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,),
                                         ),
                                       )
                                     ],
@@ -167,13 +173,13 @@ class AddCreditView extends StatelessWidget {
                                               children: <Widget>[
                                                 Icon(
                                                   Icons.add,
-                                                  color: Color(0xFF333CC1),
+                                                  color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
                                                   size: ScreenUtil().setWidth(18),
                                                 ),
                                                 Container(
                                                   child: Text(
                                                     'Add',
-                                                    style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(14), color: Color(0xFF333CC1),),
+                                                    style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(14), color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,),
                                                   ),
                                                 )
                                               ],
@@ -231,12 +237,12 @@ class AddCreditView extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: (){},
+                onTap: (){},//Todo: Save User Input
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15)),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    color: model.save ? Color(0xFF333CC1) : Color(0xFF333CC1).withOpacity(0.5),
+                    color: model.save ? action == 'debit' ? BrandColors.secondary : BrandColors.primary : action == 'debit' ? BrandColors.secondary.withOpacity(0.5) : BrandColors.primary.withOpacity(0.5),
                   ),
                   width: width,
                   child: Center(
@@ -251,7 +257,7 @@ class AddCreditView extends StatelessWidget {
           ),
         )
       ),
-      viewModelBuilder: () => AddCreditViewModel()
+      viewModelBuilder: () => AddDebtCreditViewModel()
     );
   }
 }

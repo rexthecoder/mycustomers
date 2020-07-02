@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
-class AddCreditViewModel extends BaseViewModel{
+class AddDebtCreditViewModel extends BaseViewModel{
   final _debouncer = Debouncer(milliseconds: 800);
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = false;
@@ -49,6 +49,10 @@ class AddCreditViewModel extends BaseViewModel{
           _error = 'Enter a valid amount';
           notifyListeners();
         }
+      } else {
+        _amount = null;
+        save = false;
+        notifyListeners();
       }
     });
   }
@@ -72,7 +76,7 @@ class AddCreditViewModel extends BaseViewModel{
   void addItem() {
     if(item != null) {
       if(item.length > 0) {
-        items.add(item);
+        items.insert(0, item);
         _item = null;
         amount != null && newDate.length > 0 && items.length > 0 ? save = true : save = false;
         notifyListeners();
