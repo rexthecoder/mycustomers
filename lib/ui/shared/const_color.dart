@@ -31,6 +31,7 @@ class BrandColors {
 
   static const primary = Color(0xFF333CC1);
   static const secondary = Color(0xFFFF8C5F);
+  static const buttonBorder = Color(0xFFADADBD);
 }
 
 

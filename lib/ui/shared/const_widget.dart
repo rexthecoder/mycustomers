@@ -165,10 +165,10 @@ class HomeBackgroundWidget extends StatelessWidget {
   }
 }
 
-Widget notificationBell(bool isNewNotification) {
+Widget notificationBell(bool isNewNotification, width) {
   String notification = isNewNotification ? 'notification' : 'no_notification';
   final String assetName = "assets/icons/$notification.png";
-  final Widget notificationIcon = Image.asset(assetName);
+  final Widget notificationIcon = Image.asset(assetName, width: width);
   return notificationIcon;
 }
 
@@ -176,7 +176,7 @@ Widget arrow(bool forward) {
   String direction = forward ? 'foward' : 'back';
   final String assetName = "assets/icons/arrow_$direction.svg";
   final Widget svgIcon = SvgPicture.asset(assetName,
-      color: Color(0xff333cc1),
+      color: BrandColors.primary,
       semanticsLabel: 'An arrow');
   return svgIcon;
 }
@@ -187,7 +187,7 @@ Widget circleDesign(double outerRadius, double innerRadius){
     width: outerRadius * 2,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(outerRadius),
-      color: Color(0xff1d6aff),
+      color: ThemeColors.link,
     ),
     child: Center(
       child: Container(
@@ -195,7 +195,7 @@ Widget circleDesign(double outerRadius, double innerRadius){
         width: innerRadius * 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(outerRadius),
-          color: Color(0xff333cc1),
+          color: BrandColors.primary,
         ),
       ),
     ),
