@@ -743,6 +743,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0+2"
+  screenshot:
+    dependency: "direct main"
+    description:
+      name: screenshot
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   shared_preferences:
     dependency: transitive
     description:
@@ -916,6 +923,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7+15"
+  wc_flutter_share:
+    dependency: "direct main"
+    description:
+      name: wc_flutter_share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   web_socket_channel:
     dependency: transitive
     description:

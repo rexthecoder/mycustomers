@@ -67,6 +67,12 @@ dependencies:
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
 
+  # ScreenShot
+  screenshot: ^0.2.0
+
+  # Sharing Images And Files
+  wc_flutter_share: ^0.2.2
+
 dependency_overrides:
   dartx: ^0.3.0
 

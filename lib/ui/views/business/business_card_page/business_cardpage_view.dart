@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +17,7 @@ part '../../../widgets/business/business_card_page/business_card_widget.dart';
 class BusinessCardPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScreenshotController screenshotController = ScreenshotController();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
@@ -42,7 +46,10 @@ class BusinessCardPageView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  _BusinessCard(),
+                  Screenshot(
+                    controller: screenshotController,
+                    child: _BusinessCard(),
+                  ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 3),
                   ),
@@ -52,7 +59,18 @@ class BusinessCardPageView extends StatelessWidget {
                   ),
                   CustomShareRaisedButton(
                     label: "Save and Share",
-                    onPressed: model.saveBusinessCard,
+                    onPressed: () {
+                      screenshotController
+                          .capture(pixelRatio: ScreenUtil.pixelRatio)
+                          .then((File image) {
+                        //Capture Done
+                        model.imageFile = image;
+                      }).catchError((onError) {
+                        print(onError);
+                      });
+                      model.saveBusinessCard();
+                      return;
+                    },
                   )
                 ],
               ),
