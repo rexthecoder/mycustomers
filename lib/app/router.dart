@@ -23,6 +23,7 @@ import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
+import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/add_credit/add_credit_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
@@ -74,7 +75,7 @@ class Router {
     switch (settings.name) {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
+          builder: (context) => MarketingHomePageView(),
           settings: settings,
         );
       case Routes.getstartedViewRoute:
