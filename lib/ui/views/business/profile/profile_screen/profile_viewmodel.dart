@@ -8,19 +8,6 @@ class MainProfilePageViewModel extends BaseViewModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
 
-
-  String _title='Profile';
-  String get title => _title;
-
-  String _btnText='Edit';
-  String get btnText => _btnText;
-
-  String _nameLabel= 'Name';
-  String _businessNameLabel = 'Business\nName';
-
-  String get nameLabel => _nameLabel;
-  String get businessNameLabel => _businessNameLabel;
-
 //TODO the names should be gotten from the user model
 
   get updateUserName => null;
@@ -28,7 +15,7 @@ class MainProfilePageViewModel extends BaseViewModel {
   get updateBusinessName => null;
 
   Future navigateToEditProfilePage() async {
-    await _navigationService.clearStackAndShow(Routes.editProfileViewRoute);
+    await _navigationService.navigateTo(Routes.editProfileViewRoute);
   }
 
 
