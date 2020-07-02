@@ -34,7 +34,7 @@ class SignInViewModel extends BaseViewModel {
   // Navigate
   Future navigateToNextScreen() async {
     await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'rotate', duration: Duration(seconds: 1));
+        opaque: true, transition: 'rotate', duration: Duration(seconds: 2));
   }
 
   Future navigateToSignup() async {

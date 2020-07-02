@@ -7,9 +7,8 @@ class BusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future<void> navigateToNext() async {
-    // await Future.delayed(Duration(seconds: 2));
     await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'fade', duration: Duration(seconds: 1));
+        opaque: true, transition: 'cupertino', duration: Duration(seconds: 2));
 
   }
 
