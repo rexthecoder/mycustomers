@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -12,7 +13,6 @@ class VerificationView extends StatelessWidget {
 
   static final _pinFormPageKey = GlobalKey<FormState>();
   final _pinPageKey = GlobalKey<ScaffoldState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,12 @@ class VerificationView extends StatelessWidget {
                       model.navigateToNextScreen();
                     }
                   },
-                  child: btnAuth('Verify and Proceed', context),
+                  child: btnAuth(
+                      'Verify and Proceed',
+                      model.btnColor
+                          ? BrandColors.primary
+                          : ThemeColors.background,
+                      context),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 18)),
                 Container(
