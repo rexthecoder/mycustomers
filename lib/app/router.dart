@@ -12,7 +12,6 @@ import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/ap
 import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/change_pin_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
-import 'package:mycustomers/ui/views/home/getstarted/getstarted_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
@@ -28,11 +27,12 @@ import 'package:mycustomers/ui/views/home/add_credit/add_credit_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
 import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
+import 'package:mycustomers/ui/views/home/schedule_reminder/schedule_remider_view.dart';
+import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
   static const startupViewRoute = '/';
-  static const getstartedViewRoute = '/getstarted';
   static const onboardingViewRoute = '/onboarding';
   static const languageViewRoute = '/language';
   static const homeViewRoute = '/home';
@@ -63,6 +63,8 @@ abstract class Routes {
   static const changePinSettingsViewRoute = '/changePinSettings';
   static const removePinSettingsViewRoute = '/removePinSettings';
   static const languageSettingsViewRoute = '/languagePinSettings';
+  static const scheduleReminder = '/scheduleReminder';
+  static const sendReminder = '/sendReminder';
 }
 
 class Router {
@@ -71,11 +73,6 @@ class Router {
       case Routes.startupViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => StartupView(),
-          settings: settings,
-        );
-      case Routes.getstartedViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => GetStartedView(),
           settings: settings,
         );
       case Routes.onboardingViewRoute:
@@ -206,6 +203,16 @@ class Router {
       case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DetailsView(),
+          settings: settings,
+        );
+      case Routes.sendReminder:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SendReminders(),
+          settings: settings,
+        );
+      case Routes.scheduleReminder:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ScheduleReminders(),
           settings: settings,
         );
       default:

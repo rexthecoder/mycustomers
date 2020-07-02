@@ -143,26 +143,23 @@ class CreditorsView extends StatelessWidget {
 //                      Container(
 //                        height: 100,
 //                        child: Center(child: Text('You don\'t have any creditors yet')),),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Expanded(
-                          child: Center(
-                            child: Container(
-                              height:height/2,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset('assets/images/Notebook-pana 1.png'),
-                                  SizedBox(height: 20.h,),
-                                  Text('You don\'t owe any customer. Tap the big blue button at the bottom of the screen to add one',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: BrandColors.primary),),
-                                ],
-                              ),),
+                      Container(
+                        height:height/2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Image.asset('assets/images/Notebook-pana 1.png'),
+                              SizedBox(height: 20.h,),
+                              Text('You don\'t owe any customer. Tap the big blue button at the bottom of the screen to add one',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: BrandColors.primary),),
+                            ],
                           ),
-                        ),
-                      ),
+                        ),),
 
 
                     ],

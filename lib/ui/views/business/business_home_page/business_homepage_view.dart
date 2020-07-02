@@ -24,7 +24,7 @@ class BusinessHomePageView extends StatelessWidget {
                   child: Container(
             child: Center(
               child: Text(
-                'TEST MODE \n \n Tap any where to Get more Features',
+                'TEST MODE \n \n <-- Drag if Drawer did\'nt pop up',
                 textAlign: TextAlign.center,
               ),
             ),

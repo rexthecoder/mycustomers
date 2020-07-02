@@ -13,11 +13,11 @@ class _$BusinessCardTearOff {
   const _$BusinessCardTearOff();
 
   _BusinessCard call(
-      {@required String storeName,
-      @required String personalName,
-      @required String phoneNumber,
-      @required String emailAddress,
-      @required String address}) {
+      {@required @HiveField(0) String storeName,
+      @required @HiveField(1) String personalName,
+      @required @HiveField(2) String phoneNumber,
+      @required @HiveField(3) String emailAddress,
+      @required @HiveField(4) String address}) {
     return _BusinessCard(
       storeName: storeName,
       personalName: personalName,
@@ -32,10 +32,15 @@ class _$BusinessCardTearOff {
 const $BusinessCard = _$BusinessCardTearOff();
 
 mixin _$BusinessCard {
+  @HiveField(0)
   String get storeName;
+  @HiveField(1)
   String get personalName;
+  @HiveField(2)
   String get phoneNumber;
+  @HiveField(3)
   String get emailAddress;
+  @HiveField(4)
   String get address;
 
   $BusinessCardCopyWith<BusinessCard> get copyWith;
@@ -46,11 +51,11 @@ abstract class $BusinessCardCopyWith<$Res> {
           BusinessCard value, $Res Function(BusinessCard) then) =
       _$BusinessCardCopyWithImpl<$Res>;
   $Res call(
-      {String storeName,
-      String personalName,
-      String phoneNumber,
-      String emailAddress,
-      String address});
+      {@HiveField(0) String storeName,
+      @HiveField(1) String personalName,
+      @HiveField(2) String phoneNumber,
+      @HiveField(3) String emailAddress,
+      @HiveField(4) String address});
 }
 
 class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
@@ -90,11 +95,11 @@ abstract class _$BusinessCardCopyWith<$Res>
       __$BusinessCardCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String storeName,
-      String personalName,
-      String phoneNumber,
-      String emailAddress,
-      String address});
+      {@HiveField(0) String storeName,
+      @HiveField(1) String personalName,
+      @HiveField(2) String phoneNumber,
+      @HiveField(3) String emailAddress,
+      @HiveField(4) String address});
 }
 
 class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
@@ -129,13 +134,14 @@ class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
   }
 }
 
+@HiveType(typeId: 0, adapterName: 'BusinessCardAdapter')
 class _$_BusinessCard implements _BusinessCard {
   const _$_BusinessCard(
-      {@required this.storeName,
-      @required this.personalName,
-      @required this.phoneNumber,
-      @required this.emailAddress,
-      @required this.address})
+      {@required @HiveField(0) this.storeName,
+      @required @HiveField(1) this.personalName,
+      @required @HiveField(2) this.phoneNumber,
+      @required @HiveField(3) this.emailAddress,
+      @required @HiveField(4) this.address})
       : assert(storeName != null),
         assert(personalName != null),
         assert(phoneNumber != null),
@@ -143,14 +149,19 @@ class _$_BusinessCard implements _BusinessCard {
         assert(address != null);
 
   @override
+  @HiveField(0)
   final String storeName;
   @override
+  @HiveField(1)
   final String personalName;
   @override
+  @HiveField(2)
   final String phoneNumber;
   @override
+  @HiveField(3)
   final String emailAddress;
   @override
+  @HiveField(4)
   final String address;
 
   @override
@@ -194,21 +205,26 @@ class _$_BusinessCard implements _BusinessCard {
 
 abstract class _BusinessCard implements BusinessCard {
   const factory _BusinessCard(
-      {@required String storeName,
-      @required String personalName,
-      @required String phoneNumber,
-      @required String emailAddress,
-      @required String address}) = _$_BusinessCard;
+      {@required @HiveField(0) String storeName,
+      @required @HiveField(1) String personalName,
+      @required @HiveField(2) String phoneNumber,
+      @required @HiveField(3) String emailAddress,
+      @required @HiveField(4) String address}) = _$_BusinessCard;
 
   @override
+  @HiveField(0)
   String get storeName;
   @override
+  @HiveField(1)
   String get personalName;
   @override
+  @HiveField(2)
   String get phoneNumber;
   @override
+  @HiveField(3)
   String get emailAddress;
   @override
+  @HiveField(4)
   String get address;
   @override
   _$BusinessCardCopyWith<_BusinessCard> get copyWith;
