@@ -64,7 +64,7 @@ class SignUpView extends StatelessWidget {
                 //TODO: Validation
               },
               ignoreBlank: false,
-              autoValidate: false,
+              autoValidate: true,
               // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
               errorMessage: 'Invalid Phone Number',
               selectorType: PhoneInputSelectorType.DIALOG,
@@ -91,7 +91,7 @@ class SignUpView extends StatelessWidget {
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                   icon: Icon(
-                    // Based on obsecureText state choose the icon
+                    // Based on obscureText state choose the icon
                     model.obscureText
                         ? Icons.visibility
                         : Icons.visibility_off,
@@ -170,6 +170,10 @@ class SignUpView extends StatelessWidget {
       ),
     );
   }
+
+}
+
+class _PartialBuildForm extends HookViewModel<SignUpViewModel> {
 
 }
 

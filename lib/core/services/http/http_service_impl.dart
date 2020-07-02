@@ -19,7 +19,7 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> getHttp(String route, {Map<String, dynamic> params}) async {
     Response response;
 
-    Logger.d('Sending GET to $route');
+    Logger.d('[GET] Sending $params to $route');
 
     try {
       final fullRoute = '$route';
@@ -45,7 +45,7 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> postHttp(String route, dynamic body, {Map<String, dynamic> params}) async {
     Response response;
 
-    Logger.d('Sending $body to $route');
+    Logger.d('[POST] Sending $body to $route');
 
     try {
       final fullRoute = '$route';
@@ -121,5 +121,34 @@ class HttpServiceImpl implements HttpService {
   @override
   clearHeaders() {
     _dio.options.headers.clear();
+  }
+
+  @override
+  Future putHttp(String route, body, {Map<String, dynamic> params}) async {
+    Response response;
+
+    Logger.d('[PUT] Sending $body to $route');
+
+    try {
+      final fullRoute = '$route';
+      response = await _dio.put(
+        fullRoute,
+        data: body,
+        queryParameters: params,
+        onSendProgress: network_utils.showLoadingProgress,
+        onReceiveProgress: network_utils.showLoadingProgress,
+        options: Options(
+          contentType: 'application/json',
+        ),
+      );
+    } on DioError catch (e) {
+      Logger.e('HttpService: Failed to PUT ${e.message}');
+      throw NetworkException(e.message);
+    }
+
+    network_utils.checkForNetworkExceptions(response);
+
+    // For this specific API its decodes json for us
+    return response.data;
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:stacked/stacked.dart';
@@ -11,10 +10,11 @@ class OnboardingViewModel extends BaseViewModel {
   //Page controller Index
   int currentIndex = 0;
   final pageController = new PageController(initialPage: 0);
+  Timer _animationTimer;
 
   //Init State
   void initState() {
-    Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    _animationTimer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
       currentIndex < 4 ? currentIndex++ : currentIndex = 0;
 
       pageController.animateToPage(
@@ -37,5 +37,12 @@ class OnboardingViewModel extends BaseViewModel {
   Future navigateToSignUp() async {
     await _navigationService.replaceWithTransition(SignUpView(),
         opaque: false, popGesture: true, transition: 'fade', duration: Duration(seconds: 2));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationTimer.cancel();
+    pageController.dispose();
   }
 }

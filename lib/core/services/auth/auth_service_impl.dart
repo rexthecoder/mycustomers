@@ -16,6 +16,10 @@ class AuthServiceImpl implements AuthService {
   @override
   User get currentUser => _currentUser;
 
+  void updateCurrentUser(User newUser) {
+    _currentUser = newUser;
+  }
+
   // The service to use for requests
   HttpService _http = locator<HttpService>();
 
