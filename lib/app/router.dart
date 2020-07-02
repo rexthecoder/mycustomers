@@ -29,6 +29,8 @@ import 'package:mycustomers/ui/views/home/add_credit/add_credit_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
 import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
+import 'package:mycustomers/ui/views/home/schedule_reminder/schedule_remider_view.dart';
+import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
@@ -65,6 +67,8 @@ abstract class Routes {
   static const changePinSettingsViewRoute = '/changePinSettings';
   static const removePinSettingsViewRoute = '/removePinSettings';
   static const languageSettingsViewRoute = '/languagePinSettings';
+  static const scheduleReminder = '/scheduleReminder';
+  static const sendReminder = '/sendReminder';
 }
 
 class Router {
@@ -213,6 +217,16 @@ class Router {
       case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DetailsView(),
+          settings: settings,
+        );
+      case Routes.sendReminder:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SendReminders(),
+          settings: settings,
+        );
+      case Routes.scheduleReminder:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ScheduleReminders(),
           settings: settings,
         );
       default:
