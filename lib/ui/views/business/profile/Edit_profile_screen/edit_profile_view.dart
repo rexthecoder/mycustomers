@@ -32,13 +32,7 @@ class EditProfileView extends StatelessWidget{
                 alignment: Alignment.topCenter,
                   child: CircleAvatar(
                   backgroundColor:ThemeColors.unselect,
-                  child:Text('C',
-                  style: TextStyle(
-                      color:BrandColors.primary,
-                      fontSize: SizeConfig.textSize(context,18)
-                    ),
-                  ),
-                  
+                  child:model.addImage(context),
                   radius: 70,
                 ),
               ),
@@ -51,7 +45,7 @@ class EditProfileView extends StatelessWidget{
                   borderRadius: BorderRadius.circular(8.sp)
                 ),
                 child:FlatButton(
-                  onPressed: null,//  Implement the action that should be taken once the button is clicked
+                  onPressed: model.getImagefromGallery,//  Implement the action that should be taken once the button is clicked
                   child: Text(model.profilePicBtn,
                   textAlign: TextAlign.center,
                   style:TextStyle(
