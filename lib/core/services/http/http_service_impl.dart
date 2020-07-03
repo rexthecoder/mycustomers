@@ -37,6 +37,8 @@ class HttpServiceImpl implements HttpService {
 
     network_utils.checkForNetworkExceptions(response);
 
+    Logger.d('Received Response: $response');
+
     // For this specific API its decodes json for us
     return response.data;
   }
@@ -55,9 +57,6 @@ class HttpServiceImpl implements HttpService {
         queryParameters: params,
         onSendProgress: network_utils.showLoadingProgress,
         onReceiveProgress: network_utils.showLoadingProgress,
-        options: Options(
-          contentType: 'application/json',
-        ),
       );
     } on DioError catch (e) {
       Logger.e('HttpService: Failed to POST ${e.message}');
@@ -65,6 +64,8 @@ class HttpServiceImpl implements HttpService {
     }
 
     network_utils.checkForNetworkExceptions(response);
+
+    Logger.d('Received Response: $response');
 
     // For this specific API its decodes json for us
     return response.data;

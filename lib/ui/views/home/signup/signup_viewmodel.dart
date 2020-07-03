@@ -13,8 +13,13 @@ import 'business/business_view.dart';
 
 class SignUpViewModel extends BaseViewModel {
   String phoneNumber;
-  bool obscureText = false;
-  bool btnColor = true;
+  bool obscureText = true;
+  bool btnColor = false;
+
+  bool passValid = false;
+  bool phoneValid = false;
+
+  bool get valid => passValid && phoneValid;
 
   String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: 'NG');
@@ -25,7 +30,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   void activeBtn() {
-    btnColor = !btnColor;
+    btnColor = valid;
     notifyListeners();
   }
 
@@ -42,7 +47,7 @@ class SignUpViewModel extends BaseViewModel {
         opaque: true, transition: 'lefttorightwithfade', duration: Duration(seconds: 1));
   }
 
-  Future navigateToNextScreen() async {
+  Future completeSignup() async {
     await _navigationService.replaceWithTransition(BusinessView(),
         opaque: true, transition: 'rotate', duration: Duration(seconds: 1));
   }
@@ -52,10 +57,12 @@ class SignUpViewModel extends BaseViewModel {
     setBusy(true);
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
-      unawaited(navigateToNextScreen());
+      unawaited(completeSignup());
     } on AuthException catch (e) {
       Logger.e(e.message);
-      setBusy(false);
+    } on Exception catch (e, s) {
+      Logger.e('Unknown Error', e: e, s: s);
     }
+    setBusy(false);
   }
 }

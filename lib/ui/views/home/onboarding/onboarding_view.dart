@@ -96,34 +96,32 @@ class _Pages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: <Widget>[
-          ClipRect(
-            child: Image(
-              height: SizeConfig.yMargin(context, 50),
-              image: AssetImage(img1),
-              fit: BoxFit.contain,
-            ),
+    return Column(
+      children: <Widget>[
+        ClipRect(
+          child: Image(
+            height: SizeConfig.yMargin(context, 50),
+            image: AssetImage(img1),
+            fit: BoxFit.contain,
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 8)),
-          Text(
-            txt1,
-            style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 6),
-              fontWeight: FontWeight.w900,
-            ),
+        ),
+        SizedBox(height: SizeConfig.yMargin(context, 8)),
+        Text(
+          txt1,
+          style: TextStyle(
+            fontSize: SizeConfig.textSize(context, 6),
+            fontWeight: FontWeight.w900,
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 1.2)),
-          Text(
-            txt2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 5),
-            ),
+        ),
+        SizedBox(height: SizeConfig.yMargin(context, 1.2)),
+        Text(
+          txt2,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: SizeConfig.textSize(context, 5),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

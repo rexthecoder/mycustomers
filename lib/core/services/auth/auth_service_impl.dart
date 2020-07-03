@@ -20,20 +20,19 @@ class AuthServiceImpl implements AuthService {
     _currentUser = newUser;
   }
 
+
   // The service to use for requests
   HttpService _http = locator<HttpService>();
-
   // Service for persisting data
   IStorageUtil _storage = locator<IStorageUtil>();
-
   // The service for directing user to the home screen
   NavigationService _navigationService = locator<NavigationService>();
 
-  Future authUser(String url, Map<String, String> params) async {
+
+  Future authUser(String url, Map<String, dynamic> params) async {
     try {
       // Send the request to the API with the data
       Map response = await _http.postHttp(url, params);
-
       // Check if the status is true
       if (response.containsKey('status') && response['status']) {
         _http.setHeader({'x-access-token': response['access_token']});
@@ -45,7 +44,7 @@ class AuthServiceImpl implements AuthService {
 
       return response;
     } on Exception catch (e, s) {
-      Logger.e('Error authenticating user', e: e, s: s);
+      Logger.e('Error authenticating user with parameters: $params', e: e, s: s);
       throw e;
     }
   }
@@ -61,16 +60,12 @@ class AuthServiceImpl implements AuthService {
 
       // Send user details to server to create an entry for the user
       Map response = await authUser(
-        ApiRoutes.authentication_login,
-        {'phone_number': phoneNumber, 'password:': password},
+        ApiRoutes.authentication_register,
+        {'phone_number': int.parse(phoneNumber), 'password:': password},
       );
 
       // Build the user object from the API response
-      _currentUser = User()
-        ..lastName = response.containsKey('last_name') ? response['last_name'] : null
-        ..firstName = response.containsKey('first_name') ? response['first_name'] : null
-        ..email = response.containsKey('email') ? response['email'] : null
-        ..phoneNumber = response.containsKey('phone_number') ? response['phone_number'] : null
+      _currentUser = User.fromJson(response['local'])
         ..id = response.containsKey('_id') ? response['_id'] : null
       ;
 
@@ -95,16 +90,12 @@ class AuthServiceImpl implements AuthService {
 
       //  // fetch current user from server
       Map response = await authUser(
-        ApiRoutes.authentication_register,
-        {'phone_number': phoneNumber, 'password:': password},
+        ApiRoutes.authentication_login,
+        {'phone_number': int.parse(phoneNumber), 'password:': password},
       );
 
       // Build the user object from the API response
-      _currentUser = User()
-        ..lastName = response.containsKey('last_name') ? response['last_name'] : null
-        ..firstName = response.containsKey('first_name') ? response['first_name'] : null
-        ..email = response.containsKey('email') ? response['email'] : null
-        ..phoneNumber = response.containsKey('phone_number') ? response['phone_number'] : null
+      _currentUser = User.fromJson(response['local'])
         ..id = response.containsKey('_id') ? response['_id'] : null
       ;
     } on Exception {
