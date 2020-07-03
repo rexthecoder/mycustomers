@@ -22,6 +22,10 @@ abstract class IStorageUtil {
 
   Future<void> saveListOfStrings(String key, List<String> value);
 
+  Future<bool> saveIfAbsent(String key, String value);
+
+  Future<bool> removeKey(String key);
+
 }
 
 class SharedStorageUtil implements IStorageUtil {
@@ -93,6 +97,18 @@ class SharedStorageUtil implements IStorageUtil {
   @override
   Future<void> saveListOfStrings(String key, List value) async {
     await _preferences.setStringList(key, value);
+  }
+
+  @override
+  Future<bool> saveIfAbsent(String key, String value) async {
+    bool present = _preferences.containsKey(key);
+    if (!present) await _preferences.setString(key, value);
+    return !present;
+  }
+
+  @override
+  Future<bool> removeKey(String key) {
+    return _preferences.remove(key);
   }
 
 }

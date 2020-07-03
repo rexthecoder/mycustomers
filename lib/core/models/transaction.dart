@@ -3,7 +3,7 @@ import 'package:mycustomers/core/enums/transaction_type.dart';
 
 part 'transaction.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true, includeIfNull: true)
 class Transaction {
   int id, customerId;
   num amount;

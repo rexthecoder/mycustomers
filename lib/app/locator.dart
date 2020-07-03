@@ -15,6 +15,7 @@ import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/permissions.dart';
 
 final GetIt locator = GetIt.instance;
@@ -51,8 +52,14 @@ Future<void> setupLocator({bool useMockContacts: false, bool useMockCustomer: tr
   locator.registerLazySingleton<IOwnerServices>(
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
   );
+  locator.registerLazySingleton<IBusinessCardService>(
+        () => BusinessCardService(),
+  );
+  locator.registerLazySingleton<UserService>(
+        () => UserService(),
+  );
 
-  Directory appDocDir = await getApplicationDocumentsDirectory();
-  Hive.initFlutter(appDocDir.path);
-  Hive.registerAdapter(BusinessCardAdapter());
+  // Directory appDocDir = await getApplicationDocumentsDirectory();
+  // Hive.initFlutter(appDocDir.path);
+  // Hive.registerAdapter(BusinessCardAdapter());
 }

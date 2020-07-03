@@ -1,46 +1,48 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
+import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class OnboardingViewModel extends BaseViewModel {
-// Initialize view State
-  OnboardingViewModel() {
-    init();
-  }
-  bool _disposed = false;
-  bool get disposed => _disposed;
-
+  //Page controller Index
   int currentIndex = 0;
-  int numPages = 3;
+  final pageController = new PageController(initialPage: 0);
+  Timer _animationTimer;
 
-  onChangedFunction(int index) {
-    currentIndex = index;
+  //Init State
+  void initState() {
+    _animationTimer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+      currentIndex < 4 ? currentIndex++ : currentIndex = 0;
+
+      pageController.animateToPage(
+        currentIndex,
+        duration: Duration(milliseconds: 350),
+        curve: Curves.easeIn,
+      );
+    });
     notifyListeners();
   }
 
-//Init Function
-  init() {
-    Timer.periodic(Duration(seconds: 3), (Timer timer) {
-      currentIndex++;
-      notifyListeners();
-    // Logger.w('Timer is: $timer, Index is: $currentIndex');
-    });
+  // Navigation
+  final NavigationService _navigationService = locator<NavigationService>();
+
+  Future navigateToSignIn() async {
+    await _navigationService.replaceWithTransition(SignInView(),
+        opaque: true, popGesture: true, transition: 'fade', duration: Duration(seconds: 2));
+  }
+
+  Future navigateToSignUp() async {
+    await _navigationService.replaceWithTransition(SignUpView(),
+        opaque: false, popGesture: true, transition: 'fade', duration: Duration(seconds: 2));
   }
 
   @override
   void dispose() {
-    _disposed = true;
+    _animationTimer.cancel();
+    pageController.dispose();
     super.dispose();
-   // print('dispose');
-  }
-
-  final NavigationService _navigationService = locator<NavigationService>();
-
-  Future navigateToNext() async {
-    await Future.value();
-    await _navigationService.clearStackAndShow(Routes.languageViewRoute);
   }
 }

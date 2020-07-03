@@ -4,7 +4,7 @@ import 'package:mycustomers/core/exceptions/network_exception.dart';
 import 'logger.dart';
 
 void checkForNetworkExceptions(Response response) {
-  if (response.statusCode != 200) {
+  if (response.statusCode < 200 || response.statusCode >= 400) {
     throw NetworkException('Failed to connect to internet');
   }
 }

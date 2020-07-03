@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mycustomers/core/enums/drawer_status.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+
 import 'package:stacked/stacked.dart';
 
 import 'business_homepage_viewmodel.dart';
@@ -17,110 +17,79 @@ class BusinessHomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusinessHomePageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: GestureDetector(
-          onTap: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-                  child: Container(
-            child: Center(
-              child: Text(
-                'TEST MODE \n \n <-- Drag if Drawer did\'nt pop up',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-        // endDrawerEnableOpenDragGesture: false,
-        drawerEdgeDragWidth: SizeConfig.xMargin(context, 15.0),
-        endDrawer: Container(
-          decoration: BoxDecoration(
-            color: BrandColors.primary,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.xMargin(context, 5.0),
-            vertical: SizeConfig.xMargin(context, 5.0),
-          ),
-          width: SizeConfig.xMargin(context, 85.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.close,
+        body: SafeArea(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                // TODO ADD HEADER -- SHOULD BE SYNCED WITH HOMEPAGE
+                Container(
+                  height: SizeConfig.yMargin(context, 11),
+                  decoration: BoxDecoration(
                     color: ThemeColors.background,
                   ),
-                  onPressed: () {
-                    model.closeDrawer();
-                  },
+                  child: ListTile(
+                    subtitle: Text(
+                      'Your name',
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, 3.4),
+                      ),
+                    ),
+                    title: Text(
+                      'Cynthia Ike',
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, 5),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    leading: CircleAvatar(
+                      backgroundColor: BrandColors.primary,
+                      minRadius: SizeConfig.xMargin(context, 7),
+                      maxRadius: SizeConfig.xMargin(context, 8),
+                      child: Text(
+                        'C',
+                        style: TextStyle(
+                          color: ThemeColors.background,
+                          fontSize: SizeConfig.textSize(context, 9),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    trailing: FlatButton(
+                      color: const Color(0xFFE8FFF5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      onPressed: model.navigateToProfilePage,
+                      child: Text(
+                        'Edit',
+                        style: TextStyle(
+                          color: const Color(0xFF21D184),
+                          fontSize: SizeConfig.textSize(context, 3.5),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    sideBarMenuButton(
-                      context: context,
-                      label: 'Profile',
-                      onTap: () {
-                        model.setActive(Active.profile);
-                        model.navigateToProfilePage();
-                      },
-                      active: model.profileA,
-                      icon: profile,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.xMargin(context, 10.0),
-                    ),
-                    sideBarMenuButton(
-                      context: context,
-                      label: 'Business Card',
-                      onTap: () {
-                        model.setActive(Active.businessCard);
-                        model.navigateToBusinessCardPage();
-                      },
-                      active: model.businessCardA,
-                      icon: businessCard,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.xMargin(context, 10.0),
-                    ),
-                    sideBarMenuButton(
-                      context: context,
-                      label: 'Support',
-                      onTap: () {
-                        model.setActive(Active.support);
-                        model.navigateToSupportPage();
-                      },
-                      active: model.supportA,
-                      icon: support,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.xMargin(context, 10.0),
-                    ),
-                    sideBarMenuButton(
-                      context: context,
-                      label: 'Settings',
-                      onTap: () {
-                        model.setActive(Active.settings);
-                        model.navigateToSettingsPage();
-                      },
-                      active: model.settingsA,
-                      icon: settings,
-                    ),
-                  ],
+                optionButton(
+                  context: context,
+                  icon: businessCard,
+                  label: 'Business Card',
+                  onTap: model.navigateToBusinessCardPage,
                 ),
-              ),
-              Text(
-                'Copyright, 2020',
-                style: TextStyle(color: Colors.white),
-              )
-            ],
+                optionButton(
+                  context: context,
+                  icon: settings,
+                  label: 'Settings',
+                  onTap: model.navigateToSettingsPage,
+                ),
+                optionButton(
+                  context: context,
+                  icon: support,
+                  label: 'Support',
+                  onTap: model.navigateToSupportPage,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -128,34 +97,29 @@ class BusinessHomePageView extends StatelessWidget {
     );
   }
 
-  GestureDetector sideBarMenuButton(
-      {BuildContext context,
-      String label,
-      Function onTap,
-      bool active,
-      String icon}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: <Widget>[
-          SvgPicture.asset(
+  Container optionButton(
+      {BuildContext context, String label, Function onTap, String icon}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: ThemeColors.background,
+      ),
+      child: ListTile(
+        onTap: onTap,
+        title: Text(label),
+        leading: CircleAvatar(
+          backgroundColor: ThemeColors.background,
+          minRadius: SizeConfig.xMargin(context, 4),
+          maxRadius: SizeConfig.xMargin(context, 6),
+          child: SvgPicture.asset(
             icon,
-            color: active ? const Color(0xFFFFFFFF) : const Color(0xFFADB1E6),
             semanticsLabel: label,
+            color: BrandColors.primary,
           ),
-          SizedBox(
-            width: SizeConfig.textSize(context, 4),
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 8),
-              color: active ? const Color(0xFFFFFFFF) : const Color(0xFFADB1E6),
-              fontWeight: FontWeight.bold,
-              letterSpacing: SizeConfig.textSize(context, -0.2),
-            ),
-          ),
-        ],
+        ),
+        trailing: Icon(
+          Icons.chevron_right,
+          color: ThemeColors.black,
+        ),
       ),
     );
   }

@@ -12,7 +12,8 @@ class ApiRoutes {
   //NOTIFICATION
   static const notification = '$base_url/reminder';
   //AUTHENTICATION
-  static const authentication = '$base_url/register/user';
+  static const authentication_register = '$base_url/register/user';
+  static const authentication_login = '$base_url/login/user';
   
 
 }
