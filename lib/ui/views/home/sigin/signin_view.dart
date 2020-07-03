@@ -126,7 +126,9 @@ class SignInView extends StatelessWidget {
                 //         _inputSignupNumberController.text,
                 //         passwordController.text,
                 //       );
-                model.navigateToNextScreen();
+                model.signIn(
+                    '0' + int.parse(_inputSigninNumberController.text.splitMapJoin(' ', onMatch: (_) => '')).toString(),
+                    _userPasswordController.text.trim());
               }
             },
             child: btnAuth(

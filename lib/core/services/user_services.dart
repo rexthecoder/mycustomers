@@ -29,8 +29,8 @@ class UserService {
             : 'Bad response: $response');
       }
 
-      _auth.updateCurrentUser(User.fromJson(response['local'])
-      ..id = response['_id']
+      _auth.updateCurrentUser(User.fromJson(response['data']['user']['local'])
+      ..id = response['data']['user']['_id']
       );
     } on Exception catch(e, s) {
       Logger.e('Error updating User $userId with data: $updateData', e: e, s: s);

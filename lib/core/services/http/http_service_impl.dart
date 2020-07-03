@@ -57,6 +57,9 @@ class HttpServiceImpl implements HttpService {
         queryParameters: params,
         onSendProgress: network_utils.showLoadingProgress,
         onReceiveProgress: network_utils.showLoadingProgress,
+        options: Options(
+          contentType: 'application/x-www-form-urlencoded',
+        ),
       );
     } on DioError catch (e) {
       Logger.e('HttpService: Failed to POST ${e.message}');

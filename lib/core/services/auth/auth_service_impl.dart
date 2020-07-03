@@ -34,8 +34,8 @@ class AuthServiceImpl implements AuthService {
       // Send the request to the API with the data
       Map response = await _http.postHttp(url, params);
       // Check if the status is true
-      if (response.containsKey('status') && response['status']) {
-        _http.setHeader({'x-access-token': response['access_token']});
+      if (response.containsKey('success') && response['success']) {
+        _http.setHeader({'x-access-token': response['data']['user']['api_token']});
       } else {
         throw Exception(response.containsKey('message')
             ? response['message']
@@ -61,12 +61,12 @@ class AuthServiceImpl implements AuthService {
       // Send user details to server to create an entry for the user
       Map response = await authUser(
         ApiRoutes.authentication_register,
-        {'phone_number': int.parse(phoneNumber), 'password:': password},
+        {'phone_number': int.parse(phoneNumber), 'password': password},
       );
 
       // Build the user object from the API response
-      _currentUser = User.fromJson(response['local'])
-        ..id = response.containsKey('_id') ? response['_id'] : null
+      _currentUser = User.fromJson(response['data']['user']['local'])
+        ..id = response['data']['user']['_id']
       ;
 
     } on Exception catch(e, s) {
@@ -95,8 +95,8 @@ class AuthServiceImpl implements AuthService {
       );
 
       // Build the user object from the API response
-      _currentUser = User.fromJson(response['local'])
-        ..id = response.containsKey('_id') ? response['_id'] : null
+      _currentUser = User.fromJson(response['data']['user']['local'])
+        ..id = response['data']['user']['_id']
       ;
     } on Exception {
       Logger.e('AuthService: Error signing in');

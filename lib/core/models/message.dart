@@ -3,7 +3,7 @@ import 'package:mycustomers/core/enums/message_type.dart';
 
 part 'message.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true, includeIfNull: true)
 class Message {
   int id;
   String message, subject;

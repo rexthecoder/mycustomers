@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'store.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(nullable: true, includeIfNull: true)
 class Store {
   int id;
   String name, phone, address, tagline;

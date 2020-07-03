@@ -11,8 +11,8 @@ class BusinessView extends StatelessWidget  {
   static final _businessFormPageKey = GlobalKey<FormState>();
   final _businessPageKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController _userFullName;
-  TextEditingController _userBusinessName;
+  TextEditingController _userFullName = TextEditingController();
+  TextEditingController _userBusinessName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class BusinessView extends StatelessWidget  {
               InkWell(
                   onTap: () {
                     if (_businessFormPageKey.currentState.validate()) {
-                      model.navigateToNext();
+                      model.updateUser(_userFullName.text.trim(), _userBusinessName.text.trim());
                     }
                   },
                   child: btnAuth('Submit and Finish',  model.btnColor

@@ -1,8 +1,12 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/exceptions/auth_exception.dart';
+import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -40,6 +44,21 @@ class SignInViewModel extends BaseViewModel {
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
         opaque: true, transition: 'righttoleftwithfade', duration: Duration(seconds: 1));
+  }
+
+  final _authService = locator<AuthService>();
+
+  Future<void> signIn(String phoneNumber, String password) async {
+    setBusy(true);
+    try {
+      await _authService.signInWithPhoneNumber(phoneNumber, password);
+      unawaited(navigateToNextScreen());
+    } on AuthException catch (e) {
+      Logger.e(e.message);
+    } on Exception catch (e, s) {
+      Logger.e('Unknown Error', e: e, s: s);
+    }
+    setBusy(false);
   }
 
   void init() {}

@@ -21,7 +21,7 @@ const customerLastNames = [
   'Essien',
 ];
 
-@JsonSerializable()
+@JsonSerializable(nullable: true, includeIfNull: true)
 class Customer {
 
   String get displayName => '${this.name ?? ''} ${this.lastName ?? ''}';
