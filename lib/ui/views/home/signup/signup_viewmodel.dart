@@ -1,7 +1,7 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
+import 'package:mycustomers/core/mixins/validators.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
@@ -11,29 +11,28 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'business/business_view.dart';
 
-class SignUpViewModel extends BaseViewModel {
+class SignUpViewModel extends BaseViewModel with Validators {
+  
   String phoneNumber;
   bool obscureText = true;
-  bool btnColor = false;
+  // bool btnColor = false;
 
-  bool passValid = false;
-  bool phoneValid = false;
+  // bool passValid = false;
+  // bool phoneValid = false;
 
-  bool get valid => passValid && phoneValid;
-
-  String initialCountry = 'NG';
+  // bool get valid => passValid && phoneValid;
+  // String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: 'NG');
 
-  void togglePassword() {
-    obscureText = !obscureText;
-    notifyListeners();
-  }
+  // void togglePassword() {
+  //   obscureText = !obscureText;
+  //   notifyListeners();
+  // }
 
-  void activeBtn() {
-    btnColor = valid;
-    notifyListeners();
-  }
-
+  // void activeBtn() {
+  //   btnColor = valid;
+  //   notifyListeners();
+  // }
   void getPhoneNumber(String phoneNumber) async {}
 
   Future onInputChange() async {}

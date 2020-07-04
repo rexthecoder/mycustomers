@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -7,12 +8,11 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 
 import 'signin_viewmodel.dart';
 
 class SignInView extends StatelessWidget {
-  TextEditingController _inputSigninNumberController;
-  TextEditingController _userPasswordController;
 
   static final _signinFormPageKey = GlobalKey<FormState>();
   final _signinPageKey = GlobalKey<ScaffoldState>();
@@ -28,13 +28,24 @@ class SignInView extends StatelessWidget {
         key: _signinPageKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: BrandColors.primary,
-        body: CustomBackground(child: buildForm(context, model)),
+        body: CustomBackground(child:  _PartialBuildForm()),
       ),
       viewModelBuilder: () => SignInViewModel(),
     );
   }
+}
 
-  Widget buildForm(BuildContext context, SignInViewModel model) {
+class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
+  static final _signinFormPageKey = GlobalKey<FormState>();
+
+  _PartialBuildForm({Key key}) : super(key: key, reactive: false);
+
+  @override
+  Widget buildViewModelWidget(BuildContext context, SignInViewModel viewModel) {
+    
+    var _inputSigninNumberController = useTextEditingController();
+    var _userPasswordController = useTextEditingController();
+    
     return Form(
       key: _signinFormPageKey,
       child: Column(
@@ -62,79 +73,86 @@ class SignInView extends StatelessWidget {
             width: SizeConfig.xMargin(context, 90),
             child: InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
-                //TODO:
+                viewModel.number = number;
+                // print('Phone changed');
               },
-              onInputValidated: (bool value) {
-                //TODO: Validation
-              },
+              // onInputValidated: (bool value) {
+              //   viewModel.phoneValid = value;
+              //   viewModel.activeBtn();
+              //   print('Value is: $value');
+              // },
               ignoreBlank: false,
-              autoValidate: false,
+              // autoValidate: true,
               // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
               errorMessage: 'Invalid Phone Number',
               selectorType: PhoneInputSelectorType.DIALOG,
               selectorTextStyle: TextStyle(color: Colors.black),
-              initialValue: model.number,
+              initialValue: viewModel.number,
               textFieldController: _inputSigninNumberController,
               // inputBorder: OutlineInputBorder(),
             ),
           ),
           Padding(
             padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-            child: Stack(
-              alignment: Alignment.centerRight,
-              children: <Widget>[
-                TextFormField(
-                  key: Key("userpassword"),
-                  controller: _userPasswordController,
-                  obscureText: model.obscureText,
-                  validator: (value) =>
-                      (value.isEmpty) ? "Enter a valid password" : null,
-                  style: TextStyle(
-                    fontFamily: 'Lato',
-                    fontSize: SizeConfig.yMargin(context, 2),
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                
-                    // border: OutlineInputBorder(),
-                  ),
-                ),
-                GestureDetector(
-                child: Icon(
-                  // Based on obsecureText state choose the icon
-                  model.obscureText
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  color: BrandColors.primary,
-                ),
-                onTap: () {
-                  // Update the state i.e. toogle the state of obscureText variable
-                  model.togglePassword();
-                },
+            child: TextFormField(
+              key: Key("userpassword"),
+              controller: _userPasswordController,
+              obscureText: viewModel.obscureText,
+              // viewModel.obscureText,
+              validator: (_) => viewModel.validatePassword(_userPasswordController.text),
+              style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: SizeConfig.yMargin(context, 2),
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
               ),
-              ],
+              // autovalidate: true,
+              // onChanged: (_) {
+              //   viewModel.validatePassword(_userPassword.text);
+              //   viewModel.activeBtn();
+              // },
+              decoration: InputDecoration(
+                // suffixIcon: _CustomPartialBuildWidget<SignUpViewModel>(
+                //   builder: (BuildContext context, SignUpViewModel viewModel) =>
+                //       IconButton(
+                //     icon: Icon(
+                //       // Based on obscureText state choose the icon
+                //       viewModel.obscureText
+                //           ? Icons.visibility
+                //           : Icons.visibility_off,
+                //       color: Theme.of(context).primaryColorDark,
+                //     ),
+                //     onPressed: () {
+                //       // Update the state i.e. toogle the state of obscureText variable
+                //       viewModel.togglePassword();
+                //     },
+                //   ),
+                // ),
+                labelText: "Password",
+                // border: OutlineInputBorder(),
+              ),
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 2)),
           InkWell(
-            // busy: model.isBusy,
             onTap: () {
-              if (_signinFormPageKey.currentState.validate()) {
-                //  model.signUp(
-                //         _inputSignupNumberController.text,
-                //         passwordController.text,
-                //       );
-                model.signIn(
-                    '0' + int.parse(_inputSigninNumberController.text.splitMapJoin(' ', onMatch: (_) => '')).toString(),
-                    _userPasswordController.text.trim());
-              }
+              if (!_signinFormPageKey.currentState.validate()) return;
+              viewModel.signIn(
+                '0' +
+                    int.parse(_inputSigninNumberController.text
+                        .splitMapJoin(' ', onMatch: (_) => '')).toString(),
+                _userPasswordController.text.trim(),
+              );
             },
-            child: btnAuth(
-                'Next',
-                model.btnColor ? BrandColors.primary : ThemeColors.background,
-                context),
+            child: _CustomPartialBuildWidget<SignInViewModel>(
+              builder: (BuildContext context, SignInViewModel viewModel) =>
+                  btnAuth(
+                      'Next',
+                      // viewModel.btnColor ?
+                      BrandColors.primary,
+                      // : ThemeColors.gray.shade700,
+                      context),
+            ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 4)),
           Text(
@@ -168,10 +186,10 @@ class SignInView extends StatelessWidget {
           InkWell(
             // busy: model.isBusy,
             onTap: () {
-              model.navigateToSignup();
+              viewModel.navigateToSignup();
             },
             child: newBtnAuth(
-                'Not a Member? Sign Up', ThemeColors.unselect, context),
+               'Not a Member? Sign Up', ThemeColors.unselect, context),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 6)),
           Container(
@@ -181,5 +199,18 @@ class SignInView extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _CustomPartialBuildWidget<T extends BaseViewModel>
+    extends HookViewModelWidget<T> {
+  final Function(BuildContext, T) builder;
+
+  _CustomPartialBuildWidget(
+      {Key key, @required this.builder, bool reactive: true})
+      : super(key: key, reactive: reactive);
+  @override
+  Widget buildViewModelWidget(BuildContext context, T viewModel) {
+    return this.builder(context, viewModel);
   }
 }
