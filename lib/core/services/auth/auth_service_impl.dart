@@ -7,6 +7,7 @@ import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'auth_service.dart';
@@ -91,7 +92,7 @@ class AuthServiceImpl implements AuthService {
       //  // fetch current user from server
       Map response = await authUser(
         ApiRoutes.authentication_login,
-        {'phone_number': int.parse(phoneNumber), 'password:': password},
+        {'phone_number': int.parse(phoneNumber), 'password': password},
       );
 
       // Build the user object from the API response
@@ -101,11 +102,16 @@ class AuthServiceImpl implements AuthService {
     } on Exception {
       Logger.e('AuthService: Error signing in');
       throw AuthException('Error signing in');
+      
     }
 
     // Take the user to the home screen
     _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
-    _navigationService.clearStackAndShow(Routes.homeViewRoute, arguments: {'signup': false});
+
+    _navigationService.replaceWithTransition(MainView(),
+        opaque: true, transition: 'rotate', duration: Duration(seconds: 2));
+
+    // _navigationService.clearStackAndShow(Routes.mainViewRoute, arguments: {'signup': false});
   }
 
   @override
