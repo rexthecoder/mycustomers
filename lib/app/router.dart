@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
-import 'package:mycustomers/ui/views/business/profile/Edit_profile_screen/edit_profile_view.dart';
-import 'package:mycustomers/ui/views/business/profile/main_screen/profile_view.dart';
+import 'package:mycustomers/ui/views/business/profile/edit_profile_screen/edit_profile_view.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
@@ -153,14 +153,14 @@ class Router {
         );
       case Routes.profileViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => MainProfilePageView(),
+          builder: (context) => ProfilePageView(),
           settings: settings,
         );
       case Routes.editProfileViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => EditProfileView(),
-          settings: settings
-          );
+          settings: settings,
+        );
       case Routes.supportViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SupportPageView(),
