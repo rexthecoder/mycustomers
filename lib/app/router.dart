@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
-// import 'package:mycustomers/ui/views/business/profile/Edit_profile_screen/edit_profile_view.dart';
-// import 'package:mycustomers/ui/views/business/profile/main_screen/profile_view.dart';
+import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
 import 'package:mycustomers/ui/views/home/add_customer_manually/add_customer_manually_view.dart';
-// import 'package:mycustomers/ui/views/business/profile/edit_profile_screen/edit_profile_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
@@ -162,16 +160,16 @@ class Router {
           builder: (context) => SettingsPage(),
           settings: settings,
         );
-//       case Routes.profileViewRoute:
-//         return CupertinoPageRoute<dynamic>(
-//           builder: (context) => ProfilePageView(),
-//           settings: settings,
-//         );
-//       case Routes.editProfileViewRoute:
-//         return CupertinoPageRoute<dynamic>(
-//           builder: (context) => EditProfileView(),
-//           settings: settings,
-//         );
+      case Routes.profileViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ProfilePageView(),
+          settings: settings,
+        );
+      case Routes.editProfileViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => EditProfileView(),
+          settings: settings,
+        );
       case Routes.supportViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SupportPageView(),
@@ -184,10 +182,14 @@ class Router {
         );
       case Routes.addAssistantRoute:
         return CupertinoPageRoute<dynamic>(
-            builder: (context) => AddAssistantView(), settings: settings);
+          builder: (context) => AddAssistantView(),
+          settings: settings,
+        );
       case Routes.showDialogModal:
         return CupertinoPageRoute<dynamic>(
-            builder: (context) => SavedDialogView(), settings: settings);
+          builder: (context) => SavedDialogView(),
+          settings: settings,
+        );
       case Routes.businessCardRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessCardPageView(),
