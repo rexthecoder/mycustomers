@@ -48,7 +48,9 @@ dependencies:
 
   #UI Widgets
   cupertino_icons: ^0.1.3
+
   worm_indicator: ^0.2.4
+
 
   # add responsive builder
   responsive_builder: ^0.2.0+2
