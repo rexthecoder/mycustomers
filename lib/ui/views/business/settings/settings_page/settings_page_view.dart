@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -21,6 +23,7 @@ class SettingsPage extends StatelessWidget {
             Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
+                iconTheme: IconThemeData(color: BrandColors.primary),
                 brightness: Brightness.light,
                 elevation: 0,
                 title: Text(
@@ -32,17 +35,6 @@ class SettingsPage extends StatelessWidget {
                       .copyWith(fontSize: ScreenUtil().setSp(20),
                     fontWeight: FontWeight.w900,
                     color: Colors.black,),
-                ),
-                leading: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(18),
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: SvgPicture.asset(
-                        'assets/icons/backarrow.svg'
-                    ),
-                  ),
                 ),
                 backgroundColor: Colors.white,
                 centerTitle: true,

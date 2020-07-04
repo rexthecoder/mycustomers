@@ -33,10 +33,10 @@ class BusinessCardPageView extends StatelessWidget {
             "Business Card",
             style: TextStyle(
               color: ThemeColors.black,
-              fontSize: SizeConfig.textSize(context, 6.3),
+              fontSize: SizeConfig.textSize(context, 6),
             ),
           ),
-          iconTheme: IconThemeData(color: ThemeColors.black),
+          iconTheme: IconThemeData(color: BrandColors.primary),
         ),
         backgroundColor: ThemeColors.background,
         body: SafeArea(
