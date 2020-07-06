@@ -4,6 +4,7 @@ import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/mixins/validators.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
@@ -15,6 +16,7 @@ import 'business/business_view.dart';
 class SignUpViewModel extends BaseViewModel with Validators {
   String phoneNumber;
   bool obscureText = true;
+  final DialogService _dialogService = locator<DialogService>();
   // bool btnColor = false;
 
   // bool passValid = false;
@@ -54,13 +56,14 @@ class SignUpViewModel extends BaseViewModel with Validators {
   }
 
   Future<void> signUp(String phoneNumber, String password) async {
-    setBusy(true);
+    bool busy = true;
+    _dialogService.registerCustomDialogUi(buildLoaderDialog);
+    _dialogService.showCustomDialog(title: 'please hold on while we try to sign you in');
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
-      showToastCustom(
-        message: 'Your account has been created successfully',
-        success: true,
-      );
+      _dialogService.completeDialog(DialogResponse());
+      showToastCustom(message: 'Your account has been created successfully', success: true,);
+      busy = false;
       unawaited(completeSignup());
     } on AuthException catch (e) {
       showToastCustom(
@@ -73,7 +76,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
         message: 'An error occured while signing up',
       );
     }
-    setBusy(false);
+    if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
   Future<void> signUpTest() async {

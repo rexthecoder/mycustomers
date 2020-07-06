@@ -64,6 +64,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<StoreService>(
     () => StoreService(),
   );
+  locator.registerLazySingleton<DialogService>(
+        () => DialogService(),
+  );
 
   Directory appDocDir = await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocDir.path);
