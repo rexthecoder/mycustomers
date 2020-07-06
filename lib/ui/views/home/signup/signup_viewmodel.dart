@@ -17,24 +17,9 @@ class SignUpViewModel extends BaseViewModel with Validators {
   String phoneNumber;
   bool obscureText = true;
   final DialogService _dialogService = locator<DialogService>();
-  // bool btnColor = false;
 
-  // bool passValid = false;
-  // bool phoneValid = false;
-
-  // bool get valid => passValid && phoneValid;
-  // String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: 'NG');
 
-  // void togglePassword() {
-  //   obscureText = !obscureText;
-  //   notifyListeners();
-  // }
-
-  // void activeBtn() {
-  //   btnColor = valid;
-  //   notifyListeners();
-  // }
   void getPhoneNumber(String phoneNumber) async {}
 
   Future onInputChange() async {}
@@ -44,25 +29,35 @@ class SignUpViewModel extends BaseViewModel with Validators {
 
   // Navigation
   Future navigateToLogin() async {
-    await _navigationService.replaceWithTransition(SignInView(),
-        opaque: true,
-        transition: 'righttoleftwithfade',
-        duration: Duration(seconds: 1));
+    await _navigationService.replaceWithTransition(
+      SignInView(),
+      opaque: true,
+      transition: 'righttoleftwithfade',
+      duration: Duration(seconds: 1),
+    );
   }
 
   Future completeSignup() async {
-    await _navigationService.replaceWithTransition(BusinessView(),
-        opaque: true, transition: 'rotate', duration: Duration(seconds: 1));
+    await _navigationService.replaceWithTransition(
+      BusinessView(),
+      opaque: true,
+      transition: 'rotate',
+      duration: Duration(seconds: 1),
+    );
   }
 
   Future<void> signUp(String phoneNumber, String password) async {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
-    _dialogService.showCustomDialog(title: 'please hold on while we try to sign you in');
+    _dialogService.showCustomDialog(
+        title: 'Please hold on while we try to Sign you Up');
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(message: 'Your account has been created successfully', success: true,);
+      showToastCustom(
+        message: 'Your account has been created successfully',
+        success: true,
+      );
       busy = false;
       unawaited(completeSignup());
     } on AuthException catch (e) {
@@ -79,12 +74,15 @@ class SignUpViewModel extends BaseViewModel with Validators {
     if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
-  Future<void> signUpTest() async {
-    setBusy(true);
-   await Future.delayed(Duration(seconds: 20));
-    showToastCustom(
-        message: 'Your account has been created successfully', success: true);
-     setBusy(false);
-  }
-
+  /// A test to check dialog service and Toast
+  // Future<void> signUpTest() async {
+  //   bool busy = true;
+  //   _dialogService.registerCustomDialogUi(buildLoaderDialog);
+  //   _dialogService.showCustomDialog(
+  //       title: 'Please hold on while we try to Sign you Up');
+  //   await Future.delayed(Duration(seconds: 30));
+  //   showToastCustom(
+  //       message: 'Your Account has been Created Successfully', success: true);
+  //   if (busy) _dialogService.completeDialog(DialogResponse());
+  // }
 }

@@ -8,14 +8,10 @@ import 'language_viewmodel.dart';
 class LanguageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return ViewModelBuilder<LanguageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: HomeBackgroundWidget(
-          height: height,
-          width: width,
+        body: CustomBackground(
           child: Column(
             children: <Widget>[
               SizedBox(height: SizeConfig.yMargin(context, 7)),

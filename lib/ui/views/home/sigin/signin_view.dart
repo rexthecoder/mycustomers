@@ -13,7 +13,6 @@ import 'package:stacked_hooks/stacked_hooks.dart';
 import 'signin_viewmodel.dart';
 
 class SignInView extends StatelessWidget {
-
   static final _signinFormPageKey = GlobalKey<FormState>();
   final _signinPageKey = GlobalKey<ScaffoldState>();
 
@@ -28,7 +27,7 @@ class SignInView extends StatelessWidget {
         key: _signinPageKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: BrandColors.primary,
-        body: CustomBackground(child:  _PartialBuildForm()),
+        body: CustomBackground(child: _PartialBuildForm()),
       ),
       viewModelBuilder: () => SignInViewModel(),
     );
@@ -42,10 +41,9 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
 
   @override
   Widget buildViewModelWidget(BuildContext context, SignInViewModel viewModel) {
-    
     var _inputSigninNumberController = useTextEditingController();
     var _userPasswordController = useTextEditingController();
-    
+
     return Form(
       key: _signinFormPageKey,
       child: Column(
@@ -99,7 +97,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               controller: _userPasswordController,
               obscureText: viewModel.obscureText,
               // viewModel.obscureText,
-              validator: (_) => viewModel.validatePassword(_userPasswordController.text),
+              validator: (_) =>
+                  viewModel.validatePassword(_userPasswordController.text),
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
@@ -133,10 +132,19 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 2)),
-          InkWell(
-            onTap: () {
+          SizedBox(height: SizeConfig.yMargin(context, 3)),
+          AuthButton(
+            btnColor: BrandColors.primary,
+            txtColor: ThemeColors.background,
+            btnText: 'Next',
+            onPressed: () async {
+              // viewModel.signUpTest();
               if (!_signinFormPageKey.currentState.validate()) return;
+
+              //Dismiss keyboard during async call
+              FocusScope.of(context).requestFocus(FocusNode());
+
+              //Call Function to Signin
               viewModel.signIn(
                 '0' +
                     int.parse(_inputSigninNumberController.text
@@ -144,17 +152,13 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                 _userPasswordController.text.trim(),
               );
             },
-            child: _CustomPartialBuildWidget<SignInViewModel>(
-              builder: (BuildContext context, SignInViewModel viewModel) =>
-                  btnAuth(
-                      'Next',
-                      // viewModel.btnColor ?
-                      BrandColors.primary,
-                      // : ThemeColors.gray.shade700,
-                      context),
+            child: Icon(
+              Icons.arrow_forward,
+              color: ThemeColors.background,
+              size: SizeConfig.yMargin(context, 2.5),
             ),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 4)),
+          SizedBox(height: SizeConfig.yMargin(context, 5)),
 //          Text(
 //            'or Continue with your social accounts',
 //            textAlign: TextAlign.center,
@@ -182,36 +186,24 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
 //              ),
 //            ],
 //          ),
-          Spacer(),
-          SizedBox(height: SizeConfig.yMargin(context, 6)),
-          InkWell(
-            // busy: model.isBusy,
-            onTap: () {
+          // Spacer(),
+          // SizedBox(height: SizeConfig.yMargin(context, 6)),
+          AuthButton(
+            btnColor: ThemeColors.unselect,
+            txtColor: BrandColors.primary,
+            btnText: 'Not a Member? Sign Up',
+            child: Container(),
+            onPressed: () {
+              // dismiss keyboard during async call
+              FocusScope.of(context).requestFocus(FocusNode());
+
+              // Route Screen to Login
               viewModel.navigateToSignup();
             },
-            child: newBtnAuth(
-               'Not a Member? Sign Up', ThemeColors.unselect, context),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 6)),
-//          Container(
-//              width: SizeConfig.xMargin(context, 60),
-//              child: CustomizeProgressIndicator(1, 4)),
-          Expanded(child: SizedBox()),
+          SizedBox(height: SizeConfig.yMargin(context, 9)),
         ],
       ),
     );
-  }
-}
-
-class _CustomPartialBuildWidget<T extends BaseViewModel>
-    extends HookViewModelWidget<T> {
-  final Function(BuildContext, T) builder;
-
-  _CustomPartialBuildWidget(
-      {Key key, @required this.builder, bool reactive: true})
-      : super(key: key, reactive: reactive);
-  @override
-  Widget buildViewModelWidget(BuildContext context, T viewModel) {
-    return this.builder(context, viewModel);
   }
 }

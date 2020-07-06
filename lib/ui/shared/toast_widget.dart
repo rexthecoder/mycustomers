@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:oktoast/oktoast.dart';
 
 ToastFuture showToastCustom(
@@ -52,7 +53,7 @@ class ToastWidget extends StatelessWidget {
             this.message,
             style: TextStyle(
               color: textColor,
-              fontSize: 16,
+              fontSize: SizeConfig.yMargin(context, 3),
             ),
             softWrap: true,
           ),
