@@ -6,6 +6,7 @@ import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
+import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -39,7 +40,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
 
   Future completeSignup() async {
     await _navigationService.replaceWithTransition(
-      BusinessView(),
+      MainView(),
       opaque: true,
       transition: 'rotate',
       duration: Duration(seconds: 1),
