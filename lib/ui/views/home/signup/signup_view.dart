@@ -149,33 +149,34 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 4)),
-          Text(
-            'or Continue with your social accounts',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF02034A),
-              fontSize: 16.sp,
-            ),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 1)),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/google_icon.png',
-              ),
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/facebook_icon.png',
-              ),
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/apple_icon.png',
-              ),
-            ],
-          ),
+//          Text(
+//            'or Continue with your social accounts',
+//            textAlign: TextAlign.center,
+//            style: TextStyle(
+//              color: Color(0xFF02034A),
+//              fontSize: 16.sp,
+//            ),
+//          ),
+//          SizedBox(height: SizeConfig.yMargin(context, 1)),
+//
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: <Widget>[
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/google_icon.png',
+//              ),
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/facebook_icon.png',
+//              ),
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/apple_icon.png',
+//              ),
+//            ],
+//          ),
+          Spacer(),
           SizedBox(height: SizeConfig.yMargin(context, 6)),
           InkWell(
             // busy: model.isBusy,
@@ -189,7 +190,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
           Container(
               width: SizeConfig.xMargin(context, 60),
               child: CustomizeProgressIndicator(1, 4)),
-          Expanded(child: SizedBox()),
+          Expanded(child: SizedBox(height: SizeConfig.yMargin(context, 6))),
         ],
       ),
     );

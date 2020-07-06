@@ -4,6 +4,7 @@ import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/mixins/validators.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
@@ -13,6 +14,7 @@ import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class SignInViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
 
   String phoneNumber;
   bool obscureText = true;
@@ -50,10 +52,14 @@ class SignInViewModel extends BaseViewModel with Validators {
   final _authService = locator<AuthService>();
 
   Future<void> signIn(String phoneNumber, String password) async {
-    setBusy(true);
+    bool busy = true;
+    _dialogService.registerCustomDialogUi(buildLoaderDialog);
+    _dialogService.showCustomDialog(title: 'please hold on while we try to sign you in');
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
+      _dialogService.completeDialog(DialogResponse());
       showToastCustom(message: 'You have signed in successfully', success: true,);
+      busy = false;
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();
     } on AuthException catch (e) {
@@ -63,7 +69,7 @@ class SignInViewModel extends BaseViewModel with Validators {
       Logger.e('Unknown Error', e: e, s: s);
       showToastCustom(message: 'An error occured while signing up',);
     }
-    setBusy(false);
+    if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
   void init() {}
