@@ -53,7 +53,7 @@ class ToastWidget extends StatelessWidget {
             this.message,
             style: TextStyle(
               color: textColor,
-              fontSize: SizeConfig.yMargin(context, 3),
+              fontSize: SizeConfig.yMargin(context, 2),
             ),
             softWrap: true,
           ),

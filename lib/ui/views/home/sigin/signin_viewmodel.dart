@@ -33,7 +33,6 @@ class SignInViewModel extends BaseViewModel with Validators {
   //   notifyListeners();
   // }
 
-
   void getPhoneNumber(String phoneNumber) async {}
 
   Future onInputChange() async {}
@@ -46,7 +45,9 @@ class SignInViewModel extends BaseViewModel with Validators {
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
-        opaque: true, transition: 'righttoleftwithfade', duration: Duration(seconds: 1));
+        opaque: true,
+        transition: 'righttoleftwithfade',
+        duration: Duration(seconds: 1));
   }
 
   final _authService = locator<AuthService>();
@@ -54,20 +55,29 @@ class SignInViewModel extends BaseViewModel with Validators {
   Future<void> signIn(String phoneNumber, String password) async {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
-    _dialogService.showCustomDialog(title: 'please hold on while we try to sign you in');
+    _dialogService.showCustomDialog(
+        title: 'please hold on while we try to sign you in');
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(message: 'You have signed in successfully', success: true,);
+      showToastCustom(
+        message: 'Welcome Back',
+        success: true,
+      );
+      await Future.delayed(Duration(milliseconds: 200));
       busy = false;
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();
     } on AuthException catch (e) {
-      showToastCustom(message: e.message,);
+      showToastCustom(
+        message: e.message,
+      );
       Logger.e(e.message);
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
-      showToastCustom(message: 'An error occured while signing up',);
+      showToastCustom(
+        message: 'An error occured while signing up',
+      );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
   }

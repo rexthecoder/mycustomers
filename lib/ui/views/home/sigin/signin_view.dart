@@ -191,7 +191,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
           AuthButton(
             btnColor: ThemeColors.unselect,
             txtColor: BrandColors.primary,
-            btnText: 'Not a Member? Sign Up',
+            btnText: 'Not a Member?  Sign Up',
             child: Container(),
             onPressed: () {
               // dismiss keyboard during async call
@@ -202,6 +202,10 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
             },
           ),
           SizedBox(height: SizeConfig.yMargin(context, 9)),
+          Container(
+              width: SizeConfig.xMargin(context, 60),
+              child: CustomizeProgressIndicator(1, 4)),
+          Expanded(child: SizedBox(height: SizeConfig.yMargin(context, 6))),
         ],
       ),
     );
