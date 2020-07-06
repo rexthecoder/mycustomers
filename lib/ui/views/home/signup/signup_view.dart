@@ -6,6 +6,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -128,33 +129,45 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 2)),
-          InkWell(
-            onTap: () {
-              if (!_signupFormPageKey.currentState.validate()) return;
-              viewModel.signUp(
-                '0' +
-                    int.parse(_inputSignupNumberController.text
-                        .splitMapJoin(' ', onMatch: (_) => '')).toString(),
-                _userPassword.text.trim(),
-              );
+          _SignInButton(
+            onPressed: () async {
+              // if (!formKey.currentState.validate()) return;
+              // dismiss keyboard during async call
+              FocusScope.of(context).requestFocus(FocusNode());
+              viewModel.signUpTest();
+            //  viewModel.isBusy ? LoadingAnimation() : return();
             },
-            child: _CustomPartialBuildWidget<SignUpViewModel>(
-              builder: (BuildContext context, SignUpViewModel viewModel) =>
-                  btnAuth(
-                      'Next',
-                      // viewModel.btnColor ?
-                      BrandColors.primary,
-                      // : ThemeColors.gray.shade700,
-                      context),
-            ),
           ),
+
+          // InkWell(
+
+          //   onTap: () {
+          //     // if (!_signupFormPageKey.currentState.validate()) return;
+          //     // viewModel.signUp(
+          //     //     '0' +
+          //     //         int.parse(_inputSignupNumberController.text
+          //     //                 .splitMapJoin(' ', onMatch: (_) => ''))
+          //     //             .toString(),
+          //     //     _userPassword.text.trim(),
+          //     //   );
+          //   },
+          //   child: _CustomPartialBuildWidget<SignUpViewModel>(
+          //     builder: (BuildContext context, SignUpViewModel viewModel) =>
+          //         btnAuth(
+          //             'Next',
+          //             // viewModel.btnColor ?
+          //             BrandColors.primary,
+          //             // : ThemeColors.gray.shade700,
+          //             context),
+          //       ),
+          // ),
           SizedBox(height: SizeConfig.yMargin(context, 4)),
           Text(
             'or Continue with your social accounts',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(0xFF02034A),
-              fontSize: 16.sp,
+              fontSize: SizeConfig.textSize(context, 4),
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 1)),
@@ -199,12 +212,46 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
 class _CustomPartialBuildWidget<T extends BaseViewModel>
     extends HookViewModelWidget<T> {
   final Function(BuildContext, T) builder;
+  final bool busy;
 
   _CustomPartialBuildWidget(
-      {Key key, @required this.builder, bool reactive: true})
+      {Key key, @required this.builder, this.busy, bool reactive: true})
       : super(key: key, reactive: reactive);
   @override
   Widget buildViewModelWidget(BuildContext context, T viewModel) {
     return this.builder(context, viewModel);
+  }
+}
+
+class _SignInButton extends StatelessWidget {
+  final bool busy;
+  final Function onPressed;
+
+  const _SignInButton({
+    Key key,
+    this.busy,
+    this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ButtonTheme(
+      minWidth: SizeConfig.xMargin(context, 90),
+      height: SizeConfig.yMargin(context, 6),
+      child: RaisedButton(
+        child: Text(
+          'Next   ->',
+          style: TextStyle(
+            color: ThemeColors.background,
+            fontSize: SizeConfig.yMargin(context, 1.5),
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        onPressed: onPressed,
+        color: BrandColors.primary,
+        elevation: 5,
+        // disabledColor: ,
+      ),
+    );
   }
 }

@@ -13,7 +13,6 @@ import 'package:mycustomers/ui/shared/toast_widget.dart';
 import 'business/business_view.dart';
 
 class SignUpViewModel extends BaseViewModel with Validators {
-  
   String phoneNumber;
   bool obscureText = true;
   // bool btnColor = false;
@@ -44,7 +43,9 @@ class SignUpViewModel extends BaseViewModel with Validators {
   // Navigation
   Future navigateToLogin() async {
     await _navigationService.replaceWithTransition(SignInView(),
-        opaque: true, transition: 'lefttorightwithfade', duration: Duration(seconds: 1));
+        opaque: true,
+        transition: 'righttoleftwithfade',
+        duration: Duration(seconds: 1));
   }
 
   Future completeSignup() async {
@@ -52,20 +53,35 @@ class SignUpViewModel extends BaseViewModel with Validators {
         opaque: true, transition: 'rotate', duration: Duration(seconds: 1));
   }
 
-
   Future<void> signUp(String phoneNumber, String password) async {
     setBusy(true);
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
-      showToastCustom(message: 'Your account has been created successfully', success: true,);
+      showToastCustom(
+        message: 'Your account has been created successfully',
+        success: true,
+      );
       unawaited(completeSignup());
     } on AuthException catch (e) {
-      showToastCustom(message: e.message,);
+      showToastCustom(
+        message: e.message,
+      );
       Logger.e(e.message);
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
-      showToastCustom(message: 'An error occured while signing up',);
+      showToastCustom(
+        message: 'An error occured while signing up',
+      );
     }
     setBusy(false);
   }
+
+  Future<void> signUpTest() async {
+    setBusy(true);
+   await Future.delayed(Duration(seconds: 20));
+    showToastCustom(
+        message: 'Your account has been created successfully', success: true);
+     setBusy(false);
+  }
+
 }
