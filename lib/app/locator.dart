@@ -16,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
+import 'package:mycustomers/core/services/store_services.dart';
 import 'package:mycustomers/core/services/permissions.dart';
 
 final GetIt locator = GetIt.instance;
@@ -27,12 +28,14 @@ const bool USE_MOCK_CUSTOMER = true;
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator({bool useMockContacts: false, bool useMockCustomer: true}) async {
+
+  IStorageUtil _storage = await SharedStorageUtil.getInstance();
   // Services
   locator.registerLazySingleton(
     () => NavigationService(),
   );
-  locator.registerSingletonAsync<IStorageUtil>(
-    () => SharedStorageUtil.getInstance(),
+  locator.registerLazySingleton<IStorageUtil>(
+    () => _storage,
   );
   locator.registerLazySingleton(
     () => PageService(),
@@ -57,6 +60,9 @@ Future<void> setupLocator({bool useMockContacts: false, bool useMockCustomer: tr
   );
   locator.registerLazySingleton<UserService>(
         () => UserService(),
+  );
+  locator.registerLazySingleton<StoreService>(
+        () => StoreService(),
   );
 
    Directory appDocDir = await getApplicationDocumentsDirectory();

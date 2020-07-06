@@ -41,8 +41,8 @@ class OnboardingViewModel extends BaseViewModel {
 
   @override
   void dispose() {
-    _animationTimer.cancel();
     pageController.dispose();
     super.dispose();
+    _animationTimer.cancel();
   }
 }

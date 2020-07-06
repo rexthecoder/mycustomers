@@ -79,6 +79,7 @@ dependencies:
 
   # SnackBar
   flushbar: ^1.10.4
+  oktoast: ^2.1.8
 
 dependency_overrides:
   dartx: ^0.3.0

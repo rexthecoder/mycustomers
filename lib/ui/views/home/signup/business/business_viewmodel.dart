@@ -1,14 +1,19 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/core/services/user_services.dart';
+import 'package:mycustomers/core/services/store_services.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/core/exceptions/update_exception.dart';
+import 'package:mycustomers/core/exceptions/create_exception.dart';
+import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class BusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final UserService _userService = locator<UserService>();
-  final AuthService _authService = locator<AuthService>();
+  final StoreService _storeService = locator<StoreService>();
   
 
   Future<void> navigateToNext() async {
@@ -18,14 +23,24 @@ class BusinessViewModel extends BaseViewModel {
   }
 
   updateUser(String name, String businessName) async {
-    await _userService.updateUser(
-      _authService.currentUser.id,
-      updateData: {
-        'first_name': name,
-        'last_name': businessName,
-      },
-      );
-    navigateToNext();
+    setBusy(true);
+    try {
+
+      await _userService.createAssistant(name);
+      await _storeService.createStore(businessName);
+      showToastCustom(message: 'Your details have been updated successfully', success: true,);
+      navigateToNext();
+    } on UpdateException catch(e, s) {
+      showToastCustom(message: e.message,);
+      Logger.e(e.message, e: e, s: s);
+    } on CreateException catch(e, s) {
+      showToastCustom(message: e.message,);
+      Logger.e(e.message, e: e, s: s);
+    } catch (e, s) {
+      Logger.e('Unknown Error', e: e, s: s);
+      showToastCustom(message: 'An error occured while updating details',);
+    }
+    setBusy(false);
   }
 
 bool btnColor = true;

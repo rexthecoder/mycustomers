@@ -32,7 +32,8 @@ class HttpServiceImpl implements HttpService {
       );
     } on DioError catch (e) {
       Logger.e('HttpService: Failed to GET $route: Error message: ${e.message}');
-      throw NetworkException(e.message);
+      print('Http response data is: ${e.response.data}');
+      throw NetworkException(e.response?.data != null ? e.response.data['message'] ?? e.message : e.message);
     }
 
     network_utils.checkForNetworkExceptions(response);
@@ -63,7 +64,8 @@ class HttpServiceImpl implements HttpService {
       );
     } on DioError catch (e) {
       Logger.e('HttpService: Failed to POST ${e.message}');
-      throw NetworkException(e.message);
+      print('Http response data is: ${e.response.data}');
+      throw NetworkException(e.response?.data != null ? e.response.data['message'] ?? e.message : e.message);
     }
 
     network_utils.checkForNetworkExceptions(response);
@@ -105,7 +107,8 @@ class HttpServiceImpl implements HttpService {
       );
     } on DioError catch (e) {
       Logger.e('HttpService: Failed to PUT ${e.message}');
-      throw NetworkException(e.message);
+      print('Http response data is: ${e.response.data}');
+      throw NetworkException(e.response?.data != null ? e.response.data['message'] ?? e.message : e.message);
     }
 
     network_utils.checkForNetworkExceptions(response);

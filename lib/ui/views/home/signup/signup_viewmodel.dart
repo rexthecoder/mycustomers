@@ -8,6 +8,7 @@ import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 import 'business/business_view.dart';
 
@@ -56,11 +57,14 @@ class SignUpViewModel extends BaseViewModel with Validators {
     setBusy(true);
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
+      showToastCustom(message: 'Your account has been created successfully', success: true,);
       unawaited(completeSignup());
     } on AuthException catch (e) {
+      showToastCustom(message: e.message,);
       Logger.e(e.message);
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
+      showToastCustom(message: 'An error occured while signing up',);
     }
     setBusy(false);
   }

@@ -9,6 +9,7 @@ import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class SignInViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();
@@ -52,12 +53,15 @@ class SignInViewModel extends BaseViewModel with Validators {
     setBusy(true);
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
+      showToastCustom(message: 'You have signed in successfully', success: true,);
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();
     } on AuthException catch (e) {
+      showToastCustom(message: e.message,);
       Logger.e(e.message);
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
+      showToastCustom(message: 'An error occured while signing up',);
     }
     setBusy(false);
   }

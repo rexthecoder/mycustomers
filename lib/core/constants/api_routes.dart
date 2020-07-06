@@ -6,7 +6,9 @@ class ApiRoutes {
   static const base_url = 'https://dev.api.customerpay.me';
 
   //USER
-  static const user = '$base_url/user';
+  static const user = '$base_url/assistant';
+  //STORE
+  static const store = '$base_url/store';
   //TRANSACTION
   static const transaction = '$base_url/transaction';
   //NOTIFICATION
