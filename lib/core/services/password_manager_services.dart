@@ -28,7 +28,7 @@ class PasswordManagerService{
 
   Future<void>saveSetPin(String password) async{
     final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
-    final encryptedPassword = encryptPassword(password);
+    final encryptedPassword = encryptPassword(password).base64;
     passwordManagerBox.put(keyStore,encryptedPassword);
     final pass = passwordManagerBox.get(keyStore);
     print(pass.base64);
@@ -94,9 +94,8 @@ class PasswordManagerService{
   Encrypted encryptPassword(String value){
 
     return encrypter.encrypt(value, iv: iv);
-    
+     }
 
-  }
 
   String decryptPassword(var value){
     
