@@ -29,8 +29,9 @@ dependencies:
   pedantic: ^1.9.0
   image_picker: ^0.6.7+3
   downloads_path_provider: ^0.1.0
-  flutter_secure_storage: ^3.3.3
   fluttertoast: ^5.0.1
+  encrypt: ^4.0.2
+
   # State Management
   stacked: ^1.5.7+1
   stacked_services: 0.4.3
