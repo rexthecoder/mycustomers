@@ -59,7 +59,7 @@ class App extends StatelessWidget {
         theme: themes.primaryMaterialTheme,
         darkTheme: themes.darkMaterialTheme,
         debugShowCheckedModeBanner: true,
-        initialRoute: Routes.startupViewRoute,
+        initialRoute: Routes.mainViewRoute,
         onGenerateRoute: Router().onGenerateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,
       ),

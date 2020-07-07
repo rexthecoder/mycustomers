@@ -1,14 +1,13 @@
 part of '../../views/main/main_view.dart';
 
-
 class MenuOptions extends HookViewModelWidget<MainViewModel> {
   MenuOptions({Key key}) : super(key: key, reactive: true);
 
   @override
   Widget buildViewModelWidget(
-      BuildContext context,
-      MainViewModel model,
-      ) {
+    BuildContext context,
+    MainViewModel model,
+  ) {
     return Expanded(
       child: Container(
         child: Column(
@@ -21,7 +20,7 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
               ),
               child: RichText(
                 text: TextSpan(
-                  text: 'Wearsmute',
+                  text: model.businesses[model.selectedBusiness].businessName,
                   style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 6),
                       color: ThemeColors.black,
@@ -42,22 +41,26 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
             Divider(
               color: ThemeColors.gray[700],
             ),
-            buildMenuList(context, model.menus),
+            buildMenuViewList(context, model.menus, model),
             Divider(
               color: ThemeColors.gray[700],
             ),
-            buildMenuList(context, model.settings),
+            buildMenuList(context, model.settings, model),
             Divider(
               color: ThemeColors.gray[700],
             ),
-            buildMenuList(context, model.signOut),
+            buildMenuList(context, model.signOut, model),
           ],
         ),
       ),
     );
   }
 
-  Widget buildMenuList(BuildContext context, List list) {
+  Widget buildMenuList(
+    BuildContext context,
+    List list,
+    MainViewModel model,
+  ) {
     return Padding(
       padding: EdgeInsets.only(
         left: SizeConfig.xMargin(context, 5),
@@ -68,13 +71,51 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              var menu = list[index];
+              Menu menu = list[index];
               return sideBarMenuButton(
                 context: context,
                 label: menu.label,
                 active: false,
                 icon: menu.icon,
                 onTap: () {},
+              );
+            },
+            separatorBuilder: (context, index) => SizedBox(
+              height: SizeConfig.xMargin(context, 5),
+            ),
+            itemCount: list.length,
+          ),
+          SizedBox(
+            height: SizeConfig.xMargin(context, 3),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildMenuViewList(
+    BuildContext context,
+    List list,
+    MainViewModel model,
+  ) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: SizeConfig.xMargin(context, 5),
+      ),
+      child: Column(
+        children: <Widget>[
+          ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              Menu menu = list[index];
+              return sideBarMenuButton(
+                context: context,
+                label: menu.label,
+                active:
+                    (model.index == index && list.length == 3) ? true : false,
+                icon: menu.icon,
+                onTap: () => model.changeTab(index),
               );
             },
             separatorBuilder: (context, index) => SizedBox(

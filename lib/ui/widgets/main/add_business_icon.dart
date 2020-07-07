@@ -1,6 +1,5 @@
 part of '../../views/main/main_view.dart';
 
-
 class AddBusinessIcon extends HookViewModelWidget<MainViewModel> {
   AddBusinessIcon({Key key}) : super(key: key, reactive: true);
 
@@ -11,34 +10,33 @@ class AddBusinessIcon extends HookViewModelWidget<MainViewModel> {
   ) {
     return Column(
       children: <Widget>[
-        Container(
-          height: SizeConfig.xMargin(context, 18),
-          width: SizeConfig.xMargin(context, 18),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-//                              border: Border.all(
-//                                color: BrandColors.primary,
-//                                width: 2,
-//                              ),
-            boxShadow: [
-              BoxShadow(
-                  color: ThemeColors.gray[600].withOpacity(0.5),
-                  blurRadius: 6,
-                  offset: Offset(0.3, 0.3)),
-            ],
-          ),
-          padding: EdgeInsets.all(
-            SizeConfig.yMargin(context, 0.7),
-          ),
-          child: GFAvatar(
-            shape: GFAvatarShape.standard,
-            backgroundColor: ThemeColors.background,
-            child: Icon(
-              Icons.add,
-              color: ThemeColors.black,
-              size: SizeConfig.textSize(context, 9),
+        InkWell(
+          onTap: model.navigateToAddBusiness,
+          child: Container(
+            height: SizeConfig.xMargin(context, 18),
+            width: SizeConfig.xMargin(context, 18),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              boxShadow: [
+                BoxShadow(
+                    color: ThemeColors.gray[600].withOpacity(0.5),
+                    blurRadius: 6,
+                    offset: Offset(0.3, 0.3)),
+              ],
             ),
-            borderRadius: BorderRadius.circular(6),
+            padding: EdgeInsets.all(
+              SizeConfig.yMargin(context, 0.7),
+            ),
+            child: GFAvatar(
+              shape: GFAvatarShape.standard,
+              backgroundColor: ThemeColors.background,
+              child: Icon(
+                Icons.add,
+                color: ThemeColors.black,
+                size: SizeConfig.textSize(context, 9),
+              ),
+              borderRadius: BorderRadius.circular(6),
+            ),
           ),
         ),
         Text(
