@@ -3,16 +3,21 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/models/transaction_model.dart';
+import 'package:mycustomers/core/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 
-class AddDebtCreditViewModel extends BaseViewModel{
+class AddDebtCreditViewModel extends ReactiveViewModel{
   final _debouncer = Debouncer(milliseconds: 800);
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = false;
   bool save = false;
   DateTime selectedDate = DateTime.now();
+  DateTime dueDate;
   String newDate;
-  List items = [];
+  List<String> items = [];
+  final _transactionService = locator<TransactionService>();
 
   double _amount;
   double get amount => _amount;
@@ -58,6 +63,7 @@ class AddDebtCreditViewModel extends BaseViewModel{
   }
 
   void setDate(DateTime date) {
+    dueDate = date;
     newDate = dformat.format(date);
     amount != null && newDate.length > 0 && items.length > 0 ? save = true : save = false;
     notifyListeners();
@@ -83,6 +89,22 @@ class AddDebtCreditViewModel extends BaseViewModel{
       }
     }
   }
+
+  void addtransaction(String action) {
+    if(action == 'debit'){
+      print(dueDate);
+      TransactionModel transaction = new TransactionModel(amount: amount, paid: 0, goods: items, date: dueDate.toString());
+      _transactionService.addTransaction(transaction);
+      notifyListeners();
+    } else {
+      TransactionModel transaction = new TransactionModel(amount: 0, paid: amount, goods: items, date: dueDate.toString());
+      _transactionService.addTransaction(transaction);
+      notifyListeners();
+    }
+  }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService];
 }
 
 class Debouncer {
