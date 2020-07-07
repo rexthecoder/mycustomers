@@ -14,10 +14,10 @@ import 'core/utils/logger.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   setupLogger();
   await setupLocator();
-  
+
   // runApp(App());
   runApp(
     DevicePreview(
@@ -29,32 +29,29 @@ void main() async {
 
 class App extends StatelessWidget {
   @override
-
   Widget build(BuildContext context) {
+    //    /*
+    //   1. Setup for screenutil, only needed once here
+    //   2. screen resolution (in px) according to phone screen
+    //   3. Import screen util to all views
+    //   4. use in this manner E.g Container(width: 50.w, height:200.h)
+    //   */
+    //   ScreenUtil.init(context, width: width, height: height, allowFontScaling: true);
 
-
-  //    /*
-  //   1. Setup for screenutil, only needed once here
-  //   2. screen resolution (in px) according to phone screen
-  //   3. Import screen util to all views
-  //   4. use in this manner E.g Container(width: 50.w, height:200.h)
-  //   */
-  //   ScreenUtil.init(context, width: width, height: height, allowFontScaling: true);
-
-  // Status bar
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
+    // Status bar
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
 
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return OKToast(
       child: MaterialApp(
-       builder: DevicePreview.appBuilder,
+        builder: DevicePreview.appBuilder,
         localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
           DefaultMaterialLocalizations.delegate,
           DefaultWidgetsLocalizations.delegate,
@@ -62,7 +59,6 @@ class App extends StatelessWidget {
         theme: themes.primaryMaterialTheme,
         darkTheme: themes.darkMaterialTheme,
         debugShowCheckedModeBanner: true,
-
         initialRoute: Routes.startupViewRoute,
         onGenerateRoute: Router().onGenerateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,
