@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'notification_viewmodel.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
@@ -52,8 +50,21 @@ class Notifications extends StatelessWidget {
         body: ListView.builder(
           itemCount: model.notifications.length,
           itemBuilder: (context, index){
-            return Slidable(
+            return Dismissible(
               key: Key(index.toString()),
+              onDismissed: (DismissDirection direction) {},
+              direction: DismissDirection.endToStart,
+              background: Container(
+                padding: EdgeInsets.only(right: 15),
+                color: BrandColors.primary,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'View',
+                    style: TextStyle(color: Colors.white)
+                  ),
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),        
                 child: Column(
@@ -86,22 +97,6 @@ class Notifications extends StatelessWidget {
                   ],
                 ),
               ),
-              actionPane: SlidableDrawerActionPane(),
-              secondaryActions: <Widget>[
-                IconSlideAction(
-                  iconWidget: Container(
-                    child: Text(
-                      'View',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  //caption: 'View',
-                  color: BrandColors.primary,
-                  closeOnTap: true,
-                  onTap: (){},
-                )
-              ],
-              dismissal: SlidableDismissal(child: SlidableDrawerDismissal()),
             );
           }
         )
