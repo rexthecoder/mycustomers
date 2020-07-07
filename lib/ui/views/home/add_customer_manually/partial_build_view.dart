@@ -3,6 +3,8 @@ import 'partial_build_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 
 class PartialBuildsView extends StatelessWidget {
   const PartialBuildsView({Key key}) : super(key: key);
@@ -10,7 +12,41 @@ class PartialBuildsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PartialBuildsViewModel>.reactive(
-      builder: (context, model, child) => _StringForm(),
+      builder: (context, model, child) => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            model.subTitle,
+            style: TextStyle(fontSize: 18.sp, color: ThemeColors.black),
+          ),
+          SizedBox(height: 16.0),
+          _StringForm(),
+          Spacer(),
+          Container(
+            width: double.infinity,
+            child: FlatButton(
+              color: BrandColors.secondary,
+              onPressed: () {
+                print('here');
+                model.addContact();
+                //Navigator.pushNamed(context, '/mainTransaction');
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              child: Text(
+                'Next',
+                style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
       viewModelBuilder: () => PartialBuildsViewModel(),
     );
   }
