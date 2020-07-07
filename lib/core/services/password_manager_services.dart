@@ -29,9 +29,9 @@ class PasswordManagerService{
   Future<void>saveSetPin(String password) async{
     final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
     final encryptedPassword = encryptPassword(password);
-    passwordManagerBox.put(key,encryptedPassword);
-    var pass = passwordManagerBox.get(keyStore);
-    print(pass);
+    passwordManagerBox.put(keyStore,encryptedPassword);
+    final pass = passwordManagerBox.get(keyStore);
+    print(pass.base64);
 
 
   }
@@ -91,22 +91,24 @@ class PasswordManagerService{
       );
   }
 
-  String encryptPassword(String value){
+  Encrypted encryptPassword(String value){
 
-    final encrypted = encrypter.encrypt(value, iv: iv);
-    return encrypted.toString();
+    return encrypter.encrypt(value, iv: iv);
+    
 
   }
 
   String decryptPassword(var value){
-    final decrypted = encrypter.decrypt(value, iv: iv);
-    return decrypted;
+    
+    return encrypter.decrypt(value, iv: iv);
+    
 }
 
-Future<String> getPassword() async{
+  Future<String> getPassword() async{
   final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
   final pass = passwordManagerBox.get(keyStore);
-   return decryptPassword(pass);
+  final decryptedPass = decryptPassword(pass);
+   return decryptedPass ;
 }
 
 Future<void> deleteSetPin() async{

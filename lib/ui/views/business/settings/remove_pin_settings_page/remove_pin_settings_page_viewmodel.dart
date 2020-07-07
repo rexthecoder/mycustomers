@@ -11,10 +11,10 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
 
 
   void onEnterPinCompleted(String value){
-    final passFrmDb=_passwordManagerService.getPassword();
-    int newPassFrmDb =int.parse(passFrmDb.toString());
-    int confirmPin = int.parse(value);
-    int check = newPassFrmDb.compareTo(confirmPin);
+    String passFrmDb=_passwordManagerService.getPassword().toString(); // get the password stored in the db
+    int newPassFrmDb =int.parse(passFrmDb); // cast it into an integer
+    int confirmPin = int.parse(value);  // cast the password entered
+    int check = newPassFrmDb.compareTo(confirmPin); // compare they are equal
     if(check == 0){
        _passwordManagerService.deleteSetPin();
        _passwordManagerService.showPinRemoveConfirmationMessage();
