@@ -16,6 +16,7 @@ import 'package:mycustomers/ui/views/business/settings/currency_settings_page/cu
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
+import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
@@ -54,6 +55,7 @@ abstract class Routes {
   static const importCustomerViewRoute = '/importcustomer';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
+  static const mainTransaction = '/mainTransaction';
   static const transactionDetails = '/transactionDetails';
   static const transactionHistory = '/transactionHistory';
   static const addAssistantRoute = '/addAssistant';
@@ -129,6 +131,11 @@ class Router {
       case Routes.transactionHistory:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => TransactionHistory(),
+          settings: settings,
+        );
+      case Routes.mainTransaction:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainTransaction(),
           settings: settings,
         );
       case Routes.transactionDetails:
