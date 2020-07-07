@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
+import 'package:mycustomers/core/models/customer_contact.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
@@ -71,4 +72,5 @@ Future<void> setupLocator(
   Directory appDocDir = await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocDir.path);
   Hive.registerAdapter(BusinessCardAdapter());
+  Hive.registerAdapter(CustomerContactAdapter());
 }
