@@ -1,8 +1,13 @@
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-class StuffModel extends BaseViewModel{
+class StuffModel extends BaseViewModel {
+  final NavigationService _navigationService = locator<NavigationService>();
+
   String _upperBoxText = 'Happy New Year!';
-  String get upperBoxText =>_upperBoxText;
+  String get upperBoxText => _upperBoxText;
 
   String lowerBoxText = 'Happy New Year \n Best wishes from me';
 
@@ -18,14 +23,18 @@ class StuffModel extends BaseViewModel{
   int numberOfSelectedCustomers = 3;
 
   bool checkBoxValue = true;
-  checkBoxFunction(bool val){
+  checkBoxFunction(bool val) {
     checkBoxValue = val;
     val = !val;
-
   }
 
   int currentIndex = 0;
-  onTap(template){
+  onTap(template) {
     currentIndex = templateList.indexOf(template);
+  }
+
+  // Function to serve as a helper for the navigation
+  Future navigateTo() async {
+    await _navigationService.navigateTo(Routes.marketingHomepageView);
   }
 }

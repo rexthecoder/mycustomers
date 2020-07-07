@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
 
+import 'package:oktoast/oktoast.dart';
+
 import 'app/locator.dart';
 import 'app/router.dart';
 import 'core/utils/logger.dart';
@@ -50,19 +52,21 @@ class App extends StatelessWidget {
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
-    return MaterialApp(
-     builder: DevicePreview.appBuilder,
-      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-      ],
-      theme: themes.primaryMaterialTheme,
-      darkTheme: themes.darkMaterialTheme,
-      debugShowCheckedModeBanner: true,
+    return OKToast(
+      child: MaterialApp(
+       builder: DevicePreview.appBuilder,
+        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+          DefaultMaterialLocalizations.delegate,
+          DefaultWidgetsLocalizations.delegate,
+        ],
+        theme: themes.primaryMaterialTheme,
+        darkTheme: themes.darkMaterialTheme,
+        debugShowCheckedModeBanner: true,
 
-      initialRoute: Routes.startupViewRoute,
-      onGenerateRoute: Router().onGenerateRoute,
-      navigatorKey: locator<NavigationService>().navigatorKey,
+        initialRoute: Routes.startupViewRoute,
+        onGenerateRoute: Router().onGenerateRoute,
+        navigatorKey: locator<NavigationService>().navigatorKey,
+      ),
     );
   }
 }

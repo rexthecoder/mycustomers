@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
-import 'package:mycustomers/ui/views/business/profile/Edit_profile_screen/edit_profile_view.dart';
-import 'package:mycustomers/ui/views/business/profile/main_screen/profile_view.dart';
+import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
+import 'package:mycustomers/ui/views/home/add_customer_manually/add_customer_manually_view.dart';
+import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
@@ -15,6 +16,7 @@ import 'package:mycustomers/ui/views/business/settings/currency_settings_page/cu
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
+import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
@@ -23,6 +25,8 @@ import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
+import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
+import 'package:mycustomers/ui/views/marketing/send_a_message/send_a_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt_credit/add_debt_credit_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
@@ -51,6 +55,7 @@ abstract class Routes {
   static const importCustomerViewRoute = '/importcustomer';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
+  static const mainTransaction = '/mainTransaction';
   static const transactionDetails = '/transactionDetails';
   static const transactionHistory = '/transactionHistory';
   static const addAssistantRoute = '/addAssistant';
@@ -67,6 +72,8 @@ abstract class Routes {
   static const languageSettingsViewRoute = '/languagePinSettings';
   static const scheduleReminder = '/scheduleReminder';
   static const sendReminder = '/sendReminder';
+  static const sendMessageViewRoute = '/sendMessage';
+  static const marketingHomepageView = '/marketingHomePage';
 }
 
 class Router {
@@ -109,17 +116,26 @@ class Router {
         );
       case Routes.addDebt:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddDebtCreditView(action: 'debit',),
+          builder: (context) => AddDebtCreditView(
+            action: 'debit',
+          ),
           settings: settings,
         );
       case Routes.addCredit:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddDebtCreditView(action: 'credit',),
+          builder: (context) => AddDebtCreditView(
+            action: 'credit',
+          ),
           settings: settings,
         );
       case Routes.transactionHistory:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => TransactionHistory(),
+          settings: settings,
+        );
+      case Routes.mainTransaction:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MainTransaction(),
           settings: settings,
         );
       case Routes.transactionDetails:
@@ -153,14 +169,14 @@ class Router {
         );
       case Routes.profileViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => MainProfilePageView(),
+          builder: (context) => ProfilePageView(),
           settings: settings,
         );
       case Routes.editProfileViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => EditProfileView(),
-          settings: settings
-          );
+          settings: settings,
+        );
       case Routes.supportViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SupportPageView(),
@@ -173,10 +189,14 @@ class Router {
         );
       case Routes.addAssistantRoute:
         return CupertinoPageRoute<dynamic>(
-            builder: (context) => AddAssistantView(), settings: settings);
+          builder: (context) => AddAssistantView(),
+          settings: settings,
+        );
       case Routes.showDialogModal:
         return CupertinoPageRoute<dynamic>(
-            builder: (context) => SavedDialogView(), settings: settings);
+          builder: (context) => SavedDialogView(),
+          settings: settings,
+        );
       case Routes.businessCardRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessCardPageView(),
@@ -220,6 +240,21 @@ class Router {
       case Routes.scheduleReminder:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => ScheduleReminders(),
+          settings: settings,
+        );
+      case Routes.sendMessageViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => Stuff(),
+          settings: settings,
+        );
+      case Routes.marketingHomepageView:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MarketingHomePageView(),
+          settings: settings,
+        );
+      case Routes.addCustomerManually:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerManuallyView(),
           settings: settings,
         );
       default:

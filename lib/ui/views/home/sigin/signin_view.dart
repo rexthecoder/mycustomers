@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -7,13 +8,11 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 
 import 'signin_viewmodel.dart';
 
 class SignInView extends StatelessWidget {
-  TextEditingController _inputSigninNumberController;
-  TextEditingController _userPasswordController;
-
   static final _signinFormPageKey = GlobalKey<FormState>();
   final _signinPageKey = GlobalKey<ScaffoldState>();
 
@@ -28,13 +27,23 @@ class SignInView extends StatelessWidget {
         key: _signinPageKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: BrandColors.primary,
-        body: CustomBackground(child: buildForm(context, model)),
+        body: CustomBackground(child: _PartialBuildForm()),
       ),
       viewModelBuilder: () => SignInViewModel(),
     );
   }
+}
 
-  Widget buildForm(BuildContext context, SignInViewModel model) {
+class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
+  static final _signinFormPageKey = GlobalKey<FormState>();
+
+  _PartialBuildForm({Key key}) : super(key: key, reactive: false);
+
+  @override
+  Widget buildViewModelWidget(BuildContext context, SignInViewModel viewModel) {
+    var _inputSigninNumberController = useTextEditingController();
+    var _userPasswordController = useTextEditingController();
+
     return Form(
       key: _signinFormPageKey,
       child: Column(
@@ -62,122 +71,141 @@ class SignInView extends StatelessWidget {
             width: SizeConfig.xMargin(context, 90),
             child: InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
-                //TODO:
+                viewModel.number = number;
+                // print('Phone changed');
               },
-              onInputValidated: (bool value) {
-                //TODO: Validation
-              },
+              // onInputValidated: (bool value) {
+              //   viewModel.phoneValid = value;
+              //   viewModel.activeBtn();
+              //   print('Value is: $value');
+              // },
               ignoreBlank: false,
-              autoValidate: false,
+              // autoValidate: true,
               // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
               errorMessage: 'Invalid Phone Number',
               selectorType: PhoneInputSelectorType.DIALOG,
               selectorTextStyle: TextStyle(color: Colors.black),
-              initialValue: model.number,
+              initialValue: viewModel.number,
               textFieldController: _inputSigninNumberController,
               // inputBorder: OutlineInputBorder(),
             ),
           ),
           Padding(
             padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-            child: Stack(
-              alignment: Alignment.centerRight,
-              children: <Widget>[
-                TextFormField(
-                  key: Key("userpassword"),
-                  controller: _userPasswordController,
-                  obscureText: model.obscureText,
-                  validator: (value) =>
-                      (value.isEmpty) ? "Enter a valid password" : null,
-                  style: TextStyle(
-                    fontFamily: 'Lato',
-                    fontSize: SizeConfig.yMargin(context, 2),
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                
-                    // border: OutlineInputBorder(),
-                  ),
-                ),
-                GestureDetector(
-                child: Icon(
-                  // Based on obsecureText state choose the icon
-                  model.obscureText
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  color: BrandColors.primary,
-                ),
-                onTap: () {
-                  // Update the state i.e. toogle the state of obscureText variable
-                  model.togglePassword();
-                },
+            child: TextFormField(
+              key: Key("userpassword"),
+              controller: _userPasswordController,
+              obscureText: viewModel.obscureText,
+              // viewModel.obscureText,
+              validator: (_) =>
+                  viewModel.validatePassword(_userPasswordController.text),
+              style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: SizeConfig.yMargin(context, 2),
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
               ),
-              ],
+              // autovalidate: true,
+              // onChanged: (_) {
+              //   viewModel.validatePassword(_userPassword.text);
+              //   viewModel.activeBtn();
+              // },
+              decoration: InputDecoration(
+                // suffixIcon: _CustomPartialBuildWidget<SignUpViewModel>(
+                //   builder: (BuildContext context, SignUpViewModel viewModel) =>
+                //       IconButton(
+                //     icon: Icon(
+                //       // Based on obscureText state choose the icon
+                //       viewModel.obscureText
+                //           ? Icons.visibility
+                //           : Icons.visibility_off,
+                //       color: Theme.of(context).primaryColorDark,
+                //     ),
+                //     onPressed: () {
+                //       // Update the state i.e. toogle the state of obscureText variable
+                //       viewModel.togglePassword();
+                //     },
+                //   ),
+                // ),
+                labelText: "Password",
+                // border: OutlineInputBorder(),
+              ),
             ),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 2)),
-          InkWell(
-            // busy: model.isBusy,
-            onTap: () {
-              if (_signinFormPageKey.currentState.validate()) {
-                //  model.signUp(
-                //         _inputSignupNumberController.text,
-                //         passwordController.text,
-                //       );
-                model.signIn(
-                    '0' + int.parse(_inputSigninNumberController.text.splitMapJoin(' ', onMatch: (_) => '')).toString(),
-                    _userPasswordController.text.trim());
-              }
-            },
-            child: btnAuth(
-                'Next',
-                model.btnColor ? BrandColors.primary : ThemeColors.background,
-                context),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 4)),
-          Text(
-            'or Continue with your social accounts',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF02034A),
-              fontSize: 16.sp,
-            ),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 1)),
+          SizedBox(height: SizeConfig.yMargin(context, 3)),
+          AuthButton(
+            btnColor: BrandColors.primary,
+            txtColor: ThemeColors.background,
+            btnText: 'Next',
+            onPressed: () async {
+              // viewModel.signUpTest();
+              if (!_signinFormPageKey.currentState.validate()) return;
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/google_icon.png',
-              ),
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/facebook_icon.png',
-              ),
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/apple_icon.png',
-              ),
-            ],
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 6)),
-          InkWell(
-            // busy: model.isBusy,
-            onTap: () {
-              model.navigateToSignup();
+              //Dismiss keyboard during async call
+              FocusScope.of(context).requestFocus(FocusNode());
+
+              //Call Function to Signin
+              viewModel.signIn(
+                '0' +
+                    int.parse(_inputSigninNumberController.text
+                        .splitMapJoin(' ', onMatch: (_) => '')).toString(),
+                _userPasswordController.text.trim(),
+              );
             },
-            child: newBtnAuth(
-                'Not a Member? Sign Up', ThemeColors.unselect, context),
+            child: Icon(
+              Icons.arrow_forward,
+              color: ThemeColors.background,
+              size: SizeConfig.yMargin(context, 2.5),
+            ),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 6)),
+          SizedBox(height: SizeConfig.yMargin(context, 5)),
+//          Text(
+//            'or Continue with your social accounts',
+//            textAlign: TextAlign.center,
+//            style: TextStyle(
+//              color: Color(0xFF02034A),
+//              fontSize: 16.sp,
+//            ),
+//          ),
+//          SizedBox(height: SizeConfig.yMargin(context, 1)),
+//
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: <Widget>[
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/google_icon.png',
+//              ),
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/facebook_icon.png',
+//              ),
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/apple_icon.png',
+//              ),
+//            ],
+//          ),
+          // Spacer(),
+          // SizedBox(height: SizeConfig.yMargin(context, 6)),
+          AuthButton(
+            btnColor: ThemeColors.unselect,
+            txtColor: BrandColors.primary,
+            btnText: 'Not a Member?  Sign Up',
+            child: Container(),
+            onPressed: () {
+              // dismiss keyboard during async call
+              FocusScope.of(context).requestFocus(FocusNode());
+
+              // Route Screen to Login
+              viewModel.navigateToSignup();
+            },
+          ),
+          SizedBox(height: SizeConfig.yMargin(context, 9)),
           Container(
               width: SizeConfig.xMargin(context, 60),
               child: CustomizeProgressIndicator(1, 4)),
-          Expanded(child: SizedBox()),
+          Expanded(child: SizedBox(height: SizeConfig.yMargin(context, 6))),
         ],
       ),
     );

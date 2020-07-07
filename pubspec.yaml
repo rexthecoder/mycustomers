@@ -33,12 +33,13 @@ dependencies:
   stacked: ^1.5.7+1
   stacked_services: 0.4.3
   stacked_hooks: ^0.1.1+3
+  flutter_slidable: ^0.5.4
 
   # Utilities
   get_it: ^4.0.2
   injectable:
   device_preview: ^0.4.5
-  flare_flutter: ^2.0.3
+  flare_flutter:
   connectivity: ^0.4.8+6
   app_settings: ^4.0.0
   device_info: ^0.4.2+4
@@ -79,6 +80,7 @@ dependencies:
 
   # SnackBar
   flushbar: ^1.10.4
+  oktoast: ^2.1.8
 
 dependency_overrides:
   dartx: ^0.3.0

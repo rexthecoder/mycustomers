@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/core/models/business_model.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
@@ -12,9 +13,8 @@ import 'home_page_viewmodel.dart';
 import 'tabs/creditors_view.dart';
 
 class HomePageView extends StatelessWidget {
-
   //TODO: Position notification bell dot properly
-  
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -28,7 +28,7 @@ class HomePageView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  color: Color(0xff333cc1),
+                  color: BrandColors.primary,
                   height: SizeConfig.yMargin(context, 10),
                   child: Stack(
                     children: <Widget>[
@@ -49,7 +49,7 @@ class HomePageView extends StatelessWidget {
                             SizeConfig.yMargin(context, 7)),
                       ),
                       Padding(
-                        padding:EdgeInsets.all(SizeConfig.yMargin(context, 3)),
+                        padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
                         child: _HeaderBar(),
                       ),
                     ],
@@ -123,7 +123,7 @@ class _HeaderBar extends StatelessWidget {
         ),
         Container(
           child: Stack(
-          //  alignment: Alignment.topRight,
+            //  alignment: Alignment.topRight,
             children: [
               Icon(
                 Icons.notifications_none,

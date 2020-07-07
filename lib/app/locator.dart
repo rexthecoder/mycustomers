@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
+import 'package:mycustomers/core/models/customer_contact.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
@@ -16,6 +17,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
+import 'package:mycustomers/core/services/store_services.dart';
 import 'package:mycustomers/core/services/permissions.dart';
 
 final GetIt locator = GetIt.instance;
@@ -26,13 +28,15 @@ const bool USE_MOCK_CUSTOMER = true;
 ///   - Sets up singletons that can be called from anywhere
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
-Future<void> setupLocator({bool useMockContacts: false, bool useMockCustomer: true}) async {
+Future<void> setupLocator(
+    {bool useMockContacts: false, bool useMockCustomer: true}) async {
+  IStorageUtil _storage = await SharedStorageUtil.getInstance();
   // Services
   locator.registerLazySingleton(
     () => NavigationService(),
   );
-  locator.registerSingletonAsync<IStorageUtil>(
-    () => SharedStorageUtil.getInstance(),
+  locator.registerLazySingleton<IStorageUtil>(
+    () => _storage,
   );
   locator.registerLazySingleton(
     () => PageService(),
@@ -53,13 +57,20 @@ Future<void> setupLocator({bool useMockContacts: false, bool useMockCustomer: tr
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
   );
   locator.registerLazySingleton<IBusinessCardService>(
-        () => BusinessCardService(),
+    () => BusinessCardService(),
   );
   locator.registerLazySingleton<UserService>(
-        () => UserService(),
+    () => UserService(),
+  );
+  locator.registerLazySingleton<StoreService>(
+    () => StoreService(),
+  );
+  locator.registerLazySingleton<DialogService>(
+        () => DialogService(),
   );
 
-  // Directory appDocDir = await getApplicationDocumentsDirectory();
-  // Hive.initFlutter(appDocDir.path);
-  // Hive.registerAdapter(BusinessCardAdapter());
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  Hive.initFlutter(appDocDir.path);
+  Hive.registerAdapter(BusinessCardAdapter());
+  Hive.registerAdapter(CustomerContactAdapter());
 }

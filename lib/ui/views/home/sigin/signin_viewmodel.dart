@@ -1,35 +1,37 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
+import 'package:mycustomers/core/mixins/validators.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/ui/shared/toast_widget.dart';
 
-class SignInViewModel extends BaseViewModel {
+class SignInViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
 
   String phoneNumber;
-  bool obscureText = false;
+  bool obscureText = true;
   bool btnColor = true;
 
-  String initialCountry = 'NG';
+  // String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: 'NG');
 
-  void togglePassword() {
-    obscureText = !obscureText;
-    notifyListeners();
-  }
+  // void togglePassword() {
+  //   obscureText = !obscureText;
+  //   notifyListeners();
+  // }
 
-  void activeBtn() {
-    btnColor = !btnColor;
-    notifyListeners();
-  }
-
+  // void activeBtn() {
+  //   btnColor = !btnColor;
+  //   notifyListeners();
+  // }
 
   void getPhoneNumber(String phoneNumber) async {}
 
@@ -43,22 +45,41 @@ class SignInViewModel extends BaseViewModel {
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
-        opaque: true, transition: 'righttoleftwithfade', duration: Duration(seconds: 1));
+        opaque: true,
+        transition: 'righttoleftwithfade',
+        duration: Duration(seconds: 1));
   }
 
   final _authService = locator<AuthService>();
 
   Future<void> signIn(String phoneNumber, String password) async {
-    setBusy(true);
+    bool busy = true;
+    _dialogService.registerCustomDialogUi(buildLoaderDialog);
+    _dialogService.showCustomDialog(
+        title: 'please hold on while we try to sign you in');
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
+      _dialogService.completeDialog(DialogResponse());
+      showToastCustom(
+        message: 'Welcome Back',
+        success: true,
+      );
+      await Future.delayed(Duration(milliseconds: 200));
+      busy = false;
       unawaited(navigateToNextScreen());
+      // navigateToNextScreen();
     } on AuthException catch (e) {
+      showToastCustom(
+        message: e.message,
+      );
       Logger.e(e.message);
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
+      showToastCustom(
+        message: 'An error occured while signing up',
+      );
     }
-    setBusy(false);
+    if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
   void init() {}
