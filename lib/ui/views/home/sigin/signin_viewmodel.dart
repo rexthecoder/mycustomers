@@ -4,6 +4,7 @@ import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/mixins/validators.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
@@ -13,6 +14,7 @@ import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class SignInViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();
+  final DialogService _dialogService = locator<DialogService>();
 
   String phoneNumber;
   bool obscureText = true;
@@ -31,7 +33,6 @@ class SignInViewModel extends BaseViewModel with Validators {
   //   notifyListeners();
   // }
 
-
   void getPhoneNumber(String phoneNumber) async {}
 
   Future onInputChange() async {}
@@ -44,26 +45,41 @@ class SignInViewModel extends BaseViewModel with Validators {
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
-        opaque: true, transition: 'righttoleftwithfade', duration: Duration(seconds: 1));
+        opaque: true,
+        transition: 'righttoleftwithfade',
+        duration: Duration(seconds: 1));
   }
 
   final _authService = locator<AuthService>();
 
   Future<void> signIn(String phoneNumber, String password) async {
-    setBusy(true);
+    bool busy = true;
+    _dialogService.registerCustomDialogUi(buildLoaderDialog);
+    _dialogService.showCustomDialog(
+        title: 'please hold on while we try to sign you in');
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
-      showToastCustom(message: 'You have signed in successfully', success: true,);
+      _dialogService.completeDialog(DialogResponse());
+      showToastCustom(
+        message: 'Welcome Back',
+        success: true,
+      );
+      await Future.delayed(Duration(milliseconds: 200));
+      busy = false;
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();
     } on AuthException catch (e) {
-      showToastCustom(message: e.message,);
+      showToastCustom(
+        message: e.message,
+      );
       Logger.e(e.message);
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
-      showToastCustom(message: 'An error occured while signing up',);
+      showToastCustom(
+        message: 'An error occured while signing up',
+      );
     }
-    setBusy(false);
+    if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
   void init() {}

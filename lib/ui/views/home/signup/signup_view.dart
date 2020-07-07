@@ -6,6 +6,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -127,10 +128,19 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 2)),
-          InkWell(
-            onTap: () {
+          SizedBox(height: SizeConfig.yMargin(context, 3)),
+          AuthButton(
+            btnColor: BrandColors.primary,
+            txtColor: ThemeColors.background,
+            btnText: 'Next',
+            onPressed: () async {
+              // viewModel.signUpTest();
               if (!_signupFormPageKey.currentState.validate()) return;
+
+              //Dismiss keyboard during async call
+              FocusScope.of(context).requestFocus(FocusNode());
+
+              //Call Function to Signup
               viewModel.signUp(
                 '0' +
                     int.parse(_inputSignupNumberController.text
@@ -138,73 +148,64 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 _userPassword.text.trim(),
               );
             },
-            child: _CustomPartialBuildWidget<SignUpViewModel>(
-              builder: (BuildContext context, SignUpViewModel viewModel) =>
-                  btnAuth(
-                      'Next',
-                      // viewModel.btnColor ?
-                      BrandColors.primary,
-                      // : ThemeColors.gray.shade700,
-                      context),
+            child: Icon(
+              Icons.arrow_forward,
+              color: ThemeColors.background,
+              size: SizeConfig.yMargin(context, 2.5),
             ),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 4)),
-          Text(
-            'or Continue with your social accounts',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF02034A),
-              fontSize: 16.sp,
-            ),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 1)),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/google_icon.png',
-              ),
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/facebook_icon.png',
-              ),
-              SocialIconButton(
-                onTap: () {},
-                socialIconUrl: 'assets/icons/apple_icon.png',
-              ),
-            ],
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 6)),
-          InkWell(
-            // busy: model.isBusy,
-            onTap: () {
+          SizedBox(height: SizeConfig.yMargin(context, 5)),
+//          Text(
+//            'or Continue with your social accounts',
+//            textAlign: TextAlign.center,
+//            style: TextStyle(
+//              color: Color(0xFF02034A),
+//              fontSize: 16.sp,
+//            ),
+//          ),
+//          SizedBox(height: SizeConfig.yMargin(context, 1)),
+//
+//          Row(
+//            mainAxisAlignment: MainAxisAlignment.center,
+//            children: <Widget>[
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/google_icon.png',
+//              ),
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/facebook_icon.png',
+//              ),
+//              SocialIconButton(
+//                onTap: () {},
+//                socialIconUrl: 'assets/icons/apple_icon.png',
+//              ),
+//            ],
+//          ),
+          // Spacer(),
+          // SizedBox(height: SizeConfig.yMargin(context, 6)),
+          AuthButton(
+            btnColor: ThemeColors.unselect,
+            txtColor: BrandColors.primary,
+            btnText: 'Already a Member? Sign In',
+            child: Container(),
+            onPressed: () async {
+              // dismiss keyboard during async call
+              FocusScope.of(context).requestFocus(FocusNode());
+
+              // Route Screen to Login
               viewModel.navigateToLogin();
             },
-            child: newBtnAuth(
-                'Already a Member? Sign In', ThemeColors.unselect, context),
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 6)),
+
+          SizedBox(height: SizeConfig.yMargin(context, 9)),
           Container(
               width: SizeConfig.xMargin(context, 60),
               child: CustomizeProgressIndicator(1, 4)),
-          Expanded(child: SizedBox()),
+          Expanded(child: SizedBox(height: SizeConfig.yMargin(context, 6))),
         ],
       ),
     );
-  }
-}
-
-class _CustomPartialBuildWidget<T extends BaseViewModel>
-    extends HookViewModelWidget<T> {
-  final Function(BuildContext, T) builder;
-
-  _CustomPartialBuildWidget(
-      {Key key, @required this.builder, bool reactive: true})
-      : super(key: key, reactive: reactive);
-  @override
-  Widget buildViewModelWidget(BuildContext context, T viewModel) {
-    return this.builder(context, viewModel);
   }
 }

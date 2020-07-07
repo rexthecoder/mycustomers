@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:stacked/stacked.dart';
@@ -85,7 +86,7 @@ class ImportCustomerView extends StatelessWidget {
               delegate: TitleHeader(40),
               pinned: true,
             ),
-            model.isBusy || !model.dataReady
+            model.isLoadBusy /* || !model.dataReady*/
                 ? SliverToBoxAdapter(
                     child: Center(
                       child: CircularProgressIndicator(),
@@ -113,12 +114,13 @@ class ImportCustomerView extends StatelessWidget {
                               ),
                             ),
                             trailing: SizedBox(
-                              width: 80.w,
+                              width: SizeConfig.xMargin(context, 18),
+                              height: SizeConfig.xMargin(context, 9),
                               child: FlatButton.icon(
                                 icon: Icon(
                                   Icons.add,
                                   color: Colors.white,
-                                  size: 20.sp,
+                                  size: SizeConfig.textSize(context, 3),
                                 ),
                                 onPressed: () {
                                   // TODO: Change function to route to Transaction screen with a customer object
@@ -127,7 +129,7 @@ class ImportCustomerView extends StatelessWidget {
                                   'ADD',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 13.sp,
+                                    fontSize: SizeConfig.textSize(context, 3),
                                   ),
                                 ),
                                 textColor: Colors.white,
