@@ -3,16 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/screenutil.dart'; 
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
 
+import 'package:oktoast/oktoast.dart';
+
 import 'app/locator.dart';
 import 'app/router.dart';
+import 'core/utils/logger.dart';
 
-void main() {
-  setupLocator();
-
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  setupLogger();
+  await setupLocator();
+  
   // runApp(App());
   runApp(
     DevicePreview(
@@ -24,11 +29,11 @@ void main() {
 
 class App extends StatelessWidget {
   @override
-  
-  Widget build(BuildContext context) {
-    
 
-  //    /* 
+  Widget build(BuildContext context) {
+
+
+  //    /*
   //   1. Setup for screenutil, only needed once here
   //   2. screen resolution (in px) according to phone screen
   //   3. Import screen util to all views
@@ -43,22 +48,25 @@ class App extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  
+
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
-    return MaterialApp(
-     builder: DevicePreview.appBuilder,
-      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-      ],
-      theme: themes.primaryMaterialTheme,
-      darkTheme: themes.darkMaterialTheme,
-      debugShowCheckedModeBanner: true,
-      initialRoute: Routes.startupViewRoute,
-      onGenerateRoute: Router().onGenerateRoute,
-      navigatorKey: locator<NavigationService>().navigatorKey,
+    return OKToast(
+      child: MaterialApp(
+       builder: DevicePreview.appBuilder,
+        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+          DefaultMaterialLocalizations.delegate,
+          DefaultWidgetsLocalizations.delegate,
+        ],
+        theme: themes.primaryMaterialTheme,
+        darkTheme: themes.darkMaterialTheme,
+        debugShowCheckedModeBanner: true,
+
+        initialRoute: Routes.startupViewRoute,
+        onGenerateRoute: Router().onGenerateRoute,
+        navigatorKey: locator<NavigationService>().navigatorKey,
+      ),
     );
   }
 }

@@ -15,6 +15,8 @@ class SizeConfig{
 
   static double textSize(BuildContext context, double textSize){
     double screenWidth =  MediaQuery.of(context).size.width/ 100;
+    double screenHeight =  MediaQuery.of(context).size.height/ 100;
+    if (screenWidth > screenHeight) return textSize * screenHeight;
     return textSize * screenWidth;
   }
 

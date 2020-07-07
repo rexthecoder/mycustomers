@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mycustomers/core/mixings/validators.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -8,24 +8,20 @@ import 'package:stacked/stacked.dart';
 
 import 'verification_viewmodel.dart';
 
-class VerificationView extends StatelessWidget with Validators {
-  static final _formPageKey = GlobalKey<FormState>();
-  final _pageKey = GlobalKey<ScaffoldState>();
+class VerificationView extends StatelessWidget {
+  TextEditingController _pinCodeController = TextEditingController();
+
+  static final _pinFormPageKey = GlobalKey<FormState>();
+  final _pinPageKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
     return ViewModelBuilder<VerificationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        key: _pageKey,
-        body: HomeBackgrouWidget(
-          context: context,
-          height: height,
-          width: width,
-          widget: Form(
-            key: _formPageKey,
+        key: _pinPageKey,
+        body: CustomBackground(
+          child: Form(
+            key: _pinFormPageKey,
             child: Column(
               children: <Widget>[
                 SizedBox(height: SizeConfig.yMargin(context, 7)),
@@ -37,10 +33,11 @@ class VerificationView extends StatelessWidget with Validators {
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 5)),
-
+                //TODO: Pin Validation
                 Padding(
                   padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
                   child: PinCodeTextField(
+                    controller: _pinCodeController,
                     length: 4,
                     obsecureText: false,
                     animationType: AnimationType.scale,
@@ -54,18 +51,22 @@ class VerificationView extends StatelessWidget with Validators {
                       fieldWidth: SizeConfig.yMargin(context, 8),
                     ),
                     animationDuration: Duration(milliseconds: 300),
-                    //errorAnimationController: errorController,
-                    //controller: textEditingController,
+                    // errorAnimationController: errorController,
                     autoDisposeControllers: false,
                     onCompleted: (v) {},
                     onChanged: (value) {
-                      //TODO: Listens and Obey
+                      //TODO: Listens and move below code to viewmodel
+
+                      // if (value != null && value.length == 4) {
+
+                      // }
                     },
                   ),
                 ),
                 Center(
                   child: Text(
-                    'Please enter 4-digit code we sent on \nyour number as SMS',
+                    'Please enter 4-digit code we sent \nto your number as SMS',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Lato',
                       fontSize: SizeConfig.yMargin(context, 2),
@@ -74,16 +75,28 @@ class VerificationView extends StatelessWidget with Validators {
                     ),
                   ),
                 ),
-                SizedBox(height: SizeConfig.yMargin(context, 15)),
-                RaisedButton(
-                    onPressed: null,
+                SizedBox(height: SizeConfig.yMargin(context, 13)),
+                AuthButton(
+                  btnColor: BrandColors.primary,
+                  txtColor: ThemeColors.background,
+                  btnText: 'Next',
+                  onPressed: () async {
+                    // viewModel.signUpTest();
+                    if (!_pinFormPageKey.currentState.validate()) return;
 
-                    // model.naviagateToNext();
+                    //Dismiss keyboard during async call
+                    FocusScope.of(context).requestFocus(FocusNode());
 
-                    child: btnAuth('Next', context)),
-                SizedBox(height: SizeConfig.yMargin(context, 2)),
+                    //Call Function to Next Screen
+                    model.navigateToNextScreen();
+                  },
+                ),
 
-                //TODO: Build scrollbar
+                SizedBox(height: SizeConfig.yMargin(context, 18)),
+                Container(
+                    width: SizeConfig.xMargin(context, 60),
+                    child: CustomizeProgressIndicator(3, 4)),
+                SizedBox(height: SizeConfig.yMargin(context, 6)),
               ],
             ),
           ),
