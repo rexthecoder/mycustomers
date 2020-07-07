@@ -15,6 +15,7 @@ class EditProfileView extends StatelessWidget {
 
     return ViewModelBuilder<EditProfileViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(
             'Edit Profile',

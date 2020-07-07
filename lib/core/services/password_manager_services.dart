@@ -7,6 +7,7 @@ import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
 part 'password_manager_services.g.dart';
+
 @HiveType(typeId: 1, adapterName: 'PasswordManagerAdapter')
 
 class PasswordManager{
