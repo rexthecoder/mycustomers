@@ -70,7 +70,7 @@ class Router {
           builder: (context) => AddCustomerView(),
           settings: settings,
         );
-    case Routes.businessViewRoute:
+      case Routes.businessViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessView(),
           settings: settings,
