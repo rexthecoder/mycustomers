@@ -15,7 +15,7 @@ class BusinessViewModel extends BaseViewModel {
   final UserService _userService = locator<UserService>();
   final StoreService _storeService = locator<StoreService>();
   final DialogService _dialogService = locator<DialogService>();
-  
+
 
   Future<void> navigateToNext() async {
     await _navigationService.replaceWithTransition(MainView(),
