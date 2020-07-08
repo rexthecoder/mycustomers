@@ -75,6 +75,9 @@ class AuthServiceImpl implements AuthService {
         ..id = response['data']['user']['_id']
       ;
 
+    } on NetworkException catch(e, s) {
+      Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
+      throw AuthException(e.message);
     } on AuthException catch(e, s) {
       Logger.e('AuthService: Error signing up', e: e, s: s);
       throw e;
@@ -106,6 +109,9 @@ class AuthServiceImpl implements AuthService {
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
+    } on NetworkException catch(e, s) {
+      Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
+      throw AuthException(e.message);
     } on AuthException catch(e, s) {
       Logger.e('AuthService: Error signing in', e: e, s: s);
       throw e;
