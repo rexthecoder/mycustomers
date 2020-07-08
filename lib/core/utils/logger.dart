@@ -127,7 +127,6 @@ class _DebugLoggerClient implements _LoggerClient {
 
 /// Release logger that sends to sentry
 class _ReleaseLoggerClient implements _LoggerClient {
-  final debug_logger.Logger _logger = debug_logger_util.getLogger();
   final SentryClient sentryClient;
 
   _ReleaseLoggerClient(this.sentryClient);
