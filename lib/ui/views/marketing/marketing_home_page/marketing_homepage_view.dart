@@ -306,7 +306,7 @@ class MarketingHomePageView extends StatelessWidget {
                 children: <Widget>[
                 Expanded(
                   child: InkWell(
-                    onTap: ()=>model.navigateToAddCustomer(),
+                    // onTap: ()=>model.navigateToAddCustomer(),
                     child: Container(
                       decoration: BoxDecoration(
                          color: BrandColors.primary,
@@ -416,7 +416,8 @@ class MarketingHomePageView extends StatelessWidget {
                 children: <Widget>[
                 Expanded(
                   child: InkWell(
-                    onTap: ()=>Navigator.pushNamed(context, '/addCustomerMarketing'),
+                    onTap: () {},
+                    // =>Navigator.pushNamed(context, '/addCustomerMarketing'),
                     child: Container(
                       decoration: BoxDecoration(
                          color: BrandColors.primary,

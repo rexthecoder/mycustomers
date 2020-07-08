@@ -39,6 +39,6 @@ class StuffModel extends BaseViewModel {
   }
 
   Future navigateToQuickMessage() async {
-    await _navigationService.navigateTo(Routes.quickMessageView);
+    // await _navigationService.navigateTo(Routes.quickMessageView);
   }
 }

@@ -35,6 +35,6 @@ class MessageViewModel extends BaseViewModel {
 
   // Function to serve as a helper for the navigation
   Future navigateTo() async {
-    await _navigationService.navigateTo(Routes.quickMessageView);
+    // await _navigationService.navigateTo(Routes.quickMessageView);
   }
 }
