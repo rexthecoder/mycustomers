@@ -237,7 +237,10 @@ class AddDebtCreditView extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: (){},//Todo: Save User Input
+                onTap: (){
+                  model.addtransaction(action);
+                  Navigator.pop(context);
+                },//Todo: Save User Input
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15)),
                   decoration: BoxDecoration(

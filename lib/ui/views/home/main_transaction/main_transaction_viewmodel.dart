@@ -1,7 +1,10 @@
 import 'package:intl/intl.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/models/transaction_model.dart';
+import 'package:mycustomers/core/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 
-class MainTransactionViewModel extends BaseViewModel{
+class MainTransactionViewModel extends ReactiveViewModel{
   List purchases = [
     { 'id': 1, 'status': 'bought', 'amount': 50000, 'date': '2020-06-10 09:00:00' },
     { 'id': 2, 'status': 'paid', 'amount': 20000, 'date': '2020-06-10 11:00:00.00' },
@@ -12,15 +15,18 @@ class MainTransactionViewModel extends BaseViewModel{
     { 'id': 7, 'status': 'bought', 'amount': 60000, 'date': '2020-06-20 09:00:00.00' },
     { 'id': 8, 'status': 'paid', 'amount': 10000, 'date': '2020-06-25 13:00:00.00' },
   ];
-  List<String> formattedate = ['10 Jun', '15 Jun', '20 Jun', '25 Jun'];
+  
   List<String> items = ['SMS', 'Call', 'Set Reminders'];
   String date;
+  final _transactionService = locator<TransactionService>();
+  List<TransactionModel> get transactions => _transactionService.transactions;
+  List<String> get formattedate =>  _transactionService.formattedate; //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
   int bought(){
     int sum = 0;
-    for (var item in purchases) {
-      if(item['status'] == 'bought') {
-        sum += item['amount'];
+    for (var item in transactions) {
+      if(item.amount != 0) {
+        sum += item.amount.round();
       }
     }
     return sum;
@@ -28,9 +34,9 @@ class MainTransactionViewModel extends BaseViewModel{
 
   int paid(){
     int sum = 0;
-    for (var item in purchases) {
-      if(item['status'] == 'paid') {
-        sum += item['amount'];
+    for (var item in transactions) {
+      if(item.paid != 0) {
+        sum += item.paid.round();
       }
     }
     return sum;
@@ -53,4 +59,20 @@ class MainTransactionViewModel extends BaseViewModel{
     final dformat = new DateFormat('jm');
     return dformat.format(DateTime.parse(gdate)).toString();
   }
+
+  void getTransactions(){
+    _transactionService.getTransactions();
+    notifyListeners();
+  }
+
+  void setDates() {
+    print('dates');
+    for(int i=0; i<transactions.length; i++) {
+      print(transactions[i]);
+      formattedate.add(getDate(transactions[i].date));
+    }
+  }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService];
 }

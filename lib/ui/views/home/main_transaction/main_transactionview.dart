@@ -17,6 +17,10 @@ class MainTransaction extends StatelessWidget {
     ScreenUtil.init(context, width: width, height: height);
     final currency = new NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<MainTransactionViewModel>.reactive(
+      onModelReady: (model){
+        model.getTransactions();
+        print('here');
+      },
         builder: (context, model, child) => Scaffold(
               appBar: PreferredSize(
                 preferredSize: Size.fromHeight(70.0),
@@ -112,7 +116,7 @@ class MainTransaction extends StatelessWidget {
               ),
               body: Column(
                 children: <Widget>[
-                  model.formattedate ==null?Expanded(
+                  model.formattedate.length==0?Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
@@ -160,10 +164,10 @@ class MainTransaction extends StatelessWidget {
                                 ),
                                 child: Column(
                                   children: <Widget>[
-                                    for (var item in model.purchases)
-                                      model.getDate(item['date']) ==
+                                    for (var item in model.transactions)
+                                      model.getDate(item.date) ==
                                               model.formattedate[index]
-                                          ? item['status'] == 'bought'
+                                          ? item.amount != 0
                                               ? Container(
                                                   margin: EdgeInsets.only(
                                                     bottom: ScreenUtil()
@@ -214,7 +218,7 @@ class MainTransaction extends StatelessWidget {
                                                                 'NGN' +
                                                                     currency
                                                                         .format(
-                                                                            item['amount'])
+                                                                            item.amount)
                                                                         .toString(),
                                                                 style: Theme.of(
                                                                         context)
@@ -254,7 +258,7 @@ class MainTransaction extends StatelessWidget {
                                                       Container(
                                                         child: Text(
                                                           model.getTime(
-                                                              item['date']),
+                                                              item.date),
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -340,7 +344,7 @@ class MainTransaction extends StatelessWidget {
                                                                 'NGN' +
                                                                     currency
                                                                         .format(
-                                                                            item['amount'])
+                                                                            item.paid)
                                                                         .toString(),
                                                                 style: Theme.of(
                                                                         context)
@@ -362,7 +366,7 @@ class MainTransaction extends StatelessWidget {
                                                       Container(
                                                         child: Text(
                                                           model.getTime(
-                                                              item['date']),
+                                                              item.date),
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -393,7 +397,7 @@ class MainTransaction extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        model.formattedate ==null?Container(): Container(
+                        model.formattedate.length==0? SizedBox(): Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(25),
                             vertical: SizeConfig.yMargin(context, 2),
@@ -476,7 +480,7 @@ class MainTransaction extends StatelessWidget {
                                       ),
                                     )),
                         ),
-                        model.formattedate ==null?Container(): Container(
+                        model.formattedate.length==0? SizedBox(): Container(
                           padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
                           width: width,
                           color: Colors.white,
@@ -644,6 +648,7 @@ class AddTransaction extends StatelessWidget {
                   children: <Widget>[
                     InkWell(
                       onTap: (){
+                        Navigator.pop(context);
                         Navigator.pushNamed(context, '/addDebt');
                       },
                         child: Container(
@@ -655,6 +660,7 @@ class AddTransaction extends StatelessWidget {
                     Divider(color: Colors.black.withOpacity(0.5)),
                     InkWell(
                         onTap: (){
+                          Navigator.pop(context);
                           Navigator.pushNamed(context, '/addCredit');
                         },
                         child: Container(
