@@ -13,6 +13,7 @@ import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
+import 'package:mycustomers/core/models/hive/password_manager/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/services/transaction_service.dart';

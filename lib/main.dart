@@ -15,8 +15,9 @@ import 'app/locator.dart';
 import 'app/router.dart';
 import 'core/utils/logger.dart';
 
-final SentryClient _sentry = SentryClient(dsn: "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792");
-
+final SentryClient _sentry = SentryClient(
+    dsn:
+        "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792");
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,26 +34,28 @@ void main() async {
     }
   };
 
-  runZonedGuarded<Future<void>>(
-    () async {
+  runZonedGuarded<Future<void>>(() async {
+    setupLogger();
+    await setupLocator();
 
-      setupLogger();
-      await setupLocator();
-
-      // runApp(App());
-      runApp(
-        DevicePreview(
-          enabled: !kReleaseMode,
-          builder: (context) => App(),
-        ),
-      );
-
-    }, (error, stackTrace) {
-  // Whenever an error occurs, call the `_reportError` function. This sends
-  // Dart errors to the dev console or Sentry depending on the environment.
-  _reportError(error, stackTrace);
-}
-  );
+    // runApp(App());
+    runApp(
+      DevicePreview(
+        // onScreenshot: (screenshot) {
+        //   final bytes = screenshot.bytes;
+        //   //  Send the bytes to a drive, to the file system, to
+        //   // the device gallery for example. It may be useful for
+        //   // preparing your app release for example.
+        // },
+        enabled: !kReleaseMode,
+        builder: (context) => App(),
+      ),
+    );
+  }, (error, stackTrace) {
+    // Whenever an error occurs, call the `_reportError` function. This sends
+    // Dart errors to the dev console or Sentry depending on the environment.
+    _reportError(error, stackTrace);
+  });
 }
 
 bool get isInDebugMode {
@@ -81,7 +84,6 @@ Future<void> _reportError(dynamic error, dynamic stackTrace) async {
     );
   }
 }
-
 
 class App extends StatelessWidget {
   @override

@@ -8,7 +8,7 @@ part of 'customer_contact.dart';
 
 class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
   @override
-  final typeId = 2;
+  final typeId = 3;
 
   @override
   CustomerContact read(BinaryReader reader) {
