@@ -4,10 +4,10 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/customer_contact_h.dart';
-import 'package:mycustomers/core/models/transaction_model_h.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
-import 'package:mycustomers/core/services/transaction_service.dart';
+import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 
 class AddDebtCreditViewModel extends ReactiveViewModel{

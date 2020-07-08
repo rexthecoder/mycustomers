@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/transaction_model_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
-import 'package:mycustomers/core/services/transaction_service.dart';
+import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:mycustomers/main.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mycustomers/core/services/permissions.dart';
@@ -20,7 +21,7 @@ void initialiseHive() async {
     ..init(path)
     ..registerAdapter(TransactionAdapter());
   
-  //Always starts from a clean box  
+  //To make sure the box is clean.
   Hive.deleteBoxFromDisk('transactionBox');
 }
 void main() {
@@ -33,32 +34,20 @@ void main() {
 
   final transactionModeList = [transactionModel1, transactionModel2, transactionModel3];
 
-  test('description', ()async {
-    initialiseHive();
-    final mockTransactionAdapter = TransactionService();
-    final mockTransactionAdapters = MockTransactionAdapter();
-    final mockBox = MockBox<TransactionModel>();
-    when(mockTransactionAdapters.box).thenAnswer((_) async => Future.value(mockBox));
-    when(mockBox.values).thenReturn(transactionModeList);
-
-    final result = await mockTransactionAdapters.getTransactions(1);
-    print(result);
-    expect(mockTransactionAdapter.transactions, transactionModeList);
-  });
-
   testWidgets('App should work', (tester) async {
 
     TestWidgetsFlutterBinding.ensureInitialized();
     initialiseHive();
    
+    setupLogger(test: true);
+
     //DI && IC
-    setupLocator(useMockContacts: true);
+    await setupLocator(useMockContacts: true, test: true);
     
     //Mock
     await locator.allReady();
     IOwnerServices iOwnerServices = locator<IOwnerServices>();
     MockPermissions _permission =  locator<Permissions>();
-    final mockTransactionAdapter = TransactionService();
     final mockTransactionAdapters = MockTransactionAdapter();
     final mockBox = MockBox<TransactionModel>();
     
@@ -66,16 +55,8 @@ void main() {
     await tester.runAsync(() async {
       when(iOwnerServices.getPhoneContacts()).thenAnswer((realInvocation) => Future.value(List<Customer>.generate(5, (int) => Customer.random())));
       when(_permission.getContactsPermission()).thenAnswer((realInvocation) => Future.value(false));
-      await tester.pumpWidget(App());
-    });
-
-    await tester.runAsync(() async {
-
       when(mockTransactionAdapters.box).thenAnswer((_) async => Future.value(mockBox));
       when(mockBox.values).thenReturn(transactionModeList);
-
-      final result = await mockTransactionAdapter.getTransactions(1);
-      expect(result, transactionModeList);
       await tester.pumpWidget(App());
     });
     

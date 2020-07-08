@@ -8,9 +8,6 @@ part of 'transaction_model_h.dart';
 
 class TransactionAdapter extends TypeAdapter<TransactionModel> {
   @override
-  final typeId = 2;
-
-  @override
   TransactionModel read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
@@ -40,4 +37,6 @@ class TransactionAdapter extends TypeAdapter<TransactionModel> {
       ..writeByte(4)
       ..write(obj.goods);
   }
+  @override
+  int get typeId => 3;
 }

@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/models/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';

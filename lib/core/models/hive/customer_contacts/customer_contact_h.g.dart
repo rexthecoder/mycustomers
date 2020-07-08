@@ -8,9 +8,6 @@ part of 'customer_contact_h.dart';
 
 class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
   @override
-  final typeId = 1;
-
-  @override
   CustomerContact read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
@@ -34,4 +31,8 @@ class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
       ..writeByte(2)
       ..write(obj.id);
   }
+
+  @override
+  // TODO: implement typeId
+  int get typeId => 2;
 }

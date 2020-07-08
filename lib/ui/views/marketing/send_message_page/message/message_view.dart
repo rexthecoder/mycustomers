@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'send_a_message_viewmodel.dart';
+import 'message_viewmodel.dart';
 
-class Stuff extends StatelessWidget {
+class MessageView extends StatelessWidget {
   final bgColor = Colors.white;
   final color = Colors.blueAccent[700];
   final outlineColor = Colors.grey[200];
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, height: 1440, width: 720, allowFontScaling: true);
-    return ViewModelBuilder<StuffModel>.reactive(
-      viewModelBuilder: () => StuffModel(),
+    return ViewModelBuilder<MessageViewModel>.reactive(
+      viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
           backgroundColor: bgColor,
@@ -58,7 +58,7 @@ class Stuff extends StatelessWidget {
                         top: 40.h, left: 60.w, right: 60.w, bottom: 0.0),
                     child: TextField(
                       decoration: InputDecoration(
-                          fillColor: Colors.white,
+                          fillColor: null,
                           filled: true,
                           enabledBorder: OutlineInputBorder(
                             borderSide:

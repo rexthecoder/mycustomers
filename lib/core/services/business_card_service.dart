@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/constants/hive_boxes.dart';
-import 'package:mycustomers/core/models/business_card_model.dart';
+import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 
 abstract class IBusinessCardService {
   // to add a businessCard

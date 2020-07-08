@@ -1,10 +1,11 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
-import 'package:mycustomers/core/models/transaction_model_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
+import 'repository.dart';
 
 @lazySingleton
 class TransactionService with ReactiveServiceMixin {
@@ -21,8 +22,8 @@ class TransactionService with ReactiveServiceMixin {
   TransactionService(){
     listenToReactiveValues([_transactions]);
   }
-
-  Future<List<TransactionModel>> getTransactions(int id) async{
+  
+  void getTransactions(int id) async{
     final bbox = await box;
     for (var transaction in bbox.values.toList()) {
       if (transaction.cId == id){
@@ -36,7 +37,6 @@ class TransactionService with ReactiveServiceMixin {
         formattedate.add(date);
       }
     }
-    return _transactions.value;
   }
 
   void addTransaction(TransactionModel transaction) async {

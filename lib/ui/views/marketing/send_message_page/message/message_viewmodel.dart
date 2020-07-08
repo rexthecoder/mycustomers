@@ -3,7 +3,7 @@ import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class StuffModel extends BaseViewModel {
+class MessageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   String _upperBoxText = 'Happy New Year!';
@@ -35,6 +35,6 @@ class StuffModel extends BaseViewModel {
 
   // Function to serve as a helper for the navigation
   Future navigateTo() async {
-    await _navigationService.navigateTo(Routes.marketingHomepageView);
+    // await _navigationService.navigateTo(Routes.quickMessageView);
   }
 }

@@ -75,6 +75,9 @@ class AuthServiceImpl implements AuthService {
         ..id = response['data']['user']['_id']
       ;
 
+    } on NetworkException catch(e, s) {
+      Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
+      throw AuthException(e.message);
     } on AuthException catch(e, s) {
       Logger.e('AuthService: Error signing up', e: e, s: s);
       throw e;
@@ -84,7 +87,9 @@ class AuthServiceImpl implements AuthService {
     }
 
     // Take the user to the home screen
-    _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveString(AppPreferenceKey.USER_PHONE, phoneNumber);
+    await _storage.saveString(AppPreferenceKey.USER_PASS, password);
   }
 
   @override
@@ -106,6 +111,9 @@ class AuthServiceImpl implements AuthService {
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
+    } on NetworkException catch(e, s) {
+      Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
+      throw AuthException(e.message);
     } on AuthException catch(e, s) {
       Logger.e('AuthService: Error signing in', e: e, s: s);
       throw e;
@@ -115,7 +123,9 @@ class AuthServiceImpl implements AuthService {
     }
 
     // Take the user to the home screen
-    _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveString(AppPreferenceKey.USER_PHONE, phoneNumber);
+    await _storage.saveString(AppPreferenceKey.USER_PASS, password);
 
 
     // _navigationService.clearStackAndShow(Routes.mainViewRoute, arguments: {'signup': false});
@@ -126,7 +136,9 @@ class AuthServiceImpl implements AuthService {
 //    await Future.delayed(Duration(milliseconds: 250));
     _currentUser = null;
     _http.clearHeaders();
-    _storage.removeKey(AppPreferenceKey.USER_SIGNED_IN);
+    await _storage.removeKey(AppPreferenceKey.USER_SIGNED_IN);
+    await _storage.removeKey(AppPreferenceKey.USER_PHONE);
+    await _storage.removeKey(AppPreferenceKey.USER_PASS);
   }
 
   @override

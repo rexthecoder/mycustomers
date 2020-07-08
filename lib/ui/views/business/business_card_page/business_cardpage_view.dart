@@ -25,6 +25,7 @@ class BusinessCardPageView extends StatelessWidget {
 
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: ThemeColors.background,
           elevation: 0,

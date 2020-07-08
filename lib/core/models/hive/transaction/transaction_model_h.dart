@@ -2,8 +2,8 @@ import 'package:hive/hive.dart';
 
 part 'transaction_model_h.g.dart';
 
-@HiveType(typeId: 2, adapterName: 'TransactionAdapter')
-class TransactionModel{
+@HiveType(typeId: 3, adapterName: 'TransactionAdapter')
+class TransactionModel extends HiveObject{
 
   @HiveField(0)
   final int cId;

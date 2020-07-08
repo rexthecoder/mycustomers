@@ -19,20 +19,20 @@ import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
-import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
+import 'package:mycustomers/ui/views/marketing/add_new_customer/add_new_customer_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
-import 'package:mycustomers/ui/views/marketing/send_a_message/send_a_message_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt_credit/add_debt_credit_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
 import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_reminder/schedule_remider_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.dart';
+import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/send_a_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 /// An abstract class that is responsible for navigation and route
@@ -74,6 +74,8 @@ abstract class Routes {
   static const sendReminder = '/sendReminder';
   static const sendMessageViewRoute = '/sendMessage';
   static const marketingHomepageView = '/marketingHomePage';
+   static const addCustomerMarketing = '/addCustomerMarketing';
+  static const addNewCustomerMarketing = '/addNewCustomerMarketing';
 }
 
 class Router {
@@ -255,6 +257,16 @@ class Router {
       case Routes.addCustomerManually:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddCustomerManuallyView(),
+          settings: settings,
+        );
+      case Routes.addCustomerMarketing:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerMessageView(),
+          settings: settings,
+        );
+      case Routes.addNewCustomerMarketing:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddNewCustomerView(),
           settings: settings,
         );
       default:

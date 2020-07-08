@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'customer_contact_h.g.dart';
 
-@HiveType(typeId: 1, adapterName: 'CustomerContactAdapter')
+@HiveType(typeId: 2, adapterName: 'CustomerContactAdapter')
 class CustomerContact{
 
   @HiveField(0)

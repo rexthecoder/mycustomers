@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/business_card_model.dart';
+import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
