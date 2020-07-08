@@ -6,18 +6,6 @@ import 'package:hive/hive.dart';
 import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
-part 'password_manager_services.g.dart';
-
-@HiveType(typeId: 1, adapterName: 'PasswordManagerAdapter')
-
-class PasswordManager {
-  @HiveField(0)
-  final String userPassword;
-
-  PasswordManager(this.userPassword);
-
-}
-
 class PasswordManagerService{
 
     static final  key = Key.fromLength(32);
@@ -59,16 +47,7 @@ class PasswordManagerService{
       );
   }
 
-  void showPinRemoveConfirmationMessage(){
-    FlutterToast.showToast(
-      msg: 'Pin removed Successfully',
-      toastLength: Toast.LENGTH_SHORT,
-      backgroundColor: BrandColors.yellow,
-      textColor: ThemeColors.black,
-      gravity: ToastGravity.CENTER
-
-      );
-  }
+  
 
 
   void showErrorMessage(){
