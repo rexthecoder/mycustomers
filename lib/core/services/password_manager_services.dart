@@ -10,7 +10,7 @@ part 'password_manager_services.g.dart';
 
 @HiveType(typeId: 1, adapterName: 'PasswordManagerAdapter')
 
-class PasswordManager{
+class PasswordManager {
   @HiveField(0)
   final String userPassword;
 
@@ -28,10 +28,10 @@ class PasswordManagerService{
 
   Future<void>saveSetPin(String password) async{
     final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
-    final encryptedPassword = encryptPassword(password).base64;
+    final encryptedPassword = encryptPassword(password);
     passwordManagerBox.put(keyStore,encryptedPassword);
     final pass = passwordManagerBox.get(keyStore);
-    print(pass.base64);
+    print(pass);
 
 
   }
@@ -53,7 +53,7 @@ class PasswordManagerService{
       msg: 'Pin was set Successfully',
       toastLength: Toast.LENGTH_SHORT,
       backgroundColor: BrandColors.yellow,
-      textColor: ThemeColors.background,
+      textColor: ThemeColors.black,
       gravity: ToastGravity.CENTER
 
       );
@@ -64,7 +64,7 @@ class PasswordManagerService{
       msg: 'Pin removed Successfully',
       toastLength: Toast.LENGTH_SHORT,
       backgroundColor: BrandColors.yellow,
-      textColor: ThemeColors.background,
+      textColor: ThemeColors.black,
       gravity: ToastGravity.CENTER
 
       );
@@ -91,15 +91,15 @@ class PasswordManagerService{
       );
   }
 
-  Encrypted encryptPassword(String value){
+   String encryptPassword(String value){
 
-    return encrypter.encrypt(value, iv: iv);
+    return encrypter.encrypt(value, iv: iv).base64;
      }
 
 
-  String decryptPassword(var value){
-    
-    return encrypter.decrypt(value, iv: iv);
+  String decryptPassword(String value){
+    final newValue = Encrypted.from64(value);
+    return encrypter.decrypt(newValue, iv: iv);
     
 }
 
@@ -107,6 +107,7 @@ class PasswordManagerService{
   final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
   final pass = passwordManagerBox.get(keyStore);
   final decryptedPass = decryptPassword(pass);
+   print(decryptedPass);
    return decryptedPass ;
 }
 
