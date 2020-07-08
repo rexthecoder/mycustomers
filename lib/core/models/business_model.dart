@@ -7,5 +7,8 @@ class Business {
     Business('Wearsmute'),
     Business('Sentry'),
     Business('HNGi7'),
+    Business('CyberStores'),
+    Business('WearSmute'),
+    Business('HouseParty'),
   ];
 }

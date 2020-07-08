@@ -5,7 +5,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 extension Initial on Contact {
-  String get initial => this.initials().isNotEmpty ? this.initials() : this.displayName[0].toUpperCase();
+  String get initial => (this == null) ? '.' : this.initials().isNotEmpty ? this.initials() : this.displayName[0].toUpperCase();
 }
 
 class CustomerCircleAvatar extends StatelessWidget {
@@ -28,7 +28,7 @@ class CustomerCircleAvatar extends StatelessWidget {
     return CircleAvatar(
       child: this.child != null ? this.child : this.contact != null && this.contact.avatar.isNotEmpty ? Image.memory(this.contact.avatar, fit: BoxFit.cover,) :
           Text(
-            '${customer?.name?.substring(0, 1) ?? contact.initial}${customer?.lastName?.substring(0, 1) ?? ''}'.toUpperCase(),
+            '${customer?.name?.substring(0, 1) ?? contact?.initial ?? '(*)'}${customer?.lastName?.substring(0, 1) ?? ''}'.toUpperCase(),
             style: TextStyle(
               color: BrandColors.primary,
               fontSize: 24.sp,
