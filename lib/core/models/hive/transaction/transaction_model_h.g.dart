@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'transaction_model.dart';
+part of 'transaction_model_h.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -8,33 +8,35 @@ part of 'transaction_model.dart';
 
 class TransactionAdapter extends TypeAdapter<TransactionModel> {
   @override
-  final typeId = 3;
-
-  @override
   TransactionModel read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TransactionModel(
-      amount: fields[0] as double,
-      paid: fields[1] as double,
-      date: fields[2] as String,
-      goods: (fields[3] as List)?.cast<String>(),
+      cId: fields[0] as int,
+      amount: fields[1] as double,
+      paid: fields[2] as double,
+      date: fields[3] as String,
+      goods: (fields[4] as List)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, TransactionModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.amount)
+      ..write(obj.cId)
       ..writeByte(1)
-      ..write(obj.paid)
+      ..write(obj.amount)
       ..writeByte(2)
-      ..write(obj.date)
+      ..write(obj.paid)
       ..writeByte(3)
+      ..write(obj.date)
+      ..writeByte(4)
       ..write(obj.goods);
   }
+  @override
+  int get typeId => 3;
 }
