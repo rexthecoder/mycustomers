@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sentry/sentry.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
 
@@ -12,25 +15,74 @@ import 'app/locator.dart';
 import 'app/router.dart';
 import 'core/utils/logger.dart';
 
+final SentryClient _sentry = SentryClient(
+    dsn:
+        "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792");
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  setupLogger();
-  await setupLocator();
+  // This captures errors reported by the Flutter framework.
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    if (isInDebugMode) {
+      // In development mode simply print to console.
+      FlutterError.dumpErrorToConsole(details);
+    } else {
+      // In production mode report to the application zone to report to
+      // Sentry.
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+    }
+  };
 
-  // runApp(App());
-  runApp(
-    DevicePreview(
-      // onScreenshot: (screenshot) {
-      //   final bytes = screenshot.bytes;
-      //   //  Send the bytes to a drive, to the file system, to
-      //   // the device gallery for example. It may be useful for
-      //   // preparing your app release for example.
-      // },
-      enabled: !kReleaseMode,
-      builder: (context) => App(),
-    ),
-  );
+  runZonedGuarded<Future<void>>(() async {
+    setupLogger();
+    await setupLocator();
+
+    // runApp(App());
+    runApp(
+      DevicePreview(
+        // onScreenshot: (screenshot) {
+        //   final bytes = screenshot.bytes;
+        //   //  Send the bytes to a drive, to the file system, to
+        //   // the device gallery for example. It may be useful for
+        //   // preparing your app release for example.
+        // },
+        enabled: !kReleaseMode,
+        builder: (context) => App(),
+      ),
+    );
+  }, (error, stackTrace) {
+    // Whenever an error occurs, call the `_reportError` function. This sends
+    // Dart errors to the dev console or Sentry depending on the environment.
+    _reportError(error, stackTrace);
+  });
+}
+
+bool get isInDebugMode {
+  // Assume you're in production mode.
+  bool inDebugMode = false;
+
+  // Assert expressions are only evaluated during development. They are ignored
+  // in production. Therefore, this code only sets `inDebugMode` to true
+  // in a development environment.
+  assert(inDebugMode = true);
+
+  return inDebugMode;
+}
+
+Future<void> _reportError(dynamic error, dynamic stackTrace) async {
+  // Print the exception to the console.
+  print('Caught error: $error');
+  if (isInDebugMode) {
+    // Print the full stacktrace in debug mode.
+    print(stackTrace);
+  } else {
+    // Send the Exception and Stacktrace to Sentry in Production mode.
+    _sentry.captureException(
+      exception: error,
+      stackTrace: stackTrace,
+    );
+  }
 }
 
 class App extends StatelessWidget {
