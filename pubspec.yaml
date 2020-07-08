@@ -29,12 +29,9 @@ dependencies:
   pedantic: ^1.9.0
   image_picker: ^0.6.7+3
   downloads_path_provider: ^0.1.0
-<<<<<<< HEAD
-=======
   fluttertoast: ^5.0.1
   encrypt: ^4.0.2
 
->>>>>>> 70504ee477524a37af4e2a816f7d343b7f94a94f
 
   # State Management
   stacked: ^1.5.7+1
@@ -55,7 +52,6 @@ dependencies:
 
   #UI Widgets
   cupertino_icons: ^0.1.3
-
   worm_indicator: ^0.2.4
 
   # add responsive builder
