@@ -41,10 +41,11 @@ class RemovePinSettingsPageView extends StatelessWidget {
           body: PinField(
             title: 'Enter PIN',
             textEditingController: controller,
-            onCompleted: (value) => model.onEnterPinCompleted(value),
+            onCompleted: (value) => model.onEnterPinCompleted(value,context),
           ),
         );
       },
     );
   }
 }
+
