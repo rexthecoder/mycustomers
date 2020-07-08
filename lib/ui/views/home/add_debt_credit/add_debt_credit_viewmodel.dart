@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/transaction_model.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model.dart';
 import 'package:mycustomers/core/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 
