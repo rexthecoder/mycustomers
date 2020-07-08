@@ -43,7 +43,7 @@ dependencies:
   injectable:
   device_preview: ^0.4.5
   flare_flutter:
-  connectivity: ^0.4.8+6
+#  connectivity: ^0.4.8+6
   app_settings: ^4.0.0
   device_info: ^0.4.2+4
 
