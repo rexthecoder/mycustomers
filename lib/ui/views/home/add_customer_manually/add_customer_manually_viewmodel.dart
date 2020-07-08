@@ -1,11 +1,12 @@
 import 'package:hive/hive.dart';
-import 'package:mycustomers/core/models/customer_contact.dart';
+import 'package:mycustomers/core/models/customer_contact_h.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AddCustomerManuallyViewModel extends BaseViewModel {
+class AddCustomerManuallyViewModel extends ReactiveViewModel {
   static const String _boxname = "contactBox";
   String _customerName;
   String _customerPhoneNumber;
@@ -23,13 +24,15 @@ class AddCustomerManuallyViewModel extends BaseViewModel {
   String get dropDownValue=> _dropDownValue;
   bool success = false;
   String error;
-  NavigationService _navigationService = locator<NavigationService>();
+  //NavigationService _navigationService = locator<NavigationService>();
 
   String _title='Add Customer';
   String _subTitle='Customer Details';
 
   String get title => _title;
   String get subTitle =>_subTitle;
+
+  final _customerContactService = locator<CustomerContactService>();
 
   
 
@@ -53,18 +56,12 @@ class AddCustomerManuallyViewModel extends BaseViewModel {
   void addContact()async {
     print(customerPhoneNumber);
     if(customerName != null && customerPhoneNumber != null) {
-      print('sent');
-      var box = await Hive.openBox<CustomerContact>(_boxname);
-      CustomerContact contact = new CustomerContact(name: customerName, number: dropDownValue + customerPhoneNumber);
-      await box.add(contact).then((value){
-        success = true;
-        print(success);
-        _navigationService.navigateTo(Routes.mainTransaction);
-      }).catchError((err){
-        error = err;
-        success = false;
-      });
-      print(box.values.toList());
+      _customerContactService.addContact(customerPhoneNumber, customerName, dropDownValue);
     }
-  } 
+    notifyListeners();
+  }
+
+  @override
+  // TODO: implement reactiveServices
+  List<ReactiveServiceMixin> get reactiveServices => [_customerContactService];
 }

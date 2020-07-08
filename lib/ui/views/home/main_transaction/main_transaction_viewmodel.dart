@@ -1,6 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/transaction_model.dart';
+import 'package:mycustomers/core/models/customer_contact_h.dart';
+import 'package:mycustomers/core/models/transaction_model_h.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 
@@ -20,6 +22,10 @@ class MainTransactionViewModel extends ReactiveViewModel{
   String date;
   final _transactionService = locator<TransactionService>();
   List<TransactionModel> get transactions => _transactionService.transactions;
+
+  final _customerContactService = locator<CustomerContactService>();
+  CustomerContact get contact => _customerContactService.contact;
+
   List<String> get formattedate =>  _transactionService.formattedate; //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
   int bought(){
@@ -61,7 +67,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   }
 
   void getTransactions(){
-    _transactionService.getTransactions();
+    _transactionService.getTransactions(contact.id);
     notifyListeners();
   }
 
@@ -74,5 +80,5 @@ class MainTransactionViewModel extends ReactiveViewModel{
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService];
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
 }

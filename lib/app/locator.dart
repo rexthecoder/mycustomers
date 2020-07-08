@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
-import 'package:mycustomers/core/models/customer_contact.dart';
-import 'package:mycustomers/core/models/transaction_model.dart';
+import 'package:mycustomers/core/models/customer_contact_h.dart';
+import 'package:mycustomers/core/models/transaction_model_h.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/models/business_card_model.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
@@ -73,10 +74,14 @@ Future<void> setupLocator(
   locator.registerLazySingleton(
     () => TransactionService(),
   );
+  locator.registerLazySingleton(
+    () => CustomerContactService(),
+  );
 
   Directory appDocDir = await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocDir.path);
   Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(CustomerContactAdapter());
   Hive.registerAdapter(TransactionAdapter());
+  //Hive.deleteBoxFromDisk('transactionBox');
 }

@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
-import 'package:mycustomers/core/models/transaction_model.dart';
+import 'package:mycustomers/core/models/transaction_model_h.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
@@ -14,6 +14,7 @@ class TransactionService with ReactiveServiceMixin {
   List<TransactionModel> get transactions => _transactions.value;
   List<String> formattedate = [];
   String date;
+  var box = Hive.openBox<TransactionModel>(_boxname);
 
   TransactionModel _transaction;
 
@@ -21,9 +22,13 @@ class TransactionService with ReactiveServiceMixin {
     listenToReactiveValues([_transactions]);
   }
 
-  void getTransactions() async{
-    var box = await Hive.openBox<TransactionModel>(_boxname);
-    _transactions.value = box.values.toList();
+  Future<List<TransactionModel>> getTransactions(int id) async{
+    final bbox = await box;
+    for (var transaction in bbox.values.toList()) {
+      if (transaction.cId == id){
+        _transactions.value.add(transaction);
+      }
+    }
     for(int i=0; i<transactions.length; i++) {
       final dformat = new DateFormat('d MMM');
       if(dformat.format(DateTime.parse(transactions[i].date)).toString() != date) {
@@ -31,13 +36,13 @@ class TransactionService with ReactiveServiceMixin {
         formattedate.add(date);
       }
     }
-    print('done');
+    return _transactions.value;
   }
 
   void addTransaction(TransactionModel transaction) async {
-    var box = await Hive.openBox<TransactionModel>(_boxname);
-    await box.add(transaction);
-    _transactions.value = box.values.toList();
+    final bbox = await box;
+    await bbox.add(transaction);
+    _transactions.value = bbox.values.toList();
     formattedate = [];
     for(int i=0; i<transactions.length; i++) {
       final dformat = new DateFormat('d MMM');

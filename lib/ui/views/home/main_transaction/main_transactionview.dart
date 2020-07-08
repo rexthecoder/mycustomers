@@ -51,7 +51,7 @@ class MainTransaction extends StatelessWidget {
                             children: <Widget>[
                               Container(
                                 child: Text(
-                                  'Seyi Onifade',
+                                  model.contact.name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6
@@ -63,7 +63,7 @@ class MainTransaction extends StatelessWidget {
                               ),
                               Container(
                                 child: Text(
-                                  '08035678290',
+                                  model.contact.phoneNumber,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6
