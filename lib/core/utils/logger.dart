@@ -9,15 +9,15 @@ import 'package:mockito/mockito.dart';
 void setupLogger({bool test = false, SentryClient sentryClient}) {
   if (test) {
     Logger.useClient(_MockClient());
-  } else if (!kReleaseMode) {
+  } else /* (!kReleaseMode) */ {
     // Add standard log output only on debug builds
     debug_logger.Logger.level = debug_logger.Level.verbose;
     Logger.useClient(_DebugLoggerClient());
-  } else {
+  } /*else {
     // Pass all uncaught errors from the framework to something like Crashlytics.
     debug_logger.Logger.level = debug_logger.Level.warning;
     Logger.useClient(_ReleaseLoggerClient(sentryClient));
-  }
+  } */
 }
 
 class _MockClient extends Mock implements _LoggerClient {
