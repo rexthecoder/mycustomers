@@ -154,7 +154,7 @@ class LocalKeys {
   static const enter_pin = 'enter-pin';
   static const pin_removed = 'pin-removed';
 
-  
+
 
 
 
