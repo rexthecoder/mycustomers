@@ -16,7 +16,7 @@ dependencies:
   flutter_svg: ^0.17.4
   pin_code_fields: ^3.1.2
   pdf: ^1.5.0
-  path_provider: ^1.6.5
+  path_provider: ^1.6.11
   flutter_full_pdf_viewer: ^1.0.6
   open_file: ^3.0.1
   intl: ^0.16.1
