@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
@@ -33,14 +34,12 @@ const bool USE_MOCK_CUSTOMER = true;
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator(
-    {bool useMockContacts: false, bool useMockCustomer: true}) async {
-  IStorageUtil _storage = await SharedStorageUtil.getInstance();
+    {bool useMockContacts: false,
+    bool useMockCustomer: true,
+    bool test = false}) async {
   // Services
   locator.registerLazySingleton(
     () => NavigationService(),
-  );
-  locator.registerLazySingleton<IStorageUtil>(
-    () => _storage,
   );
   locator.registerLazySingleton(
     () => PageService(),
@@ -53,9 +52,6 @@ Future<void> setupLocator(
   );
   locator.registerLazySingleton<HttpService>(
     () => HttpServiceImpl(),
-  );
-  locator.registerLazySingleton<Permissions>(
-    () => useMockContacts ? MockPermissions() : Permissions(),
   );
   locator.registerLazySingleton<IOwnerServices>(
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
@@ -70,18 +66,38 @@ Future<void> setupLocator(
     () => StoreService(),
   );
   locator.registerLazySingleton<DialogService>(
-        () => DialogService(),
+    () => DialogService(),
   );
   locator.registerLazySingleton(
     () => TransactionService(),
   );
   locator.registerLazySingleton<PasswordManagerService>(
     () => PasswordManagerService(),
-    );
+  );
+
+  // Util
+  locator.registerLazySingleton<Permissions>(
+    () => useMockContacts ? MockPermissions() : Permissions(),
+  );
   Directory appDocDir = await getApplicationDocumentsDirectory();
-  Hive.initFlutter(appDocDir.path);
-  Hive.registerAdapter(BusinessCardAdapter());
-  Hive.registerAdapter(PasswordManagerAdapter());
-  Hive.registerAdapter(CustomerContactAdapter());
-  Hive.registerAdapter(TransactionAdapter());
+
+  // External
+  locator.registerLazySingleton<HiveInterface>(() => Hive);
+
+  // Hive.initFlutter(appDocDir.path);
+  // Hive.registerAdapter(BusinessCardAdapter());
+  // Hive.registerAdapter(PasswordManagerAdapter());
+  // Hive.registerAdapter(CustomerContactAdapter());
+  // Hive.registerAdapter(TransactionAdapter());
+
+  if (!test) {
+    await _setupSharedPreferences();
+  }
+}
+
+Future<void> _setupSharedPreferences() async {
+  IStorageUtil _storage = await SharedStorageUtil.getInstance();
+  locator.registerLazySingleton<IStorageUtil>(
+    () => _storage,
+  );
 }

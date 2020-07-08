@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
+import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/main.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mycustomers/core/services/permissions.dart';
@@ -12,8 +13,10 @@ void main() {
 
     TestWidgetsFlutterBinding.ensureInitialized();
    
+    setupLogger(test: true);
+
     //DI && IC
-    setupLocator(useMockContacts: true);
+    await setupLocator(useMockContacts: true, test: true);
     
     //Mock
     await locator.allReady();
