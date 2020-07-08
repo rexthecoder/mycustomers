@@ -35,7 +35,7 @@ void main() async {
   };
 
   runZonedGuarded<Future<void>>(() async {
-    setupLogger();
+    setupLogger(sentryClient: _sentry);
     await setupLocator();
 
     // runApp(App());
