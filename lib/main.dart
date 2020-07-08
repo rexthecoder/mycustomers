@@ -66,6 +66,10 @@ class App extends StatelessWidget {
         initialRoute: Routes.startupViewRoute,
         onGenerateRoute: Router().onGenerateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,
+        supportedLocales: [
+          Locale('English', 'UK'),
+          Locale('French', 'FR'),
+        ],
       ),
     );
   }
