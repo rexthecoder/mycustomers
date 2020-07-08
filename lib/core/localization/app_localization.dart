@@ -93,11 +93,66 @@ class AppLocalization{
   String get payedYou => translate(LocalKeys.payed_you);
   String get details => translate(LocalKeys.details);
   String get transaction => translate(LocalKeys.transaction);
-  
-
-
+  String get deliverables => translate(LocalKeys.deliverables);
+  String get completedPayment => translate(LocalKeys.completed_payment);
+  String get setRemindsDate => translate(LocalKeys.set_reminds_date);
+  String get setRemDateDesc => translate(LocalKeys.set_rem_date_desc);
+  String get forAWeek => translate(LocalKeys.for_a_week);
+  String get forAMonth => translate(LocalKeys.for_a_month);
+  String get time => translate(LocalKeys.time);
+  String get exportAsPdf => translate(LocalKeys.export_as_pdf);
+  String get export => translate(LocalKeys.export);
+  String get transactionReport => translate(LocalKeys.transaction_report);
+  String get monthlyReport => translate(LocalKeys.monthly_report);
+  String get date => translate(LocalKeys.date);
+  String get remark => translate(LocalKeys.remark);
+  String get marketingSpeech => translate(LocalKeys.marketing_speech);
+  String get marketingDesc => translate(LocalKeys.marketing_desc);
+  String get sendMessage => translate(LocalKeys.send_message);
+  String get addCustomerFromContacts => translate(LocalKeys.add_customer_from_contacts);
+  String get contacts => translate(LocalKeys.contacts);
+  String get customerName => translate(LocalKeys.customer_name);
+  String get customerPhoneNo => translate(LocalKeys.customer_phone_no);
+  String get customerList => translate(LocalKeys.customer_list);
+  String get sendMessageAll => translate(LocalKeys.send_message_all);
+  String get quickMessage => translate(LocalKeys.quick_message);
+  String get quickMessageDesc => translate(LocalKeys.quick_message_desc);
+  String get composeMessage => translate(LocalKeys.compose_message);
+  String get composeMessageDesc => translate(LocalKeys.compose_message_desc);
+  String get title => translate(LocalKeys.title);
+  String get message => translate(LocalKeys.message);
+  String get selectedCustomer => translate(LocalKeys.selected_customer);
+  String get messageSent => translate(LocalKeys.message_sent);
+  String get frequentlyContacted => translate(LocalKeys.frequently_contacted);
+  String get profile => translate(LocalKeys.profile);
+  String get buisnessCard => translate(LocalKeys.business_card);
+  String get support => translate(LocalKeys.support);
+  String get settings => translate(LocalKeys.settings);
+  String get regPhoneNo => translate(LocalKeys.reg_phone_no);
+  String get name => translate(LocalKeys.name);
+  String get edit => translate(LocalKeys.edit);
+  String get editPic => translate(LocalKeys.edit_pic);
+  String get changePic => translate(LocalKeys.change_pic);
+  String get download => translate(LocalKeys.download);
+  String get saveAndShare => translate(LocalKeys.save_and_share);
+  String get changeLanguage => translate(LocalKeys.change_language);
+  String get changeCurrency => translate(LocalKeys.change_currency);
+  String get appLock => translate(LocalKeys.app_lock);
+  String get receiveNotifications => translate(LocalKeys.receive_notifications);
+  String get receiveNewsletters => translate(LocalKeys.receive_newsletters);
+  String get receiveSpecialOffers => translate(LocalKeys.receive_special_offers);
+  String get receiveUpdates => translate(LocalKeys.receive_updates);
+  String get selectYourLanguage => translate(LocalKeys.select_your_language);
+  String get selectYourCurrency => translate(LocalKeys.select_your_currency);
+  String get saved => translate(LocalKeys.saved);
+  String get createANewPin => translate(LocalKeys.create_a_new_pin);
+  String get confirmNewPin => translate(LocalKeys.confirm_new_pin);
+  String get changeAppLockPin => translate(LocalKeys.change_app_lock_pin);
+  String get removeAppLock => translate(LocalKeys.remove_app_lock);
+  String get enterPin => translate(LocalKeys.enter_pin);
+  String get pinRemoved => translate(LocalKeys.pin_removed);
     
     
   
   
-    translate(String onboarding_welcome_text) {}}
+    translate(String onboardingWelcomeText) {}}
