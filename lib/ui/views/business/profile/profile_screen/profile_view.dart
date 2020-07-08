@@ -13,6 +13,7 @@ class ProfilePageView extends StatelessWidget {
 
     return ViewModelBuilder<MainProfilePageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
+             resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text(
                   'Profile',

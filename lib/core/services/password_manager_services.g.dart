@@ -1,34 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'customer_contact.dart';
+part of 'password_manager_services.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
+class PasswordManagerAdapter extends TypeAdapter<PasswordManager> {
   @override
-  final typeId = 2;
+  final typeId = 1;
 
   @override
-  CustomerContact read(BinaryReader reader) {
+  PasswordManager read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return CustomerContact(
-      name: fields[0] as String,
-      number: fields[1] as String,
+    return PasswordManager(
+      fields[0] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, CustomerContact obj) {
+  void write(BinaryWriter writer, PasswordManager obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.number);
+      ..writeByte(0)
+      ..write(obj.userPassword);
   }
 }
