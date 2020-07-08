@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:mycustomers/core/models/customer_contact.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';

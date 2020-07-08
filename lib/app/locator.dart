@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
-import 'package:mycustomers/core/models/customer_contact.dart';
-import 'package:mycustomers/core/models/transaction_model.dart';
+import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact.dart';
+import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
-import 'package:mycustomers/core/models/business_card_model.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
-import 'package:mycustomers/core/models/hive/password_manager/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/services/transaction_service.dart';
