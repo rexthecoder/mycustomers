@@ -96,8 +96,6 @@ Future<void> setupLocator(
 }
 
 Future<void> _setupSharedPreferences() async {
-  IStorageUtil _storage = await SharedStorageUtil.getInstance();
-  locator.registerLazySingleton<IStorageUtil>(
-    () => _storage,
-  );
+  final storage = await SharedStorageUtil.getInstance();
+  locator.registerLazySingleton<IStorageUtil>(() => storage);
 }
