@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'password_manager_services_h.dart';
+part of 'password_manager_model_h.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

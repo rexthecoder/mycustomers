@@ -6,18 +6,6 @@ import 'package:hive/hive.dart';
 import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
-part 'password_manager_services_h.g.dart';
-
-@HiveType(typeId: 1, adapterName: 'PasswordManagerAdapter')
-
-class PasswordManager {
-  @HiveField(0)
-  final String userPassword;
-
-  PasswordManager(this.userPassword);
-
-}
-
 class PasswordManagerService{
 
     static final  key = Key.fromLength(32);
