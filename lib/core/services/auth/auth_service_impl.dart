@@ -87,7 +87,9 @@ class AuthServiceImpl implements AuthService {
     }
 
     // Take the user to the home screen
-    _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveString(AppPreferenceKey.USER_PHONE, phoneNumber);
+    await _storage.saveString(AppPreferenceKey.USER_PASS, password);
   }
 
   @override
@@ -121,7 +123,9 @@ class AuthServiceImpl implements AuthService {
     }
 
     // Take the user to the home screen
-    _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
+    await _storage.saveString(AppPreferenceKey.USER_PHONE, phoneNumber);
+    await _storage.saveString(AppPreferenceKey.USER_PASS, password);
 
 
     // _navigationService.clearStackAndShow(Routes.mainViewRoute, arguments: {'signup': false});
@@ -132,7 +136,9 @@ class AuthServiceImpl implements AuthService {
 //    await Future.delayed(Duration(milliseconds: 250));
     _currentUser = null;
     _http.clearHeaders();
-    _storage.removeKey(AppPreferenceKey.USER_SIGNED_IN);
+    await _storage.removeKey(AppPreferenceKey.USER_SIGNED_IN);
+    await _storage.removeKey(AppPreferenceKey.USER_PHONE);
+    await _storage.removeKey(AppPreferenceKey.USER_PASS);
   }
 
   @override

@@ -33,7 +33,12 @@ class StartupViewModel extends BaseViewModel {
   }
 
   Future<Map<String, String>> getDecryptedDetails(String key) async {
-    return await Future.delayed(Duration(seconds: 1), () => Future.value({'phone_number': '8138989638', 'password': 'aaaaaaa'}),);
+    return await Future.delayed(Duration(seconds: 1),
+          () => Future.value({
+            'phone_number': _storage.getString(AppPreferenceKey.USER_PHONE),
+            'password': _storage.getString(AppPreferenceKey.USER_PASS),
+          }),
+    );
   }
 
   Future<bool> checkLoggedIn() async {
