@@ -5,6 +5,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 
 import 'language_view_model.dart';
 
@@ -58,7 +59,7 @@ class LanguageSettingPageView extends StatelessWidget {
                    ),
                    child:FlatButton(
                      onPressed:(){
-                       // Implement show dialog page
+                       savedDialog(context);
                      } ,
                      child: Text(
                        model.btnText,

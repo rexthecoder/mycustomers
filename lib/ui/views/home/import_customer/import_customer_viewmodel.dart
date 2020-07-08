@@ -13,13 +13,25 @@ class ImportCustomerViewModel extends StreamViewModel {
 
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
+  List<Customer> _contactsList = List<Customer>();
+  bool _busy = true;
+
+  bool get isLoadBusy => _busy;
 
   ImportCustomerViewModel();
 
 
-  init() async {
-    List<Customer> contacts = iOwnerServices.getPhoneContacts();
-    _contactStream.add(contacts);
+  init({String query}) async {
+    _contactsList.clear();
+    for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+      print('Iterate');
+      if (_busy) {
+        _busy = false;
+        notifyListeners();
+      }
+      _contactsList.add(customer);
+    _contactStream.add(_contactsList);
+    }
   }
 
   String _searchTerm = '';
@@ -27,9 +39,10 @@ class ImportCustomerViewModel extends StreamViewModel {
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) async {
-    _searchTerm = keyword;    
-        List<Customer> contacts = iOwnerServices.getPhoneContacts();
-    _contactStream.add(contacts);
+    _searchTerm = keyword;
+    _busy = true;
+    notifyListeners();
+    init(query: _searchTerm);
   }
 
   /// View initialize and close section

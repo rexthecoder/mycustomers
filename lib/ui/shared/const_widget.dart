@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
-/// A customize Progress Indicator By Ufe Adeojo
+/// A customize Progress Indicator By Ufedojo Atabo
 class CustomizeProgressIndicator extends StatelessWidget {
   final int progress, total;
 
