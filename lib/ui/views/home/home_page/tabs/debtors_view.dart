@@ -251,8 +251,8 @@ class DebtorsView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: InkWell(
-                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
-//                onTap: ()=> Navigator.pushNamed(context, '/importcustomer'),
+//                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
+                onTap: ()=> Navigator.pushNamed(context, '/importcustomer'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
