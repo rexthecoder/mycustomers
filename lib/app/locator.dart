@@ -13,6 +13,7 @@ import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
+import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/services/transaction_service.dart';
 import 'package:path_provider/path_provider.dart';
@@ -73,10 +74,13 @@ Future<void> setupLocator(
   locator.registerLazySingleton(
     () => TransactionService(),
   );
-
+  locator.registerLazySingleton<PasswordManagerService>(
+    () => PasswordManagerService(),
+    );
   Directory appDocDir = await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocDir.path);
   Hive.registerAdapter(BusinessCardAdapter());
+  Hive.registerAdapter(PasswordManagerAdapter());
   Hive.registerAdapter(CustomerContactAdapter());
   Hive.registerAdapter(TransactionAdapter());
 }
