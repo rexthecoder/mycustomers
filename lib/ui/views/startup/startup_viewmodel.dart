@@ -24,8 +24,8 @@ class StartupViewModel extends BaseViewModel {
   Future setup() async {
     await locator.allReady();  
 //    await  Future.delayed(Duration(seconds: 1));
-    if (await checkLoggedIn()) _navigationService.replaceWith(Routes.mainViewRoute);
-    else _navigationService.replaceWith(Routes.onboardingViewRoute);
+    /* if (await checkLoggedIn()) _navigationService.replaceWith(Routes.mainViewRoute);
+    else */_navigationService.replaceWith(Routes.onboardingViewRoute);
   }
 
   Future<String> getEncryptionKey() async {
