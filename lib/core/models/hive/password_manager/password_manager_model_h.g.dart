@@ -8,6 +8,9 @@ part of 'password_manager_model_h.dart';
 
 class PasswordManagerAdapter extends TypeAdapter<PasswordManager> {
   @override
+  final typeId = 1;
+
+  @override
   PasswordManager read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
@@ -25,8 +28,4 @@ class PasswordManagerAdapter extends TypeAdapter<PasswordManager> {
       ..writeByte(0)
       ..write(obj.userPassword);
   }
-
-  @override
-  // TODO: implement typeId
-  int get typeId => 1;
 }
