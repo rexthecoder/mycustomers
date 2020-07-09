@@ -17,7 +17,7 @@ class AddCustomerMessageView extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-//          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false,
           title: Center(
             child: Text('Add Customer from contact',
                 style: TextStyle(fontSize: 18.sp)),
@@ -59,18 +59,20 @@ class AddCustomerMessageView extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: MyListTile(
-                    leading: CustomerCircleAvatar(
-                      child: Icon(
-                        Icons.person_add,
-                        color: ThemeColors.cta,
-                      ),
-                      bgColor: ThemeColors.gray.shade500,
-                    ),
-                    title: InkWell(
-                      onTap: () => Navigator.pushNamed(
+                  child: InkWell(
+//                    onTap: ()=> model.navigateToAddCustomer(),
+                    onTap: () => Navigator.pushNamed(
                           context, '/addNewCustomerMarketing'),
-                      child: Text(
+                    child: MyListTile(
+
+                      leading: CustomerCircleAvatar(
+                        child: Icon(
+                          Icons.person_add,
+                          color: ThemeColors.cta,
+                        ),
+                        bgColor: ThemeColors.gray.shade500,
+                      ),
+                      title: Text(
                         'Add New Customer',
                         style: TextStyle(
                           color: model.allSelected
@@ -103,15 +105,21 @@ class AddCustomerMessageView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                model.isBusy || !model.dataReady
+//                model.isBusy || !model.dataReady
+                model.allCustomers.length==0
                     ? Center(
                         child: CircularProgressIndicator(),
                       )
-                    : Expanded(
+                    :
+                Expanded(
                         child: ListView.builder(
-                            itemCount: model.allCustomers.length,
+                            itemCount: model.searchController.text!= null?
+                                model.searchedCustomer.length:
+                            model.allCustomers.length,
                             itemBuilder: (BuildContext context, int index) {
-                              Customer customer = model.allCustomers[index];
+                              Customer customer = model.searchController.text!= null?
+                              model.searchedCustomer[index]:
+                              model.allCustomers[index];
                               bool _isSelected = model.isSelected(customer);
                               return MyListTile(
                                 leading:
@@ -131,6 +139,7 @@ class AddCustomerMessageView extends StatelessWidget {
                                   ),
                                 ),
                                 trailing: FlatButton(
+
                                   onPressed: () {
                                     _isSelected
                                         ? model.deselectCustomer(customer)

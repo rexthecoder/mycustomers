@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
+import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:stacked/stacked.dart';
 
 import 'marketing_homepage_viewmodel.dart';
@@ -91,11 +95,11 @@ class MarketingHomePageView extends StatelessWidget {
                             children: <Widget>[
                               Expanded(
                                 child: InkWell(
-                                  // onTap: ()=>model.navigateToAddCustomer(),
+                                   onTap: ()=>model.navigateToAddCustomer(),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: ThemeColors.gray,
-                                        //  BrandColors.primary,
+//                                        color: ThemeColors.gray,
+                                        color: BrandColors.primary,
                                         borderRadius:
                                             BorderRadius.circular(5.0)),
                                     child: Center(
@@ -150,7 +154,7 @@ class MarketingHomePageView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   SizedBox(
-                                    height: 20.h,
+                                    height: 5.h,
                                   ),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
@@ -183,7 +187,12 @@ class MarketingHomePageView extends StatelessWidget {
                                         horizontal: 15.0, vertical: 10),
                                     child: Container(
                                       child: TextField(
+                                        controller: model.searchController,
+                                        onChanged: model.search,
+                                        textInputAction: TextInputAction.search,
+
                                         decoration: InputDecoration(
+
                                           prefixIcon: Icon(Icons.search),
                                           hintText: 'Type customer name',
                                           border: InputBorder.none,
@@ -197,10 +206,48 @@ class MarketingHomePageView extends StatelessWidget {
                                         horizontal: 20.0, vertical: 10),
                                     child: Text('All'),
                                   ),
-                                  ListView.builder(
-                                      itemCount: model.allCustomers.length,
-                                      itemBuilder: (context, index) =>
-                                          Container())
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: model.searchController.text!= null?
+                                        model.searchedCustomer.length:
+                                        model.allCustomers.length,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          Customer customer = model.searchController.text!= null?
+                                          model.searchedCustomer[index]:
+                                          model.allCustomers[index];
+                                          bool _isSelected = model.isSelected(customer);
+                                          return MyListTile(
+                                            leading:
+                                            CustomerCircleAvatar(customer: customer),
+                                            title: Text(
+                                              '${customer.name} '
+                                                  '${customer.lastName}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            subtitle: Text(
+                                              '${customer.phone}',
+                                              style: TextStyle(
+                                                color: ThemeColors.gray.shade600,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                            trailing: Checkbox(
+                                                activeColor: BrandColors.primary,
+                                              value: _isSelected,
+                                              onChanged: (value){
+                                                _isSelected
+                                                    ? model.deselectCustomer(customer)
+                                                    : model.addCustomer(customer);
+                                            }),
+                                          );
+                                        }),
+                                  )
                                 ],
                               ),
                             ),
@@ -217,7 +264,7 @@ class MarketingHomePageView extends StatelessWidget {
                                 children: <Widget>[
                                   Expanded(
                                     child: InkWell(
-                                      onTap: () {},
+                                      onTap: ()=>model.navigateToAddCustomer(),
                                       // =>Navigator.pushNamed(context, '/addCustomerMarketing'),
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -240,6 +287,13 @@ class MarketingHomePageView extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: InkWell(
+                                      onTap: (){
+                                        Navigator.pushNamed(context, '/sendMessage');
+//                                        model.selectedCustomers
+//                                            .length !=
+//                                            0
+//                                            ?? model.sendMessage();
+                                      },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color: model.selectedCustomers
