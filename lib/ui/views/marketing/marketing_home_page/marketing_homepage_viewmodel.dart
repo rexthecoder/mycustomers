@@ -113,7 +113,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 //    await contactList;
 //    if(!contactList==null){allCustomers =  contactList;}
     notifyListeners();
-    print(contactList);
+    // print(contactList);
   }
 
 
