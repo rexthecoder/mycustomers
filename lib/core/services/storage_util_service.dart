@@ -36,7 +36,7 @@ class SharedStorageUtil implements IStorageUtil {
   static Future<SharedStorageUtil> getInstance() async {
     if (_storage == null) {
       SharedStorageUtil placeHolder = SharedStorageUtil._();
-      placeHolder.init();
+      await placeHolder.init();
       _storage = placeHolder;
     }
 

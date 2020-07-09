@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/utils/logger.dart';
@@ -15,7 +16,9 @@ void main() {
    
     setupLogger(test: true);
 
+
     //DI && IC
+    SharedPreferences.setMockInitialValues({});
     await setupLocator(useMockContacts: true, test: true);
     
     //Mock

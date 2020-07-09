@@ -79,7 +79,7 @@ Future<void> setupLocator(
   locator.registerLazySingleton<Permissions>(
     () => useMockContacts ? MockPermissions() : Permissions(),
   );
-  Directory appDocDir = await getApplicationDocumentsDirectory();
+  // Directory appDocDir = await getApplicationDocumentsDirectory();
 
   // External
   locator.registerLazySingleton<HiveInterface>(() => Hive);
@@ -89,10 +89,8 @@ Future<void> setupLocator(
   // Hive.registerAdapter(PasswordManagerAdapter());
   // Hive.registerAdapter(CustomerContactAdapter());
   // Hive.registerAdapter(TransactionAdapter());
-
-  if (!test) {
     await _setupSharedPreferences();
-  }
+  
 }
 
 Future<void> _setupSharedPreferences() async {
