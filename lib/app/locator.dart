@@ -84,8 +84,7 @@ Future<void> setupLocator(
     () => useMockContacts ? MockPermissions() : Permissions(),
   );
 
-
-  if(!test){
+  if (!test) {
     Directory appDocDir = await getApplicationDocumentsDirectory();
 
     // External
@@ -96,8 +95,8 @@ Future<void> setupLocator(
     Hive.registerAdapter(PasswordManagerAdapter());
     Hive.registerAdapter(CustomerContactAdapter());
     Hive.registerAdapter(TransactionAdapter());
-    await _setupSharedPreferences();
   }
+  await _setupSharedPreferences();
 }
 
 Future<void> _setupSharedPreferences() async {
