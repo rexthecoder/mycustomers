@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/hive/transaction/transaction_model.dart';
-import 'package:mycustomers/core/services/transaction_service.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 
 class AddDebtCreditViewModel extends ReactiveViewModel{
@@ -18,6 +20,9 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
   String newDate;
   List<String> items = [];
   final _transactionService = locator<TransactionService>();
+
+  final _customerContactService = locator<CustomerContactService>();
+  CustomerContact get contact => _customerContactService.contact;
 
   double _amount;
   double get amount => _amount;
@@ -93,18 +98,18 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
   void addtransaction(String action) {
     if(action == 'debit'){
       print(dueDate);
-      TransactionModel transaction = new TransactionModel(amount: amount, paid: 0, goods: items, date: dueDate.toString());
+      TransactionModel transaction = new TransactionModel(cId: contact.id, amount: amount, paid: 0, goods: items, date: dueDate.toString());
       _transactionService.addTransaction(transaction);
       notifyListeners();
     } else {
-      TransactionModel transaction = new TransactionModel(amount: 0, paid: amount, goods: items, date: dueDate.toString());
+      TransactionModel transaction = new TransactionModel(cId: contact.id, amount: 0, paid: amount, goods: items, date: dueDate.toString());
       _transactionService.addTransaction(transaction);
       notifyListeners();
     }
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService];
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
 }
 
 class Debouncer {

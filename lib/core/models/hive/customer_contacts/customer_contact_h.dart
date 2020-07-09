@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'customer_contact.g.dart';
+part 'customer_contact_h.g.dart';
 
 @HiveType(typeId: 2, adapterName: 'CustomerContactAdapter')
 class CustomerContact{
@@ -9,7 +9,10 @@ class CustomerContact{
   final String name;
 
   @HiveField(1)
-  final String number;
+  final String phoneNumber;
 
-  CustomerContact({this.name, this.number});
+  @HiveField(2)
+  final int id;
+
+  CustomerContact({this.name, this.phoneNumber, this.id});
 }

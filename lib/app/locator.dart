@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
-import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
-import 'package:mycustomers/core/models/hive/transaction/transaction_model.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
@@ -17,7 +18,7 @@ import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
-import 'package:mycustomers/core/services/transaction_service.dart';
+import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -68,8 +69,11 @@ Future<void> setupLocator(
   locator.registerLazySingleton<DialogService>(
     () => DialogService(),
   );
-  locator.registerLazySingleton(
+  locator.registerLazySingleton<TransactionService>(
     () => TransactionService(),
+  );
+  locator.registerLazySingleton<CustomerContactService>(
+    () => CustomerContactService(),
   );
   locator.registerLazySingleton<PasswordManagerService>(
     () => PasswordManagerService(),
@@ -79,18 +83,20 @@ Future<void> setupLocator(
   locator.registerLazySingleton<Permissions>(
     () => useMockContacts ? MockPermissions() : Permissions(),
   );
-  // Directory appDocDir = await getApplicationDocumentsDirectory();
 
-  // External
-  locator.registerLazySingleton<HiveInterface>(() => Hive);
+  if (!test) {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
 
-  // Hive.initFlutter(appDocDir.path);
-  // Hive.registerAdapter(BusinessCardAdapter());
-  // Hive.registerAdapter(PasswordManagerAdapter());
-  // Hive.registerAdapter(CustomerContactAdapter());
-  // Hive.registerAdapter(TransactionAdapter());
-    await _setupSharedPreferences();
-  
+    // External
+    locator.registerLazySingleton<HiveInterface>(() => Hive);
+
+    Hive.initFlutter(appDocDir.path);
+    Hive.registerAdapter(BusinessCardAdapter());
+    Hive.registerAdapter(PasswordManagerAdapter());
+    Hive.registerAdapter(CustomerContactAdapter());
+    Hive.registerAdapter(TransactionAdapter());
+  }
+  await _setupSharedPreferences();
 }
 
 Future<void> _setupSharedPreferences() async {
