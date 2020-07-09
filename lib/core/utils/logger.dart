@@ -153,6 +153,9 @@ class _ReleaseLoggerClient implements _LoggerClient {
           sentryClient.capture(event: Event(message: message, level: SeverityLevel.error));
         }
         break;
+      case LogLevel.debug:
+        // TODO: Handle this case.
+        break;
     }
   }
 }

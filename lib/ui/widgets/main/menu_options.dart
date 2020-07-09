@@ -20,14 +20,14 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
               ),
               child: RichText(
                 text: TextSpan(
-                  text: model.businesses[model.selectedBusiness].businessName,
+                  text: model.stores[model.selectedBusiness].name,
                   style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 6),
                       color: ThemeColors.black,
                       fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
-                      text: '\nFashion Wears',
+                      text: '\n${model?.stores[model.selectedBusiness]?.tagline ?? 'No tagline'}',
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 3),
                         color: ThemeColors.black,
@@ -77,7 +77,9 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
                 label: menu.label,
                 active: false,
                 icon: menu.icon,
-                onTap: () {},
+                onTap: () {
+                  menu.onTap();
+                },
               );
             },
             separatorBuilder: (context, index) => SizedBox(

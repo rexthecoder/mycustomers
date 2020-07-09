@@ -6,6 +6,9 @@ import 'package:stacked_services/stacked_services.dart';
 class BusinessHomePageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
+  String get profileCardTitle => '';
+  String get profileCardSubtitle => '';
+
   Future navigateToProfilePage() async {
     await _navigationService.navigateTo(Routes.profileViewRoute);
   }
