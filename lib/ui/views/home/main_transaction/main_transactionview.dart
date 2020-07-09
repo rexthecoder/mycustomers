@@ -622,10 +622,10 @@ class MainTransaction extends StatelessWidget {
 
   void itemAction(String item, BuildContext context) {
     if (item == 'SMS') {
-      Navigator.pushNamed(context, '/transactionHistory');
+      // Navigator.pushNamed(context, '/transactionHistory');
       //Code to send sms
     } else if (item == 'Call') {
-      Navigator.pushNamed(context, '/transactionDetails');
+      // Navigator.pushNamed(context, '/transactionDetails');
       //Code to call customer
     } else {
       //Code to Set Reminder
