@@ -89,25 +89,20 @@ Future<void> setupLocator(
   );
 
   // External
-    locator.registerLazySingleton<HiveInterface>(() => Hive);
+  locator.registerLazySingleton<HiveInterface>(() => Hive);
 
-    Directory appDocDir = test ? Directory.current : await getApplicationDocumentsDirectory();
-    //print(appDocDir.path);
-    Hive.initFlutter(appDocDir.path);
-    Hive.registerAdapter(BusinessCardAdapter());
-    Hive.registerAdapter(PasswordManagerAdapter());
-    Hive.registerAdapter(CustomerContactAdapter());
-    Hive.registerAdapter(TransactionAdapter());
+  Directory appDocDir = test ? Directory.current : await getApplicationDocumentsDirectory();
+  //print(appDocDir.path);
+  Hive.initFlutter(appDocDir.path);
+  Hive.registerAdapter(BusinessCardAdapter());
+  Hive.registerAdapter(PasswordManagerAdapter());
+  Hive.registerAdapter(CustomerContactAdapter());
+  Hive.registerAdapter(TransactionAdapter());
 
-
-  if(test){
-    await _setupSharedPreferences();
-  }
+  await _setupSharedPreferences();
 }
 
 Future<void> _setupSharedPreferences() async {
-  IStorageUtil _storage = await SharedStorageUtil.getInstance();
-  locator.registerLazySingleton<IStorageUtil>(
-    () => _storage,
-  );
+  final storage = await SharedStorageUtil.getInstance();
+  locator.registerLazySingleton<IStorageUtil>(() => storage);
 }

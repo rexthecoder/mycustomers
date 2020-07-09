@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
@@ -41,7 +42,9 @@ void main() {
    
     setupLogger(test: true);
 
+
     //DI && IC
+    SharedPreferences.setMockInitialValues({});
     await setupLocator(useMockContacts: true, test: true);
     
     //Mock

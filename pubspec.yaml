@@ -16,20 +16,38 @@ dependencies:
   flutter_svg: ^0.17.4
   pin_code_fields: ^3.1.2
   pdf: ^1.5.0
-  path_provider: ^1.6.5
+  path_provider: ^1.6.11
   flutter_full_pdf_viewer: ^1.0.6
   open_file: ^3.0.1
   intl: ^0.16.1
   sticky_headers: ^0.1.8+1
+
+  # For text fields with countries
   intl_phone_number_input: ^0.4.6+2
+
+  # for mock services
   mockito: ^4.1.1
+
+  # for network services
   http: ^0.12.1
   dio: ^3.0.9
+
+  # For logging in the app
   logger: ^0.9.1
+
+  # For linting
   pedantic: ^1.9.0
+
+  # To select images from gallery or camera
   image_picker: ^0.6.7+3
+
+  # providing paths for pdf downloads
   downloads_path_provider: ^0.1.0
+
+
   fluttertoast: ^5.0.1
+
+  # for encryption
   encrypt: ^4.0.2
 
   # Error reporting
@@ -81,6 +99,9 @@ dependencies:
 
   # Sharing Images And Files
   wc_flutter_share: ^0.2.2
+
+  # Persisting user settings
+  shared_preferences: ^0.5.8
 
   # SnackBar
   flushbar: ^1.10.4

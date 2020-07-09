@@ -8,6 +8,7 @@ ToastFuture showToastCustom(
     message,
     success: false,
     color,
+    BuildContext context,
     Duration duration: const Duration(seconds: 2)}) {
   assert(success != null || color != null);
   return showToastWidget(
@@ -18,6 +19,7 @@ ToastFuture showToastCustom(
       color: color,
     ),
     duration: duration,
+    context: context,
     animationDuration: Duration(milliseconds: 500),
     animationCurve: Curves.easeInOutBack,
     dismissOtherToast: true,
@@ -53,7 +55,7 @@ class ToastWidget extends StatelessWidget {
             this.message,
             style: TextStyle(
               color: textColor,
-              fontSize: SizeConfig.yMargin(context, 2),
+              fontSize: 16,
             ),
             softWrap: true,
           ),
