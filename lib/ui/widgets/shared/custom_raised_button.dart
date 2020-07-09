@@ -13,11 +13,11 @@ class CustomRaisedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 60),
+      constraints: BoxConstraints(maxHeight: 50),
       child: RaisedButton(
         onPressed: onPressed,
         color: Color(0xFF333CC1),
-        padding: EdgeInsets.symmetric(vertical: 16.0),
+        padding: EdgeInsets.symmetric(vertical: 15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),

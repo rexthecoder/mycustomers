@@ -105,7 +105,7 @@ class AddCustomerView extends StatelessWidget {
                             width: double.infinity,
                             child: FlatButton(
                               onPressed: () {
-                                _navigationService.navigateTo(Routes.addCustomerManually);
+                                _navigationService.navigateTo(Routes.addCustomerManuallyDebtor);
                               },
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),

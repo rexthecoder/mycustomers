@@ -85,7 +85,7 @@ class BusinessView extends StatelessWidget {
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 4)),
-          AuthButton(
+          CustomRaisedButton(
             btnColor: BrandColors.primary,
             txtColor: ThemeColors.background,
             btnText: 'Submit and Finish',

@@ -24,17 +24,23 @@ class TransactionService with ReactiveServiceMixin {
   }
   
   void getTransactions(int id) async{
+    print(id);
     final bbox = await box;
+    _transactions.value = [];
     for (var transaction in bbox.values.toList()) {
       if (transaction.cId == id){
         _transactions.value.add(transaction);
       }
     }
+    _transactions.value.sort((a,b) => a.date.compareTo(b.date));
+    formattedate = [];
     for(int i=0; i<transactions.length; i++) {
-      final dformat = new DateFormat('d MMM');
-      if(dformat.format(DateTime.parse(transactions[i].date)).toString() != date) {
-        date = dformat.format(DateTime.parse(transactions[i].date)).toString();
-        formattedate.add(date);
+      if(transactions[i].cId == id){
+        final dformat = new DateFormat('d MMM');
+        if(dformat.format(DateTime.parse(transactions[i].date)).toString() != date) {
+          date = dformat.format(DateTime.parse(transactions[i].date)).toString();
+          formattedate.add(date);
+        }
       }
     }
   }
@@ -42,13 +48,22 @@ class TransactionService with ReactiveServiceMixin {
   void addTransaction(TransactionModel transaction) async {
     final bbox = await box;
     await bbox.add(transaction);
-    _transactions.value = bbox.values.toList();
+    _transactions.value = [];
+    for (var transactionb in bbox.values.toList()) {
+      if (transactionb.cId == transaction.cId){
+        _transactions.value.add(transactionb);
+        print('here');
+      }
+    }
+    _transactions.value.sort((a,b) => a.date.compareTo(b.date));
     formattedate = [];
     for(int i=0; i<transactions.length; i++) {
-      final dformat = new DateFormat('d MMM');
-      if(dformat.format(DateTime.parse(transactions[i].date)).toString() != date) {
-        date = dformat.format(DateTime.parse(transactions[i].date)).toString();
-        formattedate.add(date);
+      if(transactions[i].cId == transaction.cId) {
+        final dformat = new DateFormat('d MMM');
+        if(dformat.format(DateTime.parse(transactions[i].date)).toString() != date) {
+          date = dformat.format(DateTime.parse(transactions[i].date)).toString();
+          formattedate.add(date);
+        }
       }
     }
     print('done');

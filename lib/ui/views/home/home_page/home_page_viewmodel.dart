@@ -27,12 +27,12 @@ class HomePageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
    Permissions _permission =  locator<Permissions>();
 
-  Future navigateToAddCustomer() async {
-    final bool isPermitted =
-        await _permission.getContactsPermission();
-    if (isPermitted) _navigationService.navigateTo(Routes.importCustomerViewRoute);
-    else _navigationService.navigateTo(Routes.addCustomerManually);
-  }
+  // Future navigateToAddCustomer() async {
+  //   final bool isPermitted =
+  //       await _permission.getContactsPermission();
+  //   if (isPermitted) _navigationService.navigateTo(Routes.importCustomerViewRoute);
+  //   else _navigationService.navigateTo(Routes.addCustomerManually);
+  // }
 
   TextEditingController debtorsController = TextEditingController();
   void searchDebtors(value){

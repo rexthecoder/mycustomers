@@ -53,6 +53,7 @@ void main() async {
         builder: (context) => App(),
       ),
     );
+
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -101,7 +102,7 @@ class App extends StatelessWidget {
     // Status bar
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+        statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
       ),
     );
@@ -118,7 +119,7 @@ class App extends StatelessWidget {
         ],
         theme: themes.primaryMaterialTheme,
         darkTheme: themes.darkMaterialTheme,
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         initialRoute: Routes.startupViewRoute,
         onGenerateRoute: Router().onGenerateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,

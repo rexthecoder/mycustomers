@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/models/customer.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AddNewCustomerViewModel extends BaseViewModel {
   String _title='Add Customer';
@@ -45,5 +48,12 @@ class AddNewCustomerViewModel extends BaseViewModel {
     _dropDownValue=value;
     notifyListeners();
   }
- 
+  NavigationService _navigationService = locator<NavigationService>();
+  returnCustomers() {
+    Customer _customer = Customer(name: name.text, phone: phoneNumber.text);
+    _navigationService.back(result: _customer);
+
+//    searchedCustomer.clear();
+
+  }
 }
