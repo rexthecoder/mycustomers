@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
@@ -40,7 +41,7 @@ class SettingsPage extends StatelessWidget {
                 centerTitle: true,
               ),
               body: Container(
-                padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(50)),
+                padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
                   children: <Widget>[
                     Expanded(
@@ -49,14 +50,14 @@ class SettingsPage extends StatelessWidget {
                             children: <Widget>[
                               cardTile(
                                   'Change Language',
-                                  'English',
+                                  model.langs[model.langIndex]['name'],
                                   //Todo: Set Functionality to Change when Language is Changed,
                                   model.navigateToLanguageSettings,
                                   context
                               ),
                               cardTile(
                                   'Change Currency',
-                                  'Naira(NGN)',
+                                  model.currs[model.currIndex]['name'],
                                   //Todo: Set Functionality to Change when Language is Changed
                                   model.navigateToCurrency,
                                   context
@@ -85,32 +86,7 @@ class SettingsPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: ScreenUtil().setWidth(20)),
-                      child: InkWell(
-                        onTap: () {
-                          //Todo: Save User Settings Functionality
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: ScreenUtil().setHeight(15)),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Color(0xFF333CC1),
-                          ),
-                          width: width,
-                          child: Center(
-                            child: Text(
-                              'Save',
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .headline6
-                                  .copyWith(fontSize: ScreenUtil().setSp(16),
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: CustomRaisedButton(label: 'Save', onPressed: (){})
                     )
                   ],
                 ),

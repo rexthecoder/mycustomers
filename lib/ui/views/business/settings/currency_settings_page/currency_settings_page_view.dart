@@ -1,137 +1,119 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
+import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'currency_settings_page_viewmodel.dart';
 
 class CurrencySettingsPageView extends StatelessWidget {
-  final List<String> imageList = [
-    'assets/icons/svg/naira.svg',
-    'assets/icons/svg/dollars.svg',
-    'assets/icons/svg/indian_rubies.svg',
-  ];
-
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, height: 1440, width: 720);
-    return ViewModelBuilder<CurrencySettingsPageViewModel>.reactive(
-      viewModelBuilder: () => CurrencySettingsPageViewModel(),
-      builder: (context, model, child) {
-        return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            title: Text(
-              'Currency',
-              style: TextStyle(
-                  fontSize: SizeConfig.textSize(context, 5),
-                  fontWeight: FontWeight.bold),
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    ScreenUtil.init(context, width: width, height: height);
+    return ViewModelBuilder<CurrencySettingPageViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          brightness: Brightness.light,
+          elevation: 0,
+          title: Text(
+            'Currency',
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.w900, color: Colors.black,),
+          ),
+          leading: InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(18), vertical: ScreenUtil().setHeight(10)),
+              child: SvgPicture.asset(
+                'assets/icons/backarrow.svg'
+              ),
             ),
           ),
           backgroundColor: Colors.white,
-          body: Column(
+          centerTitle: true,
+        ),
+        body: Container(
+          padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
+          child: Column(
             children: <Widget>[
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.yMargin(context, 2),
-                    horizontal: SizeConfig.xMargin(context, 5),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Select your language',
-                        style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 3.8),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.yMargin(context, 2),
-                      ),
-                      Expanded(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            var currency = model.currencies[index];
-                            var imageIcon = imageList[index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFFFFFFF),
-                                borderRadius: BorderRadius.circular(10),
-                                // TODO Add border on selected
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromARGB(15, 71, 126, 200),
-                                    offset: Offset(5, 5),
-                                    blurRadius: 5,
-                                  )
-                                ],
-                              ),
-                              child: ListTile(
-                                onTap: () {
-                                  // TODO Save Currency
-                                },
-                                leading: CircleAvatar(
-                                  // TODO change background on selected
-                                  backgroundColor: Color(0xFFD1D1D1),
-                                  minRadius: SizeConfig.xMargin(context, 5),
-                                  maxRadius: SizeConfig.xMargin(context, 6),
-                                  child: SvgPicture.asset(
-                                    imageIcon,
-                                    semanticsLabel: currency.currency,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                title: Text(
-                                  currency.currency,
-                                  style: TextStyle(
-                                    fontSize: SizeConfig.textSize(context, 4),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          itemCount: model.currencies.length,
-                          separatorBuilder: (BuildContext context, int index) {
-                            return SizedBox(
-                              height: SizeConfig.yMargin(context, 3),
-                            );
-                          },
-                        ),
-                      ),
-                      RaisedButton(
-                        onPressed: () {},
-                        color: Color(0xFF333CC1),
-                        padding: EdgeInsets.symmetric(
-                          vertical: SizeConfig.yMargin(context, 2.5),
-                          horizontal: SizeConfig.xMargin(context, 40),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.sp),
-                        ),
-                        child: Text(
-                          'Save',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(20), horizontal: ScreenUtil().setWidth(20)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(bottom: 15),
+                          child: Text(
+                            'Select your currency',
+                            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: SizeConfig.yMargin(context, 2.7), color: Colors.black),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 50.h,
-                      )
-                    ],
+                        for(var curr in model.currencies) currTile(context, curr['name'], curr['selected'], model, model.currencies.indexOf(curr)),
+                      ],
+                    ),
                   ),
                 ),
               ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20)),
+                child: CustomRaisedButton(
+                  label: 'Save',
+                  onPressed: (){
+                    model.saveCurrencyIndex();
+                    Navigator.pop(context);
+                    SavedDialog().showSavedDialog(context);
+                  }
+                )
+              )
             ],
           ),
-        );
-      },
+        ),
+      ),
+      viewModelBuilder: () => CurrencySettingPageViewModel()
+    );
+  }
+
+  
+
+  Container currTile(BuildContext context, String text, bool selected, CurrencySettingPageViewModel model, int index) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5.0),
+        border: Border.all(color: selected ? Color(0xFF333CC1) : Color(0xFFE8E8E8), width: 1.0)
+      ),
+      child: ListTile(
+        onTap: () {
+          model.selectCurrency(index);
+        },
+        leading: Container(
+          width: ScreenUtil().setWidth(55),
+          height: ScreenUtil().setHeight(55),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(55),
+            color: selected ? Color(0xFF219653) : Color(0xFFD1D1D1)
+          ),
+          child: Center(
+            child: SvgPicture.asset(
+              'assets/icons/$text.svg'
+            ),
+          ),
+        ),
+        title: Container(
+          margin: EdgeInsets.only(left: 30),
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: SizeConfig.yMargin(context, 2.6), color: Colors.black,)
+          ),
+        ),
+      )
     );
   }
 }

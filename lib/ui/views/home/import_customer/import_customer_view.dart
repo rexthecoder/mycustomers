@@ -3,6 +3,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/models/customer.dart';
@@ -10,143 +11,153 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'import_customer_viewmodel.dart';
 
 class ImportCustomerView extends StatelessWidget {
+  final String action;
+
+  const ImportCustomerView({Key key, this.action}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ImportCustomerViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              pinned: true,
-              titleSpacing: 15.w,
-              title: _SearchBar(model: model),
-              backgroundColor: ThemeColors.background,
-              elevation: 0,
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: model.popView,
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(
-                      color: ThemeColors.link,
+      builder: (context, model, child) => SafeArea(
+              child: Scaffold(
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                automaticallyImplyLeading: false,
+                pinned: true,
+                titleSpacing: 15.w,
+                title: _SearchBar(model: model),
+                backgroundColor: ThemeColors.background,
+                elevation: 0,
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: model.popView,
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                        fontSize: SizeConfig.yMargin(context, 2.5)
+                      ),
                     ),
+                    padding: EdgeInsets.all(2),
                   ),
-                  padding: EdgeInsets.all(2),
-                ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                stretchModes: [
-                  StretchMode.blurBackground,
                 ],
-                titlePadding: EdgeInsets.zero,
-                background: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.w),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: MyListTile(
-                        leading: CustomerCircleAvatar(
-                          child: Icon(
-                            Icons.person_add,
-                            color: ThemeColors.cta,
+                flexibleSpace: FlexibleSpaceBar(
+                  stretchModes: [
+                    StretchMode.blurBackground,
+                  ],
+                  titlePadding: EdgeInsets.zero,
+                  background: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.w),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: MyListTile(
+                          leading: CustomerCircleAvatar(
+                            child: Icon(
+                              Icons.person_add,
+                              color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                              size: SizeConfig.xMargin(context, 7),
+                            ),
+                            bgColor: ThemeColors.gray.shade500,
                           ),
-                          bgColor: ThemeColors.gray.shade500,
-                        ),
-                        title: InkWell(
-                          onTap: model.goToManual,
-                          child: Text(
-                            'Add New Customer',
-                            style: TextStyle(
-                              color: ThemeColors.cta,
+                          title: InkWell(
+                            onTap: () => model.goToManual(action),
+                            child: Text(
+                              'Add New Customer',
+                              style: TextStyle(
+                                color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                                fontSize: SizeConfig.yMargin(context, 2.5)
+                              ),
                             ),
                           ),
-                        ),
-                        trailing: IconButton(
-                          onPressed: model.goToManual,
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20.sp,
-                            color: ThemeColors.cta,
+                          trailing: IconButton(
+                            onPressed: () => model.goToManual(action),
+                            icon: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20.sp,
+                              color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 0),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 0),
                         ),
                       ),
                     ),
                   ),
-                ),
 //                  preferredSize: Size.fromHeight(110),
+                ),
+                bottom: PreferredSize(
+                    child: Container(), preferredSize: Size.fromHeight(10)),
+                expandedHeight: 150,
               ),
-              bottom: PreferredSize(
-                  child: Container(), preferredSize: Size.fromHeight(10)),
-              expandedHeight: 150,
-            ),
-            SliverPersistentHeader(
-              delegate: TitleHeader(40),
-              pinned: true,
-            ),
-            model.isLoadBusy /* || !model.dataReady*/
-                ? SliverToBoxAdapter(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : SliverPadding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.w),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          Customer customer = model.data[index];
-                          return MyListTile(
-                            leading: CustomerCircleAvatar(customer: customer),
-                            title: Text(
-                              '${customer.displayName}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            subtitle: Text(
-                              '${customer.phone.isNotEmpty ? customer.phone : 'No number'}',
-                              style: TextStyle(
-                                color: ThemeColors.gray.shade600,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: SizedBox(
-                              width: SizeConfig.xMargin(context, 18),
-                              height: SizeConfig.xMargin(context, 9),
-                              child: FlatButton.icon(
-                                icon: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: SizeConfig.textSize(context, 3),
+              SliverPersistentHeader(
+                delegate: TitleHeader(40, action),
+                pinned: true,
+              ),
+              model.isLoadBusy /* || !model.dataReady*/
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: LoadingAnimation(),
+                      ),
+                    )
+                  : SliverPadding(
+                      padding: EdgeInsets.symmetric(horizontal: 30.w),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            Customer customer = model.data[index];
+                            return MyListTile(
+                              leading: Center(child: CustomerCircleAvatar(customer: customer, action: action,)),
+                              title: Text(
+                                '${customer.displayName}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: SizeConfig.yMargin(context, 2.3)
                                 ),
-                                onPressed: () {
-                                  // TODO: Change function to route to Transaction screen with a customer object
-                                },
-                                label: Text(
-                                  'ADD',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: SizeConfig.textSize(context, 3),
+                              ),
+                              subtitle: Text(
+                                '${customer.phone.isNotEmpty ? customer.phone : 'No number'}',
+                                style: TextStyle(
+                                  color: ThemeColors.gray.shade600,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: SizeConfig.yMargin(context, 2.3)
+                                ),
+                              ),
+                              trailing: SizedBox(
+                                width: SizeConfig.xMargin(context, 18),
+                                height: SizeConfig.xMargin(context, 9),
+                                child: FlatButton.icon(
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: SizeConfig.yMargin(context, 1.6),
+                                  ),
+                                  onPressed: () {
+                                    model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number');
+                                  },
+                                  label: Text(
+                                    'ADD',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: SizeConfig.yMargin(context, 1.6),
+                                    ),
+                                  ),
+                                  textColor: Colors.white,
+                                  color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4),
                                   ),
                                 ),
-                                textColor: Colors.white,
-                                color: BrandColors.primary,
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
                               ),
-                            ),
-                          );
-                        },
-                        childCount: model.data.length,
+                            );
+                          },
+                          childCount: model.data.length,
+                        ),
                       ),
                     ),
-                  ),
-          ],
+            ],
+          ),
         ),
       ),
       viewModelBuilder: () => ImportCustomerViewModel(),
@@ -159,8 +170,9 @@ class ImportCustomerView extends StatelessWidget {
 
 class TitleHeader extends SliverPersistentHeaderDelegate {
   final double height;
+  final String action;
 
-  TitleHeader(this.height);
+  TitleHeader(this.height, this.action);
 
   @override
   Widget build(
@@ -183,10 +195,11 @@ class TitleHeader extends SliverPersistentHeaderDelegate {
       ),
       child: Text(
         // This is just the text formatting for singular and plural
-        'Add Debtor from Contacts',
+        action == 'debtors' ? 'Add Debtor from Contacts' : 'Add Creditor from Contacts',
         style: TextStyle(
           color: ThemeColors.black,
           fontWeight: FontWeight.bold,
+          fontSize: SizeConfig.yMargin(context, 2.3)
         ),
       ),
     );

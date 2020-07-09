@@ -1,6 +1,8 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/services/permissions.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -43,6 +45,13 @@ class MarketingHomePageViewModel extends BaseViewModel {
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
 
   List<Customer> _allSelectedCustomers = [];
+  List<Customer> get searchedCustomer => allCustomers.where(
+        (Customer customer) =>
+    customer.name.contains(searchPattern) ||
+        customer.lastName.contains(searchPattern) ||
+        customer.phone.contains(searchPattern)||
+        customer.email.contains(searchPattern),
+  ).toList();
   List<Customer> get allSelectedCustomers => _allSelectedCustomers.where(
         (Customer customer) =>
             customer.name.contains(searchPattern) ||
@@ -86,6 +95,9 @@ class MarketingHomePageViewModel extends BaseViewModel {
     _selectedCustomers = [];
     notifyListeners();
   }
+//  void updateCustomers() async{
+//    fianl customerList = await _navigationService
+//  }
 
    Permissions _permission =  locator<Permissions>();
 
@@ -93,15 +105,22 @@ class MarketingHomePageViewModel extends BaseViewModel {
     var contactList;
     final bool isPermitted =
         await _permission.getContactsPermission();
-    if (isPermitted) contactList= await _navigationService.navigateTo(Routes.addCustomerMarketing);
-    else _permission.getContactsPermission();
-    if(contactList.length !=0){
-      allCustomers=contactList;
-      notifyListeners();
-    }
+    if (isPermitted) contactList= await _navigationService
+        .navigateTo(Routes.addCustomerMarketing);
+    else await [Permission.contacts].request();
+    allCustomers
+     = await contactList.length != 0?contactList:allCustomers;
+//    await contactList;
+//    if(!contactList==null){allCustomers =  contactList;}
+    notifyListeners();
+    // print(contactList);
   }
 
 
+  void sendMessage(){
+    _navigationService
+        .navigateTo(Routes.sendMessageViewRoute);
+  }
 
   /// View initialize and close section
 

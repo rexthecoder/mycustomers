@@ -61,7 +61,7 @@ class SharedStorageUtil implements IStorageUtil {
 
   @override
   String getString(String key, {def}) {
-    return _preferences.getString(key) ?? def;
+    return _preferences != null ? _preferences.getString(key) : def;
   }
 
   @override

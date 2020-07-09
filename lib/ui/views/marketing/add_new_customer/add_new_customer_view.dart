@@ -18,6 +18,9 @@ class AddNewCustomerView extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: ThemeColors.background,
           centerTitle: true,
+          leading: IconButton(
+            onPressed: ()=> Navigator.of(context).pop(),
+              icon: Icon(Icons.arrow_back)),
           elevation: 1,
           title: Text(
             model.title,
@@ -60,6 +63,7 @@ class AddNewCustomerView extends StatelessWidget {
                          OutlineInputBorder(borderSide: BorderSide.none),
                    ),
                    controller: model.name,
+
                  ),
                ),
              )),
@@ -104,9 +108,11 @@ class AddNewCustomerView extends StatelessWidget {
                         ),
                         Expanded(
                           child: TextField(
+                            keyboardType: TextInputType.numberWithOptions(),
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                               hintText: 'Mobile Number',
+
                               border: OutlineInputBorder(borderSide: BorderSide.none),
                             ),
                             controller: model.phoneNumber,
@@ -120,7 +126,7 @@ class AddNewCustomerView extends StatelessWidget {
                    width: double.infinity,
                    child: FlatButton(
                      color: BrandColors.primary,
-                     onPressed: () {},
+                     onPressed: () =>model.returnCustomers(),
                      shape: RoundedRectangleBorder(
                        borderRadius: BorderRadius.circular(5),
                      ),
