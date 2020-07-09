@@ -23,21 +23,19 @@ class MainMenu extends HookViewModelWidget<MainViewModel>  {
         onHorizontalDragEnd: (DragEndDetails details) {
           //  TODO ... MOVEMENT ANIMATION
         },
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: ThemeColors.black.withOpacity(0.7),
-            body: Container(
-              width: SizeConfig.xMargin(context, 80),
-              color: ThemeColors.background,
-              child: Row(
-                children: <Widget>[
-                  BusinessMenu(),
-                  MenuOptions(),
-                ],
-              ),
+        child: Scaffold(
+          backgroundColor: ThemeColors.black.withOpacity(0.7),
+          body: Container(
+            width: SizeConfig.xMargin(context, 80),
+            color: ThemeColors.background,
+            child: Row(
+              children: <Widget>[
+                BusinessMenu(),
+                MenuOptions(),
+              ],
             ),
           ),
-        ),
+        )
       ),
     );
   }

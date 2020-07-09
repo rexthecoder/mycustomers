@@ -46,20 +46,12 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value:SystemUiOverlayStyle(
-        statusBarColor: BrandColors.primary,
-        statusBarIconBrightness: Brightness.light,
-      ),
-              child: SafeArea(
-                child: Scaffold(
-            body: Stack(
-              children: <Widget>[
-                mainView(context, model),
-                MainMenu(),
-              ],
-            ),
-          ),
+      builder: (context, model, child) => Scaffold(
+        body: Stack(
+          children: <Widget>[
+            mainView(context, model),
+            MainMenu(),
+          ],
         ),
       ),
     );
