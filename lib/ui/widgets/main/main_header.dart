@@ -27,9 +27,11 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
           ),
           Padding(
             padding: EdgeInsets.only(
-                left: SizeConfig.xMargin(context, 3),
-                right: SizeConfig.xMargin(context, 3),
-                top: SizeConfig.yMargin(context, 5)),
+              left: SizeConfig.xMargin(context, 3),
+              right: SizeConfig.xMargin(context, 3),
+              top: SizeConfig.yMargin(context, 4),
+              bottom: SizeConfig.yMargin(context, 2),
+            ),
             child: headerBar(context, model),
           ),
         ],
