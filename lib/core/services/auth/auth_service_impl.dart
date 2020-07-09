@@ -148,4 +148,16 @@ class AuthServiceImpl implements AuthService {
 
     return _currentUser != null;
   }
+
+  @override
+  Future<void> signInWithGoogle() {
+    // TODO: implement signInWithGoogle
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> signUpWithGoogle() {
+    // TODO: implement signUpWithGoogle
+    throw UnimplementedError();
+  }
 }

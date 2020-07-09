@@ -139,13 +139,6 @@ class _ReleaseLoggerClient implements _LoggerClient {
     StackTrace s,
   }) {
     switch (level) {
-      case LogLevel.debug:
-        if (e != null) {
-          sentryClient.captureException(exception: e, stackTrace: s);
-        } else {
-          sentryClient.capture(event: Event(message: message, level: SeverityLevel.debug));
-        }
-        break;
       case LogLevel.warning:
         if (e != null) {
           sentryClient.captureException(exception: e, stackTrace: s);
