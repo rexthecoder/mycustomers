@@ -23,6 +23,9 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
        _passwordManagerService.deleteSetPin();
        showAlertDilaog(context);
     }
+    else if(check < 0 || check > 0){
+      _passwordManagerService.showUnmatchedPinErrorMessage();
+    }
     else{
       _passwordManagerService.showRemoveErrorMessage();
     }

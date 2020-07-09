@@ -46,7 +46,7 @@ class AppLockSettingsPageView extends StatelessWidget {
                             onTap: () => model.navigateToChangePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title: Text(
-                              'Change App lock Pin',
+                              'Set App lock Pin',
                               style: TextStyle(
                                 fontSize: SizeConfig.textSize(context, 4),
                                 fontWeight: FontWeight.w600,

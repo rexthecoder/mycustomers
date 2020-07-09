@@ -70,6 +70,20 @@ class PasswordManagerService{
       );
   }
 
+  void showUnmatchedPinErrorMessage(){
+    FlutterToast.showToast(
+      msg: 'Pins don\'t match! Try again.',
+      toastLength: Toast.LENGTH_SHORT,
+      backgroundColor: BrandColors.secondary,
+      textColor: ThemeColors.background,
+      gravity: ToastGravity.CENTER
+      );
+  }
+
+
+
+
+
    String encryptPassword(String value){
 
     return encrypter.encrypt(value, iv: iv).base64;

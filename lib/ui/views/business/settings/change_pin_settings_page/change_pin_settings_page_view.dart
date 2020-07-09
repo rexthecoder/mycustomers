@@ -51,12 +51,13 @@ class ChangePinSettingsPageView extends StatelessWidget {
                 child: SvgPicture.asset(
                   myCustomerLogo,
                   color: Theme.of(context).appBarTheme.color,
-                  height: SizeConfig.yMargin(context, 25),
+                  height: SizeConfig.yMargin(context, 18),
                 ),
               ),
             ),
           ),
           backgroundColor: BrandColors.primary,
+          
           body: LazyIndexedStack(
             reuse: true,
             index: model.index,

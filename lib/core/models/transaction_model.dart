@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'transaction_model.g.dart';
 
-@HiveType(typeId: 3, adapterName: 'TransactionAdapter')
+@HiveType(typeId: 4, adapterName: 'TransactionAdapter')
 class TransactionModel{
 
   @HiveField(0)

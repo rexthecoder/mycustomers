@@ -14,6 +14,8 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
   int _index = 0;
 
   int get index => _index;
+  bool _isSetPin;
+  bool get isSetPin =>_isPinSet(_isSetPin);
 
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -28,22 +30,30 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
     changeTab(1);
   }
 
-  void onConfirmPinCompleted (String value){
+  void onConfirmPinCompleted(String value){
     int confirmPin = int.parse(value);
     int check = _pin.compareTo(confirmPin);
     String newValue = confirmPin.toString();
     if (check == 0) {
       _passwordManagerService.saveSetPin(newValue);
+      _isPinSet(false);
       _passwordManagerService.showPinSetConfirmationMessage();
       _navigationService.popRepeated(1);
     } 
+    else if (check < 0 || check > 0){
+          _passwordManagerService.showUnmatchedPinErrorMessage();
+    }
     else {
       _passwordManagerService.showErrorMessage();
     }
   }
 
  
-
+bool _isPinSet( bool value){
+ _isSetPin=!value;
+ notifyListeners();
+ return _isSetPin;
+}
 
 
 }
