@@ -12,6 +12,7 @@ import 'package:mycustomers/ui/views/business/business_home_page/business_homepa
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
+import 'package:mycustomers/ui/widgets/animation/slide_menu.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -45,20 +46,12 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
-        value:SystemUiOverlayStyle(
-        statusBarColor: BrandColors.primary,
-        statusBarIconBrightness: Brightness.light,
-      ),
-              child: SafeArea(
-                child: Scaffold(
-            body: Stack(
-              children: <Widget>[
-                mainView(context, model),
-                MainMenu(),
-              ],
-            ),
-          ),
+      builder: (context, model, child) => Scaffold(
+        body: Stack(
+          children: <Widget>[
+            mainView(context, model),
+            MainMenu(),
+          ],
         ),
       ),
     );
@@ -141,5 +134,3 @@ class MainView extends StatelessWidget {
     );
   }
 }
-
-
