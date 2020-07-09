@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
@@ -27,57 +28,53 @@ class DebtorsView extends StatelessWidget {
 
               Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0,right: 20, left: 20),
-//                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: Container(
-                            height: 150.h,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                color: Color(0xFF333CC1),
-                                image: DecorationImage(
-                                  image: ExactAssetImage('assets/images/Mask Group.png',
-                                  ),
-                                  fit: BoxFit.fill
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              color: Color(0xFF333CC1),
+                              image: DecorationImage(
+                                image: ExactAssetImage('assets/images/Mask Group.png',
                                 ),
-                                borderRadius: BorderRadius.circular(5)
-                            ),
+                                fit: BoxFit.fill
+                              ),
+                              borderRadius: BorderRadius.circular(5)
+                          ),
 
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Text('Customers are owing you', style: TextStyle(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text('Customers are owing you', style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14.sp
+                              ),),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'NGN 0.', style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 14.sp
-                                ),),
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'NGN 0.', style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36.sp,
-                                      fontWeight: FontWeight.bold),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: '00.', style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.bold
-                                      ),
-                                      )
-                                    ]
-                                  ),
-
+                                    fontSize: 36.sp,
+                                    fontWeight: FontWeight.bold),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: '00.', style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                    )
+                                  ]
                                 ),
-                              ],
-                            ),
+
+                              ),
+                            ],
                           ),
                         ),
                         ///Code for list commented out
@@ -251,8 +248,8 @@ class DebtorsView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: InkWell(
-                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
-//                onTap: ()=> Navigator.pushNamed(context, '/importcustomer'),
+//                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
+                onTap: ()=> Navigator.pushNamed(context, '/importcustomerdebtor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,

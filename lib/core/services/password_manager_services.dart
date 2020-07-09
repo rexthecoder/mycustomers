@@ -12,20 +12,23 @@ class PasswordManagerService{
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
     static final keyStore = _randomValue();
+    bool _isPinSet=false;
+    bool get isPinSet => _isPinSet;
 
 
   Future<void>saveSetPin(String password) async{
     final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
     final encryptedPassword = encryptPassword(password);
-    passwordManagerBox.put(keyStore,encryptedPassword);
-    final pass = passwordManagerBox.get(keyStore);
-    print(pass);
-
-
-  }
+   await passwordManagerBox.put(keyStore,encryptedPassword);
+    // setPin(isPinSet);
+ }
+   
+   void setPin(bool value){
+     _isPinSet= value;
+   }
 
    // a function to genrate random keys for the pin entered by users
- static String _randomValue() {
+  static String _randomValue() {
     final rand = Random();
     final codeUnits = List.generate(20, (index) {
       return rand.nextInt(26) + 65;
@@ -106,6 +109,7 @@ class PasswordManagerService{
 
 Future<void> deleteSetPin() async{
    final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
-   passwordManagerBox.delete(keyStore);
+   await passwordManagerBox.delete(keyStore);
+  //  setPin(isSetPin);
 }
 }

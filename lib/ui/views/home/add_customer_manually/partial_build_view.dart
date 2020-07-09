@@ -29,7 +29,7 @@ class PartialBuildsView extends StatelessWidget {
               color: BrandColors.secondary,
               onPressed: () {
                 print('here');
-                model.addContact();
+                //model.addContact();
                 //Navigator.pushNamed(context, '/mainTransaction');
               },
               shape: RoundedRectangleBorder(

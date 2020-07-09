@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
@@ -20,52 +21,53 @@ class CreditorsView extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0,right: 20, left: 20),
-//                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                        child: Container(
-                          height: 150.h,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              color: BrandColors.secondary,
-                              borderRadius: BorderRadius.circular(5)
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: BrandColors.secondary,
+                          image: DecorationImage(
+                            image: ExactAssetImage('assets/images/orange_banner.png',
+                            ),
+                            fit: BoxFit.fill
                           ),
+                          borderRadius: BorderRadius.circular(5)
+                        ),
 
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('You are owing customers', style: TextStyle(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('You are owing customers', style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.sp
+                            ),),
+                            RichText(
+                              text: TextSpan(
+                                  text: 'NGN 0.', style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14.sp
-                              ),),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'NGN 0.', style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 36.sp,
-                                    fontWeight: FontWeight.bold),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: '00.', style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.bold
-                                      ),
-                                      )
-                                    ]
-                                ),
-
+                                  fontSize: 36.sp,
+                                  fontWeight: FontWeight.bold),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: '00.', style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                    )
+                                  ]
                               ),
 
-                            ],
-                          ),
+                            ),
+
+                          ],
                         ),
                       ),
 //                      Text('Current Creditors', style: TextStyle(
@@ -170,12 +172,12 @@ class CreditorsView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: InkWell(
-                onTap: ()=> Navigator.pushNamed(context, '/importcustomer'),
+                onTap: ()=> Navigator.pushNamed(context, '/importcustomercreditor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      color: BrandColors.primary,
+                      color: BrandColors.secondary,
                       borderRadius: BorderRadius.circular(5)
                   ),
 

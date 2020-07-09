@@ -36,7 +36,7 @@ class SharedStorageUtil implements IStorageUtil {
   static Future<SharedStorageUtil> getInstance() async {
     if (_storage == null) {
       SharedStorageUtil placeHolder = SharedStorageUtil._();
-      placeHolder.init();
+      await placeHolder.init();
       _storage = placeHolder;
     }
 
@@ -61,7 +61,7 @@ class SharedStorageUtil implements IStorageUtil {
 
   @override
   String getString(String key, {def}) {
-    return _preferences.getString(key) ?? def;
+    return _preferences != null ? _preferences.getString(key) : def;
   }
 
   @override

@@ -7,6 +7,9 @@ import 'package:stacked_hooks/stacked_hooks.dart';
 import 'add_customer_manually_viewmodel.dart';
 
 class AddCustomerManuallyView extends StatelessWidget {
+  final String action;
+
+  const AddCustomerManuallyView({Key key, this.action}) : super(key: key);
   @override
   Widget build(BuildContext context) {
   
@@ -20,7 +23,7 @@ class AddCustomerManuallyView extends StatelessWidget {
           title: Text(
             model.title,
             style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 18,
               color: ThemeColors.black,
             ),
           ),
@@ -28,35 +31,34 @@ class AddCustomerManuallyView extends StatelessWidget {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(20.w),
+            padding: EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   model.subTitle,
-                  style: TextStyle(fontSize: 18.sp, color: ThemeColors.black),
+                  style: TextStyle(fontSize: 18, color: ThemeColors.black),
                 ),
                 SizedBox(height: 16.0),
-                _StringForm(),
+                _StringForm(action: action,),
                 Spacer(),
                 Container(
                   width: double.infinity,
                   child: FlatButton(
-                    color: BrandColors.secondary,
+                    color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                     onPressed: () {
-                      print('here');
                       model.addContact();
                       //Navigator.pushNamed(context, '/mainTransaction');
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    padding: EdgeInsets.symmetric(vertical: 16),
                     child: Text(
                       'Next',
                       style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
@@ -73,7 +75,8 @@ class AddCustomerManuallyView extends StatelessWidget {
 }
 
 class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
-  _StringForm({Key key}) : super(key: key, reactive: true);
+  final String action;
+  _StringForm({Key key, this.action}) : super(key: key, reactive: true);
 
   @override
   Widget buildViewModelWidget(
@@ -96,7 +99,10 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.person),
+                  child: Icon(
+                    Icons.person,
+                    color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                  ),
                 ),
                 Container(
                   height: 24.0,

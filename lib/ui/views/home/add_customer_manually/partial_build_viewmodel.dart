@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:mycustomers/core/models/customer_contact.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
@@ -55,21 +55,21 @@ class PartialBuildsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void addContact()async {
-    print(customerPhoneNumber);
-    if(customerName != null && customerPhoneNumber != null) {
-      print('sent');
-      var box = await Hive.openBox<CustomerContact>(_boxname);
-      CustomerContact contact = new CustomerContact(name: customerName, number: dropDownValue + customerPhoneNumber);
-      await box.add(contact).then((value){
-        success = true;
-        print(success);
-        _navigationService.navigateTo(Routes.mainTransaction);
-      }).catchError((err){
-        error = err;
-        success = false;
-      });
-      print(box.values.toList());
-    }
-  }
+  // void addContact()async {
+  //   print(customerPhoneNumber);
+  //   if(customerName != null && customerPhoneNumber != null) {
+  //     print('sent');
+  //     var box = await Hive.openBox<CustomerContact>(_boxname);
+  //     CustomerContact contact = new CustomerContact(name: customerName, number: dropDownValue + customerPhoneNumber);
+  //     await box.add(contact).then((value){
+  //       success = true;
+  //       print(success);
+  //       _navigationService.navigateTo(Routes.mainTransaction);
+  //     }).catchError((err){
+  //       error = err;
+  //       success = false;
+  //     });
+  //     print(box.values.toList());
+  //   }
+  // }
 }

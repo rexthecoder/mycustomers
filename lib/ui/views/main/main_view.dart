@@ -44,14 +44,12 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      builder: (context, model, child) => SafeArea(
-        child: Scaffold(
-          body: Stack(
-            children: <Widget>[
-              mainView(context, model),
-              MainMenu(),
-            ],
-          ),
+      builder: (context, model, child) => Scaffold(
+        body: Stack(
+          children: <Widget>[
+            mainView(context, model),
+            MainMenu(),
+          ],
         ),
       ),
     );

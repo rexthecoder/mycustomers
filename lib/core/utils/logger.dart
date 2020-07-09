@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart' as debug_logger;
+import 'package:sentry/sentry.dart';
 import '../utils/simple_log_printer.dart'    as debug_logger_util;
  
 import 'package:mockito/mockito.dart';
 
 /// Run this before starting app
-void setupLogger({bool test = false}) {
+void setupLogger({bool test = false, SentryClient sentryClient}) {
   if (test) {
     Logger.useClient(_MockClient());
   } else if (!kReleaseMode) {
@@ -14,6 +15,8 @@ void setupLogger({bool test = false}) {
     Logger.useClient(_DebugLoggerClient());
   } else {
     // Pass all uncaught errors from the framework to something like Crashlytics.
+    debug_logger.Logger.level = debug_logger.Level.warning;
+    Logger.useClient(_ReleaseLoggerClient(sentryClient));
   }
 }
 
@@ -121,3 +124,43 @@ class _DebugLoggerClient implements _LoggerClient {
     }
   }
 }
+
+/// Release logger that sends to sentry
+class _ReleaseLoggerClient implements _LoggerClient {
+  final SentryClient sentryClient;
+
+  _ReleaseLoggerClient(this.sentryClient);
+
+  @override
+  void log({
+    LogLevel level,
+    String message,
+    dynamic e,
+    StackTrace s,
+  }) {
+    switch (level) {
+      case LogLevel.debug:
+        if (e != null) {
+          sentryClient.captureException(exception: e, stackTrace: s);
+        } else {
+          sentryClient.capture(event: Event(message: message, level: SeverityLevel.debug));
+        }
+        break;
+      case LogLevel.warning:
+        if (e != null) {
+          sentryClient.captureException(exception: e, stackTrace: s);
+        } else {
+          sentryClient.capture(event: Event(message: message, level: SeverityLevel.warning));
+        }
+        break;
+      case LogLevel.error:
+        if (e != null) {
+          sentryClient.captureException(exception: e, stackTrace: s);
+        } else {
+          sentryClient.capture(event: Event(message: message, level: SeverityLevel.error));
+        }
+        break;
+    }
+  }
+}
+

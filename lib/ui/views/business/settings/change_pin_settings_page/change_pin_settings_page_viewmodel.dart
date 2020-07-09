@@ -1,5 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/hive/password_manager/password_manager/password_manager_model_h.dart';
+import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -12,10 +12,9 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
    String password = passManager.userPassword;
   int _pin = 0;
   int _index = 0;
+  
 
   int get index => _index;
-  bool _isSetPin;
-  bool get isSetPin =>_isPinSet(_isSetPin);
 
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -30,13 +29,13 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
     changeTab(1);
   }
 
-  void onConfirmPinCompleted(String value){
+  void onConfirmPinCompleted(String value) async{
     int confirmPin = int.parse(value);
     int check = _pin.compareTo(confirmPin);
     String newValue = confirmPin.toString();
     if (check == 0) {
-      _passwordManagerService.saveSetPin(newValue);
-      _isPinSet(false);
+    await  _passwordManagerService.saveSetPin(newValue);
+      setPin(true);
       _passwordManagerService.showPinSetConfirmationMessage();
       _navigationService.popRepeated(1);
     } 
@@ -48,13 +47,11 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
     }
   }
 
+void setPin(bool value){
+    _passwordManagerService.setPin(value);
+     notifyListeners();
+   }
+
  
-bool _isPinSet( bool value){
- _isSetPin=!value;
- notifyListeners();
- return _isSetPin;
-}
-
-
 }
 
