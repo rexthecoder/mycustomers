@@ -10,6 +10,9 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'import_customer_viewmodel.dart';
 
 class ImportCustomerView extends StatelessWidget {
+  final String action;
+
+  const ImportCustomerView({Key key, this.action}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ImportCustomerViewModel>.reactive(
@@ -29,7 +32,8 @@ class ImportCustomerView extends StatelessWidget {
                   child: Text(
                     'Cancel',
                     style: TextStyle(
-                      color: ThemeColors.link,
+                      color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                      fontSize: SizeConfig.yMargin(context, 2.5)
                     ),
                   ),
                   padding: EdgeInsets.all(2),
@@ -50,25 +54,27 @@ class ImportCustomerView extends StatelessWidget {
                         leading: CustomerCircleAvatar(
                           child: Icon(
                             Icons.person_add,
-                            color: ThemeColors.cta,
+                            color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                            size: SizeConfig.xMargin(context, 7),
                           ),
                           bgColor: ThemeColors.gray.shade500,
                         ),
                         title: InkWell(
-                          onTap: model.goToManual,
+                          onTap: () => model.goToManual(action),
                           child: Text(
                             'Add New Customer',
                             style: TextStyle(
-                              color: ThemeColors.cta,
+                              color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                              fontSize: SizeConfig.yMargin(context, 2.5)
                             ),
                           ),
                         ),
                         trailing: IconButton(
-                          onPressed: model.goToManual,
+                          onPressed: () => model.goToManual(action),
                           icon: Icon(
                             Icons.arrow_forward_ios,
                             size: 20.sp,
-                            color: ThemeColors.cta,
+                            color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                           ),
                           padding: EdgeInsets.symmetric(horizontal: 0),
                         ),
@@ -83,7 +89,7 @@ class ImportCustomerView extends StatelessWidget {
               expandedHeight: 150,
             ),
             SliverPersistentHeader(
-              delegate: TitleHeader(40),
+              delegate: TitleHeader(40, action),
               pinned: true,
             ),
             model.isLoadBusy /* || !model.dataReady*/
@@ -99,11 +105,12 @@ class ImportCustomerView extends StatelessWidget {
                         (BuildContext context, int index) {
                           Customer customer = model.data[index];
                           return MyListTile(
-                            leading: CustomerCircleAvatar(customer: customer),
+                            leading: Center(child: CustomerCircleAvatar(customer: customer, action: action,)),
                             title: Text(
                               '${customer.displayName}',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
+                                fontSize: SizeConfig.yMargin(context, 2.3)
                               ),
                             ),
                             subtitle: Text(
@@ -111,6 +118,7 @@ class ImportCustomerView extends StatelessWidget {
                               style: TextStyle(
                                 color: ThemeColors.gray.shade600,
                                 fontWeight: FontWeight.w600,
+                                fontSize: SizeConfig.yMargin(context, 2.3)
                               ),
                             ),
                             trailing: SizedBox(
@@ -120,7 +128,7 @@ class ImportCustomerView extends StatelessWidget {
                                 icon: Icon(
                                   Icons.add,
                                   color: Colors.white,
-                                  size: SizeConfig.textSize(context, 3),
+                                  size: SizeConfig.yMargin(context, 1.6),
                                 ),
                                 onPressed: () {
                                   // TODO: Change function to route to Transaction screen with a customer object
@@ -129,11 +137,11 @@ class ImportCustomerView extends StatelessWidget {
                                   'ADD',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: SizeConfig.textSize(context, 3),
+                                    fontSize: SizeConfig.yMargin(context, 1.6),
                                   ),
                                 ),
                                 textColor: Colors.white,
-                                color: BrandColors.primary,
+                                color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                                 padding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4),
@@ -159,8 +167,9 @@ class ImportCustomerView extends StatelessWidget {
 
 class TitleHeader extends SliverPersistentHeaderDelegate {
   final double height;
+  final String action;
 
-  TitleHeader(this.height);
+  TitleHeader(this.height, this.action);
 
   @override
   Widget build(
@@ -183,10 +192,11 @@ class TitleHeader extends SliverPersistentHeaderDelegate {
       ),
       child: Text(
         // This is just the text formatting for singular and plural
-        'Add Debtor from Contacts',
+        action == 'debtors' ? 'Add Debtor from Contacts' : 'Add Creditor from Contacts',
         style: TextStyle(
           color: ThemeColors.black,
           fontWeight: FontWeight.bold,
+          fontSize: SizeConfig.yMargin(context, 2.3)
         ),
       ),
     );

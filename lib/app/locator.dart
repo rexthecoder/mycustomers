@@ -10,6 +10,7 @@ import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
@@ -78,24 +79,28 @@ Future<void> setupLocator(
   locator.registerLazySingleton<PasswordManagerService>(
     () => PasswordManagerService(),
   );
+  locator.registerLazySingleton<BussinessSettingService>(
+    () => BussinessSettingService(),
+  );
 
   // Util
   locator.registerLazySingleton<Permissions>(
     () => useMockContacts ? MockPermissions() : Permissions(),
   );
 
-
-  if(!test){
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-
-    // External
+  // External
     locator.registerLazySingleton<HiveInterface>(() => Hive);
 
+    Directory appDocDir = test ? Directory.current : await getApplicationDocumentsDirectory();
+    //print(appDocDir.path);
     Hive.initFlutter(appDocDir.path);
     Hive.registerAdapter(BusinessCardAdapter());
     Hive.registerAdapter(PasswordManagerAdapter());
     Hive.registerAdapter(CustomerContactAdapter());
     Hive.registerAdapter(TransactionAdapter());
+
+
+  if(test){
     await _setupSharedPreferences();
   }
 }

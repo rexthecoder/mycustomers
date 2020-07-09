@@ -37,7 +37,7 @@ void main() {
   testWidgets('App should work', (tester) async {
 
     TestWidgetsFlutterBinding.ensureInitialized();
-    initialiseHive();
+    //initialiseHive();
    
     setupLogger(test: true);
 

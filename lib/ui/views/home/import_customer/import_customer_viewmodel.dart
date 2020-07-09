@@ -50,8 +50,8 @@ class ImportCustomerViewModel extends StreamViewModel {
     _navigationService.back();
   }
 
-  goToManual() {
-    _navigationService.navigateTo(Routes.addCustomerManually);
+  goToManual(String action) {
+    _navigationService.navigateTo(action == 'debtor' ? Routes.addCustomerManuallyDebtor : Routes.addCustomerManuallyCreditor);
   }
 
 
