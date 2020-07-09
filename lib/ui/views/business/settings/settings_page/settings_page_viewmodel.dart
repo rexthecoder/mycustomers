@@ -2,8 +2,9 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 
-class SettingsPageViewModel extends BaseViewModel{
+class SettingsPageViewModel extends ReactiveViewModel{
   bool _notification = true;
   bool _newsletter = false;
   bool _special = false;
@@ -11,11 +12,18 @@ class SettingsPageViewModel extends BaseViewModel{
   int index;
 
   final NavigationService _navigationService = locator<NavigationService>();
+  final _bussinessSettingService = locator<BussinessSettingService>();
 
   bool get notification => _notification;
   bool get newsletter => _newsletter;
   bool get special => _special;
   bool get update => _update;
+  int get langIndex => _bussinessSettingService.language;
+  int get currIndex => _bussinessSettingService.currency;
+  List get langs => _bussinessSettingService.langs;
+  List get currs => _bussinessSettingService.currencies;
+
+
 
   void setNotification() {
     _notification = !_notification;
@@ -48,4 +56,7 @@ class SettingsPageViewModel extends BaseViewModel{
   Future navigateToLanguageSettings() async {
     await _navigationService.navigateTo(Routes.languageSettingsViewRoute);
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_bussinessSettingService];
 }

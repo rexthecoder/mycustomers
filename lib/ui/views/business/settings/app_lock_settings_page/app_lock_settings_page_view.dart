@@ -7,7 +7,7 @@ import 'app_lock_settings_page_viewmodel.dart';
 class AppLockSettingsPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, height: 1440, width: 720);
+    //ScreenUtil.init(context, height: 1440, width: 720);
     return ViewModelBuilder<AppLockSettingsPageViewModel>.reactive(
       viewModelBuilder: () => AppLockSettingsPageViewModel(),
       builder: (context, model, child) {
