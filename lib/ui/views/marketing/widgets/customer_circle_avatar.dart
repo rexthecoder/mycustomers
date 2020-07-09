@@ -28,7 +28,7 @@ class CustomerCircleAvatar extends StatelessWidget {
     return CircleAvatar(
       child: this.child != null ? this.child : this.contact != null && this.contact.avatar.isNotEmpty ? Image.memory(this.contact.avatar, fit: BoxFit.cover,) :
           Text(
-            '${customer?.name?.substring(0, 1) ?? contact?.initial ?? '(*)'}${customer?.lastName?.substring(0, 1) ?? ''}'.toUpperCase(),
+            '${customer?.name?.substring(0, 1) ?? contact?.initial ?? '(*)'}${customer.lastName ==''?'': customer?.lastName?.substring(0, 1) ?? ''}'.toUpperCase(),
             style: TextStyle(
               color: BrandColors.primary,
               fontSize: 24.sp,
