@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
@@ -35,7 +36,7 @@ class DebtorsView extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 30),
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               color: Color(0xFF333CC1),

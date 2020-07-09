@@ -1,10 +1,12 @@
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class MainTransactionViewModel extends ReactiveViewModel{
   List purchases = [
@@ -23,6 +25,8 @@ class MainTransactionViewModel extends ReactiveViewModel{
   final _transactionService = locator<TransactionService>();
   List<TransactionModel> get transactions => _transactionService.transactions;
 
+  final NavigationService _navigationService = locator<NavigationService>();
+  
   final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
 
@@ -77,6 +81,10 @@ class MainTransactionViewModel extends ReactiveViewModel{
       print(transactions[i]);
       formattedate.add(getDate(transactions[i].date));
     }
+  }
+
+  void navigateToHome(){
+    _navigationService.navigateTo(Routes.mainViewRoute);
   }
 
   @override

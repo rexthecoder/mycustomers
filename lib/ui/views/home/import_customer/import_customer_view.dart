@@ -131,7 +131,7 @@ class ImportCustomerView extends StatelessWidget {
                                   size: SizeConfig.yMargin(context, 1.6),
                                 ),
                                 onPressed: () {
-                                  // TODO: Change function to route to Transaction screen with a customer object
+                                  model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number');
                                 },
                                 label: Text(
                                   'ADD',
