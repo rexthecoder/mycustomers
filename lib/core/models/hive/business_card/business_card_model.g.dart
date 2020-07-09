@@ -1,12 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../business_card/business_card_model.dart';
+part of 'business_card_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
 class BusinessCardAdapter extends TypeAdapter<_$_BusinessCard> {
+  @override
+  final typeId = 0;
+
   @override
   _$_BusinessCard read(BinaryReader reader) {
     var numOfFields = reader.readByte();
@@ -37,8 +40,4 @@ class BusinessCardAdapter extends TypeAdapter<_$_BusinessCard> {
       ..writeByte(4)
       ..write(obj.address);
   }
-
-  @override
-  // TODO: implement typeId
-  int get typeId => 0;
 }
