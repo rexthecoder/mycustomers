@@ -32,8 +32,9 @@ class SignUpViewModel extends BaseViewModel with Validators {
     await _navigationService.replaceWithTransition(
       SignInView(),
       opaque: true,
-      transition: 'righttoleftwithfade',
-      duration: Duration(seconds: 1),
+      popGesture: true,
+      transition: 'fade',
+      duration: Duration(seconds: 3),
     );
   }
 
