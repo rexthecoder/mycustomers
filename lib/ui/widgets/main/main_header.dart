@@ -10,7 +10,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
   ) {
     return Container(
       color: BrandColors.primary,
-      height: SizeConfig.yMargin(context, 10),
+      height: SizeConfig.yMargin(context, 15),
       child: Stack(
         children: <Widget>[
           Positioned(
@@ -26,22 +26,61 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 SizeConfig.yMargin(context, 7)),
           ),
           Padding(
-            padding: EdgeInsets.all(SizeConfig.yMargin(context, 3)),
-            child: _HeaderBar(),
+            padding: EdgeInsets.only(
+                left: SizeConfig.xMargin(context, 3),
+                right: SizeConfig.xMargin(context, 3),
+                top: SizeConfig.yMargin(context, 5)),
+            child: headerBar(context, model),
           ),
         ],
       ),
     );
   }
-}
 
-class _HeaderBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget headerBar(
+    BuildContext context,
+    MainViewModel model,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        GestureDetector(
+          onTap: model.openMenu,
+          child: Row(
+            children: <Widget>[
+              GFAvatar(
+                minRadius: SizeConfig.xMargin(context, 6),
+                maxRadius: SizeConfig.xMargin(context, 6),
+                shape: GFAvatarShape.standard,
+                backgroundColor: ThemeColors.background,
+                child: Text(
+                  model.businesses[model.selectedBusiness].businessName
+                      .substring(0, 1),
+                  style: TextStyle(
+                    color: ThemeColors.black,
+                    fontSize: SizeConfig.textSize(context, 8),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              SizedBox(
+                width: SizeConfig.xMargin(context, 3),
+              ),
+              Text(
+                model.businesses[model.selectedBusiness].businessName,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: ThemeColors.background,
+                  fontWeight: FontWeight.bold,
+                  fontSize: SizeConfig.textSize(context, 6),
+                ),
+              )
+            ],
+          ),
+        ),
         Expanded(
           child: SizedBox(),
         ),

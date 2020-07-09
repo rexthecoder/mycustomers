@@ -1,6 +1,6 @@
 part of '../../views/main/main_view.dart';
 
-class MainMenu extends HookViewModelWidget<MainViewModel> {
+class MainMenu extends HookViewModelWidget<MainViewModel>  {
   MainMenu({Key key}) : super(key: key, reactive: true);
 
   @override
@@ -19,6 +19,9 @@ class MainMenu extends HookViewModelWidget<MainViewModel> {
           if (details.delta.dx < 0) {
             model.closeMenu();
           }
+        },
+        onHorizontalDragEnd: (DragEndDetails details) {
+          //  TODO ... MOVEMENT ANIMATION
         },
         child: SafeArea(
           child: Scaffold(

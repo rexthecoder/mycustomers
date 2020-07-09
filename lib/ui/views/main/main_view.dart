@@ -11,6 +11,7 @@ import 'package:mycustomers/ui/views/business/business_home_page/business_homepa
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
+import 'package:mycustomers/ui/widgets/animation/slide_menu.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -132,5 +133,3 @@ class MainView extends StatelessWidget {
     );
   }
 }
-
-
