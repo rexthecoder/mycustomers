@@ -2,7 +2,6 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
-import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/store_services.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
