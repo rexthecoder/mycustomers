@@ -18,9 +18,8 @@ class BusinessViewModel extends BaseViewModel {
 
   Future<void> navigateToNext() async {
     await _navigationService.replaceWithTransition(MainView(),
-        opaque: false,
-        popGesture: true,
-        transition: 'rightToLeftWithFade',
+        opaque: true,
+        transition: 'cupertino',
         duration: Duration(milliseconds: 600));
   }
 
