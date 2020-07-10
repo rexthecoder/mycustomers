@@ -76,7 +76,7 @@ class VerificationView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 13)),
-                AuthButton(
+              CustomRaisedButton(
                   btnColor: BrandColors.primary,
                   txtColor: ThemeColors.background,
                   btnText: 'Next',
@@ -90,7 +90,7 @@ class VerificationView extends StatelessWidget {
                     //Call Function to Next Screen
                     model.navigateToNextScreen();
                   },
-                ),
+                ),  
 
                 SizedBox(height: SizeConfig.yMargin(context, 18)),
                 Container(

@@ -16,6 +16,7 @@ import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
+import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
@@ -42,6 +43,9 @@ Future<void> setupLocator(
   // Services
   locator.registerLazySingleton(
     () => NavigationService(),
+  );
+  locator.registerLazySingleton<IApi>(
+    () => ApiServices(),
   );
   locator.registerLazySingleton(
     () => PageService(),

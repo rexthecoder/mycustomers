@@ -40,19 +40,20 @@ void main() async {
         "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
 
-    // runApp(App());
-    runApp(
-      DevicePreview(
-        // onScreenshot: (screenshot) {
-        //   final bytes = screenshot.bytes;
-        //   //  Send the bytes to a drive, to the file system, to
-        //   // the device gallery for example. It may be useful for
-        //   // preparing your app release for example.
-        // },
-        enabled: !kReleaseMode,
-        builder: (context) => App(),
-      ),
-    );
+    runApp(App());
+    // runApp(
+    //   DevicePreview(
+    //     // onScreenshot: (screenshot) {
+    //     //   final bytes = screenshot.bytes;
+    //     //   //  Send the bytes to a drive, to the file system, to
+    //     //   // the device gallery for example. It may be useful for
+    //     //   // preparing your app release for example.
+    //     // },
+    //     enabled: !kReleaseMode,
+    //     builder: (context) => App(),
+    //   ),
+    // );
+
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -111,14 +112,14 @@ class App extends StatelessWidget {
     // ]); // Settting preferred Screen Orientation
     return OKToast(
       child: MaterialApp(
-        builder: DevicePreview.appBuilder,
+        // builder: DevicePreview.appBuilder,
         localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
           DefaultMaterialLocalizations.delegate,
           DefaultWidgetsLocalizations.delegate,
         ],
         theme: themes.primaryMaterialTheme,
         darkTheme: themes.darkMaterialTheme,
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         initialRoute: Routes.startupViewRoute,
         onGenerateRoute: Router().onGenerateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,

@@ -1,12 +1,15 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/api_routes.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
+import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/exceptions/network_exception.dart';
 import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'auth_service.dart';
 
@@ -25,7 +28,7 @@ class AuthServiceImpl implements AuthService {
   // Service for persisting data
   IStorageUtil _storage = locator<IStorageUtil>();
   // The service for directing user to the home screen
-//  NavigationService _navigationService = locator<NavigationService>();
+ NavigationService _navigationService = locator<NavigationService>();
 
 
   Future authUser(String url, Map<String, dynamic> params) async {
@@ -41,7 +44,7 @@ class AuthServiceImpl implements AuthService {
             ? response['message']
             : 'Bad response from server');
       }
-
+      await StoreRepository.updateStores();
       return response;
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
@@ -139,6 +142,7 @@ class AuthServiceImpl implements AuthService {
     await _storage.removeKey(AppPreferenceKey.USER_SIGNED_IN);
     await _storage.removeKey(AppPreferenceKey.USER_PHONE);
     await _storage.removeKey(AppPreferenceKey.USER_PASS);
+    _navigationService.clearStackAndShow(Routes.startupViewRoute);
   }
 
   @override
@@ -147,5 +151,17 @@ class AuthServiceImpl implements AuthService {
 //    await Future.delayed(Duration(seconds: 1));
 
     return _currentUser != null;
+  }
+
+  @override
+  Future<void> signInWithGoogle() {
+    // TODO: implement signInWithGoogle
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> signUpWithGoogle() {
+    // TODO: implement signUpWithGoogle
+    throw UnimplementedError();
   }
 }

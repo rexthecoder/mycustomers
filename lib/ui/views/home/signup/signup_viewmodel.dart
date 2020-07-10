@@ -12,6 +12,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
 
+import 'business/business_view.dart';
+
 
 class SignUpViewModel extends BaseViewModel with Validators {
   String phoneNumber;
@@ -32,17 +34,17 @@ class SignUpViewModel extends BaseViewModel with Validators {
     await _navigationService.replaceWithTransition(
       SignInView(),
       opaque: true,
-      transition: 'righttoleftwithfade',
-      duration: Duration(seconds: 1),
+      transition: 'fade',
+      duration: Duration(milliseconds: 600),
     );
   }
 
   Future completeSignup() async {
     await _navigationService.replaceWithTransition(
-      MainView(),
+      BusinessView(),
       opaque: true,
       transition: 'rotate',
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 600),
     );
   }
 
@@ -50,7 +52,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
     _dialogService.showCustomDialog(
-        title: 'Please hold on while we try to Sign you Up');
+        title: 'Please hold on while we try to Sign you up');
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());
@@ -68,7 +70,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
       showToastCustom(
-        message: 'An error occured while signing up',
+        message: 'An error occured while signing you up',
       );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());

@@ -6,41 +6,42 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-import 'business_viewmodel.dart';
+import 'create_business_viewmodel.dart';
 
-class BusinessView extends StatelessWidget {
+// class CreateBusinessView extends StatelessWidget {
+//   @override
+  Widget createBusinessDialog(BuildContext context, DialogRequest request) {
+
   final _businessPageKey = GlobalKey<ScaffoldState>();
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<BusinessViewModel>.reactive(
+
+    return ViewModelBuilder<CreateBusinessViewModel>.reactive(
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
           statusBarColor: BrandColors.primary,
           statusBarIconBrightness: Brightness.light,
         ),
-        child: SafeArea(
-          child: Scaffold(
-            key: _businessPageKey,
-            resizeToAvoidBottomInset: false,
-            backgroundColor: BrandColors.primary,
-            body: CustomBackground(child: _PartialBuildForm()),
-          ),
+        child: Scaffold(
+          key: _businessPageKey,
+          resizeToAvoidBottomInset: false,
+          backgroundColor:Colors.transparent,
+          bottomSheet: _PartialBuildForm(),
         ),
       ),
-      viewModelBuilder: () => BusinessViewModel(),
+      viewModelBuilder: () => CreateBusinessViewModel(),
     );
   }
-}
+// }
 
-class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
+class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
   static final _businessFormPageKey = GlobalKey<FormState>();
 
   _PartialBuildForm({Key key}) : super(key: key, reactive: false);
 
   @override
   Widget buildViewModelWidget(
-      BuildContext context, BusinessViewModel viewModel) {
+      BuildContext context, CreateBusinessViewModel viewModel) {
     var _storeName = useTextEditingController();
     var _storeAddress = useTextEditingController();
 
@@ -50,21 +51,13 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
         children: <Widget>[
           SizedBox(height: SizeConfig.yMargin(context, 7)),
           Text(
-            'BUSINESS DETAILS',
+            'NEW BUSINESS DETAILS',
             style: TextStyle(
               fontWeight: FontWeight.w900,
               fontSize: SizeConfig.yMargin(context, 4),
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 5)),
-          Text(
-            'One last step...',
-            style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: SizeConfig.yMargin(context, 2),
-            ),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 2)),
           Padding(
             padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
             child: TextFormField(
@@ -105,7 +98,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
           CustomRaisedButton(
             btnColor: BrandColors.primary,
             txtColor: ThemeColors.background,
-            btnText: 'Submit and finish',
+            btnText: 'Create new business',
             borderColor: BrandColors.primary,
             child: Container(),
             onPressed: () async {
@@ -120,11 +113,6 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
               }
             },
           ),
-          SizedBox(height: SizeConfig.yMargin(context, 14)),
-          Container(
-              width: SizeConfig.xMargin(context, 60),
-              child: CustomizeProgressIndicator(4, 4)),
-          SizedBox(height: SizeConfig.yMargin(context, 4)),
         ],
       ),
     );

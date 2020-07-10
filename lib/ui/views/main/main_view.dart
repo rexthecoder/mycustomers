@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/shape/gf_avatar_shape.dart';
-import 'package:mycustomers/core/models/business_model.dart';
+import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -11,6 +12,7 @@ import 'package:mycustomers/ui/views/business/business_home_page/business_homepa
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
+import 'package:mycustomers/ui/widgets/animation/slide_menu.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -132,5 +134,3 @@ class MainView extends StatelessWidget {
     );
   }
 }
-
-
