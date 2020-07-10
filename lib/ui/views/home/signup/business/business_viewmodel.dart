@@ -32,7 +32,7 @@ class BusinessViewModel extends BaseViewModel {
       // await _userService.createAssistant(name);
       await _storeService.createStore(storeName, shopAddress: '$shopAddress');
       // Logger.e('message', e: CreateException('Completed store create'));
-      // await _navigationService.clearStackAndShow(Routes.startupViewRoute);
+      await _navigationService.clearStackAndShow(Routes.startupViewRoute);
       _dialogService.completeDialog(DialogResponse());
       showToastCustom(
         message: 'Your store has been created successfully',

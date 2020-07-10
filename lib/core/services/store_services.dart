@@ -41,7 +41,8 @@ class StoreService {
       throw e;
     } catch(e, s) {
       Logger.e('Error creating store $storeName with location: $shopAddress', e: e, s: s);
-      throw CreateException('Unknown error while trying to update details');
+      // throw CreateException('Unknown error occur while trying to update details');
+      throw CreateException('Development Report: Unknown error occur while trying to create store, please close and open the app');
     }
   }
 
