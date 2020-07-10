@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
@@ -125,7 +126,8 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           // TODO VALIDATE PHONE NUMBER FORM FIELD
           _DefaultPhoneFormField(
             label: "Phone Number",
-            onChange: (value) => model.updateBusinessCard(phoneNumber: value),
+            onChange: (PhoneNumber value) =>
+                model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
           // TODO VALIDATE EMAIL ADDRESS FORM FIELD
           _DefaultFormField(
@@ -215,58 +217,17 @@ class _DefaultPhoneFormField
         color: ThemeColors.background,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          DropdownButton(
-            underline: Container(),
-            value: model.dropDownValue,
-            items:
-                model.countryCode.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(color: ThemeColors.black),
-                ),
-              );
-            }).toList(),
-            onChanged: (String newValue) {
-              model.updateCountryCode(newValue);
-            },
-            icon: Icon(
-              Icons.arrow_drop_down,
-              color: ThemeColors.black,
-            ),
-          ),
-          Container(
-            height: SizeConfig.yMargin(context, 5),
-            decoration: BoxDecoration(
-              border: Border(
-                left: BorderSide(color: ThemeColors.gray[700]),
-              ),
-            ),
-          ),
-          Expanded(
-            child: TextField(
-              style: TextStyle(
-                color: ThemeColors.black,
-                fontSize: SizeConfig.textSize(context, 5),
-              ),
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                hintText: '0903 9393 9383',
-                hintStyle: TextStyle(
-                  color: ThemeColors.gray[700],
-                  fontSize: SizeConfig.textSize(context, 5),
-                ),
-                border: OutlineInputBorder(borderSide: BorderSide.none),
-              ),
-              onChanged: onChange,
-            ),
-          )
-        ],
+      child: InternationalPhoneNumberInput(
+        onInputChanged: onChange,
+        textStyle: TextStyle(
+          color: ThemeColors.black,
+          fontSize: SizeConfig.textSize(context, 5),
+        ),
+        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+        selectorTextStyle: TextStyle(color: Colors.black),
+        inputBorder: InputBorder.none,
+        hintText: '0903 9393 9383',
+        formatInput: true,
       ),
     );
   }
