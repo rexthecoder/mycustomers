@@ -1,4 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
@@ -31,7 +32,8 @@ class BusinessViewModel extends BaseViewModel {
     try {
       // await _userService.createAssistant(name);
       await _storeService.createStore(storeName, shopAddress: '$shopAddress');
-      Logger.e('message', e: CreateException('Completed store create'));
+      // Logger.e('message', e: CreateException('Completed store create'));
+      await _navigationService.clearStackAndShow(Routes.startupViewRoute);
       _dialogService.completeDialog(DialogResponse());
       showToastCustom(
         message: 'Your store has been created successfully',
