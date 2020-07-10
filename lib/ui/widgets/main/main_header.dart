@@ -55,7 +55,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 shape: GFAvatarShape.standard,
                 backgroundColor: ThemeColors.background,
                 child: Text(
-                  model.stores[model.selectedBusiness]?.name
+                  model.currStore?.name
                       ?.substring(0, 1) ?? 'n',
                   style: TextStyle(
                     color: ThemeColors.black,
@@ -69,7 +69,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 width: SizeConfig.xMargin(context, 3),
               ),
               Text(
-                model.stores[model.selectedBusiness]?.name ?? ' none',
+                model.currStore?.name ?? ' none',
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 style: TextStyle(

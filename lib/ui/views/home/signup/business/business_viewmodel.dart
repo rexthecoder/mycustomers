@@ -26,13 +26,13 @@ class BusinessViewModel extends BaseViewModel {
   updateUser(String name, String businessName) async {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
-    _dialogService.showCustomDialog(title: 'please hold on while we try to sign you in');
+    _dialogService.showCustomDialog(title: 'please hold on while we try to create your store');
     try {
 
       await _userService.createAssistant(name);
       await _storeService.createStore(businessName);
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(message: 'Your details have been updated successfully', success: true,);
+      showToastCustom(message: 'Your store has been created successfully', success: true,);
       busy = false;
       navigateToNext();
     } on UpdateException catch(e, s) {
@@ -43,7 +43,7 @@ class BusinessViewModel extends BaseViewModel {
       Logger.e(e.message, e: e, s: s);
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
-      showToastCustom(message: 'An error occured while updating details',);
+      showToastCustom(message: 'An error occured while creating store',);
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
   }

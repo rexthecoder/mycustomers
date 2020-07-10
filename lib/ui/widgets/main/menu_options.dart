@@ -20,14 +20,14 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
               ),
               child: RichText(
                 text: TextSpan(
-                  text: model.stores[model.selectedBusiness].name,
+                  text: model.currStore?.name ?? 'None',
                   style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 6),
                       color: ThemeColors.black,
                       fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
-                      text: '\n${model?.stores[model.selectedBusiness]?.tagline ?? 'No tagline'}',
+                      text: '\n${model?.currStore?.tagline ?? 'No tagline'}',
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 3),
                         color: ThemeColors.black,

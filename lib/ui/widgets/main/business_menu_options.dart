@@ -17,7 +17,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
         scrollDirection: Axis.vertical,
         itemCount: model.stores.length,
         itemBuilder: (context, index) =>
-            businessIcon(context, model.stores[index], index, model),
+            businessIcon(context, model.stores[index], model),
         shrinkWrap: true,
         separatorBuilder: (BuildContext context, int index) => SizedBox(
           height: SizeConfig.yMargin(context, 2),
@@ -27,13 +27,13 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
   }
 
   Widget businessIcon(
-      BuildContext context, Store business, int index, MainViewModel model) {
-    bool isSelected = model.selectedBusiness == index;
+      BuildContext context, Store business, MainViewModel model) {
+    bool isSelected = model.currStore.id == business.id;
 
     return GestureDetector(
       onTap: () {
         // TODO: Add fetch store details
-        model.changeBusiness(index);
+        model.changeBusiness(business.id);
         },
       child: Column(
         children: <Widget>[

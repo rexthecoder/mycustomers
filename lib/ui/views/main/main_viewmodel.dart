@@ -15,6 +15,7 @@ class MainViewModel extends BaseViewModel {
   List<Store> _stores = StoreRepository.stores;
 
   List<Store> get stores => _stores;
+  Store get currStore => StoreRepository.currentStore;
 
   final List<Menu> menus = [
     Menu(
@@ -47,8 +48,6 @@ class MainViewModel extends BaseViewModel {
 
   bool isCollapsed = true;
 
-  int selectedBusiness = 0;
-
   /// Getters
   int get index => _index;
 
@@ -73,8 +72,8 @@ class MainViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void changeBusiness(value) {
-    selectedBusiness = value;
+  void changeBusiness(String id) {
+    StoreRepository.changeSelectedStore(id);
     notifyListeners();
     // print(value.businessName); //Uncomment to see value in terminal
 

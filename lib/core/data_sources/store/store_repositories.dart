@@ -5,13 +5,21 @@ import 'package:mycustomers/core/models/store.dart';
 class StoreRepository {
   static List _stores;
   static StoreService _ss = locator<StoreService>();
+  static Store _currentStore;
 
   static List<Store> get stores => _stores;
+  static Store get currentStore => _currentStore;
+
+  static changeSelectedStore(String id) {
+    var newStore = _stores.firstWhere((elem) => elem.id == id, orElse: () => null);
+    _currentStore = newStore ?? _currentStore;
+  }
 
   static Future<void> updateStores() async {
     var stores = await _ss.getStores();
     _stores = stores ?? _stores;
-    print('Stores is now: $_stores');
+    _currentStore = _currentStore ?? _stores[0];
+    print('Stores is now: $_stores and current store is $_currentStore');
   }
 
   static Future<Store> getStoreById(String id) async {
