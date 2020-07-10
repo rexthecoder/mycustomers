@@ -18,7 +18,7 @@ class StoreRepository {
   static Future<void> updateStores() async {
     var stores = await _ss.getStores();
     _stores = stores ?? _stores;
-    _currentStore = _currentStore ?? _stores[0];
+    if (_stores != null && _stores.isNotEmpty) _currentStore = _currentStore ?? _stores[0];
     print('Stores is now: $_stores and current store is $_currentStore');
   }
 
