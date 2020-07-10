@@ -40,14 +40,14 @@ class SignInViewModel extends BaseViewModel with Validators {
   // Navigate
   Future navigateToNextScreen() async {
     await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'rotate', duration: Duration(seconds: 4));
+        opaque: true, transition: 'rotate', duration: Duration(milliseconds: 600));
   }
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
         opaque: true,
         transition: 'fade',
-        duration: Duration(seconds: 1));
+        duration: Duration(milliseconds: 600));
   }
 
   final _authService = locator<AuthService>();

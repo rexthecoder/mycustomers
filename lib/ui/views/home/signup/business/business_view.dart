@@ -109,14 +109,14 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
             child: Container(),
             onPressed: () async {
               // viewModel.signUpTest();
-              if (_businessFormPageKey.currentState.validate()) return;
+              if (_businessFormPageKey.currentState.validate()) {
+                //Dismiss keyboard during async call
+                FocusScope.of(context).requestFocus(FocusNode());
 
-              //Dismiss keyboard during async call
-              FocusScope.of(context).requestFocus(FocusNode());
-
-              //Call Function to Signin
-              viewModel.updateUser(
-                  _storeName.text.trim(), _storeAddress.text.trim());
+                //Call Function to Signin
+                viewModel.updateUser(
+                    _storeName.text.trim(), _storeAddress.text.trim());
+              }
             },
           ),
           SizedBox(height: SizeConfig.yMargin(context, 14)),

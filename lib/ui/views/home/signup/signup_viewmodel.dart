@@ -35,7 +35,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
       SignInView(),
       opaque: true,
       transition: 'fade',
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 600),
     );
   }
 
@@ -44,7 +44,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
       BusinessView(),
       opaque: true,
       transition: 'rotate',
-      duration: Duration(seconds: 4),
+      duration: Duration(milliseconds: 600),
     );
   }
 
