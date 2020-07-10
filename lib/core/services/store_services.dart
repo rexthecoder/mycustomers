@@ -17,6 +17,9 @@ class StoreService {
 
   Future<void> createStore(String storeName, {String shopAddress: '-'}) async {
     try {
+      // authenticate with server
+      await Future.delayed(Duration(milliseconds: 250));
+
       // Send the request to the API with the data
       Map response = await _api.newStore(storeName, shopAddress);
 
@@ -37,8 +40,9 @@ class StoreService {
       Logger.e('Error creating store: ${e.message}', e: e, s: s);
       throw e;
     } catch(e, s) {
-      Logger.e('Error creating store $storeName with location: $shopAddress, exception: $e, stacktrace: $s', e: e, s: s);
-      throw CreateException('Unknown error while trying to update details');
+      Logger.e('Error creating store $storeName with location: $shopAddress', e: e, s: s);
+      // throw CreateException('Unknown error occur while trying to update details');
+      throw CreateException('Development Report: Unknown error occur while trying to create store, please close and open the app');
     }
   }
 
@@ -70,6 +74,8 @@ class StoreService {
 
   Future<List<Store>> getStores() async {
     try {
+      // authenticate with server
+      await Future.delayed(Duration(milliseconds: 250));
       // Send the request to the API with the data
       Map response = await _api.getAllStores();
 

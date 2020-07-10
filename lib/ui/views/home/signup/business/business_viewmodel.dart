@@ -3,7 +3,6 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
-import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/store_services.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
@@ -24,7 +23,7 @@ class BusinessViewModel extends BaseViewModel {
         duration: Duration(milliseconds: 600));
   }
 
-  updateUser(String storeName, String shopAddress) async {
+  Future<void> updateUser(String storeName, String shopAddress) async {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
     _dialogService.showCustomDialog(
@@ -33,7 +32,7 @@ class BusinessViewModel extends BaseViewModel {
       // await _userService.createAssistant(name);
       await _storeService.createStore(storeName, shopAddress: '$shopAddress');
       // Logger.e('message', e: CreateException('Completed store create'));
-      // await _navigationService.clearStackAndShow(Routes.startupViewRoute);
+      await _navigationService.clearStackAndShow(Routes.startupViewRoute);
       _dialogService.completeDialog(DialogResponse());
       showToastCustom(
         message: 'Your store has been created successfully',
