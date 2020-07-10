@@ -14,7 +14,6 @@ class AppLockSettingsPageViewModel extends BaseViewModel {
 
 
    bool getThecurrentStateOfPin(){
-         notifyListeners();
 
     setPin(_passwordManagerService.isPinSet);
     return value;
@@ -29,10 +28,14 @@ class AppLockSettingsPageViewModel extends BaseViewModel {
 
   Future navigateToChangePinPage() async {
     await _navigationService.navigateTo(Routes.changePinSettingsViewRoute);
+     notifyListeners();
   }
 
   Future navigateToRemovePinPage() async {
     await _navigationService.navigateTo(Routes.removePinSettingsViewRoute);
+    notifyListeners();
+   
+
   }
 
 }
