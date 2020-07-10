@@ -140,6 +140,7 @@ class ApiServices extends IApi {
     };
     var customer = await _serviceImpl.postHttp('$BASE_URL/customer/new', body);
     Logger.d(customer);
+    return customer;
   }
 
   @override
@@ -258,7 +259,7 @@ class ApiServices extends IApi {
     };
     var trx = await _serviceImpl.postHttp('$BASE_URL/transaction/new', body);
     Logger.d(trx);
-
+    return trx;
   }
 
   @override
@@ -327,6 +328,7 @@ class ApiServices extends IApi {
     var update =
         await _serviceImpl.putHttp('$BASE_URL/store-admin/update', body);
     Logger.d(update);
+    return update;
   }
 
   @override
@@ -341,6 +343,7 @@ class ApiServices extends IApi {
     };
     var update = await _serviceImpl.putHttp('$BASE_URL/store/update/$storeId', body);
     Logger.d(update);
+    return update;
   }
 
   @override
@@ -366,7 +369,7 @@ class ApiServices extends IApi {
 
     var trx = await _serviceImpl.postHttp('$BASE_URL/transaction/update/$transactionId', body);
     Logger.d(trx);
-
+    return trx;
   }
 
   @override
@@ -412,6 +415,7 @@ class ApiServices extends IApi {
     };
     var data = await _serviceImpl.postHttp('$BASE_URL/assistant/new', body);
     Logger.d(data);
+    return data;
   }
 
   @override
@@ -421,6 +425,7 @@ class ApiServices extends IApi {
     var update =
         await _serviceImpl.putHttp('$BASE_URL/assistant/update$asstId', body);
     Logger.d(update);
+    return update;
   }
 
   @override
