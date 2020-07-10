@@ -106,6 +106,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
             btnColor: BrandColors.primary,
             txtColor: ThemeColors.background,
             btnText: 'Submit and finish',
+            borderColor: BrandColors.primary,
             child: Container(),
             onPressed: () async {
               // viewModel.signUpTest();
