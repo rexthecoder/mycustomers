@@ -35,7 +35,7 @@ class OnboardingViewModel extends BaseViewModel {
       opaque: true,
       popGesture: true,
       transition: 'rightToLeftWithFade',
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 800),
     );
   }
 
@@ -45,7 +45,7 @@ class OnboardingViewModel extends BaseViewModel {
       opaque: true,
       popGesture: true,
       transition: 'rightToLeftWithFade',
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 800),
     );
   }
 
