@@ -230,6 +230,7 @@ class ApiServices extends IApi {
     };
     var store = await _serviceImpl.postHttp('$BASE_URL/store/new', body);
     Logger.d(store);
+    return store;
   }
 
   @override
