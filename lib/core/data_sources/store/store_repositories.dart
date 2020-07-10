@@ -25,6 +25,7 @@ class StoreRepository {
     print('Stores is now: $_stores and current store is $_currentStore');
     } catch(e, s) {
       Logger.e('Refresh store list Error', e: e, s: s);
+      rethrow;
     }
     
   }
