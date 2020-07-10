@@ -15,42 +15,51 @@ class BusinessViewModel extends BaseViewModel {
   final StoreService _storeService = locator<StoreService>();
   final DialogService _dialogService = locator<DialogService>();
 
-
   Future<void> navigateToNext() async {
     await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'cupertino', duration: Duration(milliseconds: 600));
-
+        opaque: true,
+        transition: 'cupertino',
+        duration: Duration(milliseconds: 600));
   }
 
   updateUser(String storeName, String shopAddress) async {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
-    _dialogService.showCustomDialog(title: 'Please hold on while we create your new store account');
+    _dialogService.showCustomDialog(
+        title: 'Please hold on while we create your new store account');
     try {
       // await _userService.createAssistant(name);
       await _storeService.createStore(storeName, shopAddress: '$shopAddress');
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(message: 'Your store has been created successfully', success: true,);
+      showToastCustom(
+        message: 'Your store has been created successfully',
+        success: true,
+      );
       busy = false;
       navigateToNext();
-    } on UpdateException catch(e, s) {
-      showToastCustom(message: e.message,);
+    } on UpdateException catch (e, s) {
+      showToastCustom(
+        message: e.message,
+      );
       Logger.e(e.message, e: e, s: s);
-    } on CreateException catch(e, s) {
-      showToastCustom(message: e.message,);
+    } on CreateException catch (e, s) {
+      showToastCustom(
+        message: e.message,
+      );
       Logger.e(e.message, e: e, s: s);
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
-      showToastCustom(message: 'An error occured while creating your store account',);
+      showToastCustom(
+        message: 'An error occured while creating your store account',
+      );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
-bool btnColor = true;
+  bool btnColor = true;
 
-   void activeBtn() {
+  void activeBtn() {
     btnColor = !btnColor;
     notifyListeners();
   }
-
 }
