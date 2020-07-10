@@ -12,6 +12,7 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
    String password = passManager.userPassword;
   int _pin = 0;
   int _index = 0;
+  
 
   int get index => _index;
 
@@ -28,23 +29,29 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
     changeTab(1);
   }
 
-  void onConfirmPinCompleted (String value){
+  void onConfirmPinCompleted(String value) async{
     int confirmPin = int.parse(value);
     int check = _pin.compareTo(confirmPin);
     String newValue = confirmPin.toString();
     if (check == 0) {
-      _passwordManagerService.saveSetPin(newValue);
+    await  _passwordManagerService.saveSetPin(newValue);
+      setPin(true);
       _passwordManagerService.showPinSetConfirmationMessage();
       _navigationService.popRepeated(1);
     } 
+    else if (check < 0 || check > 0){
+          _passwordManagerService.showUnmatchedPinErrorMessage();
+    }
     else {
       _passwordManagerService.showErrorMessage();
     }
   }
 
+void setPin(bool value){
+    _passwordManagerService.setPin(value);
+     notifyListeners();
+   }
+
  
-
-
-
 }
 
