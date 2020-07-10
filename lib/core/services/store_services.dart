@@ -17,6 +17,9 @@ class StoreService {
 
   Future<void> createStore(String storeName, {String shopAddress: '-'}) async {
     try {
+      // authenticate with server
+      await Future.delayed(Duration(milliseconds: 250));
+
       // Send the request to the API with the data
       Map response = await _api.newStore(storeName, shopAddress);
 
@@ -70,6 +73,8 @@ class StoreService {
 
   Future<List<Store>> getStores() async {
     try {
+      // authenticate with server
+      await Future.delayed(Duration(milliseconds: 250));
       // Send the request to the API with the data
       Map response = await _api.getAllStores();
 
