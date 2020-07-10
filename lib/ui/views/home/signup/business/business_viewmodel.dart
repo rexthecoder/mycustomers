@@ -12,7 +12,6 @@ import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class BusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  final UserService _userService = locator<UserService>();
   final StoreService _storeService = locator<StoreService>();
   final DialogService _dialogService = locator<DialogService>();
 
@@ -23,14 +22,13 @@ class BusinessViewModel extends BaseViewModel {
 
   }
 
-  updateUser(String name, String businessName) async {
+  updateUser(String storeName, String shopAddress) async {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
-    _dialogService.showCustomDialog(title: 'please hold on while we try to create your store');
+    _dialogService.showCustomDialog(title: 'Please hold on while we create your new store account');
     try {
-
-      await _userService.createAssistant(name);
-      await _storeService.createStore(businessName);
+      // await _userService.createAssistant(name);
+      await _storeService.createStore(storeName, shopAddress: '$shopAddress');
       _dialogService.completeDialog(DialogResponse());
       showToastCustom(message: 'Your store has been created successfully', success: true,);
       busy = false;
@@ -43,7 +41,7 @@ class BusinessViewModel extends BaseViewModel {
       Logger.e(e.message, e: e, s: s);
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
-      showToastCustom(message: 'An error occured while creating store',);
+      showToastCustom(message: 'An error occured while creating your store account',);
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
   }
