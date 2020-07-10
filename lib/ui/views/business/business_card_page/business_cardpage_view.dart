@@ -84,7 +84,10 @@ class BusinessCardPageView extends StatelessWidget {
                       });
                       return;
                     },
-                  )
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).viewInsets.bottom,
+                  ),
                 ],
               ),
             ),

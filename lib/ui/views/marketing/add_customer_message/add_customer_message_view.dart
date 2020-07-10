@@ -4,6 +4,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -108,7 +109,7 @@ class AddCustomerMessageView extends StatelessWidget {
 //                model.isBusy || !model.dataReady
                 model.allCustomers.length==0
                     ? Center(
-                        child: CircularProgressIndicator(),
+                        child: LoadingAnimation(),
                       )
                     :
                 Expanded(

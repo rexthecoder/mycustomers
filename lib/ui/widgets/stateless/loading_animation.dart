@@ -7,7 +7,7 @@ class LoadingAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.yMargin(context, 13),
+      height: SizeConfig.yMargin(context, 10),
       child: FlareActor(
         Animations.loader,
         animation: Animations.loader_name,
