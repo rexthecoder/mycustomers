@@ -1,4 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
@@ -22,6 +23,7 @@ class StoreService {
       // Check if the status is true
       if (response.containsKey('success') && response['success']) {
         // TODO: Add what should happen if create is successful
+        await StoreRepository.updateStores();
       } else if (response.containsKey('message')) {
         Logger.e('Error creating store: ${response['message']}');
         throw CreateException(response['message']);
