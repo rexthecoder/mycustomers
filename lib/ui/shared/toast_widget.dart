@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:oktoast/oktoast.dart';
 
 ToastFuture showToastCustom(
@@ -20,7 +19,7 @@ ToastFuture showToastCustom(
     ),
     duration: duration,
     context: context,
-    animationDuration: Duration(milliseconds: 800),
+    animationDuration: Duration(milliseconds: 1800),
     animationCurve: Curves.easeInOutBack,
     dismissOtherToast: true,
   );
