@@ -11,6 +11,7 @@ class StoreRepository {
   static Future<void> updateStores() async {
     var stores = await _ss.getStores();
     _stores = stores ?? _stores;
+    print('Stores is now: $_stores');
   }
 
   static Future<Store> getStoreById(String id) async {

@@ -2,6 +2,7 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/api_routes.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
+import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/exceptions/network_exception.dart';
 import 'package:mycustomers/core/models/user.dart';
@@ -43,7 +44,7 @@ class AuthServiceImpl implements AuthService {
             ? response['message']
             : 'Bad response from server');
       }
-
+      await StoreRepository.updateStores();
       return response;
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);

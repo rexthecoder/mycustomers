@@ -20,7 +20,7 @@ class StoreService {
       Map response = await _api.newStore(storeName, shopAddress);
 
       // Check if the status is true
-      if (response.containsKey('status') && response['status']) {
+      if (response.containsKey('success') && response['success']) {
         // TODO: Add what should happen if create is successful
       } else if (response.containsKey('message')) {
         Logger.e('Error creating store: ${response['message']}');
@@ -72,7 +72,7 @@ class StoreService {
       Map response = await _api.getAllStores();
 
       // Check if the status is true
-      if (response.containsKey('status') && response['status']) {
+      if (response.containsKey('success') && response['success']) {
         return List.from(response['data']['stores'].map((elem) => Store.fromJson(elem)));
       } else if (response.containsKey('message')) {
         Logger.e('Error fetching stores: ${response['message']}');

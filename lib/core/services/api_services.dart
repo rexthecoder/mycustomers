@@ -1,3 +1,5 @@
+import 'package:mycustomers/core/services/http/http_service.dart';
+import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 
 import './http/http_service_impl.dart';
@@ -125,7 +127,7 @@ abstract class IApi {
 class ApiServices extends IApi {
   static const BASE_URL = 'https://dev.api.customerpay.me';
 
-  HttpServiceImpl _serviceImpl = new HttpServiceImpl();
+  HttpService _serviceImpl =  locator<HttpService>();
 
   @override
   Future addCustomer(
