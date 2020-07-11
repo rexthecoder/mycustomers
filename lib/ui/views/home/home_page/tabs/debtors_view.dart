@@ -3,8 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/views/home/home_page/tabs/all_customers_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
@@ -17,6 +19,7 @@ class DebtorsView extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
+    final currency = new NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<HomePageViewModel>.reactive(
       builder: (context, model, child) => Container(
 
@@ -27,15 +30,15 @@ class DebtorsView extends StatelessWidget {
               child:
 
               Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+                        child: Container(
                           padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
@@ -56,7 +59,13 @@ class DebtorsView extends StatelessWidget {
                                   color: Colors.white,
                                   fontSize: 14.sp
                               ),),
-                              RichText(
+                              model.bought() - model.paid() > 0 ? Text(
+                                'N'+currency.format(model.bought() - model.paid()).toString(),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 36.sp,
+                                    fontWeight: FontWeight.bold),
+                              ) : RichText(
                                 text: TextSpan(
                                   text: 'NGN 0.', style: TextStyle(
                                     color: Colors.white,
@@ -77,7 +86,8 @@ class DebtorsView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        ///Code for list commented out
+                      ),
+                      ///Code for list commented out
 //                      model.expectedTime !=null?  Column(
 //                        children: <Widget>[
 //                          Container(
@@ -218,35 +228,35 @@ class DebtorsView extends StatelessWidget {
 //                          Divider(color: Colors.black,),
 //                        ],
 //                      ):
-                        Container(
-                          height:height/2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Image.asset('assets/images/Notebook-pana 1.png'),
-                                SizedBox(height: 20.h,),
-                                Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: BrandColors.primary),),
-                              ],
-                            ),
-                          ),),
+                      model.owingcustomers.length == 0 ? Container(
+                        height:height/2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Image.asset('assets/images/Notebook-pana 1.png'),
+                              SizedBox(height: 20.h,),
+                              Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: BrandColors.primary),),
+                            ],
+                          ),
+                        ),
+                      ) : ContactList(),
 
 
 
-                      ],
-                    ),
+                    ],
                   ),
                 ),
               ),
 
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
 //                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
                 onTap: ()=> Navigator.pushNamed(context, '/importcustomerdebtor'),
@@ -263,10 +273,80 @@ class DebtorsView extends StatelessWidget {
                       style: TextStyle(color: Colors.white,
                       fontSize: 12.sp,),
                     ),
-                  ),),
+                  ),
+                ),
               ),
             )
           ] ,
+        ),
+      ),
+      viewModelBuilder: () => HomePageViewModel(),
+    );
+  }
+}
+
+
+class ContactList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomePageViewModel>.reactive(
+      builder: (context, model, child) => Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
+              child: TextField(
+                //controller: model.allCustomersController,
+                //onChanged: model.searchAllCustomers,
+                style:  TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,),
+                decoration: InputDecoration(
+                  hintText: 'Search by name',
+                  hintStyle: TextStyle(
+                    color: Color(0xFFACACAC),
+                    fontSize: 14,
+
+                  ),
+                  contentPadding:  const EdgeInsets.only(top: 18.0),
+                  prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            for(var cont in model.owingcustomers)
+              for (var item in model.contacts) item.id == cont ? Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 6),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Color(0xFFD1D1D1)),
+                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                  )
+                ),
+                child: ListTile(
+                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
+                  leading: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.black,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/man.png',
+                        ),
+                        fit: BoxFit.cover
+                      )
+                    ),
+                  ),
+                  title: Text(
+                    item.name
+                  ),
+                ),
+              ),
+            ) : SizedBox()
+          ],
         ),
       ),
       viewModelBuilder: () => HomePageViewModel(),

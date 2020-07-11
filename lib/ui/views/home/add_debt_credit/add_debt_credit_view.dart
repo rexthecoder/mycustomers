@@ -9,8 +9,9 @@ import 'add_debt_credit_viewmodel.dart';
 
 class AddDebtCreditView extends StatelessWidget {
   final String action;
+  final bool update;
 
-  const AddDebtCreditView({Key key, this.action}) : super(key: key);
+  const AddDebtCreditView({Key key, this.action, this.update}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -92,7 +93,7 @@ class AddDebtCreditView extends StatelessWidget {
                               contentPadding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(8)),
                             ),
                             textInputAction: TextInputAction.go,
-                            onChanged: model.updateAmount,
+                            onChanged: (value) => model.updateAmount(value, update),
                           ),
                         ),
                         Visibility(
@@ -107,13 +108,49 @@ class AddDebtCreditView extends StatelessWidget {
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now())))
                                   );
+                                  if (picked != null) model.setOtherDate(picked, update);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 15),
+                                  padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15), horizontal: ScreenUtil().setWidth(15)),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: model.date2err ? Colors.red : Color(0xFFD1D1D1), width: 2.0),
+                                    borderRadius: BorderRadius.circular(ScreenUtil().setWidth(5))
+                                  ),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
+                                        child: SvgPicture.asset(
+                                          'assets/icons/calendar.svg',
+                                          color: action == 'credit' ? BrandColors.secondary : BrandColors.primary
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          model.newODate != null ? model.newODate : action == 'debit' ? 'Select Date of Purchase' : 'Select Date of Payment',
+                                          style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(16), color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              action== 'credit' ? SizedBox() : InkWell(
+                                onTap: () async{
+                                  final DateTime picked = await showDatePicker(
+                                    context: context,
+                                    initialDate: model.selectedDate,
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now())))
+                                  );
                                   if (picked != null) model.setDate(picked);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(bottom: 15),
                                   padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15), horizontal: ScreenUtil().setWidth(15)),
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Color(0xFFD1D1D1), width: 2.0),
+                                    border: Border.all(color: model.date1err ? Colors.red : Color(0xFFD1D1D1), width: 2.0),
                                     borderRadius: BorderRadius.circular(ScreenUtil().setWidth(5))
                                   ),
                                   child: Row(
@@ -135,97 +172,100 @@ class AddDebtCreditView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10), vertical: ScreenUtil().setHeight(4)),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0xFFD1D1D1), width: 2.0),
-                                  borderRadius: BorderRadius.circular(ScreenUtil().setWidth(5))
-                                ),
-                                child: Column(
-                                  children: <Widget>[
-                                    TextField(
-                                      controller: _controller,
-                                      maxLines: null,
-                                      maxLengthEnforced: false,
-                                      keyboardType: TextInputType.multiline,
-                                      decoration: new InputDecoration(
-                                        border: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        enabledBorder: InputBorder.none,
-                                        errorBorder: InputBorder.none,
-                                        disabledBorder: InputBorder.none,
-                                        hintText: 'Enter Items Purchased',
-                                        hintStyle: TextStyle(fontSize: ScreenUtil().setSp(15)),
-                                        prefixIcon: Container(
-                                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-                                          child: SvgPicture.asset(
-                                            'assets/icons/cart.svg',
-                                          ),
-                                        ),
-                                        suffixIcon: InkWell(
-                                          onTap: () {
-                                            _controller.clear();
-                                            model.addItem();
-                                          },
-                                          child: Container(
-                                            width: ScreenUtil().setWidth(10),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.add,
-                                                  color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
-                                                  size: ScreenUtil().setWidth(18),
-                                                ),
-                                                Container(
-                                                  child: Text(
-                                                    'Add',
-                                                    style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(14), color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
-                                                  ),
-                                                )
-                                              ],
+                              Visibility(
+                                visible: update ? false : true,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10), vertical: ScreenUtil().setHeight(4)),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Color(0xFFD1D1D1), width: 2.0),
+                                    borderRadius: BorderRadius.circular(ScreenUtil().setWidth(5))
+                                  ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      TextField(
+                                        controller: _controller,
+                                        maxLines: null,
+                                        maxLengthEnforced: false,
+                                        keyboardType: TextInputType.multiline,
+                                        decoration: new InputDecoration(
+                                          border: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          hintText: 'Enter Items Purchased',
+                                          hintStyle: TextStyle(fontSize: ScreenUtil().setSp(15)),
+                                          prefixIcon: Container(
+                                            padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+                                            child: SvgPicture.asset(
+                                              'assets/icons/cart.svg',
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      textInputAction: TextInputAction.go,
-                                      onSubmitted: (value) {
-                                        _controller.clear();
-                                        model.addItem();
-                                      },
-                                      onChanged: model.updateItem,
-                                    ),
-                                    for(var item in model.items) Container(
-                                      margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(4)),
-                                      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10), horizontal: ScreenUtil().setWidth(15)),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(ScreenUtil().setWidth(5)),
-                                        color: Color(0xFFF0F0F0),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Container(
-                                            child: Flexible(
-                                              child: Text(
-                                                item,
-                                                style: Theme.of(context).textTheme.headline4.copyWith(fontSize: ScreenUtil().setSp(16),fontWeight: FontWeight.w400),
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: (){
-                                              model.removeItem(model.items.indexOf(item));
+                                          suffixIcon: InkWell(
+                                            onTap: () {
+                                              _controller.clear();
+                                              model.addItem();
                                             },
                                             child: Container(
-                                              child: SvgPicture.asset(
-                                                'assets/icons/cancel.svg'
+                                              width: ScreenUtil().setWidth(10),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.add,
+                                                    color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
+                                                    size: ScreenUtil().setWidth(18),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      'Add',
+                                                      style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(14), color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
+                                                    ),
+                                                  )
+                                                ],
                                               ),
                                             ),
-                                          )
-                                        ],
+                                          ),
+                                        ),
+                                        textInputAction: TextInputAction.go,
+                                        onSubmitted: (value) {
+                                          _controller.clear();
+                                          model.addItem();
+                                        },
+                                        onChanged: model.updateItem,
                                       ),
-                                    )
-                                  ],
+                                      for(var item in model.items) Container(
+                                        margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(4)),
+                                        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10), horizontal: ScreenUtil().setWidth(15)),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(ScreenUtil().setWidth(5)),
+                                          color: Color(0xFFF0F0F0),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Container(
+                                              child: Flexible(
+                                                child: Text(
+                                                  item,
+                                                  style: Theme.of(context).textTheme.headline4.copyWith(fontSize: ScreenUtil().setSp(16),fontWeight: FontWeight.w400),
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: (){
+                                                model.removeItem(model.items.indexOf(item));
+                                              },
+                                              child: Container(
+                                                child: SvgPicture.asset(
+                                                  'assets/icons/cancel.svg'
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
@@ -238,7 +278,7 @@ class AddDebtCreditView extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
-                  model.addtransaction(action);
+                  model.addtransaction(action, update);
                   Navigator.pop(context);
                 },//Todo: Save User Input
                 child: Container(

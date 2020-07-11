@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
@@ -15,59 +16,68 @@ class CreditorsView extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
+    final currency = new NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<HomePageViewModel>.reactive(
       builder: (context, model, child) => Container(
         child: Column(
           children: <Widget>[
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
+              child: Container(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: BrandColors.secondary,
-                          image: DecorationImage(
-                            image: ExactAssetImage('assets/images/orange_banner.png',
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: BrandColors.secondary,
+                            image: DecorationImage(
+                              image: ExactAssetImage('assets/images/orange_banner.png',
+                              ),
+                              fit: BoxFit.fill
                             ),
-                            fit: BoxFit.fill
+                            borderRadius: BorderRadius.circular(5)
                           ),
-                          borderRadius: BorderRadius.circular(5)
-                        ),
 
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('You are owing customers', style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp
-                            ),),
-                            RichText(
-                              text: TextSpan(
-                                  text: 'NGN 0.', style: TextStyle(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text('You are owing customers', style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 36.sp,
-                                  fontWeight: FontWeight.bold),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: '00.', style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.bold
-                                    ),
-                                    )
-                                  ]
+                                  fontSize: 14.sp
+                              ),),
+                              model.whatyouowe > 0 ? Text(
+                                'N'+currency.format(model.whatyouowe).toString(),
+                                style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 36.sp,
+                                      fontWeight: FontWeight.bold),
+                              ) : RichText(
+                                text: TextSpan(
+                                    text: 'NGN 0.', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 36.sp,
+                                    fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: '00.', style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                      )
+                                    ]
+                                ),
+
                               ),
 
-                            ),
-
-                          ],
+                            ],
+                          ),
                         ),
                       ),
 //                      Text('Current Creditors', style: TextStyle(
@@ -145,7 +155,7 @@ class CreditorsView extends StatelessWidget {
 //                      Container(
 //                        height: 100,
 //                        child: Center(child: Text('You don\'t have any creditors yet')),),
-                      Container(
+                      model.owedcustomers.length == 0 ? Container(
                         height:height/2,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -158,11 +168,12 @@ class CreditorsView extends StatelessWidget {
                               SizedBox(height: 20.h,),
                               Text('You don\'t owe any customer. Tap the big blue button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: BrandColors.primary),),
+                                style: TextStyle(color: BrandColors.secondary),),
                             ],
                           ),
-                        ),),
-
+                        ),
+                      ) : ContactList(),
+                          
 
                     ],
                   ),
@@ -170,26 +181,96 @@ class CreditorsView extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
-                onTap: ()=> Navigator.pushNamed(context, '/importcustomercreditor'),
+//                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
+                onTap: ()=> Navigator.pushNamed(context, '/importcustomerdebtor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      color: BrandColors.secondary,
-                      borderRadius: BorderRadius.circular(5)
+                    color: BrandColors.secondary,
+                    borderRadius: BorderRadius.circular(5)
                   ),
 
                   child: Center(
-                    child: Text('Add customer you are owing',
+                    child: Text('Add customer you owe',
                       style: TextStyle(color: Colors.white,
-                        fontSize: 12.sp,),
+                      fontSize: 12.sp,),
                     ),
-                  ),),
+                  ),
+                ),
               ),
             )
           ] ,
+        ),
+      ),
+      viewModelBuilder: () => HomePageViewModel(),
+    );
+  }
+}
+
+class ContactList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomePageViewModel>.reactive(
+      builder: (context, model, child) => Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
+              child: TextField(
+                //controller: model.allCustomersController,
+                //onChanged: model.searchAllCustomers,
+                style:  TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,),
+                decoration: InputDecoration(
+                  hintText: 'Search by name',
+                  hintStyle: TextStyle(
+                    color: Color(0xFFACACAC),
+                    fontSize: 14,
+
+                  ),
+                  contentPadding:  const EdgeInsets.only(top: 18.0),
+                  prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            for(var cont in model.owedcustomers)
+              for (var item in model.contacts) item.id == cont ? Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 6),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Color(0xFFD1D1D1)),
+                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                  )
+                ),
+                child: ListTile(
+                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
+                  leading: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.black,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/man.png',
+                        ),
+                        fit: BoxFit.cover
+                      )
+                    ),
+                  ),
+                  title: Text(
+                    item.name
+                  ),
+                ),
+              ),
+            ) : SizedBox()
+          ],
         ),
       ),
       viewModelBuilder: () => HomePageViewModel(),
