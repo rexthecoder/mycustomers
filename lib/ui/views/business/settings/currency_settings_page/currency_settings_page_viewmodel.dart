@@ -1,27 +1,24 @@
+import 'package:injectable/injectable.dart';
+import 'package:mycustomers/app/locator.dart';
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 
-class CurrencySettingsPageViewModel extends BaseViewModel {
-  List<Currencies> currencies = [
-    Currencies(currency: 'Naira (NGN)', index: 0),
-    Currencies(currency: 'Dollar (USD)', index: 1),
-    Currencies(currency: 'Indian Rubies (INR)', index: 2),
-  ];
+class CurrencySettingPageViewModel extends ReactiveViewModel{
+  final _bussinessSettingService = locator<BussinessSettingService>();
+  int get index => _bussinessSettingService.currency;
+  List get currencies => _bussinessSettingService.currencies;
+  int tempIndex;
 
-  int currentIndex = 0;
-
-  Function currencyBoxColorChanger(model, currency) {
-    currentIndex = currencies.indexOf(currency);
-    return null;
+  void selectCurrency(int ind) {
+    _bussinessSettingService.selectCurrency(ind);
+    tempIndex = ind;
+    notifyListeners();
   }
 
-  ///notifyListener didn't work here sadly
+  void saveCurrencyIndex(){
+    _bussinessSettingService.setCurrencyIndex(tempIndex);
+  }
 
-}
-
-class Currencies {
-  final String currency;
-  final String imagePath;
-  final int index;
-
-  Currencies({this.currency, this.imagePath, this.index});
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_bussinessSettingService];
 }

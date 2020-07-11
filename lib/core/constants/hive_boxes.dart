@@ -3,4 +3,5 @@ class HiveBox {
   HiveBox._();
 
   static const String businessCardBoxName = "business_card";
+  static const String passwordManagerBoxName = "password_manager";
 }

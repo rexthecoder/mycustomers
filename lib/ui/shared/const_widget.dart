@@ -4,40 +4,41 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
-/// A customize Progress Indicator By Ufe Adeojo
+/// A customize Progress Indicator By Ufedojo Atabo
 class CustomizeProgressIndicator extends StatelessWidget {
-
   final int progress, total;
 
-  const CustomizeProgressIndicator(this.progress, this.total, {Key key}) : super(key: key);
+  const CustomizeProgressIndicator(this.progress, this.total, {Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: List<Widget>.generate(total*2 - 1, (int index) {
+      children: List<Widget>.generate(total * 2 - 1, (int index) {
         return index % 2 == 0
             ? CircleAvatar(
-          radius: 15,
-          child: index <= progress ? Text('${index ~/ 2 + 1}', style: TextStyle(
-            color: Colors.white,
-          ),) : null,
-          backgroundColor: index <= progress
-              ? ThemeColors.cta
-              : ThemeColors.gray,
-        )
+                radius: 15,
+                child: index <= progress
+                    ? Text(
+                        '${index ~/ 2 + 1}',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      )
+                    : null,
+                backgroundColor:
+                    index <= progress ? ThemeColors.cta : ThemeColors.gray,
+              )
             : Expanded(
-          child: Divider(
-            thickness: 5,
-            color: index <= progress
-                ? ThemeColors.cta
-                : ThemeColors.gray,
-          ),
-        );
+                child: Divider(
+                  thickness: 5,
+                  color: index <= progress ? ThemeColors.cta : ThemeColors.gray,
+                ),
+              );
       }),
     );
   }
 }
-
 
 Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   return Container(
@@ -59,22 +60,24 @@ Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   );
 }
 
-Widget btnHome(String btnText, context) {
-  double screenHeight = MediaQuery.of(context).size.height / 100;
-  double screenWidth = MediaQuery.of(context).size.width / 100;
+///Button for the Onboarding Screen
+Widget btnHome(String btnText, Color colorBtn, Color colorText, context) {
   return Container(
-    height: screenHeight * 7,
-    width: screenWidth * 80,
+    height: SizeConfig.yMargin(context, 5),
+    width: SizeConfig.xMargin(context, 90),
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
+      border: Border.all(color: colorText),
+      borderRadius: BorderRadius.circular(6),
+      color: colorBtn,
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
           btnText,
           style: TextStyle(
-            color: Colors.white,
-            fontSize: screenWidth * 4,
+            color: colorText,
+            fontSize: SizeConfig.textSize(context, 4),
           ),
         ),
       ],
@@ -82,93 +85,113 @@ Widget btnHome(String btnText, context) {
   );
 }
 
-Widget btnAuth(String btnText, context) {
-  double screenHeight = MediaQuery.of(context).size.height / 100;
-  double screenWidth = MediaQuery.of(context).size.width / 100;
-  return Container(
-    height: screenHeight * 7,
-    width: screenWidth * 90,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10), color: Color(0xFF333CC1)),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          btnText,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: screenWidth * 4,
-          ),
-        ),
-        SizedBox(width: screenWidth * 5),
-        Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.white,
-          size: screenHeight * 2,
-        ),
-      ],
-    ),
-  );
-}
-
-class HomeBackgroundWidget extends StatelessWidget {
-  const HomeBackgroundWidget({
-    Key key,
-
-    @required this.height,
-    @required this.width,
-    @required this.child,
-    this.offset,
-  }) : super(key: key);
-
-  final double height;
-  final double width;
+/// Authentication Button with variable for
+/// - String
+/// - Button Color
+/// - Function
+/// - Text Color
+/// - Widget
+/// - Border Color
+/// - -Use Container() for child, if no widget is suppose to be there
+class CustomRaisedButton extends StatelessWidget {
+  final Function onPressed;
+  final String btnText;
+  final Color btnColor;
   final Widget child;
-  final double offset;
+  final Color txtColor;
+  final Color borderColor;
+
+  const CustomRaisedButton({
+    Key key,
+    @required this.btnText,
+    @required this.onPressed,
+    @required this.btnColor,
+    @required this.txtColor,
+    this.borderColor,
+    this.child,
+  })  : assert(child != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/onboarding/ob1.png'),
-                  fit: BoxFit.cover,
-                ),
+    return ButtonTheme(
+      minWidth: SizeConfig.xMargin(context, 90),
+      height: SizeConfig.yMargin(context, 5.5),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+          side: BorderSide(color: borderColor),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              btnText,
+              style: TextStyle(
+                color: txtColor,
+                fontSize: SizeConfig.yMargin(context, 1.8),
+                fontWeight: FontWeight.w900,
               ),
             ),
-          ),
-          Positioned.fill(
-            child: SingleChildScrollView(
-              reverse: true,
-              physics: ClampingScrollPhysics(),
-              child: Container(
-                constraints: BoxConstraints(
-                  minHeight: SizeConfig.yMargin(context, 65),
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(SizeConfig.yMargin(context, 4)),
-                  ),
-                ),
-                child: child,
-              ),
-            ),
-          ),
-        ],
+            SizedBox(width: SizeConfig.xMargin(context, 3)),
+            child,
+          ],
+        ),
+        onPressed: onPressed,
+        color: btnColor,
+        elevation: 3,
+        // disabledColor: ,
       ),
     );
   }
 }
 
-Widget notificationBell(bool isNewNotification) {
+///CustomScroll Background to hold all other widget
+///
+///
+class CustomBackground extends StatelessWidget {
+  final Widget child;
+  const CustomBackground({
+    Key key,
+    this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          backgroundColor: BrandColors.primary,
+          floating: false,
+          expandedHeight: SizeConfig.yMargin(context, 7),
+        ),
+        SliverFixedExtentList(
+          itemExtent: SizeConfig.yMargin(context, 100),
+          delegate: SliverChildListDelegate([
+            Container(
+              constraints: BoxConstraints(
+                  // minHeight: SizeConfig.yMargin(context, 100),
+                  ),
+              decoration: BoxDecoration(
+                color: ThemeColors.background,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(SizeConfig.yMargin(context, 4)),
+                ),
+              ),
+              child: child,
+            ),
+          ]),
+        ),
+      ],
+    );
+  }
+}
+
+Widget notificationBell(bool isNewNotification, width) {
   String notification = isNewNotification ? 'notification' : 'no_notification';
   final String assetName = "assets/icons/$notification.png";
-  final Widget notificationIcon = Image.asset(assetName);
+  final Widget notificationIcon = Image.asset(assetName, width: width);
   return notificationIcon;
 }
 
@@ -176,18 +199,17 @@ Widget arrow(bool forward) {
   String direction = forward ? 'foward' : 'back';
   final String assetName = "assets/icons/arrow_$direction.svg";
   final Widget svgIcon = SvgPicture.asset(assetName,
-      color: Color(0xff333cc1),
-      semanticsLabel: 'An arrow');
+      color: BrandColors.primary, semanticsLabel: 'An arrow');
   return svgIcon;
 }
 
-Widget circleDesign(double outerRadius, double innerRadius){
+Widget circleDesign(double outerRadius, double innerRadius) {
   return Container(
     height: outerRadius * 2,
     width: outerRadius * 2,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(outerRadius),
-      color: Color(0xff1d6aff),
+      color: ThemeColors.link,
     ),
     child: Center(
       child: Container(
@@ -195,10 +217,9 @@ Widget circleDesign(double outerRadius, double innerRadius){
         width: innerRadius * 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(outerRadius),
-          color: Color(0xff333cc1),
+          color: BrandColors.primary,
         ),
       ),
     ),
   );
 }
-

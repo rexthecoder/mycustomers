@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -13,13 +14,26 @@ class ImportCustomerViewModel extends StreamViewModel {
 
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
+  final _customerContactService = locator<CustomerContactService>();
+  List<Customer> _contactsList = List<Customer>();
+  bool _busy = true;
+
+  bool get isLoadBusy => _busy;
 
   ImportCustomerViewModel();
 
 
-  init() async {
-    List<Customer> contacts = iOwnerServices.getPhoneContacts();
-    _contactStream.add(contacts);
+  init({String query}) async {
+    _contactsList.clear();
+    for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+      print('Iterate');
+      if (_busy) {
+        _busy = false;
+        notifyListeners();
+      }
+      _contactsList.add(customer);
+    _contactStream.add(_contactsList);
+    }
   }
 
   String _searchTerm = '';
@@ -27,9 +41,14 @@ class ImportCustomerViewModel extends StreamViewModel {
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) async {
-    _searchTerm = keyword;    
-        List<Customer> contacts = iOwnerServices.getPhoneContacts();
-    _contactStream.add(contacts);
+    _searchTerm = keyword;
+    _busy = true;
+    notifyListeners();
+    init(query: _searchTerm);
+  }
+
+  void addContact(String name, String phone){
+    _customerContactService.addContact(phone, name, '');
   }
 
   /// View initialize and close section
@@ -37,8 +56,8 @@ class ImportCustomerViewModel extends StreamViewModel {
     _navigationService.back();
   }
 
-  goToManual() {
-    _navigationService.navigateTo(Routes.addCustomerManually);
+  goToManual(String action) {
+    _navigationService.navigateTo(action == 'debtor' ? Routes.addCustomerManuallyDebtor : Routes.addCustomerManuallyCreditor);
   }
 
 

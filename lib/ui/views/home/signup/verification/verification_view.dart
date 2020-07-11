@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -13,18 +14,12 @@ class VerificationView extends StatelessWidget {
   static final _pinFormPageKey = GlobalKey<FormState>();
   final _pinPageKey = GlobalKey<ScaffoldState>();
 
-
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
     return ViewModelBuilder<VerificationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         key: _pinPageKey,
-        body: HomeBackgroundWidget(
-          height: height,
-          width: width,
+        body: CustomBackground(
           child: Form(
             key: _pinFormPageKey,
             child: Column(
@@ -81,14 +76,22 @@ class VerificationView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 13)),
-                InkWell(
-                  onTap: () {
-                    if (_pinFormPageKey.currentState.validate()) {
-                      model.navigateToNextScreen();
-                    }
+              CustomRaisedButton(
+                  btnColor: BrandColors.primary,
+                  txtColor: ThemeColors.background,
+                  btnText: 'Next',
+                  onPressed: () async {
+                    // viewModel.signUpTest();
+                    if (!_pinFormPageKey.currentState.validate()) return;
+
+                    //Dismiss keyboard during async call
+                    FocusScope.of(context).requestFocus(FocusNode());
+
+                    //Call Function to Next Screen
+                    model.navigateToNextScreen();
                   },
-                  child: btnAuth('Verify and Proceed', context),
-                ),
+                ),  
+
                 SizedBox(height: SizeConfig.yMargin(context, 18)),
                 Container(
                     width: SizeConfig.xMargin(context, 60),

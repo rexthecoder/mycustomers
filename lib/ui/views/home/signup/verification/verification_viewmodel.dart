@@ -11,4 +11,12 @@ class VerificationViewModel extends BaseViewModel {
     await Future.delayed(Duration(seconds: 2));
  await _navigationService.replaceWith(Routes.businessViewRoute);
   }
+
+  bool btnColor = true;
+
+   void activeBtn() {
+    btnColor = !btnColor;
+    notifyListeners();
+  }
+
 }

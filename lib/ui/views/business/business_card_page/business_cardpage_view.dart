@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flushbar/flushbar_helper.dart';
 
 import 'business_cardpage_viewmodel.dart';
 
@@ -14,44 +19,76 @@ part '../../../widgets/business/business_card_page/business_card_widget.dart';
 class BusinessCardPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ScreenshotController screenshotController = ScreenshotController();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
 
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: ThemeColors.background,
           elevation: 0,
           centerTitle: true,
           title: Text(
             "Business Card",
             style: TextStyle(
-              color: Colors.black,
-              fontSize: SizeConfig.textSize(context, 8),
+              color: ThemeColors.black,
+              fontSize: SizeConfig.textSize(context, 6),
             ),
           ),
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: BrandColors.primary),
         ),
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: ThemeColors.background,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.xMargin(context, 4),
+            ),
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  _BusinessCard(),
+                  Screenshot(
+                    controller: screenshotController,
+                    child: _BusinessCard(),
+                  ),
                   SizedBox(
-                    height: 10.sp,
+                    height: SizeConfig.yMargin(context, 3),
                   ),
                   _BusinessCardForm(),
                   SizedBox(
-                    height: 10.sp,
+                    height: SizeConfig.yMargin(context, 1),
                   ),
                   CustomShareRaisedButton(
-                    label: "Share",
-                    onPressed: () {},
-                  )
+                    label: "Save and Share",
+                    onPressed: () {
+                      screenshotController
+                          .capture(
+                        pixelRatio: ScreenUtil.pixelRatio,
+                        delay: Duration(milliseconds: 10),
+                      )
+                          .then((File image) async {
+                        //Capture Done
+                        model.imageFile = image;
+                        await model.saveBusinessCard();
+                        FlushbarHelper.createSuccess(
+                          duration: const Duration(seconds: 5),
+                          message: 'Save Successful',
+                        ).show(context);
+                        model.shareImageAndText();
+                      }).catchError((onError) {
+                        FlushbarHelper.createError(
+                          duration: const Duration(seconds: 5),
+                          message: 'Error Occurred',
+                        ).show(context);
+                      });
+                      return;
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).viewInsets.bottom,
+                  ),
                 ],
               ),
             ),
@@ -59,6 +96,7 @@ class BusinessCardPageView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => BusinessCardPageViewModel(),
+      onModelReady: (model) => model.init(),
     );
   }
 }
@@ -88,7 +126,8 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           // TODO VALIDATE PHONE NUMBER FORM FIELD
           _DefaultPhoneFormField(
             label: "Phone Number",
-            onChange: (value) => model.updateBusinessCard(phoneNumber: value),
+            onChange: (PhoneNumber value) =>
+                model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
           // TODO VALIDATE EMAIL ADDRESS FORM FIELD
           _DefaultFormField(
@@ -122,21 +161,24 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
     BusinessCardPageViewModel model,
   ) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1)),
+      margin: EdgeInsets.symmetric(
+        vertical: SizeConfig.yMargin(context, 1),
+      ),
       padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.xMargin(context, 4),
-          vertical: SizeConfig.yMargin(context, 0.5)),
+        horizontal: SizeConfig.xMargin(context, 4),
+        vertical: SizeConfig.yMargin(context, 0.5),
+      ),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFD1D1D1)),
-        color: const Color.fromRGBO(246, 246, 246, 1),
-        borderRadius: BorderRadius.circular(10.sp),
+        border: Border.all(color: ThemeColors.gray[700]),
+        color: ThemeColors.background,
+        borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
         onChanged: onChange,
         validator: validate,
-        cursorColor: Colors.black,
+        cursorColor: ThemeColors.gray[800],
         style: TextStyle(
-          color: Colors.black,
+          color: ThemeColors.black,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         decoration: InputDecoration(
@@ -145,7 +187,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
           hintText: label,
           hintStyle: TextStyle(
             fontSize: SizeConfig.textSize(context, 5),
-            color: const Color.fromRGBO(25, 25, 25, 0.6),
+            color: ThemeColors.gray[700],
           ),
         ),
       ),
@@ -171,62 +213,21 @@ class _DefaultPhoneFormField
       margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1)),
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 4)),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFD1D1D1)),
-        color: const Color.fromRGBO(246, 246, 246, 1),
-        borderRadius: BorderRadius.circular(10.sp),
+        border: Border.all(color: ThemeColors.gray[700]),
+        color: ThemeColors.background,
+        borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          DropdownButton(
-            underline: Container(),
-            value: model.dropDownValue,
-            items:
-                model.countryCode.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(color: Colors.black),
-                ),
-              );
-            }).toList(),
-            onChanged: (String newValue) {
-              model.updateCountryCode(newValue);
-            },
-            icon: Icon(
-              Icons.arrow_drop_down,
-              color: ThemeColors.black,
-            ),
-          ),
-          Container(
-            height: SizeConfig.yMargin(context, 5),
-            decoration: BoxDecoration(
-              border: Border(
-                left: BorderSide(color: ThemeColors.gray.shade700),
-              ),
-            ),
-          ),
-          Expanded(
-            child: TextField(
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: SizeConfig.textSize(context, 5),
-              ),
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                hintText: '0903 9393 9383',
-                hintStyle: TextStyle(
-                  color: const Color.fromRGBO(25, 25, 25, 0.6),
-                  fontSize: SizeConfig.textSize(context, 5),
-                ),
-                border: OutlineInputBorder(borderSide: BorderSide.none),
-              ),
-              onChanged: onChange,
-            ),
-          )
-        ],
+      child: InternationalPhoneNumberInput(
+        onInputChanged: onChange,
+        textStyle: TextStyle(
+          color: ThemeColors.black,
+          fontSize: SizeConfig.textSize(context, 5),
+        ),
+        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+        selectorTextStyle: TextStyle(color: Colors.black),
+        inputBorder: InputBorder.none,
+        hintText: '0903 9393 9383',
+        formatInput: true,
       ),
     );
   }

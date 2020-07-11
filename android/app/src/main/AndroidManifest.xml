@@ -5,6 +5,9 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
 
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
@@ -15,7 +18,8 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="myCustomer"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

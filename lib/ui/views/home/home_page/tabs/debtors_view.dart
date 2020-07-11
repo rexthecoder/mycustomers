@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
@@ -25,19 +26,17 @@ class DebtorsView extends StatelessWidget {
             Expanded(
               child:
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0,right: 20, left: 20),
-//                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                        child: Container(
-                          height: 150.h,
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               color: Color(0xFF333CC1),
@@ -78,8 +77,7 @@ class DebtorsView extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
-                      ///Code for list commented out
+                        ///Code for list commented out
 //                      model.expectedTime !=null?  Column(
 //                        children: <Widget>[
 //                          Container(
@@ -220,30 +218,28 @@ class DebtorsView extends StatelessWidget {
 //                          Divider(color: Colors.black,),
 //                        ],
 //                      ):
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Expanded(
-                          child: Center(
-                            child: Container(
-                              height:height/2,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset('assets/images/Notebook-pana 1.png'),
-                                  SizedBox(height: 20.h,),
-                                  Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: BrandColors.primary),),
-                                ],
-                              ),),
-                          ),
-                        ),
-                      ),
+                        Container(
+                          height:height/2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Image.asset('assets/images/Notebook-pana 1.png'),
+                                SizedBox(height: 20.h,),
+                                Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: BrandColors.primary),),
+                              ],
+                            ),
+                          ),),
 
 
 
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -252,7 +248,8 @@ class DebtorsView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: InkWell(
-                onTap: ()=> Navigator.pushNamed(context, '/importcustomer'),
+//                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
+                onTap: ()=> Navigator.pushNamed(context, '/importcustomerdebtor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,

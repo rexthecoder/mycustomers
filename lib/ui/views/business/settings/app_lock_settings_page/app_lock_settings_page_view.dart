@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_lock_settings_page_viewmodel.dart';
 
 class AppLockSettingsPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, height: 1440, width: 720);
     return ViewModelBuilder<AppLockSettingsPageViewModel>.reactive(
       viewModelBuilder: () => AppLockSettingsPageViewModel(),
       builder: (context, model, child) {
@@ -45,13 +43,20 @@ class AppLockSettingsPageView extends StatelessWidget {
                           child: ListTile(
                             onTap: () => model.navigateToChangePinPage(),
                             trailing: Icon(Icons.chevron_right),
-                            title: Text(
-                              'Change App lock Pin',
+                            title:model.getThecurrentStateOfPin() == false ? Text(
+                              'Set App lock Pin',
                               style: TextStyle(
                                 fontSize: SizeConfig.textSize(context, 4),
                                 fontWeight: FontWeight.w600,
                               ),
-                            ),
+                            ) 
+                            : Text(
+                              'Change App lock Pin',
+                              style:TextStyle(
+                                fontSize:SizeConfig.textSize(context, 4),
+                                fontWeight: FontWeight.w600
+                                 )
+                            )
                           ),
                         ),
                       ),
@@ -67,6 +72,7 @@ class AppLockSettingsPageView extends StatelessWidget {
                           selectedColor:
                               const Color.fromARGB(50, 196, 196, 196),
                           child: ListTile(
+                            enabled: model.getThecurrentStateOfPin(),
                             onTap: () => model.navigateToRemovePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title: Text(

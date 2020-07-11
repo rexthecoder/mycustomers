@@ -1,32 +1,27 @@
+import 'package:injectable/injectable.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 
-class LanguageSettingsViewModel extends BaseViewModel {
-  final NavigationService _navigationService = locator<NavigationService>();
-   
-  List get languages => _supportedLanguages;
-  String get btnText => 'Save';
-   
-  String _pageTitle='Settings';
-  String get pageTitle => _pageTitle;
+class LanguagePageViewModel extends ReactiveViewModel{  
+  final _bussinessSettingService = locator<BussinessSettingService>();
+  int get index => _bussinessSettingService.language;
+  List get langs => _bussinessSettingService.langs;
 
-  List<Map<String, String>> _supportedLanguages = [
-    {'image': 'assets/icons/uk.png','code': 'en', 'name': 'English'},
-    {'image': 'assets/icons/fr.png','code': 'fr', 'name': 'Francias'},
-  ];
+  int tempIndex;
 
-  Future<void> setLanguage(int index) async {
-    await locator<IStorageUtil>()
-        .saveString('AppPreferenceKey.USER_PREF_LANGUAGE', _supportedLanguages[index]['code']);
+  void selectLang(int ind) {
+    _bussinessSettingService.selectLangs(ind);
+    tempIndex = ind;
+    //SettingsPageViewModel().setIndex(index);
+    print(index);
+    notifyListeners();
   }
 
-  Future showDialogModal() async {
-    await _navigationService.replaceWith(Routes.showDialogModal);
+  void saveLang(){
+    _bussinessSettingService.setLanguageIndex(tempIndex);
   }
- 
 
-  
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_bussinessSettingService];
 }
