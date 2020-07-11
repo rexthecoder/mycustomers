@@ -26,6 +26,12 @@ class TransactionService with ReactiveServiceMixin {
   RxValue<List<TransactionModel>> _creditlist = RxValue<List<TransactionModel>>(initial: []);
   List<TransactionModel> get creditlist => _creditlist.value;
 
+  RxValue<List> _owingcustomers = RxValue<List>(initial: []);
+  List get owingcustomers => _owingcustomers.value;
+
+  RxValue<List> _owedcustomers = RxValue<List>(initial: []);
+  List get owedcustomers => _owedcustomers.value;
+
   List<String> formattedate = [];
   String date;
   var box = Hive.openBox<TransactionModel>(_boxname);
@@ -46,8 +52,34 @@ class TransactionService with ReactiveServiceMixin {
     final bbox = await box;
     _alltransactions.value = bbox.values.toList();
     _whatyouowe.value = 0;
+    _owingcustomers.value = [];
+    _owedcustomers.value = [];
     for(var item in _alltransactions.value){
+      if(item.amount-item.paid > 0) {
+        bool isIdThere = false;
+        if(_owingcustomers.value.length > 0){
+          for(var i in _owingcustomers.value){
+            if(i == item.cId){
+              isIdThere = true;
+            }
+          }
+          if(!isIdThere) _owingcustomers.value.add(item.cId);
+        } else {
+          _owingcustomers.value.add(item.cId);
+        }
+      }
       if(item.paid-item.amount > 0) {
+        bool isIdThere = false;
+        if(_owedcustomers.value.length > 0){
+          for(var i in _owedcustomers.value){
+            if(i == item.cId){
+              isIdThere = true;
+            }
+          }
+          if(!isIdThere) _owedcustomers.value.add(item.cId);
+        } else {
+          _owedcustomers.value.add(item.cId);
+        }
         _whatyouowe.value += item.paid-item.amount;
       }
     }

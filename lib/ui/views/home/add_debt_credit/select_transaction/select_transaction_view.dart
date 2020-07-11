@@ -42,7 +42,7 @@ class SelectTransactionView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 3),
+                  padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 0.8)),
                   decoration: BoxDecoration(
                     color: Color(0xFFF0F0F0),
                     borderRadius: BorderRadius.circular(5)
@@ -64,16 +64,23 @@ class SelectTransactionView extends StatelessWidget {
                       ),
                     ),
                     title: Text(
-                      action == 'credit' ? 'Add New Credit' : 'Add New Debit'
+                      action == 'credit' ? 'Add New Credit' : 'Add New Debit',
+                      style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  //margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.5)),
+                  padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5)),
+                  decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black12)
+                      )
+                    ),
                   child: Center(
                     child: Text(
                       action == 'credit' ? 'Existing Debits' : 'Existing Credits',
-                      style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  16, fontWeight: FontWeight.w500),
+                      style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  SizeConfig.yMargin(context, 2.1), fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -83,10 +90,13 @@ class SelectTransactionView extends StatelessWidget {
                     model.setTransaction(item, action);
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2), horizontal: 10),
                     decoration: BoxDecoration(
-                      color: Color(0xFFF0F0F0),
-                      borderRadius: BorderRadius.circular(5)
+                      //color: Color(0xFFF0F0F0),
+                      //borderRadius: BorderRadius.circular(5),
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black12)
+                      )
                     ),
                     child: Row(
                       children: <Widget>[
@@ -110,13 +120,18 @@ class SelectTransactionView extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  color: Color(0xFFE0E0E0),
+                                  color: Color(0xFFF0F0F0),
                                 ),
                                 child: Row(
                                   children: <Widget>[
+                                    Text(
+                                      item.goods.length > 1 ? 'Items: ' : 'Item: ',
+                                      style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  SizeConfig.yMargin(context, 2),),
+                                    ),
                                     for(var goods in item.goods) Container(
                                       child: Text(
-                                        goods
+                                        item.goods.indexOf(goods) != item.goods.length-1 ? goods+', ' : goods,
+                                        style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  SizeConfig.yMargin(context, 2),),
                                       ),
                                     )
                                   ],
@@ -124,7 +139,8 @@ class SelectTransactionView extends StatelessWidget {
                               ),
                               Container(
                                 child: Text(
-                                  action == 'credit' ? DateFormat('dd/MM/yyyy').format(DateTime.parse(item.boughtdate)) : DateFormat('dd/MM/yyyy').format(DateTime.parse(item.paiddate))
+                                  action == 'credit' ? DateFormat('dd/MM/yyyy').format(DateTime.parse(item.boughtdate)) : DateFormat('dd/MM/yyyy').format(DateTime.parse(item.paiddate)),
+                                  style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  SizeConfig.yMargin(context, 1.8),),
                                 ),
                               )
                             ],

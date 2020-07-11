@@ -155,7 +155,7 @@ class CreditorsView extends StatelessWidget {
 //                      Container(
 //                        height: 100,
 //                        child: Center(child: Text('You don\'t have any creditors yet')),),
-                      Container(
+                      model.owedcustomers.length == 0 ? Container(
                         height:height/2,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -171,7 +171,8 @@ class CreditorsView extends StatelessWidget {
                                 style: TextStyle(color: BrandColors.secondary),),
                             ],
                           ),
-                        ),),
+                        ),
+                      ) : ContactList(),
                           
 
                     ],
@@ -202,6 +203,74 @@ class CreditorsView extends StatelessWidget {
               ),
             )
           ] ,
+        ),
+      ),
+      viewModelBuilder: () => HomePageViewModel(),
+    );
+  }
+}
+
+class ContactList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<HomePageViewModel>.reactive(
+      builder: (context, model, child) => Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
+              child: TextField(
+                //controller: model.allCustomersController,
+                //onChanged: model.searchAllCustomers,
+                style:  TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,),
+                decoration: InputDecoration(
+                  hintText: 'Search by name',
+                  hintStyle: TextStyle(
+                    color: Color(0xFFACACAC),
+                    fontSize: 14,
+
+                  ),
+                  contentPadding:  const EdgeInsets.only(top: 18.0),
+                  prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            for(var cont in model.owedcustomers)
+              for (var item in model.contacts) item.id == cont ? Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 6),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Color(0xFFD1D1D1)),
+                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                  )
+                ),
+                child: ListTile(
+                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
+                  leading: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.black,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/man.png',
+                        ),
+                        fit: BoxFit.cover
+                      )
+                    ),
+                  ),
+                  title: Text(
+                    item.name
+                  ),
+                ),
+              ),
+            ) : SizedBox()
+          ],
         ),
       ),
       viewModelBuilder: () => HomePageViewModel(),

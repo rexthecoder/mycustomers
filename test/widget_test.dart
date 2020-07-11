@@ -29,9 +29,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   
 
-  final transactionModel1 = TransactionModel(cId: 1, amount: 20000.0, paid: 0, goods: ['Rice', 'Bread'], date: '08/07/2020');
-  final transactionModel2 = TransactionModel(cId: 1, amount: 0, paid: 9000.0, goods: ['Rice', 'Bread'], date: '05/07/2020');
-  final transactionModel3 = TransactionModel(cId: 1, amount: 300.0, paid: 0, goods: ['Rice', 'Bread'], date: '03/07/2020');
+  final transactionModel1 = TransactionModel(cId: 1, amount: 20000.0, paid: 0, goods: ['Rice', 'Bread'], duedate: '08/07/2020');
+  final transactionModel2 = TransactionModel(cId: 1, amount: 0, paid: 9000.0, goods: ['Rice', 'Bread'], duedate: '05/07/2020');
+  final transactionModel3 = TransactionModel(cId: 1, amount: 300.0, paid: 0, goods: ['Rice', 'Bread'], duedate: '03/07/2020');
 
   final transactionModeList = [transactionModel1, transactionModel2, transactionModel3];
 

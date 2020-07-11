@@ -228,7 +228,7 @@ class DebtorsView extends StatelessWidget {
 //                          Divider(color: Colors.black,),
 //                        ],
 //                      ):
-                      model.contacts.length == 0 ? Container(
+                      model.owingcustomers.length == 0 ? Container(
                         height:height/2,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -314,7 +314,8 @@ class ContactList extends StatelessWidget {
                 ),
               ),
             ),
-            for (var item in model.contacts) Container(
+            for(var cont in model.owingcustomers)
+              for (var item in model.contacts) item.id == cont ? Container(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
@@ -344,7 +345,7 @@ class ContactList extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ) : SizedBox()
           ],
         ),
       ),

@@ -38,6 +38,8 @@ class HomePageViewModel extends ReactiveViewModel {
   List<TransactionModel> get transactions => _transactionService.alltransactions;
   double get whatyouowe  => _transactionService.whatyouowe;
   int tabNo = 0;
+  List get owingcustomers => _transactionService.owingcustomers;
+  List get owedcustomers => _transactionService.owedcustomers;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =

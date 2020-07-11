@@ -31,9 +31,10 @@ class MainTransaction extends StatelessWidget {
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(70.0),
                   child: AppBar(
-                    brightness: Brightness.light,
+                    brightness: Brightness.dark,
                     elevation: .5,
                     title: Container(
+                      margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                       child: Row(
                         children: <Widget>[
                           Container(
