@@ -11,7 +11,7 @@ import 'package:mycustomers/core/exceptions/update_exception.dart';
 import 'package:mycustomers/core/exceptions/create_exception.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
 
-class BusinessViewModel extends BaseViewModel {
+class CreateBusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final StoreService _storeService = locator<StoreService>();
   final DialogService _dialogService = locator<DialogService>();

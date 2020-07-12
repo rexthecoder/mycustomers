@@ -170,6 +170,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 Expanded(
                   child: TextField(
                     textAlign: TextAlign.left,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Mobile Number',
                       border: OutlineInputBorder(borderSide: BorderSide.none),

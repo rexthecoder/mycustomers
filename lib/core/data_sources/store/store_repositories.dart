@@ -21,7 +21,7 @@ class StoreRepository {
 
     var stores = await _ss.getStores();
     _stores = stores ?? _stores;
-    if (_stores != null && _stores.isNotEmpty) _currentStore = _currentStore ?? _stores[0];
+    if (_stores != null && _stores.isNotEmpty) _currentStore = _stores[0];
     print('Stores is now: $_stores and current store is $_currentStore');
     } catch(e, s) {
       Logger.e('Refresh store list Error', e: e, s: s);

@@ -139,7 +139,7 @@ class ApiServices extends IApi {
       'store_name': storeName
     };
     var customer = await _serviceImpl.postHttp('$BASE_URL/customer/new', body);
-    Logger.d(customer);
+    Logger.d('$customer');
     return customer;
   }
 
@@ -188,14 +188,14 @@ class ApiServices extends IApi {
   @override
   Future<Map> getCustomerbyId(String custId) async {
     var customer = await _serviceImpl.getHttp('$BASE_URL/customer/$custId');
-    Logger.d(customer);
+    Logger.d('$customer');
     return customer;
   }
 
   @override
   Future<Map> getCustomers() async {
     var data = await _serviceImpl.getHttp('$BASE_URL/customer');
-    Logger.d(data);
+    Logger.d('$data');
     return data;
   }
 
@@ -217,7 +217,7 @@ class ApiServices extends IApi {
     var body = {'name': name, 'email': email, 'message': message};
     var data =
         await _serviceImpl.postHttp('$BASE_URL/complaint/new/$ownerId', body);
-    Logger.d(data);
+    Logger.d('$data');
     return data;
   }
 
@@ -229,9 +229,15 @@ class ApiServices extends IApi {
       'store_name': name,
       'shop_address': address
     };
+    print('Got here');
+    try {
     var store = await _serviceImpl.postHttp('$BASE_URL/store/new', body);
-    Logger.d(store);
-    return store;
+      Logger.d('$store');
+      return store;
+    } catch (e, s) {
+      Logger.d('Exception: $e, Stacktrace: $s');
+      rethrow;
+    }
   }
 
   @override
@@ -258,7 +264,7 @@ class ApiServices extends IApi {
     'transaction_role': transactionRole,
     };
     var trx = await _serviceImpl.postHttp('$BASE_URL/transaction/new', body);
-    Logger.d(trx);
+    Logger.d('$trx');
     return trx;
   }
 
@@ -278,7 +284,7 @@ class ApiServices extends IApi {
       'store_id': storeId
     };
     var res = await _serviceImpl.postHttp('$BASE_URL/reminder/email/$custId', body);
-    Logger.d(res);
+    Logger.d('$res');
     return res;
   }
 
@@ -327,7 +333,7 @@ class ApiServices extends IApi {
     };
     var update =
         await _serviceImpl.putHttp('$BASE_URL/store-admin/update', body);
-    Logger.d(update);
+    Logger.d('$update');
     return update;
   }
 
@@ -342,7 +348,7 @@ class ApiServices extends IApi {
       'shop_address': address
     };
     var update = await _serviceImpl.putHttp('$BASE_URL/store/update/$storeId', body);
-    Logger.d(update);
+    Logger.d('$update');
     return update;
   }
 
@@ -368,7 +374,7 @@ class ApiServices extends IApi {
     };
 
     var trx = await _serviceImpl.postHttp('$BASE_URL/transaction/update/$transactionId', body);
-    Logger.d(trx);
+    Logger.d('$trx');
     return trx;
   }
 
@@ -393,14 +399,14 @@ class ApiServices extends IApi {
   @override
   Future<Map> getAllAssistants() async {
     var data = await _serviceImpl.getHttp('$BASE_URL/assistant');
-    Logger.d(data);
+    Logger.d('$data');
     return data;
   }
 
   @override
   Future<Map> getAssistant(String asstId) async {
     var data = await _serviceImpl.getHttp('$BASE_URL/assistant/$asstId');
-    Logger.d(data);
+    Logger.d('$data');
     return data;
   }
 
@@ -414,7 +420,7 @@ class ApiServices extends IApi {
       'password': password
     };
     var data = await _serviceImpl.postHttp('$BASE_URL/assistant/new', body);
-    Logger.d(data);
+    Logger.d('$data');
     return data;
   }
 
@@ -424,7 +430,7 @@ class ApiServices extends IApi {
     var body = {'name': name, 'email': email, 'phone_number': phoneNumber};
     var update =
         await _serviceImpl.putHttp('$BASE_URL/assistant/update$asstId', body);
-    Logger.d(update);
+    Logger.d('$update');
     return update;
   }
 

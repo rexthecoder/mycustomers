@@ -30,7 +30,7 @@ class Logger {
 
   /// Debug level logs
   static void d(
-    String message, {
+    message, {
     dynamic e,
     StackTrace s,
   }) {
@@ -44,7 +44,7 @@ class Logger {
 
   // Warning level logs
   static void w(
-    String message, {
+    message, {
     dynamic e,
     StackTrace s,
   }) {
@@ -60,7 +60,7 @@ class Logger {
   /// Requires a current StackTrace to report correctly on Crashlytics
   /// Always reports as non-fatal to Crashlytics
   static void e(
-    String message, {
+    message, {
     dynamic e,
     StackTrace s,
   }) {

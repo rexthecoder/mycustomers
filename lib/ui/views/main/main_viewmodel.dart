@@ -4,6 +4,7 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -41,7 +42,10 @@ class MainViewModel extends BaseViewModel {
   ];
 
   final List<Menu> signOut = [
-    Menu(label: 'Sign Out', icon: 'assets/icons/svg/profile.svg', onTap: _auth.signOut)
+    Menu(
+        label: 'Sign Out',
+        icon: 'assets/icons/svg/profile.svg',
+        onTap: _auth.signOut)
   ];
 
   int _index = 0;
@@ -56,7 +60,7 @@ class MainViewModel extends BaseViewModel {
   /// Methods/Functions
   void changeTab(int index) {
     _index = index;
-    if (!isCollapsed){
+    if (!isCollapsed) {
       isCollapsed = !isCollapsed;
     }
     notifyListeners();
@@ -80,7 +84,12 @@ class MainViewModel extends BaseViewModel {
     // TODO: Create additional Function to Use Value and Change the Operation.
   }
 
+  final DialogService _dialogService = locator<DialogService>();
+
   Future navigateToAddBusiness() async {
+    _dialogService.registerCustomDialogUi(createBusinessDialog);
+    _dialogService.showCustomDialog();
+      
     // TODO Navigate to add Business page
 //    await _navigationService.navigateTo(Routes.);
   }
