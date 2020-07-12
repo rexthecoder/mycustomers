@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/business_card_model.dart';
+import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
@@ -11,18 +11,11 @@ class BusinessCardPageViewModel extends BaseViewModel {
   /// Fields
   final BusinessCardService _businessCardService =
       locator<IBusinessCardService>();
-  bool autoValidate = false;
-  String _dropDownValue = '+234';
   BusinessCard _businessCard = BusinessCard.empty();
-  List<String> _countryCodes = ['+234', '+254', '+250', '+230'];
   File imageFile;
 
   /// Getters
   BusinessCard get businessCard => _businessCard;
-
-  List<String> get countryCode => _countryCodes;
-
-  String get dropDownValue => _dropDownValue;
 
   /// Setters
 
@@ -36,22 +29,10 @@ class BusinessCardPageViewModel extends BaseViewModel {
     _businessCard = _businessCard.copyWith(
       storeName: storeName ?? _businessCard.storeName,
       personalName: personalName ?? _businessCard.personalName,
-      phoneNumber: phoneNumber != null
-          ? '$_dropDownValue  $phoneNumber'
-          : _businessCard.phoneNumber,
+      phoneNumber: phoneNumber ?? _businessCard.phoneNumber,
       emailAddress: emailAddress ?? _businessCard.emailAddress,
       address: address ?? _businessCard.address,
     );
-    notifyListeners();
-  }
-
-  void updateCountryCode(String value) {
-    _dropDownValue = value;
-    if (_businessCard.phoneNumber.contains('+')) {
-      _businessCard = _businessCard.copyWith(
-        phoneNumber: '$dropDownValue ${_businessCard.phoneNumber.substring(4)}',
-      );
-    }
     notifyListeners();
   }
 

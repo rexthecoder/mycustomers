@@ -24,8 +24,8 @@ class AddDebtCreditView extends StatelessWidget {
           brightness: Brightness.light,
           elevation: 1,
           title: Text(
-            action == 'debit' ? model.amount != null ? 'Sheyi owes you \$' + model.amount.round().toString() : 'Sheyi owes you' : model.amount != null ? 'Sheyi paid you \$' + model.amount.round().toString() : 'Sheyi paid you',
-            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,),
+            action == 'credit' ? model.amount != null ? 'Sheyi owes you \#' + model.amount.round().toString() : 'Sheyi owes you' : model.amount != null ? 'Sheyi paid you \#' + model.amount.round().toString() : 'Sheyi paid you',
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
           ),
           leading: InkWell(
             onTap: () => Navigator.pop(context),
@@ -33,7 +33,7 @@ class AddDebtCreditView extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(18), vertical: ScreenUtil().setHeight(10)),
               child: SvgPicture.asset(
                 'assets/icons/backarrow.svg',
-                color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
+                color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
               ),
             ),
           ),
@@ -64,19 +64,19 @@ class AddDebtCreditView extends StatelessWidget {
                             maxLines: null,
                             maxLengthEnforced: false,
                             keyboardType: TextInputType.number,
-                            style: Theme.of(context).textTheme.headline6.copyWith(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline6.copyWith(color: action == 'credit' ? BrandColors.secondary : BrandColors.primary, fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.bold),
                             decoration: new InputDecoration(
                               border: OutlineInputBorder(
-                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
+                                borderSide: BorderSide(color: action == 'credit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
                               disabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
+                                borderSide: BorderSide(color: action == 'credit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
+                                borderSide: BorderSide(color: action == 'credit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
+                                borderSide: BorderSide(color: action == 'credit' ? BrandColors.secondary : BrandColors.primary, width: 2.0),
                               ),
                               errorBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(color: Colors.red, width: 2.0),
@@ -122,13 +122,13 @@ class AddDebtCreditView extends StatelessWidget {
                                         margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                                         child: SvgPicture.asset(
                                           'assets/icons/calendar.svg',
-                                          color: action == 'debit' ? BrandColors.secondary : BrandColors.primary
+                                          color: action == 'credit' ? BrandColors.secondary : BrandColors.primary
                                         ),
                                       ),
                                       Container(
                                         child: Text(
                                           model.newDate ?? 'Select Due Date',
-                                          style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(16), color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,),
+                                          style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(16), color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
                                         ),
                                       )
                                     ],
@@ -173,13 +173,13 @@ class AddDebtCreditView extends StatelessWidget {
                                               children: <Widget>[
                                                 Icon(
                                                   Icons.add,
-                                                  color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
+                                                  color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
                                                   size: ScreenUtil().setWidth(18),
                                                 ),
                                                 Container(
                                                   child: Text(
                                                     'Add',
-                                                    style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(14), color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,),
+                                                    style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(14), color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
                                                   ),
                                                 )
                                               ],
@@ -237,12 +237,15 @@ class AddDebtCreditView extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: (){},//Todo: Save User Input
+                onTap: (){
+                  model.addtransaction(action);
+                  Navigator.pop(context);
+                },//Todo: Save User Input
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15)),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    color: model.save ? action == 'debit' ? BrandColors.secondary : BrandColors.primary : action == 'debit' ? BrandColors.secondary.withOpacity(0.5) : BrandColors.primary.withOpacity(0.5),
+                    color: model.save ? action == 'credit' ? BrandColors.secondary : BrandColors.primary : action == 'credit' ? BrandColors.secondary.withOpacity(0.5) : BrandColors.primary.withOpacity(0.5),
                   ),
                   width: width,
                   child: Center(

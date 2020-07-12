@@ -10,12 +10,11 @@ class Permissions {
       final Map<Permission, PermissionStatus> permissionStatus =
           await [Permission.contacts].request();
       return permissionStatus[Permission.contacts] ==
-          PermissionStatus.granted;
+          PermissionStatus.denied;
     } else {
       return permission == PermissionStatus.granted;
     }
   }
-
 }
 
 class MockPermissions extends Mock implements Permissions {

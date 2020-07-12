@@ -1,32 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 
 import 'business_viewmodel.dart';
 
 class BusinessView extends StatelessWidget {
-  static final _businessFormPageKey = GlobalKey<FormState>();
   final _businessPageKey = GlobalKey<ScaffoldState>();
-
-  TextEditingController _userFullName = TextEditingController();
-  TextEditingController _userBusinessName = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusinessViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        key: _businessPageKey,
-        resizeToAvoidBottomInset: false,
-        backgroundColor: BrandColors.primary,
-        body: CustomBackground(child: buildForm(context, model)),
+      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: BrandColors.primary,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        child: SafeArea(
+          child: Scaffold(
+            key: _businessPageKey,
+            resizeToAvoidBottomInset: false,
+            backgroundColor: BrandColors.primary,
+            body: CustomBackground(child: _PartialBuildForm()),
+          ),
+        ),
       ),
       viewModelBuilder: () => BusinessViewModel(),
     );
   }
+}
 
-  Widget buildForm(BuildContext context, BusinessViewModel model) {
+class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
+  static final _businessFormPageKey = GlobalKey<FormState>();
+
+  _PartialBuildForm({Key key}) : super(key: key, reactive: false);
+
+  @override
+  Widget buildViewModelWidget(
+      BuildContext context, BusinessViewModel viewModel) {
+    var _storeName = useTextEditingController();
+    var _storeAddress = useTextEditingController();
+
     return Form(
       key: _businessFormPageKey,
       child: Column(
@@ -51,10 +68,10 @@ class BusinessView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
             child: TextFormField(
-              key: Key("userFullName"),
-              controller: _userFullName,
+              key: Key("storeName"),
+              controller: _storeName,
               validator: (value) =>
-                  (value.isEmpty) ? "Please Enter Full Name" : null,
+                  (value.isEmpty) ? "Please enter store name" : null,
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
@@ -62,17 +79,17 @@ class BusinessView extends StatelessWidget {
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                  labelText: "Enter Your Full Name",
+                  labelText: "Enter your  store name",
                   border: OutlineInputBorder()),
             ),
           ),
           Padding(
             padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
             child: TextFormField(
-              key: Key("userBusinessName"),
-              controller: _userBusinessName,
+              key: Key("storeAddress"),
+              controller: _storeAddress,
               validator: (value) =>
-                  (value.isEmpty) ? "Please Enter Business Name" : null,
+                  (value.isEmpty) ? "Please enter store address" : null,
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
@@ -80,23 +97,27 @@ class BusinessView extends StatelessWidget {
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                  labelText: "Enter Your Business Name",
+                  labelText: "Enter your store address",
                   border: OutlineInputBorder()),
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 4)),
-          AuthButton(
+          CustomRaisedButton(
             btnColor: BrandColors.primary,
             txtColor: ThemeColors.background,
-            btnText: 'Submit and Finish',
+            btnText: 'Submit and finish',
+            borderColor: BrandColors.primary,
+            child: Container(),
             onPressed: () async {
               // viewModel.signUpTest();
               if (_businessFormPageKey.currentState.validate()) {
-                model.updateUser(
-                    _userFullName.text.trim(), _userBusinessName.text.trim());
+                //Dismiss keyboard during async call
+                FocusScope.of(context).requestFocus(FocusNode());
+
+                //Call Function to Signin
+                viewModel.updateUser(
+                    _storeName.text.trim(), _storeAddress.text.trim());
               }
-              //Dismiss keyboard during async call
-              FocusScope.of(context).requestFocus(FocusNode());
             },
           ),
           SizedBox(height: SizeConfig.yMargin(context, 14)),

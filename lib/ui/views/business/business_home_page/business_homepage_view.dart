@@ -29,13 +29,13 @@ class BusinessHomePageView extends StatelessWidget {
                   ),
                   child: ListTile(
                     subtitle: Text(
-                      'Your name',
+                      model.profileCardSubtitle,
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 3.4),
                       ),
                     ),
                     title: Text(
-                      'Cynthia Ike',
+                      model.profileCardTitle,
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 5),
                         fontWeight: FontWeight.bold,

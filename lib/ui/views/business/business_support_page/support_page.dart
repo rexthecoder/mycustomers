@@ -13,6 +13,7 @@ class SupportPageView extends StatelessWidget {
     ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: true);
     return ViewModelBuilder<SupportPageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
+             resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 elevation: 0,
                 title: Text(

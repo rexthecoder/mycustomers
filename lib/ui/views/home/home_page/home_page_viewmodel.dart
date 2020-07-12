@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/models/business_model.dart';
 import 'package:mycustomers/core/services/permissions.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -23,28 +22,17 @@ class HomePageViewModel extends BaseViewModel {
 
   void btnViewDetails() {
     print('hello');
-  } 
-
-  Business selectedBusiness = Business.business[0];
-
-  void changeBusiness(value) {
-    selectedBusiness = value;
-    notifyListeners();
-    // print(value.businessName); //Uncomment to see value in terminal
-
-    // TODO: Create additional Function to Use Value and Change the Operation.
   }
-
 
   final NavigationService _navigationService = locator<NavigationService>();
    Permissions _permission =  locator<Permissions>();
 
-  Future navigateToAddCustomer() async {
-    final bool isPermitted =
-        await _permission.getContactsPermission();
-    if (isPermitted) _navigationService.navigateTo(Routes.importCustomerViewRoute);
-    else _navigationService.navigateTo(Routes.addCustomerManually);
-  }
+  // Future navigateToAddCustomer() async {
+  //   final bool isPermitted =
+  //       await _permission.getContactsPermission();
+  //   if (isPermitted) _navigationService.navigateTo(Routes.importCustomerViewRoute);
+  //   else _navigationService.navigateTo(Routes.addCustomerManually);
+  // }
 
   TextEditingController debtorsController = TextEditingController();
   void searchDebtors(value){

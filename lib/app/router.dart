@@ -2,18 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
+import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
+import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
 import 'package:mycustomers/ui/views/home/add_customer_manually/add_customer_manually_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
-import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/remove_pin_settings_page/remove_pin_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_view.dart';
 import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/change_pin_settings_page_view.dart';
-import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
+import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
@@ -25,15 +26,15 @@ import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
+import 'package:mycustomers/ui/views/marketing/add_new_customer/add_new_customer_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
-import 'package:mycustomers/ui/views/marketing/send_a_message/send_a_message_view.dart';
-import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt_credit/add_debt_credit_view.dart';
-import 'package:mycustomers/ui/views/home/add_debt/add_debt_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
 import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_reminder/schedule_remider_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.dart';
+import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/send_a_message_view.dart';
+import 'package:mycustomers/ui/views/startup/startup_view.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
@@ -47,12 +48,14 @@ abstract class Routes {
   static const businessViewRoute = '/business';
   static const mainViewRoute = '/main';
   static const addcustomerRoute = '/addcustomer';
-  static const addCustomerManually = '/addcusman';
+  static const addCustomerManuallyDebtor = '/addcusmandeb';
+  static const addCustomerManuallyCreditor = '/addcusmancred';
   static const detailsViewRoute = '/details';
   static const addCustomer = '/addcustomer';
   static const addCustomerMessageRoute = '/addcusmess'; // (^ = ^)
   static const supportViewRoute = '/support';
-  static const importCustomerViewRoute = '/importcustomer';
+  static const importCustomerDebtorViewRoute = '/importcustomerdebtor';
+  static const importCustomerCreditorViewRoute = '/importcustomercreditor';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
   static const mainTransaction = '/mainTransaction';
@@ -74,6 +77,8 @@ abstract class Routes {
   static const sendReminder = '/sendReminder';
   static const sendMessageViewRoute = '/sendMessage';
   static const marketingHomepageView = '/marketingHomePage';
+   static const addCustomerMarketing = '/addCustomerMarketing';
+  static const addNewCustomerMarketing = '/addNewCustomerMarketing';
 }
 
 class Router {
@@ -109,9 +114,14 @@ class Router {
           builder: (context) => AddCustomerView(),
           settings: settings,
         );
-      case Routes.importCustomerViewRoute:
+      case Routes.importCustomerDebtorViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => ImportCustomerView(),
+          builder: (context) => ImportCustomerView(action: 'debtor',),
+          settings: settings,
+        );
+      case Routes.importCustomerCreditorViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => ImportCustomerView(action: 'creditor',),
           settings: settings,
         );
       case Routes.addDebt:
@@ -209,7 +219,7 @@ class Router {
         );
       case Routes.languageSettingsViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => LanguageSettingPageView(),
+          builder: (context) => LanguagePageView(),
           settings: settings,
         );
       case Routes.appLockSettingsViewRoute:
@@ -252,9 +262,24 @@ class Router {
           builder: (context) => MarketingHomePageView(),
           settings: settings,
         );
-      case Routes.addCustomerManually:
+      case Routes.addCustomerManuallyDebtor:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddCustomerManuallyView(),
+          builder: (context) => AddCustomerManuallyView(action: 'debtor',),
+          settings: settings,
+        );
+      case Routes.addCustomerManuallyCreditor:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerManuallyView(action: 'creditor',),
+          settings: settings,
+        );
+      case Routes.addCustomerMarketing:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddCustomerMessageView(),
+          settings: settings,
+        );
+      case Routes.addNewCustomerMarketing:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddNewCustomerView(),
           settings: settings,
         );
       default:

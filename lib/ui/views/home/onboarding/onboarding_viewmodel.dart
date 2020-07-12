@@ -30,13 +30,23 @@ class OnboardingViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future navigateToSignIn() async {
-    await _navigationService.replaceWithTransition(SignInView(),
-        opaque: true, popGesture: true, transition: 'fade', duration: Duration(seconds: 2));
+    await _navigationService.replaceWithTransition(
+      SignInView(),
+      opaque: true,
+      popGesture: true,
+      transition: 'rightToLeftWithFade',
+      duration: Duration(milliseconds: 800),
+    );
   }
 
   Future navigateToSignUp() async {
-    await _navigationService.replaceWithTransition(SignUpView(),
-        opaque: false, popGesture: true, transition: 'fade', duration: Duration(seconds: 2));
+    await _navigationService.replaceWithTransition(
+      SignUpView(),
+      opaque: true,
+      popGesture: true,
+      transition: 'rightToLeftWithFade',
+      duration: Duration(milliseconds: 800),
+    );
   }
 
   @override
