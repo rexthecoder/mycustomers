@@ -21,12 +21,19 @@ class CustomerContactService with ReactiveServiceMixin {
   CustomerContact get contact => _contact.value;
 
   CustomerContactService(){
-    listenToReactiveValues([_contacts, contact]);
+    listenToReactiveValues([_contacts, _contact]);
   }
 
   void getContacts() async {
     final bbox = await box;
     _contacts.value = bbox.values.toList();
+    _contacts.value.sort((a,b) => b.id.compareTo(a.id));
+  }
+
+  void setContact(CustomerContact cont){
+    _contact.value = cont;
+    print(cont.id);
+    _navigationService.navigateTo(Routes.mainTransaction);
   }
 
   void addContact(String customerPhoneNumber, String customerName, String dropDownValue)async {
@@ -36,21 +43,34 @@ class CustomerContactService with ReactiveServiceMixin {
     if(customerName != null && customerPhoneNumber != null) {
       print('sent');
       final bbox = await box;
-      CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length + 1);
-      bbox.add(contact).then((value){
-        success = true;
-        print(success);
-        _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length + 1);
-        print(contact.id);
-        _contacts.value = bbox.values.toList();
+      bool isStored = false;
+      for(var item in bbox.values.toList()){
+        if(item.name == customerName && item.phoneNumber == customerPhoneNumber){
+          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id);
+          isStored = true;
+        }
+      }
+      if(isStored){
         _navigationService.navigateTo(Routes.mainTransaction);
-      }).catchError((err){
-        error = err;
-        print(error);
-        print('Failed To save Contact');
-        success = false;
-      });
-      print(bbox.values.toList());
+      } else {
+        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length + 1);
+        bbox.add(contact).then((value){
+          success = true;
+          print(success);
+          _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length);
+          print('set ${contact.id}');
+          _contacts.value = bbox.values.toList();
+          _contacts.value.sort((a,b) => b.id.compareTo(a.id));
+          _navigationService.navigateTo(Routes.mainTransaction);
+        }).catchError((err){
+          error = err;
+          print(error);
+          print('Failed To save Contact');
+          success = false;
+        });
+        print(bbox.values.toList());
+      }
+      
     }
   }
 

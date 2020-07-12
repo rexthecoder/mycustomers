@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permissions.dart';
+import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 
 
-class HomePageViewModel extends BaseViewModel {
+class HomePageViewModel extends ReactiveViewModel {
   String _title = 'Home View';
   String get title => _title;
   String name = 'Seyi Onifade';
@@ -25,7 +29,16 @@ class HomePageViewModel extends BaseViewModel {
   }
 
   final NavigationService _navigationService = locator<NavigationService>();
-   Permissions _permission =  locator<Permissions>();
+  final _customerContactService = locator<CustomerContactService>();
+  final _transactionService = locator<TransactionService>();
+
+  Permissions _permission =  locator<Permissions>();
+  List<CustomerContact> get contacts => _customerContactService.contacts;
+  List<TransactionModel> get transactions => _transactionService.alltransactions;
+  double get whatyouowe  => _transactionService.whatyouowe;
+  int tabNo = 0;
+  List<TransactionModel> get owingcustomers => _transactionService.owingcustomers;
+  List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =
@@ -33,6 +46,45 @@ class HomePageViewModel extends BaseViewModel {
   //   if (isPermitted) _navigationService.navigateTo(Routes.importCustomerViewRoute);
   //   else _navigationService.navigateTo(Routes.addCustomerManually);
   // }
+
+  void getTransactions() {
+    _transactionService.getAllTransactions();
+    notifyListeners();
+  }
+
+  double bought(){
+    double sum = 0;
+    for (var item in transactions) {
+      if(item.amount != 0) {
+        sum += item.amount;
+      }
+    }
+    return sum;
+  }
+
+  double paid(){
+    double sum = 0;
+    for (var item in transactions) {
+      if(item.paid != 0) {
+        sum += item.paid;
+      }
+    }
+    return sum;
+  }
+
+  void changeTab(int val){
+    tabNo = val;
+    notifyListeners();
+  }
+
+  void getContacts() {
+    _customerContactService.getContacts();
+  }
+
+  void setContact(int id, String name, String phone) {
+    CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone);
+    _customerContactService.setContact(cus);
+  }
 
   TextEditingController debtorsController = TextEditingController();
   void searchDebtors(value){
@@ -49,5 +101,9 @@ class HomePageViewModel extends BaseViewModel {
     notifyListeners();
     //todo: implement allCustomers search
   }
+
+  @override
+  // TODO: implement reactiveServices
+  List<ReactiveServiceMixin> get reactiveServices => [_customerContactService, _transactionService];
 }
 
