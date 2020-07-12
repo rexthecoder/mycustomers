@@ -17,7 +17,7 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
             borderRadius: BorderRadius.circular(10),
             shape: BoxShape.rectangle,
             image: DecorationImage(
-              image: AssetImage("assets/images/business_card.png"),
+              image: AssetImage("assets/images/business_card_1.png"),
               fit: BoxFit.cover,
             ),
           ),
