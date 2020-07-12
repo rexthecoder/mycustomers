@@ -89,7 +89,8 @@ class MainTransactionViewModel extends ReactiveViewModel{
     _navigationService.navigateTo(Routes.mainViewRoute);
   }
 
-  void navigateDetails(){
+  void navigateDetails(TransactionModel item){
+    _transactionService.setTransaction(item);
     _navigationService.navigateTo(Routes.transactionDetails);
   }
 
