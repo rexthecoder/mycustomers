@@ -52,10 +52,11 @@ class CreditorsView extends StatelessWidget {
                                   fontSize: 14.sp
                               ),),
                               model.whatyouowe > 0 ? Text(
-                                'N'+currency.format(model.whatyouowe).toString(),
+                                '₦'+currency.format(model.whatyouowe).toString(),
                                 style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 36.sp,
+                                      fontFamily: 'Roboto',
                                       fontWeight: FontWeight.bold),
                               ) : RichText(
                                 text: TextSpan(
@@ -211,6 +212,7 @@ class CreditorsView extends StatelessWidget {
 }
 
 class ContactList extends StatelessWidget {
+  final currency = new NumberFormat("#,##0", "en_NG");
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomePageViewModel>.reactive(
@@ -239,7 +241,7 @@ class ContactList extends StatelessWidget {
               ),
             ),
             for(var cont in model.owedcustomers)
-              for (var item in model.contacts) item.id == cont ? Container(
+              for (var item in model.contacts) item.id == cont.cId ? Container(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
@@ -266,6 +268,14 @@ class ContactList extends StatelessWidget {
                   ),
                   title: Text(
                     item.name
+                  ),
+                  /*subtitle: Text(
+                    DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
+                  ),*/
+                  trailing: Container(
+                    child: Text(
+                      currency.format((cont.paid - cont.amount).round()).toString()
+                    ),
                   ),
                 ),
               ),

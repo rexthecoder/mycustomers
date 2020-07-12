@@ -29,7 +29,6 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   final NavigationService _navigationService = locator<NavigationService>();
-  //final _transactionService = locator<TransactionService>();
   final _customerContactService = locator<CustomerContactService>();
   final _transactionService = locator<TransactionService>();
 
@@ -38,8 +37,8 @@ class HomePageViewModel extends ReactiveViewModel {
   List<TransactionModel> get transactions => _transactionService.alltransactions;
   double get whatyouowe  => _transactionService.whatyouowe;
   int tabNo = 0;
-  List get owingcustomers => _transactionService.owingcustomers;
-  List get owedcustomers => _transactionService.owedcustomers;
+  List<TransactionModel> get owingcustomers => _transactionService.owingcustomers;
+  List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =

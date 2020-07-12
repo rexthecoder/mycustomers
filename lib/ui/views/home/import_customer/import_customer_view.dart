@@ -112,7 +112,7 @@ class ImportCustomerView extends StatelessWidget {
                         '${customer.displayName}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: SizeConfig.yMargin(context, 2.3)
+                          fontSize: SizeConfig.yMargin(context, 2)
                         ),
                       ),
                       subtitle: Text(
@@ -120,7 +120,7 @@ class ImportCustomerView extends StatelessWidget {
                         style: TextStyle(
                           color: ThemeColors.gray.shade600,
                           fontWeight: FontWeight.w600,
-                          fontSize: SizeConfig.yMargin(context, 2.3)
+                          fontSize: SizeConfig.yMargin(context, 2)
                         ),
                       ),
                       trailing: SizedBox(

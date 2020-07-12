@@ -89,6 +89,10 @@ class MainTransactionViewModel extends ReactiveViewModel{
     _navigationService.navigateTo(Routes.mainViewRoute);
   }
 
+  void navigateDetails(){
+    _navigationService.navigateTo(Routes.transactionDetails);
+  }
+
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
 }

@@ -26,10 +26,10 @@ class TransactionService with ReactiveServiceMixin {
   RxValue<List<TransactionModel>> _creditlist = RxValue<List<TransactionModel>>(initial: []);
   List<TransactionModel> get creditlist => _creditlist.value;
 
-  RxValue<List> _owingcustomers = RxValue<List>(initial: []);
+  RxValue<List<TransactionModel>> _owingcustomers = RxValue<List<TransactionModel>>(initial: []);
   List get owingcustomers => _owingcustomers.value;
 
-  RxValue<List> _owedcustomers = RxValue<List>(initial: []);
+  RxValue<List<TransactionModel>> _owedcustomers = RxValue<List<TransactionModel>>(initial: []);
   List get owedcustomers => _owedcustomers.value;
 
   List<String> formattedate = [];
@@ -51,35 +51,16 @@ class TransactionService with ReactiveServiceMixin {
   void getAllTransactions() async{
     final bbox = await box;
     _alltransactions.value = bbox.values.toList();
+    _alltransactions.value = new List<TransactionModel>.from(_alltransactions.value.reversed);
     _whatyouowe.value = 0;
     _owingcustomers.value = [];
     _owedcustomers.value = [];
     for(var item in _alltransactions.value){
       if(item.amount-item.paid > 0) {
-        bool isIdThere = false;
-        if(_owingcustomers.value.length > 0){
-          for(var i in _owingcustomers.value){
-            if(i == item.cId){
-              isIdThere = true;
-            }
-          }
-          if(!isIdThere) _owingcustomers.value.add(item.cId);
-        } else {
-          _owingcustomers.value.add(item.cId);
-        }
+        _owingcustomers.value.add(item);
       }
       if(item.paid-item.amount > 0) {
-        bool isIdThere = false;
-        if(_owedcustomers.value.length > 0){
-          for(var i in _owedcustomers.value){
-            if(i == item.cId){
-              isIdThere = true;
-            }
-          }
-          if(!isIdThere) _owedcustomers.value.add(item.cId);
-        } else {
-          _owedcustomers.value.add(item.cId);
-        }
+        _owedcustomers.value.add(item);
         _whatyouowe.value += item.paid-item.amount;
       }
     }
@@ -148,7 +129,8 @@ class TransactionService with ReactiveServiceMixin {
         _transactions.value.add(transactionb);
       }
     }
-    //_transactions.value.sort((a,b) => a.date.compareTo(b.date));
+    _debitlist.value = [];
+    _creditlist.value = [];
     for(var transactionb in _transactions.value){
       if(transactionb.paid < transactionb.amount){
         _debitlist.value.add(transactionb);

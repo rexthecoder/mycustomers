@@ -47,7 +47,10 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("Customers owing you"),
+                            child: Text(
+                              "Customers owing you",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
@@ -55,7 +58,10 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("People you owe"),
+                            child: Text(
+                              "Customers you owe",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
@@ -63,7 +69,10 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("All Transactions"),
+                            child: Text(
+                              "All Customers",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),

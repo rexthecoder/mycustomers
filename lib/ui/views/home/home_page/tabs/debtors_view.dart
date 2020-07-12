@@ -60,11 +60,13 @@ class DebtorsView extends StatelessWidget {
                                   fontSize: 14.sp
                               ),),
                               model.bought() - model.paid() > 0 ? Text(
-                                'N'+currency.format(model.bought() - model.paid()).toString(),
+                                '₦'+currency.format(model.bought() - model.paid()).toString(),
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 36.sp,
-                                    fontWeight: FontWeight.bold),
+                                  color: Colors.white,
+                                  fontSize: 36.sp,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'
+                                ),
                               ) : RichText(
                                 text: TextSpan(
                                   text: 'NGN 0.', style: TextStyle(
@@ -287,6 +289,7 @@ class DebtorsView extends StatelessWidget {
 
 
 class ContactList extends StatelessWidget {
+  final currency = new NumberFormat("#,##0", "en_NG");
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomePageViewModel>.reactive(
@@ -315,7 +318,7 @@ class ContactList extends StatelessWidget {
               ),
             ),
             for(var cont in model.owingcustomers)
-              for (var item in model.contacts) item.id == cont ? Container(
+              for (var item in model.contacts) item.id == cont.cId ? Container(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
@@ -341,7 +344,40 @@ class ContactList extends StatelessWidget {
                     ),
                   ),
                   title: Text(
-                    item.name
+                    item.name,
+                    style: TextStyle(fontWeight: FontWeight.w600)
+                  ),
+                  subtitle: Text(
+                    DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
+                    : 
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days'
+                  ),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          style: TextStyle(
+                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
+                            fontSize: 16,
+                            fontFamily: 'Roboto'
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.1)
+                        ),
+                        child: Text(
+                          (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
+                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
