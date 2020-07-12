@@ -1,3 +1,4 @@
+
 part of '../../../views/business/business_card_page/business_cardpage_view.dart';
 
 class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {

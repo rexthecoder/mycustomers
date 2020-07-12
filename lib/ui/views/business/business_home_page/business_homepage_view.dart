@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/views/business/card_display_modal/business_card_display_modal.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -88,6 +89,7 @@ class BusinessHomePageView extends StatelessWidget {
                   label: 'Support',
                   onTap: model.navigateToSupportPage,
                 ),
+                BusinessCardDisplayModal()
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
+import 'package:mycustomers/ui/views/business/card_display_modal/business_card_display_modal.dart';
 import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
@@ -79,6 +80,7 @@ abstract class Routes {
   static const marketingHomepageView = '/marketingHomePage';
    static const addCustomerMarketing = '/addCustomerMarketing';
   static const addNewCustomerMarketing = '/addNewCustomerMarketing';
+  static const businessCardDisplayModal='/businessCardDisplayModal';
 }
 
 class Router {
@@ -177,6 +179,11 @@ class Router {
           builder: (context) => SettingsPage(),
           settings: settings,
         );
+      case Routes.businessCardDisplayModal:
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => BusinessCardDisplayModal(),
+        settings: settings,
+      );
       case Routes.profileViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => ProfilePageView(),
