@@ -318,6 +318,9 @@ class ContactList extends StatelessWidget {
                 onChanged: model.searchDName,
               ),
             ),
+            model.sDName != null && !model.containsD ? Text(
+              'No Customer Found'
+            ) : SizedBox(),
             for(var cont in model.owingcustomers)
               for (var item in model.contacts) 
               item.id == cont.cId ? 

@@ -77,10 +77,12 @@ class TransactionDetails extends StatelessWidget {
                                         mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Text(
-                                            model.contact.name,
-                                            style: TextStyle(
-                                              fontSize: 40.sp,
+                                          Flexible(
+                                            child: Text(
+                                              model.contact.name,
+                                              style: TextStyle(
+                                                fontSize: 40.sp,
+                                              ),
                                             ),
                                           ),// TODO: implement Profile picture
                                           Text(

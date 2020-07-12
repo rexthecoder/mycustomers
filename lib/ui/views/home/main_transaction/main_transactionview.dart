@@ -160,7 +160,7 @@ class MainTransaction extends StatelessWidget {
                                           .textTheme
                                           .headline5
                                           .copyWith(
-                                            fontSize: SizeConfig.yMargin(context, 2.4),
+                                            fontSize: SizeConfig.yMargin(context, 2.2),
                                           ),
                                     ),
                                   ),
@@ -234,7 +234,7 @@ class MainTransaction extends StatelessWidget {
                                                                 .textTheme
                                                                 .headline5
                                                                 .copyWith(
-                                                                  fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                  fontSize: SizeConfig.yMargin(context, 2.3),
                                                                   color: Color(
                                                                       0xFF333CC1),
                                                                   fontWeight:
@@ -366,7 +366,7 @@ class MainTransaction extends StatelessWidget {
                                                                 .textTheme
                                                                 .headline5
                                                                 .copyWith(
-                                                                  fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                  fontSize: SizeConfig.yMargin(context, 2.3),
                                                                   color: Color(
                                                                       0xFF21D184),
                                                                   fontWeight:

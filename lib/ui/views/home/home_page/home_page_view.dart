@@ -85,7 +85,13 @@ class HomePageView extends StatelessWidget {
                       children: <Widget>[
                         DebtorsView(),
                         CreditorsView(),
-                        ContactList()
+                        model.contacts.length == 0 ? Expanded(
+                          child: Center(
+                            child: Text(
+                              'No Customer Added'
+                            ),
+                          ),
+                        ) : ContactList()
                       ],
                     ),
                   ),
@@ -130,13 +136,10 @@ class ContactList extends StatelessWidget {
                   onChanged: model.searchName,
                 ),
               ),
-              for (var item in model.contacts) model.contacts.length == 0 ? Expanded(
-                child: Center(
-                  child: Text(
-                    'No Customer Added'
-                  ),
-                ),
-              ) : model.sName != null && model.contains ?
+              model.sName != null && !model.contains ? Text(
+                'No Customer Found'
+              ) : SizedBox(),
+              for (var item in model.contacts) model.sName != null && model.contains ?
               item.name.contains(model.sName) || item.name.contains(model.sName.toUpperCase()) || item.name.contains(model.sName[0].toUpperCase()+model.sName.substring(1)) || item.name.contains(model.sName.toLowerCase()) ?
               Container(
                 child: Container(
