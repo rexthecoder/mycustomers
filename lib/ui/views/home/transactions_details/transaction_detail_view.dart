@@ -6,7 +6,7 @@ import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
 
 class TransactionDetails extends StatelessWidget {
-  final Color color = ThemeColors.primary;
+  final Color color = BrandColors.primary;
   final Color bgColor = Colors.grey[200];
   final Color containerColor = Colors.white;
 
@@ -17,314 +17,380 @@ class TransactionDetails extends StatelessWidget {
       viewModelBuilder: ()=> TransactionDetailsViewModel(),
       builder: (context, model, child){
         return Scaffold(
-          body: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30.w),
-                  width: double.infinity,
-                  height: 150.h,
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: (){
-                          Navigator.pop(context);
-                        },//TODO: implement backbutton
-                        icon: Icon(
-                          Icons.keyboard_backspace,
-                          size: 50.sp,
-                          color: color,
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        'Transaction details',
-                        style: TextStyle(fontSize: 35.sp, fontWeight: FontWeight.bold),
-                      ),
-                      Spacer(flex: 2,),
-                    ],
-                  ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(70),
+            child: AppBar(
+              leading: IconButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                },//TODO: implement backbutton
+                icon: Icon(
+                  Icons.keyboard_backspace,
+                  size: 50.sp,
+                  color: Colors.white,
                 ),
-                Expanded(
-                  child: Container(
-                    color: bgColor,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              color: containerColor,
-                              border: Border.all(color: color),
-                              borderRadius: BorderRadius.circular(15.sp)
-                          ),
-                          margin: EdgeInsets.only(left: 50.w, right: 50.w, top: 40.h, bottom: 0.0),
-                          width: double.infinity,
-                          //height: 550.w,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
-                                child: Row(
-                                  children: <Widget>[
-                                    CircleAvatar(
-                                      radius: 60.0.sp,
-                                      backgroundColor: color,
-                                    ),
-                                    SizedBox(width: 20.w,),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          model.name,
-                                          style: TextStyle(
-                                            fontSize: 40.sp,
-                                          ),
-                                        ),// TODO: implement Profile picture
-                                        Text(
-                                          model.phoneNumber.toString(),
-                                          style: TextStyle(
-                                            fontSize: 30.sp,
-                                            color: Colors.grey[600],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Divider(
-                                color: color,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 30.sp,left: 30.sp,right: 30.sp, bottom: 40.sp),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 20,
-                                            child: Text(
-                                              'Items purchased:',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 30.sp),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10.w,),
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              model.itemsPurchased,
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  fontSize: 30.sp),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(height: 20.h,),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 20,
-                                            child: Text(
-                                              'Cost of Items:',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 30.sp),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10.w,),
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              'N${model.costOfItems}',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: color,
-                                                  fontSize: 30.sp),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(height: 20.h,),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 20,
-                                            child: Text(
-                                              'Amount paid:',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 30.sp),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10.w,),
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              'N${model.amountPaid}',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: color,
-                                                  fontSize: 30.sp),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(height: 40.h,),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 20,
-                                            child: Text(
-                                              'Amount Owing:',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 30.sp),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10.w,),
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              'N${model.amountOwing}',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.red[800],
-                                                  fontSize: 30.sp),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: (){},// TODO: implement delete button
-                                      child: Container(
-                                        height: 90.sp,
-                                        decoration: BoxDecoration(
-                                            color: containerColor,
-                                            border: Border.all(color: color,),
-                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(15.sp), bottomLeft: Radius.circular(10.sp))
+              ),
+              title: Text(
+                'Transaction details',
+                style: TextStyle(fontSize: 40.sp, color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
+              backgroundColor: BrandColors.primary,
+            ),
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: containerColor,
+                            border: Border.all(color: BrandColors.primary),
+                            borderRadius: BorderRadius.circular(15.sp)
+                        ),
+                        margin: EdgeInsets.only(left: 50.w, right: 50.w, top: 40.h, bottom: 0.0),
+                        width: double.infinity,
+                        //height: 550.w,
+                        child: Column(
+                          children: <Widget>[
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                                  child: Row(
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        radius: 60.0.sp,
+                                        backgroundColor: color,
+                                        backgroundImage: AssetImage(
+                                          'assets/images/man.png'
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            'Delete',
+                                      ),
+                                      SizedBox(width: 20.w,),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            model.contact.name,
                                             style: TextStyle(
-                                                fontSize: 30.sp,
-                                                color: color,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: (){},// TODO: implement Edit button
-                                      child: Container(
-                                        height: 90.sp,
-                                        decoration: BoxDecoration(
-                                          color: color,
-                                          //border: Border(top: BorderSide(color: Colors.blue)),
-                                          borderRadius: BorderRadius.only(topRight: Radius.circular(15.sp), bottomRight: Radius.circular(15.sp)),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Edit',
+                                              fontSize: 40.sp,
+                                            ),
+                                          ),// TODO: implement Profile picture
+                                          Text(
+                                            model.contact.phoneNumber,
                                             style: TextStyle(
                                               fontSize: 30.sp,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey[600],
                                             ),
-                                          ),
-                                        ),
+                                          )
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          padding: EdgeInsets.all(10.sp),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.horizontal(right: Radius.circular(40.sp),left: Radius.circular(40.sp))
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Spacer(flex: 50,),
-                                  Center(child: Text('Share to', style: TextStyle(fontSize: 35.sp, fontWeight: FontWeight.bold, color: color,),)),
-                                  Spacer(flex: 40,),
-                                  IconButton(
-                                    icon: Icon(Icons.close, color: color,size: 30.sp,),
-                                    onPressed: (){},// TODO: implement 'x' button
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: 5.h,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  BottomButton(text: 'Facebook',imagePath: 'assets/images/Subtract.svg',),
-                                  BottomButton(text: 'Whatsapp',imagePath: 'assets/images/Page-1.svg',),
-                                  BottomButton(text: 'Gmail',imagePath: 'assets/images/super-g.svg',),
-                                ],
-                              ),
-                              SizedBox(height: 20.h,),
-                              GestureDetector(
-                                onTap: (){} ,// TODO: implement this part i dont understand
-                                child: Container(
-                                  height: 90.h,
-                                  width: 350.w,
-                                  decoration: BoxDecoration(
-                                      color: color,
-                                      borderRadius: BorderRadius.circular(15.sp)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SvgPicture.asset('assets/images/Vector.svg'),
-                                      SizedBox(width: 20.w,),
-                                      Text('Share' , style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 30.sp),)
                                     ],
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: 10.h,)
-                            ],
-                          ),
-                        )
-                      ],
+                                Divider(
+                                  color: BrandColors.primary,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 30.sp,left: 30.sp,right: 30.sp, bottom: 40.sp),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Container(
+                                        padding: EdgeInsets.only(left: 15),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Container(
+                                              child: Text(
+                                                'Items purchased:',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 30.sp),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Row(
+                                                children: <Widget>[
+                                                  SizedBox(width: 10,),
+                                                  for(var item in model.transaction.goods) Text(
+                                                    item,
+                                                    style: TextStyle(
+                                                    fontSize: 30.sp),
+                                                  )
+                                                ],
+                                              )
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 20.h,),
+                                      Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 20,
+                                              child: Text(
+                                                'Cost of Items:',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 30.sp),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10.w,),
+                                            Expanded(
+                                              flex: 30,
+                                              child: Text(
+                                                model.transaction.amount != null ? 'N${model.transaction.amount}' : 'N0',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: color,
+                                                    fontSize: 30.sp),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 20.h,),
+                                      Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 20,
+                                              child: Text(
+                                                'Amount paid:',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 30.sp),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10.w,),
+                                            Expanded(
+                                              flex: 30,
+                                              child: Text(
+                                                model.transaction.paid != null ? 'N${model.transaction.paid}' : 'N0',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 30.sp),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 40.h,),
+                                      Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 20,
+                                              child: Text(
+                                                'Amount Owing:',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 30.sp),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10.w,),
+                                            Expanded(
+                                              flex: 30,
+                                              child: Text(
+                                                model.transaction.amount != null && model.transaction.paid != null || (model.transaction.amount - model.transaction.paid) > 0 ? 'N${model.transaction.amount - model.transaction.paid}' : 'N0',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.red[800],
+                                                    fontSize: 30.sp),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 20.h,),
+                                      Container(
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 20,
+                                              child: Text(
+                                                'Amount Owed:',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 30.sp),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10.w,),
+                                            Expanded(
+                                              flex: 30,
+                                              child: Text(
+                                                model.transaction.paid != null && model.transaction.amount!= null && (model.transaction.paid - model.transaction.amount) > 0 ?'N${model.transaction.paid - model.transaction.amount}' : 'N0',
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: BrandColors.secondary,
+                                                    fontSize: 30.sp),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: (){},// TODO: implement delete button
+                                    child: Container(
+                                      height: 90.sp,
+                                      decoration: BoxDecoration(
+                                          color: containerColor,
+                                          border: Border.all(color: BrandColors.primary,),
+                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(8.sp), bottomLeft: Radius.circular(10.sp))
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Delete',
+                                          style: TextStyle(
+                                              fontSize: 30.sp,
+                                              color: BrandColors.primary,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: (){},// TODO: implement Edit button
+                                    child: Container(
+                                      height: 90.sp,
+                                      decoration: BoxDecoration(
+                                        color: BrandColors.primary.withOpacity(0.9),
+                                        //border: Border(top: BorderSide(color: Colors.blue)),
+                                        borderRadius: BorderRadius.only(topRight: Radius.circular(8.sp), bottomRight: Radius.circular(15.sp)),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Edit',
+                                          style: TextStyle(
+                                            fontSize: 30.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              Expanded(flex: 1,
+                child: Center(
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.of(context).push(new PageRouteBuilder(
+                        opaque: false,
+                        barrierColor: Colors.black.withOpacity(0.5),
+                        barrierDismissible: true,
+                        pageBuilder: (BuildContext context, __, _) {
+                          return Center(
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                                 Align(
+                                   alignment: Alignment.bottomCenter,
+                                   child: Container(
+                                    padding: EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 80),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        //borderRadius: BorderRadius.only(topRight: Radius.circular(40.sp), topLeft: Radius.circular(40.sp))
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          onTap: () => Navigator.pop(context),
+                                          child: SvgPicture.asset(
+                                            'assets/icons/cancel.svg', 
+                                            color: BrandColors.primary,
+                                            width: 30.w,
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.only(bottom: 10),
+                                              child: Text(
+                                                'Share to', 
+                                                style: Theme.of(context).textTheme.headline5.copyWith(fontSize: 22.sp, fontWeight: FontWeight.bold, color: color,)
+                                              )
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            BottomButton(text: 'Facebook',imagePath: 'assets/images/Subtract.svg',),
+                                            BottomButton(text: 'Whatsapp',imagePath: 'assets/images/Page-1.svg',),
+                                            BottomButton(text: 'Gmail',imagePath: 'assets/images/super-g.svg',),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                ),
+                                 )
+                              ],
+                            ),
+                          );
+                        }
+                      ));
+                    } ,// TODO: implement this part i dont understand
+                    child: Container(
+                      height: 90.h,
+                      width: 350.w,
+                      decoration: BoxDecoration(
+                          color: BrandColors.primary,
+                          borderRadius: BorderRadius.circular(15.sp)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SvgPicture.asset('assets/images/Vector.svg'),
+                          SizedBox(width: 20.w,),
+                          Text('Share' , style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 30.sp),)
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -352,18 +418,18 @@ class BottomButton extends StatelessWidget {
           GestureDetector(
             onTap: onTap,
             child: Container(
-              margin: EdgeInsets.all(20.sp),
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey[200])
               ),
               child: Padding(
-                padding: EdgeInsets.all(20.0.sp),
-                child: Center(child: SvgPicture.asset(imagePath,height: 40.h, width: 40.w,)),
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Center(child: SvgPicture.asset(imagePath,height: 30.h, width: 30.w,)),
               ),
             ),
           ),
-          Text(text,style: TextStyle(fontSize: 30.sp),)
+          Text(text,style: Theme.of(context).textTheme.headline5.copyWith(fontSize: 15.sp,))
         ],
       ),
     );

@@ -1,14 +1,22 @@
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/models/business_model.dart';
+// import 'package:mycustomers/app/router.dart';
+// import 'package:mycustomers/core/models/business_model.dart';
+import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
+import 'package:mycustomers/core/models/store.dart';
+import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class MainViewModel extends BaseViewModel {
   /// Fields
   final NavigationService _navigationService = locator<NavigationService>();
+  static AuthService _auth = locator<AuthService>();
   final Duration duration = const Duration(milliseconds: 300);
-  final List<Business> businesses = Business.business;
+  List<Store> _stores = StoreRepository.stores;
+
+  List<Store> get stores => _stores;
+  Store get currStore => StoreRepository.currentStore;
 
   final List<Menu> menus = [
     Menu(
@@ -34,14 +42,15 @@ class MainViewModel extends BaseViewModel {
   ];
 
   final List<Menu> signOut = [
-    Menu(label: 'Sign Out', icon: 'assets/icons/svg/profile.svg'),
+    Menu(
+        label: 'Sign Out',
+        icon: 'assets/icons/svg/profile.svg',
+        onTap: _auth.signOut)
   ];
 
   int _index = 0;
 
   bool isCollapsed = true;
-
-  int selectedBusiness = 0;
 
   /// Getters
   int get index => _index;
@@ -51,7 +60,7 @@ class MainViewModel extends BaseViewModel {
   /// Methods/Functions
   void changeTab(int index) {
     _index = index;
-    if (!isCollapsed){
+    if (!isCollapsed) {
       isCollapsed = !isCollapsed;
     }
     notifyListeners();
@@ -67,15 +76,20 @@ class MainViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void changeBusiness(value) {
-    selectedBusiness = value;
+  void changeBusiness(String id) {
+    StoreRepository.changeSelectedStore(id);
     notifyListeners();
     // print(value.businessName); //Uncomment to see value in terminal
 
     // TODO: Create additional Function to Use Value and Change the Operation.
   }
 
+  final DialogService _dialogService = locator<DialogService>();
+
   Future navigateToAddBusiness() async {
+    _dialogService.registerCustomDialogUi(createBusinessDialog);
+    _dialogService.showCustomDialog();
+      
     // TODO Navigate to add Business page
 //    await _navigationService.navigateTo(Routes.);
   }

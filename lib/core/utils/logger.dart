@@ -30,7 +30,7 @@ class Logger {
 
   /// Debug level logs
   static void d(
-    String message, {
+    message, {
     dynamic e,
     StackTrace s,
   }) {
@@ -44,7 +44,7 @@ class Logger {
 
   // Warning level logs
   static void w(
-    String message, {
+    message, {
     dynamic e,
     StackTrace s,
   }) {
@@ -60,7 +60,7 @@ class Logger {
   /// Requires a current StackTrace to report correctly on Crashlytics
   /// Always reports as non-fatal to Crashlytics
   static void e(
-    String message, {
+    message, {
     dynamic e,
     StackTrace s,
   }) {
@@ -139,13 +139,6 @@ class _ReleaseLoggerClient implements _LoggerClient {
     StackTrace s,
   }) {
     switch (level) {
-      case LogLevel.debug:
-        if (e != null) {
-          sentryClient.captureException(exception: e, stackTrace: s);
-        } else {
-          sentryClient.capture(event: Event(message: message, level: SeverityLevel.debug));
-        }
-        break;
       case LogLevel.warning:
         if (e != null) {
           sentryClient.captureException(exception: e, stackTrace: s);
@@ -159,6 +152,9 @@ class _ReleaseLoggerClient implements _LoggerClient {
         } else {
           sentryClient.capture(event: Event(message: message, level: SeverityLevel.error));
         }
+        break;
+      case LogLevel.debug:
+        // TODO: Handle this case.
         break;
     }
   }

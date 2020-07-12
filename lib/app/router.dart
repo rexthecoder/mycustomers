@@ -7,6 +7,7 @@ import 'package:mycustomers/ui/views/business/settings/currency_settings_page/cu
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_page_view.dart';
 import 'package:mycustomers/ui/views/home/add_customer_manually/add_customer_manually_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
+import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transaction_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 import 'package:mycustomers/ui/views/business/settings/remove_pin_settings_page/remove_pin_settings_page_view.dart';
@@ -59,6 +60,10 @@ abstract class Routes {
   static const importCustomerCreditorViewRoute = '/importcustomercreditor';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
+  static const selectDebt = '/selectDebt';
+  static const selectCredit = '/selectCredit';
+  static const selectRouteDebt = '/selectRouteDebt';
+  static const selectRouteCredit = '/selectRouteCredit';
   static const mainTransaction = '/mainTransaction';
   static const transactionDetails = '/transactionDetails';
   static const transactionHistory = '/transactionHistory';
@@ -126,10 +131,25 @@ class Router {
           builder: (context) => ImportCustomerView(action: 'creditor',),
           settings: settings,
         );
+      case Routes.selectDebt:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SelectTransactionView(
+            action: 'credit',
+          ),
+          settings: settings,
+        );
+      case Routes.selectCredit:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SelectTransactionView(
+            action: 'debit',
+          ),
+          settings: settings,
+        );
       case Routes.addDebt:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddDebtCreditView(
             action: 'debit',
+            update: false,
           ),
           settings: settings,
         );
@@ -137,6 +157,23 @@ class Router {
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddDebtCreditView(
             action: 'credit',
+            update: false,
+          ),
+          settings: settings,
+        );
+      case Routes.selectRouteDebt:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddDebtCreditView(
+            action: 'debit',
+            update: true,
+          ),
+          settings: settings,
+        );
+      case Routes.selectRouteCredit:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddDebtCreditView(
+            action: 'credit',
+            update: true,
           ),
           settings: settings,
         );

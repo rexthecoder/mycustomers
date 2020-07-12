@@ -35,17 +35,17 @@ class OnboardingViewModel extends BaseViewModel {
       opaque: true,
       popGesture: true,
       transition: 'rightToLeftWithFade',
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 800),
     );
   }
 
   Future navigateToSignUp() async {
     await _navigationService.replaceWithTransition(
       SignUpView(),
-      opaque: false,
+      opaque: true,
       popGesture: true,
       transition: 'rightToLeftWithFade',
-      duration: Duration(seconds: 2),
+      duration: Duration(milliseconds: 800),
     );
   }
 

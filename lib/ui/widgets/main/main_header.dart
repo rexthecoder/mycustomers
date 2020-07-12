@@ -27,9 +27,11 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
           ),
           Padding(
             padding: EdgeInsets.only(
-                left: SizeConfig.xMargin(context, 3),
-                right: SizeConfig.xMargin(context, 3),
-                top: SizeConfig.yMargin(context, 5)),
+              left: SizeConfig.xMargin(context, 3),
+              right: SizeConfig.xMargin(context, 3),
+              top: SizeConfig.yMargin(context, 4),
+              bottom: SizeConfig.yMargin(context, 2),
+            ),
             child: headerBar(context, model),
           ),
         ],
@@ -55,8 +57,8 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 shape: GFAvatarShape.standard,
                 backgroundColor: ThemeColors.background,
                 child: Text(
-                  model.businesses[model.selectedBusiness].businessName
-                      .substring(0, 1),
+                  model.currStore?.name
+                      ?.substring(0, 1) ?? 'n',
                   style: TextStyle(
                     color: ThemeColors.black,
                     fontSize: SizeConfig.textSize(context, 8),
@@ -69,7 +71,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 width: SizeConfig.xMargin(context, 3),
               ),
               Text(
-                model.businesses[model.selectedBusiness].businessName,
+                model.currStore?.name ?? ' none',
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -77,7 +79,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                   fontWeight: FontWeight.bold,
                   fontSize: SizeConfig.textSize(context, 6),
                 ),
-              )
+              ),
             ],
           ),
         ),

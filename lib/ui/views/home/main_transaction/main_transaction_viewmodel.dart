@@ -24,6 +24,8 @@ class MainTransactionViewModel extends ReactiveViewModel{
   String date;
   final _transactionService = locator<TransactionService>();
   List<TransactionModel> get transactions => _transactionService.transactions;
+  List<TransactionModel> get debitlist => _transactionService.debitlist;
+  List<TransactionModel> get creditlist => _transactionService.creditlist;
 
   final NavigationService _navigationService = locator<NavigationService>();
   
@@ -75,16 +77,21 @@ class MainTransactionViewModel extends ReactiveViewModel{
     notifyListeners();
   }
 
-  void setDates() {
-    print('dates');
-    for(int i=0; i<transactions.length; i++) {
-      print(transactions[i]);
-      formattedate.add(getDate(transactions[i].date));
-    }
-  }
+  // void setDates() {
+  //   print('dates');
+  //   for(int i=0; i<transactions.length; i++) {
+  //     print(transactions[i]);
+  //     formattedate.add(getDate(transactions[i].date));
+  //   }
+  // }
 
   void navigateToHome(){
     _navigationService.navigateTo(Routes.mainViewRoute);
+  }
+
+  void navigateDetails(TransactionModel item){
+    _transactionService.setTransaction(item);
+    _navigationService.navigateTo(Routes.transactionDetails);
   }
 
   @override

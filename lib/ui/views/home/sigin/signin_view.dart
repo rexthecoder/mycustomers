@@ -15,7 +15,6 @@ import 'package:stacked_hooks/stacked_hooks.dart';
 import 'signin_viewmodel.dart';
 
 class SignInView extends StatelessWidget {
-  static final _signinFormPageKey = GlobalKey<FormState>();
   final _signinPageKey = GlobalKey<ScaffoldState>();
 
   @override

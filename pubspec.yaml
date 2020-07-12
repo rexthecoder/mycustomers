@@ -25,6 +25,9 @@ dependencies:
   # For text fields with countries
   intl_phone_number_input: ^0.4.6+2
 
+  # For google sign in
+  google_sign_in: ^4.5.1
+
   # for mock services
   mockito: ^4.1.1
 
