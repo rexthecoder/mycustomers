@@ -230,7 +230,7 @@ class ApiServices extends IApi {
       'shop_address': address
     };
     var store = await _serviceImpl.postHttp('$BASE_URL/store/new', body);
-    Logger.d(store.toString());
+    Logger.d(store);
     return store;
   }
 
