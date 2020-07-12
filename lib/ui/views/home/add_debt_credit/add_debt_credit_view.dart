@@ -25,8 +25,8 @@ class AddDebtCreditView extends StatelessWidget {
           brightness: Brightness.light,
           elevation: 1,
           title: Text(
-            action == 'credit' ? model.amount != null ? 'Sheyi owes you \#' + model.amount.round().toString() : 'Sheyi owes you' : model.amount != null ? 'Sheyi paid you \#' + model.amount.round().toString() : 'Sheyi paid you',
-            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
+            action == 'credit' ? model.amount != null ? '${model.contact.name} owes you ₦' + model.amount.round().toString() : '${model.contact.name} owes you' : model.amount != null ? '${model.contact.name} paid you ₦' + model.amount.round().toString() : '${model.contact.name} paid you',
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: action == 'credit' ? BrandColors.secondary : BrandColors.primary, fontFamily: 'Roboto'),
           ),
           leading: InkWell(
             onTap: () => Navigator.pop(context),
@@ -106,7 +106,20 @@ class AddDebtCreditView extends StatelessWidget {
                                     context: context,
                                     initialDate: model.selectedDate,
                                     firstDate: DateTime(2000),
-                                    lastDate: DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now())))
+                                    lastDate: DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now()))),
+                                    builder: (BuildContext context, Widget child) {
+                                      return Theme(
+                                        data: Theme.of(context).copyWith(
+                                          primaryColor: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
+                                          accentColor: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
+                                          colorScheme: Theme.of(context).colorScheme.copyWith(primary: action == 'credit' ? BrandColors.secondary : BrandColors.primary),
+                                          buttonTheme: ButtonThemeData(
+                                            textTheme: ButtonTextTheme.primary
+                                          ),
+                                        ),     
+                                        child: child,
+                                      );
+                                    },
                                   );
                                   if (picked != null) model.setOtherDate(picked, update);
                                 },
@@ -141,8 +154,21 @@ class AddDebtCreditView extends StatelessWidget {
                                   final DateTime picked = await showDatePicker(
                                     context: context,
                                     initialDate: model.selectedDate,
-                                    firstDate: DateTime(2000),
-                                    lastDate: DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now())))
+                                    firstDate:  DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now()))),
+                                    lastDate: DateTime(2030),
+                                    builder: (BuildContext context, Widget child) {
+                                      return Theme(
+                                        data: Theme.of(context).copyWith(
+                                          primaryColor: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
+                                          accentColor: action == 'credit' ? BrandColors.secondary : BrandColors.primary,
+                                          colorScheme: Theme.of(context).colorScheme.copyWith(primary: action == 'credit' ? BrandColors.secondary : BrandColors.primary),
+                                          buttonTheme: ButtonThemeData(
+                                            textTheme: ButtonTextTheme.primary
+                                          ),
+                                        ),     
+                                        child: child,
+                                      );
+                                    },
                                   );
                                   if (picked != null) model.setDate(picked);
                                 },
@@ -204,7 +230,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           suffixIcon: InkWell(
                                             onTap: () {
                                               _controller.clear();
-                                              model.addItem();
+                                              model.addItem(action, update);
                                             },
                                             child: Container(
                                               width: ScreenUtil().setWidth(10),
@@ -229,7 +255,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         textInputAction: TextInputAction.go,
                                         onSubmitted: (value) {
                                           _controller.clear();
-                                          model.addItem();
+                                          model.addItem(action, update);
                                         },
                                         onChanged: model.updateItem,
                                       ),

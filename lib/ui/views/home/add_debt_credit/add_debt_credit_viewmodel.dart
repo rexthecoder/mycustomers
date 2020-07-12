@@ -97,12 +97,14 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
     notifyListeners();
   }
 
-  void addItem() {
+  void addItem(String action, bool update) {
     if(item != null) {
       if(item.length > 0) {
         items.insert(0, item);
         _item = null;
-        amount != null && newDate.length > 0 && newODate.length>0 && items.length > 0 ? save = true : save = false;
+        !update && action == 'credit' ? amount != null && newODate.length != null && items.length > 0 ? save = true : save = false 
+        : 
+        amount != null && newDate.length != null && newODate.length != null && items.length > 0 ? save = true : save = false;
         notifyListeners();
       }
     }
@@ -110,6 +112,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
 
   void addtransaction(String action, bool update) {
     if(save){
+      date1err = false;
+      date2err = false;
       if(update){
         if(action == 'credit'){
           print(dueDate);
