@@ -62,7 +62,7 @@ class HomePageViewModel extends ReactiveViewModel {
     sName = value;
     contains = false;
     for(var item in contacts){
-      if(item.name.contains(sName) || item.name.contains(sName.toUpperCase()) || item.name.contains(sName[0].toUpperCase()+sName.substring(1)) || item.name.contains(sName.toLowerCase())){
+      if(item.name.toLowerCase().contains(sName.toLowerCase())){
         contains = true;
       }
     }
@@ -75,7 +75,7 @@ class HomePageViewModel extends ReactiveViewModel {
     for(var cus in owingcustomers){
       for(var item in contacts){
         if(cus.cId == item.id){
-          if(item.name.contains(sDName) || item.name.contains(sDName.toUpperCase()) || item.name.contains(sDName[0].toUpperCase()+sDName.substring(1)) || item.name.contains(sDName.toLowerCase())){
+          if(item.name.toLowerCase().contains(sDName.toLowerCase())){
             containsD = true;
           }
         }
@@ -90,7 +90,7 @@ class HomePageViewModel extends ReactiveViewModel {
     for(var cus in owedcustomers){
       for(var item in contacts){
         if(cus.cId == item.id){
-          if(item.name.contains(sCName) || item.name.contains(sCName.toUpperCase()) || item.name.contains(sCName[0].toUpperCase()+sCName.substring(1)) || item.name.contains(sCName.toLowerCase())){
+          if(item.name.toLowerCase().contains(sCName.toLowerCase())){
             containsC = true;
           }
         }
@@ -128,8 +128,8 @@ class HomePageViewModel extends ReactiveViewModel {
     _customerContactService.getContacts();
   }
 
-  void setContact(int id, String name, String phone) {
-    CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone);
+  void setContact(int id, String name, String phone, String initials) {
+    CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone, initials: initials);
     _customerContactService.setContact(cus);
   }
 

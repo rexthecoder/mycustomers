@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
@@ -9,6 +10,7 @@ class TransactionDetails extends StatelessWidget {
   final Color color = BrandColors.primary;
   final Color bgColor = Colors.grey[200];
   final Color containerColor = Colors.white;
+  final currency = new NumberFormat("#,##0", "en_NG");
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +67,14 @@ class TransactionDetails extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
                                   child: Row(
                                     children: <Widget>[
-                                      CircleAvatar(
-                                        radius: 60.0.sp,
+                                      model.contact.initials != null ? CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: BrandColors.primary,
+                                        child: Text(
+                                          model.contact.initials
+                                        ),
+                                      ) : CircleAvatar(
+                                        radius: 30,
                                         backgroundColor: color,
                                         backgroundImage: AssetImage(
                                           'assets/images/man.png'
@@ -124,7 +132,7 @@ class TransactionDetails extends StatelessWidget {
                                                 children: <Widget>[
                                                   SizedBox(width: 10,),
                                                   for(var item in model.transaction.goods) Text(
-                                                    item,
+                                                    model.transaction.goods.indexOf(item) == model.transaction.goods.length-1 ? item+' ' : item+', ',
                                                     style: TextStyle(
                                                     fontSize: 30.sp),
                                                   )
@@ -152,10 +160,11 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 30,
                                               child: Text(
-                                                model.transaction.amount != null ? 'N${model.transaction.amount}' : 'N0',
+                                                model.transaction.amount != null ? '₦${currency.format(model.transaction.amount)}' : '₦0',
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: color,
+                                                    fontFamily: 'Roboto',
                                                     fontSize: 30.sp),
                                               ),
                                             )
@@ -180,10 +189,11 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 30,
                                               child: Text(
-                                                model.transaction.paid != null ? 'N${model.transaction.paid}' : 'N0',
+                                                model.transaction.paid != null ? '₦${currency.format(model.transaction.paid)}' : '₦0',
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.green,
+                                                    fontFamily: 'Roboto',
                                                     fontSize: 30.sp),
                                               ),
                                             )
@@ -208,10 +218,11 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 30,
                                               child: Text(
-                                                model.transaction.amount != null && model.transaction.paid != null && (model.transaction.amount - model.transaction.paid) > 0 ? 'N${model.transaction.amount - model.transaction.paid}' : 'N0',
+                                                model.transaction.amount != null && model.transaction.paid != null && (model.transaction.amount - model.transaction.paid) > 0 ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}' : '₦0',
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.red[800],
+                                                    fontFamily: 'Roboto',
                                                     fontSize: 30.sp),
                                               ),
                                             )
@@ -236,10 +247,11 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 30,
                                               child: Text(
-                                                model.transaction.paid != null && model.transaction.amount!= null && (model.transaction.paid - model.transaction.amount) > 0 ?'N${model.transaction.paid - model.transaction.amount}' : 'N0',
+                                                model.transaction.paid != null && model.transaction.amount!= null && (model.transaction.paid - model.transaction.amount) > 0 ?'₦${currency.format(model.transaction.paid - model.transaction.amount)}' : '₦0',
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: BrandColors.secondary,
+                                                    fontFamily: 'Roboto',
                                                     fontSize: 30.sp),
                                               ),
                                             )
@@ -283,7 +295,7 @@ class TransactionDetails extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: BrandColors.primary.withOpacity(0.9),
                                         //border: Border(top: BorderSide(color: Colors.blue)),
-                                        borderRadius: BorderRadius.only(topRight: Radius.circular(8.sp), bottomRight: Radius.circular(15.sp)),
+                                        borderRadius: BorderRadius.only(topRight: Radius.circular(8.sp), bottomRight: Radius.circular(10.sp)),
                                       ),
                                       child: Center(
                                         child: Text(

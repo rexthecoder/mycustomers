@@ -36,7 +36,7 @@ class CustomerContactService with ReactiveServiceMixin {
     _navigationService.navigateTo(Routes.mainTransaction);
   }
 
-  void addContact(String customerPhoneNumber, String customerName, String dropDownValue)async {
+  void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials)async {
     print(customerPhoneNumber);
     print(customerName);
     print(dropDownValue);
@@ -46,18 +46,18 @@ class CustomerContactService with ReactiveServiceMixin {
       bool isStored = false;
       for(var item in bbox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber){
-          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id);
+          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials);
           isStored = true;
         }
       }
       if(isStored){
         _navigationService.navigateTo(Routes.mainTransaction);
       } else {
-        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length + 1);
+        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length + 1, initials: initials);
         bbox.add(contact).then((value){
           success = true;
           print(success);
-          _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length);
+          _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: bbox.length, initials: initials);
           print('set ${contact.id}');
           _contacts.value = bbox.values.toList();
           _contacts.value.sort((a,b) => b.id.compareTo(a.id));

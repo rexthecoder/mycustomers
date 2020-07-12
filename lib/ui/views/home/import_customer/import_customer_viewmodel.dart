@@ -47,8 +47,9 @@ class ImportCustomerViewModel extends StreamViewModel {
     init(query: _searchTerm);
   }
 
-  void addContact(String name, String phone){
-    _customerContactService.addContact(phone, name, '');
+  void addContact(String name, String phone, String initials){
+    print(initials);
+    _customerContactService.addContact(phone, name, '', initials);
   }
 
   /// View initialize and close section

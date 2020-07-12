@@ -37,7 +37,17 @@ class MainTransaction extends StatelessWidget {
                       margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                       child: Row(
                         children: <Widget>[
-                          Container(
+                          model.contact.initials != null ? Container(
+                            margin:
+                                EdgeInsets.only(right: ScreenUtil().setWidth(15)),
+                            child: CircleAvatar(
+                              radius: 25,
+                              backgroundColor: Colors.white,
+                              child: Text(
+                                model.contact.initials
+                              ),
+                            ),
+                          ) : Container(
                             margin:
                                 EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                             width: ScreenUtil().setWidth(50),

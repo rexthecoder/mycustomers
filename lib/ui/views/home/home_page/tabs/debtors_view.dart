@@ -326,7 +326,7 @@ class ContactList extends StatelessWidget {
               item.id == cont.cId ? 
               //Implementation for Search
               model.sDName != null && model.containsD ?
-              item.name.contains(model.sDName) || item.name.contains(model.sDName.toUpperCase()) || item.name.contains(model.sDName[0].toUpperCase()+model.sDName.substring(1)) || item.name.contains(model.sDName.toLowerCase()) ?
+              item.name.toLowerCase().contains(model.sDName.toLowerCase()) ?
               Container(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6),
@@ -337,8 +337,14 @@ class ContactList extends StatelessWidget {
                   )
                 ),
                 child: ListTile(
-                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
-                  leading: Container(
+                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                  leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
@@ -402,8 +408,14 @@ class ContactList extends StatelessWidget {
                   )
                 ),
                 child: ListTile(
-                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
-                  leading: Container(
+                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                  leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(

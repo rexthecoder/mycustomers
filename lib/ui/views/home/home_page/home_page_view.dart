@@ -140,7 +140,7 @@ class ContactList extends StatelessWidget {
                 'No Customer Found'
               ) : SizedBox(),
               for (var item in model.contacts) model.sName != null && model.contains ?
-              item.name.contains(model.sName) || item.name.contains(model.sName.toUpperCase()) || item.name.contains(model.sName[0].toUpperCase()+model.sName.substring(1)) || item.name.contains(model.sName.toLowerCase()) ?
+              item.name.toLowerCase().contains(model.sName.toLowerCase())  ?
               Container(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 6),
@@ -151,8 +151,14 @@ class ContactList extends StatelessWidget {
                     )
                   ),
                   child: ListTile(
-                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
-                    leading: Container(
+                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                    leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
@@ -183,8 +189,14 @@ class ContactList extends StatelessWidget {
                     )
                   ),
                   child: ListTile(
-                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
-                    leading: Container(
+                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                    leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(

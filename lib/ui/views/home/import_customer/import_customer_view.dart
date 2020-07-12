@@ -133,7 +133,7 @@ class ImportCustomerView extends StatelessWidget {
                             size: SizeConfig.yMargin(context, 1.6),
                           ),
                           onPressed: () {
-                            model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number');
+                            model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number', customer.initials);
                           },
                           label: Text(
                             'ADD',
