@@ -206,7 +206,7 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 30,
                                               child: Text(
-                                                model.transaction.amount != null && model.transaction.paid != null || (model.transaction.amount - model.transaction.paid) > 0 ? 'N${model.transaction.amount - model.transaction.paid}' : 'N0',
+                                                model.transaction.amount != null && model.transaction.paid != null && (model.transaction.amount - model.transaction.paid) > 0 ? 'N${model.transaction.amount - model.transaction.paid}' : 'N0',
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.red[800],
@@ -338,7 +338,7 @@ class TransactionDetails extends StatelessWidget {
                                           child: SvgPicture.asset(
                                             'assets/icons/cancel.svg', 
                                             color: BrandColors.primary,
-                                            width: 30.w,
+                                            width: 50.w,
                                           ),
                                         ),
                                         Row(
@@ -348,7 +348,7 @@ class TransactionDetails extends StatelessWidget {
                                               margin: EdgeInsets.only(bottom: 10),
                                               child: Text(
                                                 'Share to', 
-                                                style: Theme.of(context).textTheme.headline5.copyWith(fontSize: 22.sp, fontWeight: FontWeight.bold, color: color,)
+                                                style: Theme.of(context).textTheme.headline5.copyWith(fontSize: 40.sp, fontWeight: FontWeight.bold, color: color,)
                                               )
                                             ),
                                           ],
@@ -418,18 +418,18 @@ class BottomButton extends StatelessWidget {
           GestureDetector(
             onTap: onTap,
             child: Container(
-              margin: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.grey[200])
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Center(child: SvgPicture.asset(imagePath,height: 30.h, width: 30.w,)),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                child: Center(child: SvgPicture.asset(imagePath,height: 40.h, width: 40.w,)),
               ),
             ),
           ),
-          Text(text,style: Theme.of(context).textTheme.headline5.copyWith(fontSize: 15.sp,))
+          Text(text,style: Theme.of(context).textTheme.headline5.copyWith(fontSize: 30.sp,))
         ],
       ),
     );

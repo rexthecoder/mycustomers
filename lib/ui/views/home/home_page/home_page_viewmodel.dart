@@ -39,6 +39,8 @@ class HomePageViewModel extends ReactiveViewModel {
   int tabNo = 0;
   List<TransactionModel> get owingcustomers => _transactionService.owingcustomers;
   List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
+  String sName;
+  bool contains;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =
@@ -49,6 +51,19 @@ class HomePageViewModel extends ReactiveViewModel {
 
   void getTransactions() {
     _transactionService.getAllTransactions();
+    notifyListeners();
+  }
+
+  void searchName(String value){
+    print(value);
+    sName = value;
+    contains = false;
+    for(var item in contacts){
+      if(item.name.contains(sName)){
+        contains = true;
+      }
+    }
+    print(contains);
     notifyListeners();
   }
 

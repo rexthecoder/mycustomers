@@ -475,7 +475,7 @@ class MainTransaction extends StatelessWidget {
                                                   .textTheme
                                                   .headline5
                                                   .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.5),
+                                                    fontSize: SizeConfig.yMargin(context, 2.3),
                                                     color: Colors.black38,
                                                   ),
                                             ),
@@ -489,7 +489,7 @@ class MainTransaction extends StatelessWidget {
                                                   .textTheme
                                                   .headline5
                                                   .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 3),
+                                                    fontSize: SizeConfig.yMargin(context, 2.5),
                                                     color: Color(0xFFEB5757),
                                                     fontWeight: FontWeight.w900,
                                                   ),
@@ -524,7 +524,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                  fontSize: SizeConfig.yMargin(context, 2.2),
                                                   color: Color(0xFF333CC1),
                                                 ),
                                           ),
@@ -536,7 +536,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                  fontSize: SizeConfig.yMargin(context, 2.2),
                                                   color: Color(0xFF333CC1),
                                                 ),
                                           ),
@@ -564,7 +564,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.3),
+                                                    fontSize: SizeConfig.yMargin(context, 2.2),
                                                     color: Color(0xFF333CC1)),
                                           ),
                                         ),
@@ -575,7 +575,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.3),
+                                                    fontSize: SizeConfig.yMargin(context, 2.2),
                                                     color: Color(0xFF333CC1)),
                                           ),
                                         )

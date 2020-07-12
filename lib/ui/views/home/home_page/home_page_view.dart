@@ -127,9 +127,50 @@ class ContactList extends StatelessWidget {
                     prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
                     border: InputBorder.none,
                   ),
+                  onChanged: model.searchName,
                 ),
               ),
-              for (var item in model.contacts) Container(
+              for (var item in model.contacts) model.contacts.length == 0 ? Expanded(
+                child: Center(
+                  child: Text(
+                    'No Customer Added'
+                  ),
+                ),
+              ) : model.sName != null && model.contains ?
+              item.name.contains(model.sName) ?
+              Container(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Color(0xFFD1D1D1)),
+                      //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                    )
+                  ),
+                  child: ListTile(
+                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
+                    leading: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.black,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/man.png',
+                          ),
+                          fit: BoxFit.cover
+                        )
+                      ),
+                    ),
+                    title: Text(
+                      item.name
+                    ),
+                  ),
+                ),
+              )
+              : SizedBox()
+              : model.sName != null && !model.contains ? SizedBox() : Container(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(

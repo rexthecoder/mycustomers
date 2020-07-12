@@ -185,7 +185,7 @@ class CreditorsView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
 //                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
-                onTap: ()=> Navigator.pushNamed(context, '/importcustomerdebtor'),
+                onTap: ()=> Navigator.pushNamed(context, '/importcustomercreditor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
@@ -267,14 +267,20 @@ class ContactList extends StatelessWidget {
                     ),
                   ),
                   title: Text(
-                    item.name
+                    item.name,
+                    style: TextStyle(fontWeight: FontWeight.w600)
                   ),
                   /*subtitle: Text(
                     DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
                   ),*/
                   trailing: Container(
                     child: Text(
-                      currency.format((cont.paid - cont.amount).round()).toString()
+                      '₦'+currency.format((cont.paid - cont.amount).round()).toString(),
+                      style: TextStyle(
+                        color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
+                        fontSize: 16,
+                        fontFamily: 'Roboto'
+                      ),
                     ),
                   ),
                 ),
