@@ -238,10 +238,63 @@ class ContactList extends StatelessWidget {
                   prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
                   border: InputBorder.none,
                 ),
+                onChanged: model.searchCName,
               ),
             ),
             for(var cont in model.owedcustomers)
-              for (var item in model.contacts) item.id == cont.cId ? Container(
+              for (var item in model.contacts) item.id == cont.cId ? 
+              model.sCName != null && model.containsC ? 
+              item.name.contains(model.sCName) || item.name.contains(model.sCName.toUpperCase()) || item.name.contains(model.sCName[0].toUpperCase()+model.sCName.substring(1)) || item.name.contains(model.sCName.toLowerCase()) ?
+              Container(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Color(0xFFD1D1D1)),
+                      //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                    )
+                  ),
+                  child: ListTile(
+                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
+                    leading: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.black,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/man.png',
+                          ),
+                          fit: BoxFit.cover
+                        )
+                      ),
+                    ),
+                    title: Text(
+                      item.name,
+                      style: TextStyle(fontWeight: FontWeight.w600)
+                    ),
+                    /*subtitle: Text(
+                      DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
+                    ),*/
+                    trailing: Container(
+                      child: Text(
+                        '₦'+currency.format((cont.paid - cont.amount).round()).toString(),
+                        style: TextStyle(
+                          color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
+                          fontSize: 16,
+                          fontFamily: 'Roboto'
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ) : SizedBox()
+              : 
+              model.sCName !=null && !model.containsC ? 
+              SizedBox() 
+              :
+              Container(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(

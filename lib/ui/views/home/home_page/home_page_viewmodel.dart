@@ -40,7 +40,11 @@ class HomePageViewModel extends ReactiveViewModel {
   List<TransactionModel> get owingcustomers => _transactionService.owingcustomers;
   List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
   String sName;
+  String sDName;
+  String sCName;
   bool contains;
+  bool containsD;
+  bool containsC;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =
@@ -55,15 +59,43 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   void searchName(String value){
-    print(value);
     sName = value;
     contains = false;
     for(var item in contacts){
-      if(item.name.contains(sName)){
+      if(item.name.contains(sName) || item.name.contains(sName.toUpperCase()) || item.name.contains(sName[0].toUpperCase()+sName.substring(1)) || item.name.contains(sName.toLowerCase())){
         contains = true;
       }
     }
-    print(contains);
+    notifyListeners();
+  }
+
+  void searchDName(String value){
+    sDName = value;
+    containsD = false;
+    for(var cus in owingcustomers){
+      for(var item in contacts){
+        if(cus.cId == item.id){
+          if(item.name.contains(sDName) || item.name.contains(sDName.toUpperCase()) || item.name.contains(sDName[0].toUpperCase()+sDName.substring(1)) || item.name.contains(sDName.toLowerCase())){
+            containsD = true;
+          }
+        }
+      }
+    }
+    notifyListeners();
+  }
+
+  void searchCName(String value){
+    sCName = value;
+    containsC = false;
+    for(var cus in owedcustomers){
+      for(var item in contacts){
+        if(cus.cId == item.id){
+          if(item.name.contains(sCName) || item.name.contains(sCName.toUpperCase()) || item.name.contains(sCName[0].toUpperCase()+sCName.substring(1)) || item.name.contains(sCName.toLowerCase())){
+            containsC = true;
+          }
+        }
+      }
+    }
     notifyListeners();
   }
 

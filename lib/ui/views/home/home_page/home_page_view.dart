@@ -137,7 +137,7 @@ class ContactList extends StatelessWidget {
                   ),
                 ),
               ) : model.sName != null && model.contains ?
-              item.name.contains(model.sName) ?
+              item.name.contains(model.sName) || item.name.contains(model.sName.toUpperCase()) || item.name.contains(model.sName[0].toUpperCase()+model.sName.substring(1)) || item.name.contains(model.sName.toLowerCase()) ?
               Container(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 6),
