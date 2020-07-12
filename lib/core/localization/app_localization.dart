@@ -4,22 +4,22 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
 class AppLocalization{
-  Map<String, String> localizedValues;
-  AppLocalization(this.locale, this.localizedValues);
+  static Map<String, String> _localizedValues;
+  AppLocalization(this.locale);
 
   final Locale locale;
 
 
-  Future<bool> loadJsonFromAsset()async{
+  static Future<bool> loadJsonFromAsset(Locale locale) async {
     String jsonString = await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
-    Map<String,dynamic> jsonLanguageMap = jsonDecode(jsonString);
-    localizedValues = jsonLanguageMap.map((key, value) => MapEntry(key,value.toString()));
+    Map<String,dynamic> jsonLanguageMap = json.decode(jsonString);
+    _localizedValues = Map<String, String>.from(jsonLanguageMap);
     return true;
   }
 
 
   static AppLocalization of(context){
-    return Localizations.of<AppLocalization>(context,AppLocalization);
+    return Localizations.of<AppLocalization>(context, AppLocalization);
   }
 
 
@@ -174,6 +174,28 @@ class AppLocalization{
 
 
   String translate(String jsonKey){
-    return localizedValues[jsonKey];
+    return _localizedValues[jsonKey];
   }
+}
+
+class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalization> {
+
+  const AppLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) {
+    return ['en', 'fr'].contains(locale.languageCode);
+  }
+
+  @override
+  Future<AppLocalization> load(Locale locale) async {
+    await AppLocalization.loadJsonFromAsset(locale);
+    return AppLocalization(locale);
+  }
+
+  @override
+  bool shouldReload(LocalizationsDelegate<AppLocalization> old) {
+    return false;
+  }
+ 
 }
