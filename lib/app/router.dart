@@ -79,6 +79,7 @@ abstract class Routes {
   static const marketingHomepageView = '/marketingHomePage';
    static const addCustomerMarketing = '/addCustomerMarketing';
   static const addNewCustomerMarketing = '/addNewCustomerMarketing';
+  static const notificationViewRoute = '/NotificationsView';
 }
 
 class Router {
