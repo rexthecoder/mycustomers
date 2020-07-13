@@ -73,6 +73,7 @@ class TransactionService with ReactiveServiceMixin {
     for (var transaction in bbox.values.toList()) {
       if (transaction.cId == id){
         _transactions.value.add(transaction);
+        print(transaction.boughtdate);
       }
     }
     _debitlist.value = [];
