@@ -25,7 +25,7 @@ class MarketingHomePageView extends StatelessWidget {
           Container(
         child: Column(children: <Widget>[
           Container(
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             width: width,
             child: Padding(
               padding:
@@ -36,7 +36,7 @@ class MarketingHomePageView extends StatelessWidget {
                     Text(
                       'Marketing',
                       style: TextStyle(
-                          fontSize: 24.sp, fontWeight: FontWeight.bold),
+                          fontSize: 24.sp, fontWeight: FontWeight.bold, color: Theme.of(context).cursorColor),
                     ),
                     SizedBox(
                       height: 10.h,
@@ -44,7 +44,7 @@ class MarketingHomePageView extends StatelessWidget {
                     Text(
                       'Show your customer that you really care about them',
                       style: TextStyle(
-                          fontSize: 14.sp, color: BrandColors.greyedText),
+                          fontSize: 14.sp, color: Theme.of(context).cursorColor),
                     ),
                     SizedBox(
                       height: 10.h,
@@ -55,7 +55,7 @@ class MarketingHomePageView extends StatelessWidget {
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
-                    color: Color(0xFFF9F9F9),
+                    color: Theme.of(context).backgroundColor,
                     width: width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -81,14 +81,14 @@ class MarketingHomePageView extends StatelessWidget {
                                 'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
                                 style: TextStyle(
                                     fontSize: 14.sp,
-                                    color: BrandColors.greyedText),
+                                    color: Theme.of(context).cursorColor),
                                 textAlign: TextAlign.center,
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          color: Colors.white,
+                          color: Theme.of(context).backgroundColor,
                           height: 50.h,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,7 +143,7 @@ class MarketingHomePageView extends StatelessWidget {
                 )
               : Expanded(
                   child: Container(
-                    color: Colors.white,
+                    color: Theme.of(context).backgroundColor,
                     width: width,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +256,7 @@ class MarketingHomePageView extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10),
                             child: Container(
-                              color: Colors.white,
+                              color: Theme.of(context).backgroundColor,
                               height: 50.h,
                               child: Row(
                                 mainAxisAlignment:

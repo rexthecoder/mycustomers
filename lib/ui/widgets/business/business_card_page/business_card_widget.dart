@@ -13,7 +13,7 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
         Container(
           height: SizeConfig.yMargin(context, 30),
           decoration: BoxDecoration(
-            color: ThemeColors.background,
+            color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(10),
             shape: BoxShape.rectangle,
             image: DecorationImage(
@@ -28,10 +28,9 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
           child: Text(
             model.businessCard.storeName.toUpperCase(),
             style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 8),
-              fontWeight: FontWeight.bold,
-              color: ThemeColors.black,
-            ),
+                fontSize: SizeConfig.textSize(context, 8),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).cursorColor),
           ),
         ),
         Positioned(
@@ -45,14 +44,14 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                   Icon(
                     Icons.account_circle,
                     size: SizeConfig.textSize(context, 5),
-                    color: ThemeColors.black,
+                    color: Theme.of(context).cursorColor,
                   ),
                   Text(
                     " ${model.businessCard.personalName}",
                     style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 4),
                       fontWeight: FontWeight.bold,
-                      color: ThemeColors.black,
+                      color: Theme.of(context).cursorColor,
                     ),
                   ),
                 ],
@@ -62,13 +61,13 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                   Icon(
                     Icons.phone,
                     size: SizeConfig.textSize(context, 5),
-                    color: ThemeColors.black,
+                    color: Theme.of(context).cursorColor,
                   ),
                   Text(
                     " ${model.businessCard.phoneNumber}",
                     style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 3.2),
-                      color: ThemeColors.black,
+                      color: Theme.of(context).cursorColor,
                     ),
                   ),
                 ],
@@ -78,13 +77,13 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                   Icon(
                     Icons.email,
                     size: SizeConfig.textSize(context, 5),
-                    color: ThemeColors.black,
+                    color: Theme.of(context).cursorColor,
                   ),
                   Text(
                     " ${model.businessCard.emailAddress}",
                     style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 3.2),
-                      color: ThemeColors.black,
+                      color: Theme.of(context).cursorColor,
                     ),
                   ),
                 ],
@@ -98,9 +97,8 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
           child: Text(
             model.businessCard.address,
             style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 3.2),
-              color: ThemeColors.black,
-            ),
+                fontSize: SizeConfig.textSize(context, 3.2),
+                color: Theme.of(context).cursorColor),
           ),
         ),
       ],

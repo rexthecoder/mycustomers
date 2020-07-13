@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -29,44 +28,42 @@ class CreditorsView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.yMargin(context, 4.0)),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: BrandColors.secondary,
-                          image: DecorationImage(
-                            image: ExactAssetImage('assets/images/orange_banner.png',
-                            ),
-                            fit: BoxFit.fill
-                          ),
-                          borderRadius: BorderRadius.circular(5)
-                        ),
-
+                            color: BrandColors.secondary,
+                            image: DecorationImage(
+                                image: ExactAssetImage(
+                                  'assets/images/orange_banner.png',
+                                ),
+                                fit: BoxFit.fill),
+                            borderRadius: BorderRadius.circular(5)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text('You are owing customers', style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp
-                            ),),
+                            Text(
+                              'You are owing customers',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 14.sp),
+                            ),
                             RichText(
                               text: TextSpan(
-                                  text: 'NGN 0.', style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 36.sp,
-                                  fontWeight: FontWeight.bold),
+                                  text: 'NGN 0.',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 36.sp,
+                                      fontWeight: FontWeight.bold),
                                   children: <TextSpan>[
                                     TextSpan(
-                                      text: '00.', style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.bold
-                                    ),
+                                      text: '00.',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.bold),
                                     )
-                                  ]
-                              ),
-
+                                  ]),
                             ),
-
                           ],
                         ),
                       ),
@@ -146,7 +143,7 @@ class CreditorsView extends StatelessWidget {
 //                        height: 100,
 //                        child: Center(child: Text('You don\'t have any creditors yet')),),
                       Container(
-                        height:height/2,
+                        height: height / 2,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
@@ -155,15 +152,20 @@ class CreditorsView extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Image.asset('assets/images/Notebook-pana 1.png'),
-                              SizedBox(height: 20.h,),
-                              Text('You don\'t owe any customer. Tap the big blue button at the bottom of the screen to add one',
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              Text(
+                                'You don\'t owe any customer. Tap the big orange button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: BrandColors.primary),),
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).textSelectionColor),
+                              ),
                             ],
                           ),
-                        ),),
-
-
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -172,24 +174,27 @@ class CreditorsView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: InkWell(
-                onTap: ()=> Navigator.pushNamed(context, '/importcustomercreditor'),
+                onTap: () =>
+                    Navigator.pushNamed(context, '/importcustomercreditor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
                       color: BrandColors.secondary,
-                      borderRadius: BorderRadius.circular(5)
-                  ),
-
+                      borderRadius: BorderRadius.circular(5)),
                   child: Center(
-                    child: Text('Add customer you are owing',
-                      style: TextStyle(color: Colors.white,
-                        fontSize: 12.sp,),
+                    child: Text(
+                      'Add customer you are owing',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                      ),
                     ),
-                  ),),
+                  ),
+                ),
               ),
             )
-          ] ,
+          ],
         ),
       ),
       viewModelBuilder: () => HomePageViewModel(),

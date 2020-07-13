@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
+import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart' as settings;
 
 import 'package:oktoast/oktoast.dart';
 
@@ -117,8 +118,7 @@ class App extends StatelessWidget {
           DefaultMaterialLocalizations.delegate,
           DefaultWidgetsLocalizations.delegate,
         ],
-        theme: themes.primaryMaterialTheme,
-        darkTheme: themes.darkMaterialTheme,
+        theme: themes.primaryMaterialThemegit ,
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.startupViewRoute,
         onGenerateRoute: Router().onGenerateRoute,

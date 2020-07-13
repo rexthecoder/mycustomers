@@ -19,6 +19,7 @@ class ImportCustomerView extends StatelessWidget {
     return ViewModelBuilder<ImportCustomerViewModel>.reactive(
       builder: (context, model, child) => SafeArea(
               child: Scaffold(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
@@ -26,7 +27,7 @@ class ImportCustomerView extends StatelessWidget {
                 pinned: true,
                 titleSpacing: 15.w,
                 title: _SearchBar(model: model),
-                backgroundColor: ThemeColors.background,
+                backgroundColor: Theme.of(context).backgroundColor,
                 elevation: 0,
                 actions: <Widget>[
                   FlatButton(
@@ -34,7 +35,7 @@ class ImportCustomerView extends StatelessWidget {
                     child: Text(
                       'Cancel',
                       style: TextStyle(
-                        color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                        color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
                         fontSize: SizeConfig.yMargin(context, 2.5)
                       ),
                     ),
@@ -66,7 +67,7 @@ class ImportCustomerView extends StatelessWidget {
                             child: Text(
                               'Add New Customer',
                               style: TextStyle(
-                                color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                                color: action == 'debtor' ? Theme.of(context).textSelectionColor: BrandColors.secondary,
                                 fontSize: SizeConfig.yMargin(context, 2.5)
                               ),
                             ),
@@ -76,7 +77,7 @@ class ImportCustomerView extends StatelessWidget {
                             icon: Icon(
                               Icons.arrow_forward_ios,
                               size: 20.sp,
-                              color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                              color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
                             ),
                             padding: EdgeInsets.symmetric(horizontal: 0),
                           ),
@@ -244,7 +245,8 @@ class __SearchBarState extends State<_SearchBar> {
         controller: widget.model.searchController,
         decoration: InputDecoration(
           hintText: 'Search',
-          prefixIcon: Icon(Icons.search),
+          hintStyle: TextStyle(),
+          prefixIcon: Icon(Icons.search, color: Theme.of(context).cursorColor,),
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,

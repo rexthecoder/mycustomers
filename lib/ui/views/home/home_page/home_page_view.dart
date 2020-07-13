@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'home_page_viewmodel.dart';
 import 'tabs/creditors_view.dart';
+import 'package:mycustomers/ui/shared/themes.dart';
 
 class HomePageView extends StatelessWidget {
   //TODO: Position notification bell dot properly
@@ -33,16 +34,18 @@ class HomePageView extends StatelessWidget {
                               BorderSide(color: Colors.grey, width: 0.8.w))),
                   child: TabBar(
                     labelPadding: EdgeInsets.symmetric(horizontal: 10),
-                    unselectedLabelColor: Colors.black,
-                    labelColor: Color(0xFF333CC1),
+                    unselectedLabelColor: Theme.of(context).cursorColor,
+                    labelColor: Theme.of(context).buttonColor,
                     indicatorSize: TabBarIndicatorSize.label,
-                    indicatorColor: Color(0xFF333CC1),
+                    indicatorColor: Theme.of(context).buttonColor,
                     tabs: [
                       Tab(
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("Customers owing you"),
+                            child: Text(
+                              "Customers owing you",
+                            ),
                           ),
                         ),
                       ),

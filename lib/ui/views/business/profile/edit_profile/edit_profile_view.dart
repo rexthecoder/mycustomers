@@ -20,7 +20,7 @@ class EditProfileView extends StatelessWidget {
           title: Text(
             'Edit Profile',
             style: TextStyle(
-              color: ThemeColors.black,
+              color: Theme.of(context).cursorColor,
               fontWeight: FontWeight.bold,
               fontSize: SizeConfig.textSize(context, 6),
             ),
@@ -98,7 +98,8 @@ class EditProfileView extends StatelessWidget {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
-                          style: TextStyle(color: BrandColors.primary),
+                          style: TextStyle(
+                              color: Theme.of(context).textSelectionColor),
                         ),
                       ),
                     ),
@@ -116,7 +117,8 @@ class EditProfileView extends StatelessWidget {
                           controller: _businessName,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(border: InputBorder.none),
-                          style: TextStyle(color: BrandColors.primary),
+                          style: TextStyle(
+                              color: Theme.of(context).textSelectionColor),
                         ),
                       ),
                     )

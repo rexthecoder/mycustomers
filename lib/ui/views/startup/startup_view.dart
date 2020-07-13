@@ -10,7 +10,7 @@ class StartupView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartupViewModel>.nonReactive(
       builder: (context, model, child) => Container(
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         child: Center(
           child: LoadingAnimation(),
         ),
