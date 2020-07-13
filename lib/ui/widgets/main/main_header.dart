@@ -11,35 +11,36 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
     return GestureDetector(
      onTap: model.navigateToNotifications
     );
-    Container(
-      color: BrandColors.primary,
-      height: SizeConfig.yMargin(context, 12),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: SizeConfig.yMargin(context, -12.0),
-            left: SizeConfig.yMargin(context, -10.0),
-            child: circleDesign(SizeConfig.yMargin(context, 10),
-                SizeConfig.yMargin(context, 7)),
-          ),
-          Positioned(
-            top: SizeConfig.yMargin(context, -12.0),
-            right: SizeConfig.yMargin(context, -12.0),
-            child: circleDesign(SizeConfig.yMargin(context, 10),
-                SizeConfig.yMargin(context, 7)),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: SizeConfig.xMargin(context, 3),
-              right: SizeConfig.xMargin(context, 3),
-              top: SizeConfig.yMargin(context, 4),
-              bottom: SizeConfig.yMargin(context, 2),
+ Container(
+        color: BrandColors.primary,
+        height: SizeConfig.yMargin(context, 12),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: SizeConfig.yMargin(context, -12.0),
+              left: SizeConfig.yMargin(context, -10.0),
+              child: circleDesign(SizeConfig.yMargin(context, 10),
+                  SizeConfig.yMargin(context, 7)),
             ),
-            child: headerBar(context, model),
-          ),
-        ],
-      ),
-    );
+            Positioned(
+              top: SizeConfig.yMargin(context, -12.0),
+              right: SizeConfig.yMargin(context, -12.0),
+              child: circleDesign(SizeConfig.yMargin(context, 10),
+                  SizeConfig.yMargin(context, 7)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: SizeConfig.xMargin(context, 3),
+                right: SizeConfig.xMargin(context, 3),
+                top: SizeConfig.yMargin(context, 4),
+                bottom: SizeConfig.yMargin(context, 2),
+              ),
+              child: headerBar(context, model),
+            ),
+          ],
+        ),
+      );
+    
   }
 
   Widget headerBar(
