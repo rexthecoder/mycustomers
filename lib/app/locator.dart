@@ -12,6 +12,8 @@ import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
+import 'package:mycustomers/core/services/connectivity/connectivity_service_impl.dart';
+import 'package:mycustomers/core/services/connectivity/connectivity_services.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
@@ -43,6 +45,9 @@ Future<void> setupLocator(
   // Services
   locator.registerLazySingleton(
     () => NavigationService(),
+  );
+  locator.registerLazySingleton<ConnectivityService>(
+    () => ConnectivityServiceImpl(),
   );
    locator.registerLazySingleton<DialogService>(
     () => DialogService(),
