@@ -3,9 +3,25 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 
 class CreditorsTransactionReportViewModel extends BaseViewModel {}
+/*
+class FooterData {
+  const FooterData(this.creditBal, this.debitBal);
 
-class Data {
-  const Data(
+  final double creditBal;
+  final double debitBal;
+
+  getIndex(int index) {
+    switch (index) {
+      case 0:
+        return creditBal;
+      case 1:
+        return debitBal;
+    }
+  }
+}
+
+class ContentData {
+  const ContentData(
     this.sn,
     this.customerName,
     this.date,
@@ -38,3 +54,4 @@ class Data {
     }
   }
 }
+*/
