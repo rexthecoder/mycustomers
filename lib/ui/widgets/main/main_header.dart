@@ -8,7 +8,8 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return Container(
+    return 
+    Container(
       color: BrandColors.primary,
       height: SizeConfig.yMargin(context, 12),
       child: Stack(
