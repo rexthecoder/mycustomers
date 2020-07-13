@@ -6,7 +6,7 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class BusinessHomePageViewModel extends BaseViewModel {

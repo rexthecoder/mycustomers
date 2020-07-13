@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/utils/logger.dart';
-import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:mycustomers/main.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mycustomers/core/services/permissions.dart';
 import 'package:mycustomers/core/models/customer.dart';
 
-class MockTransactionAdapter extends Mock implements TransactionService {}
+class MockTransactionAdapter extends Mock implements TransactionLocalDataSourceImpl {}
 class MockBox<T> extends Mock implements Box<T> {}
 
 void initialiseHive() async {

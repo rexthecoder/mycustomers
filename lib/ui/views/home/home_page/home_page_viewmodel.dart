@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permissions.dart';
-import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -30,7 +30,7 @@ class HomePageViewModel extends ReactiveViewModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
   final _customerContactService = locator<CustomerContactService>();
-  final _transactionService = locator<TransactionService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   Permissions _permission =  locator<Permissions>();
   List<CustomerContact> get contacts => _customerContactService.contacts;

@@ -1,8 +1,8 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
-import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -10,7 +10,7 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
   final NavigationService _navigationService = locator<NavigationService>();
   
   final _customerContactService = locator<CustomerContactService>();
-  final _transactionService = locator<TransactionService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
   CustomerContact get contact => _customerContactService.contact;
   TransactionModel get transaction => _transactionService.stransaction;
 
