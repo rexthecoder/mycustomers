@@ -1,11 +1,11 @@
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/services/store_services.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 
 class StoreRepository {
   static List _stores;
-  static StoreService _ss = locator<StoreService>();
+  static StoreDataSourceImpl _ss = locator<StoreDataSourceImpl>();
   static Store _currentStore;
 
   static List<Store> get stores => _stores;
