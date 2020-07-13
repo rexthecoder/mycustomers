@@ -84,6 +84,7 @@ abstract class Routes {
   static const marketingHomepageView = '/marketingHomePage';
    static const addCustomerMarketing = '/addCustomerMarketing';
   static const addNewCustomerMarketing = '/addNewCustomerMarketing';
+  static const businessCardDisplayModal='/businessCardDisplayModal';
 }
 
 class Router {
@@ -214,6 +215,7 @@ class Router {
           builder: (context) => SettingsPage(),
           settings: settings,
         );
+     
       case Routes.profileViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => ProfilePageView(),
