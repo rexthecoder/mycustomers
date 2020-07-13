@@ -34,6 +34,7 @@ class BusinessHomePageViewModel extends BaseViewModel {
       print('error: $e');
     }
   }
+ 
 
   Future navigateToProfilePage() async {
     await _navigationService.navigateTo(Routes.profileViewRoute);

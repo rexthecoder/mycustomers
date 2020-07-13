@@ -1,21 +1,15 @@
-
-// part of '../../../views/business/business_card_page/business_cardpage_view.dart';
-
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_viewmodel.dart';
-import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:mycustomers/ui/views/business/business_home_page/business_homepage_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
-class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
-  BusinessCard({Key key}) : super(key: key, reactive: true);
 
+class BusinessCardDisplayModal extends  StatelessWidget {
   @override
-  Widget buildViewModelWidget(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
-    return Stack(
+  Widget build(BuildContext context) {
+   return ViewModelBuilder<BusinessHomePageViewModel>.reactive(
+     builder: (context,model,child)=> Stack(
       children: <Widget>[
         Container(
           height: SizeConfig.yMargin(context, 30),
@@ -111,7 +105,13 @@ class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
           ),
         ),
       ],
-    );
+    ), 
+   viewModelBuilder:()=> BusinessHomePageViewModel());     
+   
+ 
+    
   }
 }
+
+
 
