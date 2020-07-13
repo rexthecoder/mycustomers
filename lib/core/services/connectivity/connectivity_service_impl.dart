@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:mycustomers/core/enums/connectivity_status.dart';
 import 'package:mycustomers/core/services/connectivity/connectivity_services.dart';
 import 'package:mycustomers/core/utils/logger.dart';
