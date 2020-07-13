@@ -53,6 +53,7 @@ class ImportCustomerView extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: MyListTile(
+                  onTap: () => model.goToManual(action),
                   leading: CustomerCircleAvatar(
                     child: Icon(
                       Icons.person_add,
