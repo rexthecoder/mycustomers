@@ -29,6 +29,7 @@ class BusinessCardPageView extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: ThemeColors.background,
+          brightness: Brightness.light,
           elevation: 0,
           centerTitle: true,
           title: Text(

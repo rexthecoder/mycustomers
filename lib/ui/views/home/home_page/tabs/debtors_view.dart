@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -239,7 +240,7 @@ class DebtorsView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Image.asset('assets/images/Notebook-pana 1.png'),
+                              SvgPicture.asset('assets/images/no-transaction.svg'),
                               SizedBox(height: 20.h,),
                               Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
@@ -271,9 +272,12 @@ class DebtorsView extends StatelessWidget {
                   ),
 
                   child: Center(
-                    child: Text('Add customer owing you',
-                      style: TextStyle(color: Colors.white,
-                      fontSize: 12.sp,),
+                    child: Text(
+                      'Add customer owing you',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: SizeConfig.yMargin(context, 2.1),
+                      ),
                     ),
                   ),
                 ),
@@ -315,10 +319,19 @@ class ContactList extends StatelessWidget {
                   prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
                   border: InputBorder.none,
                 ),
+                onChanged: model.searchDName,
               ),
             ),
+            model.sDName != null && !model.containsD ? Text(
+              'No Customer Found'
+            ) : SizedBox(),
             for(var cont in model.owingcustomers)
-              for (var item in model.contacts) item.id == cont.cId ? Container(
+              for (var item in model.contacts) 
+              item.id == cont.cId ? 
+              //Implementation for Search
+              model.sDName != null && model.containsD ?
+              item.name.toLowerCase().contains(model.sDName.toLowerCase()) ?
+              Container(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
@@ -328,8 +341,85 @@ class ContactList extends StatelessWidget {
                   )
                 ),
                 child: ListTile(
-                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
-                  leading: Container(
+                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                  leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.black,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/man.png',
+                        ),
+                        fit: BoxFit.cover
+                      )
+                    ),
+                  ),
+                  title: Text(
+                    item.name,
+                    style: TextStyle(fontWeight: FontWeight.w600)
+                  ),
+                  subtitle: Text(
+                    DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
+                    : 
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days'
+                  ),
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          style: TextStyle(
+                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
+                            fontSize: 16,
+                            fontFamily: 'Roboto'
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.1)
+                        ),
+                        child: Text(
+                          (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
+                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ) 
+              : SizedBox()
+              : model.sDName != null && !model.containsD ? SizedBox() : Container(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 6),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Color(0xFFD1D1D1)),
+                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                  )
+                ),
+                child: ListTile(
+                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                  leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(

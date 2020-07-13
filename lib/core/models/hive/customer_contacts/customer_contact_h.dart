@@ -14,5 +14,8 @@ class CustomerContact{
   @HiveField(2)
   final int id;
 
-  CustomerContact({this.name, this.phoneNumber, this.id});
+  @HiveField(3)
+  final String initials;
+
+  CustomerContact({this.name, this.phoneNumber, this.id, this.initials});
 }

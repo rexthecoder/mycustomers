@@ -32,7 +32,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
 
-  List<String> get formattedate =>  _transactionService.formattedate; //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
+  List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
   int bought(){
     int sum = 0;
