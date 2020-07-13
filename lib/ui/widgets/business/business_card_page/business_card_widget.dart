@@ -1,7 +1,14 @@
-part of '../../../views/business/business_card_page/business_cardpage_view.dart';
 
-class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
-  _BusinessCard({Key key}) : super(key: key, reactive: true);
+// part of '../../../views/business/business_card_page/business_cardpage_view.dart';
+
+import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_viewmodel.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
+
+class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
+  BusinessCard({Key key}) : super(key: key, reactive: true);
 
   @override
   Widget buildViewModelWidget(
@@ -107,3 +114,4 @@ class _BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
     );
   }
 }
+

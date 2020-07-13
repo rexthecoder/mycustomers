@@ -15,9 +15,9 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
       child: ListView.separated(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        itemCount: model.businesses.length,
+        itemCount: model.stores.length,
         itemBuilder: (context, index) =>
-            businessIcon(context, model.businesses[index], index, model),
+            businessIcon(context, model.stores[index], model),
         shrinkWrap: true,
         separatorBuilder: (BuildContext context, int index) => SizedBox(
           height: SizeConfig.yMargin(context, 2),
@@ -27,11 +27,14 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
   }
 
   Widget businessIcon(
-      BuildContext context, Business business, int index, MainViewModel model) {
-    bool isSelected = model.selectedBusiness == index;
+      BuildContext context, Store business, MainViewModel model) {
+    bool isSelected = model.currStore.id == business.id;
 
     return GestureDetector(
-      onTap: () => model.changeBusiness(index),
+      onTap: () {
+        // TODO: Add fetch store details
+        model.changeBusiness(business.id);
+        },
       child: Column(
         children: <Widget>[
           Container(
@@ -57,7 +60,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
               shape: GFAvatarShape.standard,
               backgroundColor: ThemeColors.background,
               child: Text(
-                business.businessName.substring(0, 1),
+                business.name.substring(0, 1),
                 style: TextStyle(
                   color: ThemeColors.black,
                   fontSize: SizeConfig.textSize(context, 12),
@@ -68,7 +71,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
             ),
           ),
           Text(
-            business.businessName,
+            business.name,
             maxLines: 1,
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,

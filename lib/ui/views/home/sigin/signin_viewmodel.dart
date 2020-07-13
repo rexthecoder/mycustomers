@@ -40,14 +40,14 @@ class SignInViewModel extends BaseViewModel with Validators {
   // Navigate
   Future navigateToNextScreen() async {
     await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'rotate', duration: Duration(seconds: 2));
+        opaque: true, transition: 'rotate', duration: Duration(milliseconds: 600));
   }
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
         opaque: true,
         transition: 'fade',
-        duration: Duration(seconds: 3));
+        duration: Duration(milliseconds: 600));
   }
 
   final _authService = locator<AuthService>();
@@ -56,7 +56,7 @@ class SignInViewModel extends BaseViewModel with Validators {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
     _dialogService.showCustomDialog(
-        title: 'please hold on while we try to sign you in');
+        title: 'Please hold on while we try to sign you in');
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());
@@ -76,7 +76,7 @@ class SignInViewModel extends BaseViewModel with Validators {
     } catch (e, s) {
       Logger.e('Unknown Error', e: e, s: s);
       showToastCustom(
-        message: 'An error occured while signing up',
+        message: 'An error occured while we try to sign you in',
       );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());

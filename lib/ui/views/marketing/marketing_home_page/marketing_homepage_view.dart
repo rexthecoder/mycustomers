@@ -288,7 +288,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   Expanded(
                                     child: InkWell(
                                       onTap: (){
-                                        Navigator.pushNamed(context, '/sendMessage');
+                                        // Navigator.pushNamed(context, '/sendMessage');
 //                                        model.selectedCustomers
 //                                            .length !=
 //                                            0

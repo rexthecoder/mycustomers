@@ -10,13 +10,11 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/size_extension.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 
 import 'signin_viewmodel.dart';
 
 class SignInView extends StatelessWidget {
-  static final _signinFormPageKey = GlobalKey<FormState>();
   final _signinPageKey = GlobalKey<ScaffoldState>();
 
   @override

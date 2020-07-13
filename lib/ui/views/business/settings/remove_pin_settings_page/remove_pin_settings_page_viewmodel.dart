@@ -12,6 +12,8 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final PasswordManagerService _passwordManagerService = locator<PasswordManagerService>();
 
+  
+
 
   void onEnterPinCompleted(String value, BuildContext context) async{
     String passFrmDb= await _passwordManagerService.getPassword(); // get the password stored in the db
@@ -20,14 +22,24 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
     int check = newPassFrmDb.compareTo(confirmPin); // compare they are equal
     print(check);
     if(check == 0){
-       _passwordManagerService.deleteSetPin();
+      await _passwordManagerService.deleteSetPin();
+      setPin(false);
        showAlertDilaog(context);
+    }
+    else if(check < 0 || check > 0){
+      _passwordManagerService.showUnmatchedPinErrorMessage();
     }
     else{
       _passwordManagerService.showRemoveErrorMessage();
     }
 
   }
+
+void setPin(bool value){
+    _passwordManagerService.setPin(value);
+     notifyListeners();
+   }
+ 
 
   Future<void> showAlertDilaog(BuildContext context) async{
   // set up the button

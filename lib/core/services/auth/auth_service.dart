@@ -15,6 +15,10 @@ abstract class AuthService {
     String password,
   );
 
+  Future<void> signInWithGoogle();
+
+  Future<void> signUpWithGoogle();
+
   Future<void> signOut();
 
   Future<bool> get isUserLoggedIn;
