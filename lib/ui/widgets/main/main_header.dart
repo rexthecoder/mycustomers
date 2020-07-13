@@ -8,7 +8,9 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return 
+    return GestureDetector(
+     onTap: model.navigateToNotifications
+    );
     Container(
       color: BrandColors.primary,
       height: SizeConfig.yMargin(context, 12),
