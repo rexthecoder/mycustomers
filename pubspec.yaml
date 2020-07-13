@@ -52,7 +52,6 @@ dependencies:
   # Error reporting
   sentry: ^3.0.1
 
-
   # State Management
   stacked: ^1.5.7+1
   stacked_services: 0.4.3
@@ -63,7 +62,7 @@ dependencies:
   injectable:
   device_preview: ^0.4.5
   flare_flutter:
-#  connectivity: ^0.4.8+6
+  connectivity: ^0.4.8+6
   app_settings: ^4.0.0
   device_info: ^0.4.2+4
 
@@ -127,8 +126,6 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/images/app_icon.png"
-
-
 
 flutter:
 
