@@ -1,26 +1,20 @@
-
-// part of '../../../views/business/business_card_page/business_cardpage_view.dart';
-
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_viewmodel.dart';
-import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:mycustomers/ui/views/business/business_home_page/business_homepage_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
-class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
-  BusinessCard({Key key}) : super(key: key, reactive: true);
 
+class BusinessCardDisplayModal extends  StatelessWidget {
   @override
-  Widget buildViewModelWidget(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
-    return Stack(
+  Widget build(BuildContext context) {
+   return ViewModelBuilder<BusinessHomePageViewModel>.reactive(
+     builder: (context,model,child)=> Stack(
       children: <Widget>[
         Container(
           height: SizeConfig.yMargin(context, 30),
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
+            color: ThemeColors.background,
             borderRadius: BorderRadius.circular(10),
             shape: BoxShape.rectangle,
             image: DecorationImage(
@@ -35,9 +29,10 @@ class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
           child: Text(
             model.businessCard.storeName.toUpperCase(),
             style: TextStyle(
-                fontSize: SizeConfig.textSize(context, 8),
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).cursorColor),
+              fontSize: SizeConfig.textSize(context, 8),
+              fontWeight: FontWeight.bold,
+              color: ThemeColors.black,
+            ),
           ),
         ),
         Positioned(
@@ -51,14 +46,14 @@ class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                   Icon(
                     Icons.account_circle,
                     size: SizeConfig.textSize(context, 5),
-                    color: Theme.of(context).cursorColor,
+                    color: ThemeColors.black,
                   ),
                   Text(
                     " ${model.businessCard.personalName}",
                     style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 4),
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).cursorColor,
+                      color: ThemeColors.black,
                     ),
                   ),
                 ],
@@ -68,13 +63,13 @@ class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                   Icon(
                     Icons.phone,
                     size: SizeConfig.textSize(context, 5),
-                    color: Theme.of(context).cursorColor,
+                    color: ThemeColors.black,
                   ),
                   Text(
                     " ${model.businessCard.phoneNumber}",
                     style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 3.2),
-                      color: Theme.of(context).cursorColor,
+                      color: ThemeColors.black,
                     ),
                   ),
                 ],
@@ -84,13 +79,13 @@ class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
                   Icon(
                     Icons.email,
                     size: SizeConfig.textSize(context, 5),
-                    color: Theme.of(context).cursorColor,
+                    color: ThemeColors.black,
                   ),
                   Text(
                     " ${model.businessCard.emailAddress}",
                     style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 3.2),
-                      color: Theme.of(context).cursorColor,
+                      color: ThemeColors.black,
                     ),
                   ),
                 ],
@@ -104,12 +99,19 @@ class BusinessCard extends HookViewModelWidget<BusinessCardPageViewModel> {
           child: Text(
             model.businessCard.address,
             style: TextStyle(
-                fontSize: SizeConfig.textSize(context, 3.2),
-                color: Theme.of(context).cursorColor),
+              fontSize: SizeConfig.textSize(context, 3.2),
+              color: ThemeColors.black,
+            ),
           ),
         ),
       ],
-    );
+    ), 
+   viewModelBuilder:()=> BusinessHomePageViewModel());     
+   
+ 
+    
   }
 }
+
+
 

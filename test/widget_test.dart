@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/utils/logger.dart';
-import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:mycustomers/main.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mycustomers/core/services/permissions.dart';
 import 'package:mycustomers/core/models/customer.dart';
 
-class MockTransactionAdapter extends Mock implements TransactionService {}
+class MockTransactionAdapter extends Mock implements TransactionLocalDataSourceImpl {}
 class MockBox<T> extends Mock implements Box<T> {}
 
 void initialiseHive() async {
@@ -29,9 +29,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   
 
-  final transactionModel1 = TransactionModel(cId: 1, amount: 20000.0, paid: 0, goods: ['Rice', 'Bread'], date: '08/07/2020');
-  final transactionModel2 = TransactionModel(cId: 1, amount: 0, paid: 9000.0, goods: ['Rice', 'Bread'], date: '05/07/2020');
-  final transactionModel3 = TransactionModel(cId: 1, amount: 300.0, paid: 0, goods: ['Rice', 'Bread'], date: '03/07/2020');
+  final transactionModel1 = TransactionModel(cId: 1, amount: 20000.0, paid: 0, goods: ['Rice', 'Bread'], duedate: '08/07/2020');
+  final transactionModel2 = TransactionModel(cId: 1, amount: 0, paid: 9000.0, goods: ['Rice', 'Bread'], duedate: '05/07/2020');
+  final transactionModel3 = TransactionModel(cId: 1, amount: 300.0, paid: 0, goods: ['Rice', 'Bread'], duedate: '03/07/2020');
 
   final transactionModeList = [transactionModel1, transactionModel2, transactionModel3];
 

@@ -1,10 +1,10 @@
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
-import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -22,15 +22,17 @@ class MainTransactionViewModel extends ReactiveViewModel{
   
   List<String> items = ['SMS', 'Call', 'Set Reminders'];
   String date;
-  final _transactionService = locator<TransactionService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
   List<TransactionModel> get transactions => _transactionService.transactions;
+  List<TransactionModel> get debitlist => _transactionService.debitlist;
+  List<TransactionModel> get creditlist => _transactionService.creditlist;
 
   final NavigationService _navigationService = locator<NavigationService>();
   
   final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
 
-  List<String> get formattedate =>  _transactionService.formattedate; //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
+  List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
   int bought(){
     int sum = 0;
@@ -75,16 +77,21 @@ class MainTransactionViewModel extends ReactiveViewModel{
     notifyListeners();
   }
 
-  void setDates() {
-    print('dates');
-    for(int i=0; i<transactions.length; i++) {
-      print(transactions[i]);
-      formattedate.add(getDate(transactions[i].date));
-    }
-  }
+  // void setDates() {
+  //   print('dates');
+  //   for(int i=0; i<transactions.length; i++) {
+  //     print(transactions[i]);
+  //     formattedate.add(getDate(transactions[i].date));
+  //   }
+  // }
 
   void navigateToHome(){
     _navigationService.navigateTo(Routes.mainViewRoute);
+  }
+
+  void navigateDetails(TransactionModel item){
+    _transactionService.setTransaction(item);
+    _navigationService.navigateTo(Routes.transactionDetails);
   }
 
   @override

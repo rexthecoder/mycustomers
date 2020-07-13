@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
@@ -35,26 +36,35 @@ class EditProfileView extends StatelessWidget {
               children: <Widget>[
                 Align(
                   alignment: Alignment.topCenter,
-                  child: CircleAvatar(
-                    backgroundColor: ThemeColors.unselect,
-                    child: model.image == null
-                        ? Text(
-                            'C',
-                            style: TextStyle(
-                              color: BrandColors.primary,
-                              fontSize: SizeConfig.textSize(context, 18),
-                            ),
-                          )
-                        : ClipOval(
-                            child: Image.file(
-                              model.image,
-                              width: SizeConfig.xMargin(context, 50),
-                              height: SizeConfig.xMargin(context, 50),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                    radius: 70,
-                  ),
+                  child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android ? FutureBuilder<void>(
+                    future: model.retrieveLostData(),
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                          case ConnectionState.waiting:
+                            return CircleAvatar(
+                                child: const Text(
+                                'You have not yet picked an image.',
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                            case ConnectionState.done:
+                              return _previewImage(context, model);
+                            default:
+                              if (snapshot.hasError) {
+                                return Text(
+                                  'Pick image: ${snapshot.error}}',
+                                  textAlign: TextAlign.center,
+                                );
+                              } else {
+                                return const Text(
+                                  'You have not yet picked an image.',
+                                  textAlign: TextAlign.center,
+                                );
+                              }
+                          }
+                    
+                    }): _previewImage(context,model) 
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
                 Container(
@@ -66,7 +76,6 @@ class EditProfileView extends StatelessWidget {
                   ),
                   child: FlatButton(
                     onPressed: model.getImagefromGallery,
-                    //  TODO Implement the action that should be taken once the button is clicked
                     child: Text(
                       model.image == null
                           ? 'Add a Profile Picture'
@@ -95,6 +104,7 @@ class EditProfileView extends StatelessWidget {
                         child: TextField(
                           controller: _userName,
                           keyboardType: TextInputType.text,
+                          onChanged:(value) =>model.updateBusinessName(value),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -115,6 +125,7 @@ class EditProfileView extends StatelessWidget {
                             horizontal: SizeConfig.xMargin(context, 4)),
                         child: TextField(
                           controller: _businessName,
+                          onChanged:(_businessName) =>model.updateBusinessName(_businessName),
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(border: InputBorder.none),
                           style: TextStyle(
@@ -162,3 +173,40 @@ class EditProfileView extends StatelessWidget {
     );
   }
 }
+
+Widget _previewImage(BuildContext context,EditProfileViewModel model){
+   final Text retrieveError = _getRetrieveErrorWidget(model);
+    if (retrieveError != null) {
+      return retrieveError;
+    }
+
+    return CircleAvatar(
+        backgroundColor: ThemeColors.unselect,
+        child: model.image == null
+            ? Text(
+                'C',
+                style: TextStyle(
+                  color: BrandColors.primary,
+                  fontSize: SizeConfig.textSize(context, 18),
+                ),
+              )
+            : ClipOval(
+                child: Image.file(
+                  model.image,
+                  width: SizeConfig.xMargin(context, 50),
+                  height: SizeConfig.xMargin(context, 50),
+                  fit: BoxFit.cover,
+                ),
+              ),
+        radius: 70,
+      );
+  }
+
+ Text _getRetrieveErrorWidget(EditProfileViewModel model) {
+    if (model.retrieveDataError != null) {
+      final Text result = Text(model.retrieveDataError);
+      model.retrieveDataError = null;
+        return result;
+    }
+    return null;
+  }

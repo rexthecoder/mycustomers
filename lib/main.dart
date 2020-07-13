@@ -8,12 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
-import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart' as settings;
+import 'package:mycustomers/core/services/dark_mode.dart';
 
 import 'package:oktoast/oktoast.dart';
 
 import 'app/locator.dart';
 import 'app/router.dart';
+import 'core/managers/core_manager.dart';
 import 'core/utils/logger.dart';
 
 final SentryClient _sentry = SentryClient(
@@ -36,9 +37,10 @@ void main() async {
   };
 
   runZonedGuarded<Future<void>>(() async {
-    setupLogger(sentryClient: SentryClient(
-    dsn:
-        "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
+    setupLogger(
+        sentryClient: SentryClient(
+            dsn:
+                "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
 
     runApp(App());
@@ -54,7 +56,6 @@ void main() async {
     //     builder: (context) => App(),
     //   ),
     // );
-
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -104,25 +105,27 @@ class App extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
       ),
     );
 
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
-    return OKToast(
-      child: MaterialApp(
-        // builder: DevicePreview.appBuilder,
-        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-          DefaultMaterialLocalizations.delegate,
-          DefaultWidgetsLocalizations.delegate,
-        ],
-        theme: themes.primaryMaterialThemegit ,
-        debugShowCheckedModeBanner: false,
-        initialRoute: Routes.startupViewRoute,
-        onGenerateRoute: Router().onGenerateRoute,
-        navigatorKey: locator<NavigationService>().navigatorKey,
+    return CoreManager(
+      child: OKToast(
+        child: MaterialApp(
+          // builder: DevicePreview.appBuilder,
+          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+            DefaultMaterialLocalizations.delegate,
+            DefaultWidgetsLocalizations.delegate,
+          ],
+          theme: themes.primaryMaterialTheme,
+          debugShowCheckedModeBanner: false,
+          initialRoute: Routes.startupViewRoute,
+          onGenerateRoute: Router().onGenerateRoute,
+          navigatorKey: locator<NavigationService>().navigatorKey,
+        ),
       ),
     );
   }

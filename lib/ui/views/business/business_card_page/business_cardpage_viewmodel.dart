@@ -2,15 +2,19 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class BusinessCardPageViewModel extends BaseViewModel {
   /// Fields
   final BusinessCardService _businessCardService =
       locator<IBusinessCardService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+
   BusinessCard _businessCard = BusinessCard.empty();
   File imageFile;
 
@@ -59,5 +63,9 @@ class BusinessCardPageViewModel extends BaseViewModel {
   Future<void> init() async {
     _businessCard = await _businessCardService.getBusinessCard();
     notifyListeners();
+  }
+
+  Future navigateToBusinessCardPage() async {
+    await _navigationService.navigateTo(Routes.businessCardRoute);
   }
 }
