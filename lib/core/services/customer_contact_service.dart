@@ -36,7 +36,7 @@ class CustomerContactService with ReactiveServiceMixin {
     _navigationService.navigateTo(Routes.mainTransaction);
   }
 
-  void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials)async {
+  void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String action)async {
     print(customerPhoneNumber);
     print(customerName);
     print(dropDownValue);
@@ -61,7 +61,7 @@ class CustomerContactService with ReactiveServiceMixin {
           print('set ${contact.id}');
           _contacts.value = bbox.values.toList();
           _contacts.value.sort((a,b) => b.id.compareTo(a.id));
-          _navigationService.navigateTo(Routes.mainTransaction);
+          action == 'debtor' ? _navigationService.navigateTo(Routes.addDebt) : _navigationService.navigateTo(Routes.addCredit);
         }).catchError((err){
           error = err;
           print(error);

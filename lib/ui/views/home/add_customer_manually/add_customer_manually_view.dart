@@ -48,7 +48,7 @@ class AddCustomerManuallyView extends StatelessWidget {
                   child: FlatButton(
                     color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                     onPressed: () {
-                      model.addContact();
+                      model.addContact(action);
                       //Navigator.pushNamed(context, '/mainTransaction');
                     },
                     shape: RoundedRectangleBorder(

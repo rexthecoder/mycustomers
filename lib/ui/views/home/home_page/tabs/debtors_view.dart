@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -239,7 +240,7 @@ class DebtorsView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Image.asset('assets/images/Notebook-pana 1.png'),
+                              SvgPicture.asset('assets/images/no-transaction.svg'),
                               SizedBox(height: 20.h,),
                               Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
@@ -271,9 +272,12 @@ class DebtorsView extends StatelessWidget {
                   ),
 
                   child: Center(
-                    child: Text('Add customer owing you',
-                      style: TextStyle(color: Colors.white,
-                      fontSize: 12.sp,),
+                    child: Text(
+                      'Add customer owing you',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: SizeConfig.yMargin(context, 2.1),
+                      ),
                     ),
                   ),
                 ),
