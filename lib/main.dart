@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
-import 'package:mycustomers/core/services/dark_mode.dart';
 
 import 'package:oktoast/oktoast.dart';
 
