@@ -1,5 +1,5 @@
 import 'package:mycustomers/core/models/customer.dart';
-import 'permissions.dart';
+import 'permission_service.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:mockito/mockito.dart';
 
@@ -13,7 +13,7 @@ class MockOwnerService extends Mock implements IOwnerServices {
 
 class OwnerServices implements IOwnerServices {
 
-  Permissions _permission = new Permissions();
+  PermissionService _permission = new PermissionService();
 
   // method to get contacts from the user's device
   @override
@@ -27,6 +27,7 @@ class OwnerServices implements IOwnerServices {
         'lastname': contact?.familyName?.isEmpty??true?'':contact.familyName,
         'phone': contact?.phones?.toList()?.isEmpty ?? true ? '' : contact.phones.toList()[0].value,
         'email': contact?.emails?.toList()?.isEmpty ?? true ? '' : contact.emails.toList()[0].value,
+        'initials': contact?.initials()?.isEmpty ?? true ? '' : contact.initials()
       }));
     }
     return Iterable<Customer>.empty();

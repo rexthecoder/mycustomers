@@ -61,7 +61,6 @@ class ImportCustomerView extends StatelessWidget {
                         color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                         size: SizeConfig.xMargin(context, 7),
                       ),
-                      bgColor: ThemeColors.gray.shade500,
                     ),
                     title: Text(
                       'Add New Customer',
@@ -133,7 +132,7 @@ class ImportCustomerView extends StatelessWidget {
                             size: SizeConfig.yMargin(context, 1.6),
                           ),
                           onPressed: () {
-                            model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number');
+                            model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number', customer.initials, action);
                           },
                           label: Text(
                             'ADD',

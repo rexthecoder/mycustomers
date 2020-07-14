@@ -15,6 +15,7 @@ class SupportPageView extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
              resizeToAvoidBottomInset: false,
               appBar: AppBar(
+                brightness: Brightness.light,
                 elevation: 0,
                 title: Text(
                   'Customer Support',

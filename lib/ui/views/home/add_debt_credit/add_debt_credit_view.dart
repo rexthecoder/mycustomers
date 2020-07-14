@@ -55,7 +55,7 @@ class AddDebtCreditView extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(20)),
                           child: Text(
-                            'Customer Details',
+                            'Transaction Details',
                             style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -106,7 +106,7 @@ class AddDebtCreditView extends StatelessWidget {
                                     context: context,
                                     initialDate: model.selectedDate,
                                     firstDate: DateTime(2000),
-                                    lastDate: DateTime(2300),
+                                    lastDate: action == 'credit' ? DateTime(2030) : DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now()))),
                                     builder: (BuildContext context, Widget child) {
                                       return Theme(
                                         data: Theme.of(context).copyWith(
@@ -305,7 +305,6 @@ class AddDebtCreditView extends StatelessWidget {
               InkWell(
                 onTap: (){
                   model.addtransaction(action, update);
-                  Navigator.pop(context);
                 },//Todo: Save User Input
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15)),

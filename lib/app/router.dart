@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
@@ -36,6 +38,7 @@ import 'package:mycustomers/ui/views/home/schedule_reminder/schedule_remider_vie
 import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/send_a_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
+import 'package:mycustomers/ui/views/home/notification_view/notification_view.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
@@ -82,8 +85,10 @@ abstract class Routes {
   static const sendReminder = '/sendReminder';
   static const sendMessageViewRoute = '/sendMessage';
   static const marketingHomepageView = '/marketingHomePage';
-   static const addCustomerMarketing = '/addCustomerMarketing';
+  static const addCustomerMarketing = '/addCustomerMarketing';
   static const addNewCustomerMarketing = '/addNewCustomerMarketing';
+  static const notificationsViewRoute = '/NotificationsViews';
+  static const businessCardDisplayModal='/businessCardDisplayModal';
 }
 
 class Router {
@@ -214,6 +219,7 @@ class Router {
           builder: (context) => SettingsPage(),
           settings: settings,
         );
+     
       case Routes.profileViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => ProfilePageView(),
@@ -317,6 +323,11 @@ class Router {
       case Routes.addNewCustomerMarketing:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddNewCustomerView(),
+          settings: settings,
+        );
+        case Routes.notificationsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => NotificationsView(),
           settings: settings,
         );
       default:

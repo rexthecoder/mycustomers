@@ -2,13 +2,12 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
-import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
-import 'repository.dart';
+
 
 @lazySingleton
-class TransactionService with ReactiveServiceMixin {
+class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
   static const String _boxname = "transactionBox";
 
   RxValue<List<TransactionModel>> _alltransactions = RxValue<List<TransactionModel>>(initial: []);
@@ -73,6 +72,7 @@ class TransactionService with ReactiveServiceMixin {
     for (var transaction in bbox.values.toList()) {
       if (transaction.cId == id){
         _transactions.value.add(transaction);
+        print(transaction.boughtdate);
       }
     }
     _debitlist.value = [];

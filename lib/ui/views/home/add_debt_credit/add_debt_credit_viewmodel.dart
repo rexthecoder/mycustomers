@@ -4,11 +4,13 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
-import 'package:mycustomers/core/services/transaction/transaction_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AddDebtCreditViewModel extends ReactiveViewModel{
   final _debouncer = Debouncer(milliseconds: 100);
@@ -23,8 +25,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
   bool date1err = false;
   bool date2err = false;
   List<String> items = [];
-  final _transactionService = locator<TransactionService>();
-
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  NavigationService _navigationService = locator<NavigationService>();
   final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
 
@@ -140,6 +142,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
           notifyListeners();
         }
       }
+      _navigationService.navigateTo(Routes.mainTransaction);
     }else{
       if(newDate==null){
         date1err = true;

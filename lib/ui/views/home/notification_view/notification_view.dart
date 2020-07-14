@@ -5,7 +5,7 @@ import 'notification_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
-class Notifications extends StatelessWidget {
+class NotificationsView extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
