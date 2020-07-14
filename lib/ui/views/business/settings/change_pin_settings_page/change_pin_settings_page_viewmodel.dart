@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
@@ -29,7 +30,7 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
     changeTab(tabIndex);
   }
 
-  void onConfirmPinCompleted(String value) async{
+  void onConfirmPinCompleted(String value, TextEditingController textEditingController) async{
     // Parse the password value , compare the value to the set Pin value,   
     // String back the value to be saved
     int confirmPin= parsePasswordValue(value);
@@ -44,6 +45,7 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
     } 
     else if (check < 0 || check > 0){
           _passwordManagerService.showUnmatchedPinErrorMessage();
+          clearValueIfPinsDoNotMatch(textEditingController);
     }
     else {
       _passwordManagerService.showErrorMessage();
@@ -81,6 +83,13 @@ void setPin(bool value){
  int parsePasswordValue(String password){
    return int.parse(password);
  }
+
+ void clearValueIfPinsDoNotMatch(TextEditingController textEditingController){
+   for(int i =0; i < 4; i++){
+textEditingController.text = textEditingController.text.substring(0,textEditingController.text.length-1);
+   }
+   
+    }
  
 }
 

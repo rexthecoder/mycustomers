@@ -33,7 +33,7 @@ class SetPinSettingsPageView extends StatelessWidget {
             child: PinField(
               title: 'Confirm New PIN',
               textEditingController: confirmPinController,
-              onCompleted: (value) => model.onConfirmPinCompleted(value),
+              onCompleted: (value) => model.onConfirmPinCompleted(value,confirmPinController),
             ),
           ),
         ];
