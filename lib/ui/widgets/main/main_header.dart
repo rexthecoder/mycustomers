@@ -8,10 +8,11 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return GestureDetector(
-     onTap: model.navigateToNotifications
-    );
- Container(
+//     return GestureDetector(
+//      onTap: model.navigateToNotifications
+//     );
+//  child: 
+return Container(
         color: BrandColors.primary,
         height: SizeConfig.yMargin(context, 12),
         child: Stack(
@@ -90,15 +91,18 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
         Expanded(
           child: SizedBox(),
         ),
-        Container(
-          child: Stack(
-            children: [
-              Icon(
-                Icons.notifications_none,
-                color: Colors.white,
-              ),
-            ],
-            overflow: Overflow.clip,
+        GestureDetector(
+          onTap: model.navigateToNotifications,
+                  child: Container(
+            child: Stack(
+              children: [
+                Icon(
+                  Icons.notifications_none,
+                  color: Colors.white,
+                ),
+              ],
+              overflow: Overflow.clip,
+            ),
           ),
         ),
       ],

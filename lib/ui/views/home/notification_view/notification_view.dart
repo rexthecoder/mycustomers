@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'notification_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,6 +21,7 @@ class NotificationsView extends StatelessWidget {
           centerTitle: true,
           title: Text("Notifications",
             style: TextStyle(
+              fontSize: SizeConfig.textSize(context, 6),
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
@@ -34,18 +36,18 @@ class NotificationsView extends StatelessWidget {
               ),
             ),
           ),
-          actions: <Widget>[
-            FlatButton(
-              textColor: Colors.white,
-              onPressed: (){},
-              child: Text("View",
-                style: TextStyle(
-                  color: Color(0xFF333CC1),
-                ),
-            ),
-              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-            )
-          ],
+          // actions: <Widget>[
+          //   FlatButton(
+          //     textColor: Colors.white,
+          //     onPressed: (){},
+          //     child: Text("View",
+          //       style: TextStyle(
+          //         color: Color(0xFF333CC1),
+          //       ),
+          //   ),
+          //     shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+          //   )
+          // ],
         ),
         body: ListView.builder(
           itemCount: model.notifications.length,
