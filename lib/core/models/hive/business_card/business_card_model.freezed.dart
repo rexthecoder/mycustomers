@@ -17,13 +17,19 @@ class _$BusinessCardTearOff {
       @required @HiveField(1) String personalName,
       @required @HiveField(2) String phoneNumber,
       @required @HiveField(3) String emailAddress,
-      @required @HiveField(4) String address}) {
+      @required @HiveField(4) String address,
+      @required @HiveField(5) String tagLine,
+      @required @HiveField(6) String position,
+      @required @HiveField(7) String cardDesign}) {
     return _BusinessCard(
       storeName: storeName,
       personalName: personalName,
       phoneNumber: phoneNumber,
       emailAddress: emailAddress,
       address: address,
+      tagLine: tagLine,
+      position: position,
+      cardDesign: cardDesign,
     );
   }
 }
@@ -42,6 +48,12 @@ mixin _$BusinessCard {
   String get emailAddress;
   @HiveField(4)
   String get address;
+  @HiveField(5)
+  String get tagLine;
+  @HiveField(6)
+  String get position;
+  @HiveField(7)
+  String get cardDesign;
 
   $BusinessCardCopyWith<BusinessCard> get copyWith;
 }
@@ -55,7 +67,10 @@ abstract class $BusinessCardCopyWith<$Res> {
       @HiveField(1) String personalName,
       @HiveField(2) String phoneNumber,
       @HiveField(3) String emailAddress,
-      @HiveField(4) String address});
+      @HiveField(4) String address,
+      @HiveField(5) String tagLine,
+      @HiveField(6) String position,
+      @HiveField(7) String cardDesign});
 }
 
 class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
@@ -72,6 +87,9 @@ class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
     Object phoneNumber = freezed,
     Object emailAddress = freezed,
     Object address = freezed,
+    Object tagLine = freezed,
+    Object position = freezed,
+    Object cardDesign = freezed,
   }) {
     return _then(_value.copyWith(
       storeName: storeName == freezed ? _value.storeName : storeName as String,
@@ -84,6 +102,10 @@ class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
           ? _value.emailAddress
           : emailAddress as String,
       address: address == freezed ? _value.address : address as String,
+      tagLine: tagLine == freezed ? _value.tagLine : tagLine as String,
+      position: position == freezed ? _value.position : position as String,
+      cardDesign:
+          cardDesign == freezed ? _value.cardDesign : cardDesign as String,
     ));
   }
 }
@@ -99,7 +121,10 @@ abstract class _$BusinessCardCopyWith<$Res>
       @HiveField(1) String personalName,
       @HiveField(2) String phoneNumber,
       @HiveField(3) String emailAddress,
-      @HiveField(4) String address});
+      @HiveField(4) String address,
+      @HiveField(5) String tagLine,
+      @HiveField(6) String position,
+      @HiveField(7) String cardDesign});
 }
 
 class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
@@ -118,6 +143,9 @@ class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
     Object phoneNumber = freezed,
     Object emailAddress = freezed,
     Object address = freezed,
+    Object tagLine = freezed,
+    Object position = freezed,
+    Object cardDesign = freezed,
   }) {
     return _then(_BusinessCard(
       storeName: storeName == freezed ? _value.storeName : storeName as String,
@@ -130,6 +158,10 @@ class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
           ? _value.emailAddress
           : emailAddress as String,
       address: address == freezed ? _value.address : address as String,
+      tagLine: tagLine == freezed ? _value.tagLine : tagLine as String,
+      position: position == freezed ? _value.position : position as String,
+      cardDesign:
+          cardDesign == freezed ? _value.cardDesign : cardDesign as String,
     ));
   }
 }
@@ -141,12 +173,18 @@ class _$_BusinessCard implements _BusinessCard {
       @required @HiveField(1) this.personalName,
       @required @HiveField(2) this.phoneNumber,
       @required @HiveField(3) this.emailAddress,
-      @required @HiveField(4) this.address})
+      @required @HiveField(4) this.address,
+      @required @HiveField(5) this.tagLine,
+      @required @HiveField(6) this.position,
+      @required @HiveField(7) this.cardDesign})
       : assert(storeName != null),
         assert(personalName != null),
         assert(phoneNumber != null),
         assert(emailAddress != null),
-        assert(address != null);
+        assert(address != null),
+        assert(tagLine != null),
+        assert(position != null),
+        assert(cardDesign != null);
 
   @override
   @HiveField(0)
@@ -163,10 +201,19 @@ class _$_BusinessCard implements _BusinessCard {
   @override
   @HiveField(4)
   final String address;
+  @override
+  @HiveField(5)
+  final String tagLine;
+  @override
+  @HiveField(6)
+  final String position;
+  @override
+  @HiveField(7)
+  final String cardDesign;
 
   @override
   String toString() {
-    return 'BusinessCard(storeName: $storeName, personalName: $personalName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address)';
+    return 'BusinessCard(storeName: $storeName, personalName: $personalName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, tagLine: $tagLine, position: $position, cardDesign: $cardDesign)';
   }
 
   @override
@@ -186,7 +233,17 @@ class _$_BusinessCard implements _BusinessCard {
                 const DeepCollectionEquality()
                     .equals(other.emailAddress, emailAddress)) &&
             (identical(other.address, address) ||
-                const DeepCollectionEquality().equals(other.address, address)));
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.tagLine, tagLine) ||
+                const DeepCollectionEquality()
+                    .equals(other.tagLine, tagLine)) &&
+            (identical(other.position, position) ||
+                const DeepCollectionEquality()
+                    .equals(other.position, position)) &&
+            (identical(other.cardDesign, cardDesign) ||
+                const DeepCollectionEquality()
+                    .equals(other.cardDesign, cardDesign)));
   }
 
   @override
@@ -196,7 +253,10 @@ class _$_BusinessCard implements _BusinessCard {
       const DeepCollectionEquality().hash(personalName) ^
       const DeepCollectionEquality().hash(phoneNumber) ^
       const DeepCollectionEquality().hash(emailAddress) ^
-      const DeepCollectionEquality().hash(address);
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(tagLine) ^
+      const DeepCollectionEquality().hash(position) ^
+      const DeepCollectionEquality().hash(cardDesign);
 
   @override
   _$BusinessCardCopyWith<_BusinessCard> get copyWith =>
@@ -209,7 +269,10 @@ abstract class _BusinessCard implements BusinessCard {
       @required @HiveField(1) String personalName,
       @required @HiveField(2) String phoneNumber,
       @required @HiveField(3) String emailAddress,
-      @required @HiveField(4) String address}) = _$_BusinessCard;
+      @required @HiveField(4) String address,
+      @required @HiveField(5) String tagLine,
+      @required @HiveField(6) String position,
+      @required @HiveField(7) String cardDesign}) = _$_BusinessCard;
 
   @override
   @HiveField(0)
@@ -226,6 +289,15 @@ abstract class _BusinessCard implements BusinessCard {
   @override
   @HiveField(4)
   String get address;
+  @override
+  @HiveField(5)
+  String get tagLine;
+  @override
+  @HiveField(6)
+  String get position;
+  @override
+  @HiveField(7)
+  String get cardDesign;
   @override
   _$BusinessCardCopyWith<_BusinessCard> get copyWith;
 }

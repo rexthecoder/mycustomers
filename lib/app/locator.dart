@@ -26,7 +26,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/store_services.dart';
-import 'package:mycustomers/core/services/permissions.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -88,8 +88,8 @@ Future<void> setupLocator(
   );
 
   // Util
-  locator.registerLazySingleton<Permissions>(
-    () => useMockContacts ? MockPermissions() : Permissions(),
+  locator.registerLazySingleton<IPermissionService>(
+    () => useMockContacts ? MockPermissions() : PermissionService(),
   );
 
   // External

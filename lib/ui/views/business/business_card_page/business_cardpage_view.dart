@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/core/extensions/string_extension.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
@@ -20,9 +21,12 @@ class BusinessCardPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenshotController screenshotController = ScreenshotController();
+    PageController businessCardController = PageController(initialPage: 0);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
+
+//    List<Widget> businessCards = ;
 
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
@@ -49,9 +53,61 @@ class BusinessCardPageView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Screenshot(
-                    controller: screenshotController,
-                    child: _BusinessCard(),
+                  Container(
+                    height: SizeConfig.yMargin(context, 30),
+                    child: Stack(
+                      children: <Widget>[
+                        Screenshot(
+                          controller: screenshotController,
+                          child: PageView(
+                            onPageChanged: (value) => model.updateBusinessCard(
+                              cardDesign: value.toString(),
+                            ),
+                            allowImplicitScrolling: true,
+                            controller: businessCardController,
+                            children: <Widget>[
+                              _BusinessCard1(),
+                              _BusinessCard2(),
+                              _BusinessCard3(),
+                              _BusinessCard4(),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          left: SizeConfig.xMargin(context, 2),
+                          top: SizeConfig.yMargin(context, 10),
+                          bottom: SizeConfig.yMargin(context, 10),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.chevron_left,
+                              color: ThemeColors.error,
+                              size: SizeConfig.textSize(context, 10),
+                            ),
+                            onPressed: () =>
+                                businessCardController.previousPage(
+                              duration: new Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: SizeConfig.xMargin(context, 2),
+                          top: SizeConfig.yMargin(context, 10),
+                          bottom: SizeConfig.yMargin(context, 10),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.chevron_right,
+                              color: ThemeColors.error,
+                              size: SizeConfig.textSize(context, 10),
+                            ),
+                            onPressed: () => businessCardController.nextPage(
+                              duration: new Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 3),
@@ -78,9 +134,10 @@ class BusinessCardPageView extends StatelessWidget {
                         ).show(context);
                         model.shareImageAndText();
                       }).catchError((onError) {
+                        print(onError.toString());
                         FlushbarHelper.createError(
                           duration: const Duration(seconds: 5),
-                          message: 'Error Occurred',
+                          message: onError.toString(),
                         ).show(context);
                       });
                       return;
@@ -96,7 +153,15 @@ class BusinessCardPageView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => BusinessCardPageViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) async {
+        await model.init();
+        businessCardController.animateToPage(
+          int.parse(model.businessCard.cardDesign),
+          duration: new Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+        return;
+      },
     );
   }
 }
@@ -118,12 +183,21 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
             label: "Store Name",
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
+          // TODO VALIDATE TAG LINE FORM FIELD
+          _DefaultFormField(
+            label: "Company Tag Line",
+            onChange: (value) => model.updateBusinessCard(tagLine: value),
+          ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
             label: "Personal Name",
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
-          // TODO VALIDATE PHONE NUMBER FORM FIELD
+          // TODO VALIDATE POSITION FORM FIELD
+          _DefaultFormField(
+            label: "Position",
+            onChange: (value) => model.updateBusinessCard(position: value),
+          ),
           _DefaultPhoneFormField(
             label: "Phone Number",
             onChange: (PhoneNumber value) =>
@@ -226,7 +300,7 @@ class _DefaultPhoneFormField
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
         selectorTextStyle: TextStyle(color: Colors.black),
         inputBorder: InputBorder.none,
-        hintText: '0903 9393 9383',
+        hintText: '903 9393 9383',
         formatInput: true,
       ),
     );

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
@@ -11,8 +12,10 @@ class BusinessCardPageViewModel extends BaseViewModel {
   /// Fields
   final BusinessCardService _businessCardService =
       locator<IBusinessCardService>();
+  final PermissionService _permissionService = locator<IPermissionService>();
   BusinessCard _businessCard = BusinessCard.empty();
   File imageFile;
+  bool rollSlideShow = true;
 
   /// Getters
   BusinessCard get businessCard => _businessCard;
@@ -20,18 +23,25 @@ class BusinessCardPageViewModel extends BaseViewModel {
   /// Setters
 
   /// Methods
-  void updateBusinessCard(
-      {String storeName,
-      String personalName,
-      String phoneNumber,
-      String emailAddress,
-      String address}) {
+  void updateBusinessCard({
+    String storeName,
+    String personalName,
+    String phoneNumber,
+    String emailAddress,
+    String address,
+    String position,
+    String tagLine,
+    String cardDesign,
+  }) {
     _businessCard = _businessCard.copyWith(
       storeName: storeName ?? _businessCard.storeName,
       personalName: personalName ?? _businessCard.personalName,
       phoneNumber: phoneNumber ?? _businessCard.phoneNumber,
       emailAddress: emailAddress ?? _businessCard.emailAddress,
       address: address ?? _businessCard.address,
+      position: position ?? _businessCard.position,
+      tagLine: tagLine ?? _businessCard.tagLine,
+      cardDesign: cardDesign ?? _businessCard.cardDesign,
     );
     notifyListeners();
   }
@@ -43,16 +53,31 @@ class BusinessCardPageViewModel extends BaseViewModel {
 
   Future<void> shareImageAndText() async {
     try {
-      final Uint8List bytes = await imageFile.readAsBytes();
-      await WcFlutterShare.share(
+      if (await _permissionService.getStoragePermission()) {
+        final Uint8List bytes = await imageFile.readAsBytes();
+
+        final String internalStorage = '/storage/emulated/0/myCustomer';
+
+        final String fileName =
+            '${businessCard.storeName}-businesscard${businessCard.cardDesign}.png';
+
+        bool isDirExist = await Directory(internalStorage).exists();
+        if (!isDirExist) Directory(internalStorage).create();
+        String tempPath = '$internalStorage/$fileName';
+//        File image = await File(tempPath).create();
+        File(tempPath).writeAsBytes(bytes);
+
+        await WcFlutterShare.share(
           sharePopupTitle: 'Share Your Business Card',
           subject: businessCard.storeName,
           text: 'My Business Card',
-          fileName: 'share.png',
+          fileName: fileName,
           mimeType: 'image/png',
-          bytesOfFile: bytes.buffer.asUint8List());
+          bytesOfFile: bytes.buffer.asUint8List(),
+        );
+      }
     } catch (e) {
-      print('error: $e');
+      throw Exception("Unable to save image");
     }
   }
 
