@@ -52,62 +52,9 @@ class BusinessCardPageView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    height: SizeConfig.yMargin(context, 30),
-                    child: Stack(
-                      children: <Widget>[
-                        Screenshot(
-                          controller: screenshotController,
-                          child: PageView(
-                            onPageChanged: (value) => model.updateBusinessCard(
-                              cardDesign: value.toString(),
-                            ),
-                            allowImplicitScrolling: true,
-                            controller: businessCardController,
-                            children: <Widget>[
-                              _BusinessCard1(),
-                              _BusinessCard2(),
-                              _BusinessCard3(),
-                              _BusinessCard4(),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          left: SizeConfig.xMargin(context, 2),
-                          top: SizeConfig.yMargin(context, 10),
-                          bottom: SizeConfig.yMargin(context, 10),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.chevron_left,
-                              color: ThemeColors.error,
-                              size: SizeConfig.textSize(context, 10),
-                            ),
-                            onPressed: () =>
-                                businessCardController.previousPage(
-                              duration: new Duration(milliseconds: 300),
-                              curve: Curves.easeIn,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          right: SizeConfig.xMargin(context, 2),
-                          top: SizeConfig.yMargin(context, 10),
-                          bottom: SizeConfig.yMargin(context, 10),
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.chevron_right,
-                              color: ThemeColors.error,
-                              size: SizeConfig.textSize(context, 10),
-                            ),
-                            onPressed: () => businessCardController.nextPage(
-                              duration: new Duration(milliseconds: 300),
-                              curve: Curves.easeIn,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  BusinessCardModal(
+                      screenshotController: screenshotController,
+                      businessCardController: businessCardController),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 3),
                   ),
@@ -161,6 +108,142 @@ class BusinessCardPageView extends StatelessWidget {
         );
         return;
       },
+    );
+  }
+}
+
+class BusinessCardModal extends StatelessWidget {
+  const BusinessCardModal({
+    Key key,
+    @required this.screenshotController,
+    @required this.businessCardController,
+  }) : super(key: key);
+
+  final ScreenshotController screenshotController;
+  final PageController businessCardController;
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<BusinessCardPageViewModel>.reactive(
+      builder: (context, model, child) => Container(
+        height: SizeConfig.yMargin(context, 30),
+        child: Stack(
+          children: <Widget>[
+            Screenshot(
+              controller: screenshotController,
+              child: PageView(
+                onPageChanged: (value) => model.updateBusinessCard(
+                  cardDesign: value.toString(),
+                ),
+                allowImplicitScrolling: true,
+                controller: businessCardController,
+                children: <Widget>[
+                  _BusinessCard1(),
+                  _BusinessCard2(),
+                  _BusinessCard3(),
+                  _BusinessCard4(),
+                ],
+              ),
+            ),
+            Positioned(
+              left: SizeConfig.xMargin(context, 2),
+              top: SizeConfig.yMargin(context, 10),
+              bottom: SizeConfig.yMargin(context, 10),
+              child: IconButton(
+                icon: Icon(
+                  Icons.chevron_left,
+                  color: ThemeColors.error,
+                  size: SizeConfig.textSize(context, 10),
+                ),
+                onPressed: () => businessCardController.previousPage(
+                  duration: new Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                ),
+              ),
+            ),
+            Positioned(
+              right: SizeConfig.xMargin(context, 2),
+              top: SizeConfig.yMargin(context, 10),
+              bottom: SizeConfig.yMargin(context, 10),
+              child: IconButton(
+                icon: Icon(
+                  Icons.chevron_right,
+                  color: ThemeColors.error,
+                  size: SizeConfig.textSize(context, 10),
+                ),
+                onPressed: () => businessCardController.nextPage(
+                  duration: new Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      viewModelBuilder: () => BusinessCardPageViewModel(),
+      onModelReady: (model) async {
+        await model.init();
+        businessCardController.animateToPage(
+          int.parse(model.businessCard.cardDesign),
+          duration: new Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+        return;
+      },
+    );
+  }
+}
+
+class BottomSheetButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<BusinessCardPageViewModel>.reactive(
+      builder: (context, model, child) => Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: CustomShareRaisedButton(
+                label: 'Share',
+                onPressed: () async {
+                  FlushbarHelper.createInformation(
+                    duration: const Duration(seconds: 5),
+                    message: 'Coming Soon',
+                  ).show(context);
+                }),
+          ),
+          SizedBox(width: SizeConfig.xMargin(context, 3.0)),
+          Expanded(
+            flex: 1,
+            child: Container(
+              height: SizeConfig.yMargin(context, 9),
+              decoration: BoxDecoration(
+                border: Border.all(color: BrandColors.primary),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32)),
+                onPressed: () async {
+                  FlushbarHelper.createInformation(
+                    duration: const Duration(seconds: 5),
+                    message: 'Coming Soon',
+                  ).show(context);
+                },
+                child: Text(
+                  'Download',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: BrandColors.primary,
+                    fontSize: SizeConfig.textSize(context, 4.4),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+      viewModelBuilder: () => BusinessCardPageViewModel(),
     );
   }
 }
