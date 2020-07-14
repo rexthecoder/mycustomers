@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -16,13 +17,14 @@ class AddCustomerManuallyView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: ThemeColors.background,
         appBar: AppBar(
+          brightness: Brightness.light,
           backgroundColor: ThemeColors.background,
           centerTitle: true,
           elevation: 1,
           title: Text(
             model.title,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: SizeConfig.yMargin(context, 2.3),
               color: ThemeColors.black,
             ),
           ),
@@ -37,9 +39,9 @@ class AddCustomerManuallyView extends StatelessWidget {
               children: <Widget>[
                 Text(
                   model.subTitle,
-                  style: TextStyle(fontSize: 18, color: ThemeColors.black),
+                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.5), fontWeight: FontWeight.bold, color: ThemeColors.black),
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 25.0),
                 _StringForm(action: action,),
                 Spacer(),
                 Container(
@@ -129,7 +131,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 ),
               ],
             )),
-        SizedBox(height: 16.0),
+        SizedBox(height: 20.0),
         Container(
             decoration: BoxDecoration(
                 border: Border.all(

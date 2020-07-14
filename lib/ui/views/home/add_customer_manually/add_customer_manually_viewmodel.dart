@@ -38,7 +38,6 @@ class AddCustomerManuallyViewModel extends ReactiveViewModel {
 
   void updateName(String name){
     _customerName=name;
-    print(customerName);
     notifyListeners();
   }
 

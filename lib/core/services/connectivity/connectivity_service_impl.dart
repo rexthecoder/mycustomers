@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:mycustomers/core/enums/connectivity_status.dart';
+import 'package:mycustomers/core/enums/data_connection_status.dart';
+import 'package:mycustomers/core/services/connectivity/connectivity_checker.dart';
 import 'package:mycustomers/core/services/connectivity/connectivity_services.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 
@@ -9,8 +11,10 @@ import 'package:mycustomers/core/utils/logger.dart';
 class ConnectivityServiceImpl implements ConnectivityService {
   final _connectivityResultController = StreamController<ConnectivityStatus>();
   final _connectivity = Connectivity();
+  final _connection = ConnectionChecker();
 
   StreamSubscription<ConnectivityResult> _subscription;
+  StreamSubscription<DataConnectionStatus> _connectionlistener;
   ConnectivityResult _lastResult;
   bool _serviceStopped = false;
 
@@ -22,8 +26,8 @@ class ConnectivityServiceImpl implements ConnectivityService {
   bool get serviceStopped => _serviceStopped;
 
   ConnectivityServiceImpl() {
-    _subscription =
-        _connectivity.onConnectivityChanged.listen(_emitConnectivity);
+    _subscription = _connectivity.onConnectivityChanged.listen(_emitConnectivity);
+    _connectionlistener = _connection.onStatusChange.listen((status) {Logger.d('Current Internet Connection State: $status');});
   }
 
   @override
@@ -55,6 +59,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
     _serviceStopped = true;
 
     _subscription.pause(_resumeSignal());
+    _connectionlistener.cancel();
   }
 
   void _emitConnectivity(ConnectivityResult event) {

@@ -96,7 +96,7 @@ class MainTransaction extends StatelessWidget {
                       ),
                     ),
                     leading: InkWell(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => model.navigateToHome(),
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(18),
@@ -140,7 +140,7 @@ class MainTransaction extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Image.asset('assets/images/safe.png',),
+                                    SvgPicture.asset('assets/images/no_transaction_check.svg'),
                                     SizedBox(height: 20.h,),
                                     Text('MyCustomer is 100% safe and secure, only you and ${model.contact.name} can view this transaction',
                                     textAlign: TextAlign.center,),
@@ -254,19 +254,18 @@ class MainTransaction extends StatelessWidget {
                                                         ),
                                                         Container(
                                                           child: Flexible(
-                                                            child: Text(
-                                                              'Cost of goods purchased',
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .headline5
-                                                                  .copyWith(
-                                                                    fontSize: SizeConfig.yMargin(context, 2.2),
-                                                                    color: Colors
-                                                                        .black38,
-                                                                    fontWeight:
-                                                                        FontWeight.w400,
-                                                                  ),
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: <Widget>[
+                                                                Text(
+                                                                  'Cost of goods purchased',
+                                                                  style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.2), color: Colors.black38, fontWeight: FontWeight.w400),
+                                                                ),
+                                                                // Text(
+                                                                //   'Click to view Transaction Details',
+                                                                //   style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 1.5), color: Colors.black38, fontWeight: FontWeight.w400),
+                                                                // )
+                                                              ],
                                                             ),
                                                           ),
                                                         )
