@@ -1,41 +1,30 @@
-import 'dart:math';
 
 import 'package:encrypt/encrypt.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive/hive.dart';
-import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mycustomers/core/utils/user_settings_prefs.dart';
 
 class PasswordManagerService{
 
     static final  key = Key.fromLength(32);
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
-    static final keyStore = _randomValue();
     bool _isPinSet=false;
     bool get isPinSet => _isPinSet;
+    SharedPreferencesHelper object=new SharedPreferencesHelper();
+
 
 
   Future<void>saveSetPin(String password) async{
-    final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
+    SharedPreferences prefs = await  SharedPreferences.getInstance();
     final encryptedPassword = encryptPassword(password);
-   await passwordManagerBox.put(keyStore,encryptedPassword);
-    // setPin(isPinSet);
+    object.saveUserPin(encryptedPassword, prefs);
  }
    
    void setPin(bool value){
      _isPinSet= value;
    }
-
-   // a function to genrate random keys for the pin entered by users
-  static String _randomValue() {
-    final rand = Random();
-    final codeUnits = List.generate(20, (index) {
-      return rand.nextInt(26) + 65;
-    });
-
-    return String.fromCharCodes(codeUnits);
-  }
 
 
   //This function display a success message upon completion of setting pin
@@ -87,7 +76,7 @@ class PasswordManagerService{
 
 
 
-   String encryptPassword(String value){
+  String encryptPassword(String value){
 
     return encrypter.encrypt(value, iv: iv).base64;
      }
@@ -100,16 +89,16 @@ class PasswordManagerService{
 }
 
   Future<String> getPassword() async{
-  final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
-  final pass = passwordManagerBox.get(keyStore);
-  final decryptedPass = decryptPassword(pass);
-   print(decryptedPass);
-   return decryptedPass ;
+      SharedPreferences prefs = await  SharedPreferences.getInstance();
+      final pass = await object.getUserPin(prefs);
+      final decryptedPass = decryptPassword(pass);
+      print(decryptedPass);
+      return decryptedPass ;
 }
 
 Future<void> deleteSetPin() async{
-   final passwordManagerBox = await Hive.openBox(HiveBox.passwordManagerBoxName);
-   await passwordManagerBox.delete(keyStore);
-  //  setPin(isSetPin);
+    SharedPreferences prefs = await  SharedPreferences.getInstance();
+    object.removeUserPin(prefs);
+
 }
 }
