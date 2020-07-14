@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'home_page_viewmodel.dart';
 import 'tabs/creditors_view.dart';
+import 'package:mycustomers/ui/shared/themes.dart';
 
 class HomePageView extends StatelessWidget {
   //TODO: Position notification bell dot properly
@@ -38,10 +39,10 @@ class HomePageView extends StatelessWidget {
                               BorderSide(color: Colors.grey, width: 0.5))),
                   child: TabBar(
                     labelPadding: EdgeInsets.symmetric(horizontal: 10),
-                    unselectedLabelColor: Colors.black,
-                    labelColor: BrandColors.primary,
+                    unselectedLabelColor: Theme.of(context).cursorColor,
+                    labelColor: Theme.of(context).buttonColor,
                     indicatorSize: TabBarIndicatorSize.label,
-                    indicatorColor: BrandColors.primary,
+                    indicatorColor: Theme.of(context).buttonColor,
                     tabs: [
                       Tab(
                         child: Container(
@@ -120,7 +121,7 @@ class ContactList extends StatelessWidget {
                   //controller: model.allCustomersController,
                   //onChanged: model.searchAllCustomers,
                   style:  TextStyle(
-                    color: Colors.black,
+                    color: Theme.of(context).cursorColor,
                     fontSize: 14,),
                   decoration: InputDecoration(
                     hintText: 'Search by name',
@@ -130,7 +131,7 @@ class ContactList extends StatelessWidget {
 
                     ),
                     contentPadding:  const EdgeInsets.only(top: 18.0),
-                    prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
+                    prefixIcon:   Icon(Icons.search,color: Theme.of(context).textSelectionColor,),
                     border: InputBorder.none,
                   ),
                   onChanged: model.searchName,

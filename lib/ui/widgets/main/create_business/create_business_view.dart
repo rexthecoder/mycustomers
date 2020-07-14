@@ -69,7 +69,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
                 fontWeight: FontWeight.w300,
-                color: Colors.black,
+                color: Theme.of(context).cursorColor,
               ),
               decoration: InputDecoration(
                   labelText: "Enter your  store name",
@@ -87,7 +87,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
                 fontWeight: FontWeight.w300,
-                color: Colors.black,
+                color: Theme.of(context).cursorColor,
               ),
               decoration: InputDecoration(
                   labelText: "Enter your store address",
