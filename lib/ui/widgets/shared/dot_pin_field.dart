@@ -43,6 +43,10 @@ class PinField extends StatelessWidget {
       }
     }
 
+    String clearValueIfPinsDoNotMatch(){
+      return textEditingController.text =textEditingController.text.substring(0,textEditingController.text.length-1);
+    }
+
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: SizeConfig.yMargin(context, 3),

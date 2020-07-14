@@ -41,7 +41,8 @@ class AppLockSettingsPageView extends StatelessWidget {
                           selectedColor:
                               const Color.fromARGB(50, 196, 196, 196),
                           child: ListTile(
-                            onTap: () => model.navigateToChangePinPage(),
+                            onTap: () => model.getThecurrentStateOfPin() == false ? model.navigateToSetPinPage() :
+                            model.navigateToChangePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title:model.getThecurrentStateOfPin() == false ? Text(
                               'Set App lock Pin',

@@ -4,9 +4,9 @@ import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+class SetPinSettingsViewModel extends BaseViewModel {
 
-class ChangePinSettingsPageViewModel extends BaseViewModel {
-   final PasswordManagerService _passwordManagerService =
+ final PasswordManagerService _passwordManagerService =
       locator<PasswordManagerService>();
    static PasswordManager passManager=PasswordManager(null);
    String password = passManager.userPassword;
@@ -24,18 +24,15 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onCreatePinCompleted(String value ,int tabIndex) {
+  void onCreatePinCompleted(String value) {
     _pin = int.parse(value);
-    changeTab(tabIndex);
+    changeTab(1);
   }
 
   void onConfirmPinCompleted(String value) async{
-    // Parse the password value , compare the value to the set Pin value,   
-    // String back the value to be saved
-    int confirmPin= parsePasswordValue(value);
-    int check = compareValue(_pin,confirmPin);
-    String newValue = stringNewValue(confirmPin);
-
+    int confirmPin = int.parse(value);
+    int check = _pin.compareTo(confirmPin);
+    String newValue = confirmPin.toString();
     if (check == 0) {
     await  _passwordManagerService.saveSetPin(newValue);
       setPin(true);
@@ -52,36 +49,6 @@ class ChangePinSettingsPageViewModel extends BaseViewModel {
 
 void setPin(bool value){
     _passwordManagerService.setPin(value);
+     notifyListeners();
    }
-
- void onOldPinCompleted(String value, int tabIndex) async{
-   String passFrmDb= await _passwordManagerService.getPassword(); // get the password stored in the db
-   int newPassFrmDb =int.parse(passFrmDb); // cast it into an integer
-   int confirmPin= parsePasswordValue(value);
-   int check = compareValue(newPassFrmDb,confirmPin);
-
-   if(check==0){
-     changeTab(tabIndex);
-   }
-   else{
-     _passwordManagerService.showUnmatchedPinErrorMessage();
-     _navigationService.popRepeated(1);
-   }
-
-
- }
-
- int compareValue(int firstPin,int secondPin){
-   return  firstPin.compareTo(secondPin);
- }
- String stringNewValue(int compareValue){
-   return compareValue.toString();
- }
-
- int parsePasswordValue(String password){
-   return int.parse(password);
- }
- 
 }
-
-
