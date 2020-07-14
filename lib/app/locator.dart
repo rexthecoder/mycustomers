@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
@@ -27,8 +26,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
-import 'package:mycustomers/core/services/permissions.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -95,8 +94,8 @@ Future<void> setupLocator(
   );
 
   // Util
-  locator.registerLazySingleton<Permissions>(
-    () => useMockContacts ? MockPermissions() : Permissions(),
+  locator.registerLazySingleton<IPermissionService>(
+    () => useMockContacts ? MockPermissions() : PermissionService(),
   );
 
   // External
