@@ -50,34 +50,34 @@ class ImportCustomerView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Padding(
+              child: Container(
+                margin: EdgeInsets.only(top: 15),
                 padding: EdgeInsets.symmetric(vertical: 10),
-                child: InkWell(
+                child: MyListTile(
                   onTap: () => model.goToManual(action),
-                  child: MyListTile(
-                    leading: CustomerCircleAvatar(
-                      child: Icon(
-                        Icons.person_add,
-                        color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
-                        size: SizeConfig.xMargin(context, 7),
-                      ),
+                  leading: CustomerCircleAvatar(
+                    bgColor: Colors.grey.shade300,
+                    child: Icon(
+                      Icons.person_add,
+                      color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
+                      size: SizeConfig.xMargin(context, 7),
                     ),
-                    title: Text(
-                      'Add New Customer',
-                      style: TextStyle(
-                        color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
-                        fontSize: SizeConfig.yMargin(context, 2.5)
-                      ),
+                  ),
+                  title: Text(
+                    'Add New Customer',
+                    style: TextStyle(
+                      color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
+                      fontSize: SizeConfig.yMargin(context, 2.3)
                     ),
-                    trailing: IconButton(
-                      onPressed: () => model.goToManual(action),
-                      icon: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 20.sp,
-                        color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 0),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () => model.goToManual(action),
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.sp,
+                      color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                     ),
+                    padding: EdgeInsets.symmetric(horizontal: 0),
                   ),
                 ),
               ),
@@ -111,7 +111,7 @@ class ImportCustomerView extends StatelessWidget {
                         '${customer.displayName}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: SizeConfig.yMargin(context, 2)
+                          fontSize: SizeConfig.yMargin(context, 1.9)
                         ),
                       ),
                       subtitle: Text(
@@ -138,7 +138,7 @@ class ImportCustomerView extends StatelessWidget {
                             'ADD',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              fontSize: SizeConfig.yMargin(context, 1.6),
+                              fontSize: SizeConfig.yMargin(context, 1.5),
                             ),
                           ),
                           textColor: Colors.white,
@@ -197,7 +197,7 @@ class TitleHeader extends SliverPersistentHeaderDelegate {
         style: TextStyle(
           color: ThemeColors.black,
           fontWeight: FontWeight.bold,
-          fontSize: SizeConfig.yMargin(context, 2.3)
+          fontSize: SizeConfig.textSize(context, 4.5)
         ),
       ),
     );
