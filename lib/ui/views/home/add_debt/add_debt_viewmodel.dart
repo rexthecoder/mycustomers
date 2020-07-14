@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 
 class AddDebtViewModel extends BaseViewModel{
-  final _debouncer = Debouncer(milliseconds: 800);
+  final _debouncer = Debouncer(milliseconds: 100);
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = false;
   bool save = false;

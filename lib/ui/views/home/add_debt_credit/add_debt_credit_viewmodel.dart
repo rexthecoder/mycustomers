@@ -13,7 +13,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class AddDebtCreditViewModel extends ReactiveViewModel{
-  final _debouncer = Debouncer(milliseconds: 800);
+  final _debouncer = Debouncer(milliseconds: 100);
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = false;
   bool save = false;

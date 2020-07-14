@@ -22,6 +22,9 @@ dependencies:
   intl: ^0.16.1
   sticky_headers: ^0.1.8+1
 
+  # For getting the ISO code based on the sim
+  flutter_sim_country_code: ^0.0.3
+
   # For text fields with countries
   intl_phone_number_input: ^0.4.6+2
 
