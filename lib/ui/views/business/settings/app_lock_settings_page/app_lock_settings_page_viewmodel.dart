@@ -26,6 +26,11 @@ class AppLockSettingsPageViewModel extends BaseViewModel {
 
   }
 
+  Future navigateToSetPinPage()async {
+    await _navigationService.navigateTo(Routes.setPinSettingsViewRoute);
+    notifyListeners();
+  }
+
   Future navigateToChangePinPage() async {
     await _navigationService.navigateTo(Routes.changePinSettingsViewRoute);
      notifyListeners();

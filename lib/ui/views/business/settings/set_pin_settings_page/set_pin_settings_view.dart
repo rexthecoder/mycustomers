@@ -6,36 +6,27 @@ import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
 import 'package:mycustomers/ui/widgets/shared/dot_pin_field.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
-import 'change_pin_settings_page_viewmodel.dart';
+import 'set_pin_settings_viewmodel.dart';
 
-class ChangePinSettingsPageView extends StatelessWidget {
+class SetPinSettingsPageView extends StatelessWidget {
   final String myCustomerLogo = 'assets/icons/svg/my_customer_logo.svg';
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController enterOldPinCpontroller = 
-    new TextEditingController(text: "");
-
     TextEditingController createPinController =
         new TextEditingController(text: "");
         
     TextEditingController confirmPinController =
         new TextEditingController(text: "");
 
-    return ViewModelBuilder<ChangePinSettingsPageViewModel>.reactive(    
+    return ViewModelBuilder<SetPinSettingsViewModel>.reactive(    
       builder: (context, model, child) {
         final _views = <Widget>[
           FadeIn(
             child: PinField(
-              title:'Enter Old Pin',
-              textEditingController: enterOldPinCpontroller,
-              onCompleted:(value)=> model.onOldPinCompleted(value,1),
-              ),),
-          FadeIn(
-            child: PinField(
               title: 'Create a New PIN',
               textEditingController: createPinController,
-              onCompleted: (value) => model.onCreatePinCompleted(value,2),
+              onCompleted: (value) => model.onCreatePinCompleted(value),
             ),
           ),
           FadeIn(
@@ -78,7 +69,7 @@ class ChangePinSettingsPageView extends StatelessWidget {
           ),
         );
       },
-      viewModelBuilder: () => ChangePinSettingsPageViewModel(),
+      viewModelBuilder: () => SetPinSettingsViewModel(),
     );
   }
 }
