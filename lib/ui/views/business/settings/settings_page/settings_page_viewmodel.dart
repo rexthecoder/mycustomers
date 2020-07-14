@@ -6,6 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/ui/shared/themes.dart' as themes;
 
+
 class SettingsPageViewModel extends ReactiveViewModel {
   bool _lightTheme = true;
   bool _notification = true;

@@ -50,7 +50,7 @@ class StartupViewModel extends BaseViewModel {
     try {
       Map deets = await getDecryptedDetails(key);
       if (deets == null) throw AuthException('Incorrect password');
-      await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
+      // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
       return true;
     } on AuthException catch(e, s) {
       Logger.e(e.message, e: e, s: s);

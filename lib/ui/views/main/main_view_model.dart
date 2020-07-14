@@ -80,9 +80,6 @@ class MainViewModel extends BaseViewModel {
   void changeBusiness(String id) {
     StoreRepository.changeSelectedStore(id);
     notifyListeners();
-    // print(value.businessName); //Uncomment to see value in terminal
-
-    // TODO: Create additional Function to Use Value and Change the Operation.
   }
 
   final DialogService _dialogService = locator<DialogService>();
@@ -90,10 +87,8 @@ class MainViewModel extends BaseViewModel {
   Future navigateToAddBusiness() async {
     _dialogService.registerCustomDialogUi(createBusinessDialog);
     _dialogService.showCustomDialog();
-      
-    // TODO Navigate to add Business page
-//    await _navigationService.navigateTo(Routes.);
   }
+
 
   void navigateToNotifications() {
     _navigationService.navigateTo(Routes.notificationsViewRoute);

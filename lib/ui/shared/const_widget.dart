@@ -12,11 +12,11 @@ Widget customizeAppBar(BuildContext context, String title ) {
           iconTheme: IconThemeData(
           color: BrandColors.primary, 
         ),
-        elevation: 2.0,
+        elevation: 1.0,
         centerTitle: true,
         title: Text(title,
           style: TextStyle(
-            fontSize: SizeConfig.textSize(context, 6),
+            fontSize: SizeConfig.textSize(context, 5),
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
