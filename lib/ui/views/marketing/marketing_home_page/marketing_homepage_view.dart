@@ -4,6 +4,7 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:stacked/stacked.dart';
@@ -58,7 +59,7 @@ class MarketingHomePageView extends StatelessWidget {
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
-                    color: Theme.of(context).backgroundColor,
+                    color: ThemeColors.gray[400],
                     width: width,
                     // height: height,
                     child: Padding(
@@ -67,29 +68,33 @@ class MarketingHomePageView extends StatelessWidget {
                       child: Column(children: <Widget>[
                         Expanded(
                           child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Container(
-                                width: width / 4,
-                                height: height / 4,
-                                child: Image.asset(
-                                  'assets/images/megaphone.png',
-                                  fit: BoxFit.contain,
-                                ),
+                              Column(
+                                children: <Widget>[
+                                  ClipRect(
+                                    child: Image(
+                                      height: SizeConfig.yMargin(context, 15),
+                                      image: AssetImage(
+                                          'assets/images/megaphone.png'),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.yMargin(context, 3),
+                                  ),
+                                  Text(
+                                    'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: Theme.of(context).cursorColor),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                               SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(
-                                'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: Theme.of(context).cursorColor),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(
-                                height: 10.h,
+                                height: SizeConfig.yMargin(context, 35),
                               ),
                               Container(
                                 color: Theme.of(context).backgroundColor,
@@ -149,10 +154,10 @@ class MarketingHomePageView extends StatelessWidget {
                       ]),
                     ),
                   ),
-              )
+                )
               : Expanded(
                   child: Container(
-                    color: Theme.of(context).backgroundColor,
+                    color: ThemeColors.gray[400],
                     width: width,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

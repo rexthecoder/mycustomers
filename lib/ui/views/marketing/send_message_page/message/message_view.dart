@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'message_viewmodel.dart';
@@ -15,22 +16,27 @@ class MessageView extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    ScreenUtil.init(context, height: height, width: width, );
+    ScreenUtil.init(
+      context,
+      height: height,
+      width: width,
+    );
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar:AppBar(
-            title: Center(
-              child: Text(
-                'Send a Message',
-//                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                ),
-              ),
-            ),
-          ),
+          appBar: customizeAppBar(context, 'Send a Message'),
+//           AppBar(
+//             title: Center(
+//               child: Text(
+//                 'Send a Message',
+// //                textAlign: TextAlign.center,
+//                 style: TextStyle(
+//                   fontSize: 18.sp,
+//                 ),
+//               ),
+//             ),
+//           ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -39,67 +45,83 @@ class MessageView extends StatelessWidget {
 //                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 20.h,),
+                    SizedBox(
+                      height: 20.h,
+                    ),
                     Text('Title'),
-                    SizedBox(height: 10.h,),
-                    TextField(controller: model.titleController,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    TextField(
+                      controller: model.titleController,
                       decoration: InputDecoration(
                         hintText: 'Enter Title of message',
-                        hintStyle: TextStyle(
-                            fontSize: 16.sp
-                        ),
+                        hintStyle: TextStyle(fontSize: 16.sp),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: ThemeColors.gray)
-                        ),
+                            borderSide: BorderSide(color: ThemeColors.gray)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: BrandColors.primary)
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            borderSide: BorderSide(color: BrandColors.primary)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                       ),
 //                      maxLines: 2,
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Text('Message'),
-                    SizedBox(height: 10.h,),
-                    TextField(controller: model.messageController,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    TextField(
+                      controller: model.messageController,
                       decoration: InputDecoration(
                         hintText: 'Enter message',
-                        hintStyle: TextStyle(
-                            fontSize: 16.sp
-                        ),
+                        hintStyle: TextStyle(fontSize: 16.sp),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: ThemeColors.gray)
-                        ),
+                            borderSide: BorderSide(color: ThemeColors.gray)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: BrandColors.primary)
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            borderSide: BorderSide(color: BrandColors.primary)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                       ),
                       maxLines: 3,
                     ),
-                    SizedBox(height: 10.h,),
-                    Container(height: 120.h,
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Container(
+                      height: 120.h,
                       decoration: BoxDecoration(
                         border: Border.all(color: ThemeColors.gray),
                         borderRadius: BorderRadius.circular(5),
-                        
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       child: Column(
                         children: <Widget>[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text(selectedCustomers.length==1?'${selectedCustomers.length} Selected Customer':
-                              '${selectedCustomers.length} Selected Customers', style: TextStyle(
-                                fontSize: 16.sp
-                              ),),
-                              FlatButton.icon(onPressed: (){},
-                                icon: Icon(Icons.add,color: BrandColors.primary,),
-                                label: Text('Add', style: TextStyle(
-                                  fontSize: 16.sp,
+                              Text(
+                                selectedCustomers.length == 1
+                                    ? '${selectedCustomers.length} Selected Customer'
+                                    : '${selectedCustomers.length} Selected Customers',
+                                style: TextStyle(fontSize: 16.sp),
+                              ),
+                              FlatButton.icon(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.add,
                                   color: BrandColors.primary,
-                              ),),
+                                ),
+                                label: Text(
+                                  'Add',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: BrandColors.primary,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -107,11 +129,12 @@ class MessageView extends StatelessWidget {
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: selectedCustomers.length,
-                                itemBuilder: (BuildContext context, int index)=>
-                                    CustomerCircleAvatar(customer: selectedCustomers[index]),),
+                              itemBuilder: (BuildContext context, int index) =>
+                                  CustomerCircleAvatar(
+                                      customer: selectedCustomers[index]),
+                            ),
                           ),
                         ],
-
                       ),
                     ),
                   ],
