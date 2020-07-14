@@ -27,7 +27,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
   ConnectivityServiceImpl() {
     _subscription = _connectivity.onConnectivityChanged.listen(_emitConnectivity);
-    _connectionlistener = _connection.onStatusChange.listen((status) {Logger.d('Connectivity status changed to $status');});
+    _connectionlistener = _connection.onStatusChange.listen((status) {Logger.d('Current Internet Connection State: $status');});
   }
 
   @override

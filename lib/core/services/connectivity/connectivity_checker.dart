@@ -10,7 +10,8 @@ class ConnectionChecker {
 
   static const Duration DEFAULT_INTERVAL = const Duration(seconds: 10);
 
-  static final List<AddressCheckOptions> DEFAULT_ADDRESSES = List.unmodifiable([
+  //Trusted Ip Addresses to ping 
+  static final List<AddressCheckOptions> ADDRESSES_TO_CHECK = List.unmodifiable([
     AddressCheckOptions(
       InternetAddress('1.1.1.1'),
       port: DEFAULT_PORT,
@@ -28,7 +29,7 @@ class ConnectionChecker {
     ),
   ]);
 
-  List<AddressCheckOptions> addresses = DEFAULT_ADDRESSES;
+  List<AddressCheckOptions> addresses = ADDRESSES_TO_CHECK;
 
   factory ConnectionChecker() => _instance;
   ConnectionChecker._() {
