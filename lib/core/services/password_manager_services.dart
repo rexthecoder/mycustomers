@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mycustomers/core/utils/user_settings_prefs.dart';
 
 class PasswordManagerService{
-
+  
     static final  key = Key.fromLength(32);
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
