@@ -71,15 +71,17 @@ class DebtorsView extends StatelessWidget {
                                 ),
                               ) : RichText(
                                 text: TextSpan(
-                                  text: 'NGN 0.', style: TextStyle(
+                                  text: '₦ 0.', style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 36.sp,
+                                    fontFamily: 'Roboto',
                                     fontWeight: FontWeight.bold),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: '00.', style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14.sp,
+                                        fontFamily: 'Roboto',
                                         fontWeight: FontWeight.bold
                                     ),
                                     )
