@@ -27,7 +27,7 @@ class MainMenu extends HookViewModelWidget<MainViewModel>  {
           backgroundColor: ThemeColors.black.withOpacity(0.7),
           body: Container(
             width: SizeConfig.xMargin(context, 80),
-            color: ThemeColors.background,
+            color: Theme.of(context).backgroundColor,
             child: Row(
               children: <Widget>[
                 BusinessMenu(),

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/shape/gf_avatar_shape.dart';
@@ -12,7 +11,6 @@ import 'package:mycustomers/ui/views/business/business_home_page/business_homepa
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
-import 'package:mycustomers/ui/widgets/animation/slide_menu.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -64,13 +62,14 @@ class MainView extends StatelessWidget {
       bottom: 0,
       right: model.isCollapsed ? 0 : SizeConfig.xMargin(context, -80),
       left: model.isCollapsed ? 0 : SizeConfig.xMargin(context, 80),
-      child: GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          if (details.delta.dx > 0) {
-            model.openMenu();
-          }
-        },
-        child: Scaffold(
+//      child: GestureDetector(
+//        onHorizontalDragUpdate: (details) {
+//          if (details.delta.dx > 0) {
+//            model.openMenu();
+//          }
+//        },
+        child:
+    Scaffold(
           body: Column(
             children: <Widget>[
               MainHeader(),
@@ -85,8 +84,8 @@ class MainView extends StatelessWidget {
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: ThemeColors.background,
-            selectedItemColor: BrandColors.primary,
+            backgroundColor: Theme.of(context).backgroundColor,
+            selectedItemColor: Theme.of(context).textSelectionColor,
             unselectedItemColor: ThemeColors.unselect,
             currentIndex: model.index,
             items: <BottomNavigationBarItem>[
@@ -99,7 +98,7 @@ class MainView extends StatelessWidget {
                   ),
                   activeIcon: SvgPicture.asset(
                     home,
-                    color: BrandColors.primary,
+                    color: Theme.of(context).textSelectionColor,
                     semanticsLabel: 'Home Navigator is Active',
                   )),
               BottomNavigationBarItem(
@@ -111,7 +110,7 @@ class MainView extends StatelessWidget {
                   ),
                   activeIcon: SvgPicture.asset(
                     marketing,
-                    color: BrandColors.primary,
+                    color: Theme.of(context).textSelectionColor,
                     semanticsLabel: 'Marketing Navigator is Active',
                   )),
               BottomNavigationBarItem(
@@ -123,14 +122,14 @@ class MainView extends StatelessWidget {
                   ),
                   activeIcon: SvgPicture.asset(
                     business,
-                    color: BrandColors.primary,
+                    color: Theme.of(context).textSelectionColor,
                     semanticsLabel: 'Business Navigator is Active',
                   )),
             ],
             onTap: model.changeTab,
           ),
         ),
-      ),
+//      ),
     );
   }
 }

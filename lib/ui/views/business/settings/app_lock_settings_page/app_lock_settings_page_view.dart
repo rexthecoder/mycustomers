@@ -19,7 +19,7 @@ class AppLockSettingsPageView extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: <Widget>[
               Expanded(

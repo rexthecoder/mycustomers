@@ -30,20 +30,19 @@ class BusinessCardPageView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: ThemeColors.background,
-          brightness: Brightness.light,
+          backgroundColor: Theme.of(context).backgroundColor,
           elevation: 0,
           centerTitle: true,
           title: Text(
             "Business Card",
             style: TextStyle(
-              color: ThemeColors.black,
+              color: Theme.of(context).cursorColor,
               fontSize: SizeConfig.textSize(context, 6),
             ),
           ),
-          iconTheme: IconThemeData(color: BrandColors.primary),
+          iconTheme: IconThemeData(color: Theme.of(context).textSelectionColor),
         ),
-        backgroundColor: ThemeColors.background,
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -53,8 +52,9 @@ class BusinessCardPageView extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   BusinessCardModal(
-                      screenshotController: screenshotController,
-                      businessCardController: businessCardController),
+                    screenshotController: screenshotController,
+                    businessCardController: businessCardController,
+                  ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 3),
                   ),
@@ -195,21 +195,47 @@ class BusinessCardModal extends StatelessWidget {
 }
 
 class BottomSheetButtons extends StatelessWidget {
+  final ScreenshotController screenshotController;
+
+  const BottomSheetButtons({
+    Key key,
+    @required this.screenshotController,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusinessCardPageViewModel>.reactive(
       builder: (context, model, child) => Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Expanded(
             flex: 1,
             child: CustomShareRaisedButton(
                 label: 'Share',
                 onPressed: () async {
-                  FlushbarHelper.createInformation(
-                    duration: const Duration(seconds: 5),
-                    message: 'Coming Soon',
-                  ).show(context);
+                  screenshotController
+                      .capture(
+                    pixelRatio: ScreenUtil.pixelRatio,
+                    delay: Duration(milliseconds: 10),
+                  )
+                      .then((File image) async {
+                    model.imageFile = image;
+                    await model.saveBusinessCard();
+                    FlushbarHelper.createSuccess(
+                      duration: const Duration(seconds: 5),
+                      message: 'Sharing...',
+                    ).show(context);
+                    model.shareImageAndText();
+                    FlushbarHelper.createSuccess(
+                      duration: const Duration(seconds: 5),
+                      message: 'Successful',
+                    ).show(context);
+                  }).catchError((onError) {
+                    FlushbarHelper.createError(
+                      duration: const Duration(seconds: 5),
+                      message: onError.toString(),
+                    ).show(context);
+                  });
+                  return;
                 }),
           ),
           SizedBox(width: SizeConfig.xMargin(context, 3.0)),
@@ -225,10 +251,32 @@ class BottomSheetButtons extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32)),
                 onPressed: () async {
-                  FlushbarHelper.createInformation(
-                    duration: const Duration(seconds: 5),
-                    message: 'Coming Soon',
-                  ).show(context);
+                  screenshotController
+                      .capture(
+                    pixelRatio: ScreenUtil.pixelRatio,
+                    delay: Duration(milliseconds: 10),
+                  )
+                      .then((File image) async {
+                    model.imageFile = image;
+                    await model.saveBusinessCard();
+                    FlushbarHelper.createSuccess(
+                      duration: const Duration(seconds: 5),
+                      message: 'downloading...',
+                    ).show(context);
+                    model.downloadImage();
+                    FlushbarHelper.createSuccess(
+                      duration: const Duration(seconds: 5),
+                      message:
+                          'Download Completed to internalStorage/myCustomer',
+                    ).show(context);
+                  }).catchError((onError) {
+                    print(onError.toString());
+                    FlushbarHelper.createError(
+                      duration: const Duration(seconds: 5),
+                      message: onError.toString(),
+                    ).show(context);
+                  });
+                  return;
                 },
                 child: Text(
                   'Download',
@@ -326,7 +374,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
       ),
       decoration: BoxDecoration(
         border: Border.all(color: ThemeColors.gray[700]),
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
@@ -370,17 +418,17 @@ class _DefaultPhoneFormField
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 4)),
       decoration: BoxDecoration(
         border: Border.all(color: ThemeColors.gray[700]),
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color: ThemeColors.black,
+          color: Theme.of(context).backgroundColor,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-        selectorTextStyle: TextStyle(color: Colors.black),
+        selectorTextStyle: TextStyle(color: Theme.of(context).cursorColor),
         inputBorder: InputBorder.none,
         hintText: '903 9393 9383',
         formatInput: true,
