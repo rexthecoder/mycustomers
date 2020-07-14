@@ -290,9 +290,10 @@ class MarketingHomePageView extends StatelessWidget {
                                       onTap: (){
                                         // Navigator.pushNamed(context, '/sendMessage');
 //                                        model.selectedCustomers
-//                                            .length !=
+//                                            .length ==
 //                                            0
-//                                            ?? model.sendMessage();
+//                                            ??
+                                            model.sendMessage();
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(

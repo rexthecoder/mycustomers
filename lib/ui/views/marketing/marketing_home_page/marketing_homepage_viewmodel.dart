@@ -119,7 +119,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   void sendMessage(){
     _navigationService
-        .navigateTo(Routes.sendMessageViewRoute);
+        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
   /// View initialize and close section
