@@ -119,7 +119,7 @@ class App extends StatelessWidget {
             DefaultMaterialLocalizations.delegate,
             DefaultWidgetsLocalizations.delegate,
           ],
-          theme: themes.primaryMaterialTheme,
+          theme: themes.darkMaterialTheme,
           debugShowCheckedModeBanner: false,
           initialRoute: Routes.startupViewRoute,
           onGenerateRoute: Router().onGenerateRoute,
