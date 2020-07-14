@@ -71,30 +71,35 @@ class MarketingHomePageView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  ClipRect(
-                                    child: Image(
-                                      height: SizeConfig.yMargin(context, 15),
-                                      image: AssetImage(
-                                          'assets/images/megaphone.png'),
-                                      fit: BoxFit.contain,
-                                    ),
+                              Expanded(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ClipRect(
+                                        child: Image(
+                                          height: SizeConfig.yMargin(context, 15),
+                                          image: AssetImage(
+                                              'assets/images/megaphone.png'),
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: SizeConfig.yMargin(context, 3),
+                                      ),
+                                      Text(
+                                        'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            color: Theme.of(context).cursorColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: SizeConfig.yMargin(context, 3),
-                                  ),
-                                  Text(
-                                    'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: Theme.of(context).cursorColor),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                                ),
                               ),
                               SizedBox(
-                                height: SizeConfig.yMargin(context, 35),
+                                // height: SizeConfig.yMargin(context, 35),
                               ),
                               Container(
                                 color: Theme.of(context).backgroundColor,
