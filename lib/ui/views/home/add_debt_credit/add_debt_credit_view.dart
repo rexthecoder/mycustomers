@@ -155,7 +155,7 @@ class AddDebtCreditView extends StatelessWidget {
                                     context: context,
                                     initialDate: model.selectedDate,
                                     firstDate:  DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now()))),
-                                    lastDate: DateTime(2030),
+                                    lastDate: DateTime(2300),
                                     builder: (BuildContext context, Widget child) {
                                       return Theme(
                                         data: Theme.of(context).copyWith(

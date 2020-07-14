@@ -1,5 +1,4 @@
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
@@ -20,7 +19,7 @@ class BusinessViewModel extends BaseViewModel {
     await _navigationService.replaceWithTransition(MainView(),
         opaque: true,
         transition: 'cupertino',
-        duration: Duration(milliseconds: 600));
+        duration: Duration(milliseconds: 400));
   }
 
   Future<void> updateUser(String storeName, String shopAddress) async {
@@ -39,7 +38,6 @@ class BusinessViewModel extends BaseViewModel {
         success: true,
       );
 
-      await Future.delayed(Duration(milliseconds: 200));
       busy = false;
       unawaited(navigateToNext());
     } on UpdateException catch (e, s) {
