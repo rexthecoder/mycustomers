@@ -131,8 +131,6 @@ class MarketingHomePageView extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: InkWell(
-                                        onTap: () =>
-                                            model.navigateToAddCustomer(),
                                         child: Container(
                                           decoration: BoxDecoration(
                                               color: BrandColors.secondary,

@@ -34,22 +34,24 @@ class AppLockSettingsPageView extends StatelessWidget {
                           selectedColor:
                               const Color.fromARGB(50, 196, 196, 196),
                           child: ListTile(
-                              onTap: () => model.navigateToChangePinPage(),
-                              trailing: Icon(Icons.chevron_right),
-                              title: model.getThecurrentStateOfPin() == false
-                                  ? Text(
-                                      'Set App lock Pin',
-                                      style: TextStyle(
-                                        fontSize:
-                                            SizeConfig.textSize(context, 4),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    )
-                                  : Text('Change App lock Pin',
-                                      style: TextStyle(
-                                          fontSize:
-                                              SizeConfig.textSize(context, 4),
-                                          fontWeight: FontWeight.w600))),
+                            onTap: () => model.getThecurrentStateOfPin() == false ? model.navigateToSetPinPage() :
+                            model.navigateToChangePinPage(),
+                            trailing: Icon(Icons.chevron_right),
+                            title:model.getThecurrentStateOfPin() == false ? Text(
+                              'Set App lock Pin',
+                              style: TextStyle(
+                                fontSize: SizeConfig.textSize(context, 4),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ) 
+                            : Text(
+                              'Change App lock Pin',
+                              style:TextStyle(
+                                fontSize:SizeConfig.textSize(context, 4),
+                                fontWeight: FontWeight.w600
+                                 )
+                            )
+                          ),
                         ),
                       ),
                       SizedBox(
