@@ -71,14 +71,14 @@ class SettingsPage extends StatelessWidget {
                               SizedBox(height: ScreenUtil().setHeight(50),),
                               switchTile(context, model.notification,
                                   model.setNotification,
-                                  'Recieve Notifications'),
+                                  'Receive Notifications'),
                               switchTile(context, model.newsletter,
-                                  model.setNewsletter, 'Recieve NewsLetter'),
+                                  model.setNewsletter, 'Receive NewsLetter'),
                               switchTile(
                                   context, model.special, model.setSpecial,
-                                  'Recieve Special Offers'),
+                                  'Receive Special Offers'),
                               switchTile(context, model.update, model.setUpdate,
-                                  'Recieve Updates'),
+                                  'Receive Updates'),
                             ],
                           )
                       ),

@@ -1,4 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/core/models/business_model.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -92,6 +93,10 @@ class MainViewModel extends BaseViewModel {
       
     // TODO Navigate to add Business page
 //    await _navigationService.navigateTo(Routes.);
+  }
+
+  void navigateToNotifications() {
+    _navigationService.navigateTo(Routes.notificationsViewRoute);
   }
 }
 

@@ -57,14 +57,15 @@ class MarketingHomePageView extends StatelessWidget {
                   child: Container(
                     color: Color(0xFFF9F9F9),
                     width: width,
+                    height: height,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 20.0),
                       child: Column(children: <Widget>[
                         Expanded(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Container(
                                 width: width / 4,
@@ -84,10 +85,7 @@ class MarketingHomePageView extends StatelessWidget {
                                     color: BrandColors.greyedText),
                                 textAlign: TextAlign.center,
                               ),
-                            ],
-                          ),
-                        ),
-                        Container(
+                               Container(
                           color: Colors.white,
                           height: 50.h,
                           child: Row(
@@ -137,6 +135,11 @@ class MarketingHomePageView extends StatelessWidget {
                             ],
                           ),
                         ),
+                            ],
+                          ),
+                        ),
+                        // Spacer(),
+                       
                       ]),
                     ),
                   ),
@@ -290,9 +293,10 @@ class MarketingHomePageView extends StatelessWidget {
                                       onTap: (){
                                         // Navigator.pushNamed(context, '/sendMessage');
 //                                        model.selectedCustomers
-//                                            .length !=
+//                                            .length ==
 //                                            0
-//                                            ?? model.sendMessage();
+//                                            ??
+                                            model.sendMessage();
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
