@@ -1,7 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/services/permissions.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -99,7 +99,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 //    fianl customerList = await _navigationService
 //  }
 
-   Permissions _permission =  locator<Permissions>();
+   PermissionService _permission =  locator<IPermissionService>();
 
   Future navigateToAddCustomer() async {
     var contactList;
@@ -119,7 +119,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   void sendMessage(){
     _navigationService
-        .navigateTo(Routes.sendMessageViewRoute);
+        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
   /// View initialize and close section

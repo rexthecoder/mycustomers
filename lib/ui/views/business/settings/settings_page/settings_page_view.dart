@@ -38,36 +38,43 @@ class SettingsPage extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                           child: Column(
-                        children: <Widget>[
-                          cardTile(
-                              'Change Language',
-                              model.langs[model.langIndex]['name'],
-                              //Todo: Set Functionality to Change when Language is Changed,
-                              model.navigateToLanguageSettings,
-                              context),
-                          cardTile(
-                              'Change Currency',
-                              model.currs[model.currIndex]['name'],
-                              //Todo: Set Functionality to Change when Language is Changed
-                              model.navigateToCurrency,
-                              context),
-                          cardTile(
-                              'App Lock', '', model.navigateToAppLock, context),
-                          SizedBox(
-                            height: ScreenUtil().setHeight(50),
-                          ),
-                          switchTile(context, model.lightTheme, model.setTheme,
+                            children: <Widget>[
+                              cardTile(
+                                  'Change Language',
+                                  model.langs[model.langIndex]['name'],
+                                  //Todo: Set Functionality to Change when Language is Changed,
+                                  model.navigateToLanguageSettings,
+                                  context
+                              ),
+                              cardTile(
+                                  'Change Currency',
+                                  model.currs[model.currIndex]['name'],
+                                  //Todo: Set Functionality to Change when Language is Changed
+                                  model.navigateToCurrency,
+                                  context
+                              ),
+                              cardTile(
+                                  'App Lock',
+                                  '',
+                                  model.navigateToAppLock,
+                                  context
+                              ),
+                              SizedBox(height: ScreenUtil().setHeight(50),),
+                              switchTile(context, model.lightTheme, model.setTheme,
                               'Light Mode'),
-                          switchTile(context, model.notification,
-                              model.setNotification, 'Recieve Notifications'),
-                          switchTile(context, model.newsletter,
-                              model.setNewsletter, 'Recieve NewsLetter'),
-                          switchTile(context, model.special, model.setSpecial,
-                              'Recieve Special Offers'),
-                          switchTile(context, model.update, model.setUpdate,
-                              'Recieve Updates'),
-                        ],
-                      )),
+                              switchTile(context, model.notification,
+                                  model.setNotification,
+                                  'Receive Notifications'),
+                              switchTile(context, model.newsletter,
+                                  model.setNewsletter, 'Receive NewsLetter'),
+                              switchTile(
+                                  context, model.special, model.setSpecial,
+                                  'Receive Special Offers'),
+                              switchTile(context, model.update, model.setUpdate,
+                                  'Receive Updates'),
+                            ],
+                          )
+                      ),
                     ),
                     Container(
                         padding: EdgeInsets.symmetric(
