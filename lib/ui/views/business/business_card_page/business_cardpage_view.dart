@@ -30,20 +30,19 @@ class BusinessCardPageView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: ThemeColors.background,
-          brightness: Brightness.light,
+          backgroundColor: Theme.of(context).backgroundColor,
           elevation: 0,
           centerTitle: true,
           title: Text(
             "Business Card",
             style: TextStyle(
-              color: ThemeColors.black,
+              color: Theme.of(context).cursorColor,
               fontSize: SizeConfig.textSize(context, 6),
             ),
           ),
-          iconTheme: IconThemeData(color: BrandColors.primary),
+          iconTheme: IconThemeData(color: Theme.of(context).textSelectionColor),
         ),
-        backgroundColor: ThemeColors.background,
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -375,7 +374,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
       ),
       decoration: BoxDecoration(
         border: Border.all(color: ThemeColors.gray[700]),
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
@@ -419,17 +418,17 @@ class _DefaultPhoneFormField
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 4)),
       decoration: BoxDecoration(
         border: Border.all(color: ThemeColors.gray[700]),
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color: ThemeColors.black,
+          color: Theme.of(context).backgroundColor,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-        selectorTextStyle: TextStyle(color: Colors.black),
+        selectorTextStyle: TextStyle(color: Theme.of(context).cursorColor),
         inputBorder: InputBorder.none,
         hintText: '903 9393 9383',
         formatInput: true,

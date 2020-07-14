@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -168,9 +167,9 @@ class CreditorsView extends StatelessWidget {
                             children: <Widget>[
                               SvgPicture.asset('assets/images/no-transaction.svg'),
                               SizedBox(height: 20.h,),
-                              Text('You don\'t owe any customer. Tap the big blue button at the bottom of the screen to add one',
+                              Text('You don\'t owe any customer. Tap the big orange button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: BrandColors.secondary),),
+                                style: TextStyle(color: Theme.of(context).textSelectionColor),),
                             ],
                           ),
                         ),
@@ -207,7 +206,7 @@ class CreditorsView extends StatelessWidget {
                 ),
               ),
             )
-          ] ,
+          ],
         ),
       ),
       viewModelBuilder: () => HomePageViewModel(),
