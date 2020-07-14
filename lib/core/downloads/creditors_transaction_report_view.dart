@@ -33,14 +33,13 @@ class CreditorsTransactionReportView extends StatelessWidget {
                   borderRadius: new BorderRadius.circular(5.0),
                 ),
                 child: Text(
-                  //TODO: OnTap for MyCustomer Export Screen
                   'Get Report',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 color: Colors.blue,
                 onPressed: () {
-                  Report().buildPdf(context);
+                  CreditorsReport().buildPdf(context);
                 },
               ),
             ),
@@ -67,15 +66,22 @@ class PdfViewerPage extends StatelessWidget {
   }
 }
 
-/// Class Report for View
-class Report {
-  // private 'image' of type PdfImage
-  PdfImage _image;
-  final doc = pw.Document();
+String _formatDate(DateTime date) {
+  final format = DateFormat.yMMMd('en_US');
+  return format.format(date);
+}
+
+String _formatCurrency(double amount) {
+  return '\N${amount.toStringAsFixed(2)}';
+}
+
+/// Class CreditorsReport for View
+
+class CreditorsReport {
+  var doc;
 
   static var dt = DateTime.now();
-  var updatedDt = DateFormat.yMMMd().format(dt);
-  // String updatedDt = newFormat.format(dt);
+  var updatedDt = DateFormat.Hms().format(dt);
 
   // List of type 'Data'
   final List<ContentData> contentBody = [
@@ -87,22 +93,26 @@ class Report {
     ContentData(6, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
     ContentData(7, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
     ContentData(8, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
-    //ContentData(9, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
-    /*ContentData(10, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
+    ContentData(9, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
+    ContentData(10, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
     ContentData(11, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
     ContentData(12, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
     ContentData(13, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
     ContentData(14, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
-    ContentData(15, 'Demola', 'Today', 23.0, 25.02, 'Saved'),*/
+    ContentData(15, 'Demola', 'Today', 23.0, 25.02, 'Saved'),
   ];
 
   final List<FooterData> footerBody = [
     FooterData(100.0, 100.0),
   ];
 
-  /// Main Work
+  PdfImage _image;
+
   Future<Uint8List> buildPdf(BuildContext context) async {
     await storagePermission();
+
+    // Create a PDF document.
+    doc = pw.Document();
 
     _image = PdfImage.file(
       doc.document,
@@ -111,6 +121,7 @@ class Report {
           .asUint8List(),
     );
 
+    // Add multiple pages to the PDF
     doc.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
@@ -123,12 +134,13 @@ class Report {
       ),
     );
 
-    //TODO: Return the PDF file content
+    //TODO: Add 'await'
+    generateReport(context);
+    // Return the PDF file content
     //return doc.save();
-
-    await savePdf(context);
   }
 
+  /// Build Components
   pw.Widget _buildHeader(pw.Context context) {
     //TODO: Add margin to both _buildHeader & _contentBody
     return pw.Row(
@@ -148,7 +160,7 @@ class Report {
               pw.Container(
                 //TODO: change to date generated and color to grey
                 child: pw.Text(
-                  "$updatedDt",
+                  _formatDate(DateTime.now()),
                   style: pw.TextStyle(
                     color: PdfColors.grey,
                     fontSize: 12.0,
@@ -364,18 +376,14 @@ class Report {
     );
   }
 
-  Future savePdf(BuildContext context) async {
-    /// Make it work for iOS some functions aren't supported
-
-    /// Generates report.pdf but not in the right directory instead
-    /// Android/data/me.customerpay.hngsentry/files/ need to fix this
-    String dir = (await getExternalStorageDirectory()).path;
-    String path = '$dir/report$dt.pdf';
+  Future<void> generateReport(BuildContext context) async {
+    final Directory appDocDir = await getExternalStorageDirectory();
+    final String appDocPath = appDocDir.path;
+    final String path = '$appDocPath/report' + updatedDt + '.pdf';
     File file = File(path);
-    print(file.toString());
-    file.writeAsBytes(doc.save());
+    print('Save as file ${file.path} ...');
+    file.writeAsBytesSync(doc.save());
 
-    /// For OnPressed RaisedButton
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => PdfViewerPage(path: path),
@@ -391,12 +399,16 @@ class FooterData {
   final double creditBal;
   final double debitBal;
 
+  double get total => creditBal - debitBal;
+
   getIndex(int index) {
     switch (index) {
       case 0:
-        return creditBal;
+        return _formatCurrency(creditBal);
       case 1:
-        return debitBal;
+        return _formatCurrency(debitBal);
+      case 2:
+        return _formatCurrency(total);
     }
   }
 }
@@ -427,13 +439,13 @@ class ContentData {
       case 1:
         return customerName;
       case 2:
-        return date;
+        return _formatDate(DateTime.now());
       case 3:
         return remark;
       case 4:
-        return credit;
+        return _formatCurrency(credit);
       case 5:
-        return debit;
+        return _formatCurrency(debit);
     }
   }
 }
