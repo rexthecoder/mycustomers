@@ -52,33 +52,33 @@ class ImportCustomerView extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
-                child: MyListTile(
-                  leading: CustomerCircleAvatar(
-                    child: Icon(
-                      Icons.person_add,
-                      color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
-                      size: SizeConfig.xMargin(context, 7),
+                child: InkWell(
+                  onTap: () => model.goToManual(action),
+                  child: MyListTile(
+                    leading: CustomerCircleAvatar(
+                      child: Icon(
+                        Icons.person_add,
+                        color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                        size: SizeConfig.xMargin(context, 7),
+                      ),
+                      bgColor: ThemeColors.gray.shade500,
                     ),
-                    bgColor: ThemeColors.gray.shade500,
-                  ),
-                  title: InkWell(
-                    onTap: () => model.goToManual(action),
-                    child: Text(
+                    title: Text(
                       'Add New Customer',
                       style: TextStyle(
                         color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                         fontSize: SizeConfig.yMargin(context, 2.5)
                       ),
                     ),
-                  ),
-                  trailing: IconButton(
-                    onPressed: () => model.goToManual(action),
-                    icon: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20.sp,
-                      color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                    trailing: IconButton(
+                      onPressed: () => model.goToManual(action),
+                      icon: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20.sp,
+                        color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 0),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 0),
                   ),
                 ),
               ),

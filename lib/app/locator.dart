@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
@@ -27,10 +27,20 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/store_services.dart';
 import 'package:mycustomers/core/services/permissions.dart';
+import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 
 final GetIt locator = GetIt.instance;
 
 const bool USE_MOCK_CUSTOMER = true;
+
+String isoCode = 'NG';
+
+Future<void> setIso() async {
+  try {
+    isoCode = await FlutterSimCountryCode.simCountryCode;
+  } on PlatformException {}
+}
+
 
 /// Setup function that is run before the App is run.
 ///   - Sets up singletons that can be called from anywhere
@@ -104,9 +114,12 @@ Future<void> setupLocator(
   Hive.registerAdapter(TransactionAdapter());
 
   await _setupSharedPreferences();
+  await setIso();
 }
 
 Future<void> _setupSharedPreferences() async {
   final storage = await SharedStorageUtil.getInstance();
   locator.registerLazySingleton<IStorageUtil>(() => storage);
 }
+
+
