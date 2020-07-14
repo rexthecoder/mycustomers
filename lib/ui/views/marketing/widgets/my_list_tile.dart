@@ -16,7 +16,7 @@ class MyListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 15.h),
         child: Row(
