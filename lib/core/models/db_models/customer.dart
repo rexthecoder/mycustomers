@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 
+// part 'assistant.g.dart';
+
 @HiveType()
 class Customer {
   @HiveField(0)
