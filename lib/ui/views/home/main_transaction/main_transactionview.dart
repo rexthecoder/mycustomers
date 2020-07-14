@@ -20,7 +20,6 @@ class MainTransaction extends StatelessWidget {
     return ViewModelBuilder<MainTransactionViewModel>.reactive(
       onModelReady: (model){
         model.getTransactions();
-        print('here');
       },
         builder: (context, model, child) => WillPopScope(
           onWillPop: ()async {
@@ -37,7 +36,17 @@ class MainTransaction extends StatelessWidget {
                       margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                       child: Row(
                         children: <Widget>[
-                          Container(
+                          model.contact.initials != null ? Container(
+                            margin:
+                                EdgeInsets.only(right: ScreenUtil().setWidth(15)),
+                            child: CircleAvatar(
+                              radius: 25,
+                              backgroundColor: Colors.white,
+                              child: Text(
+                                model.contact.initials
+                              ),
+                            ),
+                          ) : Container(
                             margin:
                                 EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                             width: ScreenUtil().setWidth(50),
@@ -64,7 +73,7 @@ class MainTransaction extends StatelessWidget {
                                         .headline6
                                         .copyWith(
                                             color: Colors.white,
-                                            fontSize: SizeConfig.yMargin(context, 2.5),
+                                            fontSize: SizeConfig.yMargin(context, 2.4),
                                             fontWeight: FontWeight.w500),
                                   ),
                                 ),
@@ -133,7 +142,7 @@ class MainTransaction extends StatelessWidget {
                                   children: <Widget>[
                                     Image.asset('assets/images/safe.png',),
                                     SizedBox(height: 20.h,),
-                                    Text('MyCustomer is 100% safe and secure, only you and Seyi Onifade can view this transaction',
+                                    Text('MyCustomer is 100% safe and secure, only you and ${model.contact.name} can view this transaction',
                                     textAlign: TextAlign.center,),
                                   ],
                                 ))),
@@ -160,7 +169,7 @@ class MainTransaction extends StatelessWidget {
                                           .textTheme
                                           .headline5
                                           .copyWith(
-                                            fontSize: SizeConfig.yMargin(context, 2.5),
+                                            fontSize: SizeConfig.yMargin(context, 2.2),
                                           ),
                                     ),
                                   ),
@@ -175,220 +184,226 @@ class MainTransaction extends StatelessWidget {
                                         children: <Widget>[
                                           item.boughtdate != null ?
                                           model.getDate(item.boughtdate) == model.formattedate[index] && item.amount != 0 ?
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                              bottom: ScreenUtil()
-                                                  .setHeight(15),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                    bottom: ScreenUtil()
-                                                        .setHeight(5),
-                                                  ),
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        margin: EdgeInsets
-                                                            .only(
-                                                                right: 8),
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          vertical:
-                                                              ScreenUtil()
-                                                                  .setHeight(
-                                                                      15),
-                                                          horizontal:
-                                                              ScreenUtil()
-                                                                  .setWidth(
-                                                                      10),
-                                                        ),
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(
-                                                                color: Color(
-                                                                    0xFFE8E8E8),
-                                                                width:
-                                                                    1.5),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            color: Colors
-                                                                .white),
-                                                        child: Text(
-                                                          'NGN' +
-                                                              currency
-                                                                  .format(
-                                                                      item.amount)
-                                                                  .toString(),
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .headline5
-                                                              .copyWith(
-                                                                fontSize: SizeConfig.yMargin(context, 2.6),
-                                                                color: Color(
-                                                                    0xFF333CC1),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Flexible(
+                                          InkWell(
+                                            onTap: () => model.navigateDetails(item),
+                                            child: Container(
+                                              margin: EdgeInsets.only(
+                                                bottom: ScreenUtil()
+                                                    .setHeight(15),
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                      bottom: ScreenUtil()
+                                                          .setHeight(5),
+                                                    ),
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          margin: EdgeInsets
+                                                              .only(
+                                                                  right: 8),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                            vertical:
+                                                                ScreenUtil()
+                                                                    .setHeight(
+                                                                        15),
+                                                            horizontal:
+                                                                ScreenUtil()
+                                                                    .setWidth(
+                                                                        10),
+                                                          ),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Color(
+                                                                      0xFFE8E8E8),
+                                                                  width:
+                                                                      1.5),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              color: Colors
+                                                                  .white),
                                                           child: Text(
-                                                            'Cost of goods purchased',
+                                                            'NGN' +
+                                                                currency
+                                                                    .format(
+                                                                        item.amount)
+                                                                    .toString(),
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
                                                                 .headline5
                                                                 .copyWith(
-                                                                  fontSize: SizeConfig.yMargin(context, 2.5),
-                                                                  color: Colors
-                                                                      .black38,
+                                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                                  color: Color(
+                                                                      0xFF333CC1),
                                                                   fontWeight:
-                                                                      FontWeight.w400,
+                                                                      FontWeight
+                                                                          .w900,
                                                                 ),
                                                           ),
                                                         ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  child: Text(
-                                                    model.getTime(
-                                                        item.boughtdate),
-                                                    style:
-                                                        Theme.of(context)
-                                                            .textTheme
-                                                            .headline5
-                                                            .copyWith(
-                                                              fontSize:  SizeConfig.yMargin(context, 2),
-                                                              color: Colors
-                                                                  .black38,
+                                                        Container(
+                                                          child: Flexible(
+                                                            child: Text(
+                                                              'Cost of goods purchased',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .headline5
+                                                                  .copyWith(
+                                                                    fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                    color: Colors
+                                                                        .black38,
+                                                                    fontWeight:
+                                                                        FontWeight.w400,
+                                                                  ),
                                                             ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
-                                                )
-                                              ],
+                                                  Container(
+                                                    child: Text(
+                                                      model.getTime(
+                                                          item.boughtdate),
+                                                      style:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .headline5
+                                                              .copyWith(
+                                                                fontSize:  SizeConfig.yMargin(context, 1.8),
+                                                                color: Colors
+                                                                    .black38,
+                                                              ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ) : SizedBox()
                                           :SizedBox(),
                                           item.paiddate != null ?
                                           model.getDate(item.paiddate) == model.formattedate[index] && item.paid != 0 ? 
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                              bottom: ScreenUtil()
-                                                  .setHeight(15),
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: <Widget>[
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                    bottom: ScreenUtil()
-                                                        .setHeight(5),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .end,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        child: Flexible(
+                                          InkWell(
+                                            onTap: () => model.navigateDetails(item),
+                                            child: Container(
+                                              margin: EdgeInsets.only(
+                                                bottom: ScreenUtil()
+                                                    .setHeight(15),
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                      bottom: ScreenUtil()
+                                                          .setHeight(5),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .end,
+                                                      children: <Widget>[
+                                                        Container(
+                                                          child: Flexible(
+                                                            child: Text(
+                                                              'Customer paid',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .headline5
+                                                                  .copyWith(
+                                                                    fontSize:SizeConfig.yMargin(context, 2.2),
+                                                                    color: Colors
+                                                                        .black38,
+                                                                    fontWeight:
+                                                                        FontWeight.w400,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin: EdgeInsets
+                                                              .only(
+                                                                  left: 8),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                            vertical:
+                                                                ScreenUtil()
+                                                                    .setHeight(
+                                                                        15),
+                                                            horizontal:
+                                                                ScreenUtil()
+                                                                    .setWidth(
+                                                                        10),
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  border:
+                                                                      Border
+                                                                          .all(
+                                                                    color: Color(
+                                                                        0xFFE8E8E8),
+                                                                    width:
+                                                                        1.5,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          8),
+                                                                  color: Colors
+                                                                      .white),
                                                           child: Text(
-                                                            'Customer paid',
+                                                            'NGN' +
+                                                                currency
+                                                                    .format(
+                                                                        item.paid)
+                                                                    .toString(),
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
                                                                 .headline5
                                                                 .copyWith(
-                                                                  fontSize:SizeConfig.yMargin(context, 2.5),
-                                                                  color: Colors
-                                                                      .black38,
+                                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                                  color: Color(
+                                                                      0xFF21D184),
                                                                   fontWeight:
-                                                                      FontWeight.w400,
+                                                                      FontWeight
+                                                                          .w900,
                                                                 ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        margin: EdgeInsets
-                                                            .only(
-                                                                left: 8),
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          vertical:
-                                                              ScreenUtil()
-                                                                  .setHeight(
-                                                                      15),
-                                                          horizontal:
-                                                              ScreenUtil()
-                                                                  .setWidth(
-                                                                      10),
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                border:
-                                                                    Border
-                                                                        .all(
-                                                                  color: Color(
-                                                                      0xFFE8E8E8),
-                                                                  width:
-                                                                      1.5,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        8),
-                                                                color: Colors
-                                                                    .white),
-                                                        child: Text(
-                                                          'NGN' +
-                                                              currency
-                                                                  .format(
-                                                                      item.paid)
-                                                                  .toString(),
-                                                          style: Theme.of(
-                                                                  context)
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      model.getTime(
+                                                          item.paiddate),
+                                                      style:
+                                                          Theme.of(context)
                                                               .textTheme
                                                               .headline5
                                                               .copyWith(
-                                                                fontSize: SizeConfig.yMargin(context, 2.6),
-                                                                color: Color(
-                                                                    0xFF21D184),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900,
+                                                                fontSize: SizeConfig.yMargin(context, 1.8),
+                                                                color: Colors
+                                                                    .black38,
                                                               ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  child: Text(
-                                                    model.getTime(
-                                                        item.paiddate),
-                                                    style:
-                                                        Theme.of(context)
-                                                            .textTheme
-                                                            .headline5
-                                                            .copyWith(
-                                                              fontSize: SizeConfig.yMargin(context, 2),
-                                                              color: Colors
-                                                                  .black38,
-                                                            ),
-                                                  ),
-                                                )
-                                              ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ) : SizedBox()
                                           :SizedBox()
@@ -469,7 +484,7 @@ class MainTransaction extends StatelessWidget {
                                                   .textTheme
                                                   .headline5
                                                   .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.5),
+                                                    fontSize: SizeConfig.yMargin(context, 2.3),
                                                     color: Colors.black38,
                                                   ),
                                             ),
@@ -483,7 +498,7 @@ class MainTransaction extends StatelessWidget {
                                                   .textTheme
                                                   .headline5
                                                   .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 3),
+                                                    fontSize: SizeConfig.yMargin(context, 2.5),
                                                     color: Color(0xFFEB5757),
                                                     fontWeight: FontWeight.w900,
                                                   ),
@@ -518,7 +533,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                  fontSize: SizeConfig.yMargin(context, 2.2),
                                                   color: Color(0xFF333CC1),
                                                 ),
                                           ),
@@ -530,7 +545,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                  fontSize: SizeConfig.yMargin(context, 2.3),
+                                                  fontSize: SizeConfig.yMargin(context, 2.2),
                                                   color: Color(0xFF333CC1),
                                                 ),
                                           ),
@@ -558,7 +573,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.3),
+                                                    fontSize: SizeConfig.yMargin(context, 2.2),
                                                     color: Color(0xFF333CC1)),
                                           ),
                                         ),
@@ -569,7 +584,7 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.3),
+                                                    fontSize: SizeConfig.yMargin(context, 2.2),
                                                     color: Color(0xFF333CC1)),
                                           ),
                                         )

@@ -47,7 +47,10 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("Customers owing you"),
+                            child: Text(
+                              "Customers owing you",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
@@ -55,7 +58,10 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("People you owe"),
+                            child: Text(
+                              "Customers you owe",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
@@ -63,7 +69,10 @@ class HomePageView extends StatelessWidget {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("All Transactions"),
+                            child: Text(
+                              "All Customers",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ),
@@ -76,7 +85,13 @@ class HomePageView extends StatelessWidget {
                       children: <Widget>[
                         DebtorsView(),
                         CreditorsView(),
-                        ContactList()
+                        model.contacts.length == 0 ? Expanded(
+                          child: Center(
+                            child: Text(
+                              'No Customer Added'
+                            ),
+                          ),
+                        ) : ContactList()
                       ],
                     ),
                   ),
@@ -118,9 +133,15 @@ class ContactList extends StatelessWidget {
                     prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
                     border: InputBorder.none,
                   ),
+                  onChanged: model.searchName,
                 ),
               ),
-              for (var item in model.contacts) Container(
+              model.sName != null && !model.contains ? Text(
+                'No Customer Found'
+              ) : SizedBox(),
+              for (var item in model.contacts) model.sName != null && model.contains ?
+              item.name.toLowerCase().contains(model.sName.toLowerCase())  ?
+              Container(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
@@ -130,8 +151,52 @@ class ContactList extends StatelessWidget {
                     )
                   ),
                   child: ListTile(
-                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber),
-                    leading: Container(
+                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                    leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.black,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/man.png',
+                          ),
+                          fit: BoxFit.cover
+                        )
+                      ),
+                    ),
+                    title: Text(
+                      item.name
+                    ),
+                  ),
+                ),
+              )
+              : SizedBox()
+              : model.sName != null && !model.contains ? SizedBox() : Container(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: Color(0xFFD1D1D1)),
+                      //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                    )
+                  ),
+                  child: ListTile(
+                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
+                    leading: item.initials != null ? CircleAvatar(
+                      radius: 25,
+                      backgroundColor: BrandColors.primary,
+                      child: Text(
+                        item.initials
+                      ),
+                    ) : Container(
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(

@@ -27,6 +27,7 @@ class OwnerServices implements IOwnerServices {
         'lastname': contact?.familyName?.isEmpty??true?'':contact.familyName,
         'phone': contact?.phones?.toList()?.isEmpty ?? true ? '' : contact.phones.toList()[0].value,
         'email': contact?.emails?.toList()?.isEmpty ?? true ? '' : contact.emails.toList()[0].value,
+        'initials': contact?.initials()?.isEmpty ?? true ? '' : contact.initials()
       }));
     }
     return Iterable<Customer>.empty();

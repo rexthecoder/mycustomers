@@ -26,13 +26,12 @@ class BusinessCardPageView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
 
-//    List<Widget> businessCards = ;
-
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: ThemeColors.background,
+          brightness: Brightness.light,
           elevation: 0,
           centerTitle: true,
           title: Text(

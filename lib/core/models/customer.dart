@@ -26,12 +26,12 @@ class Customer {
 
   String get displayName => '${this.name ?? ''} ${this.lastName ?? ''}';
 
-  String id, name, phone, email;
+  String id, name, phone, email, initials;
 
   @JsonKey(name: 'lastname')
   String lastName;
 
-  Customer({this.id, this.name, this.phone, this.email, this.lastName});
+  Customer({this.id, this.name, this.phone, this.email, this.lastName, this.initials});
 
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);

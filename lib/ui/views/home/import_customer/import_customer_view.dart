@@ -53,11 +53,14 @@ class ImportCustomerView extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: MyListTile(
+                  onTap: () => model.goToManual(action),
                   leading: CustomerCircleAvatar(
-                    child: Icon(
-                      Icons.person_add,
-                      color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
-                      size: SizeConfig.xMargin(context, 7),
+                    child: Center(
+                      child: Icon(
+                        Icons.person_add,
+                        color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                        size: SizeConfig.xMargin(context, 7),
+                      ),
                     ),
                     bgColor: ThemeColors.gray.shade500,
                   ),
@@ -112,7 +115,7 @@ class ImportCustomerView extends StatelessWidget {
                         '${customer.displayName}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: SizeConfig.yMargin(context, 2.3)
+                          fontSize: SizeConfig.yMargin(context, 2)
                         ),
                       ),
                       subtitle: Text(
@@ -120,7 +123,7 @@ class ImportCustomerView extends StatelessWidget {
                         style: TextStyle(
                           color: ThemeColors.gray.shade600,
                           fontWeight: FontWeight.w600,
-                          fontSize: SizeConfig.yMargin(context, 2.3)
+                          fontSize: SizeConfig.yMargin(context, 2)
                         ),
                       ),
                       trailing: SizedBox(
@@ -133,7 +136,7 @@ class ImportCustomerView extends StatelessWidget {
                             size: SizeConfig.yMargin(context, 1.6),
                           ),
                           onPressed: () {
-                            model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number');
+                            model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number', customer.initials, action);
                           },
                           label: Text(
                             'ADD',
