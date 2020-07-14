@@ -11,7 +11,7 @@ class NotificationsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<NotificationViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        appBar: customizeAppBar(context, "Notifications"),
+        appBar: customizeAppBar(context, "Notifications", 1.0),
         body: ListView.builder(
           itemCount: model.notifications.length,
           itemBuilder: (context, index){

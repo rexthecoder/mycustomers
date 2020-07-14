@@ -25,7 +25,7 @@ class MessageView extends StatelessWidget {
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: customizeAppBar(context, 'Send a Message'),
+          appBar: customizeAppBar(context, 'Send a Message', 1.0),
 //           AppBar(
 //             title: Center(
 //               child: Text(

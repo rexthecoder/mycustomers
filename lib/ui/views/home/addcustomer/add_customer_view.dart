@@ -20,7 +20,7 @@ class AddCustomerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddCustomerViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-              appBar:customizeAppBar(context, kaddCustomerHeadingText),
+              appBar:customizeAppBar(context, kaddCustomerHeadingText, 1.0),
               //  AppBar(
               //   title: Text(kaddCustomerHeadingText),
               //   backgroundColor: Colors.transparent,

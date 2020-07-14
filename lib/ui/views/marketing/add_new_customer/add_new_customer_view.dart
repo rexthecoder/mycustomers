@@ -13,7 +13,7 @@ class AddNewCustomerView extends StatelessWidget {
   return ViewModelBuilder<AddNewCustomerViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: ThemeColors.background,
-        appBar: customizeAppBar(context, model.title),
+        appBar: customizeAppBar(context, model.title, 1.0),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(20.w),
