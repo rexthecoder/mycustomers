@@ -14,7 +14,7 @@ import 'package:flushbar/flushbar_helper.dart';
 
 import 'business_cardpage_viewmodel.dart';
 
-part '../../../widgets/business/business_card_page/business_card_widget.dart';
+import '../../../widgets/business/business_card_page/business_card_widget.dart';
 
 class BusinessCardPageView extends StatelessWidget {
   @override
@@ -29,6 +29,7 @@ class BusinessCardPageView extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: ThemeColors.background,
+          brightness: Brightness.light,
           elevation: 0,
           centerTitle: true,
           title: Text(
@@ -51,7 +52,7 @@ class BusinessCardPageView extends StatelessWidget {
                 children: <Widget>[
                   Screenshot(
                     controller: screenshotController,
-                    child: _BusinessCard(),
+                    child: BusinessCard(),
                   ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 3),
@@ -232,3 +233,6 @@ class _DefaultPhoneFormField
     );
   }
 }
+
+
+

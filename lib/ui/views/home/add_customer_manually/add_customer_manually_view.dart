@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'add_customer_manually_viewmodel.dart';
@@ -48,7 +47,7 @@ class AddCustomerManuallyView extends StatelessWidget {
                   child: FlatButton(
                     color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                     onPressed: () {
-                      model.addContact();
+                      model.addContact(action);
                       //Navigator.pushNamed(context, '/mainTransaction');
                     },
                     shape: RoundedRectangleBorder(
@@ -170,6 +169,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 Expanded(
                   child: TextField(
                     textAlign: TextAlign.left,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Mobile Number',
                       border: OutlineInputBorder(borderSide: BorderSide.none),

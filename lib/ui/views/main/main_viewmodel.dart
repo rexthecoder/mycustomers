@@ -2,7 +2,7 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/core/models/business_model.dart';
-import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
