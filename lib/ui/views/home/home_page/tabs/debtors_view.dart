@@ -11,6 +11,7 @@ import 'package:mycustomers/ui/views/home/home_page/tabs/all_customers_view.dart
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
+import '../../../../shared/const_color.dart';
 import '../home_page_viewmodel.dart';
 
 
@@ -43,7 +44,7 @@ class DebtorsView extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: Color(0xFF333CC1),
+                              color: BrandColors.primary,
                               image: DecorationImage(
                                 image: ExactAssetImage('assets/images/Mask Group.png',
                                 ),
@@ -244,7 +245,7 @@ class DebtorsView extends StatelessWidget {
                               SizedBox(height: 20.h,),
                               Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: BrandColors.primary),),
+                                style: TextStyle(color: Theme.of(context).textSelectionColor),),
                             ],
                           ),
                         ),
