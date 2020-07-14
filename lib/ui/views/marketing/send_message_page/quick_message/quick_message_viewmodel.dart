@@ -11,7 +11,7 @@ class QuickMessageViewModel extends BaseViewModel {
     // await _navigationService.navigateTo(Routes.sendAMessageView);
   }
 
-  Future navigateToMessageView() async {
-    // await _navigationService.navigateTo(Routes.messageView);
+  Future navigateToMessageView(selected) async {
+     await _navigationService.navigateTo(Routes.messageView,arguments: selected);
   }
 }

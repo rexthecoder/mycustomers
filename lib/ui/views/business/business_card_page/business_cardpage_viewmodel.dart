@@ -57,6 +57,37 @@ class BusinessCardPageViewModel extends BaseViewModel {
 
   Future<void> shareImageAndText() async {
     try {
+//      if (await _permissionService.getStoragePermission()) {
+      final Uint8List bytes = await imageFile.readAsBytes();
+
+//        final String internalStorage = '/storage/emulated/0/myCustomer';
+
+      final String fileName =
+          '${businessCard.storeName}-businesscard${businessCard.cardDesign}.png';
+
+//        bool isDirExist = await Directory(internalStorage).exists();
+//        if (!isDirExist) Directory(internalStorage).create();
+//        String tempPath = '$internalStorage/$fileName';
+////        File image = await File(tempPath).create();
+//        File(tempPath).writeAsBytes(bytes);
+
+      await WcFlutterShare.share(
+        sharePopupTitle: 'Share Your Business Card',
+        subject: businessCard.storeName,
+        text: 'My Business Card',
+        fileName: fileName,
+        mimeType: 'image/png',
+        bytesOfFile: bytes.buffer.asUint8List(),
+      );
+//      }
+    } catch (e) {
+      print(e);
+      throw Exception("Unable to save image");
+    }
+  }
+
+  Future<void> downloadImage() async {
+    try {
       if (await _permissionService.getStoragePermission()) {
         final Uint8List bytes = await imageFile.readAsBytes();
 
@@ -68,20 +99,11 @@ class BusinessCardPageViewModel extends BaseViewModel {
         bool isDirExist = await Directory(internalStorage).exists();
         if (!isDirExist) Directory(internalStorage).create();
         String tempPath = '$internalStorage/$fileName';
-//        File image = await File(tempPath).create();
         File(tempPath).writeAsBytes(bytes);
-
-        await WcFlutterShare.share(
-          sharePopupTitle: 'Share Your Business Card',
-          subject: businessCard.storeName,
-          text: 'My Business Card',
-          fileName: fileName,
-          mimeType: 'image/png',
-          bytesOfFile: bytes.buffer.asUint8List(),
-        );
       }
     } catch (e) {
-      throw Exception("Unable to save image");
+      print(e);
+      throw Exception("Unable to download image");
     }
   }
 

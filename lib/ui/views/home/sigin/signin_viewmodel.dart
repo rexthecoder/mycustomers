@@ -13,6 +13,14 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class SignInViewModel extends BaseViewModel with Validators {
+
+  
+  void init() async {}
+
+  SignInViewModel() {
+    init();
+  }
+
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
 
@@ -21,7 +29,7 @@ class SignInViewModel extends BaseViewModel with Validators {
   bool btnColor = true;
 
   // String initialCountry = 'NG';
-  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  PhoneNumber number = PhoneNumber(isoCode: isoCode);
 
   // void togglePassword() {
   //   obscureText = !obscureText;
@@ -40,14 +48,14 @@ class SignInViewModel extends BaseViewModel with Validators {
   // Navigate
   Future navigateToNextScreen() async {
     await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'rotate', duration: Duration(milliseconds: 600));
+        opaque: true, transition: 'rotate', duration: Duration(milliseconds: 400));
   }
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
         opaque: true,
         transition: 'fade',
-        duration: Duration(milliseconds: 600));
+        duration: Duration(milliseconds: 400));
   }
 
   final _authService = locator<AuthService>();
@@ -64,7 +72,6 @@ class SignInViewModel extends BaseViewModel with Validators {
         message: 'Welcome Back',
         success: true,
       );
-      await Future.delayed(Duration(milliseconds: 200));
       busy = false;
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();
@@ -82,5 +89,4 @@ class SignInViewModel extends BaseViewModel with Validators {
     if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
-  void init() {}
 }
