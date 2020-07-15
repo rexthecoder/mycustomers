@@ -76,7 +76,7 @@ class OnboardingView extends StatelessWidget {
                   child: CustomRaisedButton(
                     txtColor: ThemeColors.background,
                     btnColor: BrandColors.primary,
-                    btnText: 'Get started',
+                    btnText: AppLocalizations.of(context).getStartedButton,
                     borderColor: BrandColors.primary,
                     child: Container(),
                     onPressed: () {
@@ -89,7 +89,7 @@ class OnboardingView extends StatelessWidget {
                   child: CustomRaisedButton(
                     txtColor: BrandColors.primary,
                     btnColor: ThemeColors.background,
-                    btnText: 'Sign in',
+                    btnText: AppLocalizations.of(context).signIn,
                     borderColor: BrandColors.primary,
                     child: Container(),
                     onPressed: () {

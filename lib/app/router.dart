@@ -268,11 +268,11 @@ class Router {
           builder: (context) => CurrencySettingsPageView(),
           settings: settings,
         );
-      // case Routes.languageSettingsViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => LanguagePageView(),
-      //     settings: settings,
-      //   );
+      case Routes.languageSettingsViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => LanguagePageView(),
+          settings: settings,
+        );
       case Routes.appLockSettingsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AppLockSettingsPageView(),
