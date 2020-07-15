@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'hive/store/store_h.dart';
+
 part 'store.g.dart';
 
 @JsonSerializable(nullable: true, includeIfNull: true)
@@ -22,7 +24,14 @@ class Store {
   String name;
 
 
-
+  factory Store.fromStoreH(StoreH store) => Store(
+      store.id,
+      // TODO: Add email field to the store hive model
+      'email@email.com',
+      '${store.ctyCode}${store.pNum}',
+      store.tagline,
+      store.address,
+    );
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
   Map<String, dynamic> toJson() => _$StoreToJson(this);
 }
