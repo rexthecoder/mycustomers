@@ -7,12 +7,12 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 /// Customize AppBar to be use across all POP screens
 /// - Title
 /// - Elevation
-Widget customizeAppBar(BuildContext context, String title, double elevation) {
+Widget customizeAppBar(BuildContext context, String title, double elevation,{Color iconColor}) {
   return AppBar(
     brightness: Brightness.light,
     backgroundColor: Colors.white,
     iconTheme: IconThemeData(
-      color: BrandColors.primary,
+      color: iconColor== null?BrandColors.primary:BrandColors.secondary,
     ),
     elevation: elevation,
     centerTitle: true,

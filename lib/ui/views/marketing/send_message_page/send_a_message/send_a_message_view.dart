@@ -1,4 +1,4 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
+
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -29,7 +29,7 @@ class SendAMessage extends StatelessWidget {
       viewModelBuilder: () => StuffModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: customizeAppBar(context, 'Send a Message', 1.0),
+          appBar: customizeAppBar(context, 'Send a Message', 1.0,iconColor: BrandColors.secondary),
           backgroundColor: bgColor,
           body: SingleChildScrollView(
             child: Padding(
@@ -41,20 +41,20 @@ class SendAMessage extends StatelessWidget {
                       height: 20.h,
                     ),
                     FlatButton(
-                      color: BrandColors.primary,
+                      color: BrandColors.secondary.withOpacity(0.3),
                       onPressed: () {
-                        Flushbar(
-                          backgroundColor: BrandColors.primary,
-                          duration: const Duration(seconds: 3),
-                          message: 'Quick message feature coming soon',
-                          icon: Icon(
-                            Icons.info_outline,
-                            size: 28.0,
-                            color: ThemeColors.background,
-                          ),
-                          leftBarIndicatorColor: Colors.blue[300],
-                        ).show(context);
-                        // model.navigateToQuickMessage(selectedCustomers);
+//                        Flushbar(
+//                          backgroundColor: BrandColors.primary,
+//                          duration: const Duration(seconds: 3),
+//                          message: 'Quick message feature coming soon',
+//                          icon: Icon(
+//                            Icons.info_outline,
+//                            size: 28.0,
+//                            color: ThemeColors.background,
+//                          ),
+//                          leftBarIndicatorColor: Colors.blue[300],
+//                        ).show(context);
+                         model.navigateToQuickMessage(selectedCustomers);
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
@@ -66,19 +66,28 @@ class SendAMessage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              TypewriterAnimatedTextKit(
-                                speed: Duration(milliseconds: 300),
-                                repeatForever: true,
-                                // pause: Duration(seconds: 10),
-                                displayFullTextOnTap: true,
-                                stopPauseOnTap: true,
-                                text: ['Quick message'],
-                                textStyle: TextStyle(
-                                  color: bgColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 24.sp,
+//                              TypewriterAnimatedTextKit(
+//                                speed: Duration(milliseconds: 300),
+//                                repeatForever: true,
+//                                // pause: Duration(seconds: 10),
+//                                displayFullTextOnTap: true,
+//                                stopPauseOnTap: true,
+//                                text: ['Quick message'],
+//                                textStyle: TextStyle(
+//                                  color: bgColor,
+//                                  fontWeight: FontWeight.w500,
+//                                  fontSize: 24.sp,
+//                                ),
+//                              ),
+
+                              Text(
+                                'Quick message',style: TextStyle(
+                                color: BrandColors.secondary,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 24.sp,
                                 ),
                               ),
+
                               SizedBox(
                                 height: 10.h,
                               ),
@@ -86,7 +95,7 @@ class SendAMessage extends StatelessWidget {
                                 'We have already made messages for you so feel free to use them',
                                 style: TextStyle(
                                   fontSize: 14.sp,
-                                  color: bgColor,
+                                  color: BrandColors.secondary,
                                 ),
                               ),
                             ],
@@ -98,7 +107,7 @@ class SendAMessage extends StatelessWidget {
                       height: 20.h,
                     ),
                     FlatButton(
-                      color: BrandColors.primary,
+                      color: BrandColors.secondary,
                       onPressed: () {
                         model.navigateToMessage(selectedCustomers);
                       },
