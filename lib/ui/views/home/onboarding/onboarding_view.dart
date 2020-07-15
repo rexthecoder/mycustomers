@@ -35,23 +35,23 @@ class OnboardingView extends StatelessWidget {
                   children: [
                    _Pages(
                   'assets/images/onboarding/onboarding1.png',
-                  AppLocalization.of(context).onboardingWelcomeText,
-                  AppLocalization.of(context).onboardingWelcomeDesc,
+                  AppLocalizations.of(context).onboardingWelcomeText,
+                   AppLocalizations.of(context).onboardingWelcomeDesc,
                 ),
                 _Pages(
                   'assets/images/onboarding/onboarding2.png',
-                  AppLocalization.of(context).pushAReminder,
-                  AppLocalization.of(context).pushAReminderDesc,
+                  AppLocalizations.of(context).pushAReminder,
+                  AppLocalizations.of(context).pushAReminderDesc,
                 ),
                 _Pages(
                   'assets/images/onboarding/onboarding3.png',
-                  AppLocalization.of(context).collectYourMoney,
-                  AppLocalization.of(context).collectYourMoneyDesc,
+                 AppLocalizations.of(context).collectYourMoney,
+                  AppLocalizations.of(context).collectYourMoneyDesc,
                 ),
                 _Pages(
                   'assets/images/onboarding/onboarding4.png',
-                  AppLocalization.of(context).engagedWithYourPeople,
-                  AppLocalization.of(context).engagedWithYourPeopleDesc,
+                AppLocalizations.of(context).engagedWithYourPeople,
+                  AppLocalizations.of(context).engagedWithYourPeopleDesc,
                 ),
                   ],
                 ),
