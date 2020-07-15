@@ -1,16 +1,26 @@
 import 'package:hive/hive.dart';
-import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/db_models/customer.dart';
+import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/core/models/hive/customer/customer_h.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/utils/logger.dart';
 
-abstract class StoresLocalDataSource {
+abstract class CustomersLocalDataSource {
   Future<void> init();
+  Future<void> addCustomer(Customer customer);
+  Future<Customer> getCustomer(String customerId);
+  Future<void> updateCustomerDetails(String customerId, {int countryCode, String phoneNumber, 
+        String name, String storeId, String email});
+  Future<void> deleteCustomer(String customerId);
+  Future<Iterable<Customer>> getStoresWhere(Function(CustomerH customerH) test);
 }
 
-class StoresLocalDataSourceImpl implements StoresLocalDataSource {
+class CustomersLocalDataSourceImpl implements CustomersLocalDataSource {
 
-  var box = Hive.box<Customer>('customerBox');
+  var box = Hive.box<CustomerH>('customerBox');
 
-  List<Customer> getAllCustomers() => box.values.toList();
+  String _currentStoreId = StoreRepository.currentStore.id;
+
+  List<CustomerH> getAllCustomers() => box.values.toList();
   
 
   @override
@@ -18,55 +28,95 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
     //Write Function to initialize Hive
   }
 
-  Future<void> addCustomer(Customer customer) async {
-    
-    await box.add(customer);
-
+  List<int> splitPhone(String phone) {
+    var pNum = phone.substring(phone.length - 10);
+    var ctyCode = phone.substring(0, phone.length - 10);
+    try {
+      return [int.parse(pNum), int.parse(ctyCode)];
+    } catch (e) {
+      return [null, null];
+    }
   }
 
-  dynamic getCustomer(String customerId) {
+  @override
+  Future<void> addCustomer(Customer customer) async {
 
-    Iterable<Customer> customers = box.values;
+    int countryCode = splitPhone(customer.phone)[0];
+    int pNum = splitPhone(customer.phone)[0];
+    
+    int add = await box.add(
+      CustomerH(
+        customer.id, 
+        _currentStoreId,
+        '${customer.name} ${customer.lastName}',
+        pNum,
+        countryCode,
+        customer.email
+      )
+    );
+    Logger.d(add);
+  }
+
+  @override
+  Future<Customer> getCustomer(String customerId) async{
+
+    Iterable<CustomerH> customers = box.values;
     try {
 
-      Customer customer = customers.singleWhere((element) => element.id == customerId);
-      return customer;
+      CustomerH customer = customers.singleWhere((element) => element.id == customerId);
+      return Customer.fromCustomerH(customer);
 
     } catch (e) {
-      return e;
+      throw Exception('Not found');
     }
     
   }
 
-  void updateCustomerDetails(String customerId, {int countryCode, int phoneNumber, String name, String storeId}){
+  @override
+  Future<void> updateCustomerDetails(String customerId, {int countryCode, String phoneNumber, 
+        String name, String storeId, String email}) async{
     
-    List<Customer> customers = box.values.toList();
+    List<CustomerH> customers = box.values.toList();
   
     int index = customers.indexWhere((element) => element.id == customerId);
-    customers.forEach((customer) {
-      if(customer.id == customerId){
-        customer.ctyCode = countryCode ?? customer.ctyCode;
-        customer.pNum = phoneNumber ?? customer.pNum;
-        customer.name = name ?? customer.name;
-        customer.storeIdFor = storeId ?? customer.storeIdFor;
-        box.putAt(index, customer);
-      }
-     });
+
+    CustomerH oldCust = customers[index];
+    int ctyCode = splitPhone(phoneNumber)[0];
+    int pNum = splitPhone(phoneNumber)[0];
+
+    if(index != -1){
+        CustomerH customerH = CustomerH(
+        customerId, 
+        storeId ?? oldCust.storeIdFor, 
+        name ?? oldCust.name, 
+        pNum ?? oldCust.pNum, 
+        ctyCode ?? oldCust.ctyCode, 
+        email ?? oldCust.email
+      );
+      return box.putAt(index, customerH);
+    }
+    throw Exception('Not found');
     
   }
 
-  dynamic deleteCustomer(String customerId) {
+  @override
+  Future<void> deleteCustomer(String customerId) async {
 
-    List<Customer> customers = box.values.toList();
+    List<CustomerH> customers = box.values.toList();
     try {
 
       int index = customers.indexWhere((element) => element.id == customerId);
-      box.deleteAt(index);
+      return box.deleteAt(index);
 
     } catch (e) {
-      return e;
+      throw Exception('$e');
     }
     
+  }
+
+  @override
+  Future<Iterable<Customer>> getStoresWhere(Function(CustomerH customerH) test) async {
+    return box.values.where(test).map((customerH) => Customer.fromCustomerH(customerH));
   }
   
 }
