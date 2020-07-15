@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
@@ -44,7 +45,6 @@ Future<void> setIso() async {
   } on PlatformException {}
 }
 
-
 /// Setup function that is run before the App is run.
 ///   - Sets up singletons that can be called from anywhere
 /// in the app by using locator<Service>() call.
@@ -60,9 +60,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );
-   locator.registerLazySingleton<DialogService>(
+  locator.registerLazySingleton<DialogService>(
     () => DialogService(),
-   );
+  );
   locator.registerLazySingleton<IApi>(
     () => ApiServices(),
   );
@@ -72,7 +72,7 @@ Future<void> setupLocator(
   locator.registerLazySingleton<ICustomerService>(
     () => USE_MOCK_CUSTOMER ? MockCustomerService() : CustomerService(),
   );
-   locator.registerLazySingleton<CustomerContactService>(
+  locator.registerLazySingleton<CustomerContactService>(
     () => CustomerContactService(),
   );
   locator.registerLazySingleton<PasswordManagerService>(
@@ -104,6 +104,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
+  locator.registerLazySingleton<LogsLocalDataSourceImpl>(
+    () => LogsLocalDataSourceImpl(),
+  );
 
   // Util
   locator.registerLazySingleton<FileHelper>(() => FileHelperImpl());
@@ -114,7 +117,8 @@ Future<void> setupLocator(
   // External
   locator.registerLazySingleton<HiveInterface>(() => Hive);
 
-  Directory appDocDir = test ? Directory.current : await getApplicationDocumentsDirectory();
+  Directory appDocDir =
+      test ? Directory.current : await getApplicationDocumentsDirectory();
   //print(appDocDir.path);
   Hive.initFlutter(appDocDir.path);
   Hive.registerAdapter(BusinessCardAdapter());
@@ -130,5 +134,3 @@ Future<void> _setupSharedPreferences() async {
   final storage = await SharedStorageUtil.getInstance();
   locator.registerLazySingleton<IStorageUtil>(() => storage);
 }
-
-
