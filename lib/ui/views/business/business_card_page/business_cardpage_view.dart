@@ -289,6 +289,7 @@ class BottomSheetButtons extends StatelessWidget {
               borderColor: BrandColors.primary,
               child: SvgPicture.asset(
                 share,
+                height: SizeConfig.xMargin(context, 4),
                 color: ThemeColors.background,
               ),
               onPressed: () async {

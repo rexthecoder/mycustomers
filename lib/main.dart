@@ -10,9 +10,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
 import './ui/theme/theme_viewmodel.dart';
-
+import 'core/localization/app_localization.dart';
 import 'package:oktoast/oktoast.dart';
-
 import 'app/locator.dart';
 import 'app/router.dart';
 import 'core/managers/core_manager.dart';
@@ -127,8 +126,13 @@ class App extends StatelessWidget {
             initialRoute: Routes.startupViewRoute,
             onGenerateRoute: Router().onGenerateRoute,
             navigatorKey: locator<NavigationService>().navigatorKey,
+         supportedLocales: [
+          Locale('en'),
+          Locale('fr'),
+        ],
           ),
         ), viewModelBuilder: () => ThemeModel(),
+
       ),
     );
   }
