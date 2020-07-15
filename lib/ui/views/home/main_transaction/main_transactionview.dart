@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -30,7 +31,7 @@ class MainTransaction extends StatelessWidget {
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(70.0),
                   child: AppBar(
-                    brightness: Brightness.dark,
+                    brightness: Brightness.light,
                     elevation: .5,
                     title: Container(
                       margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
@@ -41,7 +42,7 @@ class MainTransaction extends StatelessWidget {
                                 EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                             child: CircleAvatar(
                               radius: 25,
-                              backgroundColor: Colors.white,
+                              backgroundColor: BrandColors.primary,
                               child: Text(
                                 model.contact.initials
                               ),
@@ -72,7 +73,7 @@ class MainTransaction extends StatelessWidget {
                                         .textTheme
                                         .headline6
                                         .copyWith(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: SizeConfig.yMargin(context, 2.4),
                                             fontWeight: FontWeight.w500),
                                   ),
@@ -84,7 +85,7 @@ class MainTransaction extends StatelessWidget {
                                         .textTheme
                                         .headline6
                                         .copyWith(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: SizeConfig.yMargin(context, 2),
                                             fontWeight: FontWeight.w400),
                                   ),
@@ -103,7 +104,7 @@ class MainTransaction extends StatelessWidget {
                             vertical: ScreenUtil().setHeight(10)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -125,8 +126,8 @@ class MainTransaction extends StatelessWidget {
                         },
                       )
                     ],
-                    actionsIconTheme: IconThemeData(color: Colors.white),
-                    backgroundColor: BrandColors.primary,
+                    actionsIconTheme: IconThemeData(color: Colors.black),
+                    backgroundColor: Colors.white,
                     centerTitle: true,
                   ),
                 ),
@@ -514,7 +515,7 @@ class MainTransaction extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {SavedDialog().showPdfDialog(context);},
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
