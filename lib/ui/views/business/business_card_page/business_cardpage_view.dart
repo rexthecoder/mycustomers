@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/extensions/string_extension.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
@@ -42,20 +44,20 @@ class BusinessCardPageView extends StatelessWidget {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            backgroundColor: ThemeColors.background,
-            brightness: Brightness.light,
+            backgroundColor: Theme.of(context).backgroundColor,
             elevation: 0,
             centerTitle: true,
             title: Text(
               "Business Card",
               style: TextStyle(
-                color: ThemeColors.black,
+                color: Theme.of(context).cursorColor,
                 fontSize: SizeConfig.textSize(context, 6),
               ),
             ),
-            iconTheme: IconThemeData(color: BrandColors.primary),
+            iconTheme:
+                IconThemeData(color: Theme.of(context).textSelectionColor),
           ),
-          backgroundColor: ThemeColors.background,
+          backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(
@@ -121,9 +123,6 @@ class BusinessCardPageView extends StatelessWidget {
                         ],
                       ),
                     ),
-//                    BusinessCardModal(
-//                      screenshotController: screenshotController,
-//                    ),
                     SizedBox(
                       height: SizeConfig.yMargin(context, 3),
                     ),
@@ -132,29 +131,36 @@ class BusinessCardPageView extends StatelessWidget {
                       height: SizeConfig.yMargin(context, 1),
                     ),
                     CustomShareRaisedButton(
-                      label: "Save and Share",
+                      txtColor: ThemeColors.background,
+                      btnColor: BrandColors.primary,
+                      btnText: "Save and Share",
+                      borderColor: BrandColors.primary,
+                      child: Container(),
                       onPressed: () {
                         screenshotController
                             .capture(
                           pixelRatio: ScreenUtil.pixelRatio,
                           delay: Duration(milliseconds: 10),
                         )
-                            .then((File image) async {
-                          //Capture Done
-                          model.imageFile = image;
-                          await model.saveBusinessCard();
-                          FlushbarHelper.createSuccess(
-                            duration: const Duration(seconds: 5),
-                            message: 'Save Successful',
-                          ).show(context);
-                          model.shareImageAndText();
-                        }).catchError((onError) {
-                          print(onError.toString());
-                          FlushbarHelper.createError(
-                            duration: const Duration(seconds: 5),
-                            message: onError.toString(),
-                          ).show(context);
-                        });
+                            .then(
+                          (File image) async {
+                            //Capture Done
+                            model.imageFile = image;
+                            await model.saveBusinessCard();
+                            FlushbarHelper.createSuccess(
+                              duration: const Duration(seconds: 5),
+                              message: 'Save Successful',
+                            ).show(context);
+                            model.shareImageAndText();
+                          },
+                        ).catchError(
+                          (onError) {
+                            FlushbarHelper.createError(
+                              duration: const Duration(seconds: 5),
+                              message: onError.toString(),
+                            ).show(context);
+                          },
+                        );
                         return;
                       },
                     ),
@@ -269,20 +275,30 @@ class BottomSheetButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String share = 'assets/icons/svg/share.svg';
+
     return ViewModelBuilder<BusinessCardPageViewModel>.reactive(
       builder: (context, model, child) => Row(
         children: <Widget>[
           Expanded(
             flex: 1,
             child: CustomShareRaisedButton(
-                label: 'Share',
-                onPressed: () async {
-                  screenshotController
-                      .capture(
-                    pixelRatio: ScreenUtil.pixelRatio,
-                    delay: Duration(milliseconds: 10),
-                  )
-                      .then((File image) async {
+              txtColor: ThemeColors.background,
+              btnColor: BrandColors.primary,
+              btnText: 'Share',
+              borderColor: BrandColors.primary,
+              child: SvgPicture.asset(
+                share,
+                color: ThemeColors.background,
+              ),
+              onPressed: () async {
+                screenshotController
+                    .capture(
+                  pixelRatio: ScreenUtil.pixelRatio,
+                  delay: Duration(milliseconds: 10),
+                )
+                    .then(
+                  (File image) async {
                     model.imageFile = image;
                     await model.saveBusinessCard();
                     FlushbarHelper.createSuccess(
@@ -294,64 +310,105 @@ class BottomSheetButtons extends StatelessWidget {
                       duration: const Duration(seconds: 5),
                       message: 'Successful',
                     ).show(context);
-                  }).catchError((onError) {
+                  },
+                ).catchError(
+                  (onError) {
                     FlushbarHelper.createError(
                       duration: const Duration(seconds: 5),
                       message: onError.toString(),
                     ).show(context);
-                  });
-                  return;
-                }),
+                  },
+                );
+                return;
+              },
+            ),
           ),
           SizedBox(width: SizeConfig.xMargin(context, 3.0)),
           Expanded(
             flex: 1,
-            child: Container(
-              height: SizeConfig.yMargin(context, 9),
-              decoration: BoxDecoration(
-                border: Border.all(color: BrandColors.primary),
-                borderRadius: BorderRadius.circular(10.0),
+            child: CustomShareRaisedButton(
+              txtColor: BrandColors.primary,
+              btnColor: ThemeColors.background,
+              btnText: 'Download',
+              borderColor: BrandColors.primary,
+              child: SvgPicture.asset(
+                share,
+                color: ThemeColors.background,
               ),
-              child: FlatButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32)),
-                onPressed: () async {
-                  screenshotController
-                      .capture(
-                    pixelRatio: ScreenUtil.pixelRatio,
-                    delay: Duration(milliseconds: 10),
-                  )
-                      .then((File image) async {
-                    model.imageFile = image;
-                    await model.saveBusinessCard();
-                    FlushbarHelper.createSuccess(
-                      duration: const Duration(seconds: 5),
-                      message: 'downloading...',
-                    ).show(context);
-                    model.downloadImage();
-                    FlushbarHelper.createSuccess(
-                      duration: const Duration(seconds: 5),
-                      message:
-                          'Download Completed to internalStorage/myCustomer',
-                    ).show(context);
-                  }).catchError((onError) {
-                    FlushbarHelper.createError(
-                      duration: const Duration(seconds: 5),
-                      message: onError.toString(),
-                    ).show(context);
-                  });
-                  return;
-                },
-                child: Text(
-                  'Download',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: BrandColors.primary,
-                    fontSize: SizeConfig.textSize(context, 4.4),
-                  ),
-                ),
-              ),
+              onPressed: () async {
+                screenshotController
+                    .capture(
+                  pixelRatio: ScreenUtil.pixelRatio,
+                  delay: Duration(milliseconds: 10),
+                )
+                    .then((File image) async {
+                  model.imageFile = image;
+                  await model.saveBusinessCard();
+                  FlushbarHelper.createSuccess(
+                    duration: const Duration(seconds: 5),
+                    message: 'downloading...',
+                  ).show(context);
+                  model.downloadImage();
+                  FlushbarHelper.createSuccess(
+                    duration: const Duration(seconds: 5),
+                    message: 'Download Completed to internalStorage/myCustomer',
+                  ).show(context);
+                }).catchError((onError) {
+                  FlushbarHelper.createError(
+                    duration: const Duration(seconds: 5),
+                    message: onError.toString(),
+                  ).show(context);
+                });
+                return;
+              },
             ),
+            // Container(
+            //   height: SizeConfig.yMargin(context, 9),
+            //   decoration: BoxDecoration(
+            //     border: Border.all(color: BrandColors.primary),
+            //     borderRadius: BorderRadius.circular(10.0),
+            //   ),
+            //   child: FlatButton(
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(32)),
+            //     onPressed: () async {
+            //       screenshotController
+            //           .capture(
+            //         pixelRatio: ScreenUtil.pixelRatio,
+            //         delay: Duration(milliseconds: 10),
+            //       )
+            //           .then((File image) async {
+            //         model.imageFile = image;
+            //         await model.saveBusinessCard();
+            //         FlushbarHelper.createSuccess(
+            //           duration: const Duration(seconds: 5),
+            //           message: 'downloading...',
+            //         ).show(context);
+            //         model.downloadImage();
+            //         FlushbarHelper.createSuccess(
+            //           duration: const Duration(seconds: 5),
+            //           message:
+            //               'Download Completed to internalStorage/myCustomer',
+            //         ).show(context);
+            //       }).catchError((onError) {
+            //         print(onError.toString());
+            //         FlushbarHelper.createError(
+            //           duration: const Duration(seconds: 5),
+            //           message: onError.toString(),
+            //         ).show(context);
+            //       });
+            //       return;
+            //     },
+            //     child: Text(
+            //       'Download',
+            //       textAlign: TextAlign.center,
+            //       style: TextStyle(
+            //         color: BrandColors.primary,
+            //         fontSize: SizeConfig.textSize(context, 4.4),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           )
         ],
       ),
@@ -439,7 +496,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
       ),
       decoration: BoxDecoration(
         border: Border.all(color: ThemeColors.gray[700]),
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
@@ -483,17 +540,17 @@ class _DefaultPhoneFormField
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 4)),
       decoration: BoxDecoration(
         border: Border.all(color: ThemeColors.gray[700]),
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color: ThemeColors.black,
+          color: Theme.of(context).backgroundColor,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-        selectorTextStyle: TextStyle(color: Colors.black),
+        selectorTextStyle: TextStyle(color: Theme.of(context).cursorColor),
         inputBorder: InputBorder.none,
         hintText: '903 9393 9383',
         formatInput: true,

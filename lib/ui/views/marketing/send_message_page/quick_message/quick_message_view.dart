@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -16,17 +17,18 @@ class QuickMessageView extends StatelessWidget {
       viewModelBuilder: () => QuickMessageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar:AppBar(
-            title: Center(
-              child: Text(
-                'Quick messages',
-//                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                ),
-              ),
-            ),
-          ),
+          appBar:customizeAppBar(context,  'Quick messages'),
+//           AppBar(
+//             title: Center(
+//               child: Text(
+//                 'Quick messages',
+// //                textAlign: TextAlign.center,
+//                 style: TextStyle(
+//                   fontSize: 18.sp,
+//                 ),
+//               ),
+//             ),
+//           ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

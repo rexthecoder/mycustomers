@@ -13,12 +13,12 @@ class ProfilePageView extends StatelessWidget {
 
     return ViewModelBuilder<MainProfilePageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-             resizeToAvoidBottomInset: false,
+              resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text(
                   'Profile',
                   style: TextStyle(
-                    color: ThemeColors.black,
+                    color: Theme.of(context).cursorColor,
                     fontWeight: FontWeight.bold,
                     fontSize: SizeConfig.textSize(context, 6),
                   ),
@@ -33,7 +33,7 @@ class ProfilePageView extends StatelessWidget {
                       'Edit',
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 4.4),
-                        color: BrandColors.primary,
+                        color: Theme.of(context).textSelectionColor,
                       ),
                     ),
                   )

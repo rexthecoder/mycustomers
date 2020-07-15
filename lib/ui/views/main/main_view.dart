@@ -15,7 +15,7 @@ import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 
-import 'main_viewmodel.dart';
+import 'main_view_model.dart';
 
 part '../../widgets/main/menu_options.dart';
 
@@ -84,8 +84,8 @@ class MainView extends StatelessWidget {
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: ThemeColors.background,
-            selectedItemColor: BrandColors.primary,
+            backgroundColor: Theme.of(context).backgroundColor,
+            selectedItemColor: Theme.of(context).textSelectionColor,
             unselectedItemColor: ThemeColors.unselect,
             currentIndex: model.index,
             items: <BottomNavigationBarItem>[
@@ -98,7 +98,7 @@ class MainView extends StatelessWidget {
                   ),
                   activeIcon: SvgPicture.asset(
                     home,
-                    color: BrandColors.primary,
+                    color: Theme.of(context).textSelectionColor,
                     semanticsLabel: 'Home Navigator is Active',
                   )),
               BottomNavigationBarItem(
@@ -110,7 +110,7 @@ class MainView extends StatelessWidget {
                   ),
                   activeIcon: SvgPicture.asset(
                     marketing,
-                    color: BrandColors.primary,
+                    color: Theme.of(context).textSelectionColor,
                     semanticsLabel: 'Marketing Navigator is Active',
                   )),
               BottomNavigationBarItem(
@@ -122,7 +122,7 @@ class MainView extends StatelessWidget {
                   ),
                   activeIcon: SvgPicture.asset(
                     business,
-                    color: BrandColors.primary,
+                    color: Theme.of(context).textSelectionColor,
                     semanticsLabel: 'Business Navigator is Active',
                   )),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart' as appbar;
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
@@ -15,15 +16,16 @@ class AddCustomerMessageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddCustomerMessageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          title: Center(
-            child: Text('Add Customer from contact',
-                style: TextStyle(fontSize: 18.sp)),
-          ),
-        ),
+        appBar: appbar.customizeAppBar(context, 'Add Customer from contact'),
+        // AppBar(
+        //   elevation: 0,
+        //   centerTitle: true,
+        //   automaticallyImplyLeading: false,
+        //   title: Center(
+        //     child: Text('Add Customer from contact',
+        //         style: TextStyle(fontSize: 18.sp)),
+        //   ),
+        // ),
 
         body: Container(
           child: Padding(

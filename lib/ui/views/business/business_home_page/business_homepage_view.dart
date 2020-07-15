@@ -26,7 +26,7 @@ class BusinessHomePageView extends StatelessWidget {
                 Container(
                   height: SizeConfig.yMargin(context, 11),
                   decoration: BoxDecoration(
-                    color: ThemeColors.background,
+                    color: Theme.of(context).backgroundColor,
                   ),
                   child: ListTile(
                     subtitle: Text(
@@ -101,7 +101,7 @@ class BusinessHomePageView extends StatelessWidget {
       {BuildContext context, String label, Function onTap, String icon}) {
     return Container(
       decoration: BoxDecoration(
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
       ),
       child: ListTile(
         onTap: onTap,
@@ -118,7 +118,7 @@ class BusinessHomePageView extends StatelessWidget {
         ),
         trailing: Icon(
           Icons.chevron_right,
-          color: ThemeColors.black,
+          color: Theme.of(context).cursorColor,
         ),
       ),
     );
