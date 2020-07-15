@@ -21,6 +21,9 @@ class CustomerH {
 
   @HiveField(4)
   final int ctyCode;
+  
+  @HiveField(5)
+  final String email;
 
-  CustomerH(this.id, this.storeIdFor, this.name, this.pNum, this.ctyCode);
+  CustomerH(this.id, this.storeIdFor, this.name, this.pNum, this.ctyCode, this.email);
 }

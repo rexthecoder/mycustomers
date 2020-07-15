@@ -74,7 +74,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   @override
   Future<bool> createStore(Store newStore) async {
     var splitP = splitPhone(newStore.phone);
-    var newStoreH = StoreH(genUuid(), newStore.address, newStore.name, splitP[0], splitP[1], newStore.tagline, _auth.currentUser.id);
+    var newStoreH = StoreH(genUuid(), newStore.address, newStore.name, splitP[0], splitP[1], newStore.tagline, _auth.currentUser.id, newStore.email);
     storeBox.put(newStoreH.id, newStoreH);
     return true;
   }
@@ -97,7 +97,8 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
       splitP[0] ?? sToUpdate.pNum,
       splitP[1] ?? sToUpdate.ctyCode,
       update.tagline ?? sToUpdate.tagline,
-      sToUpdate.ownerId
+      sToUpdate.ownerId,
+      sToUpdate.email
       );
     storeBox.put(updatedStore.id, updatedStore);
     return Store.fromStoreH(updatedStore);
