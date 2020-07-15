@@ -2,10 +2,12 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class StoreRepository {
   static List _stores;
   static StoreDataSourceImpl _ss = locator<StoreDataSourceImpl>();
+  static DialogService _dialog = locator<DialogService>();
   static Store _currentStore;
 
   static List<Store> get stores => _stores;
@@ -37,6 +39,19 @@ class StoreRepository {
       var store = await _ss.getStore(id);
       return store;
     }
+  }
+
+  static Future<bool> deleteCurrentStore() async {
+    var response = await _dialog.showConfirmationDialog(
+      title: 'Confirm',
+      description: 'Are you sure you want to delete this store? There\'s no going back.',
+      confirmationTitle: 'Yes, I\'m sure',
+      cancelTitle: "No, I'm not sure",
+      );
+    if (response.confirmed) {
+      // TODO: Add delete function
+    }
+    return false;
   }
 
 

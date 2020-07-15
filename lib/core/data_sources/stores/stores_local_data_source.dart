@@ -10,13 +10,13 @@ abstract class StoresLocalDataSource {
 
   Future<Store> getStore(String id);
 
-  Future<Iterable<Store>> getAllStores();
+  Future<Iterable<Store>> getStores();
 
   Future<Iterable<Store>> getStoresWhere(Function(StoreH) test);
 
   Future<Store> updateStore(String id, Store update);
 
-  Future<bool> createStore(Store newStore);
+  Future<bool> createStore(Store newStore, [String id]);
 
   Future<bool> deleteStore(String id);
 }
@@ -48,7 +48,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   }
 
   @override
-  Future<Iterable<Store>> getAllStores() async {
+  Future<Iterable<Store>> getStores() async {
     return storeBox.values.map((e) => Store.fromStoreH(e));
   }
 
@@ -72,9 +72,9 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   //
 
   @override
-  Future<bool> createStore(Store newStore) async {
+  Future<bool> createStore(Store newStore, [String id]) async {
     var splitP = splitPhone(newStore.phone);
-    var newStoreH = StoreH(genUuid(), newStore.address, newStore.name, splitP[0], splitP[1], newStore.tagline, _auth.currentUser.id, newStore.email);
+    var newStoreH = StoreH(id ?? genUuid(), newStore.address, newStore.name, splitP[0], splitP[1], newStore.tagline, _auth.currentUser.id, newStore.email);
     storeBox.put(newStoreH.id, newStoreH);
     return true;
   }
