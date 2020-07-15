@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
+import 'core/localization/app_localization.dart';
 
 import 'package:oktoast/oktoast.dart';
 
@@ -58,6 +59,7 @@ class App extends StatelessWidget {
         localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
           DefaultMaterialLocalizations.delegate,
           DefaultWidgetsLocalizations.delegate,
+          AppLocalizationsDelegate(),
         ],
         theme: themes.primaryMaterialTheme,
         darkTheme: themes.darkMaterialTheme,
@@ -66,6 +68,10 @@ class App extends StatelessWidget {
         initialRoute: Routes.startupViewRoute,
         onGenerateRoute: Router().onGenerateRoute,
         navigatorKey: locator<NavigationService>().navigatorKey,
+        supportedLocales: [
+          Locale('en'),
+          Locale('fr'),
+        ],
       ),
     );
   }

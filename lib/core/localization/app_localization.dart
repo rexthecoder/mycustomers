@@ -1,9 +1,28 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/core/constants/local_keys.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 class AppLocalization{
+  static Map<String, String> _localizedValues;
+  AppLocalization(this.locale);
+
+  final Locale locale;
+
+
+  static Future<bool> loadJsonFromAsset(Locale locale) async {
+    String jsonString = await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
+    Map<String,dynamic> jsonLanguageMap = json.decode(jsonString);
+    _localizedValues = Map<String, String>.from(jsonLanguageMap);
+    return true;
+  }
+
+
+  static AppLocalization of(context){
+    return Localizations.of<AppLocalization>(context, AppLocalization);
+  }
+
+
   //list of available local strings that the app can use
   String get onboardingWelcomeText => translate(LocalKeys.onboarding_welcome_text);
   String get onboardingWelcomeDesc => translate(LocalKeys.onboarding_welcome_desc);
@@ -14,7 +33,7 @@ class AppLocalization{
   String get collectYourMoney => translate(LocalKeys.collect_your_money);
   String get collectYourMoneyDesc => translate(LocalKeys.collect_your_money_desc);
   String get engagedWithYourPeople => translate(LocalKeys.engaged_with_your_people);
-  String get engagedWithYourPeopleDesc => translate(LocalKeys.engaged_with_your_people_desc)
+  String get engagedWithYourPeopleDesc => translate(LocalKeys.engaged_with_your_people_desc);
   String get signUp => translate(LocalKeys.sign_up);
   String get signUpEnterPhoneNumber => translate(LocalKeys.sign_up_enter_phone_number);
   String get continueWithSocialAccount => translate(LocalKeys.continue_with_social_account);
@@ -151,8 +170,32 @@ class AppLocalization{
   String get removeAppLock => translate(LocalKeys.remove_app_lock);
   String get enterPin => translate(LocalKeys.enter_pin);
   String get pinRemoved => translate(LocalKeys.pin_removed);
-    
-    
-  
-  
-    translate(String onboardingWelcomeText) {}}
+
+
+
+  String translate(String jsonKey){
+    return _localizedValues[jsonKey];
+  }
+}
+
+class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalization> {
+
+  const AppLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) {
+    return ['en', 'fr'].contains(locale.languageCode);
+  }
+
+  @override
+  Future<AppLocalization> load(Locale locale) async {
+    await AppLocalization.loadJsonFromAsset(locale);
+    return AppLocalization(locale);
+  }
+
+  @override
+  bool shouldReload(LocalizationsDelegate<AppLocalization> old) {
+    return false;
+  }
+ 
+}

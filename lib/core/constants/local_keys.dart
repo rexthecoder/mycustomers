@@ -2,9 +2,6 @@
 
 
 
-
-
-
 class LocalKeys {
   //list of local keys for the app
   static const onboarding_welcome_text = 'onboarding-welcome-text';
