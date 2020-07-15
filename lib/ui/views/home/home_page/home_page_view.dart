@@ -60,7 +60,7 @@ class HomePageView extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Customers you owe",
+                              "People you owe",
                               textAlign: TextAlign.center,
                             ),
                           ),
