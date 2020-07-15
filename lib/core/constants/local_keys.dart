@@ -9,7 +9,7 @@ class LocalKeys {
   //list of local keys for the app
   static const onboarding_welcome_text = 'onboarding-welcome-text';
   static const onboarding_welcome_desc = 'onboarding-welcome-desc';
-  static const getstarted_button  = 'getstarted-button';
+  static const getstarted_button  = 'get-started-button';
   static const sign_in = 'sign-in';
   static const push_a_reminder = 'push-a-reminder';
   static const push_a_reminder_desc = 'push-a-reminder-desc';
