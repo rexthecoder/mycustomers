@@ -16,7 +16,7 @@ class AddCustomerMessageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddCustomerMessageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        appBar: appbar.customizeAppBar(context, 'Add Customer from contact'),
+        appBar: appbar.customizeAppBar(context, 'Add Customer from contact', 1.0),
         // AppBar(
         //   elevation: 0,
         //   centerTitle: true,

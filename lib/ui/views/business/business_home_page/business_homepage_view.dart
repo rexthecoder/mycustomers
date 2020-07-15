@@ -129,6 +129,7 @@ void _displayBusinessCardModal(context, model) {
   ScreenshotController screenshotController = new ScreenshotController();
 
   showModalBottomSheet(
+    enableDrag: true,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20),
@@ -137,48 +138,44 @@ void _displayBusinessCardModal(context, model) {
     ),
     context: context,
     builder: (BuildContext context) {
-      return Container(
-        height: SizeConfig.yMargin(context, 50),
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: SizeConfig.xMargin(context, 5),
-            right: SizeConfig.xMargin(context, 5),
-            top: SizeConfig.yMargin(context,2),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('Business card'),
-                  FlatButton(
-                    color: const Color(0xFFDEE9FF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+      return Padding(
+        padding: EdgeInsets.only(
+          left: SizeConfig.xMargin(context, 5),
+          right: SizeConfig.xMargin(context, 5),
+          top: SizeConfig.yMargin(context, 2),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('Business card'),
+                FlatButton(
+                  color: const Color(0xFFDEE9FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  onPressed: model.navigateToBusinessCardPage,
+                  child: Text(
+                    'Edit',
+                    style: TextStyle(
+                      fontSize: SizeConfig.textSize(context, 3.5),
+                      color: BrandColors.primary,
                     ),
-                    onPressed: model.navigateToBusinessCardPage,
-                    child: Text(
-                      'Edit',
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 3.5),
-                        color: BrandColors.primary,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              BusinessCardModal(
-                screenshotController: screenshotController,
-                businessCardController: new PageController(),
-              ),
-              SizedBox(height: SizeConfig.yMargin(context, 3)),
-              BottomSheetButtons(
-                screenshotController: screenshotController,
-              ),
-              // SizedBox(height: SizeConfig.yMargin(context, 5)),
-            ],
-          ),
+                  ),
+                )
+              ],
+            ),
+            BusinessCardModal(
+              screenshotController: screenshotController,
+            ),
+            SizedBox(height: SizeConfig.yMargin(context, 2)),
+            BottomSheetButtons(
+              screenshotController: screenshotController,
+            ),
+            SizedBox(height: SizeConfig.yMargin(context, 3))
+          ],
         ),
       );
     },

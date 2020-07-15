@@ -68,41 +68,39 @@ class MarketingHomePageView extends StatelessWidget {
                       child: Column(children: <Widget>[
                         Expanded(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Expanded(
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      ClipRect(
-                                        child: Image(
-                                          height: SizeConfig.yMargin(context, 15),
-                                          image: AssetImage(
-                                              'assets/images/megaphone.png'),
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: SizeConfig.yMargin(context, 3),
-                                      ),
-                                      Text(
-                                        'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: Theme.of(context).cursorColor),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
+                              Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: SizeConfig.yMargin(context, 15),
                                   ),
-                                ),
+                                  ClipRect(
+                                    child: Image(
+                                      height: SizeConfig.yMargin(context, 15),
+                                      image: AssetImage(
+                                          'assets/images/megaphone.png'),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.yMargin(context, 3),
+                                  ),
+                                  Text(
+                                    'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: Theme.of(context).cursorColor),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                               SizedBox(
-                                // height: SizeConfig.yMargin(context, 35),
+                                height: SizeConfig.yMargin(context, 24),
                               ),
                               Container(
-                                color: Theme.of(context).backgroundColor,
+                                color: ThemeColors.gray[400],
                                 height: 50.h,
                                 child: Row(
                                   mainAxisAlignment:
@@ -110,12 +108,11 @@ class MarketingHomePageView extends StatelessWidget {
                                   children: <Widget>[
                                     Expanded(
                                       child: InkWell(
-                                        onTap: () =>
-                                            model.navigateToAddCustomer(),
+                                        
                                         child: Container(
                                           decoration: BoxDecoration(
 //                                        color: ThemeColors.gray,
-                                              color: BrandColors.primary,
+                                              color: ThemeColors.gray[400],
                                               borderRadius:
                                                   BorderRadius.circular(5.0)),
                                           child: Center(
@@ -123,7 +120,7 @@ class MarketingHomePageView extends StatelessWidget {
                                               'Add a customer',
                                               style: TextStyle(
                                                   fontSize: 14.sp,
-                                                  color: Colors.white),
+                                                  color: ThemeColors.gray[400]),
                                             ),
                                           ),
                                         ),
@@ -136,7 +133,7 @@ class MarketingHomePageView extends StatelessWidget {
                                       child: InkWell(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              color: ThemeColors.gray,
+                                              color: BrandColors.secondary,
                                               borderRadius:
                                                   BorderRadius.circular(5.0)),
                                           child: Center(

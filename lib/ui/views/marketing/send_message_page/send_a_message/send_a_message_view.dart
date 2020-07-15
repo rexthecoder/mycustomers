@@ -29,7 +29,7 @@ class SendAMessage extends StatelessWidget {
       viewModelBuilder: () => StuffModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: customizeAppBar(context, 'Send a Message'),
+          appBar: customizeAppBar(context, 'Send a Message', 1.0),
           backgroundColor: bgColor,
           body: SingleChildScrollView(
             child: Padding(

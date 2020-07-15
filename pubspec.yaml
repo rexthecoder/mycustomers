@@ -31,6 +31,9 @@ dependencies:
   # For google sign in
   google_sign_in: ^4.5.1
 
+  # For generating IDs
+  uuid: 2.2.0
+
   # for mock services
   mockito: ^4.1.1
 
@@ -143,6 +146,7 @@ flutter:
     - assets/icons/svg/
     - assets/images/onboarding/
     - assets/animations/
+    - assets/languages/
 
 
   fonts:

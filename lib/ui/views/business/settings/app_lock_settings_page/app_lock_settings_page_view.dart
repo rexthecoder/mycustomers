@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'app_lock_settings_page_viewmodel.dart';
@@ -12,27 +11,7 @@ class AppLockSettingsPageView extends StatelessWidget {
       viewModelBuilder: () => AppLockSettingsPageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            title: Text(
-              'App Lock',
-              style: TextStyle(
-                  fontSize: SizeConfig.textSize(context, 5),
-                  fontWeight: FontWeight.bold),
-            ),
-            leading: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(18),
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: SvgPicture.asset(
-                      'assets/icons/backarrow.svg',
-                      color: Theme.of(context).textSelectionColor,
-                    ),
-                  ),
-                ),
-          ),
+          appBar: customizeAppBar(context, 'App Lock', 1.0),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: <Widget>[
