@@ -1,25 +1,33 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mycustomers/app/local_setup.dart';
 import 'package:mycustomers/core/constants/local_keys.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
-class AppLocalization{
-  static Map<String, String> _localizedValues;
-  AppLocalization(this.locale);
-
+class AppLocalizations {
   final Locale locale;
+  Map<String, String> _sentences;
 
+  AppLocalizations(this.locale);
 
-  static Future<bool> loadJsonFromAsset(Locale locale) async {
-    String jsonString = await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
-    Map<String,dynamic> jsonLanguageMap = json.decode(jsonString);
-    _localizedValues = Map<String, String>.from(jsonLanguageMap);
+  static AppLocalizations of(BuildContext context) =>
+      Localizations.of<AppLocalizations>(context, AppLocalizations);
+
+  Future<bool> load() async {
+    final path = 'assets/languages/${locale.languageCode}.json';
+    final data = await rootBundle.loadString(path);
+    final Map<String, dynamic> _result = json.decode(data);
+
+    _sentences = <String, String>{};
+    _result.forEach((String key, dynamic value) {
+      _sentences[key] = value.toString();
+    });
+
     return true;
   }
 
-
-  static AppLocalization of(context){
-    return Localizations.of<AppLocalization>(context, AppLocalization);
+  String translate(String key) {
+    return _sentences[key];
   }
 
 
@@ -171,31 +179,41 @@ class AppLocalization{
   String get enterPin => translate(LocalKeys.enter_pin);
   String get pinRemoved => translate(LocalKeys.pin_removed);
 
-
-
-  String translate(String jsonKey){
-    return _localizedValues[jsonKey];
-  }
 }
 
-class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalization> {
-
+class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'fr'].contains(locale.languageCode);
+    return supportedLocalCodes.contains(locale.languageCode);
   }
 
   @override
-  Future<AppLocalization> load(Locale locale) async {
-    await AppLocalization.loadJsonFromAsset(locale);
-    return AppLocalization(locale);
+  Future<AppLocalizations> load(Locale locale) async {
+    final localizations = AppLocalizations(locale);
+    await localizations.load();
+    return localizations;
   }
 
   @override
-  bool shouldReload(LocalizationsDelegate<AppLocalization> old) {
-    return false;
+  bool shouldReload(AppLocalizationsDelegate old) => false;
+}
+
+class FallbackCupertinoLocalizationsDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const FallbackCupertinoLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) {
+    return supportedLocalCodes.contains(locale.languageCode);
   }
- 
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) {
+    return DefaultCupertinoLocalizations.load(locale);
+  }
+
+  @override
+  bool shouldReload(FallbackCupertinoLocalizationsDelegate old) => false;
 }

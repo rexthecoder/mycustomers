@@ -8,11 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import './ui/shared/themes.dart' as themes;
 import './ui/theme/theme_viewmodel.dart';
-
+import 'app/local_setup.dart';
 import 'package:oktoast/oktoast.dart';
-
 import 'app/locator.dart';
 import 'app/router.dart';
 import 'core/managers/core_manager.dart';
@@ -115,20 +113,20 @@ class App extends StatelessWidget {
     // ]); // Settting preferred Screen Orientation
     return CoreManager(
       child: ViewModelBuilder<ThemeModel>.reactive(
-              builder: (_, viewModel, ___) => OKToast(
+        builder: (_, viewModel, ___) => OKToast(
           child: MaterialApp(
-             builder: DevicePreview.appBuilder,
-            localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-              DefaultMaterialLocalizations.delegate,
-              DefaultWidgetsLocalizations.delegate,
-            ],
+            builder: DevicePreview.appBuilder,
             theme: viewModel.theme,
             debugShowCheckedModeBanner: false,
+            localizationsDelegates: localizationsDelegates,
+            supportedLocales: supportedLocales,
+            localeResolutionCallback: loadSupportedLocals,
             initialRoute: Routes.startupViewRoute,
             onGenerateRoute: Router().onGenerateRoute,
             navigatorKey: locator<NavigationService>().navigatorKey,
           ),
-        ), viewModelBuilder: () => ThemeModel(),
+        ),
+        viewModelBuilder: () => ThemeModel(),
       ),
     );
   }
