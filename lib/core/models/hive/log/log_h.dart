@@ -20,4 +20,10 @@ class LogH extends HiveObject {
   final DateTime timestamp;
 
   LogH(this.id, this.description, this.type, this.timestamp);
+
+  static fromStoreH(LogH e) {}
+
+  static fromMap(map) {}
+
+  static toMap() {}
 }

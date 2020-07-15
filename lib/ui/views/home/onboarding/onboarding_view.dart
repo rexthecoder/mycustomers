@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
+
+import 'package:mycustomers/core/localization/app_localization.dart';
+
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -13,6 +17,7 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
+
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -28,26 +33,26 @@ class OnboardingView extends StatelessWidget {
                   physics: ClampingScrollPhysics(),
                   controller: model.pageController,
                   children: [
-                    _Pages(
-                      'assets/images/onboarding/onboarding1.png',
-                      'Welcome to myCustomer',
-                      'We help you to manage your business and \n keep track of records',
-                    ),
-                    _Pages(
-                      'assets/images/onboarding/onboarding2.png',
-                      'Push a Reminder',
-                      'Send sms reminders to customers that are \n owing you money',
-                    ),
-                    _Pages(
-                      'assets/images/onboarding/onboarding3.png',
-                      'Collect your money',
-                      'Easily manage customers owing you and \n increase your cash flow',
-                    ),
-                    _Pages(
-                      'assets/images/onboarding/onboarding4.png',
-                      'Engage with your people',
-                      'Interact with your customers through \n pushing of unique sales messaging',
-                    ),
+                   _Pages(
+                  'assets/images/onboarding/onboarding1.png',
+                  AppLocalization.of(context).onboardingWelcomeText,
+                  AppLocalization.of(context).onboardingWelcomeDesc,
+                ),
+                _Pages(
+                  'assets/images/onboarding/onboarding2.png',
+                  AppLocalization.of(context).pushAReminder,
+                  AppLocalization.of(context).pushAReminderDesc,
+                ),
+                _Pages(
+                  'assets/images/onboarding/onboarding3.png',
+                  AppLocalization.of(context).collectYourMoney,
+                  AppLocalization.of(context).collectYourMoneyDesc,
+                ),
+                _Pages(
+                  'assets/images/onboarding/onboarding4.png',
+                  AppLocalization.of(context).engagedWithYourPeople,
+                  AppLocalization.of(context).engagedWithYourPeopleDesc,
+                ),
                   ],
                 ),
                 Positioned(

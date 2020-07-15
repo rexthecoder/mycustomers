@@ -271,7 +271,6 @@ class ContactList extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(color: Color(0xFFD1D1D1)),
-                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
                   )
                 ),
                 child: ListTile(

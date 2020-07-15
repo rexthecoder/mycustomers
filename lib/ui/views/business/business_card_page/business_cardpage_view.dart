@@ -36,7 +36,7 @@ class BusinessCardPageView extends StatelessWidget {
             await model.init();
             businessCardController.animateToPage(
               int.parse(model.businessCard.cardDesign),
-              duration: new Duration(milliseconds: 300),
+              duration: new Duration(seconds: 2),
               curve: Curves.easeIn,
             );
           },
@@ -289,6 +289,7 @@ class BottomSheetButtons extends StatelessWidget {
               borderColor: BrandColors.primary,
               child: SvgPicture.asset(
                 share,
+                height: SizeConfig.xMargin(context, 4),
                 color: ThemeColors.background,
               ),
               onPressed: () async {

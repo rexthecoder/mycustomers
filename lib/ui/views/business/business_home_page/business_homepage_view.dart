@@ -170,9 +170,11 @@ void _displayBusinessCardModal(context, model) {
             BusinessCardModal(
               screenshotController: screenshotController,
             ),
+            SizedBox(height: SizeConfig.yMargin(context, 2)),
             BottomSheetButtons(
               screenshotController: screenshotController,
             ),
+            SizedBox(height: SizeConfig.yMargin(context, 3))
           ],
         ),
       );

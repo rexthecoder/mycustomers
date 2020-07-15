@@ -28,6 +28,9 @@ class StoreH {
   @HiveField(6)
   final String ownerId;
 
+  @HiveField(7)
+  final String email;
+
   StoreH(this.id, this.address, this.name, this.pNum, this.ctyCode,
-      this.tagline, this.ownerId);
+      this.tagline, this.ownerId, this.email);
 }
