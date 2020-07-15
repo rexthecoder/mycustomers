@@ -23,6 +23,7 @@ import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
+import 'package:mycustomers/core/utils/file_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -105,6 +106,7 @@ Future<void> setupLocator(
   );
 
   // Util
+  locator.registerLazySingleton<FileHelper>(() => FileHelperImpl());
   locator.registerLazySingleton<IPermissionService>(
     () => useMockContacts ? MockPermissions() : PermissionService(),
   );
