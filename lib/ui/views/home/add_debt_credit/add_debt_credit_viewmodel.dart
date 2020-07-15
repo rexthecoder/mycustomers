@@ -3,16 +3,32 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-class AddDebtCreditViewModel extends BaseViewModel{
-  final _debouncer = Debouncer(milliseconds: 800);
+class AddDebtCreditViewModel extends ReactiveViewModel{
+  final _debouncer = Debouncer(milliseconds: 100);
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = false;
   bool save = false;
   DateTime selectedDate = DateTime.now();
+  DateTime dueDate;
+  DateTime otherDate;
   String newDate;
-  List items = [];
+  String newODate;
+  bool date1err = false;
+  bool date2err = false;
+  List<String> items = [];
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  NavigationService _navigationService = locator<NavigationService>();
+  final _customerContactService = locator<CustomerContactService>();
+  CustomerContact get contact => _customerContactService.contact;
 
   double _amount;
   double get amount => _amount;
@@ -30,7 +46,7 @@ class AddDebtCreditViewModel extends BaseViewModel{
     return num.tryParse(amt) != null;
   }
 
-  void updateAmount(String value) {
+  void updateAmount(String value, bool update) {
     _debouncer.run(() {
       if(value.length != 0) {
         String val = '';
@@ -43,7 +59,7 @@ class AddDebtCreditViewModel extends BaseViewModel{
           _error = null;
           _amount = double.parse(val);
           show = true;
-          amount != null && newDate != null && items.length > 0 ? save = true : save = false;
+          update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length>0 ? save = true : save = false;
           notifyListeners();
         } else{
           _error = 'Enter a valid amount';
@@ -58,8 +74,18 @@ class AddDebtCreditViewModel extends BaseViewModel{
   }
 
   void setDate(DateTime date) {
+    dueDate = date;
     newDate = dformat.format(date);
-    amount != null && newDate.length > 0 && items.length > 0 ? save = true : save = false;
+    date1err = false;
+    amount != null && newDate.length > 0 && newODate.length != null ? save = true : save = false;
+    notifyListeners();
+  }
+
+  void setOtherDate(DateTime date, bool update) {
+    otherDate = date;
+    newODate = dformat.format(date);
+    date2err = false;
+    update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length != null ? save = true : save = false;
     notifyListeners();
   }
 
@@ -73,16 +99,62 @@ class AddDebtCreditViewModel extends BaseViewModel{
     notifyListeners();
   }
 
-  void addItem() {
+  void addItem(String action, bool update) {
     if(item != null) {
       if(item.length > 0) {
         items.insert(0, item);
         _item = null;
-        amount != null && newDate.length > 0 && items.length > 0 ? save = true : save = false;
+        !update && action == 'credit' ? amount != null && newODate.length != null ? save = true : save = false 
+        : 
+        amount != null && newDate.length != null && newODate.length != null ? save = true : save = false;
         notifyListeners();
       }
     }
   }
+
+  void addtransaction(String action, bool update) {
+    if(save){
+      date1err = false;
+      date2err = false;
+      if(update){
+        if(action == 'credit'){
+          print(dueDate);
+          print('crediting');
+          TransactionModel transaction = new TransactionModel(cId: _transactionService.stransaction.cId, amount: _transactionService.stransaction.amount, paid: amount, goods: _transactionService.stransaction.goods, duedate: _transactionService.stransaction.duedate, boughtdate: _transactionService.stransaction.boughtdate, paiddate: otherDate.toString());
+          _transactionService.updateTransaction(transaction);
+          notifyListeners();
+        } else {
+          print('debiting');
+          TransactionModel transaction = new TransactionModel(cId: _transactionService.stransaction.cId, amount: amount, paid: _transactionService.stransaction.paid, goods: _transactionService.stransaction.goods, duedate: _transactionService.stransaction.duedate, boughtdate: otherDate.toString(), paiddate: _transactionService.stransaction.paiddate);
+          _transactionService.updateTransaction(transaction);
+          notifyListeners();
+        }
+        
+      }else {
+        if(action == 'debit'){
+          print(dueDate);
+          TransactionModel transaction = new TransactionModel(cId: contact.id, amount: amount, paid: 0, goods: items, duedate: dueDate.toString(), boughtdate: otherDate.toString(), paiddate: null);
+          _transactionService.addTransaction(transaction);
+          notifyListeners();
+        } else {
+          TransactionModel transaction = new TransactionModel(cId: contact.id, amount: 0, paid: amount, goods: items, duedate: dueDate.toString(), boughtdate: null, paiddate: otherDate.toString());
+          _transactionService.addTransaction(transaction);
+          notifyListeners();
+        }
+      }
+      _navigationService.replaceWith(Routes.mainTransaction);
+    }else{
+      if(newDate==null){
+        date1err = true;
+      }
+      if(newODate==null){
+        date2err = true;
+      }
+    }
+  }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
 }
 
 class Debouncer {

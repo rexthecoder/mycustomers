@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'add_customer_manually_viewmodel.dart';
 
 class AddCustomerManuallyView extends StatelessWidget {
+  final String action;
+
+  const AddCustomerManuallyView({Key key, this.action}) : super(key: key);
   @override
   Widget build(BuildContext context) {
   
@@ -14,13 +17,14 @@ class AddCustomerManuallyView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: ThemeColors.background,
         appBar: AppBar(
+          brightness: Brightness.light,
           backgroundColor: ThemeColors.background,
           centerTitle: true,
           elevation: 1,
           title: Text(
             model.title,
             style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: SizeConfig.yMargin(context, 2.3),
               color: ThemeColors.black,
             ),
           ),
@@ -28,35 +32,34 @@ class AddCustomerManuallyView extends StatelessWidget {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(20.w),
+            padding: EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   model.subTitle,
-                  style: TextStyle(fontSize: 18.sp, color: ThemeColors.black),
+                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.5), fontWeight: FontWeight.bold, color: ThemeColors.black),
                 ),
-                SizedBox(height: 16.0),
-                _StringForm(),
+                SizedBox(height: 25.0),
+                _StringForm(action: action,),
                 Spacer(),
                 Container(
                   width: double.infinity,
                   child: FlatButton(
-                    color: BrandColors.secondary,
+                    color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
                     onPressed: () {
-                      print('here');
-                      model.addContact();
+                      model.addContact(action);
                       //Navigator.pushNamed(context, '/mainTransaction');
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    padding: EdgeInsets.symmetric(vertical: 16),
                     child: Text(
                       'Next',
                       style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
@@ -73,7 +76,8 @@ class AddCustomerManuallyView extends StatelessWidget {
 }
 
 class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
-  _StringForm({Key key}) : super(key: key, reactive: true);
+  final String action;
+  _StringForm({Key key, this.action}) : super(key: key, reactive: true);
 
   @override
   Widget buildViewModelWidget(
@@ -96,7 +100,10 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.person),
+                  child: Icon(
+                    Icons.person,
+                    color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                  ),
                 ),
                 Container(
                   height: 24.0,
@@ -124,7 +131,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 ),
               ],
             )),
-        SizedBox(height: 16.0),
+        SizedBox(height: 20.0),
         Container(
             decoration: BoxDecoration(
                 border: Border.all(
@@ -164,6 +171,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 Expanded(
                   child: TextField(
                     textAlign: TextAlign.left,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Mobile Number',
                       border: OutlineInputBorder(borderSide: BorderSide.none),

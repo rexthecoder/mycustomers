@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter/services.dart';
+
 import 'package:mycustomers/core/localization/app_localization.dart';
+
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -13,15 +17,23 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            PageView(
-              physics: ClampingScrollPhysics(),
-              controller: model.pageController,
-              children: [
-                _Pages(
+
+      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        child: SafeArea(
+          bottom: false,
+          child: Scaffold(
+            body: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                PageView(
+                  physics: ClampingScrollPhysics(),
+                  controller: model.pageController,
+                  children: [
+                   _Pages(
                   'assets/images/onboarding/onboarding1.png',
                   AppLocalization.of(context).onboardingWelcomeText,
                   AppLocalization.of(context).onboardingWelcomeDesc,
@@ -41,45 +53,53 @@ class OnboardingView extends StatelessWidget {
                   AppLocalization.of(context).engagedWithYourPeople,
                   AppLocalization.of(context).engagedWithYourPeopleDesc,
                 ),
+                  ],
+                ),
+                Positioned(
+                  bottom: SizeConfig.yMargin(context, 20),
+                  left: 0,
+                  right: 0,
+                  child: WormIndicator(
+                    indicatorColor: BrandColors.primary,
+                    color: ThemeColors.gray.shade800,
+                    length: 4,
+                    controller: model.pageController,
+                    shape: Shape(
+                      size: SizeConfig.yMargin(context, 0.8),
+                      shape: DotShape.Circle,
+                      spacing: SizeConfig.xMargin(context, 3),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: SizeConfig.yMargin(context, 12),
+                  child: CustomRaisedButton(
+                    txtColor: ThemeColors.background,
+                    btnColor: BrandColors.primary,
+                    btnText: 'Get started',
+                    borderColor: BrandColors.primary,
+                    child: Container(),
+                    onPressed: () {
+                      model.navigateToSignUp();
+                    },
+                  ),
+                ),
+                Positioned(
+                  bottom: SizeConfig.yMargin(context, 5),
+                  child: CustomRaisedButton(
+                    txtColor: BrandColors.primary,
+                    btnColor: ThemeColors.background,
+                    btnText: 'Sign in',
+                    borderColor: BrandColors.primary,
+                    child: Container(),
+                    onPressed: () {
+                      model.navigateToSignIn();
+                    },
+                  ),
+                ),
               ],
             ),
-            Positioned(
-              bottom: SizeConfig.yMargin(context, 22),
-              left: 0,
-              right: 0,
-              child: WormIndicator(
-                indicatorColor: BrandColors.primary,
-                color: ThemeColors.gray.shade800,
-                length: 4,
-                controller: model.pageController,
-                shape: Shape(
-                  size: SizeConfig.yMargin(context, 1.2),
-                  shape: DotShape.Circle,
-                  spacing: SizeConfig.xMargin(context, 5),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: SizeConfig.yMargin(context, 12),
-              child: InkWell(
-                onTap: () {
-                  model.navigateToSignUp();
-                },
-                child: btnHome(AppLocalization.of(context).getStartedButton, BrandColors.primary,
-                    ThemeColors.background, context),
-              ),
-            ),
-            Positioned(
-              bottom: SizeConfig.yMargin(context, 3),
-              child: InkWell(
-                onTap: () {
-                  model.navigateToSignIn();
-                },
-                child: btnHome(AppLocalization.of(context).signIn, ThemeColors.background,
-                    BrandColors.primary, context),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
       viewModelBuilder: () => OnboardingViewModel(),
@@ -99,18 +119,21 @@ class _Pages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ClipRect(
-          child: Image(
-            height: SizeConfig.yMargin(context, 50),
-            image: AssetImage(img1),
-            fit: BoxFit.contain,
+        Padding(
+          padding: EdgeInsets.all(30.0),
+          child: ClipRect(
+            child: Image(
+              height: SizeConfig.yMargin(context, 50),
+              image: AssetImage(img1),
+              fit: BoxFit.contain,
+            ),
           ),
         ),
-        SizedBox(height: SizeConfig.yMargin(context, 8)),
+        SizedBox(height: SizeConfig.yMargin(context, 3)),
         Text(
           txt1,
           style: TextStyle(
-            fontSize: SizeConfig.textSize(context, 6),
+            fontSize: SizeConfig.textSize(context, 5),
             fontWeight: FontWeight.w900,
           ),
         ),
@@ -119,8 +142,9 @@ class _Pages extends StatelessWidget {
           txt2,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: SizeConfig.textSize(context, 5),
+            fontSize: SizeConfig.textSize(context, 4),
           ),
+          softWrap: true,
         ),
       ],
     );

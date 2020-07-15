@@ -18,35 +18,36 @@ class RemovePinSettingsPageView extends StatelessWidget {
     return ViewModelBuilder<RemovePinSettingsPageViewModel>.reactive(
       viewModelBuilder: () => RemovePinSettingsPageViewModel(),
       builder: (context, model, child) {
-        return SafeArea(
-          child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(SizeConfig.yMargin(context, 20)),
-              child: AppBar(
-                iconTheme: IconThemeData(color: ThemeColors.background),
-                centerTitle: true,
-                backgroundColor: BrandColors.primary,
-                elevation: 0,
-                flexibleSpace: Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.yMargin(context, 2)),
-                  child: SvgPicture.asset(
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(SizeConfig.yMargin(context, 20)),
+            child: AppBar(
+              iconTheme: IconThemeData(color: ThemeColors.background),
+              centerTitle: true,
+              backgroundColor: BrandColors.primary,
+              elevation: 0,
+              flexibleSpace: Padding(
+                padding: EdgeInsets.only(
+                    top: SizeConfig.yMargin(context, 6)),
+                child: Expanded(
+                    child: SvgPicture.asset(
                     myCustomerLogo,
                     color: Theme.of(context).appBarTheme.color,
-                    height: SizeConfig.yMargin(context, 25),
+                    height: SizeConfig.yMargin(context, 16),
                   ),
                 ),
               ),
             ),
-            backgroundColor: BrandColors.primary,
-            body: PinField(
-              title: 'Enter PIN',
-              textEditingController: controller,
-              onCompleted: (value) => model.onEnterPinCompleted(value),
-            ),
+          ),
+          backgroundColor: BrandColors.primary,
+          body: PinField(
+            title: 'Enter PIN',
+            textEditingController: controller,
+            onCompleted: (value) => model.onEnterPinCompleted(value,context),
           ),
         );
       },
     );
   }
 }
+

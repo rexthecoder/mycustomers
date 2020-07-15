@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:stacked_services/stacked_services.dart';
+
 
 class PinField extends StatelessWidget {
+
   final String title;
   final Function(String s) onChange;
   final Function(String s) onCompleted;
   final Function(String s) onSubmitted;
   final Function(String s) validator;
   final TextEditingController textEditingController;
+  final Function onUmatchedPins;
+
 
   const PinField({
     Key key,
@@ -19,6 +26,7 @@ class PinField extends StatelessWidget {
     this.onSubmitted,
     this.validator,
     this.textEditingController,
+    this.onUmatchedPins
   }) : super(key: key);
 
   @override
@@ -28,11 +36,16 @@ class PinField extends StatelessWidget {
       if (value == 'clear') {
         textEditingController.text = textEditingController.text
             .substring(0, textEditingController.text.length - 1);
-      } else {
+      } 
+      else if(value=='cancel'){
+        navigateToAppLockSettingsPage();
+      }
+      else {
         textEditingController.text = textEditingController.text + value;
       }
     }
 
+   
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: SizeConfig.yMargin(context, 3),
@@ -162,7 +175,7 @@ class PinField extends StatelessWidget {
                     children: <Widget>[
                       numButton(
                         context: context,
-                        label: '',
+                        label: 'cancel',
                         setValue: setValue,
                       ),
                       numButton(
@@ -221,3 +234,9 @@ class DisabledFocusNode extends FocusNode {
   @override
   bool get hasFocus => false;
 }
+
+final NavigationService _navigationService = locator<NavigationService>();
+
+ Future navigateToAppLockSettingsPage() async {
+    await _navigationService.replaceWith(Routes.appLockSettingsViewRoute);
+  }

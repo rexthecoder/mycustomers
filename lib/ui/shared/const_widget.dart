@@ -4,6 +4,51 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
+/// Customize AppBar to be use across all POP screens
+/// - Title
+/// - Elevation
+Widget customizeAppBar(BuildContext context, String title, double elevation) {
+  return AppBar(
+    brightness: Brightness.light,
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(
+      color: BrandColors.primary,
+    ),
+    elevation: elevation,
+    centerTitle: true,
+    title: Text(
+      title,
+      style: TextStyle(
+        fontSize: SizeConfig.textSize(context, 5),
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    leading: InkWell(
+      onTap: () => Navigator.pop(context),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        child: SvgPicture.asset(
+          'assets/icons/backarrow.svg',
+          color: BrandColors.primary,
+        ),
+      ),
+    ),
+    // actions: <Widget>[
+    //   FlatButton(
+    //     textColor: Colors.white,
+    //     onPressed: (){},
+    //     child: Text("View",
+    //       style: TextStyle(
+    //         color: Color(0xFF333CC1),
+    //       ),
+    //   ),
+    //     shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+    //   )
+    // ],
+  );
+}
+
 /// A customize Progress Indicator By Ufedojo Atabo
 class CustomizeProgressIndicator extends StatelessWidget {
   final int progress, total;
@@ -63,7 +108,7 @@ Widget btnDesign(String btnText, Color textColor, Color bgColor) {
 ///Button for the Onboarding Screen
 Widget btnHome(String btnText, Color colorBtn, Color colorText, context) {
   return Container(
-    height: SizeConfig.yMargin(context, 7),
+    height: SizeConfig.yMargin(context, 5),
     width: SizeConfig.xMargin(context, 90),
     decoration: BoxDecoration(
       border: Border.all(color: colorText),
@@ -85,34 +130,43 @@ Widget btnHome(String btnText, Color colorBtn, Color colorText, context) {
   );
 }
 
-///Authentication Button with variable for
+/// Authentication Button with variable for
 /// - String
 /// - Button Color
 /// - Function
 /// - Text Color
 /// - Widget
-class AuthButton extends StatelessWidget {
+/// - Border Color
+/// - -Use Container() for child, if no widget is suppose to be there
+class CustomRaisedButton extends StatelessWidget {
   final Function onPressed;
   final String btnText;
   final Color btnColor;
   final Widget child;
   final Color txtColor;
+  final Color borderColor;
 
-  const AuthButton({
+  const CustomRaisedButton({
     Key key,
     @required this.btnText,
     @required this.onPressed,
     @required this.btnColor,
     @required this.txtColor,
+    this.borderColor,
     this.child,
-  }) : super(key: key);
+  })  : assert(child != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ButtonTheme(
       minWidth: SizeConfig.xMargin(context, 90),
-      height: SizeConfig.yMargin(context, 6),
+      height: SizeConfig.yMargin(context, 5.5),
       child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+          side: BorderSide(color: borderColor),
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +175,7 @@ class AuthButton extends StatelessWidget {
               btnText,
               style: TextStyle(
                 color: txtColor,
-                fontSize: SizeConfig.yMargin(context, 1.5),
+                fontSize: SizeConfig.yMargin(context, 1.8),
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -131,7 +185,7 @@ class AuthButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         color: btnColor,
-        elevation: 5,
+        elevation: 3,
         // disabledColor: ,
       ),
     );

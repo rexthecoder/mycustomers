@@ -1,12 +1,12 @@
 import 'package:hive/hive.dart';
-import 'package:mycustomers/core/models/customer_contact.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AddCustomerManuallyViewModel extends BaseViewModel {
-  static const String _boxname = "contactBox";
+class AddCustomerManuallyViewModel extends ReactiveViewModel {
   String _customerName;
   String _customerPhoneNumber;
 
@@ -23,7 +23,7 @@ class AddCustomerManuallyViewModel extends BaseViewModel {
   String get dropDownValue=> _dropDownValue;
   bool success = false;
   String error;
-  NavigationService _navigationService = locator<NavigationService>();
+  //NavigationService _navigationService = locator<NavigationService>();
 
   String _title='Add Customer';
   String _subTitle='Customer Details';
@@ -31,11 +31,12 @@ class AddCustomerManuallyViewModel extends BaseViewModel {
   String get title => _title;
   String get subTitle =>_subTitle;
 
+  final _customerContactService = locator<CustomerContactService>();
+
   
 
   void updateName(String name){
     _customerName=name;
-    print(customerName);
     notifyListeners();
   }
 
@@ -50,21 +51,15 @@ class AddCustomerManuallyViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void addContact()async {
+  void addContact(String action)async {
     print(customerPhoneNumber);
     if(customerName != null && customerPhoneNumber != null) {
-      print('sent');
-      var box = await Hive.openBox<CustomerContact>(_boxname);
-      CustomerContact contact = new CustomerContact(name: customerName, number: dropDownValue + customerPhoneNumber);
-      await box.add(contact).then((value){
-        success = true;
-        print(success);
-        _navigationService.navigateTo(Routes.mainTransaction);
-      }).catchError((err){
-        error = err;
-        success = false;
-      });
-      print(box.values.toList());
+      _customerContactService.addContact(customerPhoneNumber, customerName, dropDownValue, customerName.split(' ').length > 1 ? (customerName.split(' ')[0][0]+customerName.split(' ')[1][0]).toUpperCase() : customerName.split(' ')[0][0].toUpperCase(), action);
     }
-  } 
+    notifyListeners();
+  }
+
+  @override
+  // TODO: implement reactiveServices
+  List<ReactiveServiceMixin> get reactiveServices => [_customerContactService];
 }

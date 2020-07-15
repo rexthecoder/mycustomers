@@ -12,7 +12,6 @@ class ThemeColors {
   static const background = Color(0xFFFAFAFA);
   static const unselect = Color(0xFFA1A7FF);
 
-
   static const gray = MaterialColor(
     0xFFD1D1D1,
     {
@@ -23,6 +22,7 @@ class ThemeColors {
       800: Color(0xFF8C8C8C),
     },
   );
+  
 }
 
 class BrandColors {
@@ -32,7 +32,5 @@ class BrandColors {
   static const primary = Color(0xFF333CC1);
   static const secondary = Color(0xFFFF8C5F);
   static const buttonBorder = Color(0xFFADADBD);
+  static const greyedText = Color(0xFF757575);
 }
-
-
-

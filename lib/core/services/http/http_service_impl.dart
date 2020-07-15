@@ -116,4 +116,33 @@ class HttpServiceImpl implements HttpService {
     // For this specific API its decodes json for us
     return response.data;
   }
+
+  @override
+  Future deleteHttp(String route, {Map<String, dynamic> params}) async {
+    Response response;
+
+    Logger.d('[DELETE] Sending $params to $route');
+
+    try {
+      final fullRoute = '$route';
+      response = await _dio.delete(
+        fullRoute,
+        queryParameters: params,
+        options: Options(
+          contentType: 'application/json',
+        ),
+      );
+    } on DioError catch (e) {
+      Logger.e('HttpService: Failed to DELETE $route: Error message: ${e.message}');
+      print('Http response data is: ${e.response.data}');
+      throw NetworkException(e.response?.data != null ? e.response.data['message'] ?? e.message : e.message);
+    }
+
+    network_utils.checkForNetworkExceptions(response);
+
+    Logger.d('Received Response: $response');
+
+    // For this specific API its decodes json for us
+    return response.data;
+  }
 }

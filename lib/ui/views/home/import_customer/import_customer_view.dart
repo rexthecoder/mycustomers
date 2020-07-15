@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/models/customer.dart';
@@ -10,145 +12,150 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'import_customer_viewmodel.dart';
 
 class ImportCustomerView extends StatelessWidget {
+  final String action;
+
+  const ImportCustomerView({Key key, this.action}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ImportCustomerViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              pinned: true,
-              titleSpacing: 15.w,
-              title: _SearchBar(model: model),
-              backgroundColor: ThemeColors.background,
-              elevation: 0,
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: model.popView,
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(
-                      color: ThemeColors.link,
-                    ),
-                  ),
-                  padding: EdgeInsets.all(2),
-                ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                stretchModes: [
-                  StretchMode.blurBackground,
-                ],
-                titlePadding: EdgeInsets.zero,
-                background: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30.w),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: MyListTile(
-                        leading: CustomerCircleAvatar(
-                          child: Icon(
-                            Icons.person_add,
-                            color: ThemeColors.cta,
-                          ),
-                          bgColor: ThemeColors.gray.shade500,
-                        ),
-                        title: InkWell(
-                          onTap: model.goToManual,
-                          child: Text(
-                            'Add New Customer',
-                            style: TextStyle(
-                              color: ThemeColors.cta,
-                            ),
-                          ),
-                        ),
-                        trailing: IconButton(
-                          onPressed: model.goToManual,
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20.sp,
-                            color: ThemeColors.cta,
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-//                  preferredSize: Size.fromHeight(110),
+          body: CustomScrollView(
+            slivers: <Widget>[
+      SliverAppBar(
+        brightness: Brightness.light,
+        automaticallyImplyLeading: false,
+        pinned: true,
+        titleSpacing: 15.w,
+        title: _SearchBar(model: model),
+        backgroundColor: Theme.of(context).backgroundColor,
+        elevation: 0,
+        actions: <Widget>[
+          FlatButton(
+            onPressed: model.popView,
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
+                fontSize: SizeConfig.yMargin(context, 2.5)
               ),
-              bottom: PreferredSize(
-                  child: Container(), preferredSize: Size.fromHeight(10)),
-              expandedHeight: 150,
             ),
-            SliverPersistentHeader(
-              delegate: TitleHeader(40),
-              pinned: true,
-            ),
-            model.isLoadBusy /* || !model.dataReady*/
-                ? SliverToBoxAdapter(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : SliverPadding(
-                    padding: EdgeInsets.symmetric(horizontal: 30.w),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          Customer customer = model.data[index];
-                          return MyListTile(
-                            leading: CustomerCircleAvatar(customer: customer),
-                            title: Text(
-                              '${customer.displayName}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            subtitle: Text(
-                              '${customer.phone.isNotEmpty ? customer.phone : 'No number'}',
-                              style: TextStyle(
-                                color: ThemeColors.gray.shade600,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: SizedBox(
-                              width: SizeConfig.xMargin(context, 18),
-                              height: SizeConfig.xMargin(context, 9),
-                              child: FlatButton.icon(
-                                icon: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: SizeConfig.textSize(context, 3),
-                                ),
-                                onPressed: () {
-                                  // TODO: Change function to route to Transaction screen with a customer object
-                                },
-                                label: Text(
-                                  'ADD',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: SizeConfig.textSize(context, 3),
-                                  ),
-                                ),
-                                textColor: Colors.white,
-                                color: BrandColors.primary,
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        childCount: model.data.length,
-                      ),
-                    ),
-                  ),
+            padding: EdgeInsets.all(2),
+          ),
+        ],
+        flexibleSpace: FlexibleSpaceBar(
+          stretchModes: [
+            StretchMode.blurBackground,
           ],
+          titlePadding: EdgeInsets.zero,
+          background: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              //margin: EdgeInsets.only(top: 15),
+              //padding: EdgeInsets.symmetric(vertical: 10),
+              child: MyListTile(
+                centerTitle: true,
+                onTap: () => model.goToManual(action),
+                leading: CustomerCircleAvatar(
+                  bgColor: Colors.grey.shade300,
+                  child: Icon(
+                    Icons.person_add,
+                    color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
+                    size: SizeConfig.xMargin(context, 7),
+                  ),
+                ),
+                title: Text(
+                  'Add New Customer',
+                  style: TextStyle(
+                    color: action == 'debtor' ? Theme.of(context).textSelectionColor : BrandColors.secondary,
+                    fontSize: SizeConfig.yMargin(context, 2.3)
+                  ),
+                ),
+                trailing: IconButton(
+                  onPressed: () => model.goToManual(action),
+                  icon: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15.sp,
+                    color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                ),
+              ),
+            ),
+          ),
+//                  preferredSize: Size.fromHeight(110),
         ),
+        //bottom: PreferredSize(child: Container(), preferredSize: Size.fromHeight(10)),
+        expandedHeight: 140,
       ),
+      SliverPersistentHeader(
+        delegate: TitleHeader(40, action),
+        pinned: true,
+      ),
+      model.isLoadBusy /* || !model.dataReady*/
+          ? SliverToBoxAdapter(
+              child: Center(
+                child: LoadingAnimation(),
+              ),
+            )
+          : SliverPadding(
+              padding: EdgeInsets.symmetric(vertical: 8.w),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    Customer customer = model.data[index];
+                    return MyListTile(
+                      action: action,
+                      leading: Center(child: CustomerCircleAvatar(customer: customer, action: action,)),
+                      title: Text(
+                        '${customer.displayName}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: SizeConfig.yMargin(context, 1.9)
+                        ),
+                      ),
+                      subtitle: Text(
+                        '${customer.phone.isNotEmpty ? customer.phone : 'No number'}',
+                        style: TextStyle(
+                          color: ThemeColors.gray.shade600,
+                          fontWeight: FontWeight.w600,
+                          fontSize: SizeConfig.yMargin(context, 2)
+                        ),
+                      ),
+                      trailing: Container(
+                        //padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                        child: FlatButton.icon(
+                          icon: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: SizeConfig.yMargin(context, 1.6),
+                          ),
+                          onPressed: () {
+                            model.addContact(customer.displayName, customer.phone.isNotEmpty ? customer.phone : 'No number', customer.initials, action);
+                          },
+                          label: Text(
+                            'ADD',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: SizeConfig.yMargin(context, 1.5),
+                            ),
+                          ),
+                          textColor: Colors.white,
+                          color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: model.data.length,
+                ),
+              ),
+            ),
+            ],
+          ),
+        ),
       viewModelBuilder: () => ImportCustomerViewModel(),
       onModelReady: (model) {
         model.init();
@@ -159,8 +166,9 @@ class ImportCustomerView extends StatelessWidget {
 
 class TitleHeader extends SliverPersistentHeaderDelegate {
   final double height;
+  final String action;
 
-  TitleHeader(this.height);
+  TitleHeader(this.height, this.action);
 
   @override
   Widget build(
@@ -183,10 +191,11 @@ class TitleHeader extends SliverPersistentHeaderDelegate {
       ),
       child: Text(
         // This is just the text formatting for singular and plural
-        'Add Debtor from Contacts',
+        action == 'debtor' ? 'Add Debtor from Contacts' : 'Add Creditor from Contacts',
         style: TextStyle(
           color: ThemeColors.black,
           fontWeight: FontWeight.bold,
+          fontSize: SizeConfig.textSize(context, 4.5)
         ),
       ),
     );
@@ -218,6 +227,8 @@ class __SearchBarState extends State<_SearchBar> {
   Widget build(BuildContext context) {
     // TODO: Remove Container and use appropriate properties
     return Container(
+      height: 40,
+      margin: EdgeInsets.only(top: 5),
       decoration: BoxDecoration(
         border: Border.all(
           color: ThemeColors.gray.shade700,
@@ -231,12 +242,19 @@ class __SearchBarState extends State<_SearchBar> {
         controller: widget.model.searchController,
         decoration: InputDecoration(
           hintText: 'Search',
-          prefixIcon: Icon(Icons.search),
+          hintStyle: TextStyle(
+            fontSize: 18
+          ),
+          prefixIcon: Icon(Icons.search, color: Theme.of(context).cursorColor,),
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
           fillColor: Colors.transparent,
           focusColor: Colors.transparent,
+          contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+        ),
+        style: TextStyle(
+          fontSize: 18
         ),
         onChanged: widget.model.search,
         textInputAction: TextInputAction.search,

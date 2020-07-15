@@ -8,8 +8,11 @@ class StartupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartupViewModel>.nonReactive(
-      builder: (context, model, child) => Center(
-        child: LoadingAnimation(),
+      builder: (context, model, child) => Container(
+        color: Theme.of(context).backgroundColor,
+        child: Center(
+          child: LoadingAnimation(),
+        ),
       ),
       viewModelBuilder: () => StartupViewModel(),
       onModelReady: (model) => model.setup(),

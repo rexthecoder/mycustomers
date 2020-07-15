@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:oktoast/oktoast.dart';
 
 ToastFuture showToastCustom(
@@ -8,7 +7,8 @@ ToastFuture showToastCustom(
     message,
     success: false,
     color,
-    Duration duration: const Duration(seconds: 2)}) {
+    BuildContext context,
+    Duration duration: const Duration(seconds: 3)}) {
   assert(success != null || color != null);
   return showToastWidget(
     ToastWidget(
@@ -18,7 +18,8 @@ ToastFuture showToastCustom(
       color: color,
     ),
     duration: duration,
-    animationDuration: Duration(milliseconds: 500),
+    context: context,
+    animationDuration: Duration(milliseconds: 1800),
     animationCurve: Curves.easeInOutBack,
     dismissOtherToast: true,
   );
@@ -38,9 +39,9 @@ class ToastWidget extends StatelessWidget {
     Color textColor =
         (color?.computeLuminance() ?? 0) > 0.5 ? Colors.black : Colors.white;
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(15),
       child: Align(
-        alignment: Alignment.topCenter,
+        alignment: Alignment.bottomCenter,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -53,7 +54,7 @@ class ToastWidget extends StatelessWidget {
             this.message,
             style: TextStyle(
               color: textColor,
-              fontSize: SizeConfig.yMargin(context, 2),
+              fontSize: 14,
             ),
             softWrap: true,
           ),

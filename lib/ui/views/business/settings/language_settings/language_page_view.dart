@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/const_text_style.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:flutter_screenutil/screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mycustomers/ui/views/business/settings/language_settings/language_view_model.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
 import 'package:stacked/stacked.dart';
+
+import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
+
+class LanguagePageView extends StatelessWidget {
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
@@ -87,128 +93,127 @@ class LanguageSettingPageView extends StatelessWidget {
 class LanguageSelectionPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LanguageSettingsViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: languageSelection(model,context),
-      ),
-      viewModelBuilder: () =>LanguageSettingsViewModel(),
-    );
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    ScreenUtil.init(context, width: width, height: height);
+    return ViewModelBuilder<LanguagePageViewModel>.reactive(
+        builder: (context, model, child) => Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
+              appBar: AppBar(
+                brightness: Brightness.light,
+                elevation: 0,
+                title: Text(
+                  'Language',
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        fontSize: ScreenUtil().setSp(20),
+                        fontWeight: FontWeight.w900,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                ),
+                leading: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(18),
+                        vertical: ScreenUtil().setHeight(10)),
+                    child: SvgPicture.asset(
+                      'assets/icons/backarrow.svg',
+                      color: Theme.of(context).textSelectionColor,
+                    ),
+                  ),
+                ),
+                backgroundColor: Theme.of(context).backgroundColor,
+                centerTitle: true,
+              ),
+              body: Container(
+                padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: ScreenUtil().setHeight(20),
+                              horizontal: ScreenUtil().setWidth(20)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.only(bottom: 15),
+                                child: Text(
+                                  'Select your language',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
+                                          fontSize: ScreenUtil().setSp(18),
+                                          color: Theme.of(context).cursorColor),
+                                ),
+                              ),
+                              for (var lang in model.langs)
+                                langTile(
+                                    context,
+                                    lang['name'],
+                                    lang['selected'],
+                                    model,
+                                    model.langs.indexOf(lang)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(20)),
+                        child: CustomRaisedButton(
+                            label: 'Save',
+                            onPressed: () {
+                              model.saveLang();
+                              Navigator.pop(context);
+                              SavedDialog().showSavedDialog(context);
+                            }))
+                  ],
+                ),
+              ),
+            ),
+        viewModelBuilder: () => LanguagePageViewModel());
+  }
+
+  Container langTile(BuildContext context, String text, bool selected,
+      LanguagePageViewModel model, int index) {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.0),
+            border: Border.all(
+                color: selected
+                    ? Theme.of(context).textSelectionColor
+                    : Color(0xFFE8E8E8),
+                width: 1.0)),
+        child: ListTile(
+          onTap: () {
+            model.selectLang(index);
+          },
+          leading: Container(
+            width: ScreenUtil().setWidth(60),
+            height: ScreenUtil().setHeight(60),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                image: DecorationImage(
+                  image: AssetImage('assets/images/$text.png'),
+                  fit: BoxFit.cover,
+                )),
+          ),
+          title: Container(
+            margin: EdgeInsets.only(left: ScreenUtil().setWidth(30)),
+            child: Text(text,
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      fontSize: ScreenUtil().setSp(18),
+                      color: Theme.of(context).cursorColor,
+                    )),
+          ),
+        ));
   }
 }
-
-
-Widget languageSelection (LanguageSettingsViewModel model, BuildContext context) =>
-Center(
-  child:Container(
-  
-          height: SizeConfig.yMargin(context, 60),
-          width: SizeConfig.xMargin(context, 90),
-          child: ListView.builder(
-  
-            shrinkWrap: true,
-  
-              itemCount: model.languages.length,
-  
-              itemBuilder: (BuildContext context, int index) {
-  
-                return Padding(
-  
-                  padding: EdgeInsets.all(SizeConfig.yMargin(context, 1)),
-  
-                  child: InkWell(
-                    highlightColor: BrandColors.primary,
-                    onTap: () {
-                     model.setLanguage(index); 
-                     
-                    },
-  
-                    child: Container(
-                      height: SizeConfig.yMargin(context, 10), 
-                      width: SizeConfig.xMargin(context, 80),
-                      decoration: BoxDecoration(
-                        boxShadow: [ 
-                          BoxShadow( 
-                            color: Color.fromARGB(13, 71, 126, 200),
-                            offset: Offset(0, 4),
-                            blurRadius: 4,
-  
-                          )
-  
-                        ],
-  
-                        borderRadius: BorderRadius.circular(5), 
-                        border: Border.all( 
-                          color: Color(0xFFE8E8E8),
-                        ), 
-                        color: Colors.white,
-  
-                      ),
-  
-                      child: Row(
-  
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  
-                        children: <Widget>[
-  
-                          Padding(
-  
-                            padding: EdgeInsets.all(SizeConfig.yMargin(context, 1)),
-  
-                            child: ClipRRect(
-  
-                              borderRadius: BorderRadius.circular(
-  
-                                  SizeConfig.yMargin(context, 5)),
-  
-                              child: Image(
-  
-                                height: SizeConfig.yMargin(context, 10),
-  
-                                fit: BoxFit.contain,
-  
-                                image: AssetImage(
-  
-                                  model.languages[index]['image'],
-  
-                                ),
-  
-                              ),
-  
-                            ),
-  
-                          ),
-  
-                          Text(
-  
-                            model.languages[index]['name'],
-  
-                            style: TextStyle(
-  
-                              color: Color(0xFF333333),
-  
-                              fontSize: SizeConfig.yMargin(context, 2),
-  
-                              fontWeight: FontWeight.w600,
-  
-                            ),
-  
-                          ),
-  
-                          
-  
-                        ],
-  
-                      ),
-  
-                    ),
-  
-                  ),
-  
-                );
-  
-              },
-  
-            ),
-  
-                  ),
-);
