@@ -121,7 +121,7 @@ Future<void> setupLocator(
   Hive.registerAdapter(TransactionAdapter());
 
   await _setupSharedPreferences();
-  await setIso();
+  if (!test) await setIso();
 }
 
 Future<void> _setupSharedPreferences() async {
