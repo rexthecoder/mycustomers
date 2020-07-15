@@ -69,19 +69,29 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 fontSize: SizeConfig.textSize(context, 6),
               ),
             ),
-            // SizedBox(height: SizeConfig.xMargin(context, 2)),
-            // Text(
-            //   'Please Enter your Phone number',
-            //   textAlign: TextAlign.center,
-            //   style: TextStyle(
-            //     fontWeight: FontWeight.bold,
-            //     fontSize: SizeConfig.yMargin(context, 2),
-            //   ),
-            // ),
-            SizedBox(height: SizeConfig.yMargin(context, 1.3)),
-            Container(
-              height: SizeConfig.yMargin(context, 14),
-              width: SizeConfig.xMargin(context, 90),
+            SizedBox(height: SizeConfig.xMargin(context, 10)),
+            Padding(
+              padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 5)),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  'Please enter your phone number',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.textSize(context, 4),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: SizeConfig.yMargin(context, 1)),
+            Padding(
+              padding: EdgeInsets.only(
+                left: SizeConfig.xMargin(context, 5),
+                right: SizeConfig.xMargin(context, 5),
+              ),
+              // height: SizeConfig.yMargin(context, 14),
+              // width: SizeConfig.xMargin(context, 90),
               child: InternationalPhoneNumberInput(
                 onInputChanged: (PhoneNumber number) {
                   viewModel.number = number;
@@ -104,8 +114,27 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 // inputBorder: OutlineInputBorder(),
               ),
             ),
+            SizedBox(height: SizeConfig.xMargin(context, 8)),
             Padding(
-              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+              padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 5)),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  'Please enter your password',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.textSize(context, 4),
+                  ),
+                ),
+              ),
+            ),
+            // SizedBox(height: SizeConfig.xMargin(context, 0.5)),
+            Padding(
+              padding: EdgeInsets.only(
+                left: SizeConfig.xMargin(context, 5),
+                right: SizeConfig.xMargin(context, 5),
+              ),
               child: TextFormField(
                 key: Key("userpassword"),
                 controller: _userPassword,
@@ -239,7 +268,6 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 viewModel.navigateToLogin();
               },
             ),
-
             SizedBox(height: SizeConfig.yMargin(context, 9)),
             Container(
                 width: SizeConfig.xMargin(context, 60),

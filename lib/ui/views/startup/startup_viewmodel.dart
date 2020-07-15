@@ -1,11 +1,7 @@
-import 'dart:math';
-
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
-import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
-import 'package:mycustomers/core/models/hive/log/log_h.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -15,16 +11,12 @@ class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final IStorageUtil _storage = locator<IStorageUtil>();
   // final AuthService _auth = locator<AuthService>();
-  final LogsLocalDataSource _logs = locator<LogsLocalDataSourceImpl>();
 
- LogH newlog =
-      LogH(Random().nextInt(100), "Just Login", "Isaac", DateTime.now());
   bool previewImport = false;
 
   Future setup() async {
     await locator.allReady();
 //    await  Future.delayed(Duration(seconds: 1));
-    await _logs.addLog(newlog);
     if (await checkLoggedIn())
       _navigationService.replaceWith(Routes.mainViewRoute);
     else
