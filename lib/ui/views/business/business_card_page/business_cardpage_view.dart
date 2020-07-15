@@ -36,7 +36,7 @@ class BusinessCardPageView extends StatelessWidget {
             await model.init();
             businessCardController.animateToPage(
               int.parse(model.businessCard.cardDesign),
-              duration: new Duration(milliseconds: 300),
+              duration: new Duration(seconds: 2),
               curve: Curves.easeIn,
             );
           },
