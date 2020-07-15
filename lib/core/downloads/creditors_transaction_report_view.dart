@@ -78,10 +78,14 @@ String _formatCurrency(double amount) {
 /// Class CreditorsReport for View
 
 class CreditorsReport {
-  var doc;
 
-  static var dt = DateTime.now();
-  var updatedDt = DateFormat.Hms().format(dt);
+  var updatedDt;
+
+  CreditorsReport() {
+    var dt = DateTime.now();
+    updatedDt = DateFormat.Hms().format(dt);
+  }
+  var doc;
 
   // List of type 'Data'
   final List<ContentData> contentBody = [
