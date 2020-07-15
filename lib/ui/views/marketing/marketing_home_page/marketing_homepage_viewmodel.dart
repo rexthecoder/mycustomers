@@ -134,6 +134,6 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   @override
   Future futureToRun() async {
-    _allSelectedCustomers = await _customerService.getCustomers('1');
+   _allSelectedCustomers = await _customerService.getCustomers('1');
   }
 }

@@ -15,7 +15,7 @@ import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 
-import 'main_viewmodel.dart';
+import 'main_view_model.dart';
 
 part '../../widgets/main/menu_options.dart';
 

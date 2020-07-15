@@ -42,7 +42,6 @@ void main() {
    
     setupLogger(test: true);
 
-
     //DI && IC
     SharedPreferences.setMockInitialValues({});
     await setupLocator(useMockContacts: true, test: true);

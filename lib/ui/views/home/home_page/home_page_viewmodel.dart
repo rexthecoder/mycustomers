@@ -129,6 +129,7 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   void setContact(int id, String name, String phone, String initials) {
+    print(id);
     CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone, initials: initials);
     _customerContactService.setContact(cus);
   }

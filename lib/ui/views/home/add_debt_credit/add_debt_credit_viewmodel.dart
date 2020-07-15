@@ -59,7 +59,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
           _error = null;
           _amount = double.parse(val);
           show = true;
-          update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length>0 && items.length > 0 ? save = true : save = false;
+          update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length>0 ? save = true : save = false;
           notifyListeners();
         } else{
           _error = 'Enter a valid amount';
@@ -77,7 +77,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
     dueDate = date;
     newDate = dformat.format(date);
     date1err = false;
-    amount != null && newDate.length > 0 && newODate.length != null && items.length > 0 ? save = true : save = false;
+    amount != null && newDate.length > 0 && newODate.length != null ? save = true : save = false;
     notifyListeners();
   }
 
@@ -85,7 +85,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
     otherDate = date;
     newODate = dformat.format(date);
     date2err = false;
-    update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length != null && items.length > 0 ? save = true : save = false;
+    update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length != null ? save = true : save = false;
     notifyListeners();
   }
 
@@ -104,9 +104,9 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
       if(item.length > 0) {
         items.insert(0, item);
         _item = null;
-        !update && action == 'credit' ? amount != null && newODate.length != null && items.length > 0 ? save = true : save = false 
+        !update && action == 'credit' ? amount != null && newODate.length != null ? save = true : save = false 
         : 
-        amount != null && newDate.length != null && newODate.length != null && items.length > 0 ? save = true : save = false;
+        amount != null && newDate.length != null && newODate.length != null ? save = true : save = false;
         notifyListeners();
       }
     }
@@ -142,7 +142,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
           notifyListeners();
         }
       }
-      _navigationService.navigateTo(Routes.mainTransaction);
+      _navigationService.replaceWith(Routes.mainTransaction);
     }else{
       if(newDate==null){
         date1err = true;

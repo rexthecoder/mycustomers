@@ -5,9 +5,92 @@ import 'package:mycustomers/ui/views/business/settings/language_settings/languag
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
 import 'package:stacked/stacked.dart';
+
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 
 class LanguagePageView extends StatelessWidget {
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/size_extension.dart';
+import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
+
+import 'language_view_model.dart';
+
+
+class LanguageSettingPageView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<LanguageSettingsViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title:Text(model.pageTitle,
+          style: kheadingText
+          ),
+          elevation:0.0,
+          centerTitle: true,
+          backgroundColor: ThemeColors.background,
+          iconTheme: IconThemeData(
+            color: BrandColors.primary
+          ),
+        ),
+        body: SafeArea(
+            child:Container(
+              decoration: BoxDecoration(
+                border:Border(
+                  top:BorderSide(
+                    color: ThemeColors.gray.shade600
+                  ) )
+              ),
+              child: Column(
+                children:<Widget>[
+                  SizedBox(height:SizeConfig.yMargin(context, 2)),
+                   Text(model.pageSubtitle,
+                   textAlign: TextAlign.left,
+                   style: TextStyle(
+                     color: ThemeColors.black,
+                     fontSize: SizeConfig.textSize(context, 5)
+                   ),
+                   ),
+                   SizedBox(height:SizeConfig.yMargin(context, 2)),
+                   Expanded(child: LanguageSelectionPageView()),
+                   Spacer(),          
+                   Container(
+                   height: SizeConfig.yMargin(context, 8),
+                   width: SizeConfig.xMargin(context, 95),
+                   alignment: Alignment.center,
+                   margin: EdgeInsets.only(bottom:18.h),
+                   decoration: BoxDecoration(
+                     borderRadius:BorderRadius.circular(8.sp),
+                     color: BrandColors.primary
+                     
+                   ),
+                   child:FlatButton(
+                     onPressed:(){
+                       savedDialog(context);
+                     } ,
+                     child: Text(
+                       model.btnText,
+                       textAlign: TextAlign.center,
+                       style:TextStyle(
+                         color:ThemeColors.background,
+                         fontStyle: FontStyle.normal,
+                         fontWeight: FontWeight.bold,
+                         fontSize: SizeConfig.yMargin(context, 2),
+                       )
+                     )) ,),
+                ]
+              ),
+            ),
+      ),
+      ),
+      viewModelBuilder: () => LanguageSettingsViewModel(),
+    );
+  }
+}
+
+
+
+
+class LanguageSelectionPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

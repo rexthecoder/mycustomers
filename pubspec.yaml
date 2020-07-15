@@ -31,6 +31,9 @@ dependencies:
   # For google sign in
   google_sign_in: ^4.5.1
 
+  # For generating IDs
+  uuid: 2.2.0
+
   # for mock services
   mockito: ^4.1.1
 
@@ -75,6 +78,7 @@ dependencies:
   #UI Widgets
   cupertino_icons: ^0.1.3
   worm_indicator: ^0.2.4
+  animated_text_kit: ^2.2.0
 
   # add responsive builder
   responsive_builder: ^0.2.0+2
@@ -142,6 +146,7 @@ flutter:
     - assets/icons/svg/
     - assets/images/onboarding/
     - assets/animations/
+    - assets/languages/
 
 
   fonts:

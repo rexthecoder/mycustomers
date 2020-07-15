@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,27 +9,11 @@ import 'add_new_customer_viewmodel.dart';
 class AddNewCustomerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
   
   return ViewModelBuilder<AddNewCustomerViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: ThemeColors.background,
-        appBar: AppBar(
-          backgroundColor: ThemeColors.background,
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: ()=> Navigator.of(context).pop(),
-              icon: Icon(Icons.arrow_back)),
-          elevation: 1,
-          title: Text(
-            model.title,
-            style: TextStyle(
-              fontSize: 18.sp,
-              color: ThemeColors.black,
-            ),
-          ),
-          iconTheme: IconThemeData(color: ThemeColors.black),
-        ),
+        appBar: customizeAppBar(context, model.title, 1.0),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(20.w),

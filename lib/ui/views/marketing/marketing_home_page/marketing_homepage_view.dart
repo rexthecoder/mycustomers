@@ -4,6 +4,7 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:stacked/stacked.dart';
@@ -58,11 +59,11 @@ class MarketingHomePageView extends StatelessWidget {
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
-                    color: Theme.of(context).backgroundColor,
+                    color: ThemeColors.gray[400],
                     width: width,
-                    height: height,
+                    // height: height,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 20.0),
                       child: Column(children: <Widget>[
                         Expanded(
@@ -70,29 +71,36 @@ class MarketingHomePageView extends StatelessWidget {
                             // mainAxisAlignment: MainAxisAlignment.center,
                             // crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Container(
-                                width: width / 4,
-                                height: height / 4,
-                                child: Image.asset(
-                                  'assets/images/megaphone.png',
-                                  fit: BoxFit.contain,
-                                ),
+                              Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: SizeConfig.yMargin(context, 15),
+                                  ),
+                                  ClipRect(
+                                    child: Image(
+                                      height: SizeConfig.yMargin(context, 15),
+                                      image: AssetImage(
+                                          'assets/images/megaphone.png'),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.yMargin(context, 3),
+                                  ),
+                                  Text(
+                                    'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: Theme.of(context).cursorColor),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
                               ),
                               SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(
-                                'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
-                                style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: Theme.of(context).cursorColor),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(
-                                height: 10.h,
+                                height: SizeConfig.yMargin(context, 24),
                               ),
                               Container(
-                                color: Theme.of(context).backgroundColor,
+                                color: ThemeColors.gray[400],
                                 height: 50.h,
                                 child: Row(
                                   mainAxisAlignment:
@@ -100,12 +108,11 @@ class MarketingHomePageView extends StatelessWidget {
                                   children: <Widget>[
                                     Expanded(
                                       child: InkWell(
-                                        onTap: () =>
-                                            model.navigateToAddCustomer(),
+                                        
                                         child: Container(
                                           decoration: BoxDecoration(
 //                                        color: ThemeColors.gray,
-                                              color: BrandColors.primary,
+                                              color: ThemeColors.gray[400],
                                               borderRadius:
                                                   BorderRadius.circular(5.0)),
                                           child: Center(
@@ -113,7 +120,7 @@ class MarketingHomePageView extends StatelessWidget {
                                               'Add a customer',
                                               style: TextStyle(
                                                   fontSize: 14.sp,
-                                                  color: Colors.white),
+                                                  color: ThemeColors.gray[400]),
                                             ),
                                           ),
                                         ),
@@ -126,7 +133,7 @@ class MarketingHomePageView extends StatelessWidget {
                                       child: InkWell(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              color: ThemeColors.gray,
+                                              color: BrandColors.secondary,
                                               borderRadius:
                                                   BorderRadius.circular(5.0)),
                                           child: Center(
@@ -146,14 +153,13 @@ class MarketingHomePageView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // Spacer(),
                       ]),
                     ),
                   ),
                 )
               : Expanded(
                   child: Container(
-                    color: Theme.of(context).backgroundColor,
+                    color: ThemeColors.gray[400],
                     width: width,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
