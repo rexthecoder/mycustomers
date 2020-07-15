@@ -13,14 +13,15 @@ import 'add_customer_viewmodel.dart';
 import 'package:mycustomers/core/extensions/string_extension.dart';
 
 class AddCustomerView extends StatelessWidget {
-
   final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddCustomerViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-              appBar:customizeAppBar(context, kaddCustomerHeadingText, 1.0),
+              appBar: customizeAppBar(context, 1.0,
+                  title: kaddCustomerHeadingText,
+                  arrowColor: BrandColors.primary),
               //  AppBar(
               //   title: Text(kaddCustomerHeadingText),
               //   backgroundColor: Colors.transparent,
@@ -107,7 +108,8 @@ class AddCustomerView extends StatelessWidget {
                             width: double.infinity,
                             child: FlatButton(
                               onPressed: () {
-                                _navigationService.navigateTo(Routes.addCustomerManuallyDebtor);
+                                _navigationService.navigateTo(
+                                    Routes.addCustomerManuallyDebtor);
                               },
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),

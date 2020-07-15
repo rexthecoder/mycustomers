@@ -1,4 +1,4 @@
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -29,7 +29,8 @@ class SendAMessage extends StatelessWidget {
       viewModelBuilder: () => StuffModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: customizeAppBar(context, 'Send a Message', 1.0,iconColor: BrandColors.secondary),
+          appBar: customizeAppBar(context, 1.0,
+              title: 'Send a Message', arrowColor: BrandColors.secondary),
           backgroundColor: bgColor,
           body: SingleChildScrollView(
             child: Padding(
@@ -54,7 +55,7 @@ class SendAMessage extends StatelessWidget {
 //                          ),
 //                          leftBarIndicatorColor: Colors.blue[300],
 //                        ).show(context);
-                         model.navigateToQuickMessage(selectedCustomers);
+                        model.navigateToQuickMessage(selectedCustomers);
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
@@ -66,28 +67,26 @@ class SendAMessage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-//                              TypewriterAnimatedTextKit(
-//                                speed: Duration(milliseconds: 300),
-//                                repeatForever: true,
-//                                // pause: Duration(seconds: 10),
-//                                displayFullTextOnTap: true,
-//                                stopPauseOnTap: true,
-//                                text: ['Quick message'],
-//                                textStyle: TextStyle(
-//                                  color: bgColor,
-//                                  fontWeight: FontWeight.w500,
-//                                  fontSize: 24.sp,
-//                                ),
-//                              ),
-
-                              Text(
-                                'Quick message',style: TextStyle(
-                                color: BrandColors.secondary,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 24.sp,
+                              TypewriterAnimatedTextKit(
+                                speed: Duration(milliseconds: 300),
+                                repeatForever: true,
+                                // pause: Duration(seconds: 10),
+                                displayFullTextOnTap: true,
+                                stopPauseOnTap: true,
+                                text: ['Quick message'],
+                                textStyle: TextStyle(
+                                  color: BrandColors.secondary,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 24.sp,
                                 ),
                               ),
-
+                              // Text(
+                              //   'Quick message',style: TextStyle(
+                              //   color: BrandColors.secondary,
+                              //   fontWeight: FontWeight.w500,
+                              //   fontSize: 24.sp,
+                              //   ),
+                              // ),
                               SizedBox(
                                 height: 10.h,
                               ),

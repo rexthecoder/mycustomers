@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
-import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 
@@ -30,7 +28,8 @@ class MarketingHomePageView extends StatelessWidget {
             color: Theme.of(context).backgroundColor,
             width: width,
             child: Padding(
-              padding:  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -50,24 +49,18 @@ class MarketingHomePageView extends StatelessWidget {
                           fontSize: 14.sp,
                           color: Theme.of(context).cursorColor),
                     ),
-
-
-
                   ]),
             ),
           ),
-
           model.allCustomers.length != 0
               ? Container(
-            width: double.infinity,
-            height: 1,
-            color: Colors.grey[300],
-          ):Container(),
-
-
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.grey[300],
+                )
+              : Container(),
           model.allCustomers.length == 0
-              ?
-              Expanded(
+              ? Expanded(
                   child: Container(
                     color: ThemeColors.gray[400],
                     width: width,
@@ -86,9 +79,9 @@ class MarketingHomePageView extends StatelessWidget {
 //                              ),
                               ClipRect(
                                 child: Image(
-                                  height:height/4,
-                                  image: AssetImage(
-                                      'assets/images/megaphone.png'),
+                                  height: height / 4,
+                                  image:
+                                      AssetImage('assets/images/megaphone.png'),
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -96,7 +89,7 @@ class MarketingHomePageView extends StatelessWidget {
                                 height: SizeConfig.yMargin(context, 3),
                               ),
                               Text(
-                                'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
+                                'It\'s all about sending messages to customers. Click the nice orange button below to get that started',
                                 style: TextStyle(
                                     fontSize: 14.sp,
                                     color: Theme.of(context).cursorColor),
@@ -108,235 +101,279 @@ class MarketingHomePageView extends StatelessWidget {
                       ]),
                     ),
                   ),
-                ):
-          Expanded(
-            child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-
-
-                    SizedBox(height: 10.h,),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
-                      ),
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                )
+              : Expanded(
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text(
-                            'Customer List',
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Customer List',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                FlatButton(
+                                  onPressed: () {},
+                                  color:
+                                      BrandColors.secondary.withOpacity(0.07),
+                                  child: Text(
+                                    'Send message to all',
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: BrandColors.secondary),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          FlatButton(
-                            onPressed: (){},
-                            color: BrandColors.secondary.withOpacity(0.07),
-                            child: Text(
-                              'Send message to all',
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: BrandColors.secondary),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15.0, vertical: 5),
+                            child: Container(
+                              child: TextField(
+                                controller: model.searchController,
+                                onChanged: model.search,
+                                textInputAction: TextInputAction.search,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.search),
+                                  hintText: 'Type customer name',
+                                  border: InputBorder.none,
+                                  focusColor: BrandColors.primary,
+                                ),
+                              ),
                             ),
                           ),
+                          Divider(
+                            color: Colors.grey[300],
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 15.h,
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                'Frequently contacted',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: BrandColors.primary),
+                              ),
+                            ),
+                          ),
+                          model.allCustomers.length == 0
+                              ? Container()
+                              : ListView.builder(
+                                  itemCount: 1,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Customer customer =
+                                        model.allCustomers[index];
+                                    bool _isSelected =
+                                        model.isSelected(customer);
+                                    return Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 15.h, horizontal: 10.w),
+                                      child: Row(
+                                        children: <Widget>[
+                                          CustomerCircleAvatar(
+                                            customer: customer,
+                                            action: 'debtor',
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 30.w),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    '${customer.name} '
+                                                    '${customer.lastName}',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 3.sp,
+                                                  ),
+                                                  Text(
+                                                    '${customer.phone}',
+                                                    style: TextStyle(
+                                                      color: ThemeColors
+                                                          .gray.shade600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Checkbox(
+                                              activeColor: BrandColors.primary,
+                                              value: _isSelected,
+                                              onChanged: (value) {
+                                                _isSelected
+                                                    ? model.deselectCustomer(
+                                                        customer)
+                                                    : model
+                                                        .addCustomer(customer);
+                                              })
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                          Divider(
+                            color: Colors.grey[300],
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 15.h,
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                'All',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: BrandColors.primary),
+                              ),
+                            ),
+                          ),
+                          model.allCustomers.length == 0
+                              ? Center(
+                                  child: LoadingAnimation(),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: model.searchController.text != null
+                                      ? model.searchedCustomer.length
+                                      : model.allCustomers.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Customer customer =
+                                        model.searchController.text != null
+                                            ? model.searchedCustomer[index]
+                                            : model.allCustomers[index];
+                                    bool _isSelected =
+                                        model.isSelected(customer);
+                                    return Dismissible(
+                                      background: Container(
+                                        color: BrandColors.secondary,
+                                      ),
+                                      key: Key(index.toString()),
+                                      onDismissed:
+                                          (DismissDirection direction) {
+                                        model.removeCustomers(index);
+                                      },
+                                      // onDismissed: (direction) =>
+                                      //     model.removeCustomers(index),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 15.h,
+                                                horizontal: 10.w),
+                                            child: Row(
+                                              children: <Widget>[
+                                                CustomerCircleAvatar(
+                                                  customer: customer,
+                                                  action: 'debtor',
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 30.w),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          '${customer.name} '
+                                                          '${customer.lastName}',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 3.sp,
+                                                        ),
+                                                        Text(
+                                                          '${customer.phone}',
+                                                          style: TextStyle(
+                                                            color: ThemeColors
+                                                                .gray.shade600,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Checkbox(
+                                                    activeColor:
+                                                        BrandColors.primary,
+                                                    value: _isSelected,
+                                                    onChanged: (value) {
+                                                      _isSelected
+                                                          ? model
+                                                              .deselectCustomer(
+                                                                  customer)
+                                                          : model.addCustomer(
+                                                              customer);
+                                                    })
+                                              ],
+                                            ),
+                                          ),
+                                          Divider(
+                                            color: Colors.grey[300],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10.h,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 5),
-                      child: Container(
-                        child: TextField(
-                          controller: model.searchController,
-                          onChanged: model.search,
-                          textInputAction: TextInputAction.search,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.search),
-                            hintText: 'Type customer name',
-                            border: InputBorder.none,
-                            focusColor: BrandColors.primary,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Divider(color: Colors.grey[300],),
-                    SizedBox(height: 10.h,),
-                    Container(
-                      width: double.infinity,
-                      height: 15.h,
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding:const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          'Frequently contacted',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: BrandColors.primary
-                          ),
-                        ),
-                      ),
-                    ),
-                    model.allCustomers.length==0
-                        ? Container()
-                        :
-                    ListView.builder(
-                        itemCount: 1,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          Customer customer = model.allCustomers[index];
-                          bool _isSelected = model.isSelected(customer);
-                          return Container(
-                            padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
-                            child: Row(
-                              children: <Widget>[
-                                CustomerCircleAvatar(customer: customer,action: 'debtor',),
-                                Expanded(
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal:  30.w ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          '${customer.name} '
-                                              '${customer.lastName}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 3.sp,
-                                        ),
-                                        Text(
-                                          '${customer.phone}',
-                                          style: TextStyle(
-                                            color: ThemeColors.gray.shade600,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Checkbox(
-                                    activeColor:
-                                    BrandColors.primary,
-                                    value: _isSelected,
-                                    onChanged: (value) {
-                                      _isSelected
-                                          ? model.deselectCustomer(
-                                          customer)
-                                          : model.addCustomer(
-                                          customer);
-                                    })
-                              ],
-                            ),
-                          );
-                        }),
-                    Divider(color: Colors.grey[300],),
-                    SizedBox(height: 10.h,),
-                    Container(
-                      width: double.infinity,
-                      height: 15.h,
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding:const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          'All',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                            color: BrandColors.primary
-                          ),
-                        ),
-                      ),
-                    ),
-                    model.allCustomers.length==0
-                        ? Center(
-                      child: LoadingAnimation(),
-                    )
-                        :
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: model.searchController.text!= null?
-                        model.searchedCustomer.length:
-                        model.allCustomers.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          Customer customer = model.searchController.text!= null?
-                          model.searchedCustomer[index]:
-                          model.allCustomers[index];
-                          bool _isSelected = model.isSelected(customer);
-                          return Dismissible(
-                            background: Container(color: BrandColors.secondary,),
-                            key: Key(index.toString()),
-                            onDismissed: (direction)=>model.removeCustomers(index),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
-                                  child: Row(
-                                    children: <Widget>[
-                                      CustomerCircleAvatar(customer: customer,action: 'debtor',),
-                                      Expanded(
-                                        child: Container(
-                                          margin: EdgeInsets.symmetric(horizontal:  30.w ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                '${customer.name} '
-                                                    '${customer.lastName}',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 3.sp,
-                                              ),
-                                              Text(
-                                                '${customer.phone}',
-                                                style: TextStyle(
-                                                  color: ThemeColors.gray.shade600,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Checkbox(
-                                          activeColor:
-                                          BrandColors.primary,
-                                          value: _isSelected,
-                                          onChanged: (value) {
-                                            _isSelected
-                                                ? model.deselectCustomer(
-                                                customer)
-                                                : model.addCustomer(
-                                                customer);
-                                          })
-                                    ],
-                                  ),
-                                ),
-                                Divider(color: Colors.grey[300],),
-                              ],
-                            ),
-                          );
-                        }),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
 //                         Expanded(
 //                  child: Container(
 //                    color: ThemeColors.gray[400],
@@ -464,71 +501,73 @@ class MarketingHomePageView extends StatelessWidget {
 //                        ]),
 //                  ),
 //                ),
-           model.selectedCustomers.length !=0
-              ?Container(
-            color: Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Container(
-                height: 50.h,
-                color: Colors.transparent,
-                child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.end,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: ()=> model.navigateToAddCustomer(),
-                      color: BrandColors.secondary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                      child: Container(width: width/2,
-                        child: Center(
-                          child: Text(
-                            'Send message',
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.white),
+          model.selectedCustomers.length != 0
+              ? Container(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Container(
+                      height: 50.h,
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () => model.navigateToAddCustomer(),
+                            color: BrandColors.secondary,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            child: Container(
+                              width: width / 2,
+                              child: Center(
+                                child: Text(
+                                  'Send message',
+                                  style: TextStyle(
+                                      fontSize: 14.sp, color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : model.allCustomers.length == 0
+                  ? Container(
+                      color: ThemeColors.gray[400],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Container(
+                          height: 50.h,
+                          color: ThemeColors.gray[400],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                onPressed: () => model.navigateToAddCustomer(),
+                                color: BrandColors.secondary,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                child: Container(
+                                  width: width / 2,
+                                  child: Center(
+                                    child: Text(
+                                      'Send message',
+                                      style: TextStyle(
+                                          fontSize: 14.sp, color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ),
-
-                  ],
-                ),
-              ),
-            ),
-          ):
-           model.allCustomers.length ==0?Container(
-            color:  ThemeColors.gray[400],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Container(
-                height: 50.h,
-                color:  ThemeColors.gray[400],
-                child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.end,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: ()=> model.navigateToAddCustomer(),
-                      color: BrandColors.secondary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                      child: Container(width: width/2,
-                        child: Center(
-                          child: Text(
-                            'Send message',
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-            ),
-          ):Container(),
+                    )
+                  : Container(),
 
 //              : Expanded(
 //                  child: Container(
