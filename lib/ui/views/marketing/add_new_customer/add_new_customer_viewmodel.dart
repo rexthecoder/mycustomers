@@ -43,6 +43,12 @@ class AddNewCustomerViewModel extends BaseViewModel {
     notifyListeners();
 
   }
+  bool validateNumber(){
+    return phoneNumber.text.length ==11?? false;
+  }
+  bool validateName(){
+    return name.text.isNotEmpty?? false;
+  }
 
   void updateCountryCode(String value){
     _dropDownValue=value;
@@ -51,7 +57,8 @@ class AddNewCustomerViewModel extends BaseViewModel {
   NavigationService _navigationService = locator<NavigationService>();
   returnCustomers() {
     Customer _customer = Customer(name: name.text, phone: phoneNumber.text);
-    _navigationService.back(result: _customer);
+    List<Customer> _newCustomer = [_customer];
+    _navigationService.back(result: _newCustomer);
 
 //    searchedCustomer.clear();
 

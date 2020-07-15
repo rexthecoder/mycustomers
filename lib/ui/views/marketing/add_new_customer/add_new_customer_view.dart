@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -95,9 +96,9 @@ class AddNewCustomerView extends StatelessWidget {
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                               hintText: 'Mobile Number',
-
                               border: OutlineInputBorder(borderSide: BorderSide.none),
                             ),
+
                             controller: model.phoneNumber,
                             onChanged: model.updateContact,
                           ),
@@ -109,7 +110,30 @@ class AddNewCustomerView extends StatelessWidget {
                    width: double.infinity,
                    child: FlatButton(
                      color: BrandColors.primary,
-                     onPressed: () =>model.returnCustomers(),
+                     onPressed: () {
+                       !model.validateNumber()? Flushbar(
+                         backgroundColor: BrandColors.primary,
+                         duration: const Duration(seconds: 3),
+                         message: 'Enter a valid number',
+                         icon: Icon(
+                           Icons.info_outline,
+                           size: 28.0,
+                           color: ThemeColors.background,
+                         ),
+                         leftBarIndicatorColor: Colors.blue[300],
+                       ).show(context):
+                       !model.validateName()? Flushbar(
+                         backgroundColor: BrandColors.primary,
+                         duration: const Duration(seconds: 3),
+                         message: 'Enter a customer Name',
+                         icon: Icon(
+                           Icons.info_outline,
+                           size: 28.0,
+                           color: ThemeColors.background,
+                         ),
+                         leftBarIndicatorColor: Colors.blue[300],
+                       ).show(context):model.returnCustomers();
+                       },
                      shape: RoundedRectangleBorder(
                        borderRadius: BorderRadius.circular(5),
                      ),

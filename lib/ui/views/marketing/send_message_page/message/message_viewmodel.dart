@@ -31,6 +31,13 @@ class MessageViewModel extends BaseViewModel {
     val = !val;
   }
 
+  Future navigateToSendMessage() async {
+    await _navigationService.navigateTo(Routes.messageSntDialog,);
+  }
+  Future returnHome() async {
+     _navigationService.popRepeated(3);
+  }
+
   int currentIndex = 0;
   onTap(template) {
     currentIndex = templateList.indexOf(template);
