@@ -146,6 +146,7 @@ flutter:
     - assets/icons/svg/
     - assets/images/onboarding/
     - assets/animations/
+    - assets/languages/
 
 
   fonts:
