@@ -7,7 +7,6 @@ import 'package:mycustomers/app/router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class AddCustomerManuallyViewModel extends ReactiveViewModel {
-  static const String _boxname = "contactBox";
   String _customerName;
   String _customerPhoneNumber;
 

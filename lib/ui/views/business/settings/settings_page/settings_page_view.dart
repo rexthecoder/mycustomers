@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:stacked/stacked.dart';
-
+import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -38,43 +38,42 @@ class SettingsPage extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                           child: Column(
-                            children: <Widget>[
-                              cardTile(
-                                  'Change Language',
-                                  model.langs[model.langIndex]['name'],
-                                  //Todo: Set Functionality to Change when Language is Changed,
-                                  model.navigateToLanguageSettings,
-                                  context
-                              ),
-                              cardTile(
-                                  'Change Currency',
-                                  model.currs[model.currIndex]['name'],
-                                  //Todo: Set Functionality to Change when Language is Changed
-                                  model.navigateToCurrency,
-                                  context
-                              ),
-                              cardTile(
-                                  'App Lock',
-                                  '',
-                                  model.navigateToAppLock,
-                                  context
-                              ),
-                              SizedBox(height: ScreenUtil().setHeight(50),),
-                              switchTile(context, model.lightTheme, model.setTheme,
-                              'Light Mode'),
-                              switchTile(context, model.notification,
-                                  model.setNotification,
-                                  'Receive Notifications'),
-                              switchTile(context, model.newsletter,
-                                  model.setNewsletter, 'Receive NewsLetter'),
-                              switchTile(
-                                  context, model.special, model.setSpecial,
-                                  'Receive Special Offers'),
-                              switchTile(context, model.update, model.setUpdate,
-                                  'Receive Updates'),
-                            ],
-                          )
-                      ),
+                        children: <Widget>[
+                          cardTile(
+                              'Change Language',
+                              model.langs[model.langIndex]['name'],
+                              //Todo: Set Functionality to Change when Language is Changed,
+                              model.navigateToLanguageSettings,
+                              context),
+                          cardTile(
+                              'Change Currency',
+                              model.currs[model.currIndex]['name'],
+                              //Todo: Set Functionality to Change when Language is Changed
+                              model.navigateToCurrency,
+                              context),
+                          cardTile(
+                              'App Lock', '', model.navigateToAppLock, context),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(50),
+                          ),
+                          ViewModelBuilder<ThemeModel>.reactive(
+                            builder: (_, viewModel, ___) => switchTile(
+                                context,
+                                viewModel.isDarkTheme,
+                                viewModel.setTheme,
+                                'Dark Mode'),
+                            viewModelBuilder: () => ThemeModel(),
+                          ),
+                          switchTile(context, model.notification,
+                              model.setNotification, 'Receive Notifications'),
+                          switchTile(context, model.newsletter,
+                              model.setNewsletter, 'Receive NewsLetter'),
+                          switchTile(context, model.special, model.setSpecial,
+                              'Receive Special Offers'),
+                          switchTile(context, model.update, model.setUpdate,
+                              'Receive Updates'),
+                        ],
+                      )),
                     ),
                     Container(
                         padding: EdgeInsets.symmetric(

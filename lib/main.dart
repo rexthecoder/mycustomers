@@ -6,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
+import './ui/theme/theme_viewmodel.dart';
 
 import 'package:oktoast/oktoast.dart';
 
@@ -112,19 +114,21 @@ class App extends StatelessWidget {
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return CoreManager(
-      child: OKToast(
-        child: MaterialApp(
-          // builder: DevicePreview.appBuilder,
-          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-            DefaultMaterialLocalizations.delegate,
-            DefaultWidgetsLocalizations.delegate,
-          ],
-          theme: themes.primaryMaterialTheme,
-          debugShowCheckedModeBanner: false,
-          initialRoute: Routes.startupViewRoute,
-          onGenerateRoute: Router().onGenerateRoute,
-          navigatorKey: locator<NavigationService>().navigatorKey,
-        ),
+      child: ViewModelBuilder<ThemeModel>.reactive(
+              builder: (_, viewModel, ___) => OKToast(
+          child: MaterialApp(
+            // builder: DevicePreview.appBuilder,
+            localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+              DefaultMaterialLocalizations.delegate,
+              DefaultWidgetsLocalizations.delegate,
+            ],
+            theme: viewModel.theme,
+            debugShowCheckedModeBanner: false,
+            initialRoute: Routes.startupViewRoute,
+            onGenerateRoute: Router().onGenerateRoute,
+            navigatorKey: locator<NavigationService>().navigatorKey,
+          ),
+        ), viewModelBuilder: () => ThemeModel(),
       ),
     );
   }
