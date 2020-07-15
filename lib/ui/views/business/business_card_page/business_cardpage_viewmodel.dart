@@ -6,6 +6,7 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
@@ -19,7 +20,6 @@ class BusinessCardPageViewModel extends BaseViewModel {
   final PermissionService _permissionService = locator<IPermissionService>();
   BusinessCard _businessCard = BusinessCard.empty();
   File imageFile;
-  bool rollSlideShow = true;
 
   /// Getters
   BusinessCard get businessCard => _businessCard;
@@ -57,19 +57,9 @@ class BusinessCardPageViewModel extends BaseViewModel {
 
   Future<void> shareImageAndText() async {
     try {
-//      if (await _permissionService.getStoragePermission()) {
       final Uint8List bytes = await imageFile.readAsBytes();
-
-//        final String internalStorage = '/storage/emulated/0/myCustomer';
-
       final String fileName =
           '${businessCard.storeName}-businesscard${businessCard.cardDesign}.png';
-
-//        bool isDirExist = await Directory(internalStorage).exists();
-//        if (!isDirExist) Directory(internalStorage).create();
-//        String tempPath = '$internalStorage/$fileName';
-////        File image = await File(tempPath).create();
-//        File(tempPath).writeAsBytes(bytes);
 
       await WcFlutterShare.share(
         sharePopupTitle: 'Share Your Business Card',
@@ -79,9 +69,8 @@ class BusinessCardPageViewModel extends BaseViewModel {
         mimeType: 'image/png',
         bytesOfFile: bytes.buffer.asUint8List(),
       );
-//      }
     } catch (e) {
-      print(e);
+      Logger.e(e);
       throw Exception("Unable to save image");
     }
   }
