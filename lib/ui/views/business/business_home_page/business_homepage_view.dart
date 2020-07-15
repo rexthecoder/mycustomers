@@ -129,6 +129,7 @@ void _displayBusinessCardModal(context, model) {
   ScreenshotController screenshotController = new ScreenshotController();
 
   showModalBottomSheet(
+    enableDrag: true,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20),
@@ -168,7 +169,6 @@ void _displayBusinessCardModal(context, model) {
             ),
             BusinessCardModal(
               screenshotController: screenshotController,
-              businessCardController: new PageController(),
             ),
             BottomSheetButtons(
               screenshotController: screenshotController,
