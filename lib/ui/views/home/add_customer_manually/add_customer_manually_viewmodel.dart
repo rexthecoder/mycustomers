@@ -7,7 +7,6 @@ import 'package:mycustomers/app/router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class AddCustomerManuallyViewModel extends ReactiveViewModel {
-  static const String _boxname = "contactBox";
   String _customerName;
   String _customerPhoneNumber;
 
@@ -38,7 +37,6 @@ class AddCustomerManuallyViewModel extends ReactiveViewModel {
 
   void updateName(String name){
     _customerName=name;
-    print(customerName);
     notifyListeners();
   }
 
@@ -53,10 +51,10 @@ class AddCustomerManuallyViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  void addContact()async {
+  void addContact(String action)async {
     print(customerPhoneNumber);
     if(customerName != null && customerPhoneNumber != null) {
-      _customerContactService.addContact(customerPhoneNumber, customerName, dropDownValue);
+      _customerContactService.addContact(customerPhoneNumber, customerName, dropDownValue, customerName.split(' ').length > 1 ? (customerName.split(' ')[0][0]+customerName.split(' ')[1][0]).toUpperCase() : customerName.split(' ')[0][0].toUpperCase(), action);
     }
     notifyListeners();
   }

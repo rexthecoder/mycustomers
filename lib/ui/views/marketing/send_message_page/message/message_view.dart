@@ -1,249 +1,144 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'message_viewmodel.dart';
 
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/core/models/customer.dart';
+
+import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
+
 class MessageView extends StatelessWidget {
-  final bgColor = Colors.white;
-  final color = Colors.blueAccent[700];
-  final outlineColor = Colors.grey[200];
+  final List<Customer> selectedCustomers;
+  MessageView(this.selectedCustomers);
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, height: 1440, width: 720, allowFontScaling: true);
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    ScreenUtil.init(
+      context,
+      height: height,
+      width: width,
+    );
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          backgroundColor: bgColor,
+          appBar: customizeAppBar(context, 'Send a Message', 1.0),
+//           AppBar(
+//             title: Center(
+//               child: Text(
+//                 'Send a Message',
+// //                textAlign: TextAlign.center,
+//                 style: TextStyle(
+//                   fontSize: 18.sp,
+//                 ),
+//               ),
+//             ),
+//           ),
           body: SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30.w),
-                    height: 120.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        IconButton(
-                          onPressed: () {
-                            model.navigateTo();
-                          }, // TODO: implement back button
-                          icon: Icon(
-                            Icons.keyboard_backspace,
-                            color: color,
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          'Send a Message',
-                          style: TextStyle(
-                            fontSize: 35.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Spacer(flex: 2),
-                      ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                child: Column(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 20.h,
                     ),
-                  ),
-                  Divider(),
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 40.h, left: 60.w, right: 60.w, bottom: 0.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          fillColor: null,
-                          filled: true,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: outlineColor, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: color, width: 2.0),
-                          )),
-                      textCapitalization: TextCapitalization.sentences,
-                      style:
-                          TextStyle(color: Colors.grey[600], fontSize: 30.sp),
+                    Text('Title'),
+                    SizedBox(
+                      height: 10.h,
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 40.h, left: 60.w, right: 60.w, bottom: 0.0),
-                    child: TextField(
+                    TextField(
+                      controller: model.titleController,
                       decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: outlineColor, width: 2.0),
-                        ),
+                        hintText: 'Enter Title of message',
+                        hintStyle: TextStyle(fontSize: 16.sp),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: ThemeColors.gray)),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: color, width: 2.0),
-                        ),
+                            borderSide: BorderSide(color: BrandColors.primary)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                       ),
-                      textCapitalization: TextCapitalization.sentences,
-                      style:
-                          TextStyle(color: Colors.grey[600], fontSize: 30.sp),
-                      minLines: 4,
-                      maxLines: 100,
+//                      maxLines: 2,
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 40.w, right: 60.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Checkbox(
-                          value: model.checkBoxValue,
-                          onChanged: model.checkBoxFunction(true),
-                          //tristate: true,
-                          autofocus: true,
-                          activeColor: color,
-                        ),
-                        Text(
-                          'See Templates',
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 27.sp,
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          'Swipe to see more',
-                          style: TextStyle(
-                            fontSize: 27.sp,
-                          ),
-                        ),
-                      ],
+                    SizedBox(
+                      height: 10.h,
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(
-                      left: 40.w,
+                    Text('Message'),
+                    SizedBox(
+                      height: 10.h,
                     ),
-                    height: 100.h,
-                    child: ListView(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      children: model.templateList.map((template) {
-                        return GestureDetector(
-                          onTap: model.onTap(template),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.sp),
-                              border: Border.all(
-                                  color: model.currentIndex ==
-                                          model.templateList.indexOf(template)
-                                      ? color
-                                      : outlineColor),
-                            ),
-                            padding: EdgeInsets.all(15.sp),
-                            margin: EdgeInsets.symmetric(horizontal: 20.sp),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              template,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: model.currentIndex ==
-                                        model.templateList.indexOf(template)
-                                    ? color
-                                    : outlineColor,
+                    TextField(
+                      controller: model.messageController,
+                      decoration: InputDecoration(
+                        hintText: 'Enter message',
+                        hintStyle: TextStyle(fontSize: 16.sp),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: ThemeColors.gray)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: BrandColors.primary)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                      ),
+                      maxLines: 3,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Container(
+                      height: 120.h,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: ThemeColors.gray),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                selectedCustomers.length == 1
+                                    ? '${selectedCustomers.length} Selected Customer'
+                                    : '${selectedCustomers.length} Selected Customers',
+                                style: TextStyle(fontSize: 16.sp),
                               ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Container(
-                    margin:
-                        EdgeInsets.symmetric(vertical: 40.h, horizontal: 40.w),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.sp),
-                      border: Border.all(color: outlineColor),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              '${model.numberOfSelectedCustomers} Selected Customer(s)',
-                              style: TextStyle(fontSize: 25.sp),
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Icon(
+                              FlatButton.icon(
+                                onPressed: () {},
+                                icon: Icon(
                                   Icons.add,
-                                  color: color,
-                                  size: 30.sp,
+                                  color: BrandColors.primary,
                                 ),
-                                Text(
+                                label: Text(
                                   'Add',
                                   style: TextStyle(
-                                    color: color,
-                                    fontSize: 25.sp,
+                                    fontSize: 16.sp,
+                                    color: BrandColors.primary,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Container(
-                          constraints:
-                              BoxConstraints.tight(Size.fromHeight(60)),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: model.numberOfSelectedCustomers,
-                            itemBuilder: (context, index) => Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.sp),
-                              child: CircleAvatar(
-                                radius: 40.sp,
-                                backgroundColor: color,
-                                // TODO: implement customer Profile Picture
                               ),
+                            ],
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: selectedCustomers.length,
+                              itemBuilder: (BuildContext context, int index) =>
+                                  CustomerCircleAvatar(
+                                      customer: selectedCustomers[index]),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    margin: EdgeInsets.only(left: 60.w, right: 60.w),
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                      color: color,
-                      borderRadius: BorderRadius.circular(15.sp),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Send',
-                        style: TextStyle(
-                            color: bgColor,
-                            fontSize: 30.sp,
-                            fontWeight: FontWeight.w500),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -251,4 +146,247 @@ class MessageView extends StatelessWidget {
       },
     );
   }
+//  Widget build(BuildContext context) {
+//    ScreenUtil.init(context, height: 1440, width: 720, allowFontScaling: true);
+//    return ViewModelBuilder<MessageViewModel>.reactive(
+//      viewModelBuilder: () => MessageViewModel(),
+//      builder: (context, model, child) {
+//        return Scaffold(
+//          backgroundColor: bgColor,
+//          body: SingleChildScrollView(
+//            child: Container(
+//              height: MediaQuery.of(context).size.height,
+//              child: Column(
+//                mainAxisSize: MainAxisSize.min,
+//                mainAxisAlignment: MainAxisAlignment.start,
+//                children: <Widget>[
+//                  SizedBox(
+//                    height: 50.h,
+//                  ),
+//                  Container(
+//                    padding: EdgeInsets.symmetric(horizontal: 30.w),
+//                    height: 120.h,
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.start,
+//                      children: <Widget>[
+//                        IconButton(
+//                          onPressed: () {
+//                            model.navigateTo();
+//                          }, // TODO: implement back button
+//                          icon: Icon(
+//                            Icons.keyboard_backspace,
+//                            color: color,
+//                          ),
+//                        ),
+//                        Spacer(),
+//                        Text(
+//                          'Send a Message',
+//                          style: TextStyle(
+//                            fontSize: 35.sp,
+//                            fontWeight: FontWeight.bold,
+//                          ),
+//                        ),
+//                        Spacer(flex: 2),
+//                      ],
+//                    ),
+//                  ),
+//                  Divider(),
+//                  Container(
+//                    margin: EdgeInsets.only(
+//                        top: 40.h, left: 60.w, right: 60.w, bottom: 0.0),
+//                    child: TextField(
+//                      decoration: InputDecoration(
+//                          fillColor: null,
+//                          filled: true,
+//                          enabledBorder: OutlineInputBorder(
+//                            borderSide:
+//                                BorderSide(color: outlineColor, width: 2.0),
+//                          ),
+//                          focusedBorder: OutlineInputBorder(
+//                            borderSide: BorderSide(color: color, width: 2.0),
+//                          )),
+//                      textCapitalization: TextCapitalization.sentences,
+//                      style:
+//                          TextStyle(color: Colors.grey[600], fontSize: 30.sp),
+//                    ),
+//                  ),
+//                  Container(
+//                    margin: EdgeInsets.only(
+//                        top: 40.h, left: 60.w, right: 60.w, bottom: 0.0),
+//                    child: TextField(
+//                      decoration: InputDecoration(
+//                        enabledBorder: OutlineInputBorder(
+//                          borderSide:
+//                              BorderSide(color: outlineColor, width: 2.0),
+//                        ),
+//                        focusedBorder: OutlineInputBorder(
+//                          borderSide: BorderSide(color: color, width: 2.0),
+//                        ),
+//                      ),
+//                      textCapitalization: TextCapitalization.sentences,
+//                      style:
+//                          TextStyle(color: Colors.grey[600], fontSize: 30.sp),
+//                      minLines: 4,
+//                      maxLines: 100,
+//                    ),
+//                  ),
+//                  Padding(
+//                    padding: EdgeInsets.only(left: 40.w, right: 60.w),
+//                    child: Row(
+//                      mainAxisAlignment: MainAxisAlignment.start,
+//                      children: <Widget>[
+//                        Checkbox(
+//                          value: model.checkBoxValue,
+//                          onChanged: model.checkBoxFunction(true),
+//                          //tristate: true,
+//                          autofocus: true,
+//                          activeColor: color,
+//                        ),
+//                        Text(
+//                          'See Templates',
+//                          style: TextStyle(
+//                            color: color,
+//                            fontSize: 27.sp,
+//                          ),
+//                        ),
+//                        Spacer(),
+//                        Text(
+//                          'Swipe to see more',
+//                          style: TextStyle(
+//                            fontSize: 27.sp,
+//                          ),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+//                  Container(
+//                    padding: EdgeInsets.only(
+//                      left: 40.w,
+//                    ),
+//                    height: 100.h,
+//                    child: ListView(
+//                      shrinkWrap: true,
+//                      scrollDirection: Axis.horizontal,
+//                      children: model.templateList.map((template) {
+//                        return GestureDetector(
+//                          onTap: model.onTap(template),
+//                          child: Container(
+//                            decoration: BoxDecoration(
+//                              borderRadius: BorderRadius.circular(15.sp),
+//                              border: Border.all(
+//                                  color: model.currentIndex ==
+//                                          model.templateList.indexOf(template)
+//                                      ? color
+//                                      : outlineColor),
+//                            ),
+//                            padding: EdgeInsets.all(15.sp),
+//                            margin: EdgeInsets.symmetric(horizontal: 20.sp),
+//                            alignment: Alignment.centerLeft,
+//                            child: Text(
+//                              template,
+//                              textAlign: TextAlign.start,
+//                              style: TextStyle(
+//                                color: model.currentIndex ==
+//                                        model.templateList.indexOf(template)
+//                                    ? color
+//                                    : outlineColor,
+//                              ),
+//                            ),
+//                          ),
+//                        );
+//                      }).toList(),
+//                    ),
+//                  ),
+//                  SizedBox(
+//                    height: 20.h,
+//                  ),
+//                  Container(
+//                    margin:
+//                        EdgeInsets.symmetric(vertical: 40.h, horizontal: 40.w),
+//                    padding:
+//                        EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
+//                    decoration: BoxDecoration(
+//                      borderRadius: BorderRadius.circular(15.sp),
+//                      border: Border.all(color: outlineColor),
+//                    ),
+//                    child: Column(
+//                      children: <Widget>[
+//                        Row(
+//                          crossAxisAlignment: CrossAxisAlignment.start,
+//                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                          children: <Widget>[
+//                            Text(
+//                              '${model.numberOfSelectedCustomers} Selected Customer(s)',
+//                              style: TextStyle(fontSize: 25.sp),
+//                            ),
+//                            Row(
+//                              children: <Widget>[
+//                                Icon(
+//                                  Icons.add,
+//                                  color: color,
+//                                  size: 30.sp,
+//                                ),
+//                                Text(
+//                                  'Add',
+//                                  style: TextStyle(
+//                                    color: color,
+//                                    fontSize: 25.sp,
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
+//                          ],
+//                        ),
+//                        SizedBox(
+//                          height: 10.h,
+//                        ),
+//                        Container(
+//                          constraints:
+//                              BoxConstraints.tight(Size.fromHeight(60)),
+//                          child: ListView.builder(
+//                            shrinkWrap: true,
+//                            scrollDirection: Axis.horizontal,
+//                            itemCount: model.numberOfSelectedCustomers,
+//                            itemBuilder: (context, index) => Padding(
+//                              padding: EdgeInsets.symmetric(horizontal: 8.sp),
+//                              child: CircleAvatar(
+//                                radius: 40.sp,
+//                                backgroundColor: color,
+//                                // TODO: implement customer Profile Picture
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+//                  Spacer(),
+//                  Container(
+//                    margin: EdgeInsets.only(left: 60.w, right: 60.w),
+//                    height: 100.h,
+//                    decoration: BoxDecoration(
+//                      color: color,
+//                      borderRadius: BorderRadius.circular(15.sp),
+//                    ),
+//                    child: Center(
+//                      child: Text(
+//                        'Send',
+//                        style: TextStyle(
+//                            color: bgColor,
+//                            fontSize: 30.sp,
+//                            fontWeight: FontWeight.w500),
+//                      ),
+//                    ),
+//                  ),
+//                  SizedBox(
+//                    height: 50.h,
+//                  )
+//                ],
+//              ),
+//            ),
+//          ),
+//        );
+//      },
+//    );
+//  }
 }

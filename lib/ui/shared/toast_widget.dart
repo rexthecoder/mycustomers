@@ -8,7 +8,7 @@ ToastFuture showToastCustom(
     success: false,
     color,
     BuildContext context,
-    Duration duration: const Duration(seconds: 5)}) {
+    Duration duration: const Duration(seconds: 3)}) {
   assert(success != null || color != null);
   return showToastWidget(
     ToastWidget(

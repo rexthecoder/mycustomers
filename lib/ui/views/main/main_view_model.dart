@@ -1,7 +1,8 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/core/models/business_model.dart';
-import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
@@ -79,9 +80,6 @@ class MainViewModel extends BaseViewModel {
   void changeBusiness(String id) {
     StoreRepository.changeSelectedStore(id);
     notifyListeners();
-    // print(value.businessName); //Uncomment to see value in terminal
-
-    // TODO: Create additional Function to Use Value and Change the Operation.
   }
 
   final DialogService _dialogService = locator<DialogService>();
@@ -89,9 +87,11 @@ class MainViewModel extends BaseViewModel {
   Future navigateToAddBusiness() async {
     _dialogService.registerCustomDialogUi(createBusinessDialog);
     _dialogService.showCustomDialog();
-      
-    // TODO Navigate to add Business page
-//    await _navigationService.navigateTo(Routes.);
+  }
+
+
+  void navigateToNotifications() {
+    _navigationService.navigateTo(Routes.notificationsViewRoute);
   }
 }
 

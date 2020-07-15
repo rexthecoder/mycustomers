@@ -4,6 +4,51 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
+/// Customize AppBar to be use across all POP screens
+/// - Title
+/// - Elevation
+Widget customizeAppBar(BuildContext context, String title, double elevation) {
+  return AppBar(
+    brightness: Brightness.light,
+    backgroundColor: Colors.white,
+    iconTheme: IconThemeData(
+      color: BrandColors.primary,
+    ),
+    elevation: elevation,
+    centerTitle: true,
+    title: Text(
+      title,
+      style: TextStyle(
+        fontSize: SizeConfig.textSize(context, 5),
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    leading: InkWell(
+      onTap: () => Navigator.pop(context),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        child: SvgPicture.asset(
+          'assets/icons/backarrow.svg',
+          color: BrandColors.primary,
+        ),
+      ),
+    ),
+    // actions: <Widget>[
+    //   FlatButton(
+    //     textColor: Colors.white,
+    //     onPressed: (){},
+    //     child: Text("View",
+    //       style: TextStyle(
+    //         color: Color(0xFF333CC1),
+    //       ),
+    //   ),
+    //     shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+    //   )
+    // ],
+  );
+}
+
 /// A customize Progress Indicator By Ufedojo Atabo
 class CustomizeProgressIndicator extends StatelessWidget {
   final int progress, total;

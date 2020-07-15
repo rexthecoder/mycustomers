@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,14 +15,7 @@ class SupportPageView extends StatelessWidget {
     return ViewModelBuilder<SupportPageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
              resizeToAvoidBottomInset: false,
-              appBar: AppBar(
-                elevation: 0,
-                title: Text(
-                  'Customer Support',
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
-                ),
-              ),
+              appBar: customizeAppBar(context,  'Customer Support', 1.0),
               body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),

@@ -4,49 +4,58 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
 class CustomShareRaisedButton extends StatelessWidget {
-  final String label;
   final Function onPressed;
-  final String share = 'assets/icons/svg/share.svg';
+  final String btnText;
+  final Color btnColor;
+  final Widget child;
+  final Color txtColor;
+  final Color borderColor;
 
-  CustomShareRaisedButton({
-    @required this.label,
+  const CustomShareRaisedButton({
+    Key key,
+    @required this.btnText,
     @required this.onPressed,
-  });
+    @required this.btnColor,
+    @required this.txtColor,
+    this.borderColor,
+    this.child,
+  })  : assert(child != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: SizeConfig.yMargin(context, 3),
-      ),
+    return ButtonTheme(
+      minWidth: SizeConfig.xMargin(context, 90),
+      height: SizeConfig.yMargin(context, 5.5),
       child: RaisedButton(
-        onPressed: onPressed,
-        color: BrandColors.primary,
-        padding:
-            EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.5)),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5.0),
+          side: BorderSide(color: borderColor),
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SvgPicture.asset(
-              share,
-              color: ThemeColors.background,
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
+            child,
+
+            SizedBox(width: SizeConfig.xMargin(context, 2)),
+            // SizedBox(
+            //   width: 10.0,
+            // ),
             Text(
-              label,
+              btnText,
               style: TextStyle(
-                fontSize: SizeConfig.textSize(context, 5),
-                color: ThemeColors.background,
-                fontWeight: FontWeight.bold,
+                color: txtColor,
+                fontSize: SizeConfig.yMargin(context, 1.8),
+                fontWeight: FontWeight.w900,
               ),
             ),
           ],
         ),
+        onPressed: onPressed,
+        color: btnColor,
+        elevation: 3,
+        // disabledColor: ,
       ),
     );
   }

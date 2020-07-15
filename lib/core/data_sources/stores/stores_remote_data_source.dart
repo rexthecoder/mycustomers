@@ -1,5 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/data_sources/store/store_repositories.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
@@ -8,13 +8,21 @@ import 'package:mycustomers/core/exceptions/create_exception.dart';
 import 'package:mycustomers/core/exceptions/get_exception.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 
+abstract class StoreDataSource {
+  Future<void> createStore(String storeName, {String shopAddress: '-'});
 
-class StoreService {
+  Future<Store> getStore(String storeId);
+
+  Future<List<Store>> getStores();
+}
+
+class StoreDataSourceImpl implements StoreDataSource {
   static String baseStoreRoute = ApiRoutes.user;
   HttpService _http = locator<HttpService>();
   String _newRoute = '$baseStoreRoute/new';
   IApi _api = locator<IApi>();
 
+  @override
   Future<void> createStore(String storeName, {String shopAddress: '-'}) async {
     try {
       // authenticate with server
@@ -36,16 +44,19 @@ class StoreService {
       }
 
       // TODO: Add what should happen after creating new store
-    } on CreateException catch(e, s) {
+    } on CreateException catch (e, s) {
       Logger.e('Error creating store: ${e.message}', e: e, s: s);
       throw e;
-    } catch(e, s) {
-      Logger.e('Error creating store $storeName with location: $shopAddress', e: e, s: s);
+    } catch (e, s) {
+      Logger.e('Error creating store $storeName with location: $shopAddress',
+          e: e, s: s);
       // throw CreateException('Unknown error occur while trying to update details');
-      throw CreateException('Development Report: Unknown error occur while trying to create store, please close and open the app');
+      throw CreateException(
+          'Unknown error occur while trying to create your store');
     }
   }
 
+  @override
   Future<Store> getStore(String storeId) async {
     try {
       // Send the request to the API with the data
@@ -63,15 +74,16 @@ class StoreService {
       }
 
       // TODO: Add what should happen after creating new store
-    } on GetException catch(e, s) {
+    } on GetException catch (e, s) {
       Logger.e('Error getting store: ${e.message}', e: e, s: s);
       throw e;
-    } catch(e, s) {
+    } catch (e, s) {
       Logger.e('Error fetching store  with ID: $storeId', e: e, s: s);
       throw GetException('Unknown error while trying to get store');
     }
   }
 
+  @override
   Future<List<Store>> getStores() async {
     try {
       // authenticate with server
@@ -81,7 +93,8 @@ class StoreService {
 
       // Check if the status is true
       if (response.containsKey('success') && response['success']) {
-        return List.from(response['data']['stores'].map((elem) => Store.fromJson(elem)));
+        return List.from(
+            response['data']['stores'].map((elem) => Store.fromJson(elem)));
       } else if (response.containsKey('message')) {
         Logger.e('Error fetching stores: ${response['message']}');
         throw GetException(response['message']);
@@ -91,15 +104,12 @@ class StoreService {
       }
 
       // TODO: Add what should happen after creating new store
-    } on GetException catch(e, s) {
+    } on GetException catch (e, s) {
       Logger.e('Error getting stores: ${e.message}', e: e, s: s);
       throw e;
-    } catch(e, s) {
+    } catch (e, s) {
       Logger.e('Error fetching all stores', e: e, s: s);
       throw GetException('Unknown error while trying to get store');
     }
   }
-
-
-
 }

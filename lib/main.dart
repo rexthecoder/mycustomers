@@ -6,13 +6,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
+import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import './ui/shared/themes.dart' as themes;
+import './ui/theme/theme_viewmodel.dart';
 
 import 'package:oktoast/oktoast.dart';
 
 import 'app/locator.dart';
 import 'app/router.dart';
+import 'core/managers/core_manager.dart';
 import 'core/utils/logger.dart';
 
 final SentryClient _sentry = SentryClient(
@@ -35,9 +38,10 @@ void main() async {
   };
 
   runZonedGuarded<Future<void>>(() async {
-    setupLogger(sentryClient: SentryClient(
-    dsn:
-        "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
+    setupLogger(
+        sentryClient: SentryClient(
+            dsn:
+                "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
 
     runApp(App());
@@ -53,7 +57,6 @@ void main() async {
     //     builder: (context) => App(),
     //   ),
     // );
-
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -110,19 +113,22 @@ class App extends StatelessWidget {
     // SystemChrome.setPreferredOrientations([
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
-    return OKToast(
-      child: MaterialApp(
-        // builder: DevicePreview.appBuilder,
-        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-          DefaultMaterialLocalizations.delegate,
-          DefaultWidgetsLocalizations.delegate,
-        ],
-        theme: themes.primaryMaterialTheme,
-        darkTheme: themes.darkMaterialTheme,
-        debugShowCheckedModeBanner: false,
-        initialRoute: Routes.startupViewRoute,
-        onGenerateRoute: Router().onGenerateRoute,
-        navigatorKey: locator<NavigationService>().navigatorKey,
+    return CoreManager(
+      child: ViewModelBuilder<ThemeModel>.reactive(
+              builder: (_, viewModel, ___) => OKToast(
+          child: MaterialApp(
+            // builder: DevicePreview.appBuilder,
+            localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+              DefaultMaterialLocalizations.delegate,
+              DefaultWidgetsLocalizations.delegate,
+            ],
+            theme: viewModel.theme,
+            debugShowCheckedModeBanner: false,
+            initialRoute: Routes.startupViewRoute,
+            onGenerateRoute: Router().onGenerateRoute,
+            navigatorKey: locator<NavigationService>().navigatorKey,
+          ),
+        ), viewModelBuilder: () => ThemeModel(),
       ),
     );
   }
