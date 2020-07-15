@@ -11,14 +11,14 @@ Widget customizeAppBar(BuildContext context, double elevation,
     {Color arrowColor, String title}) {
   return AppBar(
     brightness: Brightness.light,
-    backgroundColor: Colors.white,
+    backgroundColor: Theme.of(context).backgroundColor,
     elevation: elevation,
     centerTitle: true,
     title: Text(
       title,
-      style: TextStyle(
+      style: Theme.of(context).textTheme.headline6.copyWith(
         fontSize: SizeConfig.textSize(context, 5),
-        color: Colors.black,
+        color: Theme.of(context).cursorColor,
         fontWeight: FontWeight.bold,
       ),
     ),
