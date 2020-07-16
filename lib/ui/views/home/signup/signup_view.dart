@@ -27,11 +27,14 @@ class SignUpView extends StatelessWidget {
           statusBarIconBrightness: Brightness.light,
         ),
         child: SafeArea(
-          child: Scaffold(
-            key: _signupPageKey,
-            resizeToAvoidBottomInset: false,
-            backgroundColor: BrandColors.primary,
-            body: CustomBackground(child: _PartialBuildForm()),
+          child: WillPopScope(
+            onWillPop: () => model.navigateToOnboarding(),
+                      child: Scaffold(
+              key: _signupPageKey,
+              resizeToAvoidBottomInset: false,
+              backgroundColor: BrandColors.primary,
+              body: CustomBackground(child: _PartialBuildForm()),
+            ),
           ),
         ),
       ),

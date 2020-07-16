@@ -88,7 +88,7 @@ class MarketingHomePageView extends StatelessWidget {
                                     height: SizeConfig.yMargin(context, 3),
                                   ),
                                   Text(
-                                    'It\'s all about sending messages to customers. Click the nice blue button below to get that started',
+                                    'It\'s all about sending messages to customers. Click the nice orange button below to get that started',
                                     style: TextStyle(
                                         fontSize: 14.sp,
                                         color: Theme.of(context).cursorColor),
@@ -97,7 +97,7 @@ class MarketingHomePageView extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: SizeConfig.yMargin(context, 24),
+                                height: SizeConfig.yMargin(context, 5),
                               ),
                               Container(
                                 color: ThemeColors.gray[400],

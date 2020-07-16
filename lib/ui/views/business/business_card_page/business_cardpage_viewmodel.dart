@@ -25,7 +25,6 @@ class BusinessCardPageViewModel extends BaseViewModel {
   BusinessCard get businessCard => _businessCard;
 
   /// Setters
-
   /// Methods
   void updateBusinessCard({
     String storeName,
