@@ -52,6 +52,8 @@ void main() {
     MockPermissions _permission =  locator<IPermissionService>();
     final mockTransactionAdapters = MockTransactionAdapter();
     final mockBox = MockBox<TransactionModel>();
+    when(mockTransactionAdapters.box).thenAnswer((_) async => Future.value(mockBox));
+    when(mockBox.values).thenReturn(transactionModeList);
     
     //Checking for contact service
     await tester.runAsync(() async {
