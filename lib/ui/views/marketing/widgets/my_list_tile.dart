@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 
 class MyListTile extends StatelessWidget {
   const MyListTile(
@@ -20,7 +21,7 @@ class MyListTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
+        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.5), horizontal: SizeConfig.xMargin(context, 8)),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(color: Color(0xFFD1D1D1), width: action != null ? 1 : 0)
@@ -31,7 +32,7 @@ class MyListTile extends StatelessWidget {
             this.leading ?? Container(),
             Expanded(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: centerTitle != null ? 30.w : 10.w),
+                margin: EdgeInsets.symmetric(horizontal: centerTitle != null ? SizeConfig.xMargin(context, 5) : SizeConfig.xMargin(context, 3)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,

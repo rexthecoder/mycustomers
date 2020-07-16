@@ -46,7 +46,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
     return num.tryParse(amt) != null;
   }
 
-  void updateAmount(String value, bool update) {
+  void updateAmount(String value, bool update, String action) {
     _debouncer.run(() {
       if(value.length != 0) {
         String val = '';
@@ -59,7 +59,11 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
           _error = null;
           _amount = double.parse(val);
           show = true;
-          update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length>0 ? save = true : save = false;
+          update ? amount != null && newODate!= null ? save = true : save = false 
+          : 
+          action == 'debit' ? amount != null && newDate != null && newODate.length>0 ? save = true : save = false 
+          : 
+          amount != null && newODate != null ? save = true : save = false;
           notifyListeners();
         } else{
           _error = 'Enter a valid amount';
@@ -81,11 +85,11 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
     notifyListeners();
   }
 
-  void setOtherDate(DateTime date, bool update) {
+  void setOtherDate(DateTime date, bool update, String action) {
     otherDate = date;
     newODate = dformat.format(date);
     date2err = false;
-    update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length != null ? save = true : save = false;
+    update ? amount != null && newODate!= null ? save = true : save = false : action == 'debit' ? amount != null && newDate != null && newODate.length != null ? save = true : save = false : amount != null && newODate.length != null ? save = true : save = false;
     notifyListeners();
   }
 
