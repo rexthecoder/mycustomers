@@ -312,42 +312,39 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
   Widget buildViewModelWidget(
     BuildContext context,
     BusinessCardPageViewModel model,
-  ) {
-    print("_DefaultFormFiel rebuilt");
-
-    return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: SizeConfig.yMargin(context, 1),
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: SizeConfig.xMargin(context, 4),
-        vertical: SizeConfig.yMargin(context, 0.5),
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: ThemeColors.gray[700]),
-        color: Theme.of(context).backgroundColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: TextFormField(
-        onChanged: onChange,
-        validator: validate,
-        cursorColor: ThemeColors.gray[800],
-        style: TextStyle(
-          color: ThemeColors.black,
-          fontSize: SizeConfig.textSize(context, 5),
+  ) =>
+      Container(
+        margin: EdgeInsets.symmetric(
+          vertical: SizeConfig.yMargin(context, 1),
         ),
-        decoration: InputDecoration(
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          hintText: label,
-          hintStyle: TextStyle(
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.xMargin(context, 4),
+          vertical: SizeConfig.yMargin(context, 0.5),
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(color: ThemeColors.gray[700]),
+          color: Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: TextFormField(
+          onChanged: onChange,
+          validator: validate,
+          cursorColor: ThemeColors.gray[800],
+          style: TextStyle(
+            color: ThemeColors.black,
             fontSize: SizeConfig.textSize(context, 5),
-            color: ThemeColors.gray[700],
+          ),
+          decoration: InputDecoration(
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            hintText: label,
+            hintStyle: TextStyle(
+              fontSize: SizeConfig.textSize(context, 5),
+              color: ThemeColors.gray[700],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class _DefaultPhoneFormField

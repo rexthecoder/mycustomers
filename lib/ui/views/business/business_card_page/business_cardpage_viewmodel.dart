@@ -91,7 +91,7 @@ class BusinessCardPageViewModel extends BaseViewModel {
         File(tempPath).writeAsBytes(bytes);
       }
     } catch (e) {
-      print(e);
+      Logger.e(e);
       throw Exception("Unable to download image");
     }
   }
