@@ -67,7 +67,8 @@ class PdfViewerPage extends StatelessWidget {
 }
 
 String _formatDate(DateTime date) {
-  final format = DateFormat.yMMMd('en_US');
+  //TODO: Update to accept transaction time
+  final format = DateFormat.yMMMMEEEEd('en_US');
   return format.format(date);
 }
 
@@ -85,15 +86,23 @@ class ReceiptReport {
 
   var doc;
 
-  PdfImage _image;
+  PdfImage _receiptLogo;
+  PdfImage _mainLogo;
 
   Future<Uint8List> buildPdf(BuildContext context) async {
     await storagePermission();
     doc = pw.Document();
 
-    _image = PdfImage.file(
+    _receiptLogo = PdfImage.file(
       doc.document,
       bytes: (await rootBundle.load('assets/images/receiptLogo.png'))
+          .buffer
+          .asUint8List(),
+    );
+
+    _mainLogo = PdfImage.file(
+      doc.document,
+      bytes: (await rootBundle.load('assets/icons/my_customer_logo.png'))
           .buffer
           .asUint8List(),
     );
@@ -122,29 +131,33 @@ class ReceiptReport {
                         margin: pw.EdgeInsets.only(bottom: 30),
                         width: 250,
                         height: 250,
-                        child: pw.Image(_image),
+                        child: pw.Image(_receiptLogo),
                       ),
                     ],
                   ),
                 ],
               ),
-
               pw.Container(
                 margin: pw.EdgeInsets.only(
                     right: 50, top: 25, left: 50, bottom: 80),
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: <pw.Widget>[
-                    pw.Text(
-                      'myCustomer',
-                      style: pw.TextStyle(
-                        color: PdfColors.black,
-                        fontWeight: pw.FontWeight.bold,
-                        fontSize: 10,
-                      ),
+                    pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.end,
+                      children: [
+                        pw.Container(
+                          child: pw.Image(
+                            _mainLogo,
+                            width: 50,
+                            height: 50,
+                          ),
+                        ),
+                      ],
                     ),
                     pw.SizedBox(height: 30),
                     pw.Text(
+                      //TODO: Use date of transaction here
                       _formatDate(DateTime.now()),
                       style: pw.TextStyle(
                         color: PdfColors.grey,
@@ -152,17 +165,18 @@ class ReceiptReport {
                       ),
                     ),
                     pw.SizedBox(height: 15),
-                    //TODO: Put a count on #00001
                     pw.RichText(
                       text: pw.TextSpan(
-                        text: 'R e p o r t ',
+                        text: 'Single Transaction Details: ',
                         style: pw.TextStyle(
                           color: PdfColors.black,
-                          fontSize: 15,
+                          fontSize: 10,
+                          fontWeight: pw.FontWeight.bold,
                         ),
                         children: [
                           pw.TextSpan(
-                            text: ' # 0 0 0 0 1',
+                            //TODO: Add transaction ID
+                            text: '',
                             style: pw.TextStyle(
                               color: PdfColors.grey,
                               fontSize: 15,
@@ -195,10 +209,12 @@ class ReceiptReport {
                               mainAxisSize: pw.MainAxisSize.max,
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
+                                //TODO: Populate with live data customer
+                                // store name and address
                                 pw.Text(
                                   'HNG Inc',
                                   style: pw.TextStyle(
-                                    fontSize: 8,
+                                    fontSize: 10,
                                     fontWeight: pw.FontWeight.bold,
                                   ),
                                 ),
@@ -206,21 +222,21 @@ class ReceiptReport {
                                 pw.Text(
                                   'HNG Headquarters,',
                                   style: pw.TextStyle(
-                                    fontSize: 6,
+                                    fontSize: 8,
                                   ),
                                 ),
                                 pw.SizedBox(height: 2.5),
                                 pw.Text(
                                   '2020 Hamilton Avenue,',
                                   style: pw.TextStyle(
-                                    fontSize: 6,
+                                    fontSize: 8,
                                   ),
                                 ),
                                 pw.SizedBox(height: 2.5),
                                 pw.Text(
                                   'San jose, california 95125',
                                   style: pw.TextStyle(
-                                    fontSize: 6,
+                                    fontSize: 8,
                                   ),
                                 ),
                               ],
@@ -241,200 +257,143 @@ class ReceiptReport {
                                 pw.Text(
                                   'Description',
                                   style: pw.TextStyle(
-                                    fontSize: 8,
+                                    fontSize: 10,
                                     fontWeight: pw.FontWeight.bold,
                                   ),
                                 ),
                                 pw.SizedBox(height: 10),
                                 pw.Text(
-                                  'Design a recommendation job portal including a 5 page',
+                                  'MyCustomer is a ledger managing service '
+                                  'and app that helps you manage debts ',
                                   style: pw.TextStyle(
-                                    fontSize: 6,
+                                    fontSize: 8,
                                   ),
                                 ),
-                                pw.SizedBox(height: 2.5),
                                 pw.Text(
-                                  'Landing page and the admin dashboard',
+                                  '',
                                   style: pw.TextStyle(
-                                    fontSize: 6,
+                                    fontSize: 8,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                          pw.Divider(
-                            height: 0.5,
-                            thickness: 0.5,
-                            color: PdfColor.fromInt(0xFFC4C4C4),
                           ),
                           pw.Container(
-                            margin: pw.EdgeInsets.only(
-                                top: 25, left: 30, bottom: 25),
-                            child: pw.Row(
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
+                            padding: pw.EdgeInsets.only(left: 30, right: 30),
+                            //TODO: Create a class and Populate with
+                            // live data
+                            child: pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: [
-                                pw.Container(
-                                  child: pw.Column(
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.start,
-                                    children: [
-                                      pw.Text(
-                                        'Deliverable',
-                                        style: pw.TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: pw.FontWeight.bold,
-                                        ),
+                                pw.Row(
+                                  mainAxisAlignment:
+                                      pw.MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    pw.Text(
+                                      'Items purchased:',
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
                                       ),
-                                      pw.SizedBox(height: 10),
-                                      pw.Text(
-                                        'Initial Research & Web Application '
-                                        'Design Sketch File',
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                        ),
+                                    ),
+                                    pw.Text(
+                                      //TODO: Enter live items here
+                                      'None',
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
                                       ),
-                                      pw.SizedBox(height: 5),
-                                      pw.Text(
-                                        '2020 Hamilton Avenue,',
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                        ),
-                                      ),
-                                      pw.SizedBox(height: 5),
-                                      pw.Text(
-                                        'San jose, california 95125',
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                pw.Container(
-                                  //margin:
-                                  //pw.EdgeInsets.only(left: 70, right: 70),
-                                  child: pw.Column(
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.center,
-                                    children: [
-                                      pw.SizedBox(
-                                        height: 17.5,
+                                pw.SizedBox(height: 5),
+                                pw.Row(
+                                  mainAxisAlignment:
+                                      pw.MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    pw.Text(
+                                      'Cost of Items:',
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
                                       ),
-                                      pw.Text(
-                                        '---------------------------',
-                                        style: pw.TextStyle(
-                                          color: PdfColors.grey,
-                                        ),
+                                    ),
+                                    pw.Text(
+                                      _formatCurrency(5000),
+                                      style: pw.TextStyle(
+                                        color: PdfColor.fromInt(0xFF333CC1),
+                                        fontSize: 8,
                                       ),
-                                      pw.SizedBox(
-                                        height: 0.5,
-                                      ),
-                                      pw.Text(
-                                        '---------------------------',
-                                        style: pw.TextStyle(
-                                          color: PdfColors.grey,
-                                        ),
-                                      ),
-                                      pw.SizedBox(
-                                        height: 0.5,
-                                      ),
-                                      pw.Text(
-                                        '---------------------------',
-                                        style: pw.TextStyle(
-                                          color: PdfColors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                pw.Container(
-                                  margin: pw.EdgeInsets.only(right: 30),
-                                  child: pw.Column(
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.end,
-                                    children: [
-                                      pw.Text(
-                                        'Pricing',
-                                        style: pw.TextStyle(
-                                          fontSize: 8,
-                                          fontWeight: pw.FontWeight.bold,
-                                        ),
+                                pw.SizedBox(height: 5),
+                                pw.Row(
+                                  mainAxisAlignment:
+                                      pw.MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    pw.Text(
+                                      'Amount Paid:',
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
                                       ),
-                                      pw.SizedBox(height: 10),
-                                      pw.Text(
-                                        _formatCurrency(5000),
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                        ),
+                                    ),
+                                    pw.Text(
+                                      _formatCurrency(0),
+                                      style: pw.TextStyle(
+                                        color: PdfColors.green,
+                                        fontSize: 8,
                                       ),
-                                      pw.SizedBox(height: 5),
-                                      pw.Text(
-                                        _formatCurrency(1200),
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                        ),
-                                      ),
-                                      pw.SizedBox(height: 5),
-                                      pw.Text(
-                                        _formatCurrency(2500),
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                                pw.SizedBox(height: 5),
+                                pw.Row(
+                                  mainAxisAlignment:
+                                      pw.MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    pw.Text(
+                                      'Amount Owing:',
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                    pw.Text(
+                                      _formatCurrency(5000),
+                                      style: pw.TextStyle(
+                                        color: PdfColors.red,
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                pw.SizedBox(height: 5),
+                                pw.Row(
+                                  mainAxisAlignment:
+                                      pw.MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    pw.Text(
+                                      'Amount Owed:',
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                    pw.Text(
+                                      _formatCurrency(0),
+                                      style: pw.TextStyle(
+                                        color: PdfColors.red,
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ], // _contentBody(context),
                             ),
                           ),
-                          pw.Divider(
-                            height: 0.5,
-                            thickness: 0.5,
-                            color: PdfColor.fromInt(0xFFC4C4C4),
+                          pw.SizedBox(
+                            height: 60,
                           ),
                           pw.Container(
                             padding: pw.EdgeInsets.only(
                                 left: 30, top: 10, bottom: 10, right: 30),
                             color: PdfColor.fromInt(0xFF333CC1),
-                            child: pw.Row(
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
-                              children: [
-                                pw.Container(
-                                  child: pw.Column(
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.start,
-                                    children: [
-                                      pw.Text(
-                                        'Total',
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                          fontWeight: pw.FontWeight.bold,
-                                          color: PdfColors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                pw.Container(
-                                  child: pw.Column(
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.start,
-                                    children: [
-                                      pw.Text(
-                                        _formatCurrency(8700),
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                          fontWeight: pw.FontWeight.bold,
-                                          color: PdfColors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                           pw.Divider(
                             height: 0.5,
@@ -442,132 +401,12 @@ class ReceiptReport {
                             color: PdfColor.fromInt(0xFFC4C4C4),
                           ),
                           pw.Container(
-                            padding: pw.EdgeInsets.only(
-                                left: 30, top: 10, bottom: 10, right: 40),
-                            child: pw.Row(
-                              mainAxisAlignment: pw.MainAxisAlignment.start,
-                              children: [
-                                pw.Expanded(
-                                  child: pw.Container(
-                                    child: pw.Column(
-                                      crossAxisAlignment:
-                                          pw.CrossAxisAlignment.start,
-                                      children: [
-                                        pw.Text(
-                                          'Bank Transfer Details',
-                                          style: pw.TextStyle(
-                                            fontSize: 6,
-                                            fontWeight: pw.FontWeight.bold,
-                                          ),
-                                        ),
-                                        pw.SizedBox(
-                                          height: 5,
-                                        ),
-                                        pw.Row(
-                                          mainAxisSize: pw.MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              pw.MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            pw.Text(
-                                              'Account Name:',
-                                              style: pw.TextStyle(
-                                                fontSize: 4,
-                                              ),
-                                            ),
-                                            pw.Text(
-                                              'Salako Ibrahim',
-                                              style: pw.TextStyle(
-                                                fontSize: 4,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        pw.SizedBox(
-                                          height: 5,
-                                        ),
-                                        pw.Row(
-                                          mainAxisSize: pw.MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              pw.MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            pw.Text(
-                                              'Bank Name:',
-                                              style: pw.TextStyle(
-                                                fontSize: 4,
-                                              ),
-                                            ),
-                                            pw.Text(
-                                              'FCMB',
-                                              style: pw.TextStyle(
-                                                fontSize: 4,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        pw.SizedBox(
-                                          height: 5,
-                                        ),
-                                        pw.Row(
-                                          mainAxisSize: pw.MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              pw.MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            pw.Text(
-                                              'Account No:',
-                                              style: pw.TextStyle(
-                                                fontSize: 4,
-                                              ),
-                                            ),
-                                            pw.Text(
-                                              '3021 200 3622',
-                                              style: pw.TextStyle(
-                                                fontSize: 4,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                pw.SizedBox(
-                                  width: 120,
-                                ),
-                                pw.Container(
-                                  //TODO: Move this to Top Container
-                                  width: 110,
-                                  height: 35,
-                                  child: pw.Column(
-                                    crossAxisAlignment:
-                                        pw.CrossAxisAlignment.start,
-                                    children: [
-                                      pw.Text(
-                                        'Notes',
-                                        style: pw.TextStyle(
-                                          fontSize: 6,
-                                          fontWeight: pw.FontWeight.bold,
-                                        ),
-                                      ),
-                                      pw.SizedBox(
-                                        height: 5,
-                                      ),
-                                      pw.RichText(
-                                        textAlign: pw.TextAlign.left,
-                                        softWrap: true,
-                                        maxLines: 2,
-                                        text: pw.TextSpan(
-                                          text:
-                                              'All deposits to be made within 7 days'
-                                              ' of receipt',
-                                          style: pw.TextStyle(
-                                            fontSize: 6,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                            alignment: pw.Alignment.center,
+                            padding: pw.EdgeInsets.all(30),
+                            child: pw.Image(
+                              _mainLogo,
+                              width: 100,
+                              height: 100,
                             ),
                           ),
                         ],
@@ -579,6 +418,16 @@ class ReceiptReport {
               pw.Column(
                 mainAxisAlignment: pw.MainAxisAlignment.end,
                 children: [
+                  pw.Container(
+                    margin: pw.EdgeInsets.only(bottom: 40, right: 190),
+                    child: pw.Text(
+                      'THANK YOU FOR YOUR PATRONAGE!',
+                      style: pw.TextStyle(
+                        fontSize: 6,
+                        color: PdfColor.fromInt(0xFF1D6AFF),
+                      ),
+                    ),
+                  ),
                   pw.Container(
                     padding: pw.EdgeInsets.only(
                         left: 50, right: 50, bottom: 15, top: 15),
@@ -641,3 +490,15 @@ class ReceiptReport {
     );
   }
 }
+
+class ContentData {
+  //TODO: create a function with a loop to do live data
+  var tID; // Transaction ID
+  var customerName = 'Demola'; // Customer name
+  var storeName = 'DemolaStores'; // Store name
+  var storeAddress = 'No.1, Not Available drive'; // Store name
+  var debtor = '';
+  var creditor = '';
+}
+
+class DataHandling {}
