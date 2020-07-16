@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
-import 'package:mycustomers/core/services/business_card_service.dart';
+import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
+import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -13,16 +13,16 @@ import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class BusinessCardPageViewModel extends BaseViewModel {
   /// Fields
-  final BusinessCardService _businessCardService =
-      locator<IBusinessCardService>();
+  final BusinessCardRepository _businessCardRepository =
+      locator<BusinessCardRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   final PermissionService _permissionService = locator<IPermissionService>();
-  BusinessCard _businessCard = BusinessCard.empty();
+  BusinessCardH _businessCard = BusinessCardH.empty();
   File imageFile;
 
   /// Getters
-  BusinessCard get businessCard => _businessCard;
+  BusinessCardH get businessCard => _businessCard;
 
   /// Setters
 
@@ -51,7 +51,7 @@ class BusinessCardPageViewModel extends BaseViewModel {
   }
 
   Future<void> saveBusinessCard() async {
-    await _businessCardService.saveBusinessCard(businessCard);
+    await _businessCardRepository.saveBusinessCard(businessCard);
     notifyListeners();
   }
 
@@ -97,7 +97,7 @@ class BusinessCardPageViewModel extends BaseViewModel {
   }
 
   Future<void> init() async {
-    _businessCard = await _businessCardService.getBusinessCard();
+    _businessCard = await _businessCardRepository.getBusinessCard();
     notifyListeners();
   }
 

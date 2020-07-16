@@ -2,16 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mycustomers/core/data_sources/business_card/business_card_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
-import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
+import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
+import 'package:mycustomers/core/repositories/business_card/business_card_repository_impl.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:hive/hive.dart';
-import 'package:mycustomers/core/services/business_card_service.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/connectivity/connectivity_service_impl.dart';
 import 'package:mycustomers/core/services/connectivity/connectivity_services.dart';
@@ -90,14 +93,23 @@ Future<void> setupLocator(
   locator.registerLazySingleton<IOwnerServices>(
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
   );
-  locator.registerLazySingleton<IBusinessCardService>(
-    () => BusinessCardService(),
-  );
+
   locator.registerLazySingleton<UserService>(
     () => UserService(),
   );
 
-  // Data sources
+  ///Repository
+  locator.registerLazySingleton<BusinessCardRepository>(
+    () => BusinessCardRepositoryImpl(
+        authService: locator(),
+        storeRepository: locator(),
+        localDataSource: locator()),
+  );
+  locator.registerLazySingleton<StoreRepository>(
+    () => StoreRepository(),
+  );
+
+  /// Data sources
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
   );
@@ -106,6 +118,9 @@ Future<void> setupLocator(
   );
   locator.registerLazySingleton<LogsLocalDataSource>(
     () => LogsLocalDataSourceImpl(),
+  );
+  locator.registerLazySingleton<BusinessCardLocalDataSource>(
+    () => BusinessCardLocalDataSourceImpl(),
   );
 
   // Util
