@@ -62,7 +62,7 @@ class DebtorsView extends StatelessWidget {
                                   fontSize: SizeConfig.yMargin(context, 2)
                               ),),
                               model.bought() - model.paid() > 0 ? Text(
-                                '₦'+currency.format(model.bought() - model.paid()).toString(),
+                                model.currency.symbol+currency.format(model.bought() - model.paid()).toString(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: SizeConfig.yMargin(context, 5),
@@ -242,7 +242,7 @@ class ContactList extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         child: Text(
-                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
                             color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
                             fontSize: SizeConfig.yMargin(context, 1.8),
@@ -313,7 +313,7 @@ class ContactList extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         child: Text(
-                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
                             color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green,
                             fontSize: SizeConfig.yMargin(context, 1.8),

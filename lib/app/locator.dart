@@ -135,6 +135,7 @@ Future<void> setupLocator(
   if(!test){
     await LogsLocalDataSourceImpl().init();
     await TransactionLocalDataSourceImpl().init();
+    await BussinessSettingService().init();
   }
 
   

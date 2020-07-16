@@ -312,7 +312,7 @@ class MainTransaction extends StatelessWidget {
                                                               color: Colors
                                                                   .white),
                                                           child: Text(
-                                                            '₦' +
+                                                            model.currency.symbol +
                                                                 currency
                                                                     .format(
                                                                         item.amount)
@@ -430,7 +430,7 @@ class MainTransaction extends StatelessWidget {
                                                                   color: Colors
                                                                       .white),
                                                           child: Text(
-                                                            '₦' +
+                                                            model.currency.symbol +
                                                                 currency
                                                                     .format(
                                                                         item.paid)
@@ -520,7 +520,7 @@ class MainTransaction extends StatelessWidget {
                                                   ),
                                             ),
                                             Text(
-                                              'NGN' +
+                                              model.currency.symbol +
                                                   currency
                                                       .format(model.bought() -
                                                           model.paid())
@@ -531,6 +531,7 @@ class MainTransaction extends StatelessWidget {
                                                   .copyWith(
                                                     fontSize: SizeConfig.yMargin(context, 2.5),
                                                     color: Color(0xFFEB5757),
+                                                    fontFamily: 'Roboto',
                                                     fontWeight: FontWeight.w900,
                                                   ),
                                             )
@@ -552,7 +553,7 @@ class MainTransaction extends StatelessWidget {
                                                   ),
                                             ),
                                             Text(
-                                              'NGN' +
+                                              model.currency.symbol +
                                                   currency
                                                       .format(model.paid() -
                                                           model.bought())
@@ -563,6 +564,7 @@ class MainTransaction extends StatelessWidget {
                                                   .copyWith(
                                                     fontSize: SizeConfig.yMargin(context, 2.5),
                                                     color: Color(0xFFEB5757),
+                                                    fontFamily: 'Roboto',
                                                     fontWeight: FontWeight.w900,
                                                   ),
                                             )
