@@ -44,6 +44,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
+      onModelReady: (model) => model.addlog(),
       builder: (context, model, child) => Scaffold(
         body: Stack(
           children: <Widget>[
