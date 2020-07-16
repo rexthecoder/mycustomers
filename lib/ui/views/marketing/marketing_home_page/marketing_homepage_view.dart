@@ -15,6 +15,7 @@ class MarketingHomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    Color backgroundColor = Theme.of(context).brightness==Brightness.dark?Theme.of(context).backgroundColor :ThemeColors.gray[400];
     ScreenUtil.init(context,
         width: width, height: height, allowFontScaling: true);
     return ViewModelBuilder<MarketingHomePageViewModel>.reactive(
@@ -62,8 +63,8 @@ class MarketingHomePageView extends StatelessWidget {
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
-                    color: ThemeColors.gray[400],
-                    width: width,
+                    color: backgroundColor,
+                   width: width,
                     // height: height,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -126,15 +127,18 @@ class MarketingHomePageView extends StatelessWidget {
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                FlatButton(
-                                  onPressed: () {},
-                                  color:
-                                      BrandColors.secondary.withOpacity(0.07),
-                                  child: Text(
-                                    'Send message to all',
-                                    style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: BrandColors.secondary),
+                                InkWell(
+                                  child: Container(
+                                    color: BrandColors.secondary.withOpacity(0.07),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        'Send message to all',
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            color: BrandColors.secondary),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -166,7 +170,9 @@ class MarketingHomePageView extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          Container(
+                          model.allFrequentCustomers.length == 0
+                              ? Container()
+                              :Container(
                             width: double.infinity,
                             height: 15.h,
                             alignment: Alignment.centerLeft,
@@ -181,16 +187,16 @@ class MarketingHomePageView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          model.allCustomers.length == 0
+                          model.allFrequentCustomers.length == 0
                               ? Container()
                               : ListView.builder(
-                                  itemCount: 1,
+                                  itemCount: model.allFrequentCustomers.length,
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     Customer customer =
-                                        model.allCustomers[index];
+                                    model.allFrequentCustomers[index];
                                     bool _isSelected =
                                         model.isSelected(customer);
                                     return Container(
@@ -249,10 +255,14 @@ class MarketingHomePageView extends StatelessWidget {
                                       ),
                                     );
                                   }),
-                          Divider(
+                          model.allFrequentCustomers.length == 0
+                              ? Container()
+                              : Divider(
                             color: Colors.grey[300],
                           ),
-                          SizedBox(
+                          model.allFrequentCustomers.length == 0
+                              ? Container()
+                              :SizedBox(
                             height: 10.h,
                           ),
                           Container(
@@ -536,13 +546,13 @@ class MarketingHomePageView extends StatelessWidget {
                 )
               : model.allCustomers.length == 0
                   ? Container(
-                      color: ThemeColors.gray[400],
+                      color: backgroundColor,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
                         child: Container(
                           height: 50.h,
-                          color: ThemeColors.gray[400],
+                          color: backgroundColor,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[

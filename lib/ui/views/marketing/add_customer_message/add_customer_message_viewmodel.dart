@@ -18,6 +18,9 @@ class AddCustomerMessageViewModel extends FutureViewModel {
   List<Customer> _selectedCustomers = [];
   List<Customer> get selectedCustomers => _selectedCustomers;
 
+  List<Customer> _allFrequentCustomers = [];
+  List<Customer> get allFrequentCustomers => _allFrequentCustomers;
+
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
 
@@ -56,6 +59,11 @@ class AddCustomerMessageViewModel extends FutureViewModel {
   void addCustomer(Customer customer) {
     _selectedCustomers.add(customer);
     notifyListeners();
+  }
+
+  void getFrequentCustomers() {
+    //todo: get frequent customers
+//    allFrequentCustomers
   }
 
   void deselectCustomer(Customer customer) {

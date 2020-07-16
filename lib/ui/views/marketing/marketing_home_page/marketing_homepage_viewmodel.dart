@@ -45,6 +45,8 @@ class MarketingHomePageViewModel extends BaseViewModel {
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
 
   List<Customer> _allSelectedCustomers = [];
+  List<Customer> _allFrequentCustomers = [];
+  List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   List<Customer> get searchedCustomer => allCustomers.where(
         (Customer customer) =>
     customer.name.contains(searchPattern) ||
@@ -83,6 +85,10 @@ class MarketingHomePageViewModel extends BaseViewModel {
   void deselectCustomer(Customer customer) {
     _selectedCustomers.removeWhere((element) => element.id == customer.id);
     notifyListeners();
+  }
+  void getFrequentCustomers() {
+    //todo: get frequent customers
+//    allFrequentCustomers
   }
 
   void selectAllCustomers() {
