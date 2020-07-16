@@ -7,20 +7,18 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 /// Customize AppBar to be use across all POP screens
 /// - Title
 /// - Elevation
-Widget customizeAppBar(BuildContext context, String title, double elevation) {
+Widget customizeAppBar(BuildContext context, double elevation,
+    {Color arrowColor, String title}) {
   return AppBar(
     brightness: Brightness.light,
-    backgroundColor: Colors.white,
-    iconTheme: IconThemeData(
-      color: BrandColors.primary,
-    ),
+    backgroundColor: Theme.of(context).backgroundColor,
     elevation: elevation,
     centerTitle: true,
     title: Text(
       title,
-      style: TextStyle(
+      style: Theme.of(context).textTheme.headline6.copyWith(
         fontSize: SizeConfig.textSize(context, 5),
-        color: Colors.black,
+        color: Theme.of(context).cursorColor,
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -30,7 +28,7 @@ Widget customizeAppBar(BuildContext context, String title, double elevation) {
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         child: SvgPicture.asset(
           'assets/icons/backarrow.svg',
-          color: BrandColors.primary,
+          color: arrowColor,
         ),
       ),
     ),

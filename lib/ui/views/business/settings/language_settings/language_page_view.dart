@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_view_model.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart' as ctm;
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'language_view_model.dart';
 
 class LanguagePageView extends StatelessWidget {
   @override
@@ -16,32 +18,8 @@ class LanguagePageView extends StatelessWidget {
     return ViewModelBuilder<LanguagePageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               backgroundColor: Theme.of(context).backgroundColor,
-              appBar: AppBar(
-                brightness: Brightness.light,
-                elevation: 0,
-                title: Text(
-                  'Language',
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                        fontSize: ScreenUtil().setSp(20),
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).cursorColor,
-                      ),
-                ),
-                leading: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(18),
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: SvgPicture.asset(
-                      'assets/icons/backarrow.svg',
-                      color: Theme.of(context).textSelectionColor,
-                    ),
-                  ),
-                ),
-                backgroundColor: Theme.of(context).backgroundColor,
-                centerTitle: true,
-              ),
+              appBar: customizeAppBar(context, 1.0,
+                title:'Language' , arrowColor: BrandColors.primary),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -83,7 +61,7 @@ class LanguagePageView extends StatelessWidget {
                     Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(20)),
-                        child: CustomRaisedButton(
+                        child: ctm.CustomRaisedButton(
                             label: 'Save',
                             onPressed: () {
                               model.saveLang();
@@ -134,3 +112,4 @@ class LanguagePageView extends StatelessWidget {
         ));
   }
 }
+// }

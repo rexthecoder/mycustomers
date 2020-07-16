@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
@@ -11,7 +12,8 @@ class AppLockSettingsPageView extends StatelessWidget {
       viewModelBuilder: () => AppLockSettingsPageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: customizeAppBar(context, 'App Lock', 1.0),
+          appBar: customizeAppBar(context, 1.0,
+                title:'App Lock' , arrowColor: BrandColors.primary),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: <Widget>[
