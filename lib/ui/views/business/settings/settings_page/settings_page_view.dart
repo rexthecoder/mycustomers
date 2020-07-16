@@ -5,6 +5,7 @@ import 'package:mycustomers/ui/views/business/settings/settings_page/settings_pa
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -56,13 +57,12 @@ class SettingsPage extends StatelessWidget {
                           SizedBox(
                             height: ScreenUtil().setHeight(50),
                           ),
-                          ViewModelBuilder<ThemeModel>.reactive(
-                            builder: (_, viewModel, ___) => switchTile(
+                          CustomPartialBuild<ThemeModel>(
+                            builder: (context, viewModel) => switchTile(
                                 context,
                                 viewModel.isDarkTheme,
                                 viewModel.setTheme,
                                 'Dark Mode'),
-                            viewModelBuilder: () => ThemeModel(),
                           ),
                           switchTile(context, model.notification,
                               model.setNotification, 'Receive Notifications'),

@@ -33,6 +33,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 
@@ -57,8 +58,11 @@ Future<void> setupLocator(
     bool useMockCustomer: true,
     bool test = false}) async {
  //Inizialize Hive path
-  Directory appDocDir =test ? Directory.current : await getApplicationDocumentsDirectory();
-  Hive.initFlutter(appDocDir.path);
+ print('Getting directory');
+  Directory appDocDir = test ? Directory.current : await getApplicationDocumentsDirectory();
+  print('Initializing hive flutter');
+  Hive.initFlutter();
+  print('Initializing hive flutter');
 
   // Services
   locator.registerLazySingleton(
@@ -141,6 +145,8 @@ Future<void> setupLocator(
 
   // External
   locator.registerLazySingleton<HiveInterface>(() => Hive);
+
+  print('Initializing boxes...');
 
   //Initialization for all boxes
   await LogsLocalDataSourceImpl().init();

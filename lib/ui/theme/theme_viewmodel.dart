@@ -16,9 +16,11 @@ class ThemeModel extends BaseViewModel {
   ThemeData theme([BuildContext context]) {
     _context = context;
     return isDarkTheme ? _theme.darkMaterialTheme : _theme.primaryMaterialTheme;
-  }Future<void> setTheme() async {
+  }
+  Future<void> setTheme() async {
     var newTheme = !isDarkTheme;
     await locator<IStorageUtil>().saveBool('IS_DARK_THEME', newTheme);
     notifyListeners();
+    print('Notified listeners. Dark theme is: $isDarkTheme');
   }
 }

@@ -7,4 +7,6 @@ class AppPreferenceKey {
   static const USER_PHONE = 'USER_PHONE_NUMBER';
   static const USER_PASS = 'USER_PASSWORD';
   static const USER_ID = 'USER_ID';
+  static const USER_EMAIL = 'USER_EMAIL';
+  static const USER_FULL_NAME = 'USER_FULL_NAME';
 }

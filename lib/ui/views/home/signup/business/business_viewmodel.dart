@@ -1,4 +1,7 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/constants/app_preference_keys.dart';
+import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
@@ -16,6 +19,8 @@ class BusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final StoresLocalDataSource _storeService = locator<StoresLocalDataSource>();
   final DialogService _dialogService = locator<DialogService>();
+  final IStorageUtil _storage = locator<IStorageUtil>();
+  final AuthService _auth = locator<AuthService>();
 
   Future<void> navigateToNext() async {
     await _navigationService.replaceWithTransition(MainView(),
@@ -66,5 +71,14 @@ class BusinessViewModel extends BaseViewModel {
   void activeBtn() {
     btnColor = !btnColor;
     notifyListeners();
+  }
+
+  Future<void> updateUserDeets(String fullname, String email) async {
+    await _storage.saveString(AppPreferenceKey.USER_FULL_NAME, fullname);
+    await _storage.saveString(AppPreferenceKey.USER_EMAIL, email);
+    _auth.updateCurrentUser(_auth.currentUser
+    ..email = email
+    ..firstName = fullname
+    );
   }
 }

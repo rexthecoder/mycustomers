@@ -40,6 +40,8 @@ class StartupViewModel extends BaseViewModel {
         'phone_number': _storage.getString(AppPreferenceKey.USER_PHONE),
         'password': _storage.getString(AppPreferenceKey.USER_PASS),
         'id': _storage.getString(AppPreferenceKey.USER_ID),
+        'first_name': _storage.getString(AppPreferenceKey.USER_FULL_NAME),
+        'email': _storage.getString(AppPreferenceKey.USER_EMAIL),
       }),
     );
   }
@@ -57,6 +59,8 @@ class StartupViewModel extends BaseViewModel {
       _auth.updateCurrentUser(User(
         id: deets['id'] ?? 'dvdykdsd9784-mkl-8hnf',
         phoneNumber: deets['phone_number'],
+        firstName: deets['first_name'],
+        email: deets['email'],
       ));
       await StoreRepository.updateStores();
       // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);

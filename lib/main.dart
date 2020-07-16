@@ -132,6 +132,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Building material app');
     return MaterialApp(
       builder: DevicePreview.appBuilder,
       theme: viewModel.theme(context),
