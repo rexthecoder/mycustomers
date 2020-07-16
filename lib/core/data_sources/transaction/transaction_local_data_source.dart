@@ -39,7 +39,6 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
 
   List<String> formattedate = [];
   String date;
-  get box => _hiveService.openBox<TransactionModel>(HiveBox.transaction);
   //var box = Hive.openBox<TransactionModel>(_boxname);
 
   RxValue<TransactionModel> _stransaction = RxValue<TransactionModel>(initial: null);
@@ -51,10 +50,10 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
   }
 
   Future<void> init() async {
-    _hiveService.registerAdapter(TransactionAdapter());
+    _hiveService.registerAdapter<TransactionModel>(TransactionAdapter());
 
     if (!_isBoxOpen) {
-      await box;
+      await _hiveService.openBox<TransactionModel>(HiveBox.transaction);
     }
   }
 
