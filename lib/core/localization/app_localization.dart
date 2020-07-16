@@ -30,7 +30,6 @@ class AppLocalizations {
     return _sentences[key];
   }
 
-
   //list of available local strings that the app can use
   String get onboardingWelcomeText => translate(LocalKeys.onboarding_welcome_text);
   String get onboardingWelcomeDesc => translate(LocalKeys.onboarding_welcome_desc);

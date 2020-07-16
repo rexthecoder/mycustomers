@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_view_model.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart' as ctm;
@@ -17,7 +18,8 @@ class LanguagePageView extends StatelessWidget {
     return ViewModelBuilder<LanguagePageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               backgroundColor: Theme.of(context).backgroundColor,
-              appBar: customizeAppBar(context, 'Language', 1.0),
+              appBar: customizeAppBar(context, 1.0,
+                title:'Language' , arrowColor: BrandColors.primary),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
