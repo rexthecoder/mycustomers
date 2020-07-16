@@ -92,9 +92,15 @@ class AddDebtCreditView extends StatelessWidget {
                               errorText: model.error,
                               prefixIcon: Container(
                                 padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15), horizontal: ScreenUtil().setWidth(10)),
-                                child: SvgPicture.asset(
-                                  'assets/icons/hash.svg',
-                                ),
+                                child: Text(
+                                  model.currency.symbol,
+                                  style: TextStyle(
+                                    color: Colors.grey.shade900,
+                                    fontSize: SizeConfig.yMargin(context, 3),
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Roboto'
+                                  ),
+                                )
                               ),
                               contentPadding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(8)),
                             ),
