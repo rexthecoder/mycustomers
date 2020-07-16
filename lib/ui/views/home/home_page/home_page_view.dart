@@ -35,7 +35,7 @@ class HomePageView extends StatelessWidget {
                       border: Border(
                           bottom: BorderSide(color: Colors.grey, width: 0.5))),
                   child: TabBar(
-                    labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 1),
                     unselectedLabelColor: Theme.of(context).cursorColor,
                     labelColor: Theme.of(context).buttonColor,
                     indicatorSize: TabBarIndicatorSize.label,
@@ -49,8 +49,9 @@ class HomePageView extends StatelessWidget {
                               "Customers owing you",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
+                              //maxLines: 1,
                             ),
                           ),
                         ),
@@ -63,7 +64,7 @@ class HomePageView extends StatelessWidget {
                               "People you owe",
                               textAlign: TextAlign.center,
                                style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),
@@ -77,7 +78,7 @@ class HomePageView extends StatelessWidget {
                               "All Customers",
                               textAlign: TextAlign.center,
                                style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),

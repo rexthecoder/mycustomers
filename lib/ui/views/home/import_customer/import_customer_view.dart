@@ -122,7 +122,7 @@ class ImportCustomerView extends StatelessWidget {
                         ),
                       ),
                       trailing: Container(
-                        //padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                        padding: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
                         child: FlatButton.icon(
                           icon: Icon(
                             Icons.add,
@@ -243,7 +243,7 @@ class __SearchBarState extends State<_SearchBar> {
         decoration: InputDecoration(
           hintText: 'Search',
           hintStyle: TextStyle(
-            fontSize: 18
+            fontSize: SizeConfig.yMargin(context, 2.5)
           ),
           prefixIcon: Icon(Icons.search, color: Theme.of(context).cursorColor,),
           border: InputBorder.none,
@@ -251,7 +251,7 @@ class __SearchBarState extends State<_SearchBar> {
           enabledBorder: InputBorder.none,
           fillColor: Colors.transparent,
           focusColor: Colors.transparent,
-          contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
+          contentPadding: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.3)),
         ),
         style: TextStyle(
           fontSize: 18
