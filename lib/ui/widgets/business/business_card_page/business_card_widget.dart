@@ -1,10 +1,98 @@
 part of '../../../views/business/business_card_page/business_cardpage_view.dart';
 
-class _BusinessCard1 extends HookViewModelWidget<BusinessCardPageViewModel> {
+class _BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
+  _BusinessCardWidget({
+    Key key,
+    @required this.screenshotController,
+  }) : super(key: key, reactive: true);
+  final ScreenshotController screenshotController;
+
+  @override
+  Widget build(
+    BuildContext context,
+    BusinessCardPageViewModel model,
+  ) {
+    PageController businessCardController = PageController(initialPage: 0);
+    bool canChange = false;
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        businessCardController.animateToPage(
+          int.parse(model.businessCard.cardDesign),
+          duration: new Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+        await Future.delayed(new Duration(milliseconds: 500));
+        canChange = true;
+      },
+    );
+    return Container(
+      height: SizeConfig.yMargin(context, 30),
+      child: Stack(
+        children: <Widget>[
+          Screenshot(
+            controller: screenshotController,
+            child: PageView(
+              onPageChanged: (value) {
+                if (canChange) {
+                  model.updateBusinessCard(
+                    cardDesign: value.toString(),
+                  );
+                }
+              },
+              allowImplicitScrolling: true,
+              controller: businessCardController,
+              children: <Widget>[
+                _BusinessCard1(),
+                _BusinessCard2(),
+                _BusinessCard3(),
+                _BusinessCard4(),
+              ],
+            ),
+          ),
+          Positioned(
+            left: SizeConfig.xMargin(context, 2),
+            top: SizeConfig.yMargin(context, 10),
+            bottom: SizeConfig.yMargin(context, 10),
+            child: IconButton(
+              icon: Icon(
+                Icons.chevron_left,
+                color: ThemeColors.error,
+                size: SizeConfig.textSize(context, 10),
+              ),
+              onPressed: () => businessCardController.previousPage(
+                duration: new Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+              ),
+            ),
+          ),
+          Positioned(
+            right: SizeConfig.xMargin(context, 2),
+            top: SizeConfig.yMargin(context, 10),
+            bottom: SizeConfig.yMargin(context, 10),
+            child: IconButton(
+              icon: Icon(
+                Icons.chevron_right,
+                color: ThemeColors.error,
+                size: SizeConfig.textSize(context, 10),
+              ),
+              onPressed: () => businessCardController.nextPage(
+                duration: new Duration(milliseconds: 300),
+                curve: Curves.easeIn,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BusinessCard1 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard1({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget buildViewModelWidget(
+  Widget build(
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
@@ -156,11 +244,11 @@ class _BusinessCard1 extends HookViewModelWidget<BusinessCardPageViewModel> {
   }
 }
 
-class _BusinessCard2 extends HookViewModelWidget<BusinessCardPageViewModel> {
+class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard2({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget buildViewModelWidget(
+  Widget build(
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
@@ -272,11 +360,11 @@ class _BusinessCard2 extends HookViewModelWidget<BusinessCardPageViewModel> {
   }
 }
 
-class _BusinessCard3 extends HookViewModelWidget<BusinessCardPageViewModel> {
+class _BusinessCard3 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard3({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget buildViewModelWidget(
+  Widget build(
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
@@ -411,11 +499,11 @@ class _BusinessCard3 extends HookViewModelWidget<BusinessCardPageViewModel> {
   }
 }
 
-class _BusinessCard4 extends HookViewModelWidget<BusinessCardPageViewModel> {
+class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard4({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget buildViewModelWidget(
+  Widget build(
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {

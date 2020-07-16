@@ -1,14 +1,14 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
-part 'business_card_model.freezed.dart';
+part 'business_card_h.freezed.dart';
 
-part 'business_card_model.g.dart';
+part 'business_card_h.g.dart';
 
 @freezed
-abstract class BusinessCard with _$BusinessCard {
+abstract class BusinessCardH with _$BusinessCardH {
   @HiveType(typeId: 0, adapterName: 'BusinessCardAdapter')
-  const factory BusinessCard({
+  factory BusinessCardH({
     @HiveField(0) @required String storeName,
     @HiveField(1) @required String personalName,
     @HiveField(2) @required String phoneNumber,
@@ -19,7 +19,7 @@ abstract class BusinessCard with _$BusinessCard {
     @HiveField(7) @required String cardDesign,
   }) = _BusinessCard;
 
-  factory BusinessCard.empty() => BusinessCard(
+  factory BusinessCardH.empty() => BusinessCardH(
         storeName: "Store Name",
         personalName: "Personal Name",
         phoneNumber: "+2348012345678",
@@ -27,20 +27,6 @@ abstract class BusinessCard with _$BusinessCard {
         address: "Your Address",
         position: "Your Position",
         tagLine: "Company tag line",
-        cardDesign: '1',
+        cardDesign: '0',
       );
 }
-
-//extension BusinessCardX on BusinessCard {
-//  bool isEmpty() {
-//    if (storeName.isEmpty ||
-//        personalName.isEmpty ||
-//        phoneNumber.isEmpty ||
-//        emailAddress.isEmpty ||
-//        address.isEmpty) {
-//      return true;
-//    } else {
-//      return false;
-//    }
-//  }
-//}
