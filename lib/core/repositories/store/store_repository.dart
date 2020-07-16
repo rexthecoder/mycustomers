@@ -1,12 +1,13 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StoreRepository {
   static List _stores;
-  static StoreDataSourceImpl _ss = locator<StoreDataSourceImpl>();
+  static StoresLocalDataSource _ss = locator<StoresLocalDataSource>();
   static DialogService _dialog = locator<DialogService>();
   static Store _currentStore;
 

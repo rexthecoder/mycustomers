@@ -31,7 +31,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
+import 'package:mycustomers/core/models/hive/store/store_h.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -98,8 +100,14 @@ Future<void> setupLocator(
   );
 
   // Data sources
+  final _ss = StoresLocalDataSourceImpl();
+  await _ss.init();
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
+  );
+
+  locator.registerLazySingleton<StoresLocalDataSource>(
+    () => _ss,
   );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
@@ -125,9 +133,14 @@ Future<void> setupLocator(
   Hive.registerAdapter(PasswordManagerAdapter());
   Hive.registerAdapter(CustomerContactAdapter());
   Hive.registerAdapter(TransactionAdapter());
+  Hive.registerAdapter(StoreHAdapter());
 
   await _setupSharedPreferences();
   if (!test) await setIso();
+}
+
+Future<void> openBoxes() {
+
 }
 
 Future<void> _setupSharedPreferences() async {
