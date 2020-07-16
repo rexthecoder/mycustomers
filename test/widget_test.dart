@@ -55,7 +55,7 @@ void main() {
       await mockTransactionAdapters.init();
       when(iOwnerServices.getPhoneContacts()).thenAnswer((realInvocation) => Future.value(List<Customer>.generate(5, (int) => Customer.random())));
       when(_permission.getContactsPermission()).thenAnswer((realInvocation) => Future.value(false));
-      when(mockTransactionAdapters.box).thenAnswer((_) async => Future.value(mockBox));
+//      when(mockTransactionAdapters.box).thenAnswer((_) async => Future.value(mockBox));
       when(mockBox.values).thenReturn(transactionModeList);
       await tester.pumpWidget(App());
     });
