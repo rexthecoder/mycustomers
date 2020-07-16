@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'business_card_model.dart';
+part of 'business_card_h.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,29 +9,35 @@ part of 'business_card_model.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$BusinessCardTearOff {
-  const _$BusinessCardTearOff();
+class _$BusinessCardHTearOff {
+  const _$BusinessCardHTearOff();
 
   _BusinessCard call(
       {@required @HiveField(0) String storeName,
       @required @HiveField(1) String personalName,
       @required @HiveField(2) String phoneNumber,
       @required @HiveField(3) String emailAddress,
-      @required @HiveField(4) String address}) {
+      @required @HiveField(4) String address,
+      @required @HiveField(5) String tagLine,
+      @required @HiveField(6) String position,
+      @required @HiveField(7) String cardDesign}) {
     return _BusinessCard(
       storeName: storeName,
       personalName: personalName,
       phoneNumber: phoneNumber,
       emailAddress: emailAddress,
       address: address,
+      tagLine: tagLine,
+      position: position,
+      cardDesign: cardDesign,
     );
   }
 }
 
 // ignore: unused_element
-const $BusinessCard = _$BusinessCardTearOff();
+const $BusinessCardH = _$BusinessCardHTearOff();
 
-mixin _$BusinessCard {
+mixin _$BusinessCardH {
   @HiveField(0)
   String get storeName;
   @HiveField(1)
@@ -42,28 +48,38 @@ mixin _$BusinessCard {
   String get emailAddress;
   @HiveField(4)
   String get address;
+  @HiveField(5)
+  String get tagLine;
+  @HiveField(6)
+  String get position;
+  @HiveField(7)
+  String get cardDesign;
 
-  $BusinessCardCopyWith<BusinessCard> get copyWith;
+  $BusinessCardHCopyWith<BusinessCardH> get copyWith;
 }
 
-abstract class $BusinessCardCopyWith<$Res> {
-  factory $BusinessCardCopyWith(
-          BusinessCard value, $Res Function(BusinessCard) then) =
-      _$BusinessCardCopyWithImpl<$Res>;
+abstract class $BusinessCardHCopyWith<$Res> {
+  factory $BusinessCardHCopyWith(
+          BusinessCardH value, $Res Function(BusinessCardH) then) =
+      _$BusinessCardHCopyWithImpl<$Res>;
   $Res call(
       {@HiveField(0) String storeName,
       @HiveField(1) String personalName,
       @HiveField(2) String phoneNumber,
       @HiveField(3) String emailAddress,
-      @HiveField(4) String address});
+      @HiveField(4) String address,
+      @HiveField(5) String tagLine,
+      @HiveField(6) String position,
+      @HiveField(7) String cardDesign});
 }
 
-class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
-  _$BusinessCardCopyWithImpl(this._value, this._then);
+class _$BusinessCardHCopyWithImpl<$Res>
+    implements $BusinessCardHCopyWith<$Res> {
+  _$BusinessCardHCopyWithImpl(this._value, this._then);
 
-  final BusinessCard _value;
+  final BusinessCardH _value;
   // ignore: unused_field
-  final $Res Function(BusinessCard) _then;
+  final $Res Function(BusinessCardH) _then;
 
   @override
   $Res call({
@@ -72,6 +88,9 @@ class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
     Object phoneNumber = freezed,
     Object emailAddress = freezed,
     Object address = freezed,
+    Object tagLine = freezed,
+    Object position = freezed,
+    Object cardDesign = freezed,
   }) {
     return _then(_value.copyWith(
       storeName: storeName == freezed ? _value.storeName : storeName as String,
@@ -84,12 +103,16 @@ class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
           ? _value.emailAddress
           : emailAddress as String,
       address: address == freezed ? _value.address : address as String,
+      tagLine: tagLine == freezed ? _value.tagLine : tagLine as String,
+      position: position == freezed ? _value.position : position as String,
+      cardDesign:
+          cardDesign == freezed ? _value.cardDesign : cardDesign as String,
     ));
   }
 }
 
 abstract class _$BusinessCardCopyWith<$Res>
-    implements $BusinessCardCopyWith<$Res> {
+    implements $BusinessCardHCopyWith<$Res> {
   factory _$BusinessCardCopyWith(
           _BusinessCard value, $Res Function(_BusinessCard) then) =
       __$BusinessCardCopyWithImpl<$Res>;
@@ -99,10 +122,14 @@ abstract class _$BusinessCardCopyWith<$Res>
       @HiveField(1) String personalName,
       @HiveField(2) String phoneNumber,
       @HiveField(3) String emailAddress,
-      @HiveField(4) String address});
+      @HiveField(4) String address,
+      @HiveField(5) String tagLine,
+      @HiveField(6) String position,
+      @HiveField(7) String cardDesign});
 }
 
-class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
+class __$BusinessCardCopyWithImpl<$Res>
+    extends _$BusinessCardHCopyWithImpl<$Res>
     implements _$BusinessCardCopyWith<$Res> {
   __$BusinessCardCopyWithImpl(
       _BusinessCard _value, $Res Function(_BusinessCard) _then)
@@ -118,6 +145,9 @@ class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
     Object phoneNumber = freezed,
     Object emailAddress = freezed,
     Object address = freezed,
+    Object tagLine = freezed,
+    Object position = freezed,
+    Object cardDesign = freezed,
   }) {
     return _then(_BusinessCard(
       storeName: storeName == freezed ? _value.storeName : storeName as String,
@@ -130,23 +160,33 @@ class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
           ? _value.emailAddress
           : emailAddress as String,
       address: address == freezed ? _value.address : address as String,
+      tagLine: tagLine == freezed ? _value.tagLine : tagLine as String,
+      position: position == freezed ? _value.position : position as String,
+      cardDesign:
+          cardDesign == freezed ? _value.cardDesign : cardDesign as String,
     ));
   }
 }
 
 @HiveType(typeId: 0, adapterName: 'BusinessCardAdapter')
 class _$_BusinessCard implements _BusinessCard {
-  const _$_BusinessCard(
+  _$_BusinessCard(
       {@required @HiveField(0) this.storeName,
       @required @HiveField(1) this.personalName,
       @required @HiveField(2) this.phoneNumber,
       @required @HiveField(3) this.emailAddress,
-      @required @HiveField(4) this.address})
+      @required @HiveField(4) this.address,
+      @required @HiveField(5) this.tagLine,
+      @required @HiveField(6) this.position,
+      @required @HiveField(7) this.cardDesign})
       : assert(storeName != null),
         assert(personalName != null),
         assert(phoneNumber != null),
         assert(emailAddress != null),
-        assert(address != null);
+        assert(address != null),
+        assert(tagLine != null),
+        assert(position != null),
+        assert(cardDesign != null);
 
   @override
   @HiveField(0)
@@ -163,10 +203,19 @@ class _$_BusinessCard implements _BusinessCard {
   @override
   @HiveField(4)
   final String address;
+  @override
+  @HiveField(5)
+  final String tagLine;
+  @override
+  @HiveField(6)
+  final String position;
+  @override
+  @HiveField(7)
+  final String cardDesign;
 
   @override
   String toString() {
-    return 'BusinessCard(storeName: $storeName, personalName: $personalName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address)';
+    return 'BusinessCardH(storeName: $storeName, personalName: $personalName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, tagLine: $tagLine, position: $position, cardDesign: $cardDesign)';
   }
 
   @override
@@ -186,7 +235,17 @@ class _$_BusinessCard implements _BusinessCard {
                 const DeepCollectionEquality()
                     .equals(other.emailAddress, emailAddress)) &&
             (identical(other.address, address) ||
-                const DeepCollectionEquality().equals(other.address, address)));
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.tagLine, tagLine) ||
+                const DeepCollectionEquality()
+                    .equals(other.tagLine, tagLine)) &&
+            (identical(other.position, position) ||
+                const DeepCollectionEquality()
+                    .equals(other.position, position)) &&
+            (identical(other.cardDesign, cardDesign) ||
+                const DeepCollectionEquality()
+                    .equals(other.cardDesign, cardDesign)));
   }
 
   @override
@@ -196,20 +255,26 @@ class _$_BusinessCard implements _BusinessCard {
       const DeepCollectionEquality().hash(personalName) ^
       const DeepCollectionEquality().hash(phoneNumber) ^
       const DeepCollectionEquality().hash(emailAddress) ^
-      const DeepCollectionEquality().hash(address);
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(tagLine) ^
+      const DeepCollectionEquality().hash(position) ^
+      const DeepCollectionEquality().hash(cardDesign);
 
   @override
   _$BusinessCardCopyWith<_BusinessCard> get copyWith =>
       __$BusinessCardCopyWithImpl<_BusinessCard>(this, _$identity);
 }
 
-abstract class _BusinessCard implements BusinessCard {
-  const factory _BusinessCard(
+abstract class _BusinessCard implements BusinessCardH {
+  factory _BusinessCard(
       {@required @HiveField(0) String storeName,
       @required @HiveField(1) String personalName,
       @required @HiveField(2) String phoneNumber,
       @required @HiveField(3) String emailAddress,
-      @required @HiveField(4) String address}) = _$_BusinessCard;
+      @required @HiveField(4) String address,
+      @required @HiveField(5) String tagLine,
+      @required @HiveField(6) String position,
+      @required @HiveField(7) String cardDesign}) = _$_BusinessCard;
 
   @override
   @HiveField(0)
@@ -226,6 +291,15 @@ abstract class _BusinessCard implements BusinessCard {
   @override
   @HiveField(4)
   String get address;
+  @override
+  @HiveField(5)
+  String get tagLine;
+  @override
+  @HiveField(6)
+  String get position;
+  @override
+  @HiveField(7)
+  String get cardDesign;
   @override
   _$BusinessCardCopyWith<_BusinessCard> get copyWith;
 }

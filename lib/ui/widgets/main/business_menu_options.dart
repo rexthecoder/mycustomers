@@ -12,17 +12,19 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
       constraints: BoxConstraints(
         maxHeight: SizeConfig.yMargin(context, 65),
       ),
-      child: ListView.separated(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        itemCount: model.stores.length,
-        itemBuilder: (context, index) =>
-            businessIcon(context, model.stores[index], model),
-        shrinkWrap: true,
-        separatorBuilder: (BuildContext context, int index) => SizedBox(
-          height: SizeConfig.yMargin(context, 2),
-        ),
-      ),
+      child: model.stores == null
+          ? Container()
+          : ListView.separated(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount: model.stores.length,
+              itemBuilder: (context, index) =>
+                  businessIcon(context, model.stores[index], model),
+              shrinkWrap: true,
+              separatorBuilder: (BuildContext context, int index) => SizedBox(
+                height: SizeConfig.yMargin(context, 2),
+              ),
+            ),
     );
   }
 
@@ -34,7 +36,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
       onTap: () {
         // TODO: Add fetch store details
         model.changeBusiness(business.id);
-        },
+      },
       child: Column(
         children: <Widget>[
           Container(

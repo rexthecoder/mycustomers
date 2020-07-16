@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
+import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 
-import 'package:mycustomers/ui/views/business/business_card_modal/business_card_modal_view.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 
 import 'business_homepage_viewmodel.dart';
@@ -23,11 +23,10 @@ class BusinessHomePageView extends StatelessWidget {
           child: Container(
             child: Column(
               children: <Widget>[
-                // TODO ADD HEADER -- SHOULD BE SYNCED WITH HOMEPAGE
                 Container(
                   height: SizeConfig.yMargin(context, 11),
                   decoration: BoxDecoration(
-                    color: ThemeColors.background,
+                    color: Theme.of(context).backgroundColor,
                   ),
                   child: ListTile(
                     subtitle: Text(
@@ -73,12 +72,10 @@ class BusinessHomePageView extends StatelessWidget {
                   ),
                 ),
                 optionButton(
-                  context: context,
-                  icon: businessCard,
-                  label: 'Business Card',
-                  onTap: ()=>_displayBusinessCardModal(context,model)
-                  
-                ),
+                    context: context,
+                    icon: businessCard,
+                    label: 'Business Card',
+                    onTap: () => _displayBusinessCardModal(context, model)),
                 optionButton(
                   context: context,
                   icon: settings,
@@ -104,7 +101,7 @@ class BusinessHomePageView extends StatelessWidget {
       {BuildContext context, String label, Function onTap, String icon}) {
     return Container(
       decoration: BoxDecoration(
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
       ),
       child: ListTile(
         onTap: onTap,
@@ -121,87 +118,66 @@ class BusinessHomePageView extends StatelessWidget {
         ),
         trailing: Icon(
           Icons.chevron_right,
-          color: ThemeColors.black,
+          color: Theme.of(context).cursorColor,
         ),
       ),
     );
   }
 }
 
-void _displayBusinessCardModal(context, model){
-   showModalBottomSheet(
+void _displayBusinessCardModal(context, model) {
+  ScreenshotController screenshotController = new ScreenshotController();
+
+  showModalBottomSheet(
+    enableDrag: true,
     shape: RoundedRectangleBorder(
-     borderRadius: BorderRadius.horizontal(left:Radius.circular(10) ,right: Radius.circular(10)),
-  ),
-    context: context, 
-    builder: (BuildContext context){
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ),
+    ),
+    context: context,
+    builder: (BuildContext context) {
       return Padding(
-        padding:  EdgeInsets.symmetric(horizontal:SizeConfig.xMargin(context, 4)),
+        padding: EdgeInsets.only(
+          left: SizeConfig.xMargin(context, 5),
+          right: SizeConfig.xMargin(context, 5),
+          top: SizeConfig.yMargin(context, 2),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children:<Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text('Business card'),
-            FlatButton(
-              color: Color(0xFFE8FFF5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)
-              ),
-              onPressed: model.navigateToBusinessCardPage, 
-              child: Text(
-                'Edit',
-                style: TextStyle(
-                  fontSize: SizeConfig.textSize(context, 3.5),
-                  color: BrandColors.primary
-                ),
-                ))
-          ],),
-          BusinessCardDisplayModal(),
-          Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-            Expanded(
-              flex: 1,
-                child: CustomShareRaisedButton(
-                label: 'Share', 
-                onPressed: (){
-                  model.shareImageAndText();
-                } ),
-            ),
-            SizedBox(width: SizeConfig.xMargin(context, 3.0)),
-              Expanded(
-                flex: 1,
-                  child: Container(
-                  height: SizeConfig.yMargin(context, 9),
-                  decoration: BoxDecoration(
-                    border:Border.all(
-                      color:BrandColors.primary
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('Business card'),
+                FlatButton(
+                  color: const Color(0xFFDEE9FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius:BorderRadius.circular(32)
+                  onPressed: model.navigateToBusinessCardPage,
+                  child: Text(
+                    'Edit',
+                    style: TextStyle(
+                      fontSize: SizeConfig.textSize(context, 3.5),
+                      color: BrandColors.primary,
                     ),
-                    onPressed: null, // TODO, Implement the function that downloads the business Image.
-                    child: Text(
-                      'Download',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: BrandColors.primary,
-                        fontSize: SizeConfig.textSize(context, 4.4)
-                        ),
-                      )
-                    ),
-                ),
-              )
-            ],)
-     ]
-    ),
-    );
-
-    });
-
+                  ),
+                )
+              ],
+            ),
+            BusinessCardModal(
+              screenshotController: screenshotController,
+            ),
+            SizedBox(height: SizeConfig.yMargin(context, 2)),
+            BottomSheetButtons(
+              screenshotController: screenshotController,
+            ),
+            SizedBox(height: SizeConfig.yMargin(context, 3))
+          ],
+        ),
+      );
+    },
+  );
 }

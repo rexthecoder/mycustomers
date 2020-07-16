@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 
 import 'add_debt_credit_viewmodel.dart';
@@ -25,7 +26,7 @@ class AddDebtCreditView extends StatelessWidget {
           brightness: Brightness.light,
           elevation: 1,
           title: Text(
-            action == 'credit' ? model.amount != null ? '${model.contact.name} owes you ₦' + model.amount.round().toString() : '${model.contact.name} owes you' : model.amount != null ? '${model.contact.name} paid you ₦' + model.amount.round().toString() : '${model.contact.name} paid you',
+            action == 'debit' ? model.amount != null ? '${model.contact.name} owes you ₦' + model.amount.round().toString() : '${model.contact.name} owes you' : model.amount != null ? '${model.contact.name} paid you ₦' + model.amount.round().toString() : '${model.contact.name} paid you',
             style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: action == 'credit' ? BrandColors.secondary : BrandColors.primary, fontFamily: 'Roboto'),
           ),
           leading: InkWell(
@@ -42,7 +43,7 @@ class AddDebtCreditView extends StatelessWidget {
           centerTitle: true,
         ),
         body: Container(
-          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(20), horizontal: ScreenUtil().setWidth(20)),
+          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15), horizontal: ScreenUtil().setWidth(20)),
           child: Column(
             children: <Widget>[
               Expanded(
@@ -53,10 +54,12 @@ class AddDebtCreditView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(20)),
-                          child: Text(
-                            'Transaction Details',
-                            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(20), fontWeight: FontWeight.bold),
+                          margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(10)),
+                          child: Center(
+                            child: Text(
+                              'Transaction Details',
+                              style: Theme.of(context).textTheme.headline6.copyWith(fontSize: SizeConfig.yMargin(context, 2.6), fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                         Container(
@@ -82,7 +85,10 @@ class AddDebtCreditView extends StatelessWidget {
                               errorBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(color: Colors.red, width: 2.0),
                               ),
-                              hintText: 'Enter Amount',
+                              hintText: action == 'credit' ? 'Enter Amount ${model.contact.name} Paid You' : 'Enter Amount ${model.contact.name} Owes You',
+                              hintStyle: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 2.3)
+                              ),
                               errorText: model.error,
                               prefixIcon: Container(
                                 padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(15), horizontal: ScreenUtil().setWidth(10)),
@@ -93,7 +99,7 @@ class AddDebtCreditView extends StatelessWidget {
                               contentPadding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(8)),
                             ),
                             textInputAction: TextInputAction.go,
-                            onChanged: (value) => model.updateAmount(value, update),
+                            onChanged: (value) => model.updateAmount(value, update, action),
                           ),
                         ),
                         Visibility(
@@ -121,7 +127,7 @@ class AddDebtCreditView extends StatelessWidget {
                                       );
                                     },
                                   );
-                                  if (picked != null) model.setOtherDate(picked, update);
+                                  if (picked != null) model.setOtherDate(picked, update, action);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(bottom: 15),
@@ -155,7 +161,7 @@ class AddDebtCreditView extends StatelessWidget {
                                     context: context,
                                     initialDate: model.selectedDate,
                                     firstDate:  DateTime(int.parse(DateFormat('yyyy').format(DateTime.now())), int.parse(DateFormat('MM').format(DateTime.now())), int.parse(DateFormat('dd').format(DateTime.now()))),
-                                    lastDate: DateTime(2030),
+                                    lastDate: DateTime(2300),
                                     builder: (BuildContext context, Widget child) {
                                       return Theme(
                                         data: Theme.of(context).copyWith(

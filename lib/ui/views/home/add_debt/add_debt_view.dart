@@ -130,14 +130,8 @@ class AddDebtView extends StatelessWidget {
                                               context: context,
                                               initialDate: model.selectedDate,
                                               firstDate: DateTime(2000),
-                                              lastDate: DateTime(
-                                                  int.parse(DateFormat('yyyy')
-                                                      .format(DateTime.now())),
-                                                  int.parse(DateFormat('MM')
-                                                      .format(DateTime.now())),
-                                                  int.parse(DateFormat('dd')
-                                                      .format(
-                                                          DateTime.now()))));
+                                              lastDate: DateTime(2300),
+                                              );
                                       if (picked != null) model.setDate(picked);
                                     },
                                     child: Container(
