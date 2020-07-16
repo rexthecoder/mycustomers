@@ -16,7 +16,9 @@ class NotificationsView extends StatelessWidget {
               children: <Widget>[
                 for(var log in model.loglist) Dismissible(
                   key: Key(model.loglist.indexOf(log).toString()),
-                  onDismissed: (DismissDirection direction) {},
+                  onDismissed: (DismissDirection direction) {
+                    
+                  },
                   direction: DismissDirection.endToStart,
                   background: Container(
                     padding: EdgeInsets.only(right: 15),

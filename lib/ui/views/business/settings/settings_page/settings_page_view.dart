@@ -79,7 +79,7 @@ class SettingsPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(20)),
                         child:
-                            CustomRaisedButton(label: 'Save', onPressed: () {}))
+                            CustomRaisedButton(label: 'Save', onPressed: () {Navigator.pop(context);}))
                   ],
                 ),
               ),

@@ -144,9 +144,11 @@ Future<void> setupLocator(
   locator.registerLazySingleton<HiveInterface>(() => Hive);
 
   //Initialization for all boxes
-  await LogsLocalDataSourceImpl().init();
-  await TransactionLocalDataSourceImpl().init();
-
+  if(!test){
+    await LogsLocalDataSourceImpl().init();
+    await TransactionLocalDataSourceImpl().init();
+    await BussinessSettingService().init();
+  }
 
   Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
