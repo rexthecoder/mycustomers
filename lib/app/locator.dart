@@ -55,6 +55,10 @@ Future<void> setupLocator(
     {bool useMockContacts: false,
     bool useMockCustomer: true,
     bool test = false}) async {
+ //Inizialize Hive path
+  Directory appDocDir =test ? Directory.current : await getApplicationDocumentsDirectory();
+  Hive.initFlutter(appDocDir.path);
+
   // Services
   locator.registerLazySingleton(
     () => NavigationService(),
@@ -83,6 +87,7 @@ Future<void> setupLocator(
   locator.registerLazySingleton<BussinessSettingService>(
     () => BussinessSettingService(),
   );
+  await _setupSharedPreferences();
   locator.registerLazySingleton<AuthService>(
     () => AuthServiceImpl(),
   );
@@ -100,19 +105,20 @@ Future<void> setupLocator(
   );
 
   // Data sources
-  final _ss = StoresLocalDataSourceImpl();
-  await _ss.init();
+  // final _ss = StoresLocalDataSourceImpl();
+  // await _ss.init();
+
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
   );
 
-  locator.registerLazySingleton<StoresLocalDataSource>(
-    () => _ss,
-  );
+  // locator.registerLazySingleton<StoresLocalDataSource>(
+  //   () => _ss,
+  // );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
-  locator.registerLazySingleton<LogsLocalDataSource>(
+  locator.registerLazySingleton<LogsLocalDataSourceImpl>(
     () => LogsLocalDataSourceImpl(),
   );
 
@@ -125,17 +131,16 @@ Future<void> setupLocator(
   // External
   locator.registerLazySingleton<HiveInterface>(() => Hive);
 
-  Directory appDocDir =
-      test ? Directory.current : await getApplicationDocumentsDirectory();
-  //print(appDocDir.path);
-  Hive.initFlutter(appDocDir.path);
+  //Initialization for all boxes
+  await LogsLocalDataSourceImpl().init();
+
+  
   Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
   Hive.registerAdapter(CustomerContactAdapter());
   Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(StoreHAdapter());
 
-  await _setupSharedPreferences();
   if (!test) await setIso();
 }
 
