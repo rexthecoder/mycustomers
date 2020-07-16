@@ -59,7 +59,7 @@ Future<void> setupLocator(
     bool test = false}) async {
  //Inizialize Hive path
   Directory appDocDir =test ? Directory.current : await getApplicationDocumentsDirectory();
-  Hive.initFlutter(appDocDir.path);
+  test ? Hive.init(appDocDir.path) : Hive.initFlutter(appDocDir.path);
 
   // Services
   locator.registerLazySingleton(

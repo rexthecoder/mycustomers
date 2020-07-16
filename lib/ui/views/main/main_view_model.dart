@@ -24,6 +24,8 @@ class MainViewModel extends ReactiveViewModel {
   final _logService = locator<LogsLocalDataSourceImpl>();
   final _bussinessService = locator<BussinessSettingService>();
 
+  bool get showdot => _logService.shouldnotify;
+
   void addlog(){
     print('called1');
     _logService.testfunc(DateTime.now());
