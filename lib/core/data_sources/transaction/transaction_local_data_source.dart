@@ -7,9 +7,13 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 
+abstract class TransactionDataSource{
+  Future<void> init();
+}
+
 
 @lazySingleton
-class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
+class TransactionLocalDataSourceImpl extends TransactionDataSource with ReactiveServiceMixin {
   //static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 
@@ -39,6 +43,7 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
 
   List<String> formattedate = [];
   String date;
+  
   get box => _hiveService.openBox<TransactionModel>(HiveBox.transaction);
   //var box = Hive.openBox<TransactionModel>(_boxname);
 
@@ -50,6 +55,7 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
     listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions]);
   }
 
+  @override
   Future<void> init() async {
     _hiveService.registerAdapter(TransactionAdapter());
 
