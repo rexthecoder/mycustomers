@@ -59,13 +59,13 @@ class DebtorsView extends StatelessWidget {
                             children: <Widget>[
                               Text('Customers are owing you', style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14.sp
+                                  fontSize: SizeConfig.yMargin(context, 2)
                               ),),
                               model.bought() - model.paid() > 0 ? Text(
                                 '₦'+currency.format(model.bought() - model.paid()).toString(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 36.sp,
+                                  fontSize: SizeConfig.yMargin(context, 5),
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Roboto'
                                 ),
@@ -73,14 +73,14 @@ class DebtorsView extends StatelessWidget {
                                 text: TextSpan(
                                   text: '₦ 0.', style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 36.sp,
+                                    fontSize: SizeConfig.yMargin(context, 5),
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.bold),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: '00.', style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 14.sp,
+                                        fontSize: SizeConfig.yMargin(context, 3),
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.bold
                                     ),
@@ -103,18 +103,16 @@ class DebtorsView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              SvgPicture.asset('assets/images/no-transaction.svg'),
+                              SvgPicture.asset('assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
                               SizedBox(height: 20.h,),
                               Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Theme.of(context).textSelectionColor),),
+                                style: TextStyle(color: Theme.of(context).textSelectionColor, fontSize: SizeConfig.yMargin(context, 2))
+                              ),
                             ],
                           ),
                         ),
                       ) : ContactList(),
-
-
-
                     ],
                   ),
                 ),
@@ -139,7 +137,7 @@ class DebtorsView extends StatelessWidget {
                       'Add customer owing you',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 2.1),
+                        fontSize: SizeConfig.yMargin(context, 2),
                       ),
                     ),
                   ),
@@ -186,7 +184,10 @@ class ContactList extends StatelessWidget {
               ),
             ),
             model.sDName != null && !model.containsD ? Text(
-              'No Customer Found'
+              'No Customer Found',
+              style: TextStyle(
+                fontSize: SizeConfig.yMargin(context, 2)
+              ),
             ) : SizedBox(),
             for(var cont in model.owingcustomers)
               for (var item in model.contacts) 
@@ -227,13 +228,14 @@ class ContactList extends StatelessWidget {
                   ),
                   title: Text(
                     item.name,
-                    style: TextStyle(fontWeight: FontWeight.w600)
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
                   ),
                   subtitle: Text(
-                    DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
+                    cont.duedate != null ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
                     (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
                     : 
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days'
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days' : '',
+                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -243,7 +245,7 @@ class ContactList extends StatelessWidget {
                           '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
                             color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
-                            fontSize: 16,
+                            fontSize: SizeConfig.yMargin(context, 1.8),
                             fontFamily: 'Roboto'
                           ),
                         ),
@@ -256,7 +258,7 @@ class ContactList extends StatelessWidget {
                         ),
                         child: Text(
                           (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
-                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: SizeConfig.yMargin(context, 1.8), fontWeight: FontWeight.w600),
                         ),
                       )
                     ],
@@ -297,13 +299,14 @@ class ContactList extends StatelessWidget {
                   ),
                   title: Text(
                     item.name,
-                    style: TextStyle(fontWeight: FontWeight.w600)
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
                   ),
                   subtitle: Text(
-                    DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
+                    cont.duedate != null ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
                     (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
                     : 
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days'
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days' : '',
+                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -312,8 +315,8 @@ class ContactList extends StatelessWidget {
                         child: Text(
                           '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
-                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
-                            fontSize: 16,
+                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green,
+                            fontSize: SizeConfig.yMargin(context, 1.8),
                             fontFamily: 'Roboto'
                           ),
                         ),
@@ -326,7 +329,7 @@ class ContactList extends StatelessWidget {
                         ),
                         child: Text(
                           (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
-                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: SizeConfig.yMargin(context, 1.8), fontWeight: FontWeight.w600),
                         ),
                       )
                     ],

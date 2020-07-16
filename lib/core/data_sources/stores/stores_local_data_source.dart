@@ -10,32 +10,39 @@ abstract class StoresLocalDataSource {
 
   Future<Store> getStore(String id);
 
-  Future<Iterable<Store>> getAllStores();
+  Future<Iterable<Store>> getStores();
 
   Future<Iterable<Store>> getStoresWhere(Function(StoreH) test);
 
   Future<Store> updateStore(String id, Store update);
 
-  Future<bool> createStore(Store newStore);
+  Future<bool> createStore(Store newStore, [String id]);
 
   Future<bool> deleteStore(String id);
 }
 
 class StoresLocalDataSourceImpl implements StoresLocalDataSource {
+  
+  StoresLocalDataSourceImpl() {
+    init();
+  }
+  static const STORE_HIVE_BOX_NAME = 'STORE';
+
   // final _hiveService = locator<HiveInterface>();
   final _auth = locator<AuthService>();
 
-  final storeBox = Hive.box<StoreH>('STORE');
+  static Box<StoreH> storeBox;
 
   @override
   Future<void> init() async {
     //Write Function to initialize Hive
+    await Hive.openBox<StoreH>(STORE_HIVE_BOX_NAME);
+    storeBox = Hive.box<StoreH>(STORE_HIVE_BOX_NAME);
   }
 
   String genUuid() {
     return Uuid().v1();
   }
-
 
   //
   // Read Operations
@@ -48,7 +55,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   }
 
   @override
-  Future<Iterable<Store>> getAllStores() async {
+  Future<Iterable<Store>> getStores() async {
     return storeBox.values.map((e) => Store.fromStoreH(e));
   }
 
@@ -72,15 +79,20 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   //
 
   @override
-  Future<bool> createStore(Store newStore) async {
+  Future<bool> createStore(Store newStore, [String id]) async {
     var splitP = splitPhone(newStore.phone);
-    var newStoreH = StoreH(genUuid(), newStore.address, newStore.name, splitP[0], splitP[1], newStore.tagline, _auth.currentUser.id, newStore.email);
+    var newStoreH = StoreH(
+        id ?? genUuid(),
+        newStore.address,
+        newStore.name,
+        splitP[0],
+        splitP[1],
+        newStore.tagline,
+        _auth.currentUser.id,
+        newStore.email);
     storeBox.put(newStoreH.id, newStoreH);
     return true;
   }
-
-
-
 
   //
   // Update Operations
@@ -91,15 +103,14 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
     var splitP = splitPhone(update.phone);
     var sToUpdate = storeBox.get(id);
     var updatedStore = StoreH(
-      id,
-      update.address ?? sToUpdate.address,
-      update.name ?? sToUpdate.name,
-      splitP[0] ?? sToUpdate.pNum,
-      splitP[1] ?? sToUpdate.ctyCode,
-      update.tagline ?? sToUpdate.tagline,
-      sToUpdate.ownerId,
-      sToUpdate.email
-      );
+        id,
+        update.address ?? sToUpdate.address,
+        update.name ?? sToUpdate.name,
+        splitP[0] ?? sToUpdate.pNum,
+        splitP[1] ?? sToUpdate.ctyCode,
+        update.tagline ?? sToUpdate.tagline,
+        sToUpdate.ownerId,
+        sToUpdate.email);
     storeBox.put(updatedStore.id, updatedStore);
     return Store.fromStoreH(updatedStore);
   }
@@ -114,14 +125,8 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
     }
   }
 
-
-
   //
   // Delete ops
   //
-
-
-
-
 
 }

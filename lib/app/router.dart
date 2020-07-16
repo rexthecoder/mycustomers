@@ -277,7 +277,7 @@ class Router {
         );
       case Routes.languageSettingsViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => LanguagePageView(),
+          builder: (context) => LanguageSelectionPageView(),
           settings: settings,
         );
       case Routes.appLockSettingsViewRoute:

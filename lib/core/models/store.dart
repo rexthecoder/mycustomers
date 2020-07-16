@@ -26,8 +26,7 @@ class Store {
 
   factory Store.fromStoreH(StoreH store) => Store(
       store.id,
-      // TODO: Add email field to the store hive model
-      'email@email.com',
+      store.email,
       '${store.ctyCode}${store.pNum}',
       store.tagline,
       store.address,
