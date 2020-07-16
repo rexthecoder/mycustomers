@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'support_page_viewmodel.dart';
 
 class SupportPageView extends StatelessWidget {
@@ -14,8 +14,8 @@ class SupportPageView extends StatelessWidget {
     ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: true);
     return ViewModelBuilder<SupportPageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-             resizeToAvoidBottomInset: false,
-              appBar: customizeAppBar(context,  'Customer Support', 1.0),
+              resizeToAvoidBottomInset: false,
+              appBar: customizeAppBar(context, 'Customer Support', 1.0),
               body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
@@ -31,7 +31,7 @@ class SupportPageView extends StatelessWidget {
                                 keyboardType: TextInputType.text,
                                 onChanged: (value) {},
                                 decoration: InputDecoration(
-                                    hintText: 'Name',
+                                    hintText: AppLocalizations.of(context).name,
                                     hintStyle: TextStyle(fontSize: 16.sp),
                                     contentPadding:
                                         EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),

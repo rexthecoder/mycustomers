@@ -12,9 +12,9 @@ class AppLocalizations {
 
   static AppLocalizations of(BuildContext context) =>
       Localizations.of<AppLocalizations>(context, AppLocalizations);
-
+// ${locale.languageCode}
   Future<bool> load() async {
-    final path = 'assets/languages/${locale.languageCode}.json';
+    final path = 'assets/languages/fr.json';
     final data = await rootBundle.loadString(path);
     final Map<String, dynamic> _result = json.decode(data);
 
@@ -30,38 +30,50 @@ class AppLocalizations {
     return _sentences[key];
   }
 
-
   //list of available local strings that the app can use
-  String get onboardingWelcomeText => translate(LocalKeys.onboarding_welcome_text);
-  String get onboardingWelcomeDesc => translate(LocalKeys.onboarding_welcome_desc);
+  String get onboardingWelcomeText =>
+      translate(LocalKeys.onboarding_welcome_text);
+  String get onboardingWelcomeDesc =>
+      translate(LocalKeys.onboarding_welcome_desc);
   String get getStartedButton => translate(LocalKeys.getstarted_button);
   String get signIn => translate(LocalKeys.sign_in);
   String get pushAReminder => translate(LocalKeys.push_a_reminder);
   String get pushAReminderDesc => translate(LocalKeys.push_a_reminder_desc);
   String get collectYourMoney => translate(LocalKeys.collect_your_money);
-  String get collectYourMoneyDesc => translate(LocalKeys.collect_your_money_desc);
-  String get engagedWithYourPeople => translate(LocalKeys.engaged_with_your_people);
-  String get engagedWithYourPeopleDesc => translate(LocalKeys.engaged_with_your_people_desc);
+  String get collectYourMoneyDesc =>
+      translate(LocalKeys.collect_your_money_desc);
+  String get engagedWithYourPeople =>
+      translate(LocalKeys.engaged_with_your_people);
+  String get engagedWithYourPeopleDesc =>
+      translate(LocalKeys.engaged_with_your_people_desc);
   String get signUp => translate(LocalKeys.sign_up);
-  String get signUpEnterPhoneNumber => translate(LocalKeys.sign_up_enter_phone_number);
-  String get continueWithSocialAccount => translate(LocalKeys.continue_with_social_account);
-  String get alreadyAmemberSignIn => translate(LocalKeys.already_a_member_sign_in);
+  String get signUpEnterPhoneNumber =>
+      translate(LocalKeys.sign_up_enter_phone_number);
+  String get continueWithSocialAccount =>
+      translate(LocalKeys.continue_with_social_account);
+  String get alreadyAmemberSignIn =>
+      translate(LocalKeys.already_a_member_sign_in);
   String get notAMemberSignUp => translate(LocalKeys.not_a_member_sign_up);
   String get nextButton => translate(LocalKeys.next_button);
   String get verifyCode => translate(LocalKeys.verify_code);
   String get enter4DigitCode => translate(LocalKeys.enter_4_digit_code);
   String get verifyAndProceed => translate(LocalKeys.verify_and_proceed);
-  String get verificationErrorMessage => translate(LocalKeys.verification_error_message);
+  String get verificationErrorMessage =>
+      translate(LocalKeys.verification_error_message);
   String get businessDetails => translate(LocalKeys.business_details);
   String get oneLastStep => translate(LocalKeys.one_last_step);
   String get enterYourFullName => translate(LocalKeys.enter_your_full_name);
-  String get enterYourCompanyName => translate(LocalKeys.enter_your_company_name);
+  String get enterYourCompanyName =>
+      translate(LocalKeys.enter_your_company_name);
   String get submitAndFinish => translate(LocalKeys.submit_and_finish);
   String get customersOwingYou => translate(LocalKeys.customers_owing_you);
   String get peopleYouOwe => translate(LocalKeys.people_you_owe);
-  String get customersAreOwingYou => translate(LocalKeys.customers_are_owing_you);
-  String get customersOwingYouDesc => translate(LocalKeys.customers_owing_you_desc);
-  String get addCustomersOwingYou => translate(LocalKeys.add_customers_owing_you);
+  String get customersAreOwingYou =>
+      translate(LocalKeys.customers_are_owing_you);
+  String get customersOwingYouDesc =>
+      translate(LocalKeys.customers_owing_you_desc);
+  String get addCustomersOwingYou =>
+      translate(LocalKeys.add_customers_owing_you);
   String get home => translate(LocalKeys.home);
   String get marketing => translate(LocalKeys.marketing);
   String get business => translate(LocalKeys.business);
@@ -81,7 +93,8 @@ class AppLocalizations {
   String get searchCustomers => translate(LocalKeys.search_customers);
   String get cancel => translate(LocalKeys.cancel);
   String get addNewCustomer => translate(LocalKeys.add_new_customer);
-  String get addDebtorsFromContacts => translate(LocalKeys.add_debtors_from_contacts);
+  String get addDebtorsFromContacts =>
+      translate(LocalKeys.add_debtors_from_contacts);
   String get addButton => translate(LocalKeys.add_button);
   String get addACustomer => translate(LocalKeys.add_a_customer);
   String get customerDetails => translate(LocalKeys.customer_details);
@@ -110,7 +123,8 @@ class AppLocalizations {
   String get shareTo => translate(LocalKeys.share_to);
   String get share => translate(LocalKeys.share);
   String get typeAHeading => translate(LocalKeys.type_a_heading);
-  String get startTypingYourmessage => translate(LocalKeys.start_typing_your_message);
+  String get startTypingYourmessage =>
+      translate(LocalKeys.start_typing_your_message);
   String get schedule => translate(LocalKeys.schedule);
   String get sendCapital => translate(LocalKeys.send_capital);
   String get scheduleReminder => translate(LocalKeys.schedule_reminder);
@@ -136,7 +150,8 @@ class AppLocalizations {
   String get marketingSpeech => translate(LocalKeys.marketing_speech);
   String get marketingDesc => translate(LocalKeys.marketing_desc);
   String get sendMessage => translate(LocalKeys.send_message);
-  String get addCustomerFromContacts => translate(LocalKeys.add_customer_from_contacts);
+  String get addCustomerFromContacts =>
+      translate(LocalKeys.add_customer_from_contacts);
   String get contacts => translate(LocalKeys.contacts);
   String get customerName => translate(LocalKeys.customer_name);
   String get customerPhoneNo => translate(LocalKeys.customer_phone_no);
@@ -167,7 +182,8 @@ class AppLocalizations {
   String get appLock => translate(LocalKeys.app_lock);
   String get receiveNotifications => translate(LocalKeys.receive_notifications);
   String get receiveNewsletters => translate(LocalKeys.receive_newsletters);
-  String get receiveSpecialOffers => translate(LocalKeys.receive_special_offers);
+  String get receiveSpecialOffers =>
+      translate(LocalKeys.receive_special_offers);
   String get receiveUpdates => translate(LocalKeys.receive_updates);
   String get selectYourLanguage => translate(LocalKeys.select_your_language);
   String get selectYourCurrency => translate(LocalKeys.select_your_currency);
@@ -178,7 +194,6 @@ class AppLocalizations {
   String get removeAppLock => translate(LocalKeys.remove_app_lock);
   String get enterPin => translate(LocalKeys.enter_pin);
   String get pinRemoved => translate(LocalKeys.pin_removed);
-
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

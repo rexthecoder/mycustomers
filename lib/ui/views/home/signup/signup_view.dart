@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -258,7 +259,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               btnColor: ThemeColors.unselect,
               txtColor: BrandColors.primary,
               borderColor: ThemeColors.unselect,
-              btnText: 'Already a member? Sign in',
+              btnText: AppLocalizations.of(context).alreadyAmemberSignIn,
               child: Container(),
               onPressed: () async {
                 // dismiss keyboard during async call
