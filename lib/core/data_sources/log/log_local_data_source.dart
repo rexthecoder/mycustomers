@@ -15,6 +15,21 @@ abstract class LogsLocalDataSource {
   ///
   /// If it does not exist, nothing happens.
   Future<void> deleteLog(int id);
+
+
+
+   void getValues(String date, int price, DateTime time, String action, String name){
+
+    int totallogs = _logsBox.values.toList().length; 
+    String msg = action == 'credit' ? 'You made a credit for $name' : 'You made a debit for $name';
+    LogH newlog = new LogH(totallogs+1, msg, action, time);
+
+  }
+
+
+
+
+ 
 }
 
 class LogsLocalDataSourceImpl implements LogsLocalDataSource {
