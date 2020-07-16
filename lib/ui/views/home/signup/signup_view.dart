@@ -64,7 +64,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
             Text(
-          AppLocalizations.of(context).signUp,
+          // AppLocalizations.of(context).signUp,
+          'SIGN UP',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: SizeConfig.textSize(context, 6),

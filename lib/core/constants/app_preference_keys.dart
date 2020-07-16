@@ -6,4 +6,5 @@ class AppPreferenceKey {
   // TODO: Switch to hive box implementation
   static const USER_PHONE = 'USER_PHONE_NUMBER';
   static const USER_PASS = 'USER_PASSWORD';
+  static const USER_ID = 'USER_ID';
 }

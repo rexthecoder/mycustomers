@@ -114,20 +114,34 @@ class App extends StatelessWidget {
     return CoreManager(
       child: ViewModelBuilder<ThemeModel>.reactive(
         builder: (_, viewModel, ___) => OKToast(
-          child: MaterialApp(
-            builder: DevicePreview.appBuilder,
-            theme: viewModel.theme,
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: localizationsDelegates,
-            supportedLocales: supportedLocales,
-            localeResolutionCallback: loadSupportedLocals,
-            initialRoute: Routes.startupViewRoute,
-            onGenerateRoute: Router().onGenerateRoute,
-            navigatorKey: locator<NavigationService>().navigatorKey,
-          ),
+          child: MyApp(
+              viewModel: viewModel,
+            ),
         ),
         viewModelBuilder: () => ThemeModel(),
       ),
+    );
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({
+    Key key, this.viewModel,
+  }) : super(key: key);
+  final ThemeModel viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      builder: DevicePreview.appBuilder,
+      theme: viewModel.theme(context),
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: supportedLocales,
+      localeResolutionCallback: loadSupportedLocals,
+      initialRoute: Routes.startupViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
+      navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }
 }

@@ -30,7 +30,10 @@ class Store {
       '${store.ctyCode}${store.pNum}',
       store.tagline,
       store.address,
-    );
+    )..name = store.name;
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
   Map<String, dynamic> toJson() => _$StoreToJson(this);
+
+  @override
+  String toString() => this.id;
 }

@@ -55,7 +55,7 @@ class CreateBusinessViewModel extends BaseViewModel {
       );
       Logger.e(e.message, e: e, s: s);
     } catch (e, s) {
-      Logger.e('Unknown Error', e: e, s: s);
+      Logger.e('Unknown Error, exception: $e stacktrace: $s', e: e, s: s);
       showToastCustom(
         message: 'An error occured while creating your store account',
       );

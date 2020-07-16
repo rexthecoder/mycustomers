@@ -105,16 +105,13 @@ Future<void> setupLocator(
   );
 
   // Data sources
-  // final _ss = StoresLocalDataSourceImpl();
-  // await _ss.init();
+  
 
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
   );
 
-  // locator.registerLazySingleton<StoresLocalDataSource>(
-  //   () => _ss,
-  // );
+  
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
@@ -143,10 +140,15 @@ Future<void> setupLocator(
   Hive.registerAdapter(StoreHAdapter());
 
   if (!test) await setIso();
+  await openBoxes();
 }
 
-Future<void> openBoxes() {
-
+Future<void> openBoxes() async {
+  final _ss = StoresLocalDataSourceImpl();
+  await _ss.init();
+  locator.registerLazySingleton<StoresLocalDataSource>(
+    () => _ss,
+  );
 }
 
 Future<void> _setupSharedPreferences() async {
