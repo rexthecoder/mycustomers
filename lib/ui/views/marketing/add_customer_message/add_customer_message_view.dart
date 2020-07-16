@@ -16,6 +16,8 @@ class AddCustomerMessageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    Color backgroundColor = Theme.of(context).brightness==Brightness.dark?Theme.of(context).backgroundColor :ThemeColors.gray.shade400;
+
 
     return ViewModelBuilder<AddCustomerMessageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
@@ -102,10 +104,12 @@ class AddCustomerMessageView extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Container(
+                              model.allFrequentCustomers.length == 0
+                                  ? Container()
+                                  :Container(
                                 width: double.infinity,
                                 height: 40,
-                                color: ThemeColors.gray.shade400,
+                                color: backgroundColor,
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -117,10 +121,12 @@ class AddCustomerMessageView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10.h),
-                              model.allCustomers.length == 0
+                              model.allFrequentCustomers.length == 0
                                   ? Container()
-                                  : ListView.builder(
+                                  :SizedBox(height: 10.h),
+                              model.allFrequentCustomers.length == 0
+                                  ? Container()
+                                  :ListView.builder(
                                       itemCount: 4,
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
@@ -193,7 +199,7 @@ class AddCustomerMessageView extends StatelessWidget {
                               Container(
                                 width: double.infinity,
                                 height: 40,
-                                color: ThemeColors.gray.shade400,
+                                color: backgroundColor,
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
