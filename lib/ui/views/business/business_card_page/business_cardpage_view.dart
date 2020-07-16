@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/extensions/string_extension.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
@@ -23,7 +22,6 @@ class BusinessCardPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenshotController screenshotController = ScreenshotController();
-    PageController businessCardController = PageController(initialPage: 0);
 
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
@@ -31,16 +29,6 @@ class BusinessCardPageView extends StatelessWidget {
 
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
-        WidgetsBinding.instance.addPostFrameCallback(
-          (_) async {
-            await model.init();
-            businessCardController.animateToPage(
-              int.parse(model.businessCard.cardDesign),
-              duration: new Duration(seconds: 2),
-              curve: Curves.easeIn,
-            );
-          },
-        );
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -54,8 +42,9 @@ class BusinessCardPageView extends StatelessWidget {
                 fontSize: SizeConfig.textSize(context, 6),
               ),
             ),
-            iconTheme:
-                IconThemeData(color: Theme.of(context).textSelectionColor),
+            iconTheme: IconThemeData(
+              color: Theme.of(context).textSelectionColor,
+            ),
           ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
@@ -66,62 +55,8 @@ class BusinessCardPageView extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    Container(
-                      height: SizeConfig.yMargin(context, 30),
-                      child: Stack(
-                        children: <Widget>[
-                          Screenshot(
-                            controller: screenshotController,
-                            child: PageView(
-                              onPageChanged: (value) =>
-                                  model.updateBusinessCard(
-                                cardDesign: value.toString(),
-                              ),
-                              allowImplicitScrolling: true,
-                              controller: businessCardController,
-                              children: <Widget>[
-                                _BusinessCard1(),
-                                _BusinessCard2(),
-                                _BusinessCard3(),
-                                _BusinessCard4(),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            left: SizeConfig.xMargin(context, 2),
-                            top: SizeConfig.yMargin(context, 10),
-                            bottom: SizeConfig.yMargin(context, 10),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.chevron_left,
-                                color: ThemeColors.error,
-                                size: SizeConfig.textSize(context, 10),
-                              ),
-                              onPressed: () =>
-                                  businessCardController.previousPage(
-                                duration: new Duration(milliseconds: 300),
-                                curve: Curves.easeIn,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: SizeConfig.xMargin(context, 2),
-                            top: SizeConfig.yMargin(context, 10),
-                            bottom: SizeConfig.yMargin(context, 10),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.chevron_right,
-                                color: ThemeColors.error,
-                                size: SizeConfig.textSize(context, 10),
-                              ),
-                              onPressed: () => businessCardController.nextPage(
-                                duration: new Duration(milliseconds: 300),
-                                curve: Curves.easeIn,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    _BusinessCardWidget(
+                      screenshotController: screenshotController,
                     ),
                     SizedBox(
                       height: SizeConfig.yMargin(context, 3),
@@ -190,73 +125,10 @@ class BusinessCardModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PageController businessCardController = PageController(initialPage: 0);
-
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
-        WidgetsBinding.instance.addPostFrameCallback(
-          (_) {
-            businessCardController.animateToPage(
-              int.parse(model.businessCard.cardDesign),
-              duration: new Duration(milliseconds: 300),
-              curve: Curves.easeIn,
-            );
-          },
-        );
-        return Container(
-          height: SizeConfig.yMargin(context, 30),
-          child: Stack(
-            children: <Widget>[
-              Screenshot(
-                controller: screenshotController,
-                child: PageView(
-                  onPageChanged: (value) => model.updateBusinessCard(
-                    cardDesign: value.toString(),
-                  ),
-                  allowImplicitScrolling: true,
-                  controller: businessCardController,
-                  children: <Widget>[
-                    _BusinessCard1(),
-                    _BusinessCard2(),
-                    _BusinessCard3(),
-                    _BusinessCard4(),
-                  ],
-                ),
-              ),
-              Positioned(
-                left: SizeConfig.xMargin(context, 2),
-                top: SizeConfig.yMargin(context, 10),
-                bottom: SizeConfig.yMargin(context, 10),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.chevron_left,
-                    color: ThemeColors.error,
-                    size: SizeConfig.textSize(context, 10),
-                  ),
-                  onPressed: () => businessCardController.previousPage(
-                    duration: new Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  ),
-                ),
-              ),
-              Positioned(
-                right: SizeConfig.xMargin(context, 2),
-                top: SizeConfig.yMargin(context, 10),
-                bottom: SizeConfig.yMargin(context, 10),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.chevron_right,
-                    color: ThemeColors.error,
-                    size: SizeConfig.textSize(context, 10),
-                  ),
-                  onPressed: () => businessCardController.nextPage(
-                    duration: new Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  ),
-                ),
-              ),
-            ],
-          ),
+        return _BusinessCardWidget(
+          screenshotController: screenshotController,
         );
       },
       viewModelBuilder: () => BusinessCardPageViewModel(),
@@ -277,7 +149,7 @@ class BottomSheetButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final String share = 'assets/icons/svg/share.svg';
 
-    return ViewModelBuilder<BusinessCardPageViewModel>.reactive(
+    return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) => Row(
         children: <Widget>[
           Expanded(
@@ -324,7 +196,9 @@ class BottomSheetButtons extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(width: SizeConfig.xMargin(context, 3.0)),
+          SizedBox(
+            width: SizeConfig.xMargin(context, 3.0),
+          ),
           Expanded(
             flex: 1,
             child: CustomShareRaisedButton(
@@ -363,58 +237,10 @@ class BottomSheetButtons extends StatelessWidget {
                 return;
               },
             ),
-            // Container(
-            //   height: SizeConfig.yMargin(context, 9),
-            //   decoration: BoxDecoration(
-            //     border: Border.all(color: BrandColors.primary),
-            //     borderRadius: BorderRadius.circular(10.0),
-            //   ),
-            //   child: FlatButton(
-            //     shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(32)),
-            //     onPressed: () async {
-            //       screenshotController
-            //           .capture(
-            //         pixelRatio: ScreenUtil.pixelRatio,
-            //         delay: Duration(milliseconds: 10),
-            //       )
-            //           .then((File image) async {
-            //         model.imageFile = image;
-            //         await model.saveBusinessCard();
-            //         FlushbarHelper.createSuccess(
-            //           duration: const Duration(seconds: 5),
-            //           message: 'downloading...',
-            //         ).show(context);
-            //         model.downloadImage();
-            //         FlushbarHelper.createSuccess(
-            //           duration: const Duration(seconds: 5),
-            //           message:
-            //               'Download Completed to internalStorage/myCustomer',
-            //         ).show(context);
-            //       }).catchError((onError) {
-            //         print(onError.toString());
-            //         FlushbarHelper.createError(
-            //           duration: const Duration(seconds: 5),
-            //           message: onError.toString(),
-            //         ).show(context);
-            //       });
-            //       return;
-            //     },
-            //     child: Text(
-            //       'Download',
-            //       textAlign: TextAlign.center,
-            //       style: TextStyle(
-            //         color: BrandColors.primary,
-            //         fontSize: SizeConfig.textSize(context, 4.4),
-            //       ),
-            //     ),
-            //   ),
-            // ),
           )
         ],
       ),
       viewModelBuilder: () => BusinessCardPageViewModel(),
-      onModelReady: (model) => model.init(),
     );
   }
 }
@@ -487,6 +313,8 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
+    print("_DefaultFormFiel rebuilt");
+
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: SizeConfig.yMargin(context, 1),
@@ -547,7 +375,7 @@ class _DefaultPhoneFormField
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color: Theme.of(context).backgroundColor,
+          color: ThemeColors.black,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,

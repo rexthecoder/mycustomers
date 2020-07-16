@@ -27,7 +27,7 @@ abstract class BusinessCard with _$BusinessCard {
         address: "Your Address",
         position: "Your Position",
         tagLine: "Company tag line",
-        cardDesign: '1',
+        cardDesign: '0',
       );
 }
 
