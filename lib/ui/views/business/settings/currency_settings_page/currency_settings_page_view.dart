@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_viewmodel.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 
@@ -59,7 +60,8 @@ class CurrencySettingsPageView extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.only(bottom: 15),
                                 child: Text(
-                                  'Select your currency',
+                                  AppLocalizations.of(context)
+                                      .selectYourCurrency,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6
@@ -85,7 +87,7 @@ class CurrencySettingsPageView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(20)),
                         child: CustomRaisedButton(
-                            label: 'Save',
+                            label: AppLocalizations.of(context).save,
                             onPressed: () {
                               model.saveCurrencyIndex();
                               Navigator.pop(context);

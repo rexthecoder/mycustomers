@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/dot_pin_field.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'remove_pin_settings_page_viewmodel.dart';
@@ -27,10 +28,9 @@ class RemovePinSettingsPageView extends StatelessWidget {
               backgroundColor: BrandColors.primary,
               elevation: 0,
               flexibleSpace: Padding(
-                padding: EdgeInsets.only(
-                    top: SizeConfig.yMargin(context, 6)),
+                padding: EdgeInsets.only(top: SizeConfig.yMargin(context, 6)),
                 child: Expanded(
-                    child: SvgPicture.asset(
+                  child: SvgPicture.asset(
                     myCustomerLogo,
                     color: Theme.of(context).appBarTheme.color,
                     height: SizeConfig.yMargin(context, 16),
@@ -41,13 +41,12 @@ class RemovePinSettingsPageView extends StatelessWidget {
           ),
           backgroundColor: BrandColors.primary,
           body: PinField(
-            title: 'Enter PIN',
+            title: AppLocalizations.of(context).enterPin,
             textEditingController: controller,
-            onCompleted: (value) => model.onEnterPinCompleted(value,context),
+            onCompleted: (value) => model.onEnterPinCompleted(value, context),
           ),
         );
       },
     );
   }
 }
-

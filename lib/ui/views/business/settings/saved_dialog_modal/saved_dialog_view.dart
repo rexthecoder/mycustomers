@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
 import 'saved_dialog_viewmodel.dart';
@@ -37,7 +38,7 @@ class SavedDialogView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Save',
+                              AppLocalizations.of(context).save,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16.sp,
@@ -53,7 +54,6 @@ class SavedDialogView extends StatelessWidget {
             ],
           ),
         ),
-        
       ),
       viewModelBuilder: () => SavedDialogViewModel(),
     );
@@ -84,7 +84,7 @@ Future<void> savedDialog(BuildContext context) async {
                 ),
                 Container(
                   child: Text(
-                    'Saved',
+                    AppLocalizations.of(context).saved,
                     style: TextStyle(
                       color: Color(0xFF333CC1),
                       fontSize: 16.sp,
