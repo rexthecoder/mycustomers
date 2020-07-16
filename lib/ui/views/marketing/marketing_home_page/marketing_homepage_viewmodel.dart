@@ -95,6 +95,11 @@ class MarketingHomePageViewModel extends BaseViewModel {
     _selectedCustomers = [];
     notifyListeners();
   }
+  void removeCustomers(index) {
+    allCustomers.removeAt(index);
+    _selectedCustomers.removeAt(index);
+    notifyListeners();
+  }
 //  void updateCustomers() async{
 //    fianl customerList = await _navigationService
 //  }
@@ -105,15 +110,26 @@ class MarketingHomePageViewModel extends BaseViewModel {
     var contactList;
     final bool isPermitted =
         await _permission.getContactsPermission();
-    if (isPermitted) contactList= await _navigationService
-        .navigateTo(Routes.addCustomerMarketing);
-    else await [Permission.contacts].request();
-    allCustomers
-     = await contactList.length != 0?contactList:allCustomers;
+    if(_selectedCustomers.length !=0 ){
+      _navigationService
+          .navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+    }else{
+      if (isPermitted) contactList = await _navigationService
+          .navigateTo(Routes.addCustomerMarketing);
+      else contactList = await  _navigationService
+          .navigateTo(Routes.addNewCustomerMarketing);
+      await contactList;
+      allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+    }
+//    if (isPermitted) contactList= await _navigationService
+//        .navigateTo(Routes.addCustomerMarketing);
+//    else await [Permission.contacts].request();
+//    allCustomers
+//     = await contactList.length != 0?contactList:allCustomers;
 //    await contactList;
 //    if(!contactList==null){allCustomers =  contactList;}
+
     notifyListeners();
-    // print(contactList);
   }
 
 

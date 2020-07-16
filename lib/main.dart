@@ -8,9 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import './ui/shared/themes.dart' as themes;
 import './ui/theme/theme_viewmodel.dart';
-import 'core/localization/app_localization.dart';
+import 'app/local_setup.dart';
 import 'package:oktoast/oktoast.dart';
 import 'app/locator.dart';
 import 'app/router.dart';
@@ -43,19 +42,19 @@ void main() async {
                 "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
 
-    // runApp(App());
-    runApp(
-      DevicePreview(
-        // onScreenshot: (screenshot) {
-        //   final bytes = screenshot.bytes;
-        //   //  Send the bytes to a drive, to the file system, to
-        //   // the device gallery for example. It may be useful for
-        //   // preparing your app release for example.
-        // },
-        enabled: !kReleaseMode,
-        builder: (context) => App(),
-      ),
-    );
+   runApp(App());
+    //  runApp(
+    //    DevicePreview(
+    //      // onScreenshot: (screenshot) {
+    //      //   final bytes = screenshot.bytes;
+    //      //   //  Send the bytes to a drive, to the file system, to
+    //      //   // the device gallery for example. It may be useful for
+    //      //   // preparing your app release for example.
+    //      // },
+    //      enabled: !kReleaseMode,
+    //      builder: (context) => App(),
+    //    ),
+    //  );
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -114,25 +113,20 @@ class App extends StatelessWidget {
     // ]); // Settting preferred Screen Orientation
     return CoreManager(
       child: ViewModelBuilder<ThemeModel>.reactive(
-              builder: (_, viewModel, ___) => OKToast(
+        builder: (_, viewModel, ___) => OKToast(
           child: MaterialApp(
             builder: DevicePreview.appBuilder,
-            localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-              DefaultMaterialLocalizations.delegate,
-              DefaultWidgetsLocalizations.delegate,
-            ],
             theme: viewModel.theme,
             debugShowCheckedModeBanner: false,
+            localizationsDelegates: localizationsDelegates,
+            supportedLocales: supportedLocales,
+            localeResolutionCallback: loadSupportedLocals,
             initialRoute: Routes.startupViewRoute,
             onGenerateRoute: Router().onGenerateRoute,
             navigatorKey: locator<NavigationService>().navigatorKey,
-         supportedLocales: [
-          Locale('en'),
-          Locale('fr'),
-        ],
           ),
-        ), viewModelBuilder: () => ThemeModel(),
-
+        ),
+        viewModelBuilder: () => ThemeModel(),
       ),
     );
   }

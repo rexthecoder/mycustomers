@@ -1,7 +1,3 @@
-
-
-
-
 class LocalKeys {
   //list of local keys for the app
   static const onboarding_welcome_text = 'onboarding-welcome-text';
@@ -150,10 +146,4 @@ class LocalKeys {
   static const remove_app_lock = 'remove-app-lock';
   static const enter_pin = 'enter-pin';
   static const pin_removed = 'pin-removed';
-
-
-
-
-
-
 }

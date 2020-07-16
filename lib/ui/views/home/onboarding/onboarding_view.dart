@@ -17,7 +17,6 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
-
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
@@ -33,26 +32,26 @@ class OnboardingView extends StatelessWidget {
                   physics: ClampingScrollPhysics(),
                   controller: model.pageController,
                   children: [
-                   _Pages(
-                  'assets/images/onboarding/onboarding1.png',
-                  AppLocalization.of(context).onboardingWelcomeText,
-                  AppLocalization.of(context).onboardingWelcomeDesc,
-                ),
-                _Pages(
-                  'assets/images/onboarding/onboarding2.png',
-                  AppLocalization.of(context).pushAReminder,
-                  AppLocalization.of(context).pushAReminderDesc,
-                ),
-                _Pages(
-                  'assets/images/onboarding/onboarding3.png',
-                  AppLocalization.of(context).collectYourMoney,
-                  AppLocalization.of(context).collectYourMoneyDesc,
-                ),
-                _Pages(
-                  'assets/images/onboarding/onboarding4.png',
-                  AppLocalization.of(context).engagedWithYourPeople,
-                  AppLocalization.of(context).engagedWithYourPeopleDesc,
-                ),
+                    _Pages(
+                      'assets/images/onboarding/onboarding1.png',
+                      AppLocalizations.of(context).onboardingWelcomeText,
+                      AppLocalizations.of(context).onboardingWelcomeDesc,
+                    ),
+                    _Pages(
+                      'assets/images/onboarding/onboarding2.png',
+                      AppLocalizations.of(context).pushAReminder,
+                      AppLocalizations.of(context).pushAReminderDesc,
+                    ),
+                    _Pages(
+                      'assets/images/onboarding/onboarding3.png',
+                      AppLocalizations.of(context).collectYourMoney,
+                      AppLocalizations.of(context).collectYourMoneyDesc,
+                    ),
+                    _Pages(
+                      'assets/images/onboarding/onboarding4.png',
+                      AppLocalizations.of(context).engagedWithYourPeople,
+                      AppLocalizations.of(context).engagedWithYourPeopleDesc,
+                    ),
                   ],
                 ),
                 Positioned(
@@ -76,7 +75,7 @@ class OnboardingView extends StatelessWidget {
                   child: CustomRaisedButton(
                     txtColor: ThemeColors.background,
                     btnColor: BrandColors.primary,
-                    btnText: 'Get started',
+                    btnText: AppLocalizations.of(context).getStartedButton,
                     borderColor: BrandColors.primary,
                     child: Container(),
                     onPressed: () {
@@ -89,7 +88,7 @@ class OnboardingView extends StatelessWidget {
                   child: CustomRaisedButton(
                     txtColor: BrandColors.primary,
                     btnColor: ThemeColors.background,
-                    btnText: 'Sign in',
+                    btnText: AppLocalizations.of(context).signIn,
                     borderColor: BrandColors.primary,
                     child: Container(),
                     onPressed: () {
