@@ -17,6 +17,7 @@ abstract class LogsLocalDataSource {
   Future<void> deleteLog(int id);
 
 
+
    void getValues(String date, int price, DateTime time, String action, String name){
 
     int totallogs = _logsBox.values.toList().length; 
@@ -28,7 +29,7 @@ abstract class LogsLocalDataSource {
 
 
 
-  
+ 
 }
 
 class LogsLocalDataSourceImpl implements LogsLocalDataSource {

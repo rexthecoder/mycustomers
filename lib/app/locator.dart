@@ -1,7 +1,8 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:injectable/injectable.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
@@ -23,16 +24,28 @@ import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
+import 'package:mycustomers/core/utils/file_helper.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
-import 'package:mycustomers/core/services/permissions.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
+import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
+import 'package:mycustomers/core/models/hive/store/store_h.dart';
 
 final GetIt locator = GetIt.instance;
 
 const bool USE_MOCK_CUSTOMER = true;
+
+String isoCode = 'NG';
+
+Future<void> setIso() async {
+  try {
+    isoCode = await FlutterSimCountryCode.simCountryCode;
+  } on PlatformException {}
+}
 
 /// Setup function that is run before the App is run.
 ///   - Sets up singletons that can be called from anywhere
@@ -49,9 +62,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );
-   locator.registerLazySingleton<DialogService>(
+  locator.registerLazySingleton<DialogService>(
     () => DialogService(),
-   );
+  );
   locator.registerLazySingleton<IApi>(
     () => ApiServices(),
   );
@@ -61,7 +74,7 @@ Future<void> setupLocator(
   locator.registerLazySingleton<ICustomerService>(
     () => USE_MOCK_CUSTOMER ? MockCustomerService() : CustomerService(),
   );
-   locator.registerLazySingleton<CustomerContactService>(
+  locator.registerLazySingleton<CustomerContactService>(
     () => CustomerContactService(),
   );
   locator.registerLazySingleton<PasswordManagerService>(
@@ -87,30 +100,47 @@ Future<void> setupLocator(
   );
 
   // Data sources
+  final _ss = StoresLocalDataSourceImpl();
+  await _ss.init();
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
+  );
+
+  locator.registerLazySingleton<StoresLocalDataSource>(
+    () => _ss,
   );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
+  locator.registerLazySingleton<LogsLocalDataSource>(
+    () => LogsLocalDataSourceImpl(),
+  );
 
   // Util
-  locator.registerLazySingleton<Permissions>(
-    () => useMockContacts ? MockPermissions() : Permissions(),
+  locator.registerLazySingleton<FileHelper>(() => FileHelperImpl());
+  locator.registerLazySingleton<IPermissionService>(
+    () => useMockContacts ? MockPermissions() : PermissionService(),
   );
 
   // External
   locator.registerLazySingleton<HiveInterface>(() => Hive);
 
-  Directory appDocDir = test ? Directory.current : await getApplicationDocumentsDirectory();
+  Directory appDocDir =
+      test ? Directory.current : await getApplicationDocumentsDirectory();
   //print(appDocDir.path);
   Hive.initFlutter(appDocDir.path);
   Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
   Hive.registerAdapter(CustomerContactAdapter());
   Hive.registerAdapter(TransactionAdapter());
+  Hive.registerAdapter(StoreHAdapter());
 
   await _setupSharedPreferences();
+  if (!test) await setIso();
+}
+
+Future<void> openBoxes() {
+
 }
 
 Future<void> _setupSharedPreferences() async {

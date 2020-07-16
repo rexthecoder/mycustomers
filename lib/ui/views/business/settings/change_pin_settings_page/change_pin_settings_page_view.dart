@@ -13,8 +13,12 @@ class ChangePinSettingsPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController enterOldPinCpontroller = 
+    new TextEditingController(text: "");
+
     TextEditingController createPinController =
         new TextEditingController(text: "");
+        
     TextEditingController confirmPinController =
         new TextEditingController(text: "");
 
@@ -23,16 +27,22 @@ class ChangePinSettingsPageView extends StatelessWidget {
         final _views = <Widget>[
           FadeIn(
             child: PinField(
+              title:'Enter Old Pin',
+              textEditingController: enterOldPinCpontroller,
+              onCompleted:(value)=> model.onOldPinCompleted(value,1),
+              ),),
+          FadeIn(
+            child: PinField(
               title: 'Create a New PIN',
               textEditingController: createPinController,
-              onCompleted: (value) => model.onCreatePinCompleted(value),
+              onCompleted: (value) => model.onCreatePinCompleted(value,2),
             ),
           ),
           FadeIn(
             child: PinField(
               title: 'Confirm New PIN',
               textEditingController: confirmPinController,
-              onCompleted: (value) => model.onConfirmPinCompleted(value),
+              onCompleted: (value) => model.onConfirmPinCompleted(value,confirmPinController),
             ),
           ),
         ];

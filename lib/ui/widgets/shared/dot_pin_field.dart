@@ -15,6 +15,7 @@ class PinField extends StatelessWidget {
   final Function(String s) onSubmitted;
   final Function(String s) validator;
   final TextEditingController textEditingController;
+  final Function onUmatchedPins;
 
 
   const PinField({
@@ -25,6 +26,7 @@ class PinField extends StatelessWidget {
     this.onSubmitted,
     this.validator,
     this.textEditingController,
+    this.onUmatchedPins
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class PinField extends StatelessWidget {
       }
     }
 
+   
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: SizeConfig.yMargin(context, 3),

@@ -73,6 +73,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   }
 
   void getTransactions(){
+    print(contact.id);
     _transactionService.getTransactions(contact.id);
     notifyListeners();
   }
@@ -86,7 +87,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   // }
 
   void navigateToHome(){
-    _navigationService.navigateTo(Routes.mainViewRoute);
+    _navigationService.replaceWith(Routes.mainViewRoute);
   }
 
   void navigateDetails(TransactionModel item){

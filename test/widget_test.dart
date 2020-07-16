@@ -10,7 +10,7 @@ import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/main.dart';
 import 'package:mockito/mockito.dart';
-import 'package:mycustomers/core/services/permissions.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/models/customer.dart';
 
 class MockTransactionAdapter extends Mock implements TransactionLocalDataSourceImpl {}
@@ -42,7 +42,6 @@ void main() {
    
     setupLogger(test: true);
 
-
     //DI && IC
     SharedPreferences.setMockInitialValues({});
     await setupLocator(useMockContacts: true, test: true);
@@ -50,7 +49,7 @@ void main() {
     //Mock
     await locator.allReady();
     IOwnerServices iOwnerServices = locator<IOwnerServices>();
-    MockPermissions _permission =  locator<Permissions>();
+    MockPermissions _permission =  locator<IPermissionService>();
     final mockTransactionAdapters = MockTransactionAdapter();
     final mockBox = MockBox<TransactionModel>();
     

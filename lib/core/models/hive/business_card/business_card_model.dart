@@ -14,14 +14,20 @@ abstract class BusinessCard with _$BusinessCard {
     @HiveField(2) @required String phoneNumber,
     @HiveField(3) @required String emailAddress,
     @HiveField(4) @required String address,
+    @HiveField(5) @required String tagLine,
+    @HiveField(6) @required String position,
+    @HiveField(7) @required String cardDesign,
   }) = _BusinessCard;
 
   factory BusinessCard.empty() => BusinessCard(
         storeName: "Store Name",
-        personalName: "John Doe",
+        personalName: "Personal Name",
         phoneNumber: "+2348012345678",
-        emailAddress: "johndoe@mycustomer.com",
-        address: "We are all over the earth",
+        emailAddress: "Your Email",
+        address: "Your Address",
+        position: "Your Position",
+        tagLine: "Company tag line",
+        cardDesign: '1',
       );
 }
 

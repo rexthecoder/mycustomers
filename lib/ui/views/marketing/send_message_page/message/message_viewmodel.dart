@@ -2,9 +2,12 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:flutter/material.dart';
 
 class MessageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
+  TextEditingController titleController =TextEditingController();
+  TextEditingController messageController =TextEditingController();
 
   String _upperBoxText = 'Happy New Year!';
   String get upperBoxText => _upperBoxText;
@@ -26,6 +29,13 @@ class MessageViewModel extends BaseViewModel {
   checkBoxFunction(bool val) {
     checkBoxValue = val;
     val = !val;
+  }
+
+  Future navigateToSendMessage() async {
+    await _navigationService.navigateTo(Routes.messageSntDialog,);
+  }
+  Future returnHome() async {
+     _navigationService.popRepeated(3);
   }
 
   int currentIndex = 0;
