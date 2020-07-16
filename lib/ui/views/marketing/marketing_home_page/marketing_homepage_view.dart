@@ -4,6 +4,7 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
@@ -35,7 +36,7 @@ class MarketingHomePageView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Marketing',
+                      AppLocalizations.of(context).marketing,
                       style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
@@ -45,7 +46,7 @@ class MarketingHomePageView extends StatelessWidget {
                       height: 10.h,
                     ),
                     Text(
-                      'Show your customer that you really care about them',
+                      'Show your customers that you really care about them',
                       style: TextStyle(
                           fontSize: 14.sp,
                           color: Theme.of(context).cursorColor),
@@ -108,7 +109,6 @@ class MarketingHomePageView extends StatelessWidget {
                                   children: <Widget>[
                                     Expanded(
                                       child: InkWell(
-                                        
                                         child: Container(
                                           decoration: BoxDecoration(
 //                                        color: ThemeColors.gray,
@@ -117,7 +117,8 @@ class MarketingHomePageView extends StatelessWidget {
                                                   BorderRadius.circular(5.0)),
                                           child: Center(
                                             child: Text(
-                                              'Add a customer',
+                                              AppLocalizations.of(context)
+                                                  .addACustomer,
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   color: ThemeColors.gray[400]),
@@ -138,7 +139,8 @@ class MarketingHomePageView extends StatelessWidget {
                                                   BorderRadius.circular(5.0)),
                                           child: Center(
                                             child: Text(
-                                              'Send message',
+                                              AppLocalizations.of(context)
+                                                  .sendMessage,
                                               style: TextStyle(
                                                   fontSize: 14.sp,
                                                   color: Colors.white),
@@ -181,13 +183,15 @@ class MarketingHomePageView extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Text(
-                                          'Customer List',
+                                          AppLocalizations.of(context)
+                                              .customerList,
                                           style: TextStyle(
                                             fontSize: 20.sp,
                                           ),
                                         ),
                                         Text(
-                                          'Send message to all',
+                                          AppLocalizations.of(context)
+                                              .sendMessageAll,
                                           style: TextStyle(
                                               fontSize: 14.sp,
                                               color: BrandColors.secondary),
