@@ -59,11 +59,8 @@ Future<void> setupLocator(
     bool useMockCustomer: true,
     bool test = false}) async {
  //Inizialize Hive path
- print('Getting directory');
-  Directory appDocDir = test ? Directory.current : await getApplicationDocumentsDirectory();
-  print('Initializing hive flutter');
-  Hive.initFlutter();
-  print('Initializing hive flutter');
+  Directory appDocDir =test ? Directory.current : await getApplicationDocumentsDirectory();
+  test ? Hive.init(appDocDir.path) : Hive.initFlutter(appDocDir.path);
 
   // Services
   locator.registerLazySingleton(

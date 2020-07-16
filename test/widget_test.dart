@@ -57,6 +57,7 @@ void main() {
     
     //Checking for contact service
     await tester.runAsync(() async {
+      mockTransactionAdapters.init();
       when(iOwnerServices.getPhoneContacts()).thenAnswer((realInvocation) => Future.value(List<Customer>.generate(5, (int) => Customer.random())));
       when(_permission.getContactsPermission()).thenAnswer((realInvocation) => Future.value(false));
 //      when(mockTransactionAdapters.box).thenAnswer((_) async => Future.value(mockBox));
