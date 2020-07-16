@@ -45,19 +45,19 @@ void main() {
     //DI && IC
     SharedPreferences.setMockInitialValues({});
     await setupLocator(useMockContacts: true, test: true);
-    
+
     //Mock
     await locator.allReady();
     IOwnerServices iOwnerServices = locator<IOwnerServices>();
     MockPermissions _permission =  locator<IPermissionService>();
-    final mockTransactionAdapters = MockTransactionAdapter();
+//    final mockTransactionAdapters = MockTransactionAdapter();
     final mockBox = MockBox<TransactionModel>();
-    
+
     //Checking for contact service
     await tester.runAsync(() async {
       when(iOwnerServices.getPhoneContacts()).thenAnswer((realInvocation) => Future.value(List<Customer>.generate(5, (int) => Customer.random())));
       when(_permission.getContactsPermission()).thenAnswer((realInvocation) => Future.value(false));
-//      when(mockTransactionAdapters.box).thenAnswer((_) async => Future.value(mockBox));
+//      when(mockTransactionAdapters.init()).thenAnswer((_) async => Future.value(mockBox));
       when(mockBox.values).thenReturn(transactionModeList);
       await tester.pumpWidget(App());
     });

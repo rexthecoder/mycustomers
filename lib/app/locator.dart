@@ -8,7 +8,9 @@ import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.da
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/log/log_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
 import 'package:mycustomers/core/repositories/business_card/business_card_repository_impl.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -37,7 +39,7 @@ import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.d
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 
-final GetIt  locator = GetIt.instance;
+final GetIt locator = GetIt.instance;
 
 const bool USE_MOCK_CUSTOMER = true;
 
@@ -57,9 +59,17 @@ Future<void> setupLocator(
     {bool useMockContacts: false,
     bool useMockCustomer: true,
     bool test = false}) async {
- //Inizialize Hive path
-  Directory appDocDir =test ? Directory.current : await getApplicationDocumentsDirectory();
+  //Inizialize Hive path
+  Directory appDocDir =
+      test ? Directory.current : await getApplicationDocumentsDirectory();
   Hive.initFlutter(appDocDir.path);
+
+  Hive.registerAdapter(BusinessCardAdapter());
+  Hive.registerAdapter(PasswordManagerAdapter());
+  Hive.registerAdapter(CustomerContactAdapter());
+  Hive.registerAdapter(TransactionAdapter());
+  Hive.registerAdapter(StoreHAdapter());
+  Hive.registerAdapter(LogHAdapter());
 
   // Services
   locator.registerLazySingleton(
@@ -121,9 +131,9 @@ Future<void> setupLocator(
     () => StoreDataSourceImpl(),
   );
 
-   locator.registerLazySingleton<StoresLocalDataSource>(
-     () => StoresLocalDataSourceImpl()..init(),
-   );
+  locator.registerLazySingleton<StoresLocalDataSource>(
+    () => StoresLocalDataSourceImpl()..init(),
+  );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
@@ -144,22 +154,13 @@ Future<void> setupLocator(
   locator.registerLazySingleton<HiveInterface>(() => Hive);
 
   //Initialization for all boxes
-  await LogsLocalDataSourceImpl().init();
-  await TransactionLocalDataSourceImpl().init();
-
-
-  Hive.registerAdapter(BusinessCardAdapter());
-  Hive.registerAdapter(PasswordManagerAdapter());
-  Hive.registerAdapter(CustomerContactAdapter());
-  //Hive.registerAdapter(TransactionAdapter());
-  Hive.registerAdapter(StoreHAdapter());
+//  await LogsLocalDataSourceImpl().init();
+//  await TransactionLocalDataSourceImpl().init();
 
   if (!test) await setIso();
 }
 
-Future<void> openBoxes() {
-
-}
+Future<void> openBoxes() {}
 
 Future<void> _setupSharedPreferences() async {
   final storage = await SharedStorageUtil.getInstance();
