@@ -9,7 +9,7 @@ class ScheduleNotifications extends StatelessWidget {
     return ViewModelBuilder<ScheduleNotificationsViewModel>.reactive(
         builder: (context, model, child) {
           return Scaffold(
-            appBar: customizeAppBar(context, 'Schedule Reminder', 1.0),
+            appBar: customizeAppBar(context, 1.0, title: 'Schedule Reminder', arrowColor: Theme.of(context).textSelectionColor)
           );
         },
         viewModelBuilder: () => ScheduleNotificationsViewModel());

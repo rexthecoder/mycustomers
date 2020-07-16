@@ -16,7 +16,7 @@ class SendMessage extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           // resizeToAvoidBottomInset: false,
-          appBar: customizeAppBar(context, 'Send Reminder', 1.0),
+          appBar: customizeAppBar(context, 1.0, title: 'Send Reminder', arrowColor: Theme.of(context).textSelectionColor),
           body: SingleChildScrollView(
             child: Container(
               child: Column(

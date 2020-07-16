@@ -108,8 +108,8 @@ class SelectTransactionView extends StatelessWidget {
                             color: action == 'credit' ? BrandColors.primary.withOpacity(0.2) : BrandColors.secondary.withOpacity(0.2),
                           ),
                           child: Text(
-                            action == 'credit' ? 'N'+item.amount.round().toString() : 'N'+item.paid.round().toString(),
-                            style: Theme.of(context).textTheme.headline6.copyWith(color: action == 'credit' ? BrandColors.primary : BrandColors.secondary, fontSize: SizeConfig.yMargin(context, 3), fontWeight: FontWeight.w900),
+                            action == 'credit' ? '₦'+item.amount.round().toString() : 'N'+item.paid.round().toString(),
+                            style: Theme.of(context).textTheme.headline6.copyWith(color: action == 'credit' ? BrandColors.primary : BrandColors.secondary, fontSize: SizeConfig.yMargin(context, 3), fontWeight: FontWeight.w900, fontFamily: 'Roboto'),
                           ),
                         ),
                         Expanded(

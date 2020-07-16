@@ -31,6 +31,7 @@ import 'package:mycustomers/ui/views/home/signup/verification/verification_view.
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_new_customer/add_new_customer_view.dart';
+import 'package:mycustomers/ui/views/marketing/message_sent_dialogs/message_sent_dialog_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/message/message_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
@@ -93,8 +94,9 @@ abstract class Routes {
   static const addCustomerMarketing = '/addCustomerMarketing';
   static const addNewCustomerMarketing = '/addNewCustomerMarketing';
   static const notificationsViewRoute = '/NotificationsViews';
-  static const businessCardDisplayModal = '/businessCardDisplayModal';
-  static const quickMessages = '/quickMessages';
+  static const businessCardDisplayModal='/businessCardDisplayModal';
+  static const quickMessages='/quickMessages';
+  static const messageSntDialog='/dialog';
 
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
   static const sendMessage = '/sendMessage';
@@ -264,6 +266,11 @@ class Router {
           builder: (context) => SavedDialogView(),
           settings: settings,
         );
+      case Routes.messageSntDialog:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => MessageDialogView(),
+          settings: settings,
+        );
       case Routes.businessCardRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessCardPageView(),
@@ -276,7 +283,7 @@ class Router {
         );
       case Routes.languageSettingsViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => LanguagePageView(),
+          builder: (context) => LanguageSelectionPageView(),
           settings: settings,
         );
       case Routes.appLockSettingsViewRoute:
@@ -312,12 +319,12 @@ class Router {
           builder: (context) => ScheduleReminders(),
           settings: settings,
         );
-      // case Routes.sendMessageViewRoute:
-      //   final customerList = settings.arguments;
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => SendAMessage(customerList),
-      //     settings: settings,
-      //   );
+      case Routes.sendMessageViewRoute:
+         final customerList = settings.arguments;
+         return CupertinoPageRoute<dynamic>(
+           builder: (context) => SendAMessage(customerList),
+           settings: settings,
+         );
       case Routes.quickMessages:
         final customerList = settings.arguments;
         return CupertinoPageRoute<dynamic>(

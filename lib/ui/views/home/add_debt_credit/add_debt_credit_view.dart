@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 
 import 'add_debt_credit_viewmodel.dart';
@@ -152,7 +153,7 @@ class AddDebtCreditView extends StatelessWidget {
                                 ),
                                 textInputAction: TextInputAction.go,
                                 onChanged: (value) =>
-                                    model.updateAmount(value, update),
+                                    model.updateAmount(value, update, action),
                               ),
                             ),
                             Visibility(
@@ -203,7 +204,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         },
                                       );
                                       if (picked != null)
-                                        model.setOtherDate(picked, update);
+                                        model.setOtherDate(picked, update, action);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(bottom: 15),
