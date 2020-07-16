@@ -54,7 +54,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
 
   void testfunc(DateTime time){
     int totallogs = _logsBox.values.toList().length; 
-    String msg = 'Welcome '+time.toString();
+    String msg = 'Welcome Login at'+time.toString();
     LogH newlog = new LogH(totallogs+1, msg, 'debit', time);
     print(newlog);
     addLog(newlog);

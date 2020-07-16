@@ -133,12 +133,13 @@ Future<void> setupLocator(
 
   //Initialization for all boxes
   await LogsLocalDataSourceImpl().init();
+  await TransactionLocalDataSourceImpl().init();
 
   
   Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
   Hive.registerAdapter(CustomerContactAdapter());
-  Hive.registerAdapter(TransactionAdapter());
+  //Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(StoreHAdapter());
 
   if (!test) await setIso();
