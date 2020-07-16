@@ -8,8 +8,8 @@ import 'package:mycustomers/ui/shared/themes.dart' as themes;
 
 
 class SettingsPageViewModel extends ReactiveViewModel {
-  bool _lightTheme = true;
-  bool _notification = true;
+  bool _lightTheme = false;
+  bool _notification= true;
   bool _newsletter = false;
   bool _special = false;
   bool _update = true;
@@ -22,7 +22,7 @@ class SettingsPageViewModel extends ReactiveViewModel {
   final _bussinessSettingService = locator<BussinessSettingService>();
 
   bool get lightTheme => _lightTheme;
-  bool get notification => _notification;
+  bool  get notification =>_notification ;
   bool get newsletter => _newsletter;
   bool get special => _special;
   bool get update => _update;
@@ -31,35 +31,42 @@ class SettingsPageViewModel extends ReactiveViewModel {
   List get langs => _bussinessSettingService.langs;
   List get currs => _bussinessSettingService.currencies;
 
+
   setTheme() {
     if (_lightTheme == true) {
       _light = themes.primaryMaterialTheme;
       _lightTheme = !_lightTheme;
+      _bussinessSettingService.setTheme(_lightTheme);
       notifyListeners();
     } else {
       _light = themes.darkMaterialTheme;
       _lightTheme = !_lightTheme;
+      _bussinessSettingService.setTheme(_lightTheme);
       notifyListeners();
     }
   }
 
   void setNotification() {
     _notification = !_notification;
+    _bussinessSettingService.setNotification(_notification);
     notifyListeners();
   }
 
   void setNewsletter() {
     _newsletter = !_newsletter;
+    _bussinessSettingService.setNewsletter(_newsletter);
     notifyListeners();
   }
 
   void setSpecial() {
     _special = !_special;
+    _bussinessSettingService.setSpecial(_special);
     notifyListeners();
   }
 
   void setUpdate() {
     _update = !_update;
+    _bussinessSettingService.setUpdate(_update);
     notifyListeners();
   }
 
@@ -70,6 +77,7 @@ class SettingsPageViewModel extends ReactiveViewModel {
   }
 
   Future navigateToCurrency() async {
+     print(await getSetNotofication());
     await _navigationService.navigateTo(Routes.currencySettingsViewRoute);
   }
 
@@ -79,6 +87,13 @@ class SettingsPageViewModel extends ReactiveViewModel {
 
   Future navigateToLanguageSettings() async {
     await _navigationService.navigateTo(Routes.languageSettingsViewRoute);
+  }
+
+ Future< bool> getSetNotofication() async{
+    bool value2=  await _bussinessSettingService.getSetNotification();
+    print(value2);
+    return value2;
+
   }
 
   @override
