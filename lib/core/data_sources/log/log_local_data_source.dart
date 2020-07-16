@@ -41,7 +41,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     _hiveService.registerAdapter<LogH>(LogHAdapter());
 
     if (!_isBoxOpen) {
-      await _hiveService.openBox<LogH>(HiveBox.logs);
+      await Hive.openBox<LogH>(HiveBox.logs);
     }
   }
 

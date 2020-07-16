@@ -22,12 +22,12 @@ class StoreRepository {
   static Future<void> updateStores() async {
     try {
 
-    var stores = await _ss.getStores();
+    var stores = (await _ss.getStores()).toList();
     _stores = stores ?? _stores;
     if (_stores != null && _stores.isNotEmpty) _currentStore = _stores[0];
     print('Stores is now: $_stores and current store is $_currentStore');
     } catch(e, s) {
-      Logger.e('Refresh store list Error', e: e, s: s);
+      Logger.e('Refresh store list Error\nException: $e\nStacktrace: $s', e: e, s: s);
       rethrow;
     }
     
