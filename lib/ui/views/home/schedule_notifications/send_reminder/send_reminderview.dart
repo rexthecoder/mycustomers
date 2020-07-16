@@ -16,16 +16,18 @@ class SendMessage extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           // resizeToAvoidBottomInset: false,
-          appBar: customizeAppBar(context, 1.0, title: 'Send Reminder', arrowColor: Theme.of(context).textSelectionColor),
+          appBar: customizeAppBar(context, 1.0,
+              title: 'Send Reminder',
+              arrowColor: Theme.of(context).textSelectionColor),
           body: SingleChildScrollView(
             child: Container(
+              margin: EdgeInsets.only(left: 30, right: 30),
               child: Column(
                 children: <Widget>[
                   SizedBox(
                     height: 60.h,
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 30, right: 30),
                     child: TextField(
                       style: TextStyle(height: height * 0.002),
                       maxLines: 1,
@@ -55,7 +57,6 @@ class SendMessage extends StatelessWidget {
                     height: 30.h,
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 30, right: 30),
                     child: TextField(
                       style: TextStyle(height: height * 0.002),
                       maxLines: 3,
@@ -85,7 +86,6 @@ class SendMessage extends StatelessWidget {
                     height: 150.h,
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 30, right: 30),
                     height: 50.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

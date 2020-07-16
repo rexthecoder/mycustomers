@@ -13,7 +13,6 @@ import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:flutter_screenutil/size_extension.dart';
-
 import 'signup_viewmodel.dart';
 
 class SignUpView extends StatelessWidget {
@@ -66,8 +65,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
         child: Column(
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
-            Text(
-          AppLocalizations.of(context).signUp,
+            Text('SIGN UP',
+          // AppLocalizations.of(context).signUp,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: SizeConfig.textSize(context, 6),

@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'business_card_model.dart';
+part of 'business_card_h.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,8 +9,8 @@ part of 'business_card_model.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$BusinessCardTearOff {
-  const _$BusinessCardTearOff();
+class _$BusinessCardHTearOff {
+  const _$BusinessCardHTearOff();
 
   _BusinessCard call(
       {@required @HiveField(0) String storeName,
@@ -35,9 +35,9 @@ class _$BusinessCardTearOff {
 }
 
 // ignore: unused_element
-const $BusinessCard = _$BusinessCardTearOff();
+const $BusinessCardH = _$BusinessCardHTearOff();
 
-mixin _$BusinessCard {
+mixin _$BusinessCardH {
   @HiveField(0)
   String get storeName;
   @HiveField(1)
@@ -55,13 +55,13 @@ mixin _$BusinessCard {
   @HiveField(7)
   String get cardDesign;
 
-  $BusinessCardCopyWith<BusinessCard> get copyWith;
+  $BusinessCardHCopyWith<BusinessCardH> get copyWith;
 }
 
-abstract class $BusinessCardCopyWith<$Res> {
-  factory $BusinessCardCopyWith(
-          BusinessCard value, $Res Function(BusinessCard) then) =
-      _$BusinessCardCopyWithImpl<$Res>;
+abstract class $BusinessCardHCopyWith<$Res> {
+  factory $BusinessCardHCopyWith(
+          BusinessCardH value, $Res Function(BusinessCardH) then) =
+      _$BusinessCardHCopyWithImpl<$Res>;
   $Res call(
       {@HiveField(0) String storeName,
       @HiveField(1) String personalName,
@@ -73,12 +73,13 @@ abstract class $BusinessCardCopyWith<$Res> {
       @HiveField(7) String cardDesign});
 }
 
-class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
-  _$BusinessCardCopyWithImpl(this._value, this._then);
+class _$BusinessCardHCopyWithImpl<$Res>
+    implements $BusinessCardHCopyWith<$Res> {
+  _$BusinessCardHCopyWithImpl(this._value, this._then);
 
-  final BusinessCard _value;
+  final BusinessCardH _value;
   // ignore: unused_field
-  final $Res Function(BusinessCard) _then;
+  final $Res Function(BusinessCardH) _then;
 
   @override
   $Res call({
@@ -111,7 +112,7 @@ class _$BusinessCardCopyWithImpl<$Res> implements $BusinessCardCopyWith<$Res> {
 }
 
 abstract class _$BusinessCardCopyWith<$Res>
-    implements $BusinessCardCopyWith<$Res> {
+    implements $BusinessCardHCopyWith<$Res> {
   factory _$BusinessCardCopyWith(
           _BusinessCard value, $Res Function(_BusinessCard) then) =
       __$BusinessCardCopyWithImpl<$Res>;
@@ -127,7 +128,8 @@ abstract class _$BusinessCardCopyWith<$Res>
       @HiveField(7) String cardDesign});
 }
 
-class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
+class __$BusinessCardCopyWithImpl<$Res>
+    extends _$BusinessCardHCopyWithImpl<$Res>
     implements _$BusinessCardCopyWith<$Res> {
   __$BusinessCardCopyWithImpl(
       _BusinessCard _value, $Res Function(_BusinessCard) _then)
@@ -168,7 +170,7 @@ class __$BusinessCardCopyWithImpl<$Res> extends _$BusinessCardCopyWithImpl<$Res>
 
 @HiveType(typeId: 0, adapterName: 'BusinessCardAdapter')
 class _$_BusinessCard implements _BusinessCard {
-  const _$_BusinessCard(
+  _$_BusinessCard(
       {@required @HiveField(0) this.storeName,
       @required @HiveField(1) this.personalName,
       @required @HiveField(2) this.phoneNumber,
@@ -213,7 +215,7 @@ class _$_BusinessCard implements _BusinessCard {
 
   @override
   String toString() {
-    return 'BusinessCard(storeName: $storeName, personalName: $personalName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, tagLine: $tagLine, position: $position, cardDesign: $cardDesign)';
+    return 'BusinessCardH(storeName: $storeName, personalName: $personalName, phoneNumber: $phoneNumber, emailAddress: $emailAddress, address: $address, tagLine: $tagLine, position: $position, cardDesign: $cardDesign)';
   }
 
   @override
@@ -263,8 +265,8 @@ class _$_BusinessCard implements _BusinessCard {
       __$BusinessCardCopyWithImpl<_BusinessCard>(this, _$identity);
 }
 
-abstract class _BusinessCard implements BusinessCard {
-  const factory _BusinessCard(
+abstract class _BusinessCard implements BusinessCardH {
+  factory _BusinessCard(
       {@required @HiveField(0) String storeName,
       @required @HiveField(1) String personalName,
       @required @HiveField(2) String phoneNumber,

@@ -23,7 +23,7 @@ import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
-import 'package:mycustomers/ui/views/home/set_reminders/schedule_reminder/schedule_reminderview.dart';
+import 'package:mycustomers/ui/views/home/schedule_notifications/schedule_reminder/schedule_reminderview.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
@@ -43,7 +43,7 @@ import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.da
 import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/send_a_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/notification_view/notification_view.dart';
-import 'package:mycustomers/ui/views/home/set_reminders/send_reminder/send_reminderview.dart';
+import 'package:mycustomers/ui/views/home/schedule_notifications/send_reminder/send_reminderview.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
@@ -99,7 +99,7 @@ abstract class Routes {
   static const messageSntDialog='/dialog';
 
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
-  static const sendMessage = '/sendMessage';
+  static const sendNotificationMessage = '/sendNotificationMessage';
   static const scheduleNotifications = '/scheduleNotifications';
 }
 
@@ -371,7 +371,7 @@ class Router {
           builder: (context) => NotificationsView(),
           settings: settings,
         );
-      case Routes.sendMessage:
+      case Routes.sendNotificationMessage:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SendMessage(),
           settings: settings,

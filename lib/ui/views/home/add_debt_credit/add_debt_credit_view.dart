@@ -525,7 +525,7 @@ class AddDebtCreditView extends StatelessWidget {
                       // Function to schedule reminder
                       // Main function is in services/notifications/automatic_reminder
                       // TODO: Add a time picker
-                      reminders.showFitnessNotificationOnce(
+                      reminders.sendNotificationOnce(
                           0,
                           action == 'credit'
                               ? 'You owe ' + model.contact.name

@@ -9,35 +9,50 @@ NotificationRemindersService() {
     initNotifications();
 }
 
+getNotificationInstance() {
+    return flutterLocalNotificationsPlugin;
+  }
+
  // initialise the plugin.
   void initNotifications() {
+
    // Sets icon to be displayed with notification (android).
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('@mipmap/launcher_icon');
-        // Intialization requires two arguments, for IOS and Android. IOS requires more , but that hasn't been set yet.
+
     var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
+         // Intialization requires two arguments, for IOS and Android. IOS requires more , but that hasn't been set yet.
     var initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
+
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
   }
 
+ dynamic pendingNotificationRequests() async =>
+      await flutterLocalNotificationsPlugin.pendingNotificationRequests();
+
 // Function to schedule a reminder at a specific time daily
-  void showFitnessNotificationDaily(
+  void sendNotificationDaily(
       {int id, String title, String body, int hour, int minute}) async {
     var time = new Time(hour, minute, 0);
+
     await flutterLocalNotificationsPlugin.showDailyAtTime(
         id, title, body, time, getPlatformChannelSpecfics(id));
+
     print(
         'Notification Succesfully Scheduled for ${time.toString()} with id of $id');
   }
 
 // Function to schedule reminder on a specific date but just once
-  void showFitnessNotificationOnce(
+  void sendNotificationOnce(
       int id, String title, String body, DateTime time) async {
+
     await flutterLocalNotificationsPlugin.schedule(
         id, title, body, time, getPlatformChannelSpecfics(id));
+        
     print(
         'Notification Succesfully Scheduled for ${time.toString()} with id of $id');
   }
@@ -49,9 +64,12 @@ NotificationRemindersService() {
         importance: Importance.Max,
         priority: Priority.High,
         ticker: 'ticker');
+
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
     return platformChannelSpecifics;
   }
   
