@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
-import 'package:mycustomers/ui/shared/const_color.dart';
 
 import 'startup_viewmodel.dart';
 
@@ -10,7 +9,7 @@ class StartupView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartupViewModel>.nonReactive(
       builder: (context, model, child) => Container(
-        color: ThemeColors.background,
+        color: Theme.of(context).backgroundColor,
         child: Center(
           child: LoadingAnimation(),
         ),

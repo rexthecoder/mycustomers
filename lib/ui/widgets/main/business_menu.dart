@@ -16,7 +16,7 @@ class BusinessMenu extends HookViewModelWidget<MainViewModel> {
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.xMargin(context, 2),
       ),
-      color: ThemeColors.gray[400],
+      color: Theme.of(context).backgroundColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

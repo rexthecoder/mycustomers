@@ -23,14 +23,14 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
                   text: model.currStore?.name ?? 'None',
                   style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 6),
-                      color: ThemeColors.black,
+                      color: Theme.of(context).cursorColor,
                       fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(
                       text: '\n${model?.currStore?.tagline ?? 'No tagline'}',
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 3),
-                        color: ThemeColors.black,
+                        color: Theme.of(context).cursorColor,
                         fontWeight: FontWeight.normal,
                       ),
                     )
@@ -147,7 +147,9 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
         children: <Widget>[
           SvgPicture.asset(
             icon,
-            color: active ? BrandColors.primary : ThemeColors.black,
+            color: active
+                ? Theme.of(context).textSelectionColor
+                : Theme.of(context).cursorColor,
             semanticsLabel: label,
             height: SizeConfig.xMargin(context, 6),
             width: SizeConfig.xMargin(context, 6),
@@ -159,7 +161,9 @@ class MenuOptions extends HookViewModelWidget<MainViewModel> {
             label,
             style: TextStyle(
               fontSize: SizeConfig.textSize(context, 4.5),
-              color: active ? BrandColors.primary : ThemeColors.black,
+              color: active
+                  ? Theme.of(context).textSelectionColor
+                  : Theme.of(context).cursorColor,
             ),
           ),
         ],
