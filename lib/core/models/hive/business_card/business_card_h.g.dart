@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'business_card_model.dart';
+part of 'business_card_h.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

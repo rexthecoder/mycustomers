@@ -59,27 +59,29 @@ class DebtorsView extends StatelessWidget {
                             children: <Widget>[
                               Text('Customers are owing you', style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14.sp
+                                  fontSize: SizeConfig.yMargin(context, 2)
                               ),),
                               model.bought() - model.paid() > 0 ? Text(
-                                '₦'+currency.format(model.bought() - model.paid()).toString(),
+                                model.currency.symbol+currency.format(model.bought() - model.paid()).toString(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 36.sp,
+                                  fontSize: SizeConfig.yMargin(context, 5),
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Roboto'
                                 ),
                               ) : RichText(
                                 text: TextSpan(
-                                  text: 'NGN 0.', style: TextStyle(
+                                  text: '₦ 0.', style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 36.sp,
+                                    fontSize: SizeConfig.yMargin(context, 5),
+                                    fontFamily: 'Roboto',
                                     fontWeight: FontWeight.bold),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: '00.', style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 14.sp,
+                                        fontSize: SizeConfig.yMargin(context, 3),
+                                        fontFamily: 'Roboto',
                                         fontWeight: FontWeight.bold
                                     ),
                                     )
@@ -91,147 +93,7 @@ class DebtorsView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ///Code for list commented out
-//                      model.expectedTime !=null?  Column(
-//                        children: <Widget>[
-//                          Container(
-//                            height: 50.h,
-//                            width: MediaQuery.of(context).size.width,
-//                            child: Center(
-//                              child: TextField(
-//                                controller: model.debtorsController,
-//                                onChanged: model.searchDebtors,
-//                                textAlign: TextAlign.justify,
-//                                style:  TextStyle(
-//                                  color: Colors.black,
-//                                  fontSize: 14.sp,),
-//                                decoration: InputDecoration(
-//                                    hintText: 'Search by name',
-//                                    hintStyle: TextStyle(
-//                                      color: Color(0xFFACACAC),
-//                                      fontSize: 14.sp,
-//
-//
-//                                    ),
-//                                    contentPadding:  const EdgeInsets.all(10.0),
-//                                    prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
-//                                    border: InputBorder.none
-//
-//                                ),
-//                              ),
-//                            ),
-//                          ),
-//                          SizedBox(height: 20.h,),
-//                          Container(
-//                            height: 50,
-//                            child: Row(
-//                              crossAxisAlignment: CrossAxisAlignment.center,
-//
-//                              children: <Widget>[
-//                                CircleAvatar(
-//                                  backgroundImage: ExactAssetImage('assets/images/man.png'),
-//                                  radius: 20.w,
-//                                ),
-//                                SizedBox(width: 10.w,),
-//                                Expanded(
-//                                  child: Row(
-//                                    crossAxisAlignment: CrossAxisAlignment.center,
-//                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                                    children: <Widget>[
-//                                      Column(
-//                                        mainAxisAlignment: MainAxisAlignment.center,
-//                                        crossAxisAlignment: CrossAxisAlignment.start,
-//                                        children: <Widget>[
-//                                          Text('Seyi Onifade', style: TextStyle(
-//                                            fontSize: 16.sp,),),
-//                                          SizedBox(height:5.h),
-//                                          Text('Expected a week ago', style: TextStyle(
-//                                              fontSize: 13.sp,
-//                                              color: Color(0xFFADADBD))),
-//                                        ],
-//                                      ),
-//                                      Column(
-//                                        crossAxisAlignment: CrossAxisAlignment.end,
-//                                        mainAxisAlignment: MainAxisAlignment.center,
-//                                        children: <Widget>[
-//                                          Text('NGN ${model.amountOwing}', style: TextStyle(
-//                                              fontSize: 16.sp,
-//                                              color: Colors.red)),
-//                                          SizedBox(height:5.h),
-//                                          Container(
-//                                            color: Colors.red.withOpacity(0.1),
-//                                            child: Text('Overdue', style: TextStyle(
-//                                                fontSize: 16.sp,
-//                                                color: Colors.red)
-//                                            ),
-//                                          ),
-//                                        ],
-//                                      ),
-//                                    ],
-//                                  ),
-//                                ),
-//
-//                              ],
-//                            ),
-//                          ),
-//                          SizedBox(height:5.h),
-//                          Divider(color: Colors.black,),
-//                          Container(
-//                            height: 50,
-//                            child: Row(
-//                              crossAxisAlignment: CrossAxisAlignment.center,
-//
-//                              children: <Widget>[
-//                                CircleAvatar(
-//                                  backgroundImage: ExactAssetImage('assets/images/man.png'),
-//                                  radius: 20.w,
-//                                ),
-//                                SizedBox(width: 10.w,),
-//                                Expanded(
-//                                  child: Row(
-//                                    crossAxisAlignment: CrossAxisAlignment.center,
-//                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                                    children: <Widget>[
-//                                      Column(
-//                                        mainAxisAlignment: MainAxisAlignment.center,
-//                                        crossAxisAlignment: CrossAxisAlignment.start,
-//                                        children: <Widget>[
-//                                          Text('Cythia Ike', style: TextStyle(
-//                                            fontSize: 16.sp,),),
-//                                          SizedBox(height:5.h),
-//                                          Text('Expected in 2 weeks ', style: TextStyle(
-//                                              fontSize: 13.sp,
-//                                              color: Color(0xFFADADBD))),
-//                                        ],
-//                                      ),
-//                                      Column(
-//                                        crossAxisAlignment: CrossAxisAlignment.end,
-//                                        mainAxisAlignment: MainAxisAlignment.center,
-//                                        children: <Widget>[
-//                                          Text('NGN 500', style: TextStyle(
-//                                              fontSize: 16.sp,
-//                                              color: Colors.green)),
-//                                          SizedBox(height:5.h),
-//                                          Container(
-//                                            color: Colors.green.withOpacity(0.1),
-//                                            child: Text('Not paid', style: TextStyle(
-//                                                fontSize: 16.sp,
-//                                                color: Colors.green)
-//                                            ),
-//                                          ),
-//                                        ],
-//                                      ),
-//                                    ],
-//                                  ),
-//                                ),
-//
-//                              ],
-//                            ),
-//                          ),
-//                          SizedBox(height:5.h),
-//                          Divider(color: Colors.black,),
-//                        ],
-//                      ):
+                    
                       model.owingcustomers.length == 0 ? Container(
                         height:height/2,
                         child: Padding(
@@ -241,18 +103,16 @@ class DebtorsView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              SvgPicture.asset('assets/images/no-transaction.svg'),
+                              SvgPicture.asset('assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
                               SizedBox(height: 20.h,),
                               Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Theme.of(context).textSelectionColor),),
+                                style: TextStyle(color: Theme.of(context).textSelectionColor, fontSize: SizeConfig.yMargin(context, 2))
+                              ),
                             ],
                           ),
                         ),
                       ) : ContactList(),
-
-
-
                     ],
                   ),
                 ),
@@ -277,7 +137,7 @@ class DebtorsView extends StatelessWidget {
                       'Add customer owing you',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 2.1),
+                        fontSize: SizeConfig.yMargin(context, 2),
                       ),
                     ),
                   ),
@@ -324,7 +184,10 @@ class ContactList extends StatelessWidget {
               ),
             ),
             model.sDName != null && !model.containsD ? Text(
-              'No Customer Found'
+              'No Customer Found',
+              style: TextStyle(
+                fontSize: SizeConfig.yMargin(context, 2)
+              ),
             ) : SizedBox(),
             for(var cont in model.owingcustomers)
               for (var item in model.contacts) 
@@ -365,23 +228,24 @@ class ContactList extends StatelessWidget {
                   ),
                   title: Text(
                     item.name,
-                    style: TextStyle(fontWeight: FontWeight.w600)
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
                   ),
                   subtitle: Text(
-                    DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
+                    cont.duedate != null ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
                     (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
                     : 
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days'
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days' : '',
+                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Container(
                         child: Text(
-                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
                             color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
-                            fontSize: 16,
+                            fontSize: SizeConfig.yMargin(context, 1.8),
                             fontFamily: 'Roboto'
                           ),
                         ),
@@ -394,7 +258,7 @@ class ContactList extends StatelessWidget {
                         ),
                         child: Text(
                           (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
-                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: SizeConfig.yMargin(context, 1.8), fontWeight: FontWeight.w600),
                         ),
                       )
                     ],
@@ -409,7 +273,6 @@ class ContactList extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(color: Color(0xFFD1D1D1)),
-                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
                   )
                 ),
                 child: ListTile(
@@ -436,23 +299,24 @@ class ContactList extends StatelessWidget {
                   ),
                   title: Text(
                     item.name,
-                    style: TextStyle(fontWeight: FontWeight.w600)
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
                   ),
                   subtitle: Text(
-                    DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
+                    cont.duedate != null ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
                     (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
                     : 
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days'
+                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days' : '',
+                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   ),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Container(
                         child: Text(
-                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
-                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
-                            fontSize: 16,
+                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green,
+                            fontSize: SizeConfig.yMargin(context, 1.8),
                             fontFamily: 'Roboto'
                           ),
                         ),
@@ -465,7 +329,7 @@ class ContactList extends StatelessWidget {
                         ),
                         child: Text(
                           (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
-                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: 16, fontWeight: FontWeight.w600),
+                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: SizeConfig.yMargin(context, 1.8), fontWeight: FontWeight.w600),
                         ),
                       )
                     ],

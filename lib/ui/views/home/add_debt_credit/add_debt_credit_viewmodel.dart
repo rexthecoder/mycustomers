@@ -6,8 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -29,6 +31,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
   NavigationService _navigationService = locator<NavigationService>();
   final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
+  final _bussinessService = locator<BussinessSettingService>();
+  CountryCurrency get currency => _bussinessService.curren;
 
   double _amount;
   double get amount => _amount;
@@ -46,7 +50,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
     return num.tryParse(amt) != null;
   }
 
-  void updateAmount(String value, bool update) {
+  void updateAmount(String value, bool update, String action) {
     _debouncer.run(() {
       if(value.length != 0) {
         String val = '';
@@ -59,7 +63,11 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
           _error = null;
           _amount = double.parse(val);
           show = true;
-          update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length>0 && items.length > 0 ? save = true : save = false;
+          update ? amount != null && newODate!= null ? save = true : save = false 
+          : 
+          action == 'debit' ? amount != null && newDate != null && newODate.length>0 ? save = true : save = false 
+          : 
+          amount != null && newODate != null ? save = true : save = false;
           notifyListeners();
         } else{
           _error = 'Enter a valid amount';
@@ -77,15 +85,15 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
     dueDate = date;
     newDate = dformat.format(date);
     date1err = false;
-    amount != null && newDate.length > 0 && newODate.length != null && items.length > 0 ? save = true : save = false;
+    amount != null && newDate.length > 0 && newODate.length != null ? save = true : save = false;
     notifyListeners();
   }
 
-  void setOtherDate(DateTime date, bool update) {
+  void setOtherDate(DateTime date, bool update, String action) {
     otherDate = date;
     newODate = dformat.format(date);
     date2err = false;
-    update ? amount != null && newODate!= null ? save = true : save = false : amount != null && newDate != null && newODate.length != null && items.length > 0 ? save = true : save = false;
+    update ? amount != null && newODate!= null ? save = true : save = false : action == 'debit' ? amount != null && newDate != null && newODate.length != null ? save = true : save = false : amount != null && newODate.length != null ? save = true : save = false;
     notifyListeners();
   }
 
@@ -104,9 +112,9 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
       if(item.length > 0) {
         items.insert(0, item);
         _item = null;
-        !update && action == 'credit' ? amount != null && newODate.length != null && items.length > 0 ? save = true : save = false 
+        !update && action == 'credit' ? amount != null && newODate.length != null ? save = true : save = false 
         : 
-        amount != null && newDate.length != null && newODate.length != null && items.length > 0 ? save = true : save = false;
+        amount != null && newDate.length != null && newODate.length != null ? save = true : save = false;
         notifyListeners();
       }
     }
@@ -142,7 +150,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
           notifyListeners();
         }
       }
-      _navigationService.navigateTo(Routes.mainTransaction);
+      _navigationService.replaceWith(Routes.mainTransaction);
     }else{
       if(newDate==null){
         date1err = true;
@@ -154,7 +162,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService];
 }
 
 class Debouncer {

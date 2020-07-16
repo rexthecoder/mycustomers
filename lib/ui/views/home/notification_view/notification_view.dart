@@ -4,71 +4,66 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'notification_viewmodel.dart';
 
-
 class NotificationsView extends StatelessWidget {
   @override
-
   Widget build(BuildContext context) {
     return ViewModelBuilder<NotificationViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        appBar: customizeAppBar(context, "Notifications"),
-        body: ListView.builder(
-          itemCount: model.notifications.length,
-          itemBuilder: (context, index){
-            return Dismissible(
-              key: Key(index.toString()),
-              onDismissed: (DismissDirection direction) {},
-              direction: DismissDirection.endToStart,
-              background: Container(
-                padding: EdgeInsets.only(right: 15),
-                color: BrandColors.primary,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'View',
-                    style: TextStyle(color: Colors.white)
+      onModelReady: (model) => model.getlogs(),
+        builder: (context, model, child) => Scaffold(
+            appBar: customizeAppBar(context, 1.0,
+                title: "Notifications", arrowColor: BrandColors.primary),
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  for(var log in model.loglist) Dismissible(
+                    key: Key(model.loglist.indexOf(log).toString()),
+                    onDismissed: (DismissDirection direction) {
+                      
+                    },
+                    direction: DismissDirection.endToStart,
+                    background: Container(
+                      padding: EdgeInsets.only(right: 15),
+                      color: BrandColors.primary,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child:
+                            Text('View', style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: <Widget>[
+                          Row(children: <Widget>[
+                            Expanded(
+                                child: Text(log.description)),
+                            SizedBox(width: 20.0),
+                            Column(
+                              children: <Widget>[
+                                Text(
+                                  '',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF333CC1),
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                                Text('time',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ],
+                            ),
+                          ])
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),        
-                child: Column(
-                  children: <Widget>[ 
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(model.notifications[index]['msg'])
-                        ),
-                        SizedBox(width: 20.0),                
-                        Column(
-                          children: <Widget>[
-                            Text('N'+model.notifications[index]['price'],
-                              style:  TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                color: Color(0xFF333CC1),
-                              ),
-                            ),
-                              SizedBox(height: 8.0),
-                            Text(model.notifications[index]['time'],
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              )  
-                            ),
-                          ],
-                        ),
-                      ]  
-                    )
-                  ],
-                ),
-              ),
-            );
-          }
-        )
-      ),
-      viewModelBuilder: () => NotificationViewModel()
-    );
+            )
+          ),
+        viewModelBuilder: () => NotificationViewModel());
   }
-
-  
 }

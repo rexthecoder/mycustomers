@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -30,8 +31,8 @@ class MainTransaction extends StatelessWidget {
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(70.0),
                   child: AppBar(
-                    brightness: Brightness.dark,
-                    elevation: .5,
+                    brightness: Brightness.light,
+                    elevation: 0,
                     title: Container(
                       margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                       child: Row(
@@ -41,7 +42,7 @@ class MainTransaction extends StatelessWidget {
                                 EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                             child: CircleAvatar(
                               radius: 25,
-                              backgroundColor: Colors.white,
+                              backgroundColor: BrandColors.primary,
                               child: Text(
                                 model.contact.initials
                               ),
@@ -72,7 +73,7 @@ class MainTransaction extends StatelessWidget {
                                         .textTheme
                                         .headline6
                                         .copyWith(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: SizeConfig.yMargin(context, 2.4),
                                             fontWeight: FontWeight.w500),
                                   ),
@@ -84,7 +85,7 @@ class MainTransaction extends StatelessWidget {
                                         .textTheme
                                         .headline6
                                         .copyWith(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             fontSize: SizeConfig.yMargin(context, 2),
                                             fontWeight: FontWeight.w400),
                                   ),
@@ -96,14 +97,14 @@ class MainTransaction extends StatelessWidget {
                       ),
                     ),
                     leading: InkWell(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => model.navigateToHome(),
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(18),
                             vertical: ScreenUtil().setHeight(10)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -125,13 +126,101 @@ class MainTransaction extends StatelessWidget {
                         },
                       )
                     ],
-                    actionsIconTheme: IconThemeData(color: Colors.white),
-                    backgroundColor: BrandColors.primary,
+                    actionsIconTheme: IconThemeData(color: Colors.black),
+                    backgroundColor: Colors.white,
                     centerTitle: true,
                   ),
                 ),
                 body: Column(
                   children: <Widget>[
+                    model.formattedate.length==0? SizedBox(): Container(
+                      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+                      width: width,
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          InkWell(
+                            onTap: () {SavedDialog().showPdfDialog(context);},
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        bottom: ScreenUtil().setHeight(5)),
+                                    child: SvgPicture.asset(
+                                      'assets/icons/book.svg',
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Download',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5
+                                          .copyWith(
+                                            fontSize: SizeConfig.yMargin(context, 2.2),
+                                            color: Color(0xFF333CC1),
+                                          ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Report',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5
+                                          .copyWith(
+                                            fontSize: SizeConfig.yMargin(context, 2.2),
+                                            color: Color(0xFF333CC1),
+                                          ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                      bottom: ScreenUtil().setHeight(5),
+                                    ),
+                                    child: SvgPicture.asset(
+                                        'assets/icons/message.svg'),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Send',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5
+                                          .copyWith(
+                                              fontSize: SizeConfig.yMargin(context, 2.2),
+                                              color: Color(0xFF333CC1)),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      'Reminder',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5
+                                          .copyWith(
+                                              fontSize: SizeConfig.yMargin(context, 2.2),
+                                              color: Color(0xFF333CC1)),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     model.formattedate.length==0?Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -140,7 +229,7 @@ class MainTransaction extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Image.asset('assets/images/safe.png',),
+                                    SvgPicture.asset('assets/images/no_transaction_check.svg'),
                                     SizedBox(height: 20.h,),
                                     Text('MyCustomer is 100% safe and secure, only you and ${model.contact.name} can view this transaction',
                                     textAlign: TextAlign.center,),
@@ -209,17 +298,7 @@ class MainTransaction extends StatelessWidget {
                                                           margin: EdgeInsets
                                                               .only(
                                                                   right: 8),
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            vertical:
-                                                                ScreenUtil()
-                                                                    .setHeight(
-                                                                        15),
-                                                            horizontal:
-                                                                ScreenUtil()
-                                                                    .setWidth(
-                                                                        10),
-                                                          ),
+                                                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5), horizontal: SizeConfig.xMargin(context, 3)),
                                                           decoration: BoxDecoration(
                                                               border: Border.all(
                                                                   color: Color(
@@ -233,40 +312,36 @@ class MainTransaction extends StatelessWidget {
                                                               color: Colors
                                                                   .white),
                                                           child: Text(
-                                                            'NGN' +
+                                                            model.currency.symbol +
                                                                 currency
                                                                     .format(
                                                                         item.amount)
                                                                     .toString(),
-                                                            style: Theme.of(
-                                                                    context)
+                                                            style: Theme.of(context)
                                                                 .textTheme
                                                                 .headline5
                                                                 .copyWith(
-                                                                  fontSize: SizeConfig.yMargin(context, 2.3),
-                                                                  color: Color(
-                                                                      0xFF333CC1),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w900,
+                                                                  fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                  color: Color(0xFF333CC1),
+                                                                  fontWeight:FontWeight.w900,
+                                                                  fontFamily: 'Roboto'
                                                                 ),
                                                           ),
                                                         ),
                                                         Container(
                                                           child: Flexible(
-                                                            child: Text(
-                                                              'Cost of goods purchased',
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .headline5
-                                                                  .copyWith(
-                                                                    fontSize: SizeConfig.yMargin(context, 2.2),
-                                                                    color: Colors
-                                                                        .black38,
-                                                                    fontWeight:
-                                                                        FontWeight.w400,
-                                                                  ),
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: <Widget>[
+                                                                Text(
+                                                                  'Cost of goods purchased',
+                                                                  style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.2), color: Colors.black38, fontWeight: FontWeight.w400),
+                                                                ),
+                                                                // Text(
+                                                                //   'Click to view Transaction Details',
+                                                                //   style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 1.5), color: Colors.black38, fontWeight: FontWeight.w400),
+                                                                // )
+                                                              ],
                                                             ),
                                                           ),
                                                         )
@@ -338,17 +413,7 @@ class MainTransaction extends StatelessWidget {
                                                           margin: EdgeInsets
                                                               .only(
                                                                   left: 8),
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            vertical:
-                                                                ScreenUtil()
-                                                                    .setHeight(
-                                                                        15),
-                                                            horizontal:
-                                                                ScreenUtil()
-                                                                    .setWidth(
-                                                                        10),
-                                                          ),
+                                                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5), horizontal: SizeConfig.xMargin(context, 3)),
                                                           decoration:
                                                               BoxDecoration(
                                                                   border:
@@ -365,7 +430,7 @@ class MainTransaction extends StatelessWidget {
                                                                   color: Colors
                                                                       .white),
                                                           child: Text(
-                                                            'NGN' +
+                                                            model.currency.symbol +
                                                                 currency
                                                                     .format(
                                                                         item.paid)
@@ -375,12 +440,10 @@ class MainTransaction extends StatelessWidget {
                                                                 .textTheme
                                                                 .headline5
                                                                 .copyWith(
-                                                                  fontSize: SizeConfig.yMargin(context, 2.3),
-                                                                  color: Color(
-                                                                      0xFF21D184),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w900,
+                                                                  fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                  color: Color(0xFF21D184),
+                                                                  fontWeight: FontWeight.w900,
+                                                                  fontFamily: 'Roboto'
                                                                 ),
                                                           ),
                                                         )
@@ -457,7 +520,7 @@ class MainTransaction extends StatelessWidget {
                                                   ),
                                             ),
                                             Text(
-                                              'NGN' +
+                                              model.currency.symbol +
                                                   currency
                                                       .format(model.bought() -
                                                           model.paid())
@@ -468,6 +531,7 @@ class MainTransaction extends StatelessWidget {
                                                   .copyWith(
                                                     fontSize: SizeConfig.yMargin(context, 2.5),
                                                     color: Color(0xFFEB5757),
+                                                    fontFamily: 'Roboto',
                                                     fontWeight: FontWeight.w900,
                                                   ),
                                             )
@@ -489,7 +553,7 @@ class MainTransaction extends StatelessWidget {
                                                   ),
                                             ),
                                             Text(
-                                              'NGN' +
+                                              model.currency.symbol +
                                                   currency
                                                       .format(model.paid() -
                                                           model.bought())
@@ -500,100 +564,13 @@ class MainTransaction extends StatelessWidget {
                                                   .copyWith(
                                                     fontSize: SizeConfig.yMargin(context, 2.5),
                                                     color: Color(0xFFEB5757),
+                                                    fontFamily: 'Roboto',
                                                     fontWeight: FontWeight.w900,
                                                   ),
                                             )
                                           ],
                                         ),
                                       )),
-                          ),
-                          model.formattedate.length==0? SizedBox(): Container(
-                            padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-                            width: width,
-                            color: Colors.white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              bottom: ScreenUtil().setHeight(5)),
-                                          child: SvgPicture.asset(
-                                            'assets/icons/book.svg',
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            'Download',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                  fontSize: SizeConfig.yMargin(context, 2.2),
-                                                  color: Color(0xFF333CC1),
-                                                ),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            'Report',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                  fontSize: SizeConfig.yMargin(context, 2.2),
-                                                  color: Color(0xFF333CC1),
-                                                ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            bottom: ScreenUtil().setHeight(5),
-                                          ),
-                                          child: SvgPicture.asset(
-                                              'assets/icons/message.svg'),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            'Send',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.2),
-                                                    color: Color(0xFF333CC1)),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            'Reminder',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                    fontSize: SizeConfig.yMargin(context, 2.2),
-                                                    color: Color(0xFF333CC1)),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(

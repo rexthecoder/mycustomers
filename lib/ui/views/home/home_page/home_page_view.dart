@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'home_page_viewmodel.dart';
 import 'tabs/creditors_view.dart';
-import 'package:mycustomers/ui/shared/themes.dart';
 
 class HomePageView extends StatelessWidget {
-  //TODO: Position notification bell dot properly
-
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<HomePageViewModel>.reactive(
-      onModelReady: (model){
+      onModelReady: (model) {
         model.getContacts();
         model.getTransactions();
       },
@@ -35,10 +33,9 @@ class HomePageView extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.0),
                       border: Border(
-                          bottom:
-                              BorderSide(color: Colors.grey, width: 0.5))),
+                          bottom: BorderSide(color: Colors.grey, width: 0.5))),
                   child: TabBar(
-                    labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 1),
                     unselectedLabelColor: Theme.of(context).cursorColor,
                     labelColor: Theme.of(context).buttonColor,
                     indicatorSize: TabBarIndicatorSize.label,
@@ -51,6 +48,10 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               "Customers owing you",
                               textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 1.5),
+                              ),
+                              //maxLines: 1,
                             ),
                           ),
                         ),
@@ -60,8 +61,11 @@ class HomePageView extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Customers you owe",
+                              "People you owe",
                               textAlign: TextAlign.center,
+                               style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 1.5),
+                              ),
                             ),
                           ),
                         ),
@@ -73,6 +77,9 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               "All Customers",
                               textAlign: TextAlign.center,
+                               style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 1.5),
+                              ),
                             ),
                           ),
                         ),
@@ -86,13 +93,13 @@ class HomePageView extends StatelessWidget {
                       children: <Widget>[
                         DebtorsView(),
                         CreditorsView(),
-                        model.contacts.length == 0 ? Expanded(
-                          child: Center(
-                            child: Text(
-                              'No Customer Added'
-                            ),
-                          ),
-                        ) : ContactList()
+                        model.contacts.length == 0
+                            ? Expanded(
+                                child: Center(
+                                  child: Text('No Customer Added'),
+                                ),
+                              )
+                            : ContactList()
                       ],
                     ),
                   ),
@@ -116,107 +123,113 @@ class ContactList extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
                 child: TextField(
                   //controller: model.allCustomersController,
                   //onChanged: model.searchAllCustomers,
-                  style:  TextStyle(
+                  style: TextStyle(
                     color: Theme.of(context).cursorColor,
-                    fontSize: 14,),
+                    fontSize: 14,
+                  ),
                   decoration: InputDecoration(
                     hintText: 'Search by name',
                     hintStyle: TextStyle(
                       color: Color(0xFFACACAC),
                       fontSize: 14,
-
                     ),
-                    contentPadding:  const EdgeInsets.only(top: 18.0),
-                    prefixIcon:   Icon(Icons.search,color: Theme.of(context).textSelectionColor,),
+                    contentPadding: const EdgeInsets.only(top: 18.0),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Theme.of(context).textSelectionColor,
+                    ),
                     border: InputBorder.none,
                   ),
                   onChanged: model.searchName,
                 ),
               ),
-              model.sName != null && !model.contains ? Text(
-                'No Customer Found'
-              ) : SizedBox(),
-              for (var item in model.contacts) model.sName != null && model.contains ?
-              item.name.toLowerCase().contains(model.sName.toLowerCase())  ?
-              Container(
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 6),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(color: Color(0xFFD1D1D1)),
-                      //bottom: BorderSide(color: Color(0xFFD1D1D1))
-                    )
-                  ),
-                  child: ListTile(
-                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
-                    leading: item.initials != null ? CircleAvatar(
-                      radius: 25,
-                      backgroundColor: BrandColors.primary,
-                      child: Text(
-                        item.initials
-                      ),
-                    ) : Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.black,
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/man.png',
-                          ),
-                          fit: BoxFit.cover
-                        )
-                      ),
-                    ),
-                    title: Text(
-                      item.name
-                    ),
-                  ),
-                ),
-              )
-              : SizedBox()
-              : model.sName != null && !model.contains ? SizedBox() : Container(
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 6),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(color: Color(0xFFD1D1D1)),
-                      //bottom: BorderSide(color: Color(0xFFD1D1D1))
-                    )
-                  ),
-                  child: ListTile(
-                    onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
-                    leading: item.initials != null ? CircleAvatar(
-                      radius: 25,
-                      backgroundColor: BrandColors.primary,
-                      child: Text(
-                        item.initials
-                      ),
-                    ) : Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.black,
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/man.png',
-                          ),
-                          fit: BoxFit.cover
-                        )
-                      ),
-                    ),
-                    title: Text(
-                      item.name
-                    ),
-                  ),
-                ),
-              )
+              model.sName != null && !model.contains
+                  ? Text('No Customer Found')
+                  : SizedBox(),
+              for (var item in model.contacts)
+                model.sName != null && model.contains
+                    ? item.name
+                            .toLowerCase()
+                            .contains(model.sName.toLowerCase())
+                        ? Container(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 6),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                top: BorderSide(color: Color(0xFFD1D1D1)),
+                                //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                              )),
+                              child: ListTile(
+                                onTap: () => model.setContact(item.id,
+                                    item.name, item.phoneNumber, item.initials),
+                                leading: item.initials != null
+                                    ? CircleAvatar(
+                                        radius: 25,
+                                        backgroundColor: BrandColors.primary,
+                                        child: Text(item.initials),
+                                      )
+                                    : Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            color: Colors.black,
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                  'assets/images/man.png',
+                                                ),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                title: Text(item.name),
+                              ),
+                            ),
+                          )
+                        : SizedBox()
+                    : model.sName != null && !model.contains
+                        ? SizedBox()
+                        : Container(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 6),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                top: BorderSide(color: Color(0xFFD1D1D1)),
+                                //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                              )),
+                              child: ListTile(
+                                onTap: () => model.setContact(item.id,
+                                    item.name, item.phoneNumber, item.initials),
+                                leading: item.initials != null
+                                    ? CircleAvatar(
+                                        radius: 25,
+                                        backgroundColor: BrandColors.primary,
+                                        child: Text(item.initials),
+                                      )
+                                    : Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            color: Colors.black,
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                  'assets/images/man.png',
+                                                ),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                title: Text(
+                                  item.name,
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
+                                ),
+                              ),
+                            ),
+                          )
             ],
           ),
         ),
