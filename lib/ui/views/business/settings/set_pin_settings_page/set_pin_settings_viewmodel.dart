@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -9,8 +8,8 @@ class SetPinSettingsViewModel extends BaseViewModel {
 
  final PasswordManagerService _passwordManagerService =
       locator<PasswordManagerService>();
-   static PasswordManager passManager=PasswordManager(null);
-   String password = passManager.userPassword;
+  
+   
   int _pin = 0;
   int _index = 0;
   

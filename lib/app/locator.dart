@@ -81,7 +81,8 @@ Future<void> setupLocator(
   locator.registerLazySingleton<BussinessSettingService>(
     () => BussinessSettingService(),
   );
-  locator.registerLazySingleton<LocalStorageService>(() => LocalStorageService());
+  var instance = await LocalStorageService.getInstance();
+  locator.registerSingleton<LocalStorageService>(instance);
   locator.registerLazySingleton<AuthService>(
     () => AuthServiceImpl(),
   );

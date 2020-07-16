@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
@@ -8,11 +9,11 @@ import 'package:mycustomers/ui/shared/themes.dart' as themes;
 
 
 class SettingsPageViewModel extends ReactiveViewModel {
-  bool _lightTheme = false;
-  bool _notification= true;
-  bool _newsletter = false;
-  bool _special = false;
-  bool _update = true;
+  bool _lightTheme = _localStorageServices.darkMode;
+  bool _notification= _localStorageServices.notification;
+  bool _newsletter = _localStorageServices.newsletter;
+  bool _special = _localStorageServices.specialOffers;
+  bool _update = _localStorageServices.updates;
   int index;
 
   ThemeData _light = themes.primaryMaterialTheme;
@@ -20,6 +21,7 @@ class SettingsPageViewModel extends ReactiveViewModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
   final _bussinessSettingService = locator<BussinessSettingService>();
+ static final _localStorageServices = locator<LocalStorageService>();
 
   bool get lightTheme => _lightTheme;
   bool  get notification =>_notification ;
@@ -36,37 +38,31 @@ class SettingsPageViewModel extends ReactiveViewModel {
     if (_lightTheme == true) {
       _light = themes.primaryMaterialTheme;
       _lightTheme = !_lightTheme;
-      _bussinessSettingService.setTheme(_lightTheme);
       notifyListeners();
     } else {
       _light = themes.darkMaterialTheme;
       _lightTheme = !_lightTheme;
-      _bussinessSettingService.setTheme(_lightTheme);
       notifyListeners();
     }
   }
 
   void setNotification() {
     _notification = !_notification;
-    _bussinessSettingService.setNotification(_notification);
     notifyListeners();
   }
 
   void setNewsletter() {
     _newsletter = !_newsletter;
-    _bussinessSettingService.setNewsletter(_newsletter);
     notifyListeners();
   }
 
   void setSpecial() {
     _special = !_special;
-    _bussinessSettingService.setSpecial(_special);
     notifyListeners();
   }
 
   void setUpdate() {
     _update = !_update;
-    _bussinessSettingService.setUpdate(_update);
     notifyListeners();
   }
 
@@ -77,7 +73,6 @@ class SettingsPageViewModel extends ReactiveViewModel {
   }
 
   Future navigateToCurrency() async {
-     print(await getSetNotofication());
     await _navigationService.navigateTo(Routes.currencySettingsViewRoute);
   }
 
@@ -89,12 +84,7 @@ class SettingsPageViewModel extends ReactiveViewModel {
     await _navigationService.navigateTo(Routes.languageSettingsViewRoute);
   }
 
- Future< bool> getSetNotofication() async{
-    bool value2=  await _bussinessSettingService.getSetNotification();
-    print(value2);
-    return value2;
-
-  }
+ 
 
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_bussinessSettingService];

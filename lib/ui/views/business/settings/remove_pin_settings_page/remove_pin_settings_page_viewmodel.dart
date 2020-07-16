@@ -1,4 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
@@ -12,6 +13,10 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final PasswordManagerService _passwordManagerService = locator<PasswordManagerService>();
 
+  static final _localStorageServices = locator<LocalStorageService>();
+   
+   String userPin = _localStorageServices.userPin;
+
   
 
 
@@ -20,7 +25,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
     int newPassFrmDb =int.parse(passFrmDb); // cast it into an integer
     int confirmPin = int.parse(value);  // cast the password entered
     int check = newPassFrmDb.compareTo(confirmPin); // compare they are equal
-    print(check);
+   
     if(check == 0){
       await _passwordManagerService.deleteSetPin();
       setPin(false);

@@ -46,57 +46,57 @@ class BussinessSettingService with ReactiveServiceMixin{
     _language.value = ind;
   }
 
-  // Setters 
-   void setNotification(bool value) async {
-     SharedPreferences prefs = await SharedPreferences.getInstance();
-     sphObject.setAllowsNotifications(value, prefs);
+  // // Setters 
+  //  void setNotification(bool value) async {
+  //    SharedPreferences prefs = await SharedPreferences.getInstance();
+  //    sphObject.setAllowsNotifications(value, prefs);
    
-  }
+  // }
 
-  void setNewsletter(bool value) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    sphObject.setAllowsNewsletter(value, prefs);
+  // void setNewsletter(bool value) async{
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   sphObject.setAllowsNewsletter(value, prefs);
   
-  }
+  // }
 
-  void setSpecial(bool value) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    sphObject.setAllowsSpecialOffers(value, prefs);
-  }
+  // void setSpecial(bool value) async{
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   sphObject.setAllowsSpecialOffers(value, prefs);
+  // }
 
-  void setUpdate(bool value) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    sphObject.setAllowsUpdates(value, prefs);
+  // void setUpdate(bool value) async{
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   sphObject.setAllowsUpdates(value, prefs);
   
-  }
+  // }
 
-  void setTheme(bool value)  async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    sphObject.setAllowsLightMode(value, prefs);
-   }
+  // void setTheme(bool value)  async{
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   sphObject.setAllowsLightMode(value, prefs);
+  //  }
 
-   // getters of the set preferences
+  //  // getters of the set preferences
 
-   getSetNotification() async{
-     SharedPreferences pref = await SharedPreferences.getInstance();
-     return await sphObject.getAllowsNotifications(pref);
+  //  getSetNotification() async{
+  //    SharedPreferences pref = await SharedPreferences.getInstance();
+  //    return await sphObject.getAllowsNotifications(pref);
    
-  }
+  // }
 
-   getSetNewsletter() async{
+  //  getSetNewsletter() async{
   
-  }
+  // }
 
-   getSetSpecial() async {
+  //  getSetSpecial() async {
     
-  }
+  // }
 
-   getSetUpdate() async{
+  //  getSetUpdate() async{
   
-  }
+  // }
 
-   getSetTheme() async {
+  //  getSetTheme() async {
    
-  }
+  // }
 
 }
