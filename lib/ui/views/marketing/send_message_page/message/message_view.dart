@@ -9,6 +9,10 @@ import 'package:mycustomers/core/models/customer.dart';
 
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 
+import 'package:mycustomers/ui/shared/size_config.dart';
+
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
+
 class MessageView extends StatelessWidget {
   final List<Customer> selectedCustomers;
   MessageView(this.selectedCustomers);
@@ -98,7 +102,7 @@ class MessageView extends StatelessWidget {
                               style: TextStyle(fontSize: 16.sp),
                             ),
                             FlatButton.icon(
-                              onPressed: () {},
+                              onPressed: () {_displayBusinessCardModal(context, model, height);},
                               icon: Icon(
                                 Icons.add,
                                 color: BrandColors.primary,
@@ -133,6 +137,7 @@ class MessageView extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 30.0, horizontal: 10),
                     child: FlatButton(
                       onPressed: () {
+//                        model.navigateToSendMessage();
                         successDialog(context, model);
                       },
                       color: BrandColors.secondary,
@@ -156,6 +161,147 @@ class MessageView extends StatelessWidget {
                   )
                 ],
               ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _displayBusinessCardModal(context, model,height) {
+
+    showModalBottomSheet(
+      enableDrag: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: SizeConfig.xMargin(context, 5),
+            right: SizeConfig.xMargin(context, 5),
+            top: SizeConfig.yMargin(context, 2),
+          ),
+          child: Container(
+            height: height/2,
+            child: Column(
+//              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Select contacts'),
+                    FlatButton(
+                      color: const Color(0xFFDEE9FF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      onPressed: (){},
+                      child: Text(
+                        'Close',
+                        style: TextStyle(
+                          fontSize: SizeConfig.textSize(context, 3.5),
+                          color: BrandColors.primary,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              Expanded(
+                      child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount:
+//                      model.searchController.text != null
+//                          ? model.searchedCustomer.length
+//                          :
+                      model.allCustomers.length,
+                      itemBuilder:
+                          (BuildContext context, int index) {
+                        Customer customer =
+//                        model.searchController.text != null
+//                            ? model.searchedCustomer[index]
+//                            :
+                        model.allCustomers[index];
+                        bool _isSelected =
+                        model.isSelected(customer);
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15.h, horizontal: 10.w),
+                          child: Row(
+                            children: <Widget>[
+                              CustomerCircleAvatar(
+                                customer: customer,
+                                action: 'debtor',
+                              ),
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 30.w),
+                                  child: Column(
+                                    mainAxisSize:
+                                    MainAxisSize.min,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment
+                                        .start,
+                                    children: <Widget>[
+                                      Text(
+                                        '${customer.name} '
+                                            '${customer.lastName}',
+                                        style: TextStyle(
+                                          fontWeight:
+                                          FontWeight.w600,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 3.sp,
+                                      ),
+                                      Text(
+                                        '${customer.phone}',
+                                        style: TextStyle(
+                                          color: ThemeColors
+                                              .gray.shade600,
+                                          fontWeight:
+                                          FontWeight.w600,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Checkbox(
+                                  activeColor:
+                                  BrandColors.primary,
+                                  value: _isSelected,
+                                  onChanged: (value) {
+                                    _isSelected
+                                        ? model
+                                        .deselectCustomer(
+                                        customer)
+                                        : model.addCustomer(
+                                        customer);
+                                  })
+                            ],
+                          ),
+                        );
+                      }),
+                    ),
+//                Expanded(
+//                  child: ListView.builder(
+//                    itemCount: selectedCustomers.length,
+//                    itemBuilder: (BuildContext context, int index) =>
+//                        CustomerCircleAvatar(
+//                          customer: selectedCustomers[index],
+//                          action: 'debtor',
+//                        ),
+//                  ),
+//                ),
+
+              ],
             ),
           ),
         );
