@@ -73,14 +73,14 @@ class DebtorsView extends StatelessWidget {
                                 text: TextSpan(
                                   text: '₦ 0.', style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 36.sp,
+                                    fontSize: SizeConfig.yMargin(context, 5),
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.bold),
                                   children: <TextSpan>[
                                     TextSpan(
                                       text: '00.', style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 14.sp,
+                                        fontSize: SizeConfig.yMargin(context, 3),
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.bold
                                     ),
@@ -103,18 +103,16 @@ class DebtorsView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              SvgPicture.asset('assets/images/no-transaction.svg'),
+                              SvgPicture.asset('assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
                               SizedBox(height: 20.h,),
                               Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Theme.of(context).textSelectionColor),),
+                                style: TextStyle(color: Theme.of(context).textSelectionColor, fontSize: SizeConfig.yMargin(context, 2))
+                              ),
                             ],
                           ),
                         ),
                       ) : ContactList(),
-
-
-
                     ],
                   ),
                 ),
@@ -186,7 +184,10 @@ class ContactList extends StatelessWidget {
               ),
             ),
             model.sDName != null && !model.containsD ? Text(
-              'No Customer Found'
+              'No Customer Found',
+              style: TextStyle(
+                fontSize: SizeConfig.yMargin(context, 2)
+              ),
             ) : SizedBox(),
             for(var cont in model.owingcustomers)
               for (var item in model.contacts) 

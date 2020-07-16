@@ -223,7 +223,10 @@ class ContactList extends StatelessWidget {
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
-                                title: Text(item.name),
+                                title: Text(
+                                  item.name,
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
+                                ),
                               ),
                             ),
                           )
