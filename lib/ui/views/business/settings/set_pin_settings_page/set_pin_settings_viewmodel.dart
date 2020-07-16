@@ -55,7 +55,7 @@ void setPin(bool value){
 
  void clearValueIfPinsDoNotMatch(TextEditingController textEditingController){
    for(int i =0; i < 4; i++){
-textEditingController.text = textEditingController.text.substring(0,textEditingController.text.length-1);
+      textEditingController.text = textEditingController.text.substring(0,textEditingController.text.length-1);
    }
    
     }

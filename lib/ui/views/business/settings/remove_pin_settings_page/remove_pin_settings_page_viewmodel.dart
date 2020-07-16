@@ -20,7 +20,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
   
 
 
-  void onEnterPinCompleted(String value, BuildContext context) async{
+  void onEnterPinCompleted(String value, BuildContext context, TextEditingController editingControllerText) async{
     String passFrmDb= await _passwordManagerService.getPassword(); // get the password stored in the db
     int newPassFrmDb =int.parse(passFrmDb); // cast it into an integer
     int confirmPin = int.parse(value);  // cast the password entered
@@ -29,10 +29,12 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
     if(check == 0){
       await _passwordManagerService.deleteSetPin();
       setPin(false);
-       showAlertDilaog(context);
+      showAlertDilaog(context);
     }
     else if(check < 0 || check > 0){
       _passwordManagerService.showUnmatchedPinErrorMessage();
+      clearValueIfPinsDoNotMatch(editingControllerText);
+
     }
     else{
       _passwordManagerService.showRemoveErrorMessage();
@@ -45,6 +47,12 @@ void setPin(bool value){
      notifyListeners();
    }
  
+  void clearValueIfPinsDoNotMatch(TextEditingController textEditingController){
+   for(int i =0; i < 4; i++){
+      textEditingController.text = textEditingController.text.substring(0,textEditingController.text.length-1);
+   }
+   
+    }
 
   Future<void> showAlertDilaog(BuildContext context) async{
   // set up the button

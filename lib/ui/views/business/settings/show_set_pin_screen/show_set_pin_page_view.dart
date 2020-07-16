@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/views/business/settings/show_set_pin_screen/show_set_pin_page_viewmodel.dart';
 import 'package:mycustomers/ui/widgets/shared/dot_pin_field.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'remove_pin_settings_page_viewmodel.dart';
 
-class RemovePinSettingsPageView extends StatelessWidget {
+class ShowSetPinPageView extends StatelessWidget {
   final String myCustomerLogo = 'assets/icons/svg/my_customer_logo.svg';
 
   @override
@@ -15,14 +15,13 @@ class RemovePinSettingsPageView extends StatelessWidget {
     ScreenUtil.init(context, height: 1440, width: 720);
     TextEditingController controller = new TextEditingController(text: "");
 
-    return ViewModelBuilder<RemovePinSettingsPageViewModel>.reactive(
-      viewModelBuilder: () => RemovePinSettingsPageViewModel(),
+    return ViewModelBuilder<ShowSetPinViewModel>.reactive(
+      viewModelBuilder: () => ShowSetPinViewModel(),
       builder: (context, model, child) {
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(SizeConfig.yMargin(context, 20)),
             child: AppBar(
-              iconTheme: IconThemeData(color: ThemeColors.background),
               centerTitle: true,
               backgroundColor: BrandColors.primary,
               elevation: 0,
@@ -43,7 +42,7 @@ class RemovePinSettingsPageView extends StatelessWidget {
           body: PinField(
             title: 'Enter PIN',
             textEditingController: controller,
-            onCompleted: (value) => model.onEnterPinCompleted(value,context,controller),
+            onCompleted: (value) => model.onEnterPinCompleted(value,controller),
           ),
         );
       },
