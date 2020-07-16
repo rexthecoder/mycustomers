@@ -58,7 +58,7 @@ Future<void> setupLocator(
     bool test = false}) async {
  //Inizialize Hive path
   Directory appDocDir =test ? Directory.current : await getApplicationDocumentsDirectory();
-  test ? Hive.init(appDocDir.path) : Hive.initFlutter(appDocDir.path);
+  Hive.initFlutter(appDocDir.path);
 
   // Services
   locator.registerLazySingleton(
@@ -146,10 +146,8 @@ Future<void> setupLocator(
   locator.registerLazySingleton<HiveInterface>(() => Hive);
 
   //Initialization for all boxes
-  if(!test){
-    await LogsLocalDataSourceImpl().init();
-    await TransactionLocalDataSourceImpl().init();
-  }
+  await LogsLocalDataSourceImpl().init();
+  await TransactionLocalDataSourceImpl().init();
 
 
   Hive.registerAdapter(BusinessCardAdapter());
