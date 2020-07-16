@@ -43,7 +43,7 @@ class AppLocalizations {
   String get engagedWithYourPeople => translate(LocalKeys.engaged_with_your_people);
   String get engagedWithYourPeopleDesc => translate(LocalKeys.engaged_with_your_people_desc);
   String get signUp => translate(LocalKeys.sign_up);
-  String get signUpEnterPhoneNumber => translate(LocalKeys.sign_up_enter_phone_number);
+  String get signUpEnterPhoneNumber => translate(LocalKeys.enter_phone_number);
   String get continueWithSocialAccount => translate(LocalKeys.continue_with_social_account);
   String get alreadyAmemberSignIn => translate(LocalKeys.already_a_member_sign_in);
   String get notAMemberSignUp => translate(LocalKeys.not_a_member_sign_up);

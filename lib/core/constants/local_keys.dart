@@ -10,8 +10,8 @@ class LocalKeys {
   static const collect_your_money_desc = 'collect-your-money-desc';
   static const engaged_with_your_people = 'engaged-with-your-people';
   static const engaged_with_your_people_desc = 'engaged-with-your-people-desc';
-  static const sign_up = 'sign-up';
-  static const sign_up_enter_phone_number = 'sign-up-enter-phone-number';
+  static const sign_up = 'signup-signup';
+  static const enter_phone_number = 'sign-up-enter-phone-number';
   static const continue_with_social_account = 'continue-with-social-account';
   static const already_a_member_sign_in = 'already-a-member-sign-in';
   static const not_a_member_sign_up = 'not-a-member-sign-up';
@@ -137,7 +137,7 @@ class LocalKeys {
   static const receive_newsletters = 'receive-newsletters'; 
   static const receive_special_offers = 'receive-special-offers';
   static const receive_updates = 'receive-updates';
-  static const select_your_language = 'select-your-lannguage'; 
+  static const select_your_language = 'select-your-language';
   static const select_your_currency = 'select-your-currency';
   static const saved = 'saved';
   static const create_a_new_pin = 'create-a-new-pin';
