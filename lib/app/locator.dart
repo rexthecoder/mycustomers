@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mycustomers/core/data_sources/business_card/business_card_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
@@ -36,7 +37,7 @@ import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.d
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 
-final GetIt locator = GetIt.instance;
+final GetIt  locator = GetIt.instance;
 
 const bool USE_MOCK_CUSTOMER = true;
 
@@ -115,17 +116,14 @@ Future<void> setupLocator(
   );
 
   /// Data sources
-  // Data sources
-  // final _ss = StoresLocalDataSourceImpl();
-  // await _ss.init();
 
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
   );
 
-  // locator.registerLazySingleton<StoresLocalDataSource>(
-  //   () => _ss,
-  // );
+   locator.registerLazySingleton<StoresLocalDataSource>(
+     () => StoresLocalDataSourceImpl()..init(),
+   );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
