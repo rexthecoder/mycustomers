@@ -23,13 +23,13 @@ class BussinessSettingService with ReactiveServiceMixin{
   CountryCurrency get curren => _curren.value;
 
   List langs = [
-    { 'name': 'English', 'selected': true },
-    { 'name': 'Francias', 'selected': false },
+    { 'name': 'English', 'selected': true, 'code': 'en' },
+    { 'name': 'Francias', 'selected': false, 'code': 'fr' },
   ];
   List currencies = [
-    { 'name': 'Naira(NGN)', 'country': 'Nigeria',  'selected': true },
-    { 'name': 'Dollar(USD)', 'country': 'United States of America (USA)', 'selected': false },
-    { 'name': 'Indian Rubies(INR)', 'country': 'India', 'selected': false },
+    { 'name': 'Naira(NGN)', 'country': 'Nigeria',  'selected': true,  'code': 'NGN' },
+    { 'name': 'Dollar(USD)', 'country': 'United States of America (USA)', 'selected': false, 'code': 'USD' },
+    { 'name': 'Indian Rubies(INR)', 'country': 'India', 'selected': false, 'code': 'INR' },
   ];
 
   int get currency => _currency.value;

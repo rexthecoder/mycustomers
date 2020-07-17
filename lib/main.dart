@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import './ui/theme/theme_viewmodel.dart';
+import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'app/local_setup.dart';
 import 'package:oktoast/oktoast.dart';
 import 'app/locator.dart';
@@ -112,13 +112,13 @@ class App extends StatelessWidget {
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return CoreManager(
-      child: ViewModelBuilder<ThemeModel>.reactive(
+      child: ViewModelBuilder<SettingManagerModel>.reactive(
         builder: (_, viewModel, ___) => OKToast(
           child: MyApp(
               viewModel: viewModel,
             ),
         ),
-        viewModelBuilder: () => ThemeModel(),
+        viewModelBuilder: () => SettingManagerModel(),
       ),
     );
   }
@@ -128,14 +128,15 @@ class MyApp extends StatelessWidget {
   const MyApp({
     Key key, this.viewModel,
   }) : super(key: key);
-  final ThemeModel viewModel;
+  final SettingManagerModel viewModel;
 
   @override
   Widget build(BuildContext context) {
     print('Building material app');
     return MaterialApp(
       builder: DevicePreview.appBuilder,
-      theme: viewModel.theme(context),
+      theme: viewModel.theme,
+      locale: viewModel.locale,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,

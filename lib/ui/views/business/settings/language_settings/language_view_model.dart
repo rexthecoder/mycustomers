@@ -1,26 +1,30 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:mycustomers/core/services/bussiness_setting_service.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-class LanguagePageViewModel extends ReactiveViewModel{  
-  final _bussinessSettingService = locator<BussinessSettingService>();
-  int get index => _bussinessSettingService.language;
-  List get langs => _bussinessSettingService.langs;
+class LanguageViewModel extends BaseViewModel {
+  final NavigationService _navigationService = locator<NavigationService>();
+   
+   List get languages => _supportedLanguages;
 
-  int tempIndex;
+  List<Map<String, String>> _supportedLanguages = [
+    {'image': 'assets/icons/uk.png','code': 'en', 'name': 'English'},
+    {'image': 'assets/icons/fr.png','code': 'fr', 'name': 'Francias'},
+  ];
 
-  void selectLang(int ind) {
-    _bussinessSettingService.selectLangs(ind);
-    tempIndex = ind;
-    //SettingsPageViewModel().setIndex(index);
-    print(index);
-    notifyListeners();
+  // Future<void> setLanguage(int index) async {
+  //   await locator<IStorageUtil>()
+  //       .saveString('AppPreferenceKey.USER_PREF_LANGUAGE', _supportedLanguages[index]['code']);
+  //   navigateToNext();
+  // }
+
+  Future navigateToNext() async {
+    await Future.value();
+    await _navigationService.clearStackAndShow(Routes.signupViewRoute);
   }
+  
 
-  void saveLang(){
-    _bussinessSettingService.setLanguageIndex(tempIndex);
-  }
-
-  @override
-  List<ReactiveServiceMixin> get reactiveServices => [_bussinessSettingService];
+  
 }

@@ -57,7 +57,7 @@ class SettingsPage extends StatelessWidget {
                           SizedBox(
                             height: ScreenUtil().setHeight(50),
                           ),
-                          CustomPartialBuild<ThemeModel>(
+                          CustomPartialBuild<SettingManagerModel>(
                             builder: (context, viewModel) => switchTile(
                                 context,
                                 viewModel.isDarkTheme,
