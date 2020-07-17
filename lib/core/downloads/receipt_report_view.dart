@@ -3,72 +3,24 @@ import 'dart:typed_data';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:stacked/stacked.dart';
+
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'storagepermission.dart';
 
-import 'receipt_report_viewmodel.dart';
-
-class ReceiptReportView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<ReceiptReportViewModel>.reactive(
-      builder: (context, model, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("PDF"),
-          ),
-          body: Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 30),
-              height: 40,
-              child: RaisedButton(
-                shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(5.0),
-                ),
-                child: Text(
-                  'Get Report',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                color: Colors.blue,
-                onPressed: () {
-                  ReceiptReport().buildPdf(context);
-                },
-              ),
-            ),
-          ),
-        );
-      },
-      viewModelBuilder: () => ReceiptReportViewModel(),
-    );
-  }
-}
-
-class PdfViewerPage extends StatelessWidget {
-  final String path;
-  const PdfViewerPage({Key key, this.path}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PDFViewerScaffold(
-      appBar: AppBar(
-        title: Text('PDF Viewer'),
-      ),
-      path: path,
-    );
-  }
-}
-
 String _formatDate(DateTime date) {
   //TODO: Update to accept transaction time
   final format = DateFormat.yMMMMEEEEd('en_US');
+
   return format.format(date);
 }
 
@@ -85,6 +37,12 @@ class ReceiptReport {
   }
 
   var doc;
+
+  // String _currentStore = StoreRepository.currentStore.name = "Demo";
+  // String _currentStoreAddress = StoreRepository.currentStore.address;
+
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  TransactionModel get transaction => _transactionService.stransaction;
 
   PdfImage _receiptLogo;
   PdfImage _mainLogo;
@@ -176,7 +134,7 @@ class ReceiptReport {
                         children: [
                           pw.TextSpan(
                             //TODO: Add transaction ID
-                            text: '',
+                            text: transaction.cId.toString(),
                             style: pw.TextStyle(
                               color: PdfColors.grey,
                               fontSize: 15,
@@ -212,33 +170,32 @@ class ReceiptReport {
                                 //TODO: Populate with live data customer
                                 // store name and address
                                 pw.Text(
-                                  'HNG Inc',
+                                  "Demo",
                                   style: pw.TextStyle(
                                     fontSize: 10,
                                     fontWeight: pw.FontWeight.bold,
                                   ),
+                                  maxLines: 1,
                                 ),
                                 pw.SizedBox(height: 10),
-                                pw.Text(
-                                  'HNG Headquarters,',
-                                  style: pw.TextStyle(
-                                    fontSize: 8,
+                                pw.Container(
+                                  margin: pw.EdgeInsets.only(right: 30),
+                                  child: pw.RichText(
+                                    maxLines: 3,
+                                    text: pw.TextSpan(
+                                      text: "No.1, None of your business "
+                                          "lane, Fredfort frankfurt lane, Off"
+                                          " Boulevard drive, Lagos Hamilton "
+                                          "Drive, UK Nigeria, North-east "
+                                          "Africa",
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
+                                      ),
+                                    ),
                                   ),
                                 ),
+
                                 pw.SizedBox(height: 2.5),
-                                pw.Text(
-                                  '2020 Hamilton Avenue,',
-                                  style: pw.TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                pw.SizedBox(height: 2.5),
-                                pw.Text(
-                                  'San jose, california 95125',
-                                  style: pw.TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -262,17 +219,21 @@ class ReceiptReport {
                                   ),
                                 ),
                                 pw.SizedBox(height: 10),
-                                pw.Text(
-                                  'MyCustomer is a ledger managing service '
-                                  'and app that helps you manage debts ',
-                                  style: pw.TextStyle(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                pw.Text(
-                                  '',
-                                  style: pw.TextStyle(
-                                    fontSize: 8,
+                                pw.Container(
+                                  margin: pw.EdgeInsets.only(right: 30),
+                                  child: pw.Text(
+                                    "We help you to manage your business and "
+                                    "keep track of records, "
+                                    "Easily manage customers owing you and "
+                                    "increase your cash flow, "
+                                    "Interact with your customers through "
+                                    "pushing of unique sales messaging.",
+                                    style: pw.TextStyle(
+                                      fontSize: 8,
+                                    ),
+                                    maxLines: 3,
+                                    softWrap: true,
+                                    textAlign: pw.TextAlign.left,
                                   ),
                                 ),
                               ],
@@ -295,13 +256,17 @@ class ReceiptReport {
                                         fontSize: 8,
                                       ),
                                     ),
-                                    pw.Text(
-                                      //TODO: Enter live items here
-                                      'None',
-                                      style: pw.TextStyle(
-                                        fontSize: 8,
+                                    for (var item in transaction.goods)
+                                      pw.Text(
+                                        //TODO: Enter live items here
+                                        transaction.goods.indexOf(item) ==
+                                                transaction.goods.length - 1
+                                            ? item + ' '
+                                            : item + ', ',
+                                        style: pw.TextStyle(
+                                          fontSize: 8,
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                                 pw.SizedBox(height: 5),
@@ -316,7 +281,9 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      _formatCurrency(5000),
+                                      transaction.amount != null
+                                          ? '${_formatCurrency(transaction.amount)}'
+                                          : _formatCurrency(0),
                                       style: pw.TextStyle(
                                         color: PdfColor.fromInt(0xFF333CC1),
                                         fontSize: 8,
@@ -336,7 +303,9 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      _formatCurrency(0),
+                                      transaction.paid != null
+                                          ? '${_formatCurrency(transaction.paid)}'
+                                          : _formatCurrency(0),
                                       style: pw.TextStyle(
                                         color: PdfColors.green,
                                         fontSize: 8,
@@ -356,7 +325,13 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      _formatCurrency(5000),
+                                      transaction.amount != null &&
+                                              transaction.paid != null &&
+                                              (transaction.amount -
+                                                      transaction.paid) >
+                                                  0
+                                          ? '${_formatCurrency(transaction.amount - transaction.paid)}'
+                                          : _formatCurrency(0),
                                       style: pw.TextStyle(
                                         color: PdfColors.red,
                                         fontSize: 8,
@@ -376,7 +351,13 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      _formatCurrency(0),
+                                      transaction.paid != null &&
+                                              transaction.amount != null &&
+                                              (transaction.paid -
+                                                      transaction.amount) >
+                                                  0
+                                          ? '${_formatCurrency(transaction.paid - transaction.amount)}'
+                                          : _formatCurrency(0),
                                       style: pw.TextStyle(
                                         color: PdfColors.red,
                                         fontSize: 8,
@@ -388,17 +369,12 @@ class ReceiptReport {
                             ),
                           ),
                           pw.SizedBox(
-                            height: 60,
+                            height: 40,
                           ),
                           pw.Container(
                             padding: pw.EdgeInsets.only(
                                 left: 30, top: 10, bottom: 10, right: 30),
                             color: PdfColor.fromInt(0xFF333CC1),
-                          ),
-                          pw.Divider(
-                            height: 0.5,
-                            thickness: 0.5,
-                            color: PdfColor.fromInt(0xFFC4C4C4),
                           ),
                           pw.Container(
                             alignment: pw.Alignment.center,
@@ -446,7 +422,7 @@ class ReceiptReport {
                         pw.Column(
                           children: [
                             pw.Text(
-                              'www.mycustomer.com',
+                              'http://www.customerpay.me/',
                               style: pw.TextStyle(
                                 color: PdfColors.white,
                                 fontSize: 6,
@@ -483,22 +459,6 @@ class ReceiptReport {
     print('Save as file ${file.path} ...');
     file.writeAsBytesSync(doc.save());
 
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => PdfViewerPage(path: path),
-      ),
-    );
+    OpenFile.open(path);
   }
 }
-
-class ContentData {
-  //TODO: create a function with a loop to do live data
-  var tID; // Transaction ID
-  var customerName = 'Demola'; // Customer name
-  var storeName = 'DemolaStores'; // Store name
-  var storeAddress = 'No.1, Not Available drive'; // Store name
-  var debtor = '';
-  var creditor = '';
-}
-
-class DataHandling {}
