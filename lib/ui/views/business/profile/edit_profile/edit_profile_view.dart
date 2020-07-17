@@ -4,7 +4,7 @@ import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:flutter_screenutil/size_extension.dart';
-
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'edit_profile_viewmodel.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -35,37 +35,39 @@ class EditProfileView extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Align(
-                  alignment: Alignment.topCenter,
-                  child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android ? FutureBuilder<void>(
-                    future: model.retrieveLostData(),
-                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                      switch (snapshot.connectionState) {
-                          case ConnectionState.none:
-                          case ConnectionState.waiting:
-                            return CircleAvatar(
-                                child: const Text(
-                                'You have not yet picked an image.',
-                                textAlign: TextAlign.center,
-                              ),
-                            );
-                            case ConnectionState.done:
-                              return _previewImage(context, model);
-                            default:
-                              if (snapshot.hasError) {
-                                return Text(
-                                  'Pick image: ${snapshot.error}}',
-                                  textAlign: TextAlign.center,
-                                );
-                              } else {
-                                return const Text(
-                                  'You have not yet picked an image.',
-                                  textAlign: TextAlign.center,
-                                );
+                    alignment: Alignment.topCenter,
+                    child: !kIsWeb &&
+                            defaultTargetPlatform == TargetPlatform.android
+                        ? FutureBuilder<void>(
+                            future: model.retrieveLostData(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<void> snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.none:
+                                case ConnectionState.waiting:
+                                  return CircleAvatar(
+                                    child: const Text(
+                                      'You have not yet picked an image.',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  );
+                                case ConnectionState.done:
+                                  return _previewImage(context, model);
+                                default:
+                                  if (snapshot.hasError) {
+                                    return Text(
+                                      'Pick image: ${snapshot.error}}',
+                                      textAlign: TextAlign.center,
+                                    );
+                                  } else {
+                                    return const Text(
+                                      'You have not yet picked an image.',
+                                      textAlign: TextAlign.center,
+                                    );
+                                  }
                               }
-                          }
-                    
-                    }): _previewImage(context,model) 
-                ),
+                            })
+                        : _previewImage(context, model)),
                 SizedBox(height: SizeConfig.yMargin(context, 2)),
                 Container(
                   height: SizeConfig.yMargin(context, 8),
@@ -104,7 +106,7 @@ class EditProfileView extends StatelessWidget {
                         child: TextField(
                           controller: _userName,
                           keyboardType: TextInputType.text,
-                          onChanged:(value) =>model.updateBusinessName(value),
+                          onChanged: (value) => model.updateBusinessName(value),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
@@ -125,7 +127,8 @@ class EditProfileView extends StatelessWidget {
                             horizontal: SizeConfig.xMargin(context, 4)),
                         child: TextField(
                           controller: _businessName,
-                          onChanged:(_businessName) =>model.updateBusinessName(_businessName),
+                          onChanged: (_businessName) =>
+                              model.updateBusinessName(_businessName),
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(border: InputBorder.none),
                           style: TextStyle(
@@ -151,7 +154,7 @@ class EditProfileView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    'Save',
+                    AppLocalizations.of(context).save,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: ThemeColors.background,
@@ -174,39 +177,39 @@ class EditProfileView extends StatelessWidget {
   }
 }
 
-Widget _previewImage(BuildContext context,EditProfileViewModel model){
-   final Text retrieveError = _getRetrieveErrorWidget(model);
-    if (retrieveError != null) {
-      return retrieveError;
-    }
-
-    return CircleAvatar(
-        backgroundColor: ThemeColors.unselect,
-        child: model.image == null
-            ? Text(
-                'C',
-                style: TextStyle(
-                  color: BrandColors.primary,
-                  fontSize: SizeConfig.textSize(context, 18),
-                ),
-              )
-            : ClipOval(
-                child: Image.file(
-                  model.image,
-                  width: SizeConfig.xMargin(context, 50),
-                  height: SizeConfig.xMargin(context, 50),
-                  fit: BoxFit.cover,
-                ),
-              ),
-        radius: 70,
-      );
+Widget _previewImage(BuildContext context, EditProfileViewModel model) {
+  final Text retrieveError = _getRetrieveErrorWidget(model);
+  if (retrieveError != null) {
+    return retrieveError;
   }
 
- Text _getRetrieveErrorWidget(EditProfileViewModel model) {
-    if (model.retrieveDataError != null) {
-      final Text result = Text(model.retrieveDataError);
-      model.retrieveDataError = null;
-        return result;
-    }
-    return null;
+  return CircleAvatar(
+    backgroundColor: ThemeColors.unselect,
+    child: model.image == null
+        ? Text(
+            'C',
+            style: TextStyle(
+              color: BrandColors.primary,
+              fontSize: SizeConfig.textSize(context, 18),
+            ),
+          )
+        : ClipOval(
+            child: Image.file(
+              model.image,
+              width: SizeConfig.xMargin(context, 50),
+              height: SizeConfig.xMargin(context, 50),
+              fit: BoxFit.cover,
+            ),
+          ),
+    radius: 70,
+  );
+}
+
+Text _getRetrieveErrorWidget(EditProfileViewModel model) {
+  if (model.retrieveDataError != null) {
+    final Text result = Text(model.retrieveDataError);
+    model.retrieveDataError = null;
+    return result;
   }
+  return null;
+}

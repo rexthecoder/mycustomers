@@ -263,7 +263,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               btnColor: ThemeColors.unselect,
               txtColor: BrandColors.primary,
               borderColor: ThemeColors.unselect,
-              btnText: 'Already a member? Sign in',
+              btnText: AppLocalizations.of(context).alreadyAmemberSignIn,
               child: Container(),
               onPressed: () async {
                 // dismiss keyboard during async call

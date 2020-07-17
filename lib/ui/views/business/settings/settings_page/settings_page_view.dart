@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
@@ -22,7 +23,7 @@ class SettingsPage extends StatelessWidget {
                 brightness: Brightness.light,
                 elevation: 0,
                 title: Text(
-                  'Settings',
+                  AppLocalizations.of(context).settings,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: ScreenUtil().setSp(20),
                         fontWeight: FontWeight.w900,
@@ -41,19 +42,19 @@ class SettingsPage extends StatelessWidget {
                           child: Column(
                         children: <Widget>[
                           cardTile(
-                              'Change Language',
+                              AppLocalizations.of(context).changeLanguage,
                               model.langs[model.langIndex]['name'],
                               //Todo: Set Functionality to Change when Language is Changed,
                               model.navigateToLanguageSettings,
                               context),
                           cardTile(
-                              'Change Currency',
+                              AppLocalizations.of(context).changeCurrency,
                               model.currs[model.currIndex]['name'],
                               //Todo: Set Functionality to Change when Language is Changed
                               model.navigateToCurrency,
                               context),
-                          cardTile(
-                              'App Lock', '', model.navigateToAppLock, context),
+                          cardTile(AppLocalizations.of(context).appLock, '',
+                              model.navigateToAppLock, context),
                           SizedBox(
                             height: ScreenUtil().setHeight(50),
                           ),
@@ -64,14 +65,25 @@ class SettingsPage extends StatelessWidget {
                                 viewModel.setTheme,
                                 'Dark Mode'),
                           ),
-                          switchTile(context, model.notification,
-                              model.setNotification, 'Receive Notifications'),
-                          switchTile(context, model.newsletter,
-                              model.setNewsletter, 'Receive NewsLetter'),
-                          switchTile(context, model.special, model.setSpecial,
-                              'Receive Special Offers'),
+                          switchTile(
+                              context,
+                              model.notification,
+                              model.setNotification,
+                              AppLocalizations.of(context)
+                                  .receiveNotifications),
+                          switchTile(
+                              context,
+                              model.newsletter,
+                              model.setNewsletter,
+                              AppLocalizations.of(context).receiveNewsletters),
+                          switchTile(
+                              context,
+                              model.special,
+                              model.setSpecial,
+                              AppLocalizations.of(context)
+                                  .receiveSpecialOffers),
                           switchTile(context, model.update, model.setUpdate,
-                              'Receive Updates'),
+                              AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),
@@ -79,7 +91,7 @@ class SettingsPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(20)),
                         child:
-                            CustomRaisedButton(label: 'Save', onPressed: () {Navigator.pop(context);}))
+                            CustomRaisedButton(label: AppLocalizations.of(context).save, onPressed: () {Navigator.pop(context);}))
                   ],
                 ),
               ),
