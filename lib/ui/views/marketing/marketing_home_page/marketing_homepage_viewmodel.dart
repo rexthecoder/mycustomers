@@ -30,7 +30,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   // Function to serve as a helper for the navigation
   Future navigateToSendMessageView() async {
-    await _navigationService.navigateTo(Routes.sendMessageViewRoute);
+    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
   }
 
   // Get the services required
@@ -83,7 +83,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
   }
 
   void deselectCustomer(Customer customer) {
-    _selectedCustomers.removeWhere((element) => element.id == customer.id);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
   void getFrequentCustomers() {
@@ -101,9 +101,9 @@ class MarketingHomePageViewModel extends BaseViewModel {
     _selectedCustomers = [];
     notifyListeners();
   }
-  void removeCustomers(index) {
-    allCustomers.removeAt(index);
-    _selectedCustomers.removeAt(index);
+  void removeCustomers(Customer customer) {
+    allCustomers.removeWhere((element) => element.phone == customer.phone);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
 //  void updateCustomers() async{
@@ -116,17 +116,30 @@ class MarketingHomePageViewModel extends BaseViewModel {
     var contactList;
     final bool isPermitted =
         await _permission.getContactsPermission();
-    if(_selectedCustomers.length !=0 ){
-      _navigationService
-          .navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
-    }else{
-      if (isPermitted) contactList = await _navigationService
-          .navigateTo(Routes.addCustomerMarketing);
-      else contactList = await  _navigationService
-          .navigateTo(Routes.addNewCustomerMarketing);
-      await contactList;
-      allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
-    }
+
+    if (isPermitted) contactList = await _navigationService
+        .navigateTo(Routes.addCustomerMarketing);
+    else contactList = await  _navigationService
+        .navigateTo(Routes.addNewCustomerMarketing);
+    await contactList;
+//    print(contactList);
+//    final results = contactList['result'];
+//    allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+//    allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+
+
+
+//    if(_selectedCustomers.length !=0 ){
+//      _navigationService
+//          .navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+//    }else{
+//      if (isPermitted) contactList = await _navigationService
+//          .navigateTo(Routes.addCustomerMarketing);
+//      else contactList = await  _navigationService
+//          .navigateTo(Routes.addNewCustomerMarketing);
+//      await contactList;
+//      allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+//    }
 //    if (isPermitted) contactList= await _navigationService
 //        .navigateTo(Routes.addCustomerMarketing);
 //    else await [Permission.contacts].request();
@@ -140,6 +153,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
 
   void sendMessage(){
+
     _navigationService
         .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
