@@ -32,6 +32,8 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   RxValue<List<LogH>> _loglist = RxValue<List<LogH>>(initial: []);
   List<LogH> get loglist => _loglist.value;
 
+  bool shouldnotify = false;
+
   @override
   Future<void> init() async {
     //final path = await _fileHelper.getApplicationDocumentsDirectoryPath();
@@ -39,7 +41,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     _hiveService.registerAdapter<LogH>(LogHAdapter());
 
     if (!_isBoxOpen) {
-      await _hiveService.openBox<LogH>(HiveBox.logs);
+      await Hive.openBox<LogH>(HiveBox.logs);
     }
   }
 
@@ -60,11 +62,13 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     addLog(newlog);
   }
 
-
+  void setnotify(){
+    shouldnotify = !shouldnotify;
+  }
 
   @override
   Future<void> addLog(LogH log) async {
-    return _logsBox.put(log.id, log);
+    return _logsBox.put(log.id, log).then((value) => setnotify());
   }
 
   @override

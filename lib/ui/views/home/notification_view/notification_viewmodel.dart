@@ -29,6 +29,7 @@ class NotificationViewModel extends ReactiveViewModel {
   void getlogs(){
     print('called2');
     _logService.getLogs();
+    _logService.setnotify();
   }
 
   @override
