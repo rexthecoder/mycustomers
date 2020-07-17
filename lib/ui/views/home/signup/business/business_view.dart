@@ -6,6 +6,7 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'business_viewmodel.dart';
 
@@ -52,7 +53,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
         children: <Widget>[
           SizedBox(height: SizeConfig.yMargin(context, 7)),
           Text(
-            'BUSINESS DETAILS',
+            AppLocalizations.of(context).businessDetails,
             style: TextStyle(
               fontWeight: FontWeight.w900,
               fontSize: SizeConfig.yMargin(context, 4),
@@ -60,7 +61,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
           ),
           SizedBox(height: SizeConfig.yMargin(context, 5)),
           Text(
-            'One last step...',
+            AppLocalizations.of(context).oneLastStep,
             style: TextStyle(
               fontWeight: FontWeight.w900,
               fontSize: SizeConfig.yMargin(context, 2),
@@ -143,7 +144,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
           CustomRaisedButton(
             btnColor: BrandColors.primary,
             txtColor: ThemeColors.background,
-            btnText: 'Submit and finish',
+            btnText: AppLocalizations.of(context).submitAndFinish,
             borderColor: BrandColors.primary,
             child: Container(),
             onPressed: () async {

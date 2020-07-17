@@ -5,17 +5,19 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'notification_viewmodel.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NotificationViewModel>.reactive(
+
       onModelReady: (model) => model.getlogs(),
         builder: (context, model, child) => DefaultTabController(
           length: 2,
           child: Scaffold(
               appBar: customizeAppBar(context, 0.0,
-                  title: "Notifications", arrowColor: BrandColors.primary),
+                  title: AppLocalizations.of(context).notifications, arrowColor: BrandColors.primary),
               body: Column(
                 children: <Widget>[
                   Container(

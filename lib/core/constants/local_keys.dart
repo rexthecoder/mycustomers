@@ -2,7 +2,7 @@ class LocalKeys {
   //list of local keys for the app
   static const onboarding_welcome_text = 'onboarding-welcome-text';
   static const onboarding_welcome_desc = 'onboarding-welcome-desc';
-  static const getstarted_button  = 'get-started-button';
+  static const getstarted_button = 'get-started-button';
   static const sign_in = 'sign-in';
   static const push_a_reminder = 'push-a-reminder';
   static const push_a_reminder_desc = 'push-a-reminder-desc';
@@ -10,8 +10,8 @@ class LocalKeys {
   static const collect_your_money_desc = 'collect-your-money-desc';
   static const engaged_with_your_people = 'engaged-with-your-people';
   static const engaged_with_your_people_desc = 'engaged-with-your-people-desc';
-  static const sign_up = 'sign-up';
-  static const sign_up_enter_phone_number = 'sign-up-enter-phone-number';
+  static const sign_up = 'signup-signup';
+  static const enter_phone_number = 'sign-up-enter-phone-number';
   static const continue_with_social_account = 'continue-with-social-account';
   static const already_a_member_sign_in = 'already-a-member-sign-in';
   static const not_a_member_sign_up = 'not-a-member-sign-up';
@@ -28,7 +28,7 @@ class LocalKeys {
   static const customers_owing_you = 'customers-owing-you';
   static const people_you_owe = 'people-you-owe';
   static const customers_are_owing_you = 'customers-are-owing-you';
-  static const customers_owing_you_desc ='customers-owing-you-desc';
+  static const customers_owing_you_desc = 'customers-owing-you-desc';
   static const add_customers_owing_you = 'add-customers-owing-you';
   static const home = 'home';
   static const marketing = 'marketing';
@@ -91,7 +91,7 @@ class LocalKeys {
   static const deliverables = 'Deliverables';
   static const completed_payment = 'completed-payment';
   static const set_reminds_date = 'set-reminds-date';
-  static const set_rem_date_desc = 'set-rem-date-desc'; 
+  static const set_rem_date_desc = 'set-rem-date-desc';
   static const for_a_week = 'for-a-week';
   static const for_a_month = 'for-a-month';
   static const time = 'Time';
@@ -102,7 +102,7 @@ class LocalKeys {
   static const date = 'date';
   static const remark = 'remark';
   static const marketing_speech = 'marketing-speech';
-  static const marketing_desc = 'marketing-desc'; 
+  static const marketing_desc = 'marketing-desc';
   static const send_message = 'send-message';
   static const add_customer_from_contacts = 'add-customer-from-contacts';
   static const contacts = 'contacts';
@@ -121,23 +121,23 @@ class LocalKeys {
   static const frequently_contacted = 'frequently-contacted';
   static const profile = 'profile';
   static const business_card = 'business-card';
-  static const support = 'support'; 
+  static const support = 'support';
   static const settings = 'settings';
   static const reg_phone_no = 'reg-phone-no';
   static const name = 'name';
   static const edit = 'edit';
-  static const edit_pic = 'edit-pic'; 
+  static const edit_pic = 'edit-pic';
   static const change_pic = 'change-pic';
-  static const download = 'download'; 
-  static const save_and_share = 'save-and-share'; 
-  static const change_language = 'change-language'; 
-  static const change_currency = 'change-currency'; 
-  static const app_lock = 'app-lock'; 
+  static const download = 'download';
+  static const save_and_share = 'save-and-share';
+  static const change_language = 'change-language';
+  static const change_currency = 'change-currency';
+  static const app_lock = 'app-lock';
   static const receive_notifications = 'receive-notifications';
-  static const receive_newsletters = 'receive-newsletters'; 
+  static const receive_newsletters = 'receive-newsletters';
   static const receive_special_offers = 'receive-special-offers';
   static const receive_updates = 'receive-updates';
-  static const select_your_language = 'select-your-lannguage'; 
+  static const select_your_language = 'select-your-language';
   static const select_your_currency = 'select-your-currency';
   static const saved = 'saved';
   static const create_a_new_pin = 'create-a-new-pin';
@@ -146,4 +146,63 @@ class LocalKeys {
   static const remove_app_lock = 'remove-app-lock';
   static const enter_pin = 'enter-pin';
   static const pin_removed = 'pin-removed';
+  static const invalid_phone_no = 'invalid-phone-no';
+  static const please_enter_password = 'please-enter-password';
+  static const continue_with_social_acct = 'continue-with-social-acct';
+  static const google_coming_soon = 'google-coming-soon';
+  static const facebook_coming_soon = 'facebook-coming-soon';
+  static const please_store_name = 'please-store-name';
+  static const enter_store_name = 'enter-store-name';
+  static const please_store_address = 'please-store-address';
+  static const enter_store_address = 'enter-store-address';
+  static const all_customers = 'all-customers';
+  static const no_customer_added = 'no-customer-added';
+  static const no_customer_found = 'no-customer-found';
+  static const sorted_by = 'sorted-by';
+  static const date_of_issue = 'date-of-issue';
+  static const filter = 'filter';
+  static const no_customer_yet = 'no-customer-yet';
+  static const type_customer_name = 'type-customer-name';
+  static const all = 'all';
+  static const store_name ='store-name';
+  static const company_tag_line = 'company-tag-line';
+  static const personal_name ='personal-name';
+  static const position = 'position';
+  static const phone_number = 'phone-number';
+  static const email_address = 'email-address';
+  static const shop_address = 'shop-address';
+  static const save_successful = 'save-successful';
+  static const sharing = 'sharing';
+  static const successful = 'successful';
+  static const customer_support = 'customer-support';
+  static const email = 'email';
+  static const write_message_here = 'write-message-here';
+  static const send = 'send';
+  static const no_transaction = 'no-transaction';
+  static const transaction_details = 'transaction-details';
+  static const amount_owed = 'amount-owed';
+  static const delete = 'delete';
+  static const edit_profile = 'edit-profile';
+  static const not_picked_image = 'not-picked-image';
+  static const add_profile_picture = 'add-profile-picture';
+  static const dark_mode = 'dark-mode';
+  static const set_applock_pin = 'set-applock-pin';
+  static const enter_old_pin = 'enter-old-pin';
+  static const currency = 'currency';
+  static const language = 'language';
+  static const enter_name = 'enter-name';
+  static const mobile_number = 'mobile-number';
+  static const select_a_transaction = 'select-a-transaction';
+  static const add_new_credit = 'add-new-credit';
+  static const add_new_debit = 'add-new-debit';
+  static const existing_credits = 'existing-credits';
+  static const existing_debits = 'existing-debits';
+
+
+
+
+
+
+
+
 }
