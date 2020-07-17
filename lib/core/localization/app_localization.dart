@@ -4,6 +4,8 @@ import 'package:mycustomers/core/constants/local_keys.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
+import '../constants/local_keys.dart';
+
 class AppLocalizations {
   final Locale locale;
   Map<String, String> _sentences;
@@ -93,8 +95,7 @@ class AppLocalizations {
   String get searchCustomers => translate(LocalKeys.search_customers);
   String get cancel => translate(LocalKeys.cancel);
   String get addNewCustomer => translate(LocalKeys.add_new_customer);
-  String get addDebtorsFromContacts =>
-      translate(LocalKeys.add_debtors_from_contacts);
+  String get addDebtorsFromContacts => translate(LocalKeys.add_debtors_from_contacts);
   String get addButton => translate(LocalKeys.add_button);
   String get addACustomer => translate(LocalKeys.add_a_customer);
   String get customerDetails => translate(LocalKeys.customer_details);
@@ -194,6 +195,64 @@ class AppLocalizations {
   String get removeAppLock => translate(LocalKeys.remove_app_lock);
   String get enterPin => translate(LocalKeys.enter_pin);
   String get pinRemoved => translate(LocalKeys.pin_removed);
+  String get invalidPhoneNo => translate(LocalKeys.invalid_phone_no);
+  String get pleaseEnterPassword => translate(LocalKeys.please_enter_password);
+  String get continueWithSocialAcct => translate(LocalKeys.continue_with_social_acct);
+  String get googleComingSoon => translate(LocalKeys.google_coming_soon);
+  String get facebookComingSoon => translate(LocalKeys.facebook_coming_soon);
+  String get pleaseStoreName => translate(LocalKeys.please_store_name);
+  String get enterStoreName => translate(LocalKeys.enter_store_name);
+  String get pleaseStoreAddress => translate(LocalKeys.please_store_address);
+  String get enterStoreAddress => translate(LocalKeys.enter_store_address);
+  String get allCustomers => translate(LocalKeys.all_customers);
+  String get noCustomerAdded => translate(LocalKeys.no_customer_added);
+  String get noCustomerFound => translate(LocalKeys.no_customer_found);
+  String get sortedBy => translate(LocalKeys.sorted_by);
+  String get dateOfIssue => translate(LocalKeys.date_of_issue);
+  String get filter => translate(LocalKeys.filter);
+  String get noCustomerYet => translate(LocalKeys.no_customer_yet);
+  String get typeCustomerName => translate(LocalKeys.type_customer_name);
+  String get all => translate(LocalKeys.all);
+  String get storeName => translate(LocalKeys.store_name);
+  String get companyTagLine => translate(LocalKeys.company_tag_line);
+  String get personalName => translate(LocalKeys.personal_name);
+  String get position => translate(LocalKeys.position);
+  String get phoneNumber => translate(LocalKeys.phone_number);
+  String get emailAddress => translate(LocalKeys.email_address);
+  String get saveSuccessful => translate(LocalKeys.save_successful);
+  String get sharing => translate(LocalKeys.sharing);
+  String get successful => translate(LocalKeys.successful);
+  String get customerSupport => translate(LocalKeys.customer_support);
+  String get email => translate(LocalKeys.email);
+  String get writeMessageHere => translate(LocalKeys.write_message_here);
+  String get send => translate(LocalKeys.send);
+  String get noTransaction => translate(LocalKeys.no_transaction);
+  String get transactionDetails => translate(LocalKeys.transaction_details);
+  String get amountOwed => translate(LocalKeys.amount_owed);
+  String get delete => translate(LocalKeys.delete);
+  String get editProfile => translate(LocalKeys.edit_profile);
+  String get notPickedImage => translate(LocalKeys.not_picked_image);
+  String get addProfilePicture => translate(LocalKeys.add_profile_picture);
+  String get darkMode => translate(LocalKeys.dark_mode);
+  String get setApplock_Pin => translate(LocalKeys.set_applock_pin);
+  String get enterOldPin => translate(LocalKeys.enter_old_pin);
+  String get currency => translate(LocalKeys.currency);
+  String get language => translate(LocalKeys.language);
+  String get enterName => translate(LocalKeys.enter_name);
+  String get mobileNumber => translate(LocalKeys.mobile_number);
+  String get selectATransaction => translate(LocalKeys.select_a_transaction);
+  String get addNewCredit => translate(LocalKeys.add_new_credit);
+  String get addNewDebit => translate(LocalKeys.add_new_debit);
+  String get existingCredits => translate(LocalKeys.existing_credits);
+  String get existingDebits => translate(LocalKeys.existing_debits);
+
+
+
+
+
+
+
+
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
