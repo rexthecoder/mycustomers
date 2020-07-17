@@ -137,11 +137,6 @@ Future<void> setupLocator(
   locator.registerLazySingleton<LocalStorageService>(
     () => LocalStorageService(),
   );
-
-  var instance = await LocalStorageService.getInstance();
-  
-  locator.registerSingleton<LocalStorageService>(instance);
-
   // Util
   locator.registerLazySingleton<FileHelper>(() => FileHelperImpl());
   locator.registerLazySingleton<IPermissionService>(
