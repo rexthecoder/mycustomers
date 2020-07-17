@@ -10,9 +10,6 @@ class LocalStorageService {
   static const String SpecialOffersPrefs="receiveSpecialOffers";
   static const String UpdatesPrefs="receiveUpdates";
 
-
- 
-
   static LocalStorageService _instance;
   static SharedPreferences _preferences;
 
