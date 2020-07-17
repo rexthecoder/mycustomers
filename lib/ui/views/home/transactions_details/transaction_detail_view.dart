@@ -34,7 +34,7 @@ class TransactionDetails extends StatelessWidget {
                 ),
               ),
               title: Text(
-                'Transaction details',
+                AppLocalizations.of(context).transactionDetails,
                 style: TextStyle(
                     fontSize: 40.sp,
                     color: Colors.white,
@@ -296,7 +296,7 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 20,
                                               child: Text(
-                                                'Amount Owed:',
+                                                '${AppLocalizations.of(context).amountOwed}:',
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.grey[600],
@@ -357,7 +357,7 @@ class TransactionDetails extends StatelessWidget {
                                                   Radius.circular(10.sp))),
                                       child: Center(
                                         child: Text(
-                                          'Delete',
+                                          AppLocalizations.of(context).delete,
                                           style: TextStyle(
                                               fontSize: 30.sp,
                                               color: BrandColors.primary,

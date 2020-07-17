@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -20,7 +21,7 @@ class SelectTransactionView extends StatelessWidget {
           brightness: Brightness.light,
           elevation: 1,
           title: Text(
-            'Select a Transaction',
+            AppLocalizations.of(context).selectATransaction,
             style: Theme.of(context).textTheme.headline6.copyWith(fontSize: ScreenUtil().setSp(18), fontWeight: FontWeight.bold, color: action == 'credit' ? BrandColors.secondary : BrandColors.primary,),
           ),
           leading: InkWell(
@@ -64,7 +65,7 @@ class SelectTransactionView extends StatelessWidget {
                       ),
                     ),
                     title: Text(
-                      action == 'credit' ? 'Add New Credit' : 'Add New Debit',
+                      action == 'credit' ? AppLocalizations.of(context).addNewCredit : AppLocalizations.of(context).addNewDebit,
                       style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -79,7 +80,7 @@ class SelectTransactionView extends StatelessWidget {
                     ),
                   child: Center(
                     child: Text(
-                      action == 'credit' ? 'Existing Debits' : 'Existing Credits',
+                      action == 'credit' ? AppLocalizations.of(context).existingDebits : AppLocalizations.of(context).existingCredits,
                       style: Theme.of(context).textTheme.headline6.copyWith(fontSize:  SizeConfig.yMargin(context, 2.1), fontWeight: FontWeight.w600),
                     ),
                   ),

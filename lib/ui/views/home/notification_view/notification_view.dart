@@ -79,7 +79,7 @@ class NotificationsView extends StatelessWidget {
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child:
-                                        Text('View', style: TextStyle(color: Colors.white)),
+                                        Text(AppLocalizations.of(context).view, style: TextStyle(color: Colors.white)),
                                   ),
                                 ),
                                 child: Padding(

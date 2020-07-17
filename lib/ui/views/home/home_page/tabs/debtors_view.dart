@@ -100,7 +100,7 @@ class DebtorsView extends StatelessWidget {
                             children: <Widget>[
                               SvgPicture.asset('assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
                               SizedBox(height: 20.h,),
-                              Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
+                              Text(AppLocalizations.of(context).customersOwingYouDesc,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(color: Theme.of(context).textSelectionColor, fontSize: SizeConfig.yMargin(context, 2))
                               ),
@@ -164,7 +164,7 @@ class ContactList extends StatelessWidget {
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Search by name',
+                  hintText: AppLocalizations.of(context).searchByName,
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
@@ -180,7 +180,7 @@ class ContactList extends StatelessWidget {
               ),
             ),
             model.sDName != null && !model.containsD ? Text(
-              'No Customer Found',
+             AppLocalizations.of(context).noCustomerFound,
               style: TextStyle(
                 fontSize: SizeConfig.yMargin(context, 2)
               ),

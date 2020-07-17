@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -81,7 +82,7 @@ class AddDebtCreditView extends StatelessWidget {
                                   bottom: ScreenUtil().setHeight(10)),
                               child: Center(
                                 child: Text(
-                                  'Transaction Details',
+                                  AppLocalizations.of(context).transactionDetails,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6
@@ -403,7 +404,7 @@ class AddDebtCreditView extends StatelessWidget {
                                               enabledBorder: InputBorder.none,
                                               errorBorder: InputBorder.none,
                                               disabledBorder: InputBorder.none,
-                                              hintText: 'Enter Items Purchased',
+                                              hintText: AppLocalizations.of(context).enterItemspurchased,
                                               hintStyle: TextStyle(
                                                   fontSize:
                                                       ScreenUtil().setSp(15)),
@@ -563,7 +564,7 @@ class AddDebtCreditView extends StatelessWidget {
                       width: width,
                       child: Center(
                         child: Text(
-                          'Save',
+                          AppLocalizations.of(context).save,
                           style: Theme.of(context).textTheme.headline6.copyWith(
                               fontSize: ScreenUtil().setSp(16),
                               color: Colors.white,

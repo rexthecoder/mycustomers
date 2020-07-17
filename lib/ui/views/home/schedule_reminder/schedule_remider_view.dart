@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -19,7 +20,7 @@ class ScheduleReminders extends StatelessWidget {
             onPressed: ()=>Navigator.of(context).pop(),
             icon:Icon(Icons.arrow_back,color: BrandColors.primary),
           ),
-          title: Text('Schedule Reminder',style:  TextStyle(
+          title: Text(AppLocalizations.of(context).scheduleReminder,style:  TextStyle(
             fontSize: 18.sp,),),
         ),
         body: Container(
@@ -29,7 +30,7 @@ class ScheduleReminders extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Pick a date and type in your message',style:  TextStyle(
+                  Text(AppLocalizations.of(context).reminderDate,style:  TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.sp,),),
                   SizedBox(height: 20.h,),
@@ -38,7 +39,7 @@ class ScheduleReminders extends StatelessWidget {
                       fontSize: 16.sp,),
                     decoration: InputDecoration(
                       suffixIcon: Icon(Icons.calendar_today),
-                      hintText: 'Type a heading',
+                      hintText: AppLocalizations.of(context).typeAHeading,
                       hintStyle: TextStyle(
                         fontSize: 16.sp,),
                       border: OutlineInputBorder(
@@ -56,7 +57,7 @@ class ScheduleReminders extends StatelessWidget {
                     style:  TextStyle(
                       fontSize: 16.sp,),
                     decoration: InputDecoration(
-                      hintText: 'Type a heading',
+                      hintText: AppLocalizations.of(context).typeAHeading,
                       hintStyle: TextStyle(
                         fontSize: 16.sp,),
                       border: OutlineInputBorder(
@@ -75,7 +76,7 @@ class ScheduleReminders extends StatelessWidget {
                       fontSize: 16.sp,),
                     maxLines: 5,
                     decoration: InputDecoration(
-                      hintText: 'Start typing your message',
+                      hintText: AppLocalizations.of(context).startTypingYourmessage,
                       hintStyle: TextStyle(
                         fontSize: 16.sp,),
                       border: OutlineInputBorder(
@@ -117,7 +118,7 @@ class ScheduleReminders extends StatelessWidget {
                           color: BrandColors.primary,
                         ),
                         child: Center(
-                          child: Text('SCHEDULE',style:  TextStyle(fontSize: 18.sp,
+                          child: Text(AppLocalizations.of(context).schedule,style:  TextStyle(fontSize: 18.sp,
                               color: Colors.white),
                           ),
                         ),

@@ -18,7 +18,7 @@ class LanguageSelectionPageView extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
               backgroundColor: Theme.of(context).backgroundColor,
               appBar: customizeAppBar(context, 1.0,
-                title:'Language' , arrowColor: BrandColors.primary),
+                title: AppLocalizations.of(context).language , arrowColor: BrandColors.primary),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -36,7 +36,7 @@ class LanguageSelectionPageView extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.only(bottom: 15),
                                 child: Text(
-                                  'Select your language',
+                                   AppLocalizations.of(context).selectYourLanguage,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6

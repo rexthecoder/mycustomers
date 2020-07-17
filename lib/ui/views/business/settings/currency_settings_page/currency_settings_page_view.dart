@@ -21,7 +21,7 @@ class CurrencySettingsPageView extends StatelessWidget {
                 brightness: Brightness.light,
                 elevation: 0,
                 title: Text(
-                  'Currency',
+                   AppLocalizations.of(context).currency,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: ScreenUtil().setSp(20),
                         fontWeight: FontWeight.w900,

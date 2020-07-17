@@ -75,7 +75,7 @@ class HomePageView extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "All Customers",
+                              AppLocalizations.of(context).allCustomers,
                               textAlign: TextAlign.center,
                                style: TextStyle(
                                 fontSize: SizeConfig.yMargin(context, 1.5),
@@ -96,7 +96,7 @@ class HomePageView extends StatelessWidget {
                         model.contacts.length == 0
                             ? Expanded(
                                 child: Center(
-                                  child: Text('No Customer Added'),
+                                  child: Text(AppLocalizations.of(context).noCustomerAdded),
                                 ),
                               )
                             : ContactList()
@@ -149,7 +149,7 @@ class ContactList extends StatelessWidget {
                 ),
               ),
               model.sName != null && !model.contains
-                  ? Text('No Customer Found')
+                  ? Text(AppLocalizations.of(context).noCustomerFound)
                   : SizedBox(),
               for (var item in model.contacts)
                 model.sName != null && model.contains
