@@ -121,10 +121,6 @@ Future<void> setupLocator(
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
   );
-
-   locator.registerLazySingleton<StoresLocalDataSource>(
-     () => StoresLocalDataSourceImpl()..init(),
-   );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
