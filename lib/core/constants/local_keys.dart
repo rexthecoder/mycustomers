@@ -146,4 +146,63 @@ class LocalKeys {
   static const remove_app_lock = 'remove-app-lock';
   static const enter_pin = 'enter-pin';
   static const pin_removed = 'pin-removed';
+  static const invalid_phone_no = 'invalid-phone-no';
+  static const please_enter_password = 'please-enter-password';
+  static const continue_with_social_acct = 'continue-with-social-acct';
+  static const google_coming_soon = 'google-coming-soon';
+  static const facebook_coming_soon = 'facebook-coming-soon';
+  static const please_store_name = 'please-store-name';
+  static const enter_store_name = 'enter-store-name';
+  static const please_store_address = 'please-store-address';
+  static const enter_store_address = 'enter-store-address';
+  static const all_customers = 'all-customers';
+  static const no_customer_added = 'no-customer-added';
+  static const no_customer_found = 'no-customer-found';
+  static const sorted_by = 'sorted-by';
+  static const date_of_issue = 'date-of-issue';
+  static const filter = 'filter';
+  static const no_customer_yet = 'no-customer-yet';
+  static const type_customer_name = 'type-customer-name';
+  static const all = 'all';
+  static const store_name ='store-name';
+  static const company_tag_line = 'company-tag-line';
+  static const personal_name ='personal-name';
+  static const position = 'position';
+  static const phone_number = 'phone-number';
+  static const email_address = 'email-address';
+  static const shop_address = 'shop-address';
+  static const save_successful = 'save-successful';
+  static const sharing = 'sharing';
+  static const successful = 'successful';
+  static const customer_support = 'customer-support';
+  static const email = 'email';
+  static const write_message_here = 'write-message-here';
+  static const send = 'send';
+  static const no_transaction = 'no-transaction';
+  static const transaction_details = 'transaction-details';
+  static const amount_owed = 'amount-owed';
+  static const delete = 'delete';
+  static const edit_profile = 'edit-profile';
+  static const not_picked_image = 'not-picked-image';
+  static const add_profile_picture = 'add-profile-picture';
+  static const dark_mode = 'dark-mode';
+  static const set_applock_pin = 'set-applock-pin';
+  static const enter_old_pin = 'enter-old-pin';
+  static const currency = 'currency';
+  static const language = 'language';
+  static const enter_name = 'enter-name';
+  static const mobile_number = 'mobile-number';
+  static const select_a_transaction = 'select-a-transaction';
+  static const add_new_credit = 'add-new-credit';
+  static const add_new_debit = 'add-new-debit';
+  static const existing_credits = 'existing-credits';
+  static const existing_debits = 'existing-debits';
+
+
+
+
+
+
+
+
 }
