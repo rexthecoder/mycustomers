@@ -10,22 +10,25 @@ class TransactionModel extends HiveObject{
   final int cId;
 
   @HiveField(1)
-  final double amount;
+  final String sId;
 
   @HiveField(2)
-  final double paid;
+  final double amount;
 
   @HiveField(3)
-  final String duedate;
+  final double paid;
 
   @HiveField(4)
-  final String boughtdate;
+  final String duedate;
 
   @HiveField(5)
-  final String paiddate;
+  final String boughtdate;
 
   @HiveField(6)
+  final String paiddate;
+
+  @HiveField(7)
   final List<String> goods;
 
-  TransactionModel({this.cId, this.amount, this.paid, this.duedate, this.boughtdate, this.paiddate, this.goods});
+  TransactionModel({this.cId, this.sId, this.amount, this.paid, this.duedate, this.boughtdate, this.paiddate, this.goods});
 }

@@ -15,7 +15,7 @@ class PermissionService implements IPermissionService {
         permission != PermissionStatus.denied) {
       final Map<Permission, PermissionStatus> permissionStatus =
           await [Permission.contacts].request();
-      return permissionStatus[Permission.contacts] == PermissionStatus.denied;
+      return permissionStatus[Permission.contacts] == PermissionStatus.granted;
     } else {
       return permission == PermissionStatus.granted;
     }

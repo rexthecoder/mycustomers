@@ -6,7 +6,6 @@ import 'package:mycustomers/core/data_sources/business_card/business_card_local_
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
-import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
@@ -22,6 +21,7 @@ import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
+import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
@@ -34,11 +34,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mycustomers/core/services/user_services.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
-import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 
-final GetIt  locator = GetIt.instance;
+final GetIt locator = GetIt.instance;
 
 const bool USE_MOCK_CUSTOMER = true;
 
@@ -58,8 +57,9 @@ Future<void> setupLocator(
     {bool useMockContacts: false,
     bool useMockCustomer: true,
     bool test = false}) async {
- //Inizialize Hive path
-  Directory appDocDir =test ? Directory.current : await getApplicationDocumentsDirectory();
+  //Inizialize Hive path
+  Directory appDocDir =
+      test ? Directory.current : await getApplicationDocumentsDirectory();
   test ? Hive.init(appDocDir.path) : Hive.initFlutter(appDocDir.path);
 
   // Services
@@ -122,18 +122,25 @@ Future<void> setupLocator(
     () => StoreDataSourceImpl(),
   );
 
-   locator.registerLazySingleton<StoresLocalDataSource>(
+   if (test) locator.registerLazySingleton<StoresLocalDataSource>(
      () => StoresLocalDataSourceImpl()..init(),
    );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
-  locator.registerLazySingleton<LogsLocalDataSource>(
+  locator.registerLazySingleton<LogsLocalDataSourceImpl>(
     () => LogsLocalDataSourceImpl(),
   );
   locator.registerLazySingleton<BusinessCardLocalDataSource>(
     () => BusinessCardLocalDataSourceImpl(),
   );
+  // locator.registerLazySingleton<LocalStorageService>(
+  //   () => LocalStorageService(),
+  // );
+
+  var instance = await LocalStorageService.getInstance();
+  
+  locator.registerSingleton<LocalStorageService>(instance);
 
   // Util
   locator.registerLazySingleton<FileHelper>(() => FileHelperImpl());
@@ -142,25 +149,28 @@ Future<void> setupLocator(
   );
 
   // External
-  if(!test) {
+  if (!test) {
     locator.registerLazySingleton<HiveInterface>(() => Hive);
   }
 
   print('Initializing boxes...');
 
   //Initialization for all boxes
+  await BusinessCardLocalDataSourceImpl().init();
   await LogsLocalDataSourceImpl().init();
   await TransactionLocalDataSourceImpl().init();
   await BussinessSettingService().init();
 
-  Hive.registerAdapter(BusinessCardAdapter());
+//  Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
   Hive.registerAdapter(CustomerContactAdapter());
   //Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(StoreHAdapter());
 
-  if (!test) await setIso();
-  // await openBoxes();
+  if (!test) {
+    await setIso();
+    await openBoxes();
+  }
 }
 
 Future<void> openBoxes() async {

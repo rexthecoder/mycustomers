@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer/customer_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -18,7 +19,7 @@ class CustomersLocalDataSourceImpl implements CustomersLocalDataSource {
 
   var box = Hive.box<CustomerH>('customerBox');
 
-  String _currentStoreId = StoreRepository.currentStore.id;
+  String get _currentStoreId => StoreRepository.currentStore.id;
 
   List<CustomerH> getAllCustomers() => box.values.toList();
   

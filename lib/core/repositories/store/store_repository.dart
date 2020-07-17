@@ -21,7 +21,6 @@ class StoreRepository {
 
   static Future<void> updateStores() async {
     try {
-
     var stores = (await _ss.getStores()).toList();
     _stores = stores ?? _stores;
     if (_stores != null && _stores.isNotEmpty) _currentStore = _stores[0];

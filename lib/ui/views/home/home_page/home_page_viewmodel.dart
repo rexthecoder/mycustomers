@@ -5,9 +5,12 @@ import 'package:mycustomers/core/data_sources/transaction/transaction_local_data
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/models/store.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -50,6 +53,7 @@ class HomePageViewModel extends ReactiveViewModel {
   bool contains;
   bool containsD;
   bool containsC;
+  Store get currentStore => StoreRepository.currentStore;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =
@@ -59,7 +63,7 @@ class HomePageViewModel extends ReactiveViewModel {
   // }
 
   void getTransactions() {
-    _transactionService.getAllTransactions();
+    _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
     notifyListeners();
   }
 
