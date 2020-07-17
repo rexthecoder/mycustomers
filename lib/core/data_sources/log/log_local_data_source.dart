@@ -68,7 +68,11 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
 
   @override
   Future<void> addLog(LogH log) async {
-    return _logsBox.put(log.id, log).then((value) => setnotify());
+    return _logsBox.put(log.id, log).then((value) {
+      if(!shouldnotify){
+        setnotify();
+      }
+    });
   }
 
   @override
