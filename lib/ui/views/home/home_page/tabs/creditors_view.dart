@@ -314,7 +314,7 @@ class ContactList extends StatelessWidget {
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: (DateTime.now()
+                                            color: cont.duedate == null ? BrandColors.secondary : (DateTime.now()
                                                         .difference(
                                                             DateTime.parse(
                                                                 cont.duedate))
