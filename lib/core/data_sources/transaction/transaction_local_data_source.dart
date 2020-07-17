@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:observable_ish/observable_ish.dart';
@@ -10,10 +11,10 @@ import 'package:stacked/stacked.dart';
 @lazySingleton
 class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
   //static const String _boxname = "transactionBox";
-//  final _hiveService = locator<HiveInterface>();
+  final _hiveService = locator<HiveInterface>();
 
-//  bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
-//  Box<TransactionModel> get _transactionBox => _hiveService.box<TransactionModel>(HiveBox.transaction);
+  bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
+  Box<TransactionModel> get _transactionBox => _hiveService.box<TransactionModel>(HiveBox.transaction);
 
   RxValue<List<TransactionModel>> _alltransactions = RxValue<List<TransactionModel>>(initial: []);
   List<TransactionModel> get alltransactions => _alltransactions.value;
@@ -49,11 +50,11 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
   }
 
   Future<void> init() async {
-//    _hiveService.registerAdapter<TransactionModel>(TransactionAdapter());
-//
-//    if (!_isBoxOpen) {
-//      await _hiveService.openBox<TransactionModel>(HiveBox.transaction);
-//    }
+    _hiveService.registerAdapter<TransactionModel>(TransactionAdapter());
+
+    if (!_isBoxOpen) {
+      await _hiveService.openBox<TransactionModel>(HiveBox.transaction);
+    }
   }
 
   void setTransaction(TransactionModel transaction){
@@ -62,7 +63,6 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
 
   void getAllTransactions() async{
     //final bbox = await box;
-    final _transactionBox = await Hive.openBox<TransactionModel>(HiveBox.transaction);
     _alltransactions.value = _transactionBox.values.toList();
     _alltransactions.value = new List<TransactionModel>.from(_alltransactions.value.reversed);
     _whatyouowe.value = 0;
@@ -78,11 +78,10 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
       }
     }
   }
-
+  
   void getTransactions(int id) async{
     print('get'+id.toString());
     //final bbox = await box;
-    final _transactionBox = await Hive.openBox<TransactionModel>(HiveBox.transaction);
     _transactions.value = [];
     for (var transaction in _transactionBox.values.toList()) {
       if (transaction.cId == id){
@@ -137,7 +136,6 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
   void addTransaction(TransactionModel transaction) async {
     print(transaction.cId);
     //final bbox = await box;
-    final _transactionBox = await Hive.openBox<TransactionModel>(HiveBox.transaction);
     await _transactionBox.add(transaction);
     _transactions.value = [];
     for (var transactionb in _transactionBox.values.toList()) {
@@ -193,7 +191,6 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
 
   void updateTransaction(TransactionModel transaction)async{
     //final bbox = await box;
-    final _transactionBox = await Hive.openBox<TransactionModel>(HiveBox.transaction);
     await _transactionBox.putAt(_transactionBox.values.toList().indexOf(_stransaction.value), transaction);
     _transactions.value = [];
     for (var ttransaction in _transactionBox.values.toList()) {
