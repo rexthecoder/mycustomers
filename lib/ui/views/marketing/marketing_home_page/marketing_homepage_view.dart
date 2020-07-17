@@ -328,7 +328,8 @@ class MarketingHomePageView extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
-                                'All',
+//                                'All',
+                                'Frequently contacted',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: BrandColors.primary),
@@ -357,10 +358,10 @@ class MarketingHomePageView extends StatelessWidget {
                                       background: Container(
                                         color: BrandColors.secondary,
                                       ),
-                                      key: Key(index.toString()),
+                                      key: UniqueKey(),
                                       onDismissed:
                                           (DismissDirection direction) {
-                                        model.removeCustomers(index);
+                                        model.removeCustomers(customer);
                                       },
                                       // onDismissed: (direction) =>
                                       //     model.removeCustomers(index),
@@ -576,20 +577,40 @@ class MarketingHomePageView extends StatelessWidget {
                       height: 50.h,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton(
-                            onPressed: () => model.navigateToAddCustomer(),
-                            color: BrandColors.secondary,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: Container(
-                              width: width / 2,
-                              child: Center(
-                                child: Text(
-                                  'Send message',
-                                  style: TextStyle(
-                                      fontSize: 14.sp, color: Colors.white),
+                          Expanded(
+                            child: FlatButton(
+                              onPressed: () => model.navigateToAddCustomer(),
+                              color: BrandColors.primary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              child: Container(
+                                child: Center(
+                                  child: Text(
+                                    'New Contacts',
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 5.h,),
+                          Expanded(
+                            child: FlatButton(
+
+                              onPressed: () => model.navigateToSendMessageView(),
+                              color: BrandColors.secondary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              child: Container(
+                                child: Center(
+                                  child: Text(
+                                    'Send message',
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
