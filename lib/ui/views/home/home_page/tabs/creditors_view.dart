@@ -54,7 +54,7 @@ class CreditorsView extends StatelessWidget {
                               ),
                               model.whatyouowe > 0
                                   ? Text(
-                                      '₦' +
+                                      model.currency.symbol +
                                           currency
                                               .format(model.whatyouowe)
                                               .toString(),
@@ -239,7 +239,7 @@ class ContactList extends StatelessWidget {
                     ),*/
                                     trailing: Container(
                                       child: Text(
-                                        '₦' +
+                                        model.currency.symbol +
                                             currency
                                                 .format(
                                                     (cont.paid - cont.amount)
@@ -306,7 +306,7 @@ class ContactList extends StatelessWidget {
                   ),*/
                                     trailing: Container(
                                       child: Text(
-                                        '₦' +
+                                        model.currency.symbol +
                                             currency
                                                 .format(
                                                     (cont.paid - cont.amount)

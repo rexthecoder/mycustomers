@@ -6,8 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -29,6 +31,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
   NavigationService _navigationService = locator<NavigationService>();
   final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
+  final _bussinessService = locator<BussinessSettingService>();
+  CountryCurrency get currency => _bussinessService.curren;
 
   double _amount;
   double get amount => _amount;
@@ -158,7 +162,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel{
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService];
 }
 
 class Debouncer {
