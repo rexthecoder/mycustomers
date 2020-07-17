@@ -1,6 +1,7 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 // import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/core/models/business_model.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -24,6 +25,7 @@ class MainViewModel extends ReactiveViewModel {
 
   final _logService = locator<LogsLocalDataSourceImpl>();
   final _bussinessService = locator<BussinessSettingService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   bool get showdot => _logService.shouldnotify;
 
@@ -92,6 +94,7 @@ class MainViewModel extends ReactiveViewModel {
 
   void changeBusiness(String id) {
     StoreRepository.changeSelectedStore(id);
+    _transactionService.getAllTransactions(id);
     notifyListeners();
   }
 
