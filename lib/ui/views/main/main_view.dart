@@ -43,7 +43,7 @@ class MainView extends StatelessWidget {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
       onModelReady: (model){
-        model.addlog();
+        //model.addlog();
         model.getcurr();
       },
       builder: (context, model, child) => Scaffold(

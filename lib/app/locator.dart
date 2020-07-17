@@ -128,7 +128,7 @@ Future<void> setupLocator(
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
-  locator.registerLazySingleton<LogsLocalDataSourceImpl>(
+  locator.registerLazySingleton<LogsLocalDataSource>(
     () => LogsLocalDataSourceImpl(),
   );
   locator.registerLazySingleton<BusinessCardLocalDataSource>(
@@ -142,16 +142,16 @@ Future<void> setupLocator(
   );
 
   // External
-  locator.registerLazySingleton<HiveInterface>(() => Hive);
+  if(!test) {
+    locator.registerLazySingleton<HiveInterface>(() => Hive);
+  }
 
   print('Initializing boxes...');
 
   //Initialization for all boxes
-  if(!test){
-    await LogsLocalDataSourceImpl().init();
-    await TransactionLocalDataSourceImpl().init();
-    await BussinessSettingService().init();
-  }
+  await LogsLocalDataSourceImpl().init();
+  await TransactionLocalDataSourceImpl().init();
+  await BussinessSettingService().init();
 
   Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
@@ -33,6 +34,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   CustomerContact get contact => _customerContactService.contact;
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
+  final _logService = locator<LogsLocalDataSourceImpl>();
 
   double _amount;
   double get amount => _amount;
@@ -157,6 +159,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: _transactionService.stransaction.boughtdate,
               paiddate: otherDate.toString());
           _transactionService.updateTransaction(transaction);
+          _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           notifyListeners();
         } else {
           print('debiting');
@@ -169,6 +172,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: otherDate.toString(),
               paiddate: _transactionService.stransaction.paiddate);
           _transactionService.updateTransaction(transaction);
+          _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           notifyListeners();
         }
       } else {
@@ -183,6 +187,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: otherDate.toString(),
               paiddate: null);
           _transactionService.addTransaction(transaction);
+          _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
@@ -194,6 +199,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: null,
               paiddate: otherDate.toString());
           _transactionService.addTransaction(transaction);
+          _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           notifyListeners();
         }
       }
@@ -209,7 +215,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService];
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService, _logService];
 }
 
 class Debouncer {
