@@ -247,10 +247,10 @@ class ContactList extends StatelessWidget {
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.duedate == null ? BrandColors.secondary : (DateTime.now()
+                                            color: cont.paiddate == null ? BrandColors.secondary : (DateTime.now()
                                                         .difference(
                                                             DateTime.parse(
-                                                                cont.duedate))
+                                                                cont.paiddate))
                                                         .inDays) >
                                                     0
                                                 ? Colors.red
@@ -314,10 +314,10 @@ class ContactList extends StatelessWidget {
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.duedate == null ? BrandColors.secondary : (DateTime.now()
+                                            color: cont.paiddate == null ? BrandColors.secondary : (DateTime.now()
                                                         .difference(
                                                             DateTime.parse(
-                                                                cont.duedate))
+                                                                cont.paiddate))
                                                         .inDays) >
                                                     0
                                                 ? Colors.red

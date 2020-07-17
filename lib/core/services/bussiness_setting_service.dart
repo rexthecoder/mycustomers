@@ -58,6 +58,7 @@ class BussinessSettingService with ReactiveServiceMixin{
   void getCurrency(){
     if(_currencyBox.values.toList().length == 0){
       _curren.value = CountryCurrency(country: 'Nigeria', symbol:'₦');
+      _currency.value = 0;
     } else {
       _curren.value = _currencyBox.values.toList()[0];
       for(var item in currencies) {
