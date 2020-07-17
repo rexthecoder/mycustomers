@@ -6,35 +6,33 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'edit_profile_viewmodel.dart';
+import 'package:flushbar/flushbar_helper.dart';
 
 class EditProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TextEditingController _userName = TextEditingController(text: 'Casper');
-    TextEditingController _businessName =
-        TextEditingController(text: 'WearSmute');
-
     return ViewModelBuilder<EditProfileViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text(
-            'Edit Profile',
-            style: TextStyle(
-              color: Theme.of(context).cursorColor,
-              fontWeight: FontWeight.bold,
-              fontSize: SizeConfig.textSize(context, 6),
+      builder: (context, model, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text(
+              'Edit Profile',
+              style: TextStyle(
+                color: Theme.of(context).cursorColor,
+                fontWeight: FontWeight.bold,
+                fontSize: SizeConfig.textSize(context, 6),
+              ),
             ),
+            centerTitle: true,
+            elevation: 0.0,
+            iconTheme: IconThemeData(color: BrandColors.primary),
           ),
-          centerTitle: true,
-          elevation: 0.0,
-          iconTheme: IconThemeData(color: BrandColors.primary),
-        ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Align(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Align(
                     alignment: Alignment.topCenter,
                     child: !kIsWeb &&
                             defaultTargetPlatform == TargetPlatform.android
@@ -66,113 +64,131 @@ class EditProfileView extends StatelessWidget {
                                     );
                                   }
                               }
-                            })
-                        : _previewImage(context, model)),
-                SizedBox(height: SizeConfig.yMargin(context, 2)),
-                Container(
-                  height: SizeConfig.yMargin(context, 8),
-                  width: SizeConfig.xMargin(context, 70),
-                  decoration: BoxDecoration(
-                    color: BrandColors.primary,
-                    borderRadius: BorderRadius.circular(8.sp),
+                            },
+                          )
+                        : _previewImage(context, model),
                   ),
-                  child: FlatButton(
-                    onPressed: model.getImagefromGallery,
+                  SizedBox(height: SizeConfig.yMargin(context, 2)),
+                  Container(
+                    height: SizeConfig.yMargin(context, 8),
+                    width: SizeConfig.xMargin(context, 70),
+                    decoration: BoxDecoration(
+                      color: BrandColors.primary,
+                      borderRadius: BorderRadius.circular(8.sp),
+                    ),
+                    child: FlatButton(
+                      onPressed: model.getImagefromGallery,
+                      child: Text(
+                        model.image == null
+                            ? 'Add a Profile Picture'
+                            : 'Change Profile Picture',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: SizeConfig.textSize(context, 4),
+                          color: ThemeColors.background,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Divider(color: ThemeColors.gray.shade600),
+                  SizedBox(height: SizeConfig.yMargin(context, 2.5)),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        height: SizeConfig.yMargin(context, 8),
+                        width: SizeConfig.xMargin(context, 90),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.sp),
+                            border:
+                                Border.all(color: ThemeColors.gray.shade600)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.xMargin(context, 4),
+                          ),
+                          child: TextFormField(
+                            initialValue: model.userName,
+                            keyboardType: TextInputType.text,
+                            onChanged: (value) => model.updateUserName(value),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'User Name',
+                            ),
+                            style: TextStyle(
+                              color: Theme.of(context).textSelectionColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: SizeConfig.yMargin(context, 2)),
+                      Container(
+                        height: SizeConfig.yMargin(context, 8),
+                        width: SizeConfig.xMargin(context, 90),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.sp),
+                          border: Border.all(color: ThemeColors.gray.shade600),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.xMargin(context, 4),
+                          ),
+                          child: TextFormField(
+                            onChanged: (value) =>
+                                model.updateBusinessName(value),
+                            initialValue: model.businessName,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Business Name',
+                            ),
+                            style: TextStyle(
+                              color: Theme.of(context).textSelectionColor,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: SizeConfig.yMargin(context, 18),
+                  ),
+                  FlatButton(
+                    color: BrandColors.primary,
+                    onPressed: () {
+                      model.updateProfile();
+                      FlushbarHelper.createInformation(
+                        duration: const Duration(seconds: 5),
+                        message: 'Coming soon..',
+                      ).show(context);
+                    },
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.xMargin(context, 41),
+                      vertical: SizeConfig.yMargin(context, 2.6),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     child: Text(
-                      model.image == null
-                          ? 'Add a Profile Picture'
-                          : 'Change Profile Picture',
+                      AppLocalizations.of(context).save,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 4),
-                          color: ThemeColors.background),
-                    ),
-                  ),
-                ),
-                Divider(color: ThemeColors.gray.shade600),
-                SizedBox(height: SizeConfig.yMargin(context, 2.5)),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: SizeConfig.yMargin(context, 8),
-                      width: SizeConfig.xMargin(context, 90),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.sp),
-                          border: Border.all(color: ThemeColors.gray.shade600)),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.xMargin(context, 4),
-                        ),
-                        child: TextField(
-                          controller: _userName,
-                          keyboardType: TextInputType.text,
-                          onChanged: (value) => model.updateBusinessName(value),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                          style: TextStyle(
-                              color: Theme.of(context).textSelectionColor),
-                        ),
+                        color: ThemeColors.background,
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeConfig.yMargin(context, 2),
                       ),
                     ),
-                    SizedBox(height: SizeConfig.yMargin(context, 2)),
-                    Container(
-                      height: SizeConfig.yMargin(context, 8),
-                      width: SizeConfig.xMargin(context, 90),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.sp),
-                          border: Border.all(color: ThemeColors.gray.shade600)),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.xMargin(context, 4)),
-                        child: TextField(
-                          controller: _businessName,
-                          onChanged: (_businessName) =>
-                              model.updateBusinessName(_businessName),
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(border: InputBorder.none),
-                          style: TextStyle(
-                              color: Theme.of(context).textSelectionColor),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: SizeConfig.yMargin(context, 18),
-                ),
-                FlatButton(
-                  color: BrandColors.primary,
-                  onPressed: () {
-                    // TODO Implement function to save the values that have been updated
-                  },
-                  padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.xMargin(context, 41),
-                    vertical: SizeConfig.yMargin(context, 2.6),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context).save,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: ThemeColors.background,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: SizeConfig.yMargin(context, 2),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: SizeConfig.yMargin(context, 2),
-                )
-              ],
+                  SizedBox(
+                    height: SizeConfig.yMargin(context, 2),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
       viewModelBuilder: () => EditProfileViewModel(),
+      onModelReady: (model) => model.init(),
     );
   }
 }
@@ -187,10 +203,11 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
     backgroundColor: ThemeColors.unselect,
     child: model.image == null
         ? Text(
-            'C',
+            model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
             style: TextStyle(
               color: BrandColors.primary,
               fontSize: SizeConfig.textSize(context, 18),
+              fontWeight: FontWeight.bold,
             ),
           )
         : ClipOval(

@@ -332,7 +332,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
           validator: validate,
           cursorColor: ThemeColors.gray[800],
           style: TextStyle(
-            color: ThemeColors.black,
+            color: Theme.of(context).cursorColor,
             fontSize: SizeConfig.textSize(context, 5),
           ),
           decoration: InputDecoration(
@@ -373,7 +373,7 @@ class _DefaultPhoneFormField
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color: ThemeColors.black,
+          color:  Theme.of(context).cursorColor,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,

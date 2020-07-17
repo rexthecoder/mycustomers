@@ -47,7 +47,7 @@ class BusinessHomePageView extends StatelessWidget {
                       minRadius: SizeConfig.xMargin(context, 7),
                       maxRadius: SizeConfig.xMargin(context, 8),
                       child: Text(
-                        'C',
+                        model.profileCardTitle.substring(0,1),
                         style: TextStyle(
                           color: ThemeColors.background,
                           fontSize: SizeConfig.textSize(context, 9),
