@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import './schedule_reminderviewmodel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -29,7 +30,7 @@ class ScheduleNotifications extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: customizeAppBar(context, 1.0,
-                title: 'Schedule Reminder',
+                title: AppLocalizations.of(context).scheduleReminder,
                 arrowColor: Theme.of(context).textSelectionColor),
             body: Container(
               margin: EdgeInsets.only(left: 30, right: 30),
@@ -44,7 +45,7 @@ class ScheduleNotifications extends StatelessWidget {
                               height: 10.h,
                             ),
                             Text(
-                              'Pick a date and type in your message',
+                              AppLocalizations.of(context).reminderDate,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -112,7 +113,7 @@ class ScheduleNotifications extends StatelessWidget {
                                         children: <Widget>[
                                           Container(
                                             child: Text(
-                                              model.newDate ?? 'Select Date',
+                                              model.newDate ?? AppLocalizations.of(context).selectDate,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -163,7 +164,7 @@ class ScheduleNotifications extends StatelessWidget {
                                       style: TextStyle(height: height * 0.002),
                                       maxLines: 1,
                                       decoration: InputDecoration(
-                                        hintText: 'Type a heading',
+                                        hintText: AppLocalizations.of(context).typeAHeading,
                                         hintStyle: TextStyle(
                                             color: BrandColors.greyedText),
                                         border: OutlineInputBorder(
@@ -204,7 +205,7 @@ class ScheduleNotifications extends StatelessWidget {
                                       style: TextStyle(height: height * 0.002),
                                       maxLines: 3,
                                       decoration: InputDecoration(
-                                        hintText: 'Start typing your message',
+                                        hintText: AppLocalizations.of(context).startTypingYourmessage,
                                         hintStyle: TextStyle(
                                             color: BrandColors.greyedText),
                                         border: OutlineInputBorder(

@@ -110,7 +110,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
               key: Key("storeName"),
               controller: _storeName,
               validator: (value) =>
-                  (value.isEmpty) ? "Please enter store name" : null,
+                  (value.isEmpty) ? AppLocalizations.of(context).pleaseStoreName : null,
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
@@ -118,7 +118,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                  labelText: "Enter your  store name",
+                  labelText: AppLocalizations.of(context).enterStoreName,
                   border: OutlineInputBorder()),
             ),
           ),
@@ -128,7 +128,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
               key: Key("storeAddress"),
               controller: _storeAddress,
               validator: (value) =>
-                  (value.isEmpty) ? "Please enter store address" : null,
+                  (value.isEmpty) ? AppLocalizations.of(context).pleaseStoreAddress : null,
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
@@ -136,7 +136,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                 color: Colors.black,
               ),
               decoration: InputDecoration(
-                  labelText: "Enter your store address",
+                  labelText: AppLocalizations.of(context).enterStoreAddress,
                   border: OutlineInputBorder()),
             ),
           ),

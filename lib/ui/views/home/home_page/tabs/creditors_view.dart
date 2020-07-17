@@ -49,7 +49,7 @@ class CreditorsView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'You are owing customers',
+                                AppLocalizations.of(context).youAreOwing,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: SizeConfig.yMargin(context, 2),),
                               ),
@@ -170,7 +170,7 @@ class ContactList extends StatelessWidget {
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Search by name',
+                  hintText: AppLocalizations.of(context).searchByName,
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
@@ -187,7 +187,7 @@ class ContactList extends StatelessWidget {
             ),
             model.sCName != null && !model.containsC
                 ? Text(
-                  'No Customer Found',
+                  AppLocalizations.of(context).noCustomerFound,
                   style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                 )
                 : SizedBox(),

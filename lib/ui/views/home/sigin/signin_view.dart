@@ -81,7 +81,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your phone number',
+                  AppLocalizations.of(context).signUpEnterPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -109,7 +109,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                 ignoreBlank: false,
                 // autoValidate: true,
                 // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
-                errorMessage: 'Invalid Phone Number',
+                errorMessage: AppLocalizations.of(context).invalidPhoneNo,
                 selectorType: PhoneInputSelectorType.DIALOG,
                 selectorTextStyle:
                     TextStyle(color: Theme.of(context).cursorColor),
@@ -124,7 +124,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your password',
+                  AppLocalizations.of(context).pleaseEnterPassword,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -184,7 +184,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               btnColor: BrandColors.primary,
               txtColor: ThemeColors.background,
               borderColor: BrandColors.primary,
-              btnText: 'Next',
+              btnText: AppLocalizations.of(context).nextButton,
               onPressed: () async {
                 // viewModel.signUpTest();
                 if (!_signinFormPageKey.currentState.validate()) return;

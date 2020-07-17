@@ -80,7 +80,7 @@ class VerificationView extends StatelessWidget {
                 CustomRaisedButton(
                   btnColor: BrandColors.primary,
                   txtColor: ThemeColors.background,
-                  btnText: 'Next',
+                  btnText: AppLocalizations.of(context).nextButton,
                   onPressed: () async {
                     // viewModel.signUpTest();
                     if (!_pinFormPageKey.currentState.validate()) return;

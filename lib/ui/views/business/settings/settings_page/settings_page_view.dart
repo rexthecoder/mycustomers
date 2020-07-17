@@ -63,7 +63,7 @@ class SettingsPage extends StatelessWidget {
                                 context,
                                 viewModel.isDarkTheme,
                                 viewModel.setTheme,
-                                'Dark Mode'),
+                                 AppLocalizations.of(context).darkMode),
                           ),
                           switchTile(
                               context,

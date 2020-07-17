@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +41,7 @@ class MessageView extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Text('Title'),
+                  Text( AppLocalizations.of(context).title),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -61,7 +62,7 @@ class MessageView extends StatelessWidget {
                   SizedBox(
                     height: 10.h,
                   ),
-                  Text('Message'),
+                  Text( AppLocalizations.of(context).message),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -149,7 +150,7 @@ class MessageView extends StatelessWidget {
                         width: width,
                         child: Center(
                           child: Text(
-                            'Send',
+                             AppLocalizations.of(context).send,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -334,7 +335,7 @@ class MessageView extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      'Message sent!',
+                       AppLocalizations.of(context).messageSent,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
@@ -360,7 +361,7 @@ class MessageView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Continue',
+                               AppLocalizations.of(context).continueButton,
                               style: TextStyle(
                                 color: Color(0xFF333CC1),
                                 fontSize: 16.sp,

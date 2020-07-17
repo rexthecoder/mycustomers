@@ -355,7 +355,7 @@ class TransactionHistory extends StatelessWidget {
                               })
                           : Center(
                               child: Text(
-                                'No Transaction for this day',
+                                AppLocalizations.of(context).noTransaction,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6

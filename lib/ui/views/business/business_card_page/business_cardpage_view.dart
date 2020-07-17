@@ -85,7 +85,7 @@ class BusinessCardPageView extends StatelessWidget {
                             await model.saveBusinessCard();
                             FlushbarHelper.createSuccess(
                               duration: const Duration(seconds: 5),
-                              message: 'Save Successful',
+                              message: AppLocalizations.of(context).saveSuccessful,
                             ).show(context);
                             model.shareImageAndText();
                           },
@@ -177,12 +177,12 @@ class BottomSheetButtons extends StatelessWidget {
                     await model.saveBusinessCard();
                     FlushbarHelper.createSuccess(
                       duration: const Duration(seconds: 5),
-                      message: 'Sharing...',
+                      message: AppLocalizations.of(context).sharing,
                     ).show(context);
                     model.shareImageAndText();
                     FlushbarHelper.createSuccess(
                       duration: const Duration(seconds: 5),
-                      message: 'Successful',
+                      message: AppLocalizations.of(context).successful,
                     ).show(context);
                   },
                 ).catchError(
@@ -260,37 +260,37 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
         children: <Widget>[
           // TODO VALIDATE STORE NAME FORM FIELD
           _DefaultFormField(
-            label: "Store Name",
+            label: AppLocalizations.of(context).storeName,
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
           // TODO VALIDATE TAG LINE FORM FIELD
           _DefaultFormField(
-            label: "Company Tag Line",
+            label: AppLocalizations.of(context).companyTagLine,
             onChange: (value) => model.updateBusinessCard(tagLine: value),
           ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
-            label: "Personal Name",
+            label: AppLocalizations.of(context).personalName,
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
           // TODO VALIDATE POSITION FORM FIELD
           _DefaultFormField(
-            label: "Position",
+            label: AppLocalizations.of(context).position,
             onChange: (value) => model.updateBusinessCard(position: value),
           ),
           _DefaultPhoneFormField(
-            label: "Phone Number",
+            label: AppLocalizations.of(context).phoneNumber,
             onChange: (PhoneNumber value) =>
                 model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
           // TODO VALIDATE EMAIL ADDRESS FORM FIELD
           _DefaultFormField(
-            label: "Email Address",
+            label: AppLocalizations.of(context).emailAddress,
             onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
           // TODO VALIDATE SHOP/OFFICE ADDRESS FORM FIELD
           _DefaultFormField(
-            label: "Shop/Office Address",
+            label: AppLocalizations.of(context).shopAddress,
             onChange: (value) {
               model.updateBusinessCard(address: value);
             },

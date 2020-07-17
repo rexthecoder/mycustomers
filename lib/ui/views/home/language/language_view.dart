@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
@@ -16,7 +17,7 @@ class LanguageView extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: SizeConfig.yMargin(context, 7)),
               Text(
-                'LANGUAGE',
+                AppLocalizations.of(context).language.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: SizeConfig.yMargin(context, 4),
@@ -24,7 +25,7 @@ class LanguageView extends StatelessWidget {
               ),
               SizedBox(height: SizeConfig.xMargin(context, 4)),
               Text(
-                'Select your Language',
+                AppLocalizations.of(context).selectYourLanguage,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,

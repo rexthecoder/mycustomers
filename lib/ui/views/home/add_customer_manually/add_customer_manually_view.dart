@@ -129,7 +129,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                     child: TextField(
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
-                        hintText: 'Enter Name',
+                        hintText: AppLocalizations.of(context).enterName,
                         border: OutlineInputBorder(borderSide: BorderSide.none),
                       ),
                       controller: name,
@@ -181,7 +181,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                     textAlign: TextAlign.left,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'Mobile Number',
+                      hintText: AppLocalizations.of(context).mobileNumber,
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                     ),
                     controller: phoneNumber,

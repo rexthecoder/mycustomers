@@ -216,6 +216,7 @@ class AppLocalizations {
   String get position => translate(LocalKeys.position);
   String get phoneNumber => translate(LocalKeys.phone_number);
   String get emailAddress => translate(LocalKeys.email_address);
+  String get shopAddress => translate(LocalKeys.shop_address);
   String get saveSuccessful => translate(LocalKeys.save_successful);
   String get sharing => translate(LocalKeys.sharing);
   String get successful => translate(LocalKeys.successful);

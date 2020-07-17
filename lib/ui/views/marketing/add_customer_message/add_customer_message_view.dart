@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart' as appbar;
@@ -84,7 +85,7 @@ class AddCustomerMessageView extends StatelessWidget {
 //                                  : 10.w
                                             ),
                                     child: Text(
-                                      'Add New Customer',
+                                       AppLocalizations.of(context).addNewCustomer,
                                       style: TextStyle(
                                         color: model.allSelected
                                             ? ThemeColors.gray.shade800
@@ -342,7 +343,7 @@ class AddCustomerMessageView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Continue',
+                           AppLocalizations.of(context).continueButton,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

@@ -19,7 +19,7 @@ class EditProfileView extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(
-            'Edit Profile',
+            AppLocalizations.of(context).editProfile,
             style: TextStyle(
               color: Theme.of(context).cursorColor,
               fontWeight: FontWeight.bold,
@@ -46,8 +46,8 @@ class EditProfileView extends StatelessWidget {
                                 case ConnectionState.none:
                                 case ConnectionState.waiting:
                                   return CircleAvatar(
-                                    child: const Text(
-                                      'You have not yet picked an image.',
+                                    child: Text(
+                                      AppLocalizations.of(context).notPickedImage,
                                       textAlign: TextAlign.center,
                                     ),
                                   );
@@ -60,8 +60,8 @@ class EditProfileView extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                     );
                                   } else {
-                                    return const Text(
-                                      'You have not yet picked an image.',
+                                    return Text(
+                                       AppLocalizations.of(context).notPickedImage,
                                       textAlign: TextAlign.center,
                                     );
                                   }
@@ -80,8 +80,8 @@ class EditProfileView extends StatelessWidget {
                     onPressed: model.getImagefromGallery,
                     child: Text(
                       model.image == null
-                          ? 'Add a Profile Picture'
-                          : 'Change Profile Picture',
+                          ?  AppLocalizations.of(context).addProfilePicture
+                          :  AppLocalizations.of(context).changePic,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: SizeConfig.textSize(context, 4),
