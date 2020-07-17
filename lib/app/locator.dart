@@ -22,6 +22,7 @@ import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/http/http_service_impl.dart';
+import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
@@ -133,6 +134,9 @@ Future<void> setupLocator(
   );
   locator.registerLazySingleton<BusinessCardLocalDataSource>(
     () => BusinessCardLocalDataSourceImpl(),
+  );
+  locator.registerLazySingleton<LocalStorageService>(
+    () => LocalStorageService(),
   );
 
   // Util
