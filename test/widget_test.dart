@@ -5,6 +5,7 @@ import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/log/log_h.dart';
+import 'package:mycustomers/core/models/hive/store/store_h.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
@@ -46,12 +47,13 @@ void main() {
     locator.allowReassignment = true;
    
     setupLogger(test: true);
-    
+
     final mockTransactionAdapters = MockTransactionAdapter();
 
     final transactionmockBox = MockBox<TransactionModel>();
     final logmockBox = MockBox<LogH>();
     final currencymockBox = MockBox<CountryCurrency>();
+    final storemockBox = MockBox<StoreH>();
 
     final mockhive = MockHive();
 
@@ -62,6 +64,7 @@ void main() {
     when(mockhive.openBox<TransactionModel>(HiveBox.transaction)).thenAnswer((_) async => Future.value(transactionmockBox));
     when(mockhive.openBox<LogH>(HiveBox.logs)).thenAnswer((_) async => Future.value(logmockBox));
     when(mockhive.openBox<CountryCurrency>(HiveBox.currency)).thenAnswer((_) async => Future.value(currencymockBox));
+    //when(mockhive.openBox<StoreH>('STORE')).thenAnswer((_) async => Future.value(storemockBox));
 
     locator.registerSingleton<TransactionDataSource>(mockTransactionAdapters);
     locator.registerSingleton<HiveInterface>(mockhive);
