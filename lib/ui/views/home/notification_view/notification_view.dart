@@ -12,54 +12,56 @@ class NotificationsView extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
             appBar: customizeAppBar(context, 1.0,
                 title: "Notifications", arrowColor: BrandColors.primary),
-            body: Column(
-              children: <Widget>[
-                for(var log in model.loglist) Dismissible(
-                  key: Key(model.loglist.indexOf(log).toString()),
-                  onDismissed: (DismissDirection direction) {
-                    
-                  },
-                  direction: DismissDirection.endToStart,
-                  background: Container(
-                    padding: EdgeInsets.only(right: 15),
-                    color: BrandColors.primary,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child:
-                          Text('View', style: TextStyle(color: Colors.white)),
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  for(var log in model.loglist) Dismissible(
+                    key: Key(model.loglist.indexOf(log).toString()),
+                    onDismissed: (DismissDirection direction) {
+                      
+                    },
+                    direction: DismissDirection.endToStart,
+                    background: Container(
+                      padding: EdgeInsets.only(right: 15),
+                      color: BrandColors.primary,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child:
+                            Text('View', style: TextStyle(color: Colors.white)),
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: <Widget>[
-                        Row(children: <Widget>[
-                          Expanded(
-                              child: Text(log.description)),
-                          SizedBox(width: 20.0),
-                          Column(
-                            children: <Widget>[
-                              Text(
-                                'N',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF333CC1),
-                                ),
-                              ),
-                              SizedBox(height: 8.0),
-                              Text('time',
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: <Widget>[
+                          Row(children: <Widget>[
+                            Expanded(
+                                child: Text(log.description)),
+                            SizedBox(width: 20.0),
+                            Column(
+                              children: <Widget>[
+                                Text(
+                                  '',
                                   style: TextStyle(
-                                    color: Colors.grey,
                                     fontWeight: FontWeight.bold,
-                                  )),
-                            ],
-                          ),
-                        ])
-                      ],
+                                    color: Color(0xFF333CC1),
+                                  ),
+                                ),
+                                SizedBox(height: 8.0),
+                                Text('time',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ],
+                            ),
+                          ])
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ),
         viewModelBuilder: () => NotificationViewModel());
