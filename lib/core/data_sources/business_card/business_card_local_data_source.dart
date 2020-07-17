@@ -1,8 +1,11 @@
 import 'package:hive/hive.dart';
+import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 
 abstract class BusinessCardLocalDataSource {
+  Future<void> init();
+
   Future<BusinessCardH> getBusinessCardH(String id);
 
   Future<BusinessCardH> updateBusinessCardH(
@@ -14,20 +17,29 @@ abstract class BusinessCardLocalDataSource {
 }
 
 class BusinessCardLocalDataSourceImpl implements BusinessCardLocalDataSource {
-  final String key = 'business_card';
+  final _hiveService = locator<HiveInterface>();
+
+  bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.businessCardBoxName);
+
+  Box<BusinessCardH> get businessCardBox =>
+      _hiveService.box<BusinessCardH>(HiveBox.businessCardBoxName);
+
+  @override
+  Future<void> init() async {
+    if (!_isBoxOpen) {
+      await _hiveService.openBox<BusinessCardH>(HiveBox.businessCardBoxName);
+    }
+  }
 
   @override
   Future<BusinessCardH> getBusinessCardH(String id) async {
-    final businessCardBox =
-        await Hive.openBox<BusinessCardH>(HiveBox.businessCardBoxName);
-    final BusinessCardH businessCard = businessCardBox.get(key);
+    final BusinessCardH businessCard = businessCardBox.get(id);
     return Future.value(businessCard);
   }
 
   @override
   Future<void> createBusinessCardH(String id, newBusinessCardH) async {
-    final businessCardBox = await Hive.openBox(HiveBox.businessCardBoxName);
-    businessCardBox.put(key, newBusinessCardH);
+    businessCardBox.put(id, newBusinessCardH);
     return Future.value();
   }
 

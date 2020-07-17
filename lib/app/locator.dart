@@ -152,9 +152,10 @@ Future<void> setupLocator(
 
   //Initialization for all boxes
   await LogsLocalDataSourceImpl().init();
+  await BusinessCardLocalDataSourceImpl().init();
   await TransactionLocalDataSourceImpl().init();
   await BussinessSettingService().init();
-  
+
 
   Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
