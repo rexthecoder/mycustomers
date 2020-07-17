@@ -43,6 +43,7 @@ import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/notification_view/notification_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_notifications/send_reminder/send_reminderview.dart';
+import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
@@ -96,6 +97,7 @@ abstract class Routes {
   static const businessCardDisplayModal='/businessCardDisplayModal';
   static const quickMessages='/quickMessages';
   static const messageSntDialog='/dialog';
+  static const createBusinessView = '/createBusiness';
 
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
   static const sendNotificationMessage = '/sendNotificationMessage';
@@ -341,6 +343,11 @@ class Router {
       case Routes.marketingHomepageView:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MarketingHomePageView(),
+          settings: settings,
+        );
+      case Routes.createBusinessView:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CreateBusinessView(),
           settings: settings,
         );
       case Routes.addCustomerManuallyDebtor:

@@ -8,7 +8,7 @@ ToastFuture showToastCustom(
     success: false,
     color,
     BuildContext context,
-    Duration duration: const Duration(seconds: 3)}) {
+    Duration duration: const Duration(seconds: 5)}) {
   assert(success != null || color != null);
   return showToastWidget(
     ToastWidget(
@@ -19,7 +19,7 @@ ToastFuture showToastCustom(
     ),
     duration: duration,
     context: context,
-    animationDuration: Duration(milliseconds: 1800),
+    animationDuration: Duration(milliseconds: 1000),
     animationCurve: Curves.easeInOutBack,
     dismissOtherToast: true,
   );

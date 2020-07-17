@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'home_page_viewmodel.dart';
@@ -16,7 +17,7 @@ class HomePageView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<HomePageViewModel>.reactive(
-      onModelReady: (model) {
+      onModelReady: (model) async {
         model.getContacts();
         model.getTransactions();
       },

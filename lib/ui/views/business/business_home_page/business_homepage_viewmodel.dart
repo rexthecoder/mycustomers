@@ -7,12 +7,11 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 
 class BusinessHomePageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  final _storeRepository = locator<StoreRepository>();
 
-  String get profileCardTitle => _storeRepository?.currentStore?.name ?? 'None';
+  String get profileCardTitle => StoreRepository?.currentStore?.name ?? 'None';
 
   String get profileCardSubtitle =>
-      _storeRepository?.currentStore?.address ?? '---';
+      StoreRepository?.currentStore?.address ?? '---';
 
   Future navigateToProfilePage() async {
     await _navigationService.navigateTo(Routes.profileViewRoute);

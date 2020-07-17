@@ -14,7 +14,6 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
   final AuthService authService;
   final BusinessCardLocalDataSource localDataSource;
   final StoreRepository storeRepository;
-  final _storeRepository = locator<StoreRepository>();
 
   BusinessCardRepositoryImpl({
     @required this.authService,
@@ -24,14 +23,14 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
 
   @override
   Future<void> saveBusinessCard(BusinessCardH businessCard) async {
-    Store store = _storeRepository.currentStore;
+    Store store = StoreRepository.currentStore;
     await localDataSource.createBusinessCardH(store.id, businessCard);
     return Future.value();
   }
 
   @override
   Future<BusinessCardH> getBusinessCard() async {
-    Store store = _storeRepository.currentStore;
+    Store store = StoreRepository.currentStore;
 
     if (store == null) return BusinessCardH.empty();
 
