@@ -29,7 +29,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   }
   static const STORE_HIVE_BOX_NAME = 'STORE';
 
-  // final _hiveService = locator<HiveInterface>();
+   final _hiveService = locator<HiveInterface>();
   final _auth = locator<AuthService>();
 
   static Box<StoreH> storeBox;
@@ -37,8 +37,8 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   @override
   Future<void> init() async {
     //Write Function to initialize Hive
-    await Hive.openBox<StoreH>(STORE_HIVE_BOX_NAME);
-    storeBox = Hive.box<StoreH>(STORE_HIVE_BOX_NAME);
+    await _hiveService.openBox<StoreH>(STORE_HIVE_BOX_NAME);
+    storeBox = _hiveService.box<StoreH>(STORE_HIVE_BOX_NAME);
   }
 
   String genUuid() {

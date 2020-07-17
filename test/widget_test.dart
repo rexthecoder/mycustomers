@@ -64,7 +64,7 @@ void main() {
     when(mockhive.openBox<TransactionModel>(HiveBox.transaction)).thenAnswer((_) async => Future.value(transactionmockBox));
     when(mockhive.openBox<LogH>(HiveBox.logs)).thenAnswer((_) async => Future.value(logmockBox));
     when(mockhive.openBox<CountryCurrency>(HiveBox.currency)).thenAnswer((_) async => Future.value(currencymockBox));
-    //when(mockhive.openBox<StoreH>('STORE')).thenAnswer((_) async => Future.value(storemockBox));
+    when(mockhive.openBox<StoreH>('STORE')).thenAnswer((_) async => Future.value(storemockBox));
 
     locator.registerSingleton<TransactionDataSource>(mockTransactionAdapters);
     locator.registerSingleton<HiveInterface>(mockhive);
