@@ -1,6 +1,6 @@
 [![Codemagic build status](https://api.codemagic.io/apps/5ee9e3cfed34a91a67567284/5ee9e3cfed34a91a67567283/status_badge.svg)](https://codemagic.io/apps/5ee9e3cfed34a91a67567284/5ee9e3cfed34a91a67567283/latest_build)
 
-[![Travis Build Status](https://travis-ci.com/isaacadariku/mycustomers.svg?branch=dev)](https://travis-ci.com/isaacadariku/mycustomers)
+[![Travis Build Status](https://travis-ci.com/isaacadariku/mycustomer.svg?branch=dev)](https://travis-ci.com/isaacadariku/mycustomer)
 
 # myCustomer Mobile App
 
