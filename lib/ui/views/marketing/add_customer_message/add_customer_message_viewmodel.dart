@@ -8,56 +8,43 @@ import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AddCustomerMessageViewModel extends FutureViewModel {
+
+import 'dart:async';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
+
+class AddCustomerMessageViewModel extends StreamViewModel {
   // Get the services required
   NavigationService _navigationService = locator<NavigationService>();
-  ICustomerService _customerService = locator<ICustomerService>();
-  OwnerServices _ownerService = OwnerServices();
+  StreamController _contactStream = StreamController<List<Customer>>();
+  IOwnerServices iOwnerServices = locator<IOwnerServices>();
+  List<Customer> _allCustomers = List<Customer>();
+  bool _busy = true;
+  bool get isLoadBusy => _busy;
+  AddCustomerMessageViewModel();
   Iterable<Contact> contacts;
-
   List<Customer> _selectedCustomers = [];
   List<Customer> get selectedCustomers => _selectedCustomers;
-
+  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
+  init({String query}) async {
+    _allCustomers.clear();
+    for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+      print('Iterate');
+      if (_busy) {
+        _busy = false;
+        notifyListeners();
+      }
+      _allCustomers.add(customer);
+      _contactStream.add(_allCustomers);
+    }
+  }
 
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
-
-  List<Customer> _allCustomers = [];
-  List<Customer> get allCustomers => _allCustomers;
-  List<Customer> get searchedCustomer => allCustomers.where(
-        (Customer customer) =>
-            customer.name.contains(searchPattern) ||
-            customer.lastName.contains(searchPattern) ||
-            customer.phone.contains(searchPattern)||
-            customer.email.contains(searchPattern),
-      ).toList();
-
-
-  /// Data checking section
-
-  bool get hasData => _allCustomers.isNotEmpty;
-  bool get hasSelected => _selectedCustomers.isNotEmpty;
-  int get numberOfSelected => _selectedCustomers.length;
-  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
-  bool get allSelected => _allCustomers.length == _selectedCustomers.length;
-
-  TextEditingController searchController = TextEditingController();
-  search(String keyword) {
-    _searchTerm = keyword;
-//    allCustomers = _allCustomers.where(
-//          (Customer customer) =>
-//      customer.name.contains(searchPattern) ||
-//          customer.lastName.contains(searchPattern) ||
-//          customer.phone.contains(searchPattern) ||
-//          customer.email.contains(searchPattern),
-//    ).toList();
-    notifyListeners();
-  }
-
-  void addCustomer(Customer customer) {
+  void selectCustomer(Customer customer) {
     _selectedCustomers.add(customer);
+    print(customer.displayName);
     notifyListeners();
   }
 
@@ -67,50 +54,50 @@ class AddCustomerMessageViewModel extends FutureViewModel {
   }
 
   void deselectCustomer(Customer customer) {
-    _selectedCustomers.removeWhere((element) => element.id == customer.id);
+    print(customer.id);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
+//  //todo: implement add new customer
+  Future navigateToAddNewCustomer() async {
 
-  //todo: implement add new customer
+    final newContact= await _navigationService
+        .navigateTo(Routes.addNewCustomerMarketing);
 
-//  Future navigateToAddNewCustomer() async {
-//
-//    final newContact= await _navigationService
-//        .navigateTo(Routes.addNewCustomerMarketing);
-//
-//   await newContact!= null??
-//       _allCustomers.add(newContact);
-//   selectedCustomers.add(newContact);
-//    notifyListeners();
-//    print(newContact.name);
-//  }
+   await newContact!= null??
+       _allCustomers.add(newContact);
+   selectedCustomers.add(newContact);
+    notifyListeners();
+    print(newContact.name);
+  }
+  void sendMessage(){
 
-
+    _navigationService
+        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
+  }
 
   /// View initialize and close section
 
   popView() {
     _navigationService.back();
   }
-
   returnCustomers() {
     _navigationService.back(result: _selectedCustomers);
 
   }
 
-  @override
-  Future futureToRun() async {
-//    _allCustomers = await _customerService.getCustomers('1');
 
-    final contactList = await _ownerService.getPhoneContacts();
-    contactList.forEach((contact) {
-      _allCustomers.add(contact);
-    });
+
+  TextEditingController searchController = TextEditingController();
+  search(String keyword) async {
+    _searchTerm = keyword;
+    _busy = true;
     notifyListeners();
+    init(query: _searchTerm);
   }
 
-}
 
-//class Contacts{
-//  String displayName,
-//}
+  @override
+  Stream get stream => _contactStream.stream;
+
+}

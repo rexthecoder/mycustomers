@@ -14,6 +14,7 @@ import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'main_view_model.dart';
 
@@ -91,7 +92,7 @@ class MainView extends StatelessWidget {
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                title: Text('Home'),
+                title: Text(AppLocalizations.of(context).home),
                 icon: SvgPicture.asset(
                   home,
                   color: ThemeColors.unselect,
@@ -103,7 +104,7 @@ class MainView extends StatelessWidget {
                   semanticsLabel: 'Home Navigator is Active',
                 )),
             BottomNavigationBarItem(
-                title: Text('Marketing'),
+                title: Text(AppLocalizations.of(context).marketing),
                 icon: SvgPicture.asset(
                   marketing,
                   color: ThemeColors.unselect,
@@ -115,11 +116,11 @@ class MainView extends StatelessWidget {
                   semanticsLabel: 'Marketing Navigator is Active',
                 )),
             BottomNavigationBarItem(
-                title: Text('Business'),
+                title: Text(AppLocalizations.of(context).business),
                 icon: SvgPicture.asset(
                   business,
                   color: ThemeColors.unselect,
-                  semanticsLabel: 'Business',
+                  semanticsLabel: AppLocalizations.of(context).business,
                 ),
                 activeIcon: SvgPicture.asset(
                   business,

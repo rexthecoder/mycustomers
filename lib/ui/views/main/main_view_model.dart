@@ -19,7 +19,8 @@ class MainViewModel extends ReactiveViewModel {
   List<Store> _stores = StoreRepository.stores;
 
   List<Store> get stores => _stores;
-  Store get currStore => StoreRepository.currentStore;
+  final _storeService = locator<StoreRepository>();
+  Store get currStore => _storeService.currentStore;
 
   final _logService = locator<LogsLocalDataSourceImpl>();
   final _bussinessService = locator<BussinessSettingService>();
@@ -96,6 +97,7 @@ class MainViewModel extends ReactiveViewModel {
 
   void getcurr(){
     _bussinessService.getCurrency();
+    //_storeService.updateStores();
   }
 
   final DialogService _dialogService = locator<DialogService>();

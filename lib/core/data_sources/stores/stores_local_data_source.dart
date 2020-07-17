@@ -57,7 +57,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
   @override
   Future<Iterable<Store>> getStores() async {
-    return storeBox.values.where((element) => element.id == _auth.currentUser.id).map((e) => Store.fromStoreH(e));
+    return storeBox.values.where((element) => element.ownerId == _auth.currentUser.id).map((e) => Store.fromStoreH(e));
   }
 
   @override
@@ -81,6 +81,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
   @override
   Future<bool> createStore(Store newStore, [String id]) async {
+    print(newStore.phone);
     var splitP = splitPhone(newStore.phone);
     var newStoreH = StoreH(
         id ?? genUuid(),

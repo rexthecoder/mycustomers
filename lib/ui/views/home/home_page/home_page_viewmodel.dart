@@ -5,6 +5,8 @@ import 'package:mycustomers/core/data_sources/transaction/transaction_local_data
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/models/store.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
@@ -33,6 +35,7 @@ class HomePageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final _customerContactService = locator<CustomerContactService>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _storeService = locator<StoreRepository>();
   
 
   PermissionService _permission =  locator<IPermissionService>();
@@ -50,6 +53,7 @@ class HomePageViewModel extends ReactiveViewModel {
   bool contains;
   bool containsD;
   bool containsC;
+  Store get currentStore => _storeService.currentStore;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =
@@ -59,7 +63,7 @@ class HomePageViewModel extends ReactiveViewModel {
   // }
 
   void getTransactions() {
-    _transactionService.getAllTransactions();
+    _transactionService.getAllTransactions(currentStore.id);
     notifyListeners();
   }
 

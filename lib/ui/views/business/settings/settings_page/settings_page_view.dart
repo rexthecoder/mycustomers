@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart' as crb;
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
@@ -45,19 +46,19 @@ class SettingsPage extends StatelessWidget {
                           child: Column(
                         children: <Widget>[
                           cardTile(
-                              'Change Language',
+                              AppLocalizations.of(context).changeLanguage,
                               model.langs[model.langIndex]['name'],
                               //Todo: Set Functionality to Change when Language is Changed,
                               model.navigateToLanguageSettings,
                               context),
                           cardTile(
-                              'Change Currency',
+                              AppLocalizations.of(context).changeCurrency,
                               model.currs[model.currIndex]['name'],
                               //Todo: Set Functionality to Change when Language is Changed
                               model.navigateToCurrency,
                               context),
-                          cardTile(
-                              'App Lock', '', model.navigateToAppLock, context),
+                          cardTile(AppLocalizations.of(context).appLock, '',
+                              model.navigateToAppLock, context),
                           SizedBox(
                             height: ScreenUtil().setHeight(50),
                           ),
@@ -68,14 +69,25 @@ class SettingsPage extends StatelessWidget {
                                 viewModel.setTheme,
                                 'Dark Mode'),
                           ),
-                          switchTile(context, model.notification,
-                              model.setNotification, 'Receive Notifications'),
-                          // switchTile(context, model.newsletter,
-                          //     model.setNewsletter, 'Receive NewsLetter'),
-                          // switchTile(context, model.special, model.setSpecial,
-                          //     'Receive Special Offers'),
-                          // switchTile(context, model.update, model.setUpdate,
-                          //     'Receive Updates'),
+                          switchTile(
+                              context,
+                              model.notification,
+                              model.setNotification,
+                              AppLocalizations.of(context)
+                                  .receiveNotifications),
+                          switchTile(
+                              context,
+                              model.newsletter,
+                              model.setNewsletter,
+                              AppLocalizations.of(context).receiveNewsletters),
+                          switchTile(
+                              context,
+                              model.special,
+                              model.setSpecial,
+                              AppLocalizations.of(context)
+                                  .receiveSpecialOffers),
+                          switchTile(context, model.update, model.setUpdate,
+                              AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),
