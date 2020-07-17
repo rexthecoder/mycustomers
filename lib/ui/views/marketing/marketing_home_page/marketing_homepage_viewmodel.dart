@@ -45,6 +45,8 @@ class MarketingHomePageViewModel extends BaseViewModel {
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
 
   List<Customer> _allSelectedCustomers = [];
+  List<Customer> _allFrequentCustomers = [];
+  List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   List<Customer> get searchedCustomer => allCustomers.where(
         (Customer customer) =>
     customer.name.contains(searchPattern) ||
@@ -84,6 +86,10 @@ class MarketingHomePageViewModel extends BaseViewModel {
     _selectedCustomers.removeWhere((element) => element.id == customer.id);
     notifyListeners();
   }
+  void getFrequentCustomers() {
+    //todo: get frequent customers
+//    allFrequentCustomers
+  }
 
   void selectAllCustomers() {
     _selectedCustomers.clear();
@@ -93,6 +99,11 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   void deselectAllCustomers() {
     _selectedCustomers = [];
+    notifyListeners();
+  }
+  void removeCustomers(index) {
+    allCustomers.removeAt(index);
+    _selectedCustomers.removeAt(index);
     notifyListeners();
   }
 //  void updateCustomers() async{
@@ -105,15 +116,26 @@ class MarketingHomePageViewModel extends BaseViewModel {
     var contactList;
     final bool isPermitted =
         await _permission.getContactsPermission();
-    if (isPermitted) contactList= await _navigationService
-        .navigateTo(Routes.addCustomerMarketing);
-    else await [Permission.contacts].request();
-    allCustomers
-     = await contactList.length != 0?contactList:allCustomers;
+    if(_selectedCustomers.length !=0 ){
+      _navigationService
+          .navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+    }else{
+      if (isPermitted) contactList = await _navigationService
+          .navigateTo(Routes.addCustomerMarketing);
+      else contactList = await  _navigationService
+          .navigateTo(Routes.addNewCustomerMarketing);
+      await contactList;
+      allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+    }
+//    if (isPermitted) contactList= await _navigationService
+//        .navigateTo(Routes.addCustomerMarketing);
+//    else await [Permission.contacts].request();
+//    allCustomers
+//     = await contactList.length != 0?contactList:allCustomers;
 //    await contactList;
 //    if(!contactList==null){allCustomers =  contactList;}
+
     notifyListeners();
-    // print(contactList);
   }
 
 

@@ -42,19 +42,19 @@ void main() async {
                 "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
 
-    // runApp(App());
-    runApp(
-      DevicePreview(
-        // onScreenshot: (screenshot) {
-        //   final bytes = screenshot.bytes;
-        //   //  Send the bytes to a drive, to the file system, to
-        //   // the device gallery for example. It may be useful for
-        //   // preparing your app release for example.
-        // },
-        enabled: !kReleaseMode,
-        builder: (context) => App(),
-      ),
-    );
+   runApp(App());
+    //  runApp(
+    //    DevicePreview(
+    //      // onScreenshot: (screenshot) {
+    //      //   final bytes = screenshot.bytes;
+    //      //   //  Send the bytes to a drive, to the file system, to
+    //      //   // the device gallery for example. It may be useful for
+    //      //   // preparing your app release for example.
+    //      // },
+    //      enabled: !kReleaseMode,
+    //      builder: (context) => App(),
+    //    ),
+    //  );
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -114,20 +114,35 @@ class App extends StatelessWidget {
     return CoreManager(
       child: ViewModelBuilder<ThemeModel>.reactive(
         builder: (_, viewModel, ___) => OKToast(
-          child: MaterialApp(
-            builder: DevicePreview.appBuilder,
-            theme: viewModel.theme,
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: localizationsDelegates,
-            supportedLocales: supportedLocales,
-            localeResolutionCallback: loadSupportedLocals,
-            initialRoute: Routes.startupViewRoute,
-            onGenerateRoute: Router().onGenerateRoute,
-            navigatorKey: locator<NavigationService>().navigatorKey,
-          ),
+          child: MyApp(
+              viewModel: viewModel,
+            ),
         ),
         viewModelBuilder: () => ThemeModel(),
       ),
+    );
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({
+    Key key, this.viewModel,
+  }) : super(key: key);
+  final ThemeModel viewModel;
+
+  @override
+  Widget build(BuildContext context) {
+    print('Building material app');
+    return MaterialApp(
+      builder: DevicePreview.appBuilder,
+      theme: viewModel.theme(context),
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: supportedLocales,
+      localeResolutionCallback: loadSupportedLocals,
+      initialRoute: Routes.startupViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
+      navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }
 }

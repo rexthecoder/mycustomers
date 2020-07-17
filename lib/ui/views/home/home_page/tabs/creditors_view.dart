@@ -51,17 +51,17 @@ class CreditorsView extends StatelessWidget {
                               Text(
                                 'You are owing customers',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 14.sp),
+                                    color: Colors.white, fontSize: SizeConfig.yMargin(context, 2),),
                               ),
                               model.whatyouowe > 0
                                   ? Text(
-                                      '₦' +
+                                      model.currency.symbol +
                                           currency
                                               .format(model.whatyouowe)
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 36.sp,
+                                          fontSize: SizeConfig.yMargin(context, 5),
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.bold),
                                     )
@@ -70,7 +70,7 @@ class CreditorsView extends StatelessWidget {
                                           text: '₦ 0.',
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 36.sp,
+                                              fontSize: SizeConfig.yMargin(context, 5),
                                               fontFamily: 'Roboto',
                                               fontWeight: FontWeight.bold),
                                           children: <TextSpan>[
@@ -78,7 +78,7 @@ class CreditorsView extends StatelessWidget {
                                               text: '00.',
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 14.sp,
+                                                  fontSize: SizeConfig.yMargin(context, 3),
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.bold),
                                             )
@@ -99,7 +99,7 @@ class CreditorsView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     SvgPicture.asset(
-                                        'assets/images/no-transaction.svg'),
+                                        'assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
                                     SizedBox(
                                       height: 20.h,
                                     ),
@@ -108,7 +108,7 @@ class CreditorsView extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Theme.of(context)
-                                              .textSelectionColor),
+                                              .textSelectionColor, fontSize: SizeConfig.yMargin(context, 2)),
                                     ),
                                   ],
                                 ),
@@ -137,7 +137,7 @@ class CreditorsView extends StatelessWidget {
                       AppLocalizations.of(context).addPeopleYouOwe,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 2.1),
+                        fontSize: SizeConfig.yMargin(context, 2),
                       ),
                     ),
                   ),
@@ -186,7 +186,10 @@ class ContactList extends StatelessWidget {
               ),
             ),
             model.sCName != null && !model.containsC
-                ? Text('No Customer Found')
+                ? Text(
+                  'No Customer Found',
+                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                )
                 : SizedBox(),
             for (var cont in model.owedcustomers)
               for (var item in model.contacts)
@@ -230,14 +233,14 @@ class ContactList extends StatelessWidget {
                                                     fit: BoxFit.cover)),
                                           ),
                                     title: Text(item.name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600)),
+                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
+                                    ),
                                     /*subtitle: Text(
                       DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
                     ),*/
                                     trailing: Container(
                                       child: Text(
-                                        '₦' +
+                                        model.currency.symbol +
                                             currency
                                                 .format(
                                                     (cont.paid - cont.amount)
@@ -252,7 +255,7 @@ class ContactList extends StatelessWidget {
                                                     0
                                                 ? Colors.red
                                                 : Colors.green,
-                                            fontSize: 16,
+                                            fontSize: SizeConfig.yMargin(context, 1.8),
                                             fontFamily: 'Roboto'),
                                       ),
                                     ),
@@ -297,14 +300,14 @@ class ContactList extends StatelessWidget {
                                                     fit: BoxFit.cover)),
                                           ),
                                     title: Text(item.name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600)),
+                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
+                                    ),
                                     /*subtitle: Text(
                     DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
                   ),*/
                                     trailing: Container(
                                       child: Text(
-                                        '₦' +
+                                        model.currency.symbol +
                                             currency
                                                 .format(
                                                     (cont.paid - cont.amount)
@@ -319,7 +322,7 @@ class ContactList extends StatelessWidget {
                                                     0
                                                 ? Colors.red
                                                 : Colors.green,
-                                            fontSize: 16,
+                                            fontSize: SizeConfig.yMargin(context, 1.8),
                                             fontFamily: 'Roboto'),
                                       ),
                                     ),

@@ -24,9 +24,7 @@ part '../../widgets/main/main_menu.dart';
 
 part '../../widgets/main/business_menu.dart';
 
-part '../../widgets/main/business_menu_options.dart';
-
-part '../../widgets/main/add_business_icon.dart';
+part '../../widgets/main/menu_buttons.dart';
 
 part '../../widgets/main/main_header.dart';
 
@@ -45,6 +43,10 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
+      onModelReady: (model){
+        //model.addlog();
+        model.getcurr();
+      },
       builder: (context, model, child) => Scaffold(
         body: Stack(
           children: <Widget>[
@@ -61,8 +63,8 @@ class MainView extends StatelessWidget {
       duration: model.duration,
       top: 0,
       bottom: 0,
-      right: model.isCollapsed ? 0 : SizeConfig.xMargin(context, -80),
-      left: model.isCollapsed ? 0 : SizeConfig.xMargin(context, 80),
+      right: model.isCollapsed ? 0 : SizeConfig.xMargin(context, -25),
+      left: model.isCollapsed ? 0 : SizeConfig.xMargin(context, 25),
 //      child: GestureDetector(
 //        onHorizontalDragUpdate: (details) {
 //          if (details.delta.dx > 0) {
@@ -94,7 +96,7 @@ class MainView extends StatelessWidget {
                 icon: SvgPicture.asset(
                   home,
                   color: ThemeColors.unselect,
-                  semanticsLabel: AppLocalizations.of(context).home,
+                  semanticsLabel: 'Home',
                 ),
                 activeIcon: SvgPicture.asset(
                   home,
@@ -106,7 +108,7 @@ class MainView extends StatelessWidget {
                 icon: SvgPicture.asset(
                   marketing,
                   color: ThemeColors.unselect,
-                  semanticsLabel: AppLocalizations.of(context).marketing,
+                  semanticsLabel: 'Marketing',
                 ),
                 activeIcon: SvgPicture.asset(
                   marketing,
@@ -115,9 +117,11 @@ class MainView extends StatelessWidget {
                 )),
             BottomNavigationBarItem(
                 title: Text(AppLocalizations.of(context).business),
-                icon: SvgPicture.asset(business,
-                    color: ThemeColors.unselect,
-                    semanticsLabel: AppLocalizations.of(context).business),
+                icon: SvgPicture.asset(
+                  business,
+                  color: ThemeColors.unselect,
+                  semanticsLabel: AppLocalizations.of(context).business,
+                ),
                 activeIcon: SvgPicture.asset(
                   business,
                   color: Theme.of(context).textSelectionColor,

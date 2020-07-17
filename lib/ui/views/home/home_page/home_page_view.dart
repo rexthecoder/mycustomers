@@ -35,7 +35,7 @@ class HomePageView extends StatelessWidget {
                       border: Border(
                           bottom: BorderSide(color: Colors.grey, width: 0.5))),
                   child: TabBar(
-                    labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 1),
                     unselectedLabelColor: Theme.of(context).cursorColor,
                     labelColor: Theme.of(context).buttonColor,
                     indicatorSize: TabBarIndicatorSize.label,
@@ -49,8 +49,9 @@ class HomePageView extends StatelessWidget {
                               AppLocalizations.of(context).customersOwingYou,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
+                              //maxLines: 1,
                             ),
                           ),
                         ),
@@ -62,8 +63,8 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               AppLocalizations.of(context).peopleYouOwe,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                               style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),
@@ -76,8 +77,8 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               "All Customers",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                               style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),
@@ -222,7 +223,10 @@ class ContactList extends StatelessWidget {
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
-                                title: Text(item.name),
+                                title: Text(
+                                  item.name,
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
+                                ),
                               ),
                             ),
                           )

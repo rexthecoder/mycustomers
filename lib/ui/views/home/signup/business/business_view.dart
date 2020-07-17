@@ -44,6 +44,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
       BuildContext context, BusinessViewModel viewModel) {
     var _storeName = useTextEditingController();
     var _storeAddress = useTextEditingController();
+    var _fullName = useTextEditingController();
+    var _emailAddress = useTextEditingController();
 
     return Form(
       key: _businessFormPageKey,
@@ -66,6 +68,42 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
             ),
           ),
           SizedBox(height: SizeConfig.yMargin(context, 2)),
+          Padding(
+            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+            child: TextFormField(
+              key: Key("fullname"),
+              controller: _fullName,
+              validator: (value) =>
+                  (value.isEmpty) ? "Please enter your full name" : null,
+              style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: SizeConfig.yMargin(context, 2),
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                  labelText: "Enter your  full name",
+                  border: OutlineInputBorder()),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+            child: TextFormField(
+              key: Key("email"),
+              controller: _emailAddress,
+              validator: (value) =>
+                  (!RegExp(r'[\W-\.]{1,}\@[\W-]{2,}\.[\W-\.]{2,}').hasMatch(value)) ? "Please enter a valid email address" : null,
+              style: TextStyle(
+                fontFamily: 'Lato',
+                fontSize: SizeConfig.yMargin(context, 2),
+                fontWeight: FontWeight.w300,
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                  labelText: "Enter your email address",
+                  border: OutlineInputBorder()),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
             child: TextFormField(
@@ -116,6 +154,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                 FocusScope.of(context).requestFocus(FocusNode());
 
                 //Call Function to Signin
+                viewModel.updateUserDeets(_fullName.text.trim(), _emailAddress.text.trim());
                 viewModel.updateUser(
                     _storeName.text.trim(), _storeAddress.text.trim());
               }

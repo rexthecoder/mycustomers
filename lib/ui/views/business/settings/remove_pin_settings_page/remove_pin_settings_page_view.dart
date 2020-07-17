@@ -43,7 +43,7 @@ class RemovePinSettingsPageView extends StatelessWidget {
           body: PinField(
             title: AppLocalizations.of(context).enterPin,
             textEditingController: controller,
-            onCompleted: (value) => model.onEnterPinCompleted(value, context),
+            onCompleted: (value) => model.onEnterPinCompleted(value,context,controller),
           ),
         );
       },

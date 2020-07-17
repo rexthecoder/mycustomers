@@ -4,6 +4,8 @@ import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
+import 'package:mycustomers/core/models/store.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -13,7 +15,7 @@ import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class CreateBusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  final StoreDataSourceImpl _storeService = locator<StoreDataSourceImpl>();
+  final StoresLocalDataSource _storeService = locator<StoresLocalDataSource>();
   final DialogService _dialogService = locator<DialogService>();
 
   Future<void> navigateToNext() async {
@@ -30,7 +32,7 @@ class CreateBusinessViewModel extends BaseViewModel {
         title: 'Please hold on while we create your new store account');
     try {
       // await _userService.createAssistant(name);
-      await _storeService.createStore(storeName, shopAddress: '$shopAddress');
+      await _storeService.createStore(Store.fromJson({'store_name': storeName, 'shop_address': '$shopAddress'}));
       // Logger.e('message', e: CreateException('Completed store create'));
       // await _navigationService.clearStackAndShow(Routes.startupViewRoute);
       _dialogService.completeDialog(DialogResponse());
@@ -53,7 +55,7 @@ class CreateBusinessViewModel extends BaseViewModel {
       );
       Logger.e(e.message, e: e, s: s);
     } catch (e, s) {
-      Logger.e('Unknown Error', e: e, s: s);
+      Logger.e('Unknown Error, exception: $e stacktrace: $s', e: e, s: s);
       showToastCustom(
         message: 'An error occured while creating your store account',
       );
