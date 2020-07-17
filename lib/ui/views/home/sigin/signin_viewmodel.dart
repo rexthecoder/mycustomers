@@ -5,6 +5,7 @@ import 'package:mycustomers/core/mixins/validators.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
+import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
@@ -87,6 +88,16 @@ class SignInViewModel extends BaseViewModel with Validators {
       );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
+  }
+
+   Future navigateToOnboarding() async {
+    await _navigationService.replaceWithTransition(
+      OnboardingView(),
+      opaque: true,
+      popGesture: true,
+      transition: 'rightToLeftWithFade',
+      duration: Duration(milliseconds: 100),
+    );
   }
 
 }

@@ -6,6 +6,7 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'business_viewmodel.dart';
 
@@ -46,125 +47,133 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
     var _fullName = useTextEditingController();
     var _emailAddress = useTextEditingController();
 
-    return Form(
-      key: _businessFormPageKey,
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: SizeConfig.yMargin(context, 7)),
-          Text(
-            'BUSINESS DETAILS',
-            style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: SizeConfig.yMargin(context, 4),
-            ),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 5)),
-          Text(
-            'One last step...',
-            style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: SizeConfig.yMargin(context, 2),
-            ),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 2)),
-          Padding(
-            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-            child: TextFormField(
-              key: Key("fullname"),
-              controller: _fullName,
-              validator: (value) =>
-                  (value.isEmpty) ? "Please enter your full name" : null,
+    return Container(
+      decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(SizeConfig.xMargin(context, 8)),
+              topRight: Radius.circular(SizeConfig.xMargin(context, 8)))),
+      child: Form(
+        key: _businessFormPageKey,
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: SizeConfig.yMargin(context, 7)),
+            Text(
+              'BUSINESS DETAILS',
               style: TextStyle(
-                fontFamily: 'Lato',
-                fontSize: SizeConfig.yMargin(context, 2),
-                fontWeight: FontWeight.w300,
-                color: Colors.black,
+                fontWeight: FontWeight.w900,
+                fontSize: SizeConfig.yMargin(context, 4),
               ),
-              decoration: InputDecoration(
-                  labelText: "Enter your  full name",
-                  border: OutlineInputBorder()),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-            child: TextFormField(
-              key: Key("email"),
-              controller: _emailAddress,
-              validator: (value) =>
-                  (!RegExp(r'[\W-\.]{1,}\@[\W-]{2,}\.[\W-\.]{2,}').hasMatch(value)) ? "Please enter a valid email address" : null,
+            SizedBox(height: SizeConfig.yMargin(context, 5)),
+            Text(
+              'One last step...',
               style: TextStyle(
-                fontFamily: 'Lato',
+                fontWeight: FontWeight.w900,
                 fontSize: SizeConfig.yMargin(context, 2),
-                fontWeight: FontWeight.w300,
-                color: Colors.black,
               ),
-              decoration: InputDecoration(
-                  labelText: "Enter your email address",
-                  border: OutlineInputBorder()),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-            child: TextFormField(
-              key: Key("storeName"),
-              controller: _storeName,
-              validator: (value) =>
-                  (value.isEmpty) ? "Please enter store name" : null,
-              style: TextStyle(
-                fontFamily: 'Lato',
-                fontSize: SizeConfig.yMargin(context, 2),
-                fontWeight: FontWeight.w300,
-                color: Colors.black,
+            SizedBox(height: SizeConfig.yMargin(context, 2)),
+            Padding(
+              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+              child: TextFormField(
+                key: Key("fullname"),
+                controller: _fullName,
+                validator: (value) =>
+                    (value.isEmpty) ? "Please enter your full name" : null,
+                style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontSize: SizeConfig.yMargin(context, 2),
+                  fontWeight: FontWeight.w300,
+                  color: Theme.of(context).cursorColor,
+                ),
+                decoration: InputDecoration(
+                    labelText: "Enter your full name",
+                    border: OutlineInputBorder()),
               ),
-              decoration: InputDecoration(
-                  labelText: "Enter your  store name",
-                  border: OutlineInputBorder()),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-            child: TextFormField(
-              key: Key("storeAddress"),
-              controller: _storeAddress,
-              validator: (value) =>
-                  (value.isEmpty) ? "Please enter store address" : null,
-              style: TextStyle(
-                fontFamily: 'Lato',
-                fontSize: SizeConfig.yMargin(context, 2),
-                fontWeight: FontWeight.w300,
-                color: Colors.black,
+            Padding(
+              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+              child: TextFormField(
+                key: Key("email"),
+                keyboardType: TextInputType.emailAddress,
+                controller: _emailAddress,
+                validator: (_) => viewModel.validateEmail(_emailAddress.text),
+                style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontSize: SizeConfig.yMargin(context, 2),
+                  fontWeight: FontWeight.w300,
+                  color: Theme.of(context).cursorColor,
+                ),
+                decoration: InputDecoration(
+                    labelText: "Enter your email address",
+                    border: OutlineInputBorder()),
               ),
-              decoration: InputDecoration(
-                  labelText: "Enter your store address",
-                  border: OutlineInputBorder()),
             ),
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 4)),
-          CustomRaisedButton(
-            btnColor: BrandColors.primary,
-            txtColor: ThemeColors.background,
-            btnText: 'Submit and finish',
-            borderColor: BrandColors.primary,
-            child: Container(),
-            onPressed: () async {
-              // viewModel.signUpTest();
-              if (_businessFormPageKey.currentState.validate()) {
-                //Dismiss keyboard during async call
-                FocusScope.of(context).requestFocus(FocusNode());
+            Padding(
+              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+              child: TextFormField(
+                key: Key("storeName"),
+                controller: _storeName,
+                validator: (value) =>
+                    (value.isEmpty) ? "Please enter store name" : null,
+                style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontSize: SizeConfig.yMargin(context, 2),
+                  fontWeight: FontWeight.w300,
+                  color: Theme.of(context).cursorColor,
+                ),
+                decoration: InputDecoration(
+                    labelText: "Enter your  store name",
+                    border: OutlineInputBorder()),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+              child: TextFormField(
+                key: Key("storeAddress"),
+                controller: _storeAddress,
+                validator: (value) =>
+                    (value.isEmpty) ? "Please enter store address" : null,
+                style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontSize: SizeConfig.yMargin(context, 2),
+                  fontWeight: FontWeight.w300,
+                  color: Theme.of(context).cursorColor,
+                ),
+                decoration: InputDecoration(
+                    labelText: "Enter your store address",
+                    border: OutlineInputBorder()),
+              ),
+            ),
+            SizedBox(height: SizeConfig.yMargin(context, 4)),
+            CustomRaisedButton(
+              btnColor: BrandColors.primary,
+              txtColor: ThemeColors.background,
+              btnText: 'Submit and finish',
+              borderColor: BrandColors.primary,
+              child: Container(),
+              onPressed: () async {
+                // viewModel.signUpTest();
+                if (_businessFormPageKey.currentState.validate()) {
+                  //Dismiss keyboard during async call
+                  FocusScope.of(context).requestFocus(FocusNode());
 
-                //Call Function to Signin
-                viewModel.updateUserDeets(_fullName.text.trim(), _emailAddress.text.trim());
-                viewModel.updateUser(
-                    _storeName.text.trim(), _storeAddress.text.trim());
-              }
-            },
-          ),
-          SizedBox(height: SizeConfig.yMargin(context, 14)),
-          Container(
-              width: SizeConfig.xMargin(context, 60),
-              child: CustomizeProgressIndicator(4, 4)),
-          SizedBox(height: SizeConfig.yMargin(context, 4)),
-        ],
+                  //Call Function to Signin
+                  viewModel.updateUserDeets(
+                      _fullName.text.trim(), _emailAddress.text.trim());
+                  viewModel.updateUser(
+                      _storeName.text.trim(), _storeAddress.text.trim());
+                }
+              },
+            ),
+            SizedBox(height: SizeConfig.yMargin(context, 6)),
+            Container(
+                width: SizeConfig.xMargin(context, 60),
+                child: CustomizeProgressIndicator(4, 4)),
+            SizedBox(height: SizeConfig.yMargin(context, 4)),
+          ],
+        ),
       ),
     );
   }

@@ -10,9 +10,6 @@ class LocalStorageService {
   static const String SpecialOffersPrefs="receiveSpecialOffers";
   static const String UpdatesPrefs="receiveUpdates";
 
-
- 
-
   static LocalStorageService _instance;
   static SharedPreferences _preferences;
 
@@ -29,7 +26,7 @@ class LocalStorageService {
   }
 
   dynamic _getFromDisk(String key) {
-  var value  = _preferences.get(key);
+  var value  = _preferences != null ? _preferences.get(key) : null;
   print('(TRACE) LocalStorageService:_getFromDisk. key: $key value: $value');
   return value;
 }

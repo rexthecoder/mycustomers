@@ -7,6 +7,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import '../home_page_viewmodel.dart';
 
@@ -133,7 +134,7 @@ class CreditorsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
-                      'Add customer you owe',
+                      AppLocalizations.of(context).addPeopleYouOwe,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: SizeConfig.yMargin(context, 2),
@@ -246,7 +247,7 @@ class ContactList extends StatelessWidget {
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: (DateTime.now()
+                                            color: cont.duedate == null ? BrandColors.secondary : (DateTime.now()
                                                         .difference(
                                                             DateTime.parse(
                                                                 cont.duedate))
@@ -313,7 +314,7 @@ class ContactList extends StatelessWidget {
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: (DateTime.now()
+                                            color: cont.duedate == null ? BrandColors.secondary : (DateTime.now()
                                                         .difference(
                                                             DateTime.parse(
                                                                 cont.duedate))

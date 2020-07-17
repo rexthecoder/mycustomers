@@ -5,6 +5,8 @@ import 'package:mycustomers/core/data_sources/transaction/transaction_local_data
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/store.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
@@ -36,6 +38,9 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
+
+  final _storeService = locator<StoreRepository>();
+  Store get currentStore => _storeService.currentStore;
 
   List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
@@ -79,7 +84,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   void getTransactions(){
     print(contact.id);
-    _transactionService.getTransactions(contact.id);
+    _transactionService.getTransactions(contact.id, currentStore.id);
     notifyListeners();
   }
 

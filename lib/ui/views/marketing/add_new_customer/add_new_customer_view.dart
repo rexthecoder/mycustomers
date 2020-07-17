@@ -12,7 +12,7 @@ class AddNewCustomerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddNewCustomerViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
-            backgroundColor: ThemeColors.background,
+            backgroundColor: Theme.of(context).backgroundColor,
             appBar: customizeAppBar(context, 1.0,
                 title: model.title, arrowColor: BrandColors.secondary),
             body: SafeArea(
@@ -139,14 +139,14 @@ class AddNewCustomerView extends StatelessWidget {
                                       ),
                                       leftBarIndicatorColor: Colors.blue[300],
                                     ).show(context)
-                                  : model.returnCustomers();
+                                  : model.sendMessage();
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
                         padding: EdgeInsets.symmetric(vertical: 16.h),
                         child: Text(
-                          'Save',
+                          'Continue',
                           style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.bold,

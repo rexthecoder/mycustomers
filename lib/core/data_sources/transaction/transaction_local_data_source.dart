@@ -7,9 +7,13 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 
+abstract class TransactionDataSource{
+  Future<void> init();
+}
+
 
 @lazySingleton
-class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
+class TransactionLocalDataSourceImpl extends TransactionDataSource with ReactiveServiceMixin {
   //static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 
@@ -39,6 +43,7 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
 
   List<String> formattedate = [];
   String date;
+  
   get box => _hiveService.openBox<TransactionModel>(HiveBox.transaction);
   //var box = Hive.openBox<TransactionModel>(_boxname);
 
@@ -50,6 +55,7 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
     listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions]);
   }
 
+  @override
   Future<void> init() async {
     _hiveService.registerAdapter(TransactionAdapter());
 
@@ -62,9 +68,14 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
     _stransaction.value = transaction;
   }
 
-  void getAllTransactions() async{
+  void getAllTransactions(String id) async{
     //final bbox = await box;
-    _alltransactions.value = _transactionBox.values.toList();
+    _alltransactions.value = [];
+    for(var trans in _transactionBox.values.toList()) {
+      if (trans.sId == id){
+        _alltransactions.value.add(trans);
+      }
+    }
     _alltransactions.value = new List<TransactionModel>.from(_alltransactions.value.reversed);
     _whatyouowe.value = 0;
     _owingcustomers.value = [];
@@ -80,12 +91,12 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
     }
   }
   
-  void getTransactions(int id) async{
+  void getTransactions(int id, String stid) async{
     print('get'+id.toString());
     //final bbox = await box;
     _transactions.value = [];
     for (var transaction in _transactionBox.values.toList()) {
-      if (transaction.cId == id){
+      if (transaction.cId == id && transaction.sId == stid){
         _transactions.value.add(transaction);
         print(transaction.boughtdate);
       }
@@ -186,7 +197,7 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
         }
       }
     }
-    getAllTransactions();
+    getAllTransactions(transaction.sId);
     print('done');
   }
 
@@ -241,7 +252,7 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
         _creditlist.value.add(transactionb);
       }
     }
-    getAllTransactions();
+    getAllTransactions(transaction.sId);
   }
 
 }
