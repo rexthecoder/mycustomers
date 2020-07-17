@@ -97,6 +97,7 @@ class MainViewModel extends ReactiveViewModel {
 
   void getcurr(){
     _bussinessService.getCurrency();
+    //_storeService.updateStores();
   }
 
   final DialogService _dialogService = locator<DialogService>();

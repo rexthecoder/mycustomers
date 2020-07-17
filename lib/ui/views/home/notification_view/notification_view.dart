@@ -36,7 +36,7 @@ class NotificationsView extends StatelessWidget {
                                 "Reminders",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: SizeConfig.yMargin(context, 1.5),
+                                  fontSize: SizeConfig.yMargin(context, 2),
                                 ),
                                 //maxLines: 1,
                               ),
@@ -51,7 +51,7 @@ class NotificationsView extends StatelessWidget {
                                 "Activities",
                                 textAlign: TextAlign.center,
                                   style: TextStyle(
-                                  fontSize: SizeConfig.yMargin(context, 1.5),
+                                  fontSize: SizeConfig.yMargin(context, 2),
                                 ),
                               ),
                             ),
@@ -71,10 +71,19 @@ class NotificationsView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SingleChildScrollView(
+                        model.loglist.length == 0 ? Center(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              'No Activities yet. This Keeps track of activities made in your store',
+                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ) : SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
-                              for(var log in model.loglist) model.loglist.length > 0 ? Dismissible(
+                              for(var log in model.loglist) Dismissible(
                                 key: Key(model.loglist.indexOf(log).toString()),
                                 onDismissed: (DismissDirection direction) {
                                   
@@ -123,11 +132,6 @@ class NotificationsView extends StatelessWidget {
                                       ])
                                     ],
                                   ),
-                                ),
-                              ) : Center(
-                                child: Text(
-                                  'No Activities yet. This Keeps track of activities made in your store',
-                                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                                 ),
                               ),
                             ],
