@@ -117,11 +117,20 @@ class MarketingHomePageViewModel extends BaseViewModel {
     final bool isPermitted =
         await _permission.getContactsPermission();
 
-    if (isPermitted) contactList = await _navigationService
+    if(!isPermitted){
+      await [Permission.contacts].request();
+    }else if(isPermitted){
+      contactList = await _navigationService
         .navigateTo(Routes.addCustomerMarketing);
-    else contactList = await  _navigationService
+    }else{
+      contactList = await  _navigationService
         .navigateTo(Routes.addNewCustomerMarketing);
-    await contactList;
+    }
+    // if (isPermitted) contactList = await _navigationService
+    //     .navigateTo(Routes.addCustomerMarketing);
+    // else contactList = await  _navigationService
+    //     .navigateTo(Routes.addNewCustomerMarketing);
+    // await contactList;
 //    print(contactList);
 //    final results = contactList['result'];
 //    allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;

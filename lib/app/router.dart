@@ -106,11 +106,11 @@ abstract class Routes {
 class Router {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-//      case Routes.startupViewRoute:
-//        return CupertinoPageRoute<dynamic>(
-//          builder: (context) => StartupView(),
-//          settings: settings,
-//        );
+     case Routes.startupViewRoute:
+       return CupertinoPageRoute<dynamic>(
+         builder: (context) => StartupView(),
+         settings: settings,
+       );
       case Routes.onboardingViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => OnboardingView(),
@@ -129,7 +129,8 @@ class Router {
       case Routes.mainViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
-          settings: settings,
+          settings: RouteSettings(name: Routes.mainViewRoute, arguments: Map()),
+          // settings: settings,
         );
       case Routes.addCustomer:
         return CupertinoPageRoute<dynamic>(

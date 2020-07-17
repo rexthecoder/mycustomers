@@ -114,20 +114,39 @@ class MessageView extends StatelessWidget {
                             ),
                             FlatButton.icon(
                               onPressed: () async {
-//                                await model.initSelected(selectedCustomers);
-                                showModalBottomSheet(
-                                  enableDrag: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
-                                    ),
-                                  ),
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return BottomSheetView(model.selectedCustomers,height, model);
-                                  },
+                                 final bool isPermitted = await model.checkPermission();
+                                 if(!isPermitted){
+                                   await model.requestPermission();
+                                  }else{
+                                    showModalBottomSheet(
+                                      enableDrag: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return BottomSheetView(model.selectedCustomers,height, model);
+                                      },
                                 );
+
+                                  }
+//                                await model.initSelected(selectedCustomers);
+                                // showModalBottomSheet(
+                                //   enableDrag: true,
+                                //   shape: RoundedRectangleBorder(
+                                //     borderRadius: BorderRadius.only(
+                                //       topLeft: Radius.circular(20),
+                                //       topRight: Radius.circular(20),
+                                //     ),
+                                //   ),
+                                //   context: context,
+                                //   builder: (BuildContext context) {
+                                //     return BottomSheetView(model.selectedCustomers,height, model);
+                                //   },
+                                // );
                               },
                               icon: Icon(
                                 Icons.add,
