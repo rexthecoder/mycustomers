@@ -1,4 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
@@ -8,31 +9,47 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 
 class RemovePinSettingsPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  final PasswordManagerService _passwordManagerService =
-      locator<PasswordManagerService>();
+  final PasswordManagerService _passwordManagerService = locator<PasswordManagerService>();
 
-  void onEnterPinCompleted(String value, BuildContext context) async {
-    String passFrmDb = await _passwordManagerService
-        .getPassword(); // get the password stored in the db
-    int newPassFrmDb = int.parse(passFrmDb); // cast it into an integer
-    int confirmPin = int.parse(value); // cast the password entered
+  static final _localStorageServices = locator<LocalStorageService>();
+   
+   String userPin = _localStorageServices.userPin;
+
+  
+
+
+  void onEnterPinCompleted(String value, BuildContext context, TextEditingController editingControllerText) async{
+    String passFrmDb= await _passwordManagerService.getPassword(); // get the password stored in the db
+    int newPassFrmDb =int.parse(passFrmDb); // cast it into an integer
+    int confirmPin = int.parse(value);  // cast the password entered
     int check = newPassFrmDb.compareTo(confirmPin); // compare they are equal
-    print(check);
-    if (check == 0) {
+   
+    if(check == 0){
       await _passwordManagerService.deleteSetPin();
       setPin(false);
       showAlertDilaog(context);
-    } else if (check < 0 || check > 0) {
+    }
+    else if(check < 0 || check > 0){
       _passwordManagerService.showUnmatchedPinErrorMessage();
-    } else {
+      clearValueIfPinsDoNotMatch(editingControllerText);
+
+    }
+    else{
       _passwordManagerService.showRemoveErrorMessage();
     }
   }
 
   void setPin(bool value) {
     _passwordManagerService.setPin(value);
-    notifyListeners();
-  }
+     notifyListeners();
+   }
+ 
+  void clearValueIfPinsDoNotMatch(TextEditingController textEditingController){
+   for(int i =0; i < 4; i++){
+      textEditingController.text = textEditingController.text.substring(0,textEditingController.text.length-1);
+   }
+   
+    }
 
   Future<void> showAlertDilaog(BuildContext context) async {
     // set up the button
