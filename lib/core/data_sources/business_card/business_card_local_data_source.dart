@@ -26,6 +26,8 @@ class BusinessCardLocalDataSourceImpl implements BusinessCardLocalDataSource {
 
   @override
   Future<void> init() async {
+    _hiveService.registerAdapter<BusinessCardH>(BusinessCardAdapter());
+
     if (!_isBoxOpen) {
       await _hiveService.openBox<BusinessCardH>(HiveBox.businessCardBoxName);
     }
