@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart' as crb;
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
@@ -16,22 +18,24 @@ class SettingsPage extends StatelessWidget {
     return ViewModelBuilder<SettingsPageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               backgroundColor: Theme.of(context).backgroundColor,
-              appBar: AppBar(
-                iconTheme:
-                    IconThemeData(color: Theme.of(context).textSelectionColor),
-                brightness: Brightness.light,
-                elevation: 0,
-                title: Text(
-                  'Settings',
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                        fontSize: ScreenUtil().setSp(20),
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).cursorColor,
-                      ),
-                ),
-                backgroundColor: Theme.of(context).backgroundColor,
-                centerTitle: true,
-              ),
+              appBar: customizeAppBar(context, 1.0,
+                  title: 'Settings', arrowColor: BrandColors.primary),
+              // AppBar(
+              //   iconTheme:
+              //       IconThemeData(color: Theme.of(context).textSelectionColor),
+              //   brightness: Brightness.light,
+              //   elevation: 0,
+              //   title: Text(
+              //     'Settings',
+              //     style: Theme.of(context).textTheme.headline6.copyWith(
+              //           fontSize: ScreenUtil().setSp(20),
+              //           fontWeight: FontWeight.w900,
+              //           color: Theme.of(context).cursorColor,
+              //         ),
+              //   ),
+              //   backgroundColor: Theme.of(context).backgroundColor,
+              //   centerTitle: true,
+              // ),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -66,20 +70,23 @@ class SettingsPage extends StatelessWidget {
                           ),
                           switchTile(context, model.notification,
                               model.setNotification, 'Receive Notifications'),
-                          switchTile(context, model.newsletter,
-                              model.setNewsletter, 'Receive NewsLetter'),
-                          switchTile(context, model.special, model.setSpecial,
-                              'Receive Special Offers'),
-                          switchTile(context, model.update, model.setUpdate,
-                              'Receive Updates'),
+                          // switchTile(context, model.newsletter,
+                          //     model.setNewsletter, 'Receive NewsLetter'),
+                          // switchTile(context, model.special, model.setSpecial,
+                          //     'Receive Special Offers'),
+                          // switchTile(context, model.update, model.setUpdate,
+                          //     'Receive Updates'),
                         ],
                       )),
                     ),
                     Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(20)),
-                        child:
-                            CustomRaisedButton(label: 'Save', onPressed: () {Navigator.pop(context);}))
+                        child: crb.CustomRaisedButton(
+                            label: 'Save',
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }))
                   ],
                 ),
               ),
