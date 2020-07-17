@@ -106,11 +106,11 @@ abstract class Routes {
 class Router {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-//      case Routes.startupViewRoute:
-//        return CupertinoPageRoute<dynamic>(
-//          builder: (context) => StartupView(),
-//          settings: settings,
-//        );
+     case Routes.startupViewRoute:
+       return CupertinoPageRoute<dynamic>(
+         builder: (context) => StartupView(),
+         settings: settings,
+       );
       case Routes.onboardingViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => OnboardingView(),
