@@ -12,7 +12,7 @@ class StoreRepository {
   static Store _currentStore;
 
   static List<Store> get stores => _stores;
-  static Store get currentStore => _currentStore;
+  Store get currentStore => _currentStore;
 
   static changeSelectedStore(String id) {
     var newStore = _stores.firstWhere((elem) => elem.id == id, orElse: () => null);
@@ -21,7 +21,6 @@ class StoreRepository {
 
   static Future<void> updateStores() async {
     try {
-
     var stores = (await _ss.getStores()).toList();
     _stores = stores ?? _stores;
     if (_stores != null && _stores.isNotEmpty) _currentStore = _stores[0];
