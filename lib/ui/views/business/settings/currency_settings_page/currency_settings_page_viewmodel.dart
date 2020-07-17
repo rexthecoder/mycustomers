@@ -19,6 +19,10 @@ class CurrencySettingPageViewModel extends ReactiveViewModel{
     _bussinessSettingService.addCurrency(currencies[tempIndex]['country']);
   }
 
+  void resetCurrency(){
+    _bussinessSettingService.selectCurrency(index);
+  }
+
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_bussinessSettingService];
 }
