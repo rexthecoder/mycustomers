@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ class QuickMessageView extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-              title: 'Quick messages', arrowColor: BrandColors.secondary),
+              title:  AppLocalizations.of(context).quickMessage, arrowColor: BrandColors.secondary),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
