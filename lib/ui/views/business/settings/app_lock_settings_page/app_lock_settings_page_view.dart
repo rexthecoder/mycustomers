@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
-import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'app_lock_settings_page_viewmodel.dart';
@@ -13,8 +12,8 @@ class AppLockSettingsPageView extends StatelessWidget {
       viewModelBuilder: () => AppLockSettingsPageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: customizeAppBar(
-              context, AppLocalizations.of(context).appLock, 1.0),
+          appBar: customizeAppBar(context, 1.0,
+                title:'App Lock' , arrowColor: BrandColors.primary),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: <Widget>[
@@ -37,27 +36,24 @@ class AppLockSettingsPageView extends StatelessWidget {
                           selectedColor:
                               const Color.fromARGB(50, 196, 196, 196),
                           child: ListTile(
-                              onTap: () =>
-                                  model.getThecurrentStateOfPin() == false
-                                      ? model.navigateToSetPinPage()
-                                      : model.navigateToChangePinPage(),
-                              trailing: Icon(Icons.chevron_right),
-                              title: model.getThecurrentStateOfPin() == false
-                                  ? Text(
-                                      'Set App lock Pin',
-                                      style: TextStyle(
-                                        fontSize:
-                                            SizeConfig.textSize(context, 4),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    )
-                                  : Text(
-                                      AppLocalizations.of(context)
-                                          .changeAppLockPin,
-                                      style: TextStyle(
-                                          fontSize:
-                                              SizeConfig.textSize(context, 4),
-                                          fontWeight: FontWeight.w600))),
+                            onTap: () => model.getThecurrentStateOfPin() == false ? model.navigateToSetPinPage() :
+                            model.navigateToChangePinPage(),
+                            trailing: Icon(Icons.chevron_right),
+                            title:model.getThecurrentStateOfPin() == false ? Text(
+                              'Set App lock Pin',
+                              style: TextStyle(
+                                fontSize: SizeConfig.textSize(context, 4),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ) 
+                            : Text(
+                              'Change App lock Pin',
+                              style:TextStyle(
+                                fontSize:SizeConfig.textSize(context, 4),
+                                fontWeight: FontWeight.w600
+                                 )
+                            )
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -76,7 +72,7 @@ class AppLockSettingsPageView extends StatelessWidget {
                             onTap: () => model.navigateToRemovePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title: Text(
-                              AppLocalizations.of(context).removeAppLock,
+                              'Remove App lock',
                               style: TextStyle(
                                 fontSize: SizeConfig.textSize(context, 4),
                                 fontWeight: FontWeight.w600,
