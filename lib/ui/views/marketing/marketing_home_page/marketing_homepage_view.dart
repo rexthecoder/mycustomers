@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
@@ -35,7 +36,7 @@ class MarketingHomePageView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Marketing',
+                      AppLocalizations.of(context).marketing,
                       style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
@@ -45,7 +46,7 @@ class MarketingHomePageView extends StatelessWidget {
                       height: 10.h,
                     ),
                     Text(
-                      'Show your customer that you really care about them',
+                      'Show your customers that you really care about them',
                       style: TextStyle(
                           fontSize: 14.sp,
                           color: Theme.of(context).cursorColor),
@@ -95,6 +96,59 @@ class MarketingHomePageView extends StatelessWidget {
                                     fontSize: 14.sp,
                                     color: Theme.of(context).cursorColor),
                                 textAlign: TextAlign.center,
+// =======
+//                               Container(
+//                                 color: ThemeColors.gray[400],
+//                                 height: 50.h,
+//                                 child: Row(
+//                                   mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                   children: <Widget>[
+//                                     Expanded(
+//                                       child: InkWell(
+//                                         child: Container(
+//                                           decoration: BoxDecoration(
+// //                                        color: ThemeColors.gray,
+//                                               color: ThemeColors.gray[400],
+//                                               borderRadius:
+//                                                   BorderRadius.circular(5.0)),
+//                                           child: Center(
+//                                             child: Text(
+//                                               AppLocalizations.of(context)
+//                                                   .addACustomer,
+//                                               style: TextStyle(
+//                                                   fontSize: 14.sp,
+//                                                   color: ThemeColors.gray[400]),
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ),
+//                                     ),
+//                                     SizedBox(
+//                                       width: 10.w,
+//                                     ),
+//                                     Expanded(
+//                                       child: InkWell(
+//                                         child: Container(
+//                                           decoration: BoxDecoration(
+//                                               color: BrandColors.secondary,
+//                                               borderRadius:
+//                                                   BorderRadius.circular(5.0)),
+//                                           child: Center(
+//                                             child: Text(
+//                                               AppLocalizations.of(context)
+//                                                   .sendMessage,
+//                                               style: TextStyle(
+//                                                   fontSize: 14.sp,
+//                                                   color: Colors.white),
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+// >>>>>>> language
                               ),
                             ],
                           ),
@@ -137,6 +191,7 @@ class MarketingHomePageView extends StatelessWidget {
                                         style: TextStyle(
                                             fontSize: 14.sp,
                                             color: BrandColors.secondary),
+
                                       ),
                                     ),
                                   ),
@@ -273,7 +328,8 @@ class MarketingHomePageView extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
-                                'All',
+//                                'All',
+                                'Frequently contacted',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: BrandColors.primary),
@@ -302,10 +358,10 @@ class MarketingHomePageView extends StatelessWidget {
                                       background: Container(
                                         color: BrandColors.secondary,
                                       ),
-                                      key: Key(index.toString()),
+                                      key: UniqueKey(),
                                       onDismissed:
                                           (DismissDirection direction) {
-                                        model.removeCustomers(index);
+                                        model.removeCustomers(customer);
                                       },
                                       // onDismissed: (direction) =>
                                       //     model.removeCustomers(index),
@@ -521,20 +577,40 @@ class MarketingHomePageView extends StatelessWidget {
                       height: 50.h,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          FlatButton(
-                            onPressed: () => model.navigateToAddCustomer(),
-                            color: BrandColors.secondary,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: Container(
-                              width: width / 2,
-                              child: Center(
-                                child: Text(
-                                  'Send message',
-                                  style: TextStyle(
-                                      fontSize: 14.sp, color: Colors.white),
+                          Expanded(
+                            child: FlatButton(
+                              onPressed: () => model.navigateToAddCustomer(),
+                              color: BrandColors.primary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              child: Container(
+                                child: Center(
+                                  child: Text(
+                                    'New Contacts',
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 5.h,),
+                          Expanded(
+                            child: FlatButton(
+
+                              onPressed: () => model.navigateToSendMessageView(),
+                              color: BrandColors.secondary,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              child: Container(
+                                child: Center(
+                                  child: Text(
+                                    'Send message',
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),

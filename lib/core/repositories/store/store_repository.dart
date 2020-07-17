@@ -12,7 +12,7 @@ class StoreRepository {
   static Store _currentStore;
 
   static List<Store> get stores => _stores;
-  static Store get currentStore => _currentStore;
+  Store get currentStore => _currentStore;
 
   static changeSelectedStore(String id) {
     var newStore = _stores.firstWhere((elem) => elem.id == id, orElse: () => null);
@@ -21,13 +21,12 @@ class StoreRepository {
 
   static Future<void> updateStores() async {
     try {
-
-    var stores = await _ss.getStores();
+    var stores = (await _ss.getStores()).toList();
     _stores = stores ?? _stores;
     if (_stores != null && _stores.isNotEmpty) _currentStore = _stores[0];
     print('Stores is now: $_stores and current store is $_currentStore');
     } catch(e, s) {
-      Logger.e('Refresh store list Error', e: e, s: s);
+      Logger.e('Refresh store list Error\nException: $e\nStacktrace: $s', e: e, s: s);
       rethrow;
     }
     

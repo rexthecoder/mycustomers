@@ -93,14 +93,20 @@ return Container(
         ),
         GestureDetector(
           onTap: model.navigateToNotifications,
-                  child: Container(
+          child: Container(
             child: Stack(
               children: [
-                Icon(
-                  Icons.notifications_none,
+                Icon(Icons.notifications_none,
                   color: Colors.white,
+                  size: SizeConfig.yMargin(context, 3),
                 ),
-              ],
+                model.showdot ? Positioned(  // draw a red marble
+                  top: 0.0,
+                  right: 0.0,
+                  child: new Icon(Icons.brightness_1, size: SizeConfig.yMargin(context, 1.2),
+                  color: Colors.redAccent),
+                ) : SizedBox()
+              ],               
               overflow: Overflow.clip,
             ),
           ),

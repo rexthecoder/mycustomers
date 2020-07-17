@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -8,12 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/all_customers_view.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 
 import '../../../../shared/const_color.dart';
 import '../home_page_viewmodel.dart';
-
 
 class DebtorsView extends StatelessWidget {
   @override
@@ -24,14 +22,10 @@ class DebtorsView extends StatelessWidget {
     final currency = new NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<HomePageViewModel>.reactive(
       builder: (context, model, child) => Container(
-
         child: Column(
-
           children: <Widget>[
             Expanded(
-              child:
-
-              Container(
+              child: Container(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,30 +33,31 @@ class DebtorsView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
+                        padding: const EdgeInsets.only(
+                            left: 20.0, right: 20.0, top: 20.0),
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 4.0)),
+                          padding: EdgeInsets.symmetric(
+                              vertical: SizeConfig.yMargin(context, 4.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                               color: BrandColors.primary,
                               image: DecorationImage(
-                                image: ExactAssetImage('assets/images/Mask Group.png',
-                                ),
-                                fit: BoxFit.fill
-                              ),
-                              borderRadius: BorderRadius.circular(5)
-                          ),
-
+                                  image: ExactAssetImage(
+                                    'assets/images/Mask Group.png',
+                                  ),
+                                  fit: BoxFit.fill),
+                              borderRadius: BorderRadius.circular(5)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Text('Customers are owing you', style: TextStyle(
+                              Text( AppLocalizations.of(context)
+                                    .customersAreOwingYou, style: TextStyle(
                                   color: Colors.white,
                                   fontSize: SizeConfig.yMargin(context, 2)
                               ),),
                               model.bought() - model.paid() > 0 ? Text(
-                                '₦'+currency.format(model.bought() - model.paid()).toString(),
+                                model.currency.symbol+currency.format(model.bought() - model.paid()).toString(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: SizeConfig.yMargin(context, 5),
@@ -88,7 +83,7 @@ class DebtorsView extends StatelessWidget {
                                   ]
                                 ),
 
-                              ),
+                                    ),
                             ],
                           ),
                         ),
@@ -117,24 +112,23 @@ class DebtorsView extends StatelessWidget {
                   ),
                 ),
               ),
-
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
 //                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
-                onTap: ()=> Navigator.pushNamed(context, '/importcustomerdebtor'),
+                onTap: () =>
+                    Navigator.pushNamed(context, '/importcustomerdebtor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                    color: BrandColors.primary,
-                    borderRadius: BorderRadius.circular(5)
-                  ),
-
+                      color: BrandColors.primary,
+                      borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
-                      'Add customer owing you',
+                      AppLocalizations.of(context).addCustomersOwingYou,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: SizeConfig.yMargin(context, 2),
@@ -144,14 +138,13 @@ class DebtorsView extends StatelessWidget {
                 ),
               ),
             )
-          ] ,
+          ],
         ),
       ),
       viewModelBuilder: () => HomePageViewModel(),
     );
   }
 }
-
 
 class ContactList extends StatelessWidget {
   final currency = new NumberFormat("#,##0", "en_NG");
@@ -166,18 +159,21 @@ class ContactList extends StatelessWidget {
               child: TextField(
                 //controller: model.allCustomersController,
                 //onChanged: model.searchAllCustomers,
-                style:  TextStyle(
+                style: TextStyle(
                   color: Colors.black,
-                  fontSize: 14,),
+                  fontSize: 14,
+                ),
                 decoration: InputDecoration(
                   hintText: 'Search by name',
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
-
                   ),
-                  contentPadding:  const EdgeInsets.only(top: 18.0),
-                  prefixIcon:   Icon(Icons.search,color: BrandColors.primary,),
+                  contentPadding: const EdgeInsets.only(top: 18.0),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: BrandColors.primary,
+                  ),
                   border: InputBorder.none,
                 ),
                 onChanged: model.searchDName,
@@ -242,7 +238,7 @@ class ContactList extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         child: Text(
-                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
                             color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
                             fontSize: SizeConfig.yMargin(context, 1.8),
@@ -313,7 +309,7 @@ class ContactList extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         child: Text(
-                          '₦'+currency.format((cont.amount - cont.paid).round()).toString(),
+                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
                           style: TextStyle(
                             color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green,
                             fontSize: SizeConfig.yMargin(context, 1.8),

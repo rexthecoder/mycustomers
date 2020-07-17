@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -12,8 +13,7 @@ class AddCustomerManuallyView extends StatelessWidget {
   const AddCustomerManuallyView({Key key, this.action}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-  
-  return ViewModelBuilder<AddCustomerManuallyViewModel>.reactive(
+    return ViewModelBuilder<AddCustomerManuallyViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         backgroundColor: ThemeColors.background,
         appBar: AppBar(
@@ -39,15 +39,22 @@ class AddCustomerManuallyView extends StatelessWidget {
               children: <Widget>[
                 Text(
                   model.subTitle,
-                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.5), fontWeight: FontWeight.bold, color: ThemeColors.black),
+                  style: TextStyle(
+                      fontSize: SizeConfig.yMargin(context, 2.5),
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColors.black),
                 ),
                 SizedBox(height: 25.0),
-                _StringForm(action: action,),
+                _StringForm(
+                  action: action,
+                ),
                 Spacer(),
                 Container(
                   width: double.infinity,
                   child: FlatButton(
-                    color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                    color: action == 'debtor'
+                        ? BrandColors.primary
+                        : BrandColors.secondary,
                     onPressed: () {
                       model.addContact(action);
                       //Navigator.pushNamed(context, '/mainTransaction');
@@ -57,7 +64,7 @@ class AddCustomerManuallyView extends StatelessWidget {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: Text(
-                      'Next',
+                      AppLocalizations.of(context).nextButton,
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -102,7 +109,9 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.person,
-                    color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                    color: action == 'debtor'
+                        ? BrandColors.primary
+                        : BrandColors.secondary,
                   ),
                 ),
                 Container(
@@ -121,8 +130,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         hintText: 'Enter Name',
-                        border:
-                            OutlineInputBorder(borderSide: BorderSide.none),
+                        border: OutlineInputBorder(borderSide: BorderSide.none),
                       ),
                       controller: name,
                       onChanged: model.updateName,

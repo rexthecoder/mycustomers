@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:mycustomers/app/locator.dart';
@@ -13,32 +15,11 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 
-class MessageViewModel extends BaseViewModel {
+class MessageViewModel extends StreamViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   TextEditingController titleController =TextEditingController();
   TextEditingController messageController =TextEditingController();
 
-  String _upperBoxText = 'Happy New Year!';
-  String get upperBoxText => _upperBoxText;
-
-  String lowerBoxText = 'Happy New Year \n Best wishes from me';
-
-  List<String> templateList = [
-    'Happy New Year \n Best wishes from me',
-    'Seasons Greetings! \n Wishing you a happ new year',
-    'Seasons Greetings! \n Wishing you a happ new year',
-    'Seasons Greetings! \n Wishing you a happ new year',
-    'Reloaded 3 of 692 libraries in 1,777ms.',
-    'Reloaded 3 of 692 libraries in 1,777ms.'
-  ];
-
-  int numberOfSelectedCustomers = 3;
-
-  bool checkBoxValue = true;
-  checkBoxFunction(bool val) {
-    checkBoxValue = val;
-    val = !val;
-  }
 
   Future navigateToSendMessage() async {
 //    await _navigationService.navigateTo(Routes.messageSntDialog,);
@@ -59,54 +40,122 @@ class MessageViewModel extends BaseViewModel {
 //  }
   }
 
-  Future returnHome() async {
-     _navigationService.popRepeated(3);
+  Future returnHome(bool quick) async {
+     _navigationService.popRepeated(quick == true?5:4);
+     _navigationService.popUntil((route){
+       if(route.settings.name == '/main'){
+//         (route.settings.arguments as Map)['result'] = _selectedCustomers;
+         return true;
+       }else{
+         return false;
+       }
+     });
   }
 
-  int currentIndex = 0;
-  onTap(template) {
-    currentIndex = templateList.indexOf(template);
-  }
-
-  // Function to serve as a helper for the navigation
-  Future navigateTo() async {
-    // await _navigationService.navigateTo(Routes.quickMessageView);
-  }
-
-  ICustomerService _customerService = locator<ICustomerService>();
-  OwnerServices _ownerService = OwnerServices();
+  StreamController _contactStream = StreamController<List<Customer>>();
+  IOwnerServices iOwnerServices = locator<IOwnerServices>();
+  List<Customer> _allCustomers = List<Customer>();
+  bool _busy = true;
+  bool get isLoadBusy => _busy;
+  MessageViewModel();
   Iterable<Contact> contacts;
-
   List<Customer> _selectedCustomers = [];
   List<Customer> get selectedCustomers => _selectedCustomers;
+  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
+  List<Customer> _allFrequentCustomers = [];
+  List<Customer> get allFrequentCustomers => _allFrequentCustomers;
+  init({String query}) async {
+//    _allCustomers.clear();
+    for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+      print('Iterate');
+      if (_busy) {
+        _busy = false;
+        notifyListeners();
+      }
+      _allCustomers.add(customer);
+      _contactStream.add(_allCustomers);
+    }
+  }
 
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
-
-  List<Customer> _allCustomers = [];
-  List<Customer> get allCustomers => _allCustomers;
-  List<Customer> get searchedCustomer => allCustomers.where(
-        (Customer customer) =>
-    customer.name.contains(searchPattern) ||
-        customer.lastName.contains(searchPattern) ||
-        customer.phone.contains(searchPattern)||
-        customer.email.contains(searchPattern),
-  ).toList();
-
-  bool get hasData => _allCustomers.isNotEmpty;
-  bool get hasSelected => _selectedCustomers.isNotEmpty;
-  int get numberOfSelected => _selectedCustomers.length;
-  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
-  bool get allSelected => _allCustomers.length == _selectedCustomers.length;
-  @override
-  Future futureToRun() async {
-//    _allCustomers = await _customerService.getCustomers('1');
-
-    final contactList = await _ownerService.getPhoneContacts();
-    contactList.forEach((contact) {
-      _allCustomers.add(contact);
-    });
-    print(contactList.toList()[1].displayName);
+  void selectCustomer(Customer customer) {
+    _selectedCustomers.add(customer);
+    print(_selectedCustomers.length);
     notifyListeners();
   }
+  void mergeSelectCustomer(List<Customer> customers) {
+
+    final merge = [..._selectedCustomers,...customers];
+
+
+//    if(_selectedCustomers.)
+//    final unique =
+
+//    final merge = [..._selectedCustomers,...customers];
+//    _selectedCustomers =unique;
+    _selectedCustomers = merge.toSet().toList();
+//    _selectedCustomers = [..._selectedCustomers,...customers];
+    print(_selectedCustomers.length);
+    notifyListeners();
+  }
+
+  Future initSelected(List<Customer> customers){
+    _selectedCustomers = _selectedCustomers.length == 0?[..._selectedCustomers,...customers]
+        :_selectedCustomers;
+    notifyListeners();
+
+  }
+
+  void setQuickText(title, message){
+    if(title.length !=0){
+      titleController.text= title;
+      messageController.text = message;
+    }
+    notifyListeners();
+  }
+  void getFrequentCustomers() {
+    //todo: get frequent customers
+//    allFrequentCustomers
+  }
+
+  void deselectCustomer(Customer customer) {
+    print(customer.id);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+    notifyListeners();
+  }
+//  //todo: implement add new customer
+  Future navigateToAddNewCustomer() async {
+
+    final newContact= await _navigationService
+        .navigateTo(Routes.addNewCustomerMarketing);
+
+    await newContact!= null??
+        _allCustomers.add(newContact);
+    selectedCustomers.add(newContact);
+    notifyListeners();
+    print(newContact.name);
+  }
+  /// View initialize and close section
+
+  popView() {
+    _navigationService.back();
+  }
+  returnCustomers() {
+    _navigationService.back(result: _selectedCustomers);
+
+  }
+
+
+
+  TextEditingController searchController = TextEditingController();
+  search(String keyword) async {
+    _searchTerm = keyword;
+    _busy = true;
+    notifyListeners();
+    init(query: _searchTerm);
+  }
+
+  @override
+  Stream get stream => _contactStream.stream;
 }

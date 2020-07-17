@@ -19,7 +19,7 @@ abstract class LogsLocalDataSource {
   /// If it does not exist, nothing happens.
   Future<void> deleteLog(int id);
 
-  void getValues(String date, int price, DateTime time, String action, String name);
+  void getValues(int price, DateTime time, String action, String name, bool update);
 }
 
 class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalDataSource {
@@ -31,6 +31,12 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
 
   RxValue<List<LogH>> _loglist = RxValue<List<LogH>>(initial: []);
   List<LogH> get loglist => _loglist.value;
+
+  bool shouldnotify = false;
+
+  LogsLocalDataSourceImpl(){
+    listenToReactiveValues([_loglist, shouldnotify]);
+  }
 
   @override
   Future<void> init() async {
@@ -44,10 +50,9 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   }
 
   @override
-  void getValues(String date, int price, DateTime time, String action, String name){
-
-    int totallogs = _logsBox.values.toList().length; 
-    String msg = action == 'credit' ? 'You made a credit for $name' : 'You made a debit for $name';
+  void getValues(int price, DateTime time, String action, String name, bool update){
+    int totallogs = _logsBox.values.toList().length;
+    String msg = update ? action == 'credit' ? 'A credit transaction was made for one of the debit of $name' : 'A debit transaction was made for one of the credit of $name' : action == 'credit' ? 'A credit transaction was made for $name' : 'A debit transaction was made for $name';
     LogH newlog = new LogH(totallogs+1, msg, action, time);
     addLog(newlog);
   }
@@ -60,11 +65,17 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     addLog(newlog);
   }
 
-
+  void setnotify(){
+    shouldnotify = !shouldnotify;
+  }
 
   @override
   Future<void> addLog(LogH log) async {
-    return _logsBox.put(log.id, log);
+    return _logsBox.put(log.id, log).then((value) {
+      if(!shouldnotify){
+        setnotify();
+      }
+    });
   }
 
   @override
@@ -75,5 +86,6 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   @override
   void getLogs() {
     _loglist.value = _logsBox.values.toList();
+    _loglist.value = new List<LogH>.from(_loglist.value.reversed);
   }
 }

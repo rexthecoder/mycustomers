@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,7 +29,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   }
   static const STORE_HIVE_BOX_NAME = 'STORE';
 
-  // final _hiveService = locator<HiveInterface>();
+   final _hiveService = locator<HiveInterface>();
   final _auth = locator<AuthService>();
 
   static Box<StoreH> storeBox;
@@ -36,8 +37,8 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   @override
   Future<void> init() async {
     //Write Function to initialize Hive
-    await Hive.openBox<StoreH>(STORE_HIVE_BOX_NAME);
-    storeBox = Hive.box<StoreH>(STORE_HIVE_BOX_NAME);
+    await _hiveService.openBox<StoreH>(STORE_HIVE_BOX_NAME);
+    storeBox = _hiveService.box<StoreH>(STORE_HIVE_BOX_NAME);
   }
 
   String genUuid() {
@@ -56,18 +57,18 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
   @override
   Future<Iterable<Store>> getStores() async {
-    return storeBox.values.map((e) => Store.fromStoreH(e));
+    return storeBox.values.where((element) => element.ownerId == _auth.currentUser.id).map((e) => Store.fromStoreH(e));
   }
 
   @override
   Future<Iterable<Store>> getStoresWhere(Function(StoreH p1) test) async {
-    return storeBox.values.where(test).map((e) => Store.fromStoreH(e));
+    return storeBox.values.where((element) => element.id == _auth.currentUser.id).where(test).map((e) => Store.fromStoreH(e));
   }
 
   List<int> splitPhone(String phone) {
-    var pNum = phone.substring(phone.length - 10);
-    var ctyCode = phone.substring(0, phone.length - 10);
     try {
+      var pNum = phone.substring(phone.length - 10);
+      var ctyCode = phone.substring(0, phone.length - 10);
       return [int.parse(pNum), int.parse(ctyCode)];
     } catch (e) {
       return [null, null];
@@ -80,6 +81,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
   @override
   Future<bool> createStore(Store newStore, [String id]) async {
+    print(newStore.phone);
     var splitP = splitPhone(newStore.phone);
     var newStoreH = StoreH(
         id ?? genUuid(),
@@ -91,6 +93,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         _auth.currentUser.id,
         newStore.email);
     storeBox.put(newStoreH.id, newStoreH);
+    await StoreRepository.updateStores();
     return true;
   }
 

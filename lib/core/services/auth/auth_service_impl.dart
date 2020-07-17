@@ -93,6 +93,7 @@ class AuthServiceImpl implements AuthService {
     await _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
     await _storage.saveString(AppPreferenceKey.USER_PHONE, phoneNumber);
     await _storage.saveString(AppPreferenceKey.USER_PASS, password);
+    await _storage.saveString(AppPreferenceKey.USER_ID, currentUser.id);
   }
 
   @override
@@ -129,6 +130,7 @@ class AuthServiceImpl implements AuthService {
     await _storage.saveIfAbsent(AppPreferenceKey.USER_SIGNED_IN, '');
     await _storage.saveString(AppPreferenceKey.USER_PHONE, phoneNumber);
     await _storage.saveString(AppPreferenceKey.USER_PASS, password);
+    await _storage.saveString(AppPreferenceKey.USER_ID, currentUser.id);
 
 
     // _navigationService.clearStackAndShow(Routes.mainViewRoute, arguments: {'signup': false});
@@ -142,6 +144,7 @@ class AuthServiceImpl implements AuthService {
     await _storage.removeKey(AppPreferenceKey.USER_SIGNED_IN);
     await _storage.removeKey(AppPreferenceKey.USER_PHONE);
     await _storage.removeKey(AppPreferenceKey.USER_PASS);
+    await _storage.removeKey(AppPreferenceKey.USER_ID);
     _navigationService.clearStackAndShow(Routes.startupViewRoute);
   }
 

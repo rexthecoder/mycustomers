@@ -1,11 +1,13 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 // import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/core/models/business_model.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -18,9 +20,14 @@ class MainViewModel extends ReactiveViewModel {
   List<Store> _stores = StoreRepository.stores;
 
   List<Store> get stores => _stores;
-  Store get currStore => StoreRepository.currentStore;
+  final _storeService = locator<StoreRepository>();
+  Store get currStore => _storeService.currentStore;
 
   final _logService = locator<LogsLocalDataSourceImpl>();
+  final _bussinessService = locator<BussinessSettingService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+
+  bool get showdot => _logService.shouldnotify;
 
   void addlog(){
     print('called1');
@@ -87,7 +94,13 @@ class MainViewModel extends ReactiveViewModel {
 
   void changeBusiness(String id) {
     StoreRepository.changeSelectedStore(id);
+    _transactionService.getAllTransactions(id);
     notifyListeners();
+  }
+
+  void getcurr(){
+    _bussinessService.getCurrency();
+    //_storeService.updateStores();
   }
 
   final DialogService _dialogService = locator<DialogService>();
@@ -103,7 +116,7 @@ class MainViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_logService];
+  List<ReactiveServiceMixin> get reactiveServices => [_logService, _bussinessService];
 }
 
 class Menu {

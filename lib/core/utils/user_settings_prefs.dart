@@ -20,11 +20,6 @@ class SharedPreferencesHelper{
   final String _kSpecialOffersPrefs="receiveSpecialOffers";
   final String _kUpdatesPrefs="receiveUpdates";
 
-
-
-  
-  
- 
   
 
   /// ------------------------------------------------------------

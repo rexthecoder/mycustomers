@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_viewmodel.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfilePageView extends StatelessWidget {
@@ -16,7 +17,7 @@ class ProfilePageView extends StatelessWidget {
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 title: Text(
-                  'Profile',
+                  AppLocalizations.of(context).profile,
                   style: TextStyle(
                     color: Theme.of(context).cursorColor,
                     fontWeight: FontWeight.bold,
@@ -30,7 +31,7 @@ class ProfilePageView extends StatelessWidget {
                   FlatButton(
                     onPressed: model.navigateToEditProfilePage,
                     child: Text(
-                      'Edit',
+                      AppLocalizations.of(context).edit,
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 4.4),
                         color: Theme.of(context).textSelectionColor,
@@ -74,7 +75,7 @@ class ProfilePageView extends StatelessWidget {
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
                                 children: <Widget>[
-                                  Text('Name'),
+                                  Text(AppLocalizations.of(context).name),
                                   SizedBox(width: 30),
                                   Expanded(
                                     child: TextField(
@@ -97,7 +98,8 @@ class ProfilePageView extends StatelessWidget {
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
                                 children: <Widget>[
-                                  Text('Business\nName'),
+                                  Text(AppLocalizations.of(context)
+                                      .businessName),
                                   SizedBox(width: 18),
                                   Expanded(
                                     child: TextField(
