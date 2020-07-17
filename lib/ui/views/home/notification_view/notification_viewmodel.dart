@@ -25,11 +25,14 @@ class NotificationViewModel extends ReactiveViewModel {
   final _logService = locator<LogsLocalDataSourceImpl>();
 
   List<LogH> get loglist => _logService.loglist;
+  bool get notify => _logService.shouldnotify;
 
   void getlogs(){
     print('called2');
     _logService.getLogs();
-    _logService.setnotify();
+    if(notify){
+      _logService.setnotify();
+    }
   }
 
   @override

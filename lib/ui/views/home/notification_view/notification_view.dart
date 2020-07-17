@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -97,11 +98,13 @@ class NotificationsView extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(height: 8.0),
-                                            Text('time',
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontWeight: FontWeight.bold,
-                                                )),
+                                            Text(
+                                              log.timestamp.day == DateTime.now().day ? DateFormat('hh:mm aa').format(log.timestamp) : DateFormat('MMM dd yyyy').format(log.timestamp),
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold,
+                                              )
+                                            ),
                                           ],
                                         ),
                                       ])
