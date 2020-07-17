@@ -11,7 +11,7 @@ class ThemeModel extends BaseViewModel {
   BuildContext _context;
 
   // TODO: implement getter properly
-  bool get isDarkTheme => locator<IStorageUtil>().getBool('IS_DARK_THEME') ?? (MediaQuery.of(_context).platformBrightness == Brightness.dark);
+  bool get isDarkTheme => locator<IStorageUtil>().getBool('IS_DARK_THEME') ?? /*(MediaQuery.of(_context).platformBrightness == Brightness.dark)*/ false;
 
   ThemeData theme([BuildContext context]) {
     _context = context;
