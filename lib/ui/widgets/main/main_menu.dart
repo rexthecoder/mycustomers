@@ -1,6 +1,6 @@
 part of '../../views/main/main_view.dart';
 
-class MainMenu extends HookViewModelWidget<MainViewModel>  {
+class MainMenu extends HookViewModelWidget<MainViewModel> {
   MainMenu({Key key}) : super(key: key, reactive: true);
 
   @override
@@ -24,20 +24,11 @@ class MainMenu extends HookViewModelWidget<MainViewModel>  {
           //  TODO ... MOVEMENT ANIMATION
         },
         child: Scaffold(
-          backgroundColor: ThemeColors.black.withOpacity(0.7),
-          body: Container(
-            width: SizeConfig.xMargin(context, 80),
-            color: Theme.of(context).backgroundColor,
-            child: Row(
-              children: <Widget>[
-                BusinessMenu(),
-                MenuOptions(),
-              ],
-            ),
-          ),
-        )
+          backgroundColor:
+              ThemeColors.black.withOpacity(model.isCollapsed ? 0 : 0.7),
+          body: BusinessMenu(),
+        ),
       ),
     );
   }
-
 }

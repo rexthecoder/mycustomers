@@ -5,11 +5,10 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_view_model.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart' as ctm;
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'language_view_model.dart';
 
-class LanguagePageView extends StatelessWidget {
+class LanguageSelectionPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -62,7 +61,7 @@ class LanguagePageView extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(20)),
                         child: ctm.CustomRaisedButton(
-                            label: 'Save',
+                            label: AppLocalizations.of(context).save,
                             onPressed: () {
                               model.saveLang();
                               Navigator.pop(context);

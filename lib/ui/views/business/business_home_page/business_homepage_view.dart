@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
-
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 
@@ -62,7 +62,7 @@ class BusinessHomePageView extends StatelessWidget {
                       ),
                       onPressed: model.navigateToProfilePage,
                       child: Text(
-                        'Edit',
+                        AppLocalizations.of(context).edit,
                         style: TextStyle(
                           color: const Color(0xFF21D184),
                           fontSize: SizeConfig.textSize(context, 3.5),
@@ -74,18 +74,18 @@ class BusinessHomePageView extends StatelessWidget {
                 optionButton(
                     context: context,
                     icon: businessCard,
-                    label: 'Business Card',
+                    label: AppLocalizations.of(context).buisnessCard,
                     onTap: () => _displayBusinessCardModal(context, model)),
                 optionButton(
                   context: context,
                   icon: settings,
-                  label: 'Settings',
+                  label: AppLocalizations.of(context).settings,
                   onTap: model.navigateToSettingsPage,
                 ),
                 optionButton(
                   context: context,
                   icon: support,
-                  label: 'Support',
+                  label: AppLocalizations.of(context).support,
                   onTap: model.navigateToSupportPage,
                 ),
               ],
@@ -150,7 +150,7 @@ void _displayBusinessCardModal(context, model) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Business card'),
+                Text(AppLocalizations.of(context).buisnessCard),
                 FlatButton(
                   color: const Color(0xFFDEE9FF),
                   shape: RoundedRectangleBorder(
@@ -158,7 +158,7 @@ void _displayBusinessCardModal(context, model) {
                   ),
                   onPressed: model.navigateToBusinessCardPage,
                   child: Text(
-                    'Edit',
+                    AppLocalizations.of(context).edit,
                     style: TextStyle(
                       fontSize: SizeConfig.textSize(context, 3.5),
                       color: BrandColors.primary,

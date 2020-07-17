@@ -1,15 +1,17 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 // import 'package:mycustomers/app/router.dart';
 // import 'package:mycustomers/core/models/business_model.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class MainViewModel extends BaseViewModel {
+class MainViewModel extends ReactiveViewModel {
   /// Fields
   final NavigationService _navigationService = locator<NavigationService>();
   static AuthService _auth = locator<AuthService>();
@@ -18,6 +20,16 @@ class MainViewModel extends BaseViewModel {
 
   List<Store> get stores => _stores;
   Store get currStore => StoreRepository.currentStore;
+
+  final _logService = locator<LogsLocalDataSourceImpl>();
+  final _bussinessService = locator<BussinessSettingService>();
+
+  bool get showdot => _logService.shouldnotify;
+
+  void addlog(){
+    print('called1');
+    _logService.testfunc(DateTime.now());
+  }
 
   final List<Menu> menus = [
     Menu(
@@ -82,6 +94,10 @@ class MainViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void getcurr(){
+    _bussinessService.getCurrency();
+  }
+
   final DialogService _dialogService = locator<DialogService>();
 
   Future navigateToAddBusiness() async {
@@ -93,6 +109,9 @@ class MainViewModel extends BaseViewModel {
   void navigateToNotifications() {
     _navigationService.navigateTo(Routes.notificationsViewRoute);
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_logService, _bussinessService];
 }
 
 class Menu {
