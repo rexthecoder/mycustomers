@@ -16,7 +16,7 @@ class CurrencySettingPageViewModel extends ReactiveViewModel{
   }
 
   void saveCurrencyIndex(){
-    _bussinessSettingService.setCurrencyIndex(tempIndex);
+    _bussinessSettingService.addCurrency(currencies[tempIndex]['country']);
   }
 
   @override

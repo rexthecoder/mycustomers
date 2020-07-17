@@ -349,7 +349,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 color: Colors.white),
                                                                             child:
                                                                                 Text(
-                                                                              '₦' + currency.format(item.amount).toString(),
+                                                                              model.currency.symbol + currency.format(item.amount).toString(),
                                                                               style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.4), color: Color(0xFF333CC1), fontWeight: FontWeight.w900, fontFamily: 'Roboto'),
                                                                             ),
                                                                           ),
@@ -434,7 +434,7 @@ class MainTransaction extends StatelessWidget {
                                                                             child:
                                                                                 Flexible(
                                                                               child: Text(
-                                                                                'Customer paid',
+                                                                                '${model.contact.name} paid',
                                                                                 style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                       fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                       color: Colors.black38,
@@ -457,7 +457,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 color: Colors.white),
                                                                             child:
                                                                                 Text(
-                                                                              '₦' + currency.format(item.paid).toString(),
+                                                                              model.currency.symbol + currency.format(item.paid).toString(),
                                                                               style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.4), color: Color(0xFF21D184), fontWeight: FontWeight.w900, fontFamily: 'Roboto'),
                                                                             ),
                                                                           )
@@ -528,7 +528,7 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    'Customer Owes you ',
+                                                    '${model.contact.name} Owes you ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -540,7 +540,7 @@ class MainTransaction extends StatelessWidget {
                                                         ),
                                                   ),
                                                   Text(
-                                                    'NGN' +
+                                                    model.currency.symbol +
                                                         currency
                                                             .format(model
                                                                     .bought() -
@@ -555,6 +555,7 @@ class MainTransaction extends StatelessWidget {
                                                                   context, 2.5),
                                                           color:
                                                               Color(0xFFEB5757),
+                                                          fontFamily: 'Roboto',
                                                           fontWeight:
                                                               FontWeight.w900,
                                                         ),
@@ -567,7 +568,7 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    'You owe this customer ',
+                                                    'You owe ${model.contact.name} ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -579,7 +580,7 @@ class MainTransaction extends StatelessWidget {
                                                         ),
                                                   ),
                                                   Text(
-                                                    'NGN' +
+                                                    model.currency.symbol +
                                                         currency
                                                             .format(model
                                                                     .paid() -
@@ -594,6 +595,7 @@ class MainTransaction extends StatelessWidget {
                                                                   context, 2.5),
                                                           color:
                                                               Color(0xFFEB5757),
+                                                          fontFamily: 'Roboto',
                                                           fontWeight:
                                                               FontWeight.w900,
                                                         ),

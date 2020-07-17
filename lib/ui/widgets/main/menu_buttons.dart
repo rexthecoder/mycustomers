@@ -18,8 +18,11 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               itemCount: model.stores.length,
-              itemBuilder: (context, index) =>
-                  businessIcon(context, model.stores[index], model),
+              itemBuilder: (context, index) => businessIcon(
+                context,
+                model.stores[index],
+                model,
+              ),
               shrinkWrap: true,
               separatorBuilder: (BuildContext context, int index) => SizedBox(
                 height: SizeConfig.yMargin(context, 2),
@@ -30,13 +33,62 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
 
   Widget businessIcon(
       BuildContext context, Store business, MainViewModel model) {
-    bool isSelected = model.currStore.id == business.id;
-
-    return GestureDetector(
+    return BoxButton(
+      label: business.name,
+      child: Text(
+        business.name.substring(0, 1),
+        style: TextStyle(
+          color: ThemeColors.black,
+          fontSize: SizeConfig.textSize(context, 12),
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      highLight: model.currStore.id == business.id,
       onTap: () {
         // TODO: Add fetch store details
         model.changeBusiness(business.id);
       },
+    );
+  }
+}
+
+class AddBusinessIcon extends HookViewModelWidget<MainViewModel> {
+  AddBusinessIcon({Key key}) : super(key: key, reactive: true);
+
+  @override
+  Widget buildViewModelWidget(
+    BuildContext context,
+    MainViewModel model,
+  ) {
+    return BoxButton(
+      label: 'Add Business',
+      onTap: model.navigateToAddBusiness,
+      highLight: false,
+      child: Icon(
+        Icons.add,
+        color: ThemeColors.black,
+        size: SizeConfig.textSize(context, 9),
+      ),
+    );
+  }
+}
+
+class BoxButton extends HookViewModelWidget<MainViewModel> {
+  final String label;
+  final Widget child;
+  final Function onTap;
+  final bool highLight;
+
+  BoxButton({this.label, this.child, this.onTap, this.highLight});
+
+  @override
+  Widget buildViewModelWidget(
+    BuildContext context,
+    MainViewModel model,
+  ) {
+//    bool isSelected = model.currStore.id == business.id;
+    return GestureDetector(
+      onTap: onTap,
       child: Column(
         children: <Widget>[
           Container(
@@ -45,7 +97,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: isSelected ? BrandColors.primary : Colors.transparent,
+                  color: highLight ? BrandColors.primary : Colors.transparent,
                   width: 2,
                 ),
                 boxShadow: [
@@ -61,24 +113,17 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
             child: GFAvatar(
               shape: GFAvatarShape.standard,
               backgroundColor: ThemeColors.background,
-              child: Text(
-                business.name.substring(0, 1),
-                style: TextStyle(
-                  color: ThemeColors.black,
-                  fontSize: SizeConfig.textSize(context, 12),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: child,
               borderRadius: BorderRadius.circular(8),
             ),
           ),
           Text(
-            business.name,
+            label,
             maxLines: 1,
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 4),
+              fontSize: SizeConfig.textSize(context, 3),
             ),
           )
         ],

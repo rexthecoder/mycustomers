@@ -29,7 +29,7 @@ class AddDebtCreditView extends StatelessWidget {
               brightness: Brightness.light,
               elevation: 1,
               title: Text(
-                action == 'credit'
+                action == 'debit'
                     ? model.amount != null
                         ? '${model.contact.name} owes you ₦' +
                             model.amount.round().toString()
@@ -65,7 +65,7 @@ class AddDebtCreditView extends StatelessWidget {
             ),
             body: Container(
               padding: EdgeInsets.symmetric(
-                  vertical: ScreenUtil().setHeight(20),
+                  vertical: ScreenUtil().setHeight(15),
                   horizontal: ScreenUtil().setWidth(20)),
               child: Column(
                 children: <Widget>[
@@ -78,15 +78,18 @@ class AddDebtCreditView extends StatelessWidget {
                           children: <Widget>[
                             Container(
                               margin: EdgeInsets.only(
-                                  bottom: ScreenUtil().setHeight(20)),
-                              child: Text(
-                                'Transaction Details',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6
-                                    .copyWith(
-                                        fontSize: ScreenUtil().setSp(20),
-                                        fontWeight: FontWeight.bold),
+                                  bottom: ScreenUtil().setHeight(10)),
+                              child: Center(
+                                child: Text(
+                                  'Transaction Details',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
+                                          fontSize:
+                                              SizeConfig.yMargin(context, 2.6),
+                                          fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                             Container(
@@ -138,16 +141,27 @@ class AddDebtCreditView extends StatelessWidget {
                                     borderSide: const BorderSide(
                                         color: Colors.red, width: 2.0),
                                   ),
-                                  hintText: 'Enter Amount',
+                                  hintText: action == 'credit'
+                                      ? 'Enter Amount ${model.contact.name} Paid You'
+                                      : 'Enter Amount ${model.contact.name} Owes You',
+                                  hintStyle: TextStyle(
+                                      fontSize:
+                                          SizeConfig.yMargin(context, 2.3)),
                                   errorText: model.error,
                                   prefixIcon: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: ScreenUtil().setHeight(15),
-                                        horizontal: ScreenUtil().setWidth(10)),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/hash.svg',
-                                    ),
-                                  ),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: ScreenUtil().setHeight(15),
+                                          horizontal:
+                                              ScreenUtil().setWidth(10)),
+                                      child: Text(
+                                        model.currency.symbol,
+                                        style: TextStyle(
+                                            color: Colors.grey.shade900,
+                                            fontSize:
+                                                SizeConfig.yMargin(context, 3),
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Roboto'),
+                                      )),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: ScreenUtil().setHeight(8)),
                                 ),
@@ -204,7 +218,8 @@ class AddDebtCreditView extends StatelessWidget {
                                         },
                                       );
                                       if (picked != null)
-                                        model.setOtherDate(picked, update, action);
+                                        model.setOtherDate(
+                                            picked, update, action);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(bottom: 15),
@@ -522,16 +537,15 @@ class AddDebtCreditView extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       model.addtransaction(action, update);
-                      // Function to schedule reminder
-                      // Main function is in services/notifications/automatic_reminder
-                      // TODO: Add a time picker
                       reminders.sendNotificationOnce(
                           0,
+                          'Reminder: ',
                           action == 'credit'
-                              ? 'You owe ' + model.contact.name
-                              : model.contact.name + ' owes you',
-                          "",
-                          model.dueDate);
+                              ? 'You owe ${model.contact.name} ' +
+                                  model.amount.round().toString()
+                              : '${model.contact.name} owes you ' +
+                                  model.amount.round().toString(),
+                          action == 'debit' ? model.dueDate : model.otherDate);
                     }, //Todo: Save User Input
                     child: Container(
                       padding: EdgeInsets.symmetric(

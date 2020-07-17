@@ -15,6 +15,7 @@ getNotificationInstance() {
 
  // initialise the plugin.
   void initNotifications() {
+    
 
    // Sets icon to be displayed with notification (android).
     var initializationSettingsAndroid =
