@@ -12,7 +12,7 @@ class StoreRepository {
   static Store _currentStore;
 
   static List<Store> get stores => _stores;
-  static Store get currentStore => _currentStore;
+  Store get currentStore => _currentStore;
 
   static changeSelectedStore(String id) {
     var newStore = _stores.firstWhere((elem) => elem.id == id, orElse: () => null);

@@ -10,6 +10,8 @@ import 'package:mycustomers/core/data_sources/transaction/transaction_local_data
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/models/store.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
@@ -35,6 +37,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
   final _logService = locator<LogsLocalDataSourceImpl>();
+  final _storeService = locator<StoreRepository>();
+  Store get currentStore => _storeService.currentStore;
 
   double _amount;
   double get amount => _amount;
@@ -151,13 +155,15 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           print(dueDate);
           print('crediting');
           TransactionModel transaction = new TransactionModel(
-              cId: _transactionService.stransaction.cId,
-              amount: _transactionService.stransaction.amount,
-              paid: amount,
-              goods: _transactionService.stransaction.goods,
-              duedate: _transactionService.stransaction.duedate,
-              boughtdate: _transactionService.stransaction.boughtdate,
-              paiddate: otherDate.toString());
+            cId: _transactionService.stransaction.cId,
+            sId: _transactionService.stransaction.sId,
+            amount: _transactionService.stransaction.amount,
+            paid: amount,
+            goods: _transactionService.stransaction.goods,
+            duedate: _transactionService.stransaction.duedate,
+            boughtdate: _transactionService.stransaction.boughtdate,
+            paiddate: otherDate.toString()
+          );
           _transactionService.updateTransaction(transaction);
           _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           notifyListeners();
@@ -165,6 +171,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           print('debiting');
           TransactionModel transaction = new TransactionModel(
               cId: _transactionService.stransaction.cId,
+              sId: _transactionService.stransaction.sId,
               amount: amount,
               paid: _transactionService.stransaction.paid,
               goods: _transactionService.stransaction.goods,
@@ -180,6 +187,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           print(dueDate);
           TransactionModel transaction = new TransactionModel(
               cId: contact.id,
+              sId: currentStore.id,
               amount: amount,
               paid: 0,
               goods: items,
@@ -192,6 +200,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         } else {
           TransactionModel transaction = new TransactionModel(
               cId: contact.id,
+              sId: currentStore.id,
               amount: 0,
               paid: amount,
               goods: items,

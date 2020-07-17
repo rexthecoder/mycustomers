@@ -61,11 +61,18 @@ class NotificationsView extends StatelessWidget {
                   Expanded(
                     child: TabBarView(
                       children: <Widget>[
-                        Container(),
+                        Container(
+                          child: Center(
+                            child: Text(
+                              'No Reminders yet',
+                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                            ),
+                          ),
+                        ),
                         SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
-                              for(var log in model.loglist) Dismissible(
+                              for(var log in model.loglist) model.loglist.length > 0 ? Dismissible(
                                 key: Key(model.loglist.indexOf(log).toString()),
                                 onDismissed: (DismissDirection direction) {
                                   
@@ -86,7 +93,11 @@ class NotificationsView extends StatelessWidget {
                                     children: <Widget>[
                                       Row(children: <Widget>[
                                         Expanded(
-                                            child: Text(log.description)),
+                                          child: Text(
+                                            log.description,
+                                            style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                                          )
+                                        ),
                                         SizedBox(width: 20.0),
                                         Column(
                                           children: <Widget>[
@@ -110,6 +121,11 @@ class NotificationsView extends StatelessWidget {
                                       ])
                                     ],
                                   ),
+                                ),
+                              ) : Center(
+                                child: Text(
+                                  'No Activities yet. This Keeps track of activities made in your store',
+                                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                                 ),
                               ),
                             ],

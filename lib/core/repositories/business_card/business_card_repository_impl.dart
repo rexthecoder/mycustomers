@@ -1,3 +1,4 @@
+import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/business_card/business_card_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/store.dart';
@@ -13,6 +14,7 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
   final AuthService authService;
   final BusinessCardLocalDataSource localDataSource;
   final StoreRepository storeRepository;
+  final _storeRepository = locator<StoreRepository>();
 
   BusinessCardRepositoryImpl({
     @required this.authService,
@@ -22,14 +24,14 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
 
   @override
   Future<void> saveBusinessCard(BusinessCardH businessCard) async {
-    Store store = StoreRepository.currentStore;
+    Store store = _storeRepository.currentStore;
     await localDataSource.createBusinessCardH(store.id, businessCard);
     return Future.value();
   }
 
   @override
   Future<BusinessCardH> getBusinessCard() async {
-    Store store = StoreRepository.currentStore;
+    Store store = _storeRepository.currentStore;
 
     if (store == null) return BusinessCardH.empty();
 
