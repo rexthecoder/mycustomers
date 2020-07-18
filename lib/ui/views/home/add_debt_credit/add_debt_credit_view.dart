@@ -35,9 +35,9 @@ class AddDebtCreditView extends StatelessWidget {
                             model.amount.round().toString()
                         : '${model.contact.name} owes you'
                     : model.amount != null
-                        ? '${model.contact.name} paid you ₦' +
+                        ? 'You owe ${model.contact.name} ₦' +
                             model.amount.round().toString()
-                        : '${model.contact.name} paid you',
+                        : 'You owe ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -147,11 +147,11 @@ class AddDebtCreditView extends StatelessWidget {
                                         color: Colors.red, width: 2.0),
                                   ),
                                   hintText: action == 'credit'
-                                      ? 'Enter Amount ${model.contact.name} Paid You'
+                                      ? 'Enter Amount you owe ${model.contact.name}'
                                       : 'Enter Amount ${model.contact.name} Owes You',
                                   hintStyle: TextStyle(
                                       fontSize:
-                                          SizeConfig.yMargin(context, 2.3)),
+                                          SizeConfig.yMargin(context, 1.5)),
                                   errorText: model.error,
                                   prefixIcon: Container(
                                       padding: EdgeInsets.symmetric(

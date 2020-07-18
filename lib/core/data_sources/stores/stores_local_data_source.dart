@@ -9,11 +9,11 @@ import 'package:uuid/uuid.dart';
 abstract class StoresLocalDataSource {
   Future<void> init();
 
-  Future<Store> getStore(String id);
+  Store getStore(String id);
 
-  Future<Iterable<Store>> getStores();
+  Iterable<Store> getStores();
 
-  Future<Iterable<Store>> getStoresWhere(Function(StoreH) test);
+  Iterable<Store> getStoresWhere(Function(StoreH) test);
 
   Future<Store> updateStore(String id, Store update);
 
@@ -50,18 +50,18 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
   //
 
   @override
-  Future<Store> getStore(String id) async {
+  Store getStore(String id) {
     var store = storeBox.get(id);
     return Store.fromStoreH(store);
   }
 
   @override
-  Future<Iterable<Store>> getStores() async {
+  Iterable<Store> getStores() {
     return storeBox.values.where((element) => element.ownerId == _auth.currentUser.id).map((e) => Store.fromStoreH(e));
   }
 
   @override
-  Future<Iterable<Store>> getStoresWhere(Function(StoreH p1) test) async {
+  Iterable<Store> getStoresWhere(Function(StoreH p1) test) {
     return storeBox.values.where((element) => element.id == _auth.currentUser.id).where(test).map((e) => Store.fromStoreH(e));
   }
 
@@ -92,7 +92,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         newStore.tagline,
         _auth.currentUser.id,
         newStore.email);
-    storeBox.put(newStoreH.id, newStoreH);
+    await storeBox.put(newStoreH.id, newStoreH);
     await StoreRepository.updateStores();
     return true;
   }
@@ -114,14 +114,14 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         update.tagline ?? sToUpdate.tagline,
         sToUpdate.ownerId,
         sToUpdate.email);
-    storeBox.put(updatedStore.id, updatedStore);
+    await storeBox.put(updatedStore.id, updatedStore);
     return Store.fromStoreH(updatedStore);
   }
 
   @override
   Future<bool> deleteStore(String id) async {
     try {
-      storeBox.delete(id);
+      await storeBox.delete(id);
       return true;
     } catch (e) {
       return false;
