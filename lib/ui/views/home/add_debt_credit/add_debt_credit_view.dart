@@ -43,7 +43,7 @@ class AddDebtCreditView extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: action == 'credit'
                         ? BrandColors.secondary
-                        : BrandColors.primary,
+                        : Theme.of(context).textSelectionColor,
                     fontFamily: 'Roboto'),
               ),
               leading: InkWell(
@@ -56,11 +56,11 @@ class AddDebtCreditView extends StatelessWidget {
                     'assets/icons/backarrow.svg',
                     color: action == 'credit'
                         ? BrandColors.secondary
-                        : BrandColors.primary,
+                        : Theme.of(context).textSelectionColor,
                   ),
                 ),
               ),
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).backgroundColor,
               centerTitle: true,
             ),
             body: Container(
@@ -105,7 +105,8 @@ class AddDebtCreditView extends StatelessWidget {
                                     .copyWith(
                                         color: action == 'credit'
                                             ? BrandColors.secondary
-                                            : BrandColors.primary,
+                                            : Theme.of(context)
+                                                .textSelectionColor,
                                         fontSize: ScreenUtil().setSp(16),
                                         fontWeight: FontWeight.bold),
                                 decoration: new InputDecoration(
@@ -113,28 +114,32 @@ class AddDebtCreditView extends StatelessWidget {
                                     borderSide: BorderSide(
                                         color: action == 'credit'
                                             ? BrandColors.secondary
-                                            : BrandColors.primary,
+                                            : Theme.of(context)
+                                                .textSelectionColor,
                                         width: 2.0),
                                   ),
                                   disabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: action == 'credit'
                                             ? BrandColors.secondary
-                                            : BrandColors.primary,
+                                            : Theme.of(context)
+                                                .textSelectionColor,
                                         width: 2.0),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: action == 'credit'
                                             ? BrandColors.secondary
-                                            : BrandColors.primary,
+                                            : Theme.of(context)
+                                                .textSelectionColor,
                                         width: 2.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: action == 'credit'
                                             ? BrandColors.secondary
-                                            : BrandColors.primary,
+                                            : Theme.of(context)
+                                                .textSelectionColor,
                                         width: 2.0),
                                   ),
                                   errorBorder: const OutlineInputBorder(
@@ -156,7 +161,8 @@ class AddDebtCreditView extends StatelessWidget {
                                       child: Text(
                                         model.currency.symbol,
                                         style: TextStyle(
-                                            color: Colors.grey.shade900,
+                                            color:
+                                                Theme.of(context).cursorColor,
                                             fontSize:
                                                 SizeConfig.yMargin(context, 3),
                                             fontWeight: FontWeight.bold,
@@ -196,19 +202,20 @@ class AddDebtCreditView extends StatelessWidget {
                                             data: Theme.of(context).copyWith(
                                               primaryColor: action == 'credit'
                                                   ? BrandColors.secondary
-                                                  : BrandColors.primary,
+                                                  : Theme.of(context)
+                                                      .textSelectionColor,
                                               accentColor: action == 'credit'
                                                   ? BrandColors.secondary
-                                                  : BrandColors.primary,
+                                                  : Theme.of(context)
+                                                      .textSelectionColor,
                                               colorScheme: Theme.of(context)
                                                   .colorScheme
                                                   .copyWith(
-                                                      primary:
-                                                          action == 'credit'
-                                                              ? BrandColors
-                                                                  .secondary
-                                                              : BrandColors
-                                                                  .primary),
+                                                      primary: action == 'credit'
+                                                          ? BrandColors
+                                                              .secondary
+                                                          : Theme.of(context)
+                                                              .textSelectionColor),
                                               buttonTheme: ButtonThemeData(
                                                   textTheme:
                                                       ButtonTextTheme.primary),
@@ -245,7 +252,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                 'assets/icons/calendar.svg',
                                                 color: action == 'credit'
                                                     ? BrandColors.secondary
-                                                    : BrandColors.primary),
+                                                    : Theme.of(context)
+                                                        .textSelectionColor),
                                           ),
                                           Container(
                                             child: Text(
@@ -262,7 +270,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                         ScreenUtil().setSp(16),
                                                     color: action == 'credit'
                                                         ? BrandColors.secondary
-                                                        : BrandColors.primary,
+                                                        : Theme.of(context)
+                                                            .textSelectionColor,
                                                   ),
                                             ),
                                           )
@@ -294,22 +303,23 @@ class AddDebtCreditView extends StatelessWidget {
                                                     primaryColor: action ==
                                                             'credit'
                                                         ? BrandColors.secondary
-                                                        : BrandColors.primary,
+                                                        : Theme.of(context)
+                                                            .textSelectionColor,
                                                     accentColor: action ==
                                                             'credit'
                                                         ? BrandColors.secondary
-                                                        : BrandColors.primary,
+                                                        : Theme.of(context)
+                                                            .textSelectionColor,
                                                     colorScheme: Theme.of(
                                                             context)
                                                         .colorScheme
                                                         .copyWith(
-                                                            primary:
-                                                                action ==
-                                                                        'credit'
-                                                                    ? BrandColors
-                                                                        .secondary
-                                                                    : BrandColors
-                                                                        .primary),
+                                                            primary: action == 'credit'
+                                                                ? BrandColors
+                                                                    .secondary
+                                                                : Theme.of(
+                                                                        context)
+                                                                    .textSelectionColor),
                                                     buttonTheme:
                                                         ButtonThemeData(
                                                             textTheme:
@@ -351,8 +361,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                       color: action == 'credit'
                                                           ? BrandColors
                                                               .secondary
-                                                          : BrandColors
-                                                              .primary),
+                                                          : Theme.of(context)
+                                                              .textSelectionColor),
                                                 ),
                                                 Container(
                                                   child: Text(
@@ -364,12 +374,13 @@ class AddDebtCreditView extends StatelessWidget {
                                                         .copyWith(
                                                           fontSize: ScreenUtil()
                                                               .setSp(16),
-                                                          color:
-                                                              action == 'credit'
-                                                                  ? BrandColors
-                                                                      .secondary
-                                                                  : BrandColors
-                                                                      .primary,
+                                                          color: action ==
+                                                                  'credit'
+                                                              ? BrandColors
+                                                                  .secondary
+                                                              : Theme.of(
+                                                                      context)
+                                                                  .textSelectionColor,
                                                         ),
                                                   ),
                                                 )
@@ -413,6 +424,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                         .setHeight(10)),
                                                 child: SvgPicture.asset(
                                                   'assets/icons/cart.svg',
+                                                  color: Theme.of(context)
+                                                      .cursorColor,
                                                 ),
                                               ),
                                               suffixIcon: InkWell(
@@ -427,12 +440,12 @@ class AddDebtCreditView extends StatelessWidget {
                                                     children: <Widget>[
                                                       Icon(
                                                         Icons.add,
-                                                        color:
-                                                            action == 'credit'
-                                                                ? BrandColors
-                                                                    .secondary
-                                                                : BrandColors
-                                                                    .primary,
+                                                        color: action ==
+                                                                'credit'
+                                                            ? BrandColors
+                                                                .secondary
+                                                            : Theme.of(context)
+                                                                .textSelectionColor,
                                                         size: ScreenUtil()
                                                             .setWidth(18),
                                                       ),
@@ -451,8 +464,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                                             'credit'
                                                                         ? BrandColors
                                                                             .secondary
-                                                                        : BrandColors
-                                                                            .primary,
+                                                                        : Theme.of(context)
+                                                                            .textSelectionColor,
                                                                   ),
                                                         ),
                                                       )
@@ -479,12 +492,12 @@ class AddDebtCreditView extends StatelessWidget {
                                                   horizontal: ScreenUtil()
                                                       .setWidth(15)),
                                               decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        ScreenUtil()
-                                                            .setWidth(5)),
-                                                color: Color(0xFFF0F0F0),
-                                              ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          ScreenUtil()
+                                                              .setWidth(5)),
+                                                  color: Theme.of(context)
+                                                      .backgroundColor),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
