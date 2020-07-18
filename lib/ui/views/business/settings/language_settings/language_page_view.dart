@@ -1,113 +1,118 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil.dart';
-import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
-import 'package:mycustomers/ui/views/business/settings/language_settings/language_view_model.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart' as ctm;
+import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
 import 'package:stacked/stacked.dart';
-import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
+import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
+import 'language_view_model.dart';
 
 class LanguageSelectionPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    ScreenUtil.init(context, width: width, height: height);
-    return ViewModelBuilder<LanguagePageViewModel>.reactive(
-        builder: (context, model, child) => Scaffold(
-              backgroundColor: Theme.of(context).backgroundColor,
-              appBar: customizeAppBar(context, 1.0,
-                title:'Language' , arrowColor: BrandColors.primary),
-              body: Container(
-                padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: ScreenUtil().setHeight(20),
-                              horizontal: ScreenUtil().setWidth(20)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(bottom: 15),
-                                child: Text(
-                                  'Select your language',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(
-                                          fontSize: ScreenUtil().setSp(18),
-                                          color: Theme.of(context).cursorColor),
-                                ),
+    return ViewModelBuilder<LanguageViewModel>.reactive(
+      builder: (context, model, child) => Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: customizeAppBar(context, 1.0,
+            title: 'Language Settings',
+            arrowColor: Theme.of(context).textSelectionColor),
+        body: Container(
+          margin:
+              EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 8)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: SizeConfig.yMargin(context, 3)),
+              Text(
+                'Select your Language',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: SizeConfig.yMargin(context, 2.2),
+                ),
+              ),
+              SizedBox(height: SizeConfig.yMargin(context, 2)),
+              Container(
+                height: SizeConfig.yMargin(context, 60),
+                width: SizeConfig.xMargin(context, 90),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: model.languages.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return CustomPartialBuild<SettingManagerModel>(
+                      builder: (context, viewModel) => Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.yMargin(context, 0.5)),
+                        child: InkWell(
+                          onTap: () {
+                            // model.setLanguage(index);
+                            viewModel.setLocale(model.languages[index]['code']);
+                          },
+                          child: Container(
+                            height: SizeConfig.yMargin(context, 7),
+                            width: SizeConfig.xMargin(context, 100),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(13, 71, 126, 200),
+                                  offset: Offset(0, 4),
+                                  blurRadius: 4,
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: (viewModel.locale?.languageCode ??
+                                            Localizations.localeOf(context)
+                                                .languageCode) ==
+                                        model.languages[index]['code']
+                                    ? Theme.of(context).textSelectionColor
+                                    : Color(0xFFE8E8E8),
                               ),
-                              for (var lang in model.langs)
-                                langTile(
-                                    context,
-                                    lang['name'],
-                                    lang['selected'],
-                                    model,
-                                    model.langs.indexOf(lang)),
-                            ],
+                              color: Theme.of(context).backgroundColor,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.all(
+                                      SizeConfig.yMargin(context, 1)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        SizeConfig.yMargin(context, 5)),
+                                    child: Image(
+                                      height: SizeConfig.yMargin(context, 10),
+                                      fit: BoxFit.contain,
+                                      image: AssetImage(
+                                        model.languages[index]['image'],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  model.languages[index]['name'],
+                                  style: TextStyle(
+                                    color: Theme.of(context).cursorColor,
+                                    fontSize: SizeConfig.yMargin(context, 2.5),
+                                  ),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.all(
+                                        SizeConfig.yMargin(context, 4)),
+                                    child: Text("")),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(20)),
-                        child: ctm.CustomRaisedButton(
-                            label: 'Save',
-                            onPressed: () {
-                              model.saveLang();
-                              Navigator.pop(context);
-                              SavedDialog().showSavedDialog(context);
-                            }))
-                  ],
+                    );
+                  },
                 ),
               ),
-            ),
-        viewModelBuilder: () => LanguagePageViewModel());
-  }
-
-  Container langTile(BuildContext context, String text, bool selected,
-      LanguagePageViewModel model, int index) {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            border: Border.all(
-                color: selected
-                    ? Theme.of(context).textSelectionColor
-                    : Color(0xFFE8E8E8),
-                width: 1.0)),
-        child: ListTile(
-          onTap: () {
-            model.selectLang(index);
-          },
-          leading: Container(
-            width: ScreenUtil().setWidth(60),
-            height: ScreenUtil().setHeight(60),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/$text.png'),
-                  fit: BoxFit.cover,
-                )),
+            ],
           ),
-          title: Container(
-            margin: EdgeInsets.only(left: ScreenUtil().setWidth(30)),
-            child: Text(text,
-                style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: ScreenUtil().setSp(18),
-                      color: Theme.of(context).cursorColor,
-                    )),
-          ),
-        ));
+        ),
+      ),
+      viewModelBuilder: () => LanguageViewModel(),
+    );
   }
 }
-// }

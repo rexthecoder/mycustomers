@@ -51,7 +51,7 @@ class SavedDialog extends StatelessWidget {
         content: Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 35),
           width: ScreenUtil.screenWidth,
-          height: ScreenUtil().setHeight(330),
+          height: SizeConfig.yMargin(context, 35),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +85,6 @@ class SavedDialog extends StatelessWidget {
                 InkWell(
                   onTap: (){},
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 15),
                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                     decoration: BoxDecoration(
                       border: Border.all(color: Color(0xFF575A65)),
@@ -102,6 +101,7 @@ class SavedDialog extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 15,),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Text(
@@ -114,7 +114,6 @@ class SavedDialog extends StatelessWidget {
                 InkWell(
                   onTap: (){},
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 20),
                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                     decoration: BoxDecoration(
                       border: Border.all(color: Color(0xFF575A65)),
@@ -131,6 +130,7 @@ class SavedDialog extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 20,),
                 InkWell(
                   child: Container(
                     child: Row(

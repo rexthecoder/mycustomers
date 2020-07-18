@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import './ui/theme/theme_viewmodel.dart';
+import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'app/local_setup.dart';
 import 'package:oktoast/oktoast.dart';
 import 'app/locator.dart';
@@ -41,7 +41,7 @@ void main() async {
             dsn:
                 "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
-
+    
    runApp(App());
     //  runApp(
     //    DevicePreview(
@@ -112,13 +112,13 @@ class App extends StatelessWidget {
     //   DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return CoreManager(
-      child: ViewModelBuilder<ThemeModel>.reactive(
+      child: ViewModelBuilder<SettingManagerModel>.reactive(
         builder: (_, viewModel, ___) => OKToast(
           child: MyApp(
               viewModel: viewModel,
             ),
         ),
-        viewModelBuilder: () => ThemeModel(),
+        viewModelBuilder: () => SettingManagerModel(),
       ),
     );
   }
@@ -128,14 +128,14 @@ class MyApp extends StatelessWidget {
   const MyApp({
     Key key, this.viewModel,
   }) : super(key: key);
-  final ThemeModel viewModel;
+  final SettingManagerModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    print('Building material app');
     return MaterialApp(
-      builder: DevicePreview.appBuilder,
-      theme: viewModel.theme(context),
+      // builder: DevicePreview.appBuilder,
+      theme: viewModel.theme,
+      locale: viewModel.locale,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
@@ -145,4 +145,5 @@ class MyApp extends StatelessWidget {
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }
+
 }

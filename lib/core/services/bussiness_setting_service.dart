@@ -23,13 +23,13 @@ class BussinessSettingService with ReactiveServiceMixin{
   CountryCurrency get curren => _curren.value;
 
   List langs = [
-    { 'name': 'English', 'selected': true },
-    { 'name': 'Francias', 'selected': false },
+    { 'name': 'English', 'selected': true, 'code': 'en' },
+    { 'name': 'Francias', 'selected': false, 'code': 'fr' },
   ];
   List currencies = [
-    { 'name': 'Naira(NGN)', 'country': 'Nigeria',  'selected': true },
-    { 'name': 'Dollar(USD)', 'country': 'United States of America (USA)', 'selected': false },
-    { 'name': 'Indian Rubies(INR)', 'country': 'India', 'selected': false },
+    { 'name': 'Naira(NGN)', 'country': 'Nigeria',  'selected': true,  'code': 'NGN' },
+    { 'name': 'Dollar(USD)', 'country': 'United States of America (USA)', 'selected': false, 'code': 'USD' },
+    { 'name': 'Indian Rubies(INR)', 'country': 'India', 'selected': false, 'code': 'INR' },
   ];
 
   int get currency => _currency.value;
@@ -58,11 +58,15 @@ class BussinessSettingService with ReactiveServiceMixin{
   void getCurrency(){
     if(_currencyBox.values.toList().length == 0){
       _curren.value = CountryCurrency(country: 'Nigeria', symbol:'₦');
+      _currency.value = 0;
     } else {
       _curren.value = _currencyBox.values.toList()[0];
       for(var item in currencies) {
       if(_curren.value.country == item['country']){
         _currency.value = currencies.indexOf(item);
+        _tempcurrency.value = currencies.indexOf(item);
+        currencies[0]['selected'] = false;
+        item['selected'] = true;
       }
     }
     }

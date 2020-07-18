@@ -1,4 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -12,6 +13,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
   final PasswordManagerService _passwordManagerService = locator<PasswordManagerService>();
 
   static final _localStorageServices = locator<LocalStorageService>();
+  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
    
    String userPin = _localStorageServices.userPin;
 
@@ -41,6 +43,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
 
   void setPin(bool value) {
     _passwordManagerService.setPin(value);
+    _logService.getValues(null, DateTime.now(), 'remove-pin', '', false);
      notifyListeners();
    }
  

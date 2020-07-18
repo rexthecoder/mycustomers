@@ -1,10 +1,13 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/mixins/validators.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
+import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
@@ -28,6 +31,8 @@ class SignInViewModel extends BaseViewModel with Validators {
   bool obscureText = true;
   bool btnColor = true;
 
+  get currentStore => StoreRepository.currentStore;
+
   // String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: isoCode);
 
@@ -47,8 +52,17 @@ class SignInViewModel extends BaseViewModel with Validators {
 
   // Navigate
   Future navigateToNextScreen() async {
-    await _navigationService.replaceWithTransition(MainView(),
+    if (confirmHasStore()) await _navigationService.replaceWithTransition(MainView(),
         opaque: true, transition: 'rotate', duration: Duration(milliseconds: 400));
+  }
+
+    bool confirmHasStore() {
+    print('Current store is $currentStore');
+    if (currentStore == null) {
+      _navigationService.replaceWith(Routes.createBusinessView);
+      return false;
+    }
+    return true;
   }
 
   Future navigateToSignup() async {
@@ -87,6 +101,16 @@ class SignInViewModel extends BaseViewModel with Validators {
       );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
+  }
+
+   Future navigateToOnboarding() async {
+    await _navigationService.replaceWithTransition(
+      OnboardingView(),
+      opaque: true,
+      popGesture: true,
+      transition: 'rightToLeftWithFade',
+      duration: Duration(milliseconds: 100),
+    );
   }
 
 }

@@ -1,6 +1,7 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -14,16 +15,32 @@ class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final IStorageUtil _storage = locator<IStorageUtil>();
   final AuthService _auth = locator<AuthService>();
+  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
 
   bool previewImport = false;
+
+  get currentStore => StoreRepository.currentStore;
 
   Future setup() async {
     await locator.allReady();
 //    await  Future.delayed(Duration(seconds: 1));
-    if (await checkLoggedIn())
-      _navigationService.replaceWith(Routes.mainViewRoute);
+    if (await checkLoggedIn()) {
+      if (confirmHasStore()) {
+        _navigationService.replaceWith(Routes.mainViewRoute);
+        _logService.getValues(null, DateTime.now(), 'sign-in', '', false);
+      }
+    }
     else
       _navigationService.replaceWith(Routes.onboardingViewRoute);
+  }
+
+  bool confirmHasStore() {
+    print('Current store is $currentStore');
+    if (currentStore == null) {
+      _navigationService.replaceWith(Routes.createBusinessView);
+      return false;
+    }
+    return true;
   }
 
   Future<String> getEncryptionKey() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
@@ -134,7 +135,8 @@ class TransactionDetails extends StatelessWidget {
                                           children: <Widget>[
                                             Container(
                                               child: Text(
-                                                'Items purchased:',
+                                                AppLocalizations.of(context)
+                                                    .itemsPurchased,
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.grey[600],
@@ -177,7 +179,8 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 20,
                                               child: Text(
-                                                'Cost of Items:',
+                                                AppLocalizations.of(context)
+                                                    .costOfItems,
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.grey[600],
@@ -212,7 +215,8 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 20,
                                               child: Text(
-                                                'Amount paid:',
+                                                AppLocalizations.of(context)
+                                                    .amountPaid,
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.grey[600],
@@ -247,7 +251,8 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 20,
                                               child: Text(
-                                                'Amount Owing:',
+                                                AppLocalizations.of(context)
+                                                    .amountOwing,
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.grey[600],
@@ -379,7 +384,7 @@ class TransactionDetails extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          'Edit',
+                                          AppLocalizations.of(context).edit,
                                           style: TextStyle(
                                             fontSize: 30.sp,
                                             color: Colors.white,
@@ -404,6 +409,7 @@ class TransactionDetails extends StatelessWidget {
                 child: Center(
                   child: GestureDetector(
                     onTap: () {
+
                       ReceiptReport().buildPdf(context);
                       Navigator.of(context).push(new PageRouteBuilder(
                           opaque: false,
@@ -450,7 +456,11 @@ class TransactionDetails extends StatelessWidget {
                                               Container(
                                                   margin: EdgeInsets.only(
                                                       bottom: 10),
-                                                  child: Text('Share to',
+                                                  child: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .shareTo,
+
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .headline5
@@ -506,7 +516,7 @@ class TransactionDetails extends StatelessWidget {
                             width: 20.w,
                           ),
                           Text(
-                            'Share',
+                            AppLocalizations.of(context).share,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,

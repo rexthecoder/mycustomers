@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/shape/gf_avatar_shape.dart';
@@ -7,13 +8,16 @@ import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'package:mycustomers/ui/views/business/business_home_page/business_homepage_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
+import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'main_view_model.dart';
 
@@ -42,16 +46,22 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      onModelReady: (model){
-        model.addlog();
+      onModelReady: (model) {
+        //model.addlog();
         model.getcurr();
       },
-      builder: (context, model, child) => Scaffold(
-        body: Stack(
-          children: <Widget>[
-            mainView(context, model),
-            MainMenu(),
-          ],
+      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: BrandColors.primary,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        child: Scaffold(
+          body: Stack(
+            children: <Widget>[
+              mainView(context, model),
+              MainMenu(),
+            ],
+          ),
         ),
       ),
     );
@@ -91,7 +101,7 @@ class MainView extends StatelessWidget {
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                title: Text('Home'),
+                title: Text(AppLocalizations.of(context).home),
                 icon: SvgPicture.asset(
                   home,
                   color: ThemeColors.unselect,
@@ -103,7 +113,7 @@ class MainView extends StatelessWidget {
                   semanticsLabel: 'Home Navigator is Active',
                 )),
             BottomNavigationBarItem(
-                title: Text('Marketing'),
+                title: Text(AppLocalizations.of(context).marketing),
                 icon: SvgPicture.asset(
                   marketing,
                   color: ThemeColors.unselect,
@@ -115,11 +125,11 @@ class MainView extends StatelessWidget {
                   semanticsLabel: 'Marketing Navigator is Active',
                 )),
             BottomNavigationBarItem(
-                title: Text('Business'),
+                title: Text(AppLocalizations.of(context).business),
                 icon: SvgPicture.asset(
                   business,
                   color: ThemeColors.unselect,
-                  semanticsLabel: 'Business',
+                  semanticsLabel: AppLocalizations.of(context).business,
                 ),
                 activeIcon: SvgPicture.asset(
                   business,

@@ -30,7 +30,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   // Function to serve as a helper for the navigation
   Future navigateToSendMessageView() async {
-    await _navigationService.navigateTo(Routes.sendMessageViewRoute);
+    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
   }
 
   // Get the services required
@@ -83,7 +83,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
   }
 
   void deselectCustomer(Customer customer) {
-    _selectedCustomers.removeWhere((element) => element.id == customer.id);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
   void getFrequentCustomers() {
@@ -101,32 +101,95 @@ class MarketingHomePageViewModel extends BaseViewModel {
     _selectedCustomers = [];
     notifyListeners();
   }
-  void removeCustomers(index) {
-    allCustomers.removeAt(index);
-    _selectedCustomers.removeAt(index);
+  void removeCustomers(Customer customer) {
+    allCustomers.removeWhere((element) => element.phone == customer.phone);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
 //  void updateCustomers() async{
 //    fianl customerList = await _navigationService
 //  }
 
-   PermissionService _permission =  locator<IPermissionService>();
+ PermissionService _permission =  locator<IPermissionService>();
+  Future checkPermission() async {
+    
+     return await _permission.getContactsPermission(); 
+  }
+  Future requestPermission() async{
+    return await [Permission.contacts].request();
+  }
+   Future navigateToAddCustomers(context) async{
+     Navigator.of(context).pushNamed(Routes.addCustomerMarketing).then((_){
+       final arguments = ModalRoute.of(context).settings.arguments as Map;
+       final result = arguments['result'];
+     allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+      notifyListeners();
+     
+     });
+    notifyListeners();
+  }
+  Future navigateToAddNewCustomer(context) async{
+    Navigator.of(context).pushNamed(Routes.addNewCustomerMarketing).then((_){
+       final arguments = ModalRoute.of(context).settings.arguments as Map;
+       final result = arguments['result'];
+     allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+      notifyListeners();
+     
+     });
+    notifyListeners();
+  }
+
+  Future navigateToSendMessage(context) async{
+    // Navigator.of(context).pushNamed(Routes.sendMessageViewRoute,arguments: _selectedCustomers).then((_){
+    //    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    //    final result = arguments['result'];
+    //  allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+    //   notifyListeners();
+     
+    //  });
+    // notifyListeners();
+  }
+
+
+  
 
   Future navigateToAddCustomer() async {
     var contactList;
     final bool isPermitted =
         await _permission.getContactsPermission();
-    if(_selectedCustomers.length !=0 ){
-      _navigationService
-          .navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+
+    if(!isPermitted){
+      await [Permission.contacts].request();
+    }else if(isPermitted){
+      contactList = await _navigationService
+        .navigateTo(Routes.addCustomerMarketing);
     }else{
-      if (isPermitted) contactList = await _navigationService
-          .navigateTo(Routes.addCustomerMarketing);
-      else contactList = await  _navigationService
-          .navigateTo(Routes.addNewCustomerMarketing);
-      await contactList;
-      allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+      contactList = await  _navigationService
+        .navigateTo(Routes.addNewCustomerMarketing);
     }
+    // if (isPermitted) contactList = await _navigationService
+    //     .navigateTo(Routes.addCustomerMarketing);
+    // else contactList = await  _navigationService
+    //     .navigateTo(Routes.addNewCustomerMarketing);
+    // await contactList;
+//    print(contactList);
+//    final results = contactList['result'];
+//    allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+//    allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+
+
+
+//    if(_selectedCustomers.length !=0 ){
+//      _navigationService
+//          .navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+//    }else{
+//      if (isPermitted) contactList = await _navigationService
+//          .navigateTo(Routes.addCustomerMarketing);
+//      else contactList = await  _navigationService
+//          .navigateTo(Routes.addNewCustomerMarketing);
+//      await contactList;
+//      allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+//    }
 //    if (isPermitted) contactList= await _navigationService
 //        .navigateTo(Routes.addCustomerMarketing);
 //    else await [Permission.contacts].request();
@@ -140,6 +203,8 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
 
   void sendMessage(){
+    
+
     _navigationService
         .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }

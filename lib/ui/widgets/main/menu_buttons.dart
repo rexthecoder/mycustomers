@@ -33,21 +33,23 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
 
   Widget businessIcon(
       BuildContext context, Store business, MainViewModel model) {
-    return BoxButton(
-      label: business.name,
-      child: Text(
-        business.name.substring(0, 1),
-        style: TextStyle(
-          color: ThemeColors.black,
-          fontSize: SizeConfig.textSize(context, 12),
-          fontWeight: FontWeight.bold,
+    return CustomPartialBuild<SettingManagerModel>(
+          builder: (context, viewModel) => BoxButton(
+        label: business.name,
+        child: Text(
+          business.name.substring(0, 1),
+          style: TextStyle(
+            color: ThemeColors.black,
+            fontSize: SizeConfig.textSize(context, 12),
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        highLight: model.currStore.id == business.id,
+        onTap: () {
+          // TODO: Add fetch store details
+          viewModel.changeSelectedStore(business.id);
+        },
       ),
-      highLight: model.currStore.id == business.id,
-      onTap: () {
-        // TODO: Add fetch store details
-        model.changeBusiness(business.id);
-      },
     );
   }
 }

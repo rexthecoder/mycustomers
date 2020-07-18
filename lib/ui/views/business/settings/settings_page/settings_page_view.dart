@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
@@ -16,22 +18,8 @@ class SettingsPage extends StatelessWidget {
     return ViewModelBuilder<SettingsPageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               backgroundColor: Theme.of(context).backgroundColor,
-              appBar: AppBar(
-                iconTheme:
-                    IconThemeData(color: Theme.of(context).textSelectionColor),
-                brightness: Brightness.light,
-                elevation: 0,
-                title: Text(
-                  'Settings',
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                        fontSize: ScreenUtil().setSp(20),
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).cursorColor,
-                      ),
-                ),
-                backgroundColor: Theme.of(context).backgroundColor,
-                centerTitle: true,
-              ),
+              appBar: customizeAppBar(context, 1.0,
+                  title: 'Settings', arrowColor: BrandColors.primary),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -41,45 +29,60 @@ class SettingsPage extends StatelessWidget {
                           child: Column(
                         children: <Widget>[
                           cardTile(
-                              'Change Language',
+                              AppLocalizations.of(context).changeLanguage,
                               model.langs[model.langIndex]['name'],
                               //Todo: Set Functionality to Change when Language is Changed,
                               model.navigateToLanguageSettings,
                               context),
                           cardTile(
-                              'Change Currency',
+                              AppLocalizations.of(context).changeCurrency,
                               model.currs[model.currIndex]['name'],
                               //Todo: Set Functionality to Change when Language is Changed
                               model.navigateToCurrency,
                               context),
-                          cardTile(
-                              'App Lock', '', model.navigateToAppLock, context),
+                          cardTile(AppLocalizations.of(context).appLock, '',
+                              model.navigateToAppLock, context),
                           SizedBox(
                             height: ScreenUtil().setHeight(50),
                           ),
-                          CustomPartialBuild<ThemeModel>(
+                          CustomPartialBuild<SettingManagerModel>(
                             builder: (context, viewModel) => switchTile(
                                 context,
                                 viewModel.isDarkTheme,
                                 viewModel.setTheme,
                                 'Dark Mode'),
                           ),
-                          switchTile(context, model.notification,
-                              model.setNotification, 'Receive Notifications'),
-                          switchTile(context, model.newsletter,
-                              model.setNewsletter, 'Receive NewsLetter'),
-                          switchTile(context, model.special, model.setSpecial,
-                              'Receive Special Offers'),
-                          switchTile(context, model.update, model.setUpdate,
-                              'Receive Updates'),
+                          switchTile(
+                              context,
+                              model.notification,
+                              model.setNotification,
+                              AppLocalizations.of(context)
+                                  .receiveNotifications),
+                          // switchTile(
+                          //     context,
+                          //     model.newsletter,
+                          //     model.setNewsletter,
+                          //     AppLocalizations.of(context).receiveNewsletters),
+                          // switchTile(
+                          //     context,
+                          //     model.special,
+                          //     model.setSpecial,
+                          //     AppLocalizations.of(context)
+                          //         .receiveSpecialOffers),
+                          // switchTile(context, model.update, model.setUpdate,
+                          //     AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(20)),
-                        child:
-                            CustomRaisedButton(label: 'Save', onPressed: () {Navigator.pop(context);}))
+                    // Container(
+                    //   padding: EdgeInsets.symmetric(
+                    //       horizontal: ScreenUtil().setWidth(20)),
+                    //   child: crb.CustomRaisedButton(
+                    //       label: 'Save',
+                    //       onPressed: () {
+                    //         Navigator.pop(context);
+                    //       }),
+                    // ),
                   ],
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
 import 'package:mycustomers/ui/widgets/shared/dot_pin_field.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
 import 'set_pin_settings_viewmodel.dart';
@@ -15,25 +16,26 @@ class SetPinSettingsPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController createPinController =
         new TextEditingController(text: "");
-        
+
     TextEditingController confirmPinController =
         new TextEditingController(text: "");
 
-    return ViewModelBuilder<SetPinSettingsViewModel>.reactive(    
+    return ViewModelBuilder<SetPinSettingsViewModel>.reactive(
       builder: (context, model, child) {
         final _views = <Widget>[
           FadeIn(
             child: PinField(
-              title: 'Create a New PIN',
+              title: AppLocalizations.of(context).createANewPin,
               textEditingController: createPinController,
               onCompleted: (value) => model.onCreatePinCompleted(value),
             ),
           ),
           FadeIn(
             child: PinField(
-              title: 'Confirm New PIN',
+              title: AppLocalizations.of(context).confirmNewPin,
               textEditingController: confirmPinController,
-              onCompleted: (value) => model.onConfirmPinCompleted(value,confirmPinController),
+              onCompleted: (value) =>
+                  model.onConfirmPinCompleted(value, confirmPinController),
             ),
           ),
         ];
@@ -47,10 +49,9 @@ class SetPinSettingsPageView extends StatelessWidget {
               backgroundColor: BrandColors.primary,
               elevation: 0,
               flexibleSpace: Padding(
-                padding: EdgeInsets.only(
-                    top: SizeConfig.yMargin(context, 6)),
+                padding: EdgeInsets.only(top: SizeConfig.yMargin(context, 6)),
                 child: Expanded(
-                    child: SvgPicture.asset(
+                  child: SvgPicture.asset(
                     myCustomerLogo,
                     color: Theme.of(context).appBarTheme.color,
                     height: SizeConfig.yMargin(context, 16),
@@ -60,7 +61,6 @@ class SetPinSettingsPageView extends StatelessWidget {
             ),
           ),
           backgroundColor: BrandColors.primary,
-          
           body: LazyIndexedStack(
             reuse: true,
             index: model.index,

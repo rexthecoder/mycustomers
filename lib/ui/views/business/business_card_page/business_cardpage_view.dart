@@ -8,6 +8,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/extensions/string_extension.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -36,7 +37,7 @@ class BusinessCardPageView extends StatelessWidget {
             elevation: 0,
             centerTitle: true,
             title: Text(
-              "Business Card",
+              AppLocalizations.of(context).buisnessCard,
               style: TextStyle(
                 color: Theme.of(context).cursorColor,
                 fontSize: SizeConfig.textSize(context, 6),
@@ -68,7 +69,7 @@ class BusinessCardPageView extends StatelessWidget {
                     CustomShareRaisedButton(
                       txtColor: ThemeColors.background,
                       btnColor: BrandColors.primary,
-                      btnText: "Save and Share",
+                      btnText: AppLocalizations.of(context).saveAndShare,
                       borderColor: BrandColors.primary,
                       child: Container(),
                       onPressed: () {
@@ -157,7 +158,7 @@ class BottomSheetButtons extends StatelessWidget {
             child: CustomShareRaisedButton(
               txtColor: ThemeColors.background,
               btnColor: BrandColors.primary,
-              btnText: 'Share',
+              btnText: AppLocalizations.of(context).share,
               borderColor: BrandColors.primary,
               child: SvgPicture.asset(
                 share,
@@ -204,7 +205,7 @@ class BottomSheetButtons extends StatelessWidget {
             child: CustomShareRaisedButton(
               txtColor: BrandColors.primary,
               btnColor: ThemeColors.background,
-              btnText: 'Download',
+              btnText: AppLocalizations.of(context).download,
               borderColor: BrandColors.primary,
               child: SvgPicture.asset(
                 share,
@@ -331,7 +332,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
           validator: validate,
           cursorColor: ThemeColors.gray[800],
           style: TextStyle(
-            color: ThemeColors.black,
+            color: Theme.of(context).cursorColor,
             fontSize: SizeConfig.textSize(context, 5),
           ),
           decoration: InputDecoration(
@@ -372,7 +373,7 @@ class _DefaultPhoneFormField
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color: ThemeColors.black,
+          color:  Theme.of(context).cursorColor,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,

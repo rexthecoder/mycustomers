@@ -6,7 +6,7 @@ import 'package:mycustomers/core/localization/app_localization.dart';
 
 /// List of languages codes that the app will support
 /// https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-const supportedLocalCodes = ['fr', 'en', 'yo'];
+const supportedLocalCodes = ['fr', 'en', 'yo','ig','de','es','ar'];
 
 final supportedLocales = supportedLocalCodes
     .map<Locale>((code) => Locale.fromSubtags(languageCode: code))
@@ -20,9 +20,9 @@ Locale loadSupportedLocals(Locale locale, Iterable<Locale> supportedLocales) {
     return supportedLocales.first;
   }
 
-  for (final supportedLocale in supportedLocales) {
-    if (supportedLocale.languageCode == locale.languageCode ||
-        supportedLocale.countryCode == locale.countryCode) {
+  for (var supportedLocale in supportedLocales) {
+    if (supportedLocale.languageCode == locale.languageCode/* ||
+        supportedLocale.countryCode == locale.countryCode*/) {
       Intl.defaultLocale = supportedLocale.languageCode;
       return supportedLocale;
     }
