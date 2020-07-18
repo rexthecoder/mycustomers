@@ -44,4 +44,13 @@ class SettingManagerModel extends BaseViewModel {
     notifyListeners();
     // print('Notified listeners. Dark theme is: $isDarkTheme');
   }
+
+
+  // Store settings
+  String get selectedStoreId => _su.getString(AppPreferenceKey.SELECTED_STORE);
+
+  Future<void> changeSelectedStore(String newStoreId) async {
+    await  _su.saveString(AppPreferenceKey.SELECTED_STORE, newStoreId);
+    notifyListeners();
+  }
 }

@@ -9,6 +9,7 @@ import 'package:stacked_services/stacked_services.dart';
 class AddCustomerManuallyViewModel extends ReactiveViewModel {
   String _customerName;
   String _customerPhoneNumber;
+  NavigationService _nav = locator<NavigationService>();
 
   String _dropDownValue='+234';
 
@@ -33,7 +34,9 @@ class AddCustomerManuallyViewModel extends ReactiveViewModel {
 
   final _customerContactService = locator<CustomerContactService>();
 
-  
+  navigateToImport() {
+    _nav.replaceWith(Routes.importCustomerCreditorViewRoute);
+  }
 
   void updateName(String name){
     _customerName=name;

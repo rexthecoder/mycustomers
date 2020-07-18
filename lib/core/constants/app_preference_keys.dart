@@ -10,4 +10,6 @@ class AppPreferenceKey {
   static const USER_EMAIL = 'USER_EMAIL';
   static const USER_FULL_NAME = 'USER_FULL_NAME';
   static const SELECTED_LOCALE = 'USER_SELECTED_LOCALE';
+
+  static const SELECTED_STORE = 'USER_SELECTED_STORE';
 }

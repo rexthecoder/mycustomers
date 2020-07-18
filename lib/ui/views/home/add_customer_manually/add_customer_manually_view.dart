@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
@@ -78,6 +79,17 @@ class AddCustomerManuallyView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => AddCustomerManuallyViewModel(),
+      // onModelReady: (model) {
+        // Flushbar(
+        //   messageText: Text('We need access to your contacts for you to be able to import customers from your contacts'),
+        //   mainButton: FlatButton(
+        //     child: Text('Grant Access'),
+        //     onPressed: () {
+              
+        //     },
+        //     ),
+        // ).show(context);
+      // },
     );
   }
 }
