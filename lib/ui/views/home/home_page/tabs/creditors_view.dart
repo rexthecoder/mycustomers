@@ -104,7 +104,7 @@ class CreditorsView extends StatelessWidget {
                                       height: 20.h,
                                     ),
                                     Text(
-                                      'You don\'t owe any customer. Tap the big orange button at the bottom of the screen to add one',
+                                      AppLocalizations.of(context).peopleYouOweDesc,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Theme.of(context)

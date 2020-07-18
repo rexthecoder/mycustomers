@@ -96,7 +96,7 @@ class HomePageView extends StatelessWidget {
                         CreditorsView(),
                         model.contacts.length == 0
                             ? Center(
-                              child: Text('No Customer Added'),
+                              child: Text(AppLocalizations.of(context).noCustomerAdded),
                             )
                             : ContactList()
                       ],

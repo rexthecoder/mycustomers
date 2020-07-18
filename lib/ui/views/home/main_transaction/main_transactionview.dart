@@ -529,7 +529,7 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    '${model.contact.name} Owes you ',
+                                                    '${model.contact.name} ${AppLocalizations.of(context).owesYou}',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5

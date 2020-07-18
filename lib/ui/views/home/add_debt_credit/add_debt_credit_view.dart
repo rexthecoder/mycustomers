@@ -32,13 +32,13 @@ class AddDebtCreditView extends StatelessWidget {
               title: Text(
                 action == 'debit'
                     ? model.amount != null
-                        ? '${model.contact.name} owes you ₦' +
+                        ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
                             model.amount.round().toString()
-                        : '${model.contact.name} owes you'
+                        : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
                     : model.amount != null
-                        ? '${model.contact.name} paid you ₦' +
+                        ? '${model.contact.name} ${AppLocalizations.of(context).payedYou.toLowerCase()} ₦' +
                             model.amount.round().toString()
-                        : '${model.contact.name} paid you',
+                        : '${model.contact.name} ${AppLocalizations.of(context).payedYou.toLowerCase()}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -143,8 +143,8 @@ class AddDebtCreditView extends StatelessWidget {
                                         color: Colors.red, width: 2.0),
                                   ),
                                   hintText: action == 'credit'
-                                      ? 'Enter Amount ${model.contact.name} Paid You'
-                                      : 'Enter Amount ${model.contact.name} Owes You',
+                                      ? '${AppLocalizations.of(context).enterAmount} ${model.contact.name} ${AppLocalizations.of(context).payedYou}'
+                                      : '${AppLocalizations.of(context).enterAmount} ${model.contact.name} ${AppLocalizations.of(context).owesYou}',
                                   hintStyle: TextStyle(
                                       fontSize:
                                           SizeConfig.yMargin(context, 2.3)),
@@ -358,7 +358,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 Container(
                                                   child: Text(
                                                     model.newDate ??
-                                                        'Select Due Date',
+                                                        AppLocalizations.of(context).selectDueDate,
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline6
@@ -544,7 +544,7 @@ class AddDebtCreditView extends StatelessWidget {
                           action == 'credit'
                               ? 'You owe ${model.contact.name} ' +
                                   model.amount.round().toString()
-                              : '${model.contact.name} owes you ' +
+                              : '${model.contact.name} ${AppLocalizations.of(context).owesYou} ' +
                                   model.amount.round().toString(),
                           action == 'debit' ? model.dueDate : model.otherDate);
                     }, //Todo: Save User Input

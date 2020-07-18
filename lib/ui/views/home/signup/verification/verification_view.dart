@@ -66,7 +66,7 @@ class VerificationView extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    'Please enter 4-digit code we sent \nto your number as SMS',
+                    AppLocalizations.of(context).enter4DigitCode,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Lato',
