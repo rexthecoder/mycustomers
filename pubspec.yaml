@@ -152,6 +152,7 @@ flutter:
     - assets/images/onboarding/
     - assets/animations/
     - assets/languages/
+    - assets/languages/icons/
 
 
   fonts:

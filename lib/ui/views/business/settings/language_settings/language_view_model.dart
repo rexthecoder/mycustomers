@@ -1,6 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -10,9 +9,14 @@ class LanguageViewModel extends BaseViewModel {
    List get languages => _supportedLanguages;
 
   List<Map<String, String>> _supportedLanguages = [
-    {'image': 'assets/icons/uk.png','code': 'en', 'name': 'English'},
-    {'image': 'assets/icons/fr.png','code': 'fr', 'name': 'Francias'},
-  ];
+    {'image': 'assets/languages/icons/uk.png','code': 'en', 'name': 'English'},
+    {'image': 'assets/languages/icons/fr.png','code': 'fr', 'name': 'Francias'},
+    {'image': 'assets/languages/icons/de.png','code': 'de', 'name': 'German'},
+    {'image': 'assets/languages/icons/ar.png','code': 'ar', 'name': 'Arabic'},
+    // {'image': 'assets/languages/icons/ng.png','code': 'yo', 'name': 'Yoruba'},
+    {'image': 'assets/languages/icons/es.png','code': 'es', 'name': 'Spanish'},
+    // {'image': 'assets/languages/icons/ng.png','code': 'ig', 'name': 'Igbo'},
+    ];
 
   // Future<void> setLanguage(int index) async {
   //   await locator<IStorageUtil>()
