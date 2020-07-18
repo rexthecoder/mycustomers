@@ -19,7 +19,6 @@ import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
-import 'package:mycustomers/ui/views/home/language/language_view.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
@@ -44,6 +43,7 @@ import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/notification_view/notification_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_notifications/send_reminder/send_reminderview.dart';
+import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 
 /// An abstract class that is responsible for navigation and route
 abstract class Routes {
@@ -97,6 +97,7 @@ abstract class Routes {
   static const businessCardDisplayModal='/businessCardDisplayModal';
   static const quickMessages='/quickMessages';
   static const messageSntDialog='/dialog';
+  static const createBusinessView = '/createBusiness';
 
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
   static const sendNotificationMessage = '/sendNotificationMessage';
@@ -106,21 +107,21 @@ abstract class Routes {
 class Router {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.startupViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => StartupView(),
-          settings: settings,
-        );
+     case Routes.startupViewRoute:
+       return CupertinoPageRoute<dynamic>(
+         builder: (context) => StartupView(),
+         settings: settings,
+       );
       case Routes.onboardingViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => OnboardingView(),
           settings: settings,
         );
-      case Routes.languageViewRoute:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => LanguageView(),
-          settings: settings,
-        );
+      // case Routes.languageViewRoute:
+      //   return CupertinoPageRoute<dynamic>(
+      //     builder: (context) => LanguageView(),
+      //     settings: settings,
+      //   );
       case Routes.verificationViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => VerificationView(),
@@ -252,9 +253,11 @@ class Router {
           settings: settings,
         );
       case Routes.mainViewRoute:
+//        settings.arguments = Map();
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
           settings: settings,
+
         );
       case Routes.addAssistantRoute:
         return CupertinoPageRoute<dynamic>(
@@ -340,6 +343,11 @@ class Router {
       case Routes.marketingHomepageView:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MarketingHomePageView(),
+          settings: settings,
+        );
+      case Routes.createBusinessView:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CreateBusinessView(),
           settings: settings,
         );
       case Routes.addCustomerManuallyDebtor:

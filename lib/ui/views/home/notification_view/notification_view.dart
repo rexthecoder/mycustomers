@@ -36,7 +36,7 @@ class NotificationsView extends StatelessWidget {
                                 "Reminders",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: SizeConfig.yMargin(context, 1.5),
+                                  fontSize: SizeConfig.yMargin(context, 2),
                                 ),
                                 //maxLines: 1,
                               ),
@@ -51,7 +51,7 @@ class NotificationsView extends StatelessWidget {
                                 "Activities",
                                 textAlign: TextAlign.center,
                                   style: TextStyle(
-                                  fontSize: SizeConfig.yMargin(context, 1.5),
+                                  fontSize: SizeConfig.yMargin(context, 2),
                                 ),
                               ),
                             ),
@@ -63,8 +63,24 @@ class NotificationsView extends StatelessWidget {
                   Expanded(
                     child: TabBarView(
                       children: <Widget>[
-                        Container(),
-                        SingleChildScrollView(
+                        Container(
+                          child: Center(
+                            child: Text(
+                              'No Reminders yet',
+                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                            ),
+                          ),
+                        ),
+                        model.loglist.length == 0 ? Center(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              'No Activities yet. This Keeps track of activities made in your store',
+                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ) : SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
                               for(var log in model.loglist) Dismissible(
@@ -88,7 +104,11 @@ class NotificationsView extends StatelessWidget {
                                     children: <Widget>[
                                       Row(children: <Widget>[
                                         Expanded(
-                                            child: Text(log.description)),
+                                          child: Text(
+                                            log.description,
+                                            style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                                          )
+                                        ),
                                         SizedBox(width: 20.0),
                                         Column(
                                           children: <Widget>[

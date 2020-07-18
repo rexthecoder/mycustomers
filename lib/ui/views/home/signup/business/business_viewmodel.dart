@@ -1,5 +1,6 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
+import 'package:mycustomers/core/mixins/validators.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
@@ -15,7 +16,7 @@ import 'package:mycustomers/core/exceptions/update_exception.dart';
 import 'package:mycustomers/core/exceptions/create_exception.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
 
-class BusinessViewModel extends BaseViewModel {
+class BusinessViewModel extends BaseViewModel with Validators {
   final NavigationService _navigationService = locator<NavigationService>();
   final StoresLocalDataSource _storeService = locator<StoresLocalDataSource>();
   final DialogService _dialogService = locator<DialogService>();

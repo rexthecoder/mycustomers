@@ -15,88 +15,98 @@ class CurrencySettingsPageView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<CurrencySettingPageViewModel>.reactive(
-        builder: (context, model, child) => Scaffold(
-              backgroundColor: Theme.of(context).backgroundColor,
-              appBar: AppBar(
-                brightness: Brightness.light,
-                elevation: 0,
-                title: Text(
-                   AppLocalizations.of(context).currency,
-                  style: Theme.of(context).textTheme.headline6.copyWith(
-                        fontSize: ScreenUtil().setSp(20),
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).cursorColor,
+        builder: (context, model, child) => WillPopScope(
+          onWillPop: ()async {
+            model.resetCurrency();
+            Navigator.pop(context);
+            return true;
+          },
+          child: Scaffold(
+                backgroundColor: Theme.of(context).backgroundColor,
+                appBar: AppBar(
+                  brightness: Brightness.light,
+                  elevation: 0,
+                  title: Text(
+                    'Currency',
+                    style: Theme.of(context).textTheme.headline6.copyWith(
+                          fontSize: ScreenUtil().setSp(20),
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).cursorColor,
+                        ),
+                  ),
+                  leading: InkWell(
+                    onTap: () {
+                      model.resetCurrency();
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(18),
+                          vertical: ScreenUtil().setHeight(10)),
+                      child: SvgPicture.asset(
+                        'assets/icons/backarrow.svg',
+                        color: Theme.of(context).textSelectionColor,
                       ),
-                ),
-                leading: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(18),
-                        vertical: ScreenUtil().setHeight(10)),
-                    child: SvgPicture.asset(
-                      'assets/icons/backarrow.svg',
-                      color: Theme.of(context).textSelectionColor,
                     ),
                   ),
+                  backgroundColor: Theme.of(context).backgroundColor,
+                  centerTitle: true,
                 ),
-                backgroundColor: Theme.of(context).backgroundColor,
-                centerTitle: true,
-              ),
-              body: Container(
-                padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: ScreenUtil().setHeight(20),
-                              horizontal: ScreenUtil().setWidth(20)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(bottom: 15),
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .selectYourCurrency,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(
-                                          fontSize:
-                                              SizeConfig.yMargin(context, 2.7),
-                                          color: Theme.of(context).cursorColor),
+                body: Container(
+                  padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: ScreenUtil().setHeight(20),
+                                horizontal: ScreenUtil().setWidth(20)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 15),
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .selectYourCurrency,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                            fontSize:
+                                                SizeConfig.yMargin(context, 2.7),
+                                            color: Theme.of(context).cursorColor),
+                                  ),
                                 ),
-                              ),
-                              for (var curr in model.currencies)
-                                currTile(
-                                    context,
-                                    curr['name'],
-                                    curr['selected'],
-                                    model,
-                                    model.currencies.indexOf(curr)),
-                            ],
+                                for (var curr in model.currencies)
+                                  currTile(
+                                      context,
+                                      curr['name'],
+                                      curr['selected'],
+                                      model,
+                                      model.currencies.indexOf(curr)),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(20)),
-                        child: CustomRaisedButton(
-                            label: AppLocalizations.of(context).save,
-                            onPressed: () {
-                              model.saveCurrencyIndex();
-                              Navigator.pop(context);
-                              SavedDialog().showSavedDialog(context);
-                            }))
-                  ],
+                      Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(20)),
+                          child: CustomRaisedButton(
+                              label: AppLocalizations.of(context).save,
+                              onPressed: () {
+                                model.saveCurrencyIndex();
+                                Navigator.pop(context);
+                                SavedDialog().showSavedDialog(context);
+                              }))
+                    ],
+                  ),
                 ),
               ),
-            ),
+        ),
         viewModelBuilder: () => CurrencySettingPageViewModel());
   }
 

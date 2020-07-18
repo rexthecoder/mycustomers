@@ -20,9 +20,9 @@ Locale loadSupportedLocals(Locale locale, Iterable<Locale> supportedLocales) {
     return supportedLocales.first;
   }
 
-  for (final supportedLocale in supportedLocales) {
-    if (supportedLocale.languageCode == locale.languageCode ||
-        supportedLocale.countryCode == locale.countryCode) {
+  for (var supportedLocale in supportedLocales) {
+    if (supportedLocale.languageCode == locale.languageCode/* ||
+        supportedLocale.countryCode == locale.countryCode*/) {
       Intl.defaultLocale = supportedLocale.languageCode;
       return supportedLocale;
     }

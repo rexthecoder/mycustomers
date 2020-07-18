@@ -29,10 +29,11 @@ class SendAMessage extends StatelessWidget {
     return ViewModelBuilder<StuffModel>.reactive(
       viewModelBuilder: () => StuffModel(),
       builder: (context, model, child) {
+//        print(selectedCustomers.length);
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
               title: 'Send a Message', arrowColor: BrandColors.secondary),
-          backgroundColor: bgColor,
+          backgroundColor: Theme.of(context).backgroundColor,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

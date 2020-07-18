@@ -68,9 +68,14 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     _stransaction.value = transaction;
   }
 
-  void getAllTransactions() async{
+  void getAllTransactions(String id) async{
     //final bbox = await box;
-    _alltransactions.value = _transactionBox.values.toList();
+    _alltransactions.value = [];
+    for(var trans in _transactionBox.values.toList()) {
+      if (trans.sId == id){
+        _alltransactions.value.add(trans);
+      }
+    }
     _alltransactions.value = new List<TransactionModel>.from(_alltransactions.value.reversed);
     _whatyouowe.value = 0;
     _owingcustomers.value = [];
@@ -86,12 +91,12 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     }
   }
   
-  void getTransactions(int id) async{
+  void getTransactions(int id, String stid) async{
     print('get'+id.toString());
     //final bbox = await box;
     _transactions.value = [];
     for (var transaction in _transactionBox.values.toList()) {
-      if (transaction.cId == id){
+      if (transaction.cId == id && transaction.sId == stid){
         _transactions.value.add(transaction);
         print(transaction.boughtdate);
       }
@@ -192,7 +197,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
         }
       }
     }
-    getAllTransactions();
+    getAllTransactions(transaction.sId);
     print('done');
   }
 
@@ -247,7 +252,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
         _creditlist.value.add(transactionb);
       }
     }
-    getAllTransactions();
+    getAllTransactions(transaction.sId);
   }
 
 }

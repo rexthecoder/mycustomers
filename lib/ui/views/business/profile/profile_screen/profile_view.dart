@@ -8,122 +8,121 @@ import 'package:stacked/stacked.dart';
 class ProfilePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TextEditingController _userName = TextEditingController(text: 'Casper');
-    TextEditingController _businessName =
-        TextEditingController(text: 'WearSmute');
-
     return ViewModelBuilder<MainProfilePageViewModel>.reactive(
-        builder: (context, model, child) => Scaffold(
-              resizeToAvoidBottomInset: false,
-              appBar: AppBar(
-                title: Text(
-                  AppLocalizations.of(context).profile,
-                  style: TextStyle(
-                    color: Theme.of(context).cursorColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: SizeConfig.textSize(context, 6),
-                  ),
+        builder: (context, model, child) {
+          TextEditingController _userName =
+              TextEditingController(text: model.userName);
+          TextEditingController _businessName =
+              TextEditingController(text: model.businessName);
+
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              title: Text(
+                AppLocalizations.of(context).profile,
+                style: TextStyle(
+                  color: Theme.of(context).cursorColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: SizeConfig.textSize(context, 6),
                 ),
-                centerTitle: true,
-                elevation: 0.0,
-                iconTheme: IconThemeData(color: BrandColors.primary),
-                actions: <Widget>[
-                  FlatButton(
-                    onPressed: model.navigateToEditProfilePage,
-                    child: Text(
-                      AppLocalizations.of(context).edit,
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 4.4),
-                        color: Theme.of(context).textSelectionColor,
+              ),
+              centerTitle: true,
+              elevation: 0.0,
+              iconTheme: IconThemeData(color: BrandColors.primary),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: model.navigateToEditProfilePage,
+                  child: Text(
+                    AppLocalizations.of(context).edit,
+                    style: TextStyle(
+                      fontSize: SizeConfig.textSize(context, 4.4),
+                      color: Theme.of(context).textSelectionColor,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: SizeConfig.yMargin(context, 2),
+                    ),
+                    child: Center(
+                      child: CircleAvatar(
+                        backgroundColor: ThemeColors.unselect,
+                        radius: SizeConfig.yMargin(context, 12),
+                        child: Text(
+                          _userName.text.substring(0, 1),
+                          style: TextStyle(
+                            color: BrandColors.primary,
+                            fontSize: SizeConfig.textSize(context, 18),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Divider(color: ThemeColors.gray.shade600),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        left: SizeConfig.yMargin(context, 4),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: <Widget>[
+                                Text(AppLocalizations.of(context).name),
+                                SizedBox(width: 30),
+                                Expanded(
+                                  child: TextField(
+                                    autofocus: false,
+                                    controller: _userName,
+                                    textAlign: TextAlign.left,
+                                    decoration: InputDecoration(
+                                      enabled: false,
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: <Widget>[
+                                Text(AppLocalizations.of(context).businessName),
+                                SizedBox(width: 18),
+                                Expanded(
+                                  child: TextField(
+                                    autofocus: false,
+                                    controller: _businessName,
+                                    textAlign: TextAlign.left,
+                                    decoration: InputDecoration(
+                                      enabled: false,
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   )
                 ],
               ),
-              body: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.yMargin(context, 2),
-                      ),
-                      child: Center(
-                        child: CircleAvatar(
-                          backgroundColor: ThemeColors.unselect,
-                          radius: SizeConfig.yMargin(context, 12),
-                          child: Text(
-                            'C',
-                            style: TextStyle(
-                              color: BrandColors.primary,
-                              fontSize: SizeConfig.textSize(context, 18),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Divider(color: ThemeColors.gray.shade600),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(
-                          left: SizeConfig.yMargin(context, 4),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(AppLocalizations.of(context).name),
-                                  SizedBox(width: 30),
-                                  Expanded(
-                                    child: TextField(
-                                      autofocus: false,
-                                      controller: _userName,
-                                      textAlign: TextAlign.left,
-                                      onChanged: model.updateUserName,
-                                      decoration: InputDecoration(
-                                        enabled: false,
-                                        border: UnderlineInputBorder(),
-                                      ),
-                                      style:
-                                          TextStyle(color: ThemeColors.black),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(AppLocalizations.of(context)
-                                      .businessName),
-                                  SizedBox(width: 18),
-                                  Expanded(
-                                    child: TextField(
-                                      autofocus: false,
-                                      controller: _businessName,
-                                      textAlign: TextAlign.left,
-                                      onChanged: model.updateBusinessName,
-                                      decoration: InputDecoration(
-                                        enabled: false,
-                                        border: UnderlineInputBorder(),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
             ),
+          );
+        },
         viewModelBuilder: () => MainProfilePageViewModel());
   }
 }
