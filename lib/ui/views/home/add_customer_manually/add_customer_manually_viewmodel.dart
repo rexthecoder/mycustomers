@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
@@ -11,7 +12,7 @@ class AddCustomerManuallyViewModel extends ReactiveViewModel {
   String _customerPhoneNumber;
 
   String _dropDownValue='+234';
-
+PhoneNumber number = PhoneNumber(isoCode: isoCode);
   List<String> _countryCodes=['+234','+254','+250','+230'];
 
   String get customerName => _customerName;
