@@ -50,8 +50,10 @@ class AppLocalizations {
       translate(LocalKeys.engaged_with_your_people_desc);
   String get signUp => translate(LocalKeys.sign_up);
   String get signUpEnterPhoneNumber => translate(LocalKeys.enter_phone_number);
-  String get continueWithSocialAccount => translate(LocalKeys.continue_with_social_account);
-  String get alreadyAmemberSignIn => translate(LocalKeys.already_a_member_sign_in);
+  String get continueWithSocialAccount =>
+      translate(LocalKeys.continue_with_social_account);
+  String get alreadyAmemberSignIn =>
+      translate(LocalKeys.already_a_member_sign_in);
   String get notAMemberSignUp => translate(LocalKeys.not_a_member_sign_up);
   String get nextButton => translate(LocalKeys.next_button);
   String get verifyCode => translate(LocalKeys.verify_code);
@@ -92,7 +94,8 @@ class AppLocalizations {
   String get searchCustomers => translate(LocalKeys.search_customers);
   String get cancel => translate(LocalKeys.cancel);
   String get addNewCustomer => translate(LocalKeys.add_new_customer);
-  String get addDebtorsFromContacts => translate(LocalKeys.add_debtors_from_contacts);
+  String get addDebtorsFromContacts =>
+      translate(LocalKeys.add_debtors_from_contacts);
   String get addButton => translate(LocalKeys.add_button);
   String get addACustomer => translate(LocalKeys.add_a_customer);
   String get customerDetails => translate(LocalKeys.customer_details);
@@ -194,7 +197,8 @@ class AppLocalizations {
   String get pinRemoved => translate(LocalKeys.pin_removed);
   String get invalidPhoneNo => translate(LocalKeys.invalid_phone_no);
   String get pleaseEnterPassword => translate(LocalKeys.please_enter_password);
-  String get continueWithSocialAcct => translate(LocalKeys.continue_with_social_acct);
+  String get continueWithSocialAcct =>
+      translate(LocalKeys.continue_with_social_acct);
   String get googleComingSoon => translate(LocalKeys.google_coming_soon);
   String get facebookComingSoon => translate(LocalKeys.facebook_coming_soon);
   String get pleaseStoreName => translate(LocalKeys.please_store_name);
@@ -242,14 +246,6 @@ class AppLocalizations {
   String get addNewDebit => translate(LocalKeys.add_new_debit);
   String get existingCredits => translate(LocalKeys.existing_credits);
   String get existingDebits => translate(LocalKeys.existing_debits);
-
-
-
-
-
-
-
-
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

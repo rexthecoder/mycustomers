@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/shape/gf_avatar_shape.dart';
@@ -45,16 +46,22 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
-      onModelReady: (model){
+      onModelReady: (model) {
         //model.addlog();
         model.getcurr();
       },
-      builder: (context, model, child) => Scaffold(
-        body: Stack(
-          children: <Widget>[
-            mainView(context, model),
-            MainMenu(),
-          ],
+      builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarColor: BrandColors.primary,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        child: Scaffold(
+          body: Stack(
+            children: <Widget>[
+              mainView(context, model),
+              MainMenu(),
+            ],
+          ),
         ),
       ),
     );

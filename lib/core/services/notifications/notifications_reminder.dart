@@ -4,27 +4,25 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class NotificationRemindersService {
   var flutterLocalNotificationsPlugin;
 
-NotificationRemindersService() {
-  flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+  NotificationRemindersService() {
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     initNotifications();
-}
+  }
 
-getNotificationInstance() {
+  getNotificationInstance() {
     return flutterLocalNotificationsPlugin;
   }
 
- // initialise the plugin.
+  // initialise the plugin.
   void initNotifications() {
-    
-
-   // Sets icon to be displayed with notification (android).
+    // Sets icon to be displayed with notification (android).
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('@mipmap/launcher_icon');
 
     var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
-         // Intialization requires two arguments, for IOS and Android. IOS requires more , but that hasn't been set yet.
+    // Intialization requires two arguments, for IOS and Android. IOS requires more , but that hasn't been set yet.
     var initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
 
@@ -32,7 +30,7 @@ getNotificationInstance() {
         onSelectNotification: onSelectNotification);
   }
 
- dynamic pendingNotificationRequests() async =>
+  dynamic pendingNotificationRequests() async =>
       await flutterLocalNotificationsPlugin.pendingNotificationRequests();
 
 // Function to schedule a reminder at a specific time daily
@@ -50,10 +48,9 @@ getNotificationInstance() {
 // Function to schedule reminder on a specific date but just once
   void sendNotificationOnce(
       int id, String title, String body, DateTime time) async {
-
     await flutterLocalNotificationsPlugin.schedule(
         id, title, body, time, getPlatformChannelSpecfics(id));
-        
+
     print(
         'Notification Succesfully Scheduled for ${time.toString()} with id of $id');
   }
@@ -62,9 +59,7 @@ getNotificationInstance() {
   getPlatformChannelSpecfics(int id) {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         '$id', 'your channel name', 'your channel description',
-        importance: Importance.Max,
-        priority: Priority.High,
-        ticker: 'ticker');
+        importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
 
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
 
@@ -73,7 +68,7 @@ getNotificationInstance() {
 
     return platformChannelSpecifics;
   }
-  
+
 // IOS
   Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) async {
@@ -86,7 +81,7 @@ getNotificationInstance() {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-    // await Navigator.pushNamed(context,  
+    // await Navigator.pushNamed(context,
     // screen name goes here
     // );
   }

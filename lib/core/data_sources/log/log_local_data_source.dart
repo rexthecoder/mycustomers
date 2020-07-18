@@ -52,7 +52,24 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   @override
   void getValues(int price, DateTime time, String action, String name, bool update){
     int totallogs = _logsBox.values.toList().length;
-    String msg = update ? action == 'credit' ? 'A credit transaction was made for one of the debit of $name' : 'A debit transaction was made for one of the credit of $name' : action == 'credit' ? 'A credit transaction was made for $name' : 'A debit transaction was made for $name';
+    String msg;
+    if(action == 'sign-in'){
+      msg = 'Welcome, Signed In';
+    } else if(action =='create-store'){
+      msg = '$name store was created successfully';
+    } else if(action == 'sign-out'){
+      msg = 'Sign out of account';
+    } else if(action == 'lang-change') {
+      msg = 'Language changed';
+    } else if(action == 'curr-change') {
+      msg = 'Currency changed to $name';
+    } else if(action == 'set-pin') {
+      msg = 'Pin Changed';
+    } else if(action == 'remove-pin') {
+      msg = 'Pin Removed';
+    } else {
+      msg = update ? action == 'credit' ? 'A credit transaction was made for one of the debit of $name' : 'A debit transaction was made for one of the credit of $name' : action == 'credit' ? 'A credit transaction was made for $name' : 'A debit transaction was made for $name';
+    }
     LogH newlog = new LogH(totallogs+1, msg, action, time);
     addLog(newlog);
   }

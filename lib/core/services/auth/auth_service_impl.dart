@@ -2,6 +2,7 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/api_routes.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/exceptions/network_exception.dart';
@@ -29,6 +30,7 @@ class AuthServiceImpl implements AuthService {
   IStorageUtil _storage = locator<IStorageUtil>();
   // The service for directing user to the home screen
  NavigationService _navigationService = locator<NavigationService>();
+ final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
 
 
   Future authUser(String url, Map<String, dynamic> params) async {
@@ -145,6 +147,7 @@ class AuthServiceImpl implements AuthService {
     await _storage.removeKey(AppPreferenceKey.USER_PHONE);
     await _storage.removeKey(AppPreferenceKey.USER_PASS);
     await _storage.removeKey(AppPreferenceKey.USER_ID);
+    _logService.getValues(null, DateTime.now(), 'sign-out', '', false);
     _navigationService.clearStackAndShow(Routes.startupViewRoute);
   }
 
