@@ -64,6 +64,9 @@ class BussinessSettingService with ReactiveServiceMixin{
       for(var item in currencies) {
       if(_curren.value.country == item['country']){
         _currency.value = currencies.indexOf(item);
+        _tempcurrency.value = currencies.indexOf(item);
+        currencies[0]['selected'] = false;
+        item['selected'] = true;
       }
     }
     }

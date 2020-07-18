@@ -81,12 +81,15 @@ class CurrencySettingsPageView extends StatelessWidget {
                                   ),
                                 ),
                                 for (var curr in model.currencies)
-                                  currTile(
-                                      context,
-                                      curr['name'],
-                                      curr['selected'],
-                                      model,
-                                      model.currencies.indexOf(curr)),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+                                    child: currTile(
+                                        context,
+                                        curr['name'],
+                                        curr['selected'],
+                                        model,
+                                        model.currencies.indexOf(curr)),
+                                  ),
                               ],
                             ),
                           ),
@@ -110,40 +113,42 @@ class CurrencySettingsPageView extends StatelessWidget {
         viewModelBuilder: () => CurrencySettingPageViewModel());
   }
 
-  Container currTile(BuildContext context, String text, bool selected,
+  InkWell currTile(BuildContext context, String text, bool selected,
       CurrencySettingPageViewModel model, int index) {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            border: Border.all(
-                color: selected
-                    ? Theme.of(context).textSelectionColor
-                    : Color(0xFFE8E8E8),
-                width: 1.0)),
-        child: ListTile(
-          onTap: () {
-            model.selectCurrency(index);
-          },
-          leading: Container(
-            width: ScreenUtil().setWidth(55),
-            height: ScreenUtil().setHeight(55),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(55),
-                color: selected ? Color(0xFF219653) : Color(0xFFD1D1D1)),
-            child: Center(
-              child: SvgPicture.asset('assets/icons/$text.svg'),
+    return InkWell(
+      onTap: () {
+        model.selectCurrency(index);
+      },
+      child: Container(
+          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              border: Border.all(
+                  color: selected
+                      ? Theme.of(context).textSelectionColor
+                      : Color(0xFFE8E8E8),
+                  width: 1.0)),
+          child: ListTile(
+            leading: Container(
+              width: ScreenUtil().setWidth(55),
+              height: ScreenUtil().setHeight(55),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(55),
+                  color: selected ? Color(0xFF219653) : Color(0xFFD1D1D1)),
+              child: Center(
+                child: SvgPicture.asset('assets/icons/$text.svg'),
+              ),
             ),
-          ),
-          title: Container(
-            margin: EdgeInsets.only(left: 30),
-            child: Text(text,
+            title: Container(
+              margin: EdgeInsets.only(left: 30),
+              child: Text(text,
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: SizeConfig.yMargin(context, 2.6),
-                      color: Theme.of(context).cursorColor,
-                    )),
-          ),
-        ));
+                  fontSize: SizeConfig.yMargin(context, 2.6),
+                  color: Theme.of(context).cursorColor,
+                )
+              ),
+            ),
+          )),
+    );
   }
 }

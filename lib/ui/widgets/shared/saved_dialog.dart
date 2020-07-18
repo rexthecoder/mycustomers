@@ -51,7 +51,7 @@ class SavedDialog extends StatelessWidget {
         content: Container(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 35),
           width: ScreenUtil.screenWidth,
-          height: ScreenUtil().setHeight(330),
+          height: SizeConfig.yMargin(context, 35),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
