@@ -16,11 +16,10 @@ abstract class CustomersLocalDataSource {
 }
 
 class CustomersLocalDataSourceImpl implements CustomersLocalDataSource {
-  final _storeRepository = locator<StoreRepository>();
 
   var box = Hive.box<CustomerH>('customerBox');
 
-  String get _currentStoreId => _storeRepository.currentStore.id;
+  String get _currentStoreId => StoreRepository.currentStore.id;
 
   List<CustomerH> getAllCustomers() => box.values.toList();
   

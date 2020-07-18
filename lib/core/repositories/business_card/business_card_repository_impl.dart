@@ -22,14 +22,14 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
 
   @override
   Future<void> saveBusinessCard(BusinessCardH businessCard) async {
-    Store store = storeRepository.currentStore;
+    Store store = StoreRepository.currentStore;
     await localDataSource.createBusinessCardH(store.id, businessCard);
     return Future.value();
   }
 
   @override
   Future<BusinessCardH> getBusinessCard() async {
-    Store store = storeRepository.currentStore;
+    Store store = StoreRepository.currentStore;
 
     if (store == null) return BusinessCardH.empty();
 

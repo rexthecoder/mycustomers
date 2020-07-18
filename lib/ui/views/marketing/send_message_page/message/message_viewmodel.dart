@@ -2,6 +2,13 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:permission_handler/permission_handler.dart';
+
+import 'package:mycustomers/core/services/permission_service.dart';
+
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
+
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
@@ -21,7 +28,7 @@ class MessageViewModel extends StreamViewModel {
   TextEditingController messageController =TextEditingController();
 
 
-  Future navigateToSendMessage() async {
+  // Future navigateToSendMessage() async {
 //    await _navigationService.navigateTo(Routes.messageSntDialog,);
 //  const uri = 'sms: +60000000000?body=message';
 //  if(Platform.isAndroid){
@@ -38,13 +45,21 @@ class MessageViewModel extends StreamViewModel {
 //    const url ='sms: +60000000000?body=message';
 //    await launch(url);
 //  }
+  // }
+
+  PermissionService _permission =  locator<IPermissionService>();
+  Future<bool> checkPermission() async {
+     return await _permission.getContactsPermission(); 
+  }
+  Future requestPermission() async{
+    return await [Permission.contacts].request();
   }
 
   Future returnHome(bool quick) async {
      _navigationService.popRepeated(quick == true?5:4);
      _navigationService.popUntil((route){
        if(route.settings.name == '/main'){
-//         (route.settings.arguments as Map)['result'] = _selectedCustomers;
+        (route.settings.arguments as Map)['result'] = _selectedCustomers;
          return true;
        }else{
          return false;

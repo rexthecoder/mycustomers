@@ -39,8 +39,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
 
-  final _storeService = locator<StoreRepository>();
-  Store get currentStore => _storeService.currentStore;
+  Store get currentStore => StoreRepository.currentStore;
 
   List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 

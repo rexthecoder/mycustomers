@@ -50,7 +50,7 @@ class BusinessHomePageView extends StatelessWidget {
                         model.profileCardTitle.substring(0,1),
                         style: TextStyle(
                           color: ThemeColors.background,
-                          fontSize: SizeConfig.textSize(context, 9),
+                          fontSize: SizeConfig.textSize(context, 6),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

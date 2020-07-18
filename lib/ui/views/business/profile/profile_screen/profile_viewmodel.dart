@@ -12,7 +12,7 @@ class MainProfilePageViewModel extends BaseViewModel {
 
   get userName => _authService?.currentUser?.firstName ?? 'None';
 
-  get businessName => _storeRepository?.currentStore?.name ?? 'None';
+  get businessName => StoreRepository?.currentStore?.name ?? 'None';
 
   Future navigateToEditProfilePage() async {
     await _navigationService.navigateTo(Routes.editProfileViewRoute);

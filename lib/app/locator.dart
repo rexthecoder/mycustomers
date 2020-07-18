@@ -121,9 +121,10 @@ Future<void> setupLocator(
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
   );
-  locator.registerLazySingleton<StoresLocalDataSource>(
-    () => StoresLocalDataSourceImpl()..init(),
-  );
+
+   if (test) locator.registerLazySingleton<StoresLocalDataSource>(
+     () => StoresLocalDataSourceImpl()..init(),
+   );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
@@ -166,10 +167,10 @@ Future<void> setupLocator(
   //Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(StoreHAdapter());
 
-  await StoresLocalDataSourceImpl().init();
-
-  if (!test) await setIso();
-  // await openBoxes();
+  if (!test) {
+    await setIso();
+    await openBoxes();
+  }
 }
 
 Future<void> openBoxes() async {

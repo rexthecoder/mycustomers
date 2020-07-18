@@ -37,8 +37,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
   final _logService = locator<LogsLocalDataSourceImpl>();
-  final _storeService = locator<StoreRepository>();
-  Store get currentStore => _storeService.currentStore;
+  Store get currentStore => StoreRepository.currentStore;
 
   double _amount;
   double get amount => _amount;

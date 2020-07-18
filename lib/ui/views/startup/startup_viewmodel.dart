@@ -17,13 +17,24 @@ class StartupViewModel extends BaseViewModel {
 
   bool previewImport = false;
 
+  get currentStore => StoreRepository.currentStore;
+
   Future setup() async {
     await locator.allReady();
 //    await  Future.delayed(Duration(seconds: 1));
-    if (await checkLoggedIn())
-      _navigationService.replaceWith(Routes.mainViewRoute);
+    if (await checkLoggedIn()) {if (confirmHasStore())
+      {_navigationService.replaceWith(Routes.mainViewRoute);}}
     else
       _navigationService.replaceWith(Routes.onboardingViewRoute);
+  }
+
+  bool confirmHasStore() {
+    print('Current store is $currentStore');
+    if (currentStore == null) {
+      _navigationService.replaceWith(Routes.createBusinessView);
+      return false;
+    }
+    return true;
   }
 
   Future<String> getEncryptionKey() async {

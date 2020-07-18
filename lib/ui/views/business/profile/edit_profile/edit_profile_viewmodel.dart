@@ -66,7 +66,7 @@ class EditProfileViewModel extends BaseViewModel {
 
   init() {
     _userName = _authService?.currentUser?.firstName ?? 'None';
-    _businessName = _storeRepository?.currentStore?.name ?? 'None';
+    _businessName = StoreRepository?.currentStore?.name ?? 'None';
     notifyListeners();
   }
 

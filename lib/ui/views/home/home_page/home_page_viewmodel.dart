@@ -10,6 +10,7 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -35,7 +36,6 @@ class HomePageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final _customerContactService = locator<CustomerContactService>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
-  final _storeService = locator<StoreRepository>();
   
 
   PermissionService _permission =  locator<IPermissionService>();
@@ -53,7 +53,7 @@ class HomePageViewModel extends ReactiveViewModel {
   bool contains;
   bool containsD;
   bool containsC;
-  Store get currentStore => _storeService.currentStore;
+  Store get currentStore => StoreRepository.currentStore;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =
@@ -63,7 +63,7 @@ class HomePageViewModel extends ReactiveViewModel {
   // }
 
   void getTransactions() {
-    _transactionService.getAllTransactions(currentStore.id);
+    _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
     notifyListeners();
   }
 

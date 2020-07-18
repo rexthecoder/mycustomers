@@ -57,96 +57,104 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
         key: _businessFormPageKey,
         child: Column(
           children: <Widget>[
-            SizedBox(height: SizeConfig.yMargin(context, 7)),
-            Text(
-              'BUSINESS DETAILS',
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: SizeConfig.yMargin(context, 4),
+            SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: SizeConfig.yMargin(context, 7)),
+                  Text(
+                    'BUSINESS DETAILS',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: SizeConfig.yMargin(context, 4),
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.yMargin(context, 5)),
+                  Text(
+                    'One last step...',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: SizeConfig.yMargin(context, 2),
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.yMargin(context, 2)),
+                  Padding(
+                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    child: TextFormField(
+                      key: Key("fullname"),
+                      controller: _fullName,
+                      validator: (value) => (value.isEmpty)
+                          ? "Please enter your full name"
+                          : null,
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                      decoration: InputDecoration(
+                          labelText: "Enter your full name",
+                          border: OutlineInputBorder()),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    child: TextFormField(
+                      key: Key("email"),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailAddress,
+                      validator: (_) =>
+                          viewModel.validateEmail(_emailAddress.text),
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                      decoration: InputDecoration(
+                          labelText: "Enter your email address",
+                          border: OutlineInputBorder()),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    child: TextFormField(
+                      key: Key("storeName"),
+                      controller: _storeName,
+                      validator: (value) =>
+                          (value.isEmpty) ? "Please enter store name" : null,
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                      decoration: InputDecoration(
+                          labelText: "Enter your  store name",
+                          border: OutlineInputBorder()),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    child: TextFormField(
+                      key: Key("storeAddress"),
+                      controller: _storeAddress,
+                      validator: (value) =>
+                          (value.isEmpty) ? "Please enter store address" : null,
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                      decoration: InputDecoration(
+                          labelText: "Enter your store address",
+                          border: OutlineInputBorder()),
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.yMargin(context, 4)),
+                ],
               ),
             ),
-            SizedBox(height: SizeConfig.yMargin(context, 5)),
-            Text(
-              'One last step...',
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: SizeConfig.yMargin(context, 2),
-              ),
-            ),
-            SizedBox(height: SizeConfig.yMargin(context, 2)),
-            Padding(
-              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-              child: TextFormField(
-                key: Key("fullname"),
-                controller: _fullName,
-                validator: (value) =>
-                    (value.isEmpty) ? "Please enter your full name" : null,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontSize: SizeConfig.yMargin(context, 2),
-                  fontWeight: FontWeight.w300,
-                  color: Theme.of(context).cursorColor,
-                ),
-                decoration: InputDecoration(
-                    labelText: "Enter your full name",
-                    border: OutlineInputBorder()),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-              child: TextFormField(
-                key: Key("email"),
-                keyboardType: TextInputType.emailAddress,
-                controller: _emailAddress,
-                validator: (_) => viewModel.validateEmail(_emailAddress.text),
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontSize: SizeConfig.yMargin(context, 2),
-                  fontWeight: FontWeight.w300,
-                  color: Theme.of(context).cursorColor,
-                ),
-                decoration: InputDecoration(
-                    labelText: "Enter your email address",
-                    border: OutlineInputBorder()),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-              child: TextFormField(
-                key: Key("storeName"),
-                controller: _storeName,
-                validator: (value) =>
-                    (value.isEmpty) ? "Please enter store name" : null,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontSize: SizeConfig.yMargin(context, 2),
-                  fontWeight: FontWeight.w300,
-                  color: Theme.of(context).cursorColor,
-                ),
-                decoration: InputDecoration(
-                    labelText: "Enter your  store name",
-                    border: OutlineInputBorder()),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
-              child: TextFormField(
-                key: Key("storeAddress"),
-                controller: _storeAddress,
-                validator: (value) =>
-                    (value.isEmpty) ? "Please enter store address" : null,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontSize: SizeConfig.yMargin(context, 2),
-                  fontWeight: FontWeight.w300,
-                  color: Theme.of(context).cursorColor,
-                ),
-                decoration: InputDecoration(
-                    labelText: "Enter your store address",
-                    border: OutlineInputBorder()),
-              ),
-            ),
-            SizedBox(height: SizeConfig.yMargin(context, 4)),
             CustomRaisedButton(
               btnColor: BrandColors.primary,
               txtColor: ThemeColors.background,
