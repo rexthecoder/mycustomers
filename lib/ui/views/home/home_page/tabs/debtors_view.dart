@@ -119,7 +119,7 @@ class DebtorsView extends StatelessWidget {
               child: InkWell(
 //                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
                 onTap: () =>
-                    Navigator.pushNamed(context, '/'),
+                    Navigator.pushNamed(context, '/importcustomerdebtor'),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
