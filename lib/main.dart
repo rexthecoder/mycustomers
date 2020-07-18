@@ -41,7 +41,7 @@ void main() async {
             dsn:
                 "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
-
+    
   //  runApp(App());
      runApp(
        DevicePreview(

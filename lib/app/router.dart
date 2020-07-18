@@ -344,7 +344,7 @@ class Router {
       case Routes.marketingHomepageView:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MarketingHomePageView(),
-          settings: settings,
+          settings:  RouteSettings(name: Routes.marketingHomepageView, arguments: Map()),
         );
       case Routes.createBusinessView:
         return CupertinoPageRoute<dynamic>(
