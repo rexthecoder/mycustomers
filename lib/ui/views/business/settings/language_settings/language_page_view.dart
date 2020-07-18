@@ -4,7 +4,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
-
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'language_view_model.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
@@ -14,27 +14,25 @@ class LanguageSelectionPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<LanguageViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: CustomBackground(
+        backgroundColor: Theme.of(context).backgroundColor,
+        appBar: customizeAppBar(context, 1.0,
+            title: 'Language Settings',
+            arrowColor: Theme.of(context).textSelectionColor),
+        body: Container(
+          margin:
+              EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 8)),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: SizeConfig.yMargin(context, 7)),
-              Text(
-                'LANGUAGE',
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: SizeConfig.yMargin(context, 4),
-                ),
-              ),
-              SizedBox(height: SizeConfig.xMargin(context, 4)),
+              SizedBox(height: SizeConfig.yMargin(context, 3)),
               Text(
                 'Select your Language',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.yMargin(context, 2),
+                  fontWeight: FontWeight.w600,
+                  fontSize: SizeConfig.yMargin(context, 2.2),
                 ),
               ),
-              SizedBox(height: SizeConfig.yMargin(context, 0.2)),
               Container(
                 height: SizeConfig.yMargin(context, 60),
                 width: SizeConfig.xMargin(context, 90),
@@ -44,7 +42,8 @@ class LanguageSelectionPageView extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return CustomPartialBuild<SettingManagerModel>(
                       builder: (context, viewModel) => Padding(
-                        padding: EdgeInsets.all(SizeConfig.yMargin(context, 1)),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.yMargin(context, 2)),
                         child: InkWell(
                           onTap: () {
                             // model.setLanguage(index);
@@ -63,12 +62,14 @@ class LanguageSelectionPageView extends StatelessWidget {
                               ],
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(
-                                color: (viewModel.locale?.languageCode ?? Localizations.localeOf(context).languageCode) ==
+                                color: (viewModel.locale?.languageCode ??
+                                            Localizations.localeOf(context)
+                                                .languageCode) ==
                                         model.languages[index]['code']
                                     ? Theme.of(context).textSelectionColor
                                     : Color(0xFFE8E8E8),
                               ),
-                              color: Colors.white,
+                              color: Theme.of(context).backgroundColor,
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,20 +92,14 @@ class LanguageSelectionPageView extends StatelessWidget {
                                 Text(
                                   model.languages[index]['name'],
                                   style: TextStyle(
-                                    color: Color(0xFF333333),
-                                    fontSize: SizeConfig.yMargin(context, 2),
-                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context).cursorColor,
+                                    fontSize: SizeConfig.yMargin(context, 2.5),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.all(
-                                      SizeConfig.yMargin(context, 3)),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF333333),
-                                    size: SizeConfig.yMargin(context, 2),
-                                  ),
-                                ),
+                                    padding: EdgeInsets.all(
+                                        SizeConfig.yMargin(context, 4)),
+                                    child: Text("")),
                               ],
                             ),
                           ),
