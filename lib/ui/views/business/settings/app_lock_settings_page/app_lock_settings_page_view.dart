@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'app_lock_settings_page_viewmodel.dart';
@@ -10,16 +12,9 @@ class AppLockSettingsPageView extends StatelessWidget {
       viewModelBuilder: () => AppLockSettingsPageViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            title: Text(
-              'App Lock',
-              style: TextStyle(
-                  fontSize: SizeConfig.textSize(context, 5),
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          backgroundColor: Colors.white,
+          appBar: customizeAppBar(context, 1.0,
+                title:'App Lock' , arrowColor: BrandColors.primary),
+          backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: <Widget>[
               Expanded(
@@ -41,7 +36,8 @@ class AppLockSettingsPageView extends StatelessWidget {
                           selectedColor:
                               const Color.fromARGB(50, 196, 196, 196),
                           child: ListTile(
-                            onTap: () => model.navigateToChangePinPage(),
+                            onTap: () => model.getThecurrentStateOfPin() == false ? model.navigateToSetPinPage() :
+                            model.navigateToChangePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title:model.getThecurrentStateOfPin() == false ? Text(
                               'Set App lock Pin',

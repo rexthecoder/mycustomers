@@ -1,7 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/services/permissions.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -30,7 +30,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   // Function to serve as a helper for the navigation
   Future navigateToSendMessageView() async {
-    await _navigationService.navigateTo(Routes.sendMessageViewRoute);
+    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
   }
 
   // Get the services required
@@ -45,6 +45,8 @@ class MarketingHomePageViewModel extends BaseViewModel {
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
 
   List<Customer> _allSelectedCustomers = [];
+  List<Customer> _allFrequentCustomers = [];
+  List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   List<Customer> get searchedCustomer => allCustomers.where(
         (Customer customer) =>
     customer.name.contains(searchPattern) ||
@@ -81,8 +83,12 @@ class MarketingHomePageViewModel extends BaseViewModel {
   }
 
   void deselectCustomer(Customer customer) {
-    _selectedCustomers.removeWhere((element) => element.id == customer.id);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
+  }
+  void getFrequentCustomers() {
+    //todo: get frequent customers
+//    allFrequentCustomers
   }
 
   void selectAllCustomers() {
@@ -95,31 +101,112 @@ class MarketingHomePageViewModel extends BaseViewModel {
     _selectedCustomers = [];
     notifyListeners();
   }
+  void removeCustomers(Customer customer) {
+    allCustomers.removeWhere((element) => element.phone == customer.phone);
+    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+    notifyListeners();
+  }
 //  void updateCustomers() async{
 //    fianl customerList = await _navigationService
 //  }
 
-   Permissions _permission =  locator<Permissions>();
+ PermissionService _permission =  locator<IPermissionService>();
+  Future checkPermission() async {
+    
+     return await _permission.getContactsPermission(); 
+  }
+  Future requestPermission() async{
+    return await [Permission.contacts].request();
+  }
+   Future navigateToAddCustomers(context) async{
+     Navigator.of(context).pushNamed(Routes.addCustomerMarketing).then((_){
+       final arguments = ModalRoute.of(context).settings.arguments as Map;
+       final result = arguments['result'];
+     allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+      notifyListeners();
+     
+     });
+    notifyListeners();
+  }
+  Future navigateToAddNewCustomer(context) async{
+    Navigator.of(context).pushNamed(Routes.addNewCustomerMarketing).then((_){
+       final arguments = ModalRoute.of(context).settings.arguments as Map;
+       final result = arguments['result'];
+     allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+      notifyListeners();
+     
+     });
+    notifyListeners();
+  }
+
+  Future navigateToSendMessage(context) async{
+    // Navigator.of(context).pushNamed(Routes.sendMessageViewRoute,arguments: _selectedCustomers).then((_){
+    //    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    //    final result = arguments['result'];
+    //  allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+    //   notifyListeners();
+     
+    //  });
+    // notifyListeners();
+  }
+
+
+  
 
   Future navigateToAddCustomer() async {
     var contactList;
     final bool isPermitted =
         await _permission.getContactsPermission();
-    if (isPermitted) contactList= await _navigationService
+
+    if(!isPermitted){
+      await [Permission.contacts].request();
+    }else if(isPermitted){
+      contactList = await _navigationService
         .navigateTo(Routes.addCustomerMarketing);
-    else await [Permission.contacts].request();
-    allCustomers
-     = await contactList.length != 0?contactList:allCustomers;
+    }else{
+      contactList = await  _navigationService
+        .navigateTo(Routes.addNewCustomerMarketing);
+    }
+    // if (isPermitted) contactList = await _navigationService
+    //     .navigateTo(Routes.addCustomerMarketing);
+    // else contactList = await  _navigationService
+    //     .navigateTo(Routes.addNewCustomerMarketing);
+    // await contactList;
+//    print(contactList);
+//    final results = contactList['result'];
+//    allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+//    allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+
+
+
+//    if(_selectedCustomers.length !=0 ){
+//      _navigationService
+//          .navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+//    }else{
+//      if (isPermitted) contactList = await _navigationService
+//          .navigateTo(Routes.addCustomerMarketing);
+//      else contactList = await  _navigationService
+//          .navigateTo(Routes.addNewCustomerMarketing);
+//      await contactList;
+//      allCustomers = contactList.length != 0?[...allCustomers,...contactList]:allCustomers;
+//    }
+//    if (isPermitted) contactList= await _navigationService
+//        .navigateTo(Routes.addCustomerMarketing);
+//    else await [Permission.contacts].request();
+//    allCustomers
+//     = await contactList.length != 0?contactList:allCustomers;
 //    await contactList;
 //    if(!contactList==null){allCustomers =  contactList;}
+
     notifyListeners();
-    // print(contactList);
   }
 
 
   void sendMessage(){
+    
+
     _navigationService
-        .navigateTo(Routes.sendMessageViewRoute);
+        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
   /// View initialize and close section
@@ -134,6 +221,6 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   @override
   Future futureToRun() async {
-    _allSelectedCustomers = await _customerService.getCustomers('1');
+   _allSelectedCustomers = await _customerService.getCustomers('1');
   }
 }

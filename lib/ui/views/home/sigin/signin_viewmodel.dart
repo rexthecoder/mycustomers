@@ -1,10 +1,13 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/mixins/validators.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
+import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
@@ -13,6 +16,14 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class SignInViewModel extends BaseViewModel with Validators {
+
+  
+  void init() async {}
+
+  SignInViewModel() {
+    init();
+  }
+
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
 
@@ -20,8 +31,10 @@ class SignInViewModel extends BaseViewModel with Validators {
   bool obscureText = true;
   bool btnColor = true;
 
+  get currentStore => StoreRepository.currentStore;
+
   // String initialCountry = 'NG';
-  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  PhoneNumber number = PhoneNumber(isoCode: isoCode);
 
   // void togglePassword() {
   //   obscureText = !obscureText;
@@ -39,15 +52,24 @@ class SignInViewModel extends BaseViewModel with Validators {
 
   // Navigate
   Future navigateToNextScreen() async {
-    await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'rotate', duration: Duration(milliseconds: 600));
+    if (confirmHasStore()) await _navigationService.replaceWithTransition(MainView(),
+        opaque: true, transition: 'rotate', duration: Duration(milliseconds: 400));
+  }
+
+    bool confirmHasStore() {
+    print('Current store is $currentStore');
+    if (currentStore == null) {
+      _navigationService.replaceWith(Routes.createBusinessView);
+      return false;
+    }
+    return true;
   }
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
         opaque: true,
         transition: 'fade',
-        duration: Duration(milliseconds: 600));
+        duration: Duration(milliseconds: 400));
   }
 
   final _authService = locator<AuthService>();
@@ -64,7 +86,6 @@ class SignInViewModel extends BaseViewModel with Validators {
         message: 'Welcome Back',
         success: true,
       );
-      await Future.delayed(Duration(milliseconds: 200));
       busy = false;
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();
@@ -82,5 +103,14 @@ class SignInViewModel extends BaseViewModel with Validators {
     if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
-  void init() {}
+   Future navigateToOnboarding() async {
+    await _navigationService.replaceWithTransition(
+      OnboardingView(),
+      opaque: true,
+      popGesture: true,
+      transition: 'rightToLeftWithFade',
+      duration: Duration(milliseconds: 100),
+    );
+  }
+
 }

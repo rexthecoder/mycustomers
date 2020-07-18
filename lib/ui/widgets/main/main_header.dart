@@ -8,35 +8,40 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return Container(
-      color: BrandColors.primary,
-      height: SizeConfig.yMargin(context, 12),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: SizeConfig.yMargin(context, -12.0),
-            left: SizeConfig.yMargin(context, -10.0),
-            child: circleDesign(SizeConfig.yMargin(context, 10),
-                SizeConfig.yMargin(context, 7)),
-          ),
-          Positioned(
-            top: SizeConfig.yMargin(context, -12.0),
-            right: SizeConfig.yMargin(context, -12.0),
-            child: circleDesign(SizeConfig.yMargin(context, 10),
-                SizeConfig.yMargin(context, 7)),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: SizeConfig.xMargin(context, 3),
-              right: SizeConfig.xMargin(context, 3),
-              top: SizeConfig.yMargin(context, 4),
-              bottom: SizeConfig.yMargin(context, 2),
+//     return GestureDetector(
+//      onTap: model.navigateToNotifications
+//     );
+//  child: 
+return Container(
+        color: BrandColors.primary,
+        height: SizeConfig.yMargin(context, 12),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: SizeConfig.yMargin(context, -12.0),
+              left: SizeConfig.yMargin(context, -10.0),
+              child: circleDesign(SizeConfig.yMargin(context, 10),
+                  SizeConfig.yMargin(context, 7)),
             ),
-            child: headerBar(context, model),
-          ),
-        ],
-      ),
-    );
+            Positioned(
+              top: SizeConfig.yMargin(context, -12.0),
+              right: SizeConfig.yMargin(context, -12.0),
+              child: circleDesign(SizeConfig.yMargin(context, 10),
+                  SizeConfig.yMargin(context, 7)),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: SizeConfig.xMargin(context, 3),
+                right: SizeConfig.xMargin(context, 3),
+                top: SizeConfig.yMargin(context, 5),
+                bottom: SizeConfig.yMargin(context, 3),
+              ),
+              child: headerBar(context, model),
+            ),
+          ],
+        ),
+      );
+    
   }
 
   Widget headerBar(
@@ -52,8 +57,8 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
           child: Row(
             children: <Widget>[
               GFAvatar(
-                minRadius: SizeConfig.xMargin(context, 6),
-                maxRadius: SizeConfig.xMargin(context, 6),
+                minRadius: SizeConfig.xMargin(context,4),
+                maxRadius: SizeConfig.xMargin(context, 4),
                 shape: GFAvatarShape.standard,
                 backgroundColor: ThemeColors.background,
                 child: Text(
@@ -61,7 +66,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                       ?.substring(0, 1) ?? 'n',
                   style: TextStyle(
                     color: ThemeColors.black,
-                    fontSize: SizeConfig.textSize(context, 8),
+                    fontSize: SizeConfig.textSize(context, 5),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -77,7 +82,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 style: TextStyle(
                   color: ThemeColors.background,
                   fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.textSize(context, 6),
+                  fontSize: SizeConfig.textSize(context, 3),
                 ),
               ),
             ],
@@ -86,15 +91,24 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
         Expanded(
           child: SizedBox(),
         ),
-        Container(
-          child: Stack(
-            children: [
-              Icon(
-                Icons.notifications_none,
-                color: Colors.white,
-              ),
-            ],
-            overflow: Overflow.clip,
+        GestureDetector(
+          onTap: model.navigateToNotifications,
+          child: Container(
+            child: Stack(
+              children: [
+                Icon(Icons.notifications_none,
+                  color: Colors.white,
+                  size: SizeConfig.yMargin(context, 3),
+                ),
+                model.showdot ? Positioned(  // draw a red marble
+                  top: 0.0,
+                  right: 0.0,
+                  child: new Icon(Icons.brightness_1, size: SizeConfig.yMargin(context, 1.2),
+                  color: Colors.redAccent),
+                ) : SizedBox()
+              ],               
+              overflow: Overflow.clip,
+            ),
           ),
         ),
       ],

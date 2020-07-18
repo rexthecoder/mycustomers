@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stacked/stacked.dart';
 
@@ -26,7 +27,7 @@ class VerificationView extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: SizeConfig.yMargin(context, 7)),
                 Text(
-                  'VERIFY CODE',
+                  AppLocalizations.of(context).verifyCode,
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: SizeConfig.yMargin(context, 4),
@@ -76,7 +77,7 @@ class VerificationView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 13)),
-              CustomRaisedButton(
+                CustomRaisedButton(
                   btnColor: BrandColors.primary,
                   txtColor: ThemeColors.background,
                   btnText: 'Next',
@@ -90,7 +91,7 @@ class VerificationView extends StatelessWidget {
                     //Call Function to Next Screen
                     model.navigateToNextScreen();
                   },
-                ),  
+                ),
 
                 SizedBox(height: SizeConfig.yMargin(context, 18)),
                 Container(

@@ -19,7 +19,7 @@ ToastFuture showToastCustom(
     ),
     duration: duration,
     context: context,
-    animationDuration: Duration(milliseconds: 1800),
+    animationDuration: Duration(milliseconds: 1000),
     animationCurve: Curves.easeInOutBack,
     dismissOtherToast: true,
   );

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
+
+import 'package:mycustomers/core/localization/app_localization.dart';
+
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -30,23 +34,23 @@ class OnboardingView extends StatelessWidget {
                   children: [
                     _Pages(
                       'assets/images/onboarding/onboarding1.png',
-                      'Welcome to myCustomer',
-                      'We help you to manage your business and \n keep track of records',
+                      AppLocalizations.of(context).onboardingWelcomeText,
+                      AppLocalizations.of(context).onboardingWelcomeDesc,
                     ),
                     _Pages(
                       'assets/images/onboarding/onboarding2.png',
-                      'Push a Reminder',
-                      'Send sms reminders to customers that are \n owing you money',
+                      AppLocalizations.of(context).pushAReminder,
+                      AppLocalizations.of(context).pushAReminderDesc,
                     ),
                     _Pages(
                       'assets/images/onboarding/onboarding3.png',
-                      'Collect your money',
-                      'Easily manage customers owing you and \n increase your cash flow',
+                      AppLocalizations.of(context).collectYourMoney,
+                      AppLocalizations.of(context).collectYourMoneyDesc,
                     ),
                     _Pages(
                       'assets/images/onboarding/onboarding4.png',
-                      'Engage with your people',
-                      'Interact with your customers through \n pushing of unique sales messaging',
+                      AppLocalizations.of(context).engagedWithYourPeople,
+                      AppLocalizations.of(context).engagedWithYourPeopleDesc,
                     ),
                   ],
                 ),
@@ -71,7 +75,7 @@ class OnboardingView extends StatelessWidget {
                   child: CustomRaisedButton(
                     txtColor: ThemeColors.background,
                     btnColor: BrandColors.primary,
-                    btnText: 'Get started',
+                    btnText: AppLocalizations.of(context).getStartedButton,
                     borderColor: BrandColors.primary,
                     child: Container(),
                     onPressed: () {
@@ -84,7 +88,7 @@ class OnboardingView extends StatelessWidget {
                   child: CustomRaisedButton(
                     txtColor: BrandColors.primary,
                     btnColor: ThemeColors.background,
-                    btnText: 'Sign in',
+                    btnText: AppLocalizations.of(context).signIn,
                     borderColor: BrandColors.primary,
                     child: Container(),
                     onPressed: () {
