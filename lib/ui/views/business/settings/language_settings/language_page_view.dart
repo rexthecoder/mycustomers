@@ -6,8 +6,6 @@ import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'language_view_model.dart';
-import 'package:mycustomers/core/localization/app_localization.dart';
-import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 
 class LanguageSelectionPageView extends StatelessWidget {
   @override
@@ -33,6 +31,7 @@ class LanguageSelectionPageView extends StatelessWidget {
                   fontSize: SizeConfig.yMargin(context, 2.2),
                 ),
               ),
+              SizedBox(height: SizeConfig.yMargin(context, 2)),
               Container(
                 height: SizeConfig.yMargin(context, 60),
                 width: SizeConfig.xMargin(context, 90),
@@ -43,14 +42,14 @@ class LanguageSelectionPageView extends StatelessWidget {
                     return CustomPartialBuild<SettingManagerModel>(
                       builder: (context, viewModel) => Padding(
                         padding: EdgeInsets.symmetric(
-                            vertical: SizeConfig.yMargin(context, 2)),
+                            vertical: SizeConfig.yMargin(context, 0.5)),
                         child: InkWell(
                           onTap: () {
                             // model.setLanguage(index);
                             viewModel.setLocale(model.languages[index]['code']);
                           },
                           child: Container(
-                            height: SizeConfig.yMargin(context, 10),
+                            height: SizeConfig.yMargin(context, 7),
                             width: SizeConfig.xMargin(context, 100),
                             decoration: BoxDecoration(
                               boxShadow: [

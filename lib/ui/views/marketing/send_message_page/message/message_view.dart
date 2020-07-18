@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -115,20 +116,41 @@ class MessageView extends StatelessWidget {
                             ),
                             FlatButton.icon(
                               onPressed: () async {
-//                                await model.initSelected(selectedCustomers);
-                                showModalBottomSheet(
-                                  enableDrag: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
-                                    ),
-                                  ),
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return BottomSheetView(model.selectedCustomers,height, model);
-                                  },
+                                 final bool isPermitted = await model.checkPermission();
+                                 if(isPermitted){
+                                   permissionDialog(context, model) ;
+                                   
+                                  }else{
+                                    
+                                    showModalBottomSheet(
+                                      enableDrag: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return BottomSheetView(model.selectedCustomers,height, model);
+                                      },
                                 );
+
+                                  }
+//                                await model.initSelected(selectedCustomers);
+                                // showModalBottomSheet(
+                                //   enableDrag: true,
+                                //   shape: RoundedRectangleBorder(
+                                //     borderRadius: BorderRadius.only(
+                                //       topLeft: Radius.circular(20),
+                                //       topRight: Radius.circular(20),
+                                //     ),
+                                //   ),
+                                //   context: context,
+                                //   builder: (BuildContext context) {
+                                //     return BottomSheetView(model.selectedCustomers,height, model);
+                                //   },
+                                // );
                               },
                               icon: Icon(
                                 Icons.add,
@@ -200,12 +222,132 @@ class MessageView extends StatelessWidget {
       },
     );
   }
+  Future<void> permissionDialog(
+      BuildContext context, MessageViewModel model) async {
+        
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color(0xFF333CC1),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            content: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                   Container(
+                    child: Text(
+                      "Access denied!",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+               
+                  Container(
+                    child: Text(
+                      "My Customer needs access to your contact!",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25.h,
+                  ),
+                  Row(
+                    children: <Widget>[
+                     
+                       Expanded(
+                                                child: Container(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                           Flushbar(
+                                      backgroundColor: BrandColors.primary,
+                                      duration: const Duration(seconds: 3),
+                                      message: 'You denied permission to your contacts',
+                                      icon: Icon(
+                                        Icons.info_outline,
+                                        size: 28.0,
+                                        color: ThemeColors.background,
+                                      ),
+                                      leftBarIndicatorColor: Colors.blue[300],
+                                    ).show(context);
+                      },
+                      child: Container(
+                            height: 50.h,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Deny',
+                                style: TextStyle(
+                                  color: Color(0xFF333CC1),
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                            ),
+                          ),
+                    ),
+                  ),
+                       ),
+                        SizedBox(
+                    width: 10.h,
+                  ),
+                   Expanded(
+                                        child: Container(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                              
+                              model.requestPermission();
+                            },
+                            child: Container(
+                              height: 50.h,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Allow',
+                                  style: TextStyle(
+                                    color: Color(0xFF333CC1),
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                   ),
+                
+                    ],
+                  ),
+                  
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
 
   Future<void> successDialog(
       BuildContext context, MessageViewModel model) async {
     return showDialog<void>(
         context: context,
-        barrierDismissible: true, // TODO: change to false
+        barrierDismissible: true, 
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Color(0xFF333CC1),
@@ -273,7 +415,7 @@ class MessageView extends StatelessWidget {
   Future<void> failureDialog(BuildContext context) async {
     return showDialog<void>(
         context: context,
-        barrierDismissible: true, // TODO: change to false
+        barrierDismissible: true, 
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Color(0xFF333CC1),
@@ -517,32 +659,32 @@ class BottomSheetView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(30.w),
-                        child: FlatButton(
-                          onPressed: () {
-                            parentModel.mergeSelectCustomer(model.selectedCustomers);
-                            Navigator.pop(context);
-                          },
-                          color: BrandColors.secondary,
-                          padding: EdgeInsets.symmetric(vertical: 15.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Continue',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   padding: EdgeInsets.all(30.w),
+                      //   child: FlatButton(
+                      //     onPressed: () {
+                      //       parentModel.mergeSelectCustomer(model.selectedCustomers);
+                      //       Navigator.pop(context);
+                      //     },
+                      //     color: BrandColors.secondary,
+                      //     padding: EdgeInsets.symmetric(vertical: 15.0),
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(5.0),
+                      //     ),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: <Widget>[
+                      //         Text(
+                      //           'Continue',
+                      //           style: TextStyle(
+                      //             color: Colors.white,
+                      //             fontWeight: FontWeight.bold,
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

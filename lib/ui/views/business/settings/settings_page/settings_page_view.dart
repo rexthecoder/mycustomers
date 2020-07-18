@@ -21,22 +21,6 @@ class SettingsPage extends StatelessWidget {
               backgroundColor: Theme.of(context).backgroundColor,
               appBar: customizeAppBar(context, 1.0,
                   title: 'Settings', arrowColor: BrandColors.primary),
-              // AppBar(
-              //   iconTheme:
-              //       IconThemeData(color: Theme.of(context).textSelectionColor),
-              //   brightness: Brightness.light,
-              //   elevation: 0,
-              //   title: Text(
-              //     'Settings',
-              //     style: Theme.of(context).textTheme.headline6.copyWith(
-              //           fontSize: ScreenUtil().setSp(20),
-              //           fontWeight: FontWeight.w900,
-              //           color: Theme.of(context).cursorColor,
-              //         ),
-              //   ),
-              //   backgroundColor: Theme.of(context).backgroundColor,
-              //   centerTitle: true,
-              // ),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -75,30 +59,31 @@ class SettingsPage extends StatelessWidget {
                               model.setNotification,
                               AppLocalizations.of(context)
                                   .receiveNotifications),
-                          switchTile(
-                              context,
-                              model.newsletter,
-                              model.setNewsletter,
-                              AppLocalizations.of(context).receiveNewsletters),
-                          switchTile(
-                              context,
-                              model.special,
-                              model.setSpecial,
-                              AppLocalizations.of(context)
-                                  .receiveSpecialOffers),
-                          switchTile(context, model.update, model.setUpdate,
-                              AppLocalizations.of(context).receiveUpdates),
+                          // switchTile(
+                          //     context,
+                          //     model.newsletter,
+                          //     model.setNewsletter,
+                          //     AppLocalizations.of(context).receiveNewsletters),
+                          // switchTile(
+                          //     context,
+                          //     model.special,
+                          //     model.setSpecial,
+                          //     AppLocalizations.of(context)
+                          //         .receiveSpecialOffers),
+                          // switchTile(context, model.update, model.setUpdate,
+                          //     AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),
-                    Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(20)),
-                        child: crb.CustomRaisedButton(
-                            label: 'Save',
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }))
+                    // Container(
+                    //   padding: EdgeInsets.symmetric(
+                    //       horizontal: ScreenUtil().setWidth(20)),
+                    //   child: crb.CustomRaisedButton(
+                    //       label: 'Save',
+                    //       onPressed: () {
+                    //         Navigator.pop(context);
+                    //       }),
+                    // ),
                   ],
                 ),
               ),

@@ -1,4 +1,3 @@
-import 'package:injectable/injectable.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
