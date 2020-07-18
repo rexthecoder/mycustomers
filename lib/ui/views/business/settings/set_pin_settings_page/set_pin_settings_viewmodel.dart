@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -8,6 +9,7 @@ class SetPinSettingsViewModel extends BaseViewModel {
 
  final PasswordManagerService _passwordManagerService =
       locator<PasswordManagerService>();
+  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
   
    
   int _pin = 0;
@@ -50,6 +52,7 @@ class SetPinSettingsViewModel extends BaseViewModel {
 
 void setPin(bool value){
     _passwordManagerService.setPin(value);
+    _logService.getValues(null, DateTime.now(), 'set-pin', '', false);
      notifyListeners();
    }
 

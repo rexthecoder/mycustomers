@@ -1,5 +1,6 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
@@ -17,6 +18,7 @@ class CreateBusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final StoresLocalDataSource _storeService = locator<StoresLocalDataSource>();
   final DialogService _dialogService = locator<DialogService>();
+  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
 
   Future<void> navigateToNext() async {
     await _navigationService.replaceWithTransition(MainView(),
@@ -40,6 +42,7 @@ class CreateBusinessViewModel extends BaseViewModel {
         message: 'Your store has been created successfully',
         success: true,
       );
+      _logService.getValues(null, DateTime.now(), 'create-store', storeName, false);
 
       await Future.delayed(Duration(milliseconds: 200));
       busy = false;
