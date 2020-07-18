@@ -57,8 +57,8 @@ return Container(
           child: Row(
             children: <Widget>[
               GFAvatar(
-                minRadius: SizeConfig.xMargin(context,5),
-                maxRadius: SizeConfig.xMargin(context, 5),
+                minRadius: SizeConfig.xMargin(context,4),
+                maxRadius: SizeConfig.xMargin(context, 4),
                 shape: GFAvatarShape.standard,
                 backgroundColor: ThemeColors.background,
                 child: Text(
@@ -66,7 +66,7 @@ return Container(
                       ?.substring(0, 1) ?? 'n',
                   style: TextStyle(
                     color: ThemeColors.black,
-                    fontSize: SizeConfig.textSize(context, 4),
+                    fontSize: SizeConfig.textSize(context, 5),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -82,7 +82,7 @@ return Container(
                 style: TextStyle(
                   color: ThemeColors.background,
                   fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.textSize(context, 5),
+                  fontSize: SizeConfig.textSize(context, 3),
                 ),
               ),
             ],
