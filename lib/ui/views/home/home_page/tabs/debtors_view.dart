@@ -51,63 +51,82 @@ class DebtorsView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Text( AppLocalizations.of(context)
-                                    .customersAreOwingYou, style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: SizeConfig.yMargin(context, 2)
-                              ),),
-                              model.bought() - model.paid() > 0 ? Text(
-                                model.currency.symbol+currency.format(model.bought() - model.paid()).toString(),
+                              Text(
+                                AppLocalizations.of(context)
+                                    .customersAreOwingYou,
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: SizeConfig.yMargin(context, 5),
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Roboto'
-                                ),
-                              ) : RichText(
-                                text: TextSpan(
-                                  text: '₦ 0.', style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: SizeConfig.yMargin(context, 5),
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.bold),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: '00.', style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: SizeConfig.yMargin(context, 3),
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.bold
-                                    ),
+                                    fontSize: SizeConfig.yMargin(context, 2)),
+                              ),
+                              model.bought() - model.paid() > 0
+                                  ? Text(
+                                      model.currency.symbol +
+                                          currency
+                                              .format(
+                                                  model.bought() - model.paid())
+                                              .toString(),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize:
+                                              SizeConfig.yMargin(context, 5),
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Roboto'),
                                     )
-                                  ]
-                                ),
-
+                                  : RichText(
+                                      text: TextSpan(
+                                          text: '₦ 0.',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: SizeConfig.yMargin(
+                                                  context, 5),
+                                              fontFamily: 'Roboto',
+                                              fontWeight: FontWeight.bold),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: '00.',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: SizeConfig.yMargin(
+                                                      context, 3),
+                                                  fontFamily: 'Roboto',
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ]),
                                     ),
                             ],
                           ),
                         ),
                       ),
-                    
-                      model.owingcustomers.length == 0 ? Container(
-                        height:height/2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              SvgPicture.asset('assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
-                              SizedBox(height: 20.h,),
-                              Text('You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Theme.of(context).textSelectionColor, fontSize: SizeConfig.yMargin(context, 2))
+                      model.owingcustomers.length == 0
+                          ? Container(
+                              height: height / 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    SvgPicture.asset(
+                                      'assets/images/no-transaction.svg',
+                                      height: SizeConfig.yMargin(context, 18),
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Text(
+                                        'You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .textSelectionColor,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2))),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ) : ContactList(),
+                            )
+                          : ContactList(),
                     ],
                   ),
                 ),
@@ -179,160 +198,304 @@ class ContactList extends StatelessWidget {
                 onChanged: model.searchDName,
               ),
             ),
-            model.sDName != null && !model.containsD ? Text(
-              'No Customer Found',
-              style: TextStyle(
-                fontSize: SizeConfig.yMargin(context, 2)
-              ),
-            ) : SizedBox(),
-            for(var cont in model.owingcustomers)
-              for (var item in model.contacts) 
-              item.id == cont.cId ? 
-              //Implementation for Search
-              model.sDName != null && model.containsD ?
-              item.name.toLowerCase().contains(model.sDName.toLowerCase()) ?
-              Container(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 6),
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(color: Color(0xFFD1D1D1)),
-                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
-                  )
-                ),
-                child: ListTile(
-                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
-                  leading: item.initials != null ? CircleAvatar(
-                      radius: 25,
-                      backgroundColor: BrandColors.primary,
-                      child: Text(
-                        item.initials
-                      ),
-                    ) : Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.black,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/man.png',
-                        ),
-                        fit: BoxFit.cover
-                      )
-                    ),
-                  ),
-                  title: Text(
-                    item.name,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                  ),
-                  subtitle: Text(
-                    cont.duedate != null ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
-                    : 
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days' : '',
+            model.sDName != null && !model.containsD
+                ? Text(
+                    'No Customer Found',
                     style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
-                  ),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
-                          style: TextStyle(
-                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, 
-                            fontSize: SizeConfig.yMargin(context, 1.8),
-                            fontFamily: 'Roboto'
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.1)
-                        ),
-                        child: Text(
-                          (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
-                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: SizeConfig.yMargin(context, 1.8), fontWeight: FontWeight.w600),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ) 
-              : SizedBox()
-              : model.sDName != null && !model.containsD ? SizedBox() : Container(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 6),
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(color: Color(0xFFD1D1D1)),
                   )
-                ),
-                child: ListTile(
-                  onTap: () => model.setContact(item.id, item.name, item.phoneNumber, item.initials),
-                  leading: item.initials != null ? CircleAvatar(
-                      radius: 25,
-                      backgroundColor: BrandColors.primary,
-                      child: Text(
-                        item.initials
-                      ),
-                    ) : Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.black,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/man.png',
-                        ),
-                        fit: BoxFit.cover
-                      )
-                    ),
-                  ),
-                  title: Text(
-                    item.name,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                  ),
-                  subtitle: Text(
-                    cont.duedate != null ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks ago' :  'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs()).toString()+' weeks'
-                    : 
-                    (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Expected '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days ago' : 'Expected in '+(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays.abs()).toString()+' days' : '',
-                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
-                  ),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          model.currency.symbol+currency.format((cont.amount - cont.paid).round()).toString(),
-                          style: TextStyle(
-                            color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green,
-                            fontSize: SizeConfig.yMargin(context, 1.8),
-                            fontFamily: 'Roboto'
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red.withOpacity(0.1) : Colors.green.withOpacity(0.1)
-                        ),
-                        child: Text(
-                          (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? 'Overdue' : 'Not Paid',
-                          style: TextStyle(color: (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0 ? Colors.red : Colors.green, fontSize: SizeConfig.yMargin(context, 1.8), fontWeight: FontWeight.w600),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ) : SizedBox()
+                : SizedBox(),
+            for (var cont in model.owingcustomers)
+              for (var item in model.contacts)
+                item.id == cont.cId
+                    ?
+                    //Implementation for Search
+                    model.sDName != null && model.containsD
+                        ? item.name
+                                .toLowerCase()
+                                .contains(model.sDName.toLowerCase())
+                            ? Container(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 6),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                    top: BorderSide(color: Color(0xFFD1D1D1)),
+                                    //bottom: BorderSide(color: Color(0xFFD1D1D1))
+                                  )),
+                                  child: ListTile(
+                                    onTap: () => model.setContact(
+                                        item.id,
+                                        item.name,
+                                        item.phoneNumber,
+                                        item.initials),
+                                    leading: item.initials != null
+                                        ? CircleAvatar(
+                                            radius: 25,
+                                            backgroundColor:
+                                                BrandColors.primary,
+                                            child: Text(item.initials),
+                                          )
+                                        : Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Colors.black,
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                      'assets/images/man.png',
+                                                    ),
+                                                    fit: BoxFit.cover)),
+                                          ),
+                                    title: Text(item.name,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2))),
+                                    subtitle: Text(
+                                      cont.duedate != null
+                                          ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0
+                                              ? (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
+                                                  ? 'Expected ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
+                                                              7)
+                                                          .toString() + ' weeks ago'
+                                                  : 'Expected in ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
+                                                              7.abs())
+                                                          .toString() + ' weeks'
+                                              : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
+                                                  ? 'Expected ' +
+                                                      (DateTime.now()
+                                                              .difference(DateTime.parse(
+                                                                  cont.duedate))
+                                                              .inDays)
+                                                          .toString() + ' days ago'
+                                                  : 'Expected in ' +
+                                                      (DateTime.now()
+                                                              .difference(DateTime.parse(cont.duedate))
+                                                              .inDays
+                                                              .abs())
+                                                          .toString() + ' days'
+                                          : '',
+                                      style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.yMargin(context, 2)),
+                                    ),
+                                    trailing: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          child: Text(
+                                            model.currency.symbol +
+                                                currency
+                                                    .format((cont.amount -
+                                                            cont.paid)
+                                                        .round())
+                                                    .toString(),
+                                            style: TextStyle(
+                                                color: (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .duedate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                                fontSize: SizeConfig.yMargin(
+                                                    context, 1.8),
+                                                fontFamily: 'Roboto'),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 6, horizontal: 6),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: (DateTime.now()
+                                                          .difference(
+                                                              DateTime.parse(
+                                                                  cont.duedate))
+                                                          .inDays) >
+                                                      0
+                                                  ? Colors.red.withOpacity(0.1)
+                                                  : Colors.green
+                                                      .withOpacity(0.1)),
+                                          child: Text(
+                                            (DateTime.now()
+                                                        .difference(
+                                                            DateTime.parse(
+                                                                cont.duedate))
+                                                        .inDays) >
+                                                    0
+                                                ? 'Overdue'
+                                                : 'Not Paid',
+                                            style: TextStyle(
+                                                color: (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .duedate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                                fontSize: SizeConfig.yMargin(
+                                                    context, 1.8),
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox()
+                        : model.sDName != null && !model.containsD
+                            ? SizedBox()
+                            : Container(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 6),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                    top: BorderSide(color: Color(0xFFD1D1D1)),
+                                  )),
+                                  child: ListTile(
+                                    onTap: () => model.setContact(
+                                        item.id,
+                                        item.name,
+                                        item.phoneNumber,
+                                        item.initials),
+                                    leading: item.initials != null
+                                        ? CircleAvatar(
+                                            radius: 25,
+                                            backgroundColor:
+                                                BrandColors.primary,
+                                            child: Text(item.initials),
+                                          )
+                                        : Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Colors.black,
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                      'assets/images/man.png',
+                                                    ),
+                                                    fit: BoxFit.cover)),
+                                          ),
+                                    title: Text(item.name,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2))),
+                                    subtitle: Text(
+                                      cont.duedate != null
+                                          ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0
+                                              ? (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
+                                                  ? 'Expected ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
+                                                              7)
+                                                          .toString() +
+                                                      ' weeks ago'
+                                                  : 'Expected in ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
+                                                              7.abs())
+                                                          .toString() +
+                                                      ' weeks'
+                                              : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
+                                                  ? 'Expected ' +
+                                                      (DateTime.now()
+                                                              .difference(DateTime.parse(
+                                                                  cont.duedate))
+                                                              .inDays)
+                                                          .toString() +
+                                                      ' days ago'
+                                                  : 'Expected in ' +
+                                                      (DateTime.now()
+                                                              .difference(DateTime.parse(cont.duedate))
+                                                              .inDays
+                                                              .abs())
+                                                          .toString() +
+                                                      ' days'
+                                          : '',
+                                      style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.yMargin(context, 2)),
+                                    ),
+                                    trailing: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Container(
+                                          child: Text(
+                                            model.currency.symbol +
+                                                currency
+                                                    .format((cont.amount -
+                                                            cont.paid)
+                                                        .round())
+                                                    .toString(),
+                                            style: TextStyle(
+                                                color: (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .duedate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                                fontSize: SizeConfig.yMargin(
+                                                    context, 1.8),
+                                                fontFamily: 'Roboto'),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 6, horizontal: 6),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: (DateTime.now()
+                                                          .difference(
+                                                              DateTime.parse(
+                                                                  cont.duedate))
+                                                          .inDays) >
+                                                      0
+                                                  ? Colors.red.withOpacity(0.1)
+                                                  : Colors.green
+                                                      .withOpacity(0.1)),
+                                          child: Text(
+                                            (DateTime.now()
+                                                        .difference(
+                                                            DateTime.parse(
+                                                                cont.duedate))
+                                                        .inDays) >
+                                                    0
+                                                ? 'Overdue'
+                                                : 'Not Paid',
+                                            style: TextStyle(
+                                                color: (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .duedate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                                fontSize: SizeConfig.yMargin(
+                                                    context, 1.8),
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                    : SizedBox()
           ],
         ),
       ),
