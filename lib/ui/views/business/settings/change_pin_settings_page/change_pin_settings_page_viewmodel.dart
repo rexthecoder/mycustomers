@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
+import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 
 class ChangePinSettingsPageViewModel extends BaseViewModel {
-   final PasswordManagerService _passwordManagerService =
-      locator<PasswordManagerService>();
-   static PasswordManager passManager=PasswordManager(null);
-   String password = passManager.userPassword;
+   final PasswordManagerService _passwordManagerService =locator<PasswordManagerService>();
+   static final _localStorageServices = locator<LocalStorageService>();
+   String userPin = _localStorageServices.userPin;
+
   int _pin = 0;
   int _index = 0;
   

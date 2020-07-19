@@ -1,7 +1,11 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
+import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
+import 'package:mycustomers/core/models/user.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -10,17 +14,33 @@ import 'package:stacked_services/stacked_services.dart';
 class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final IStorageUtil _storage = locator<IStorageUtil>();
-  // final AuthService _auth = locator<AuthService>();
+  final AuthService _auth = locator<AuthService>();
+  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
 
   bool previewImport = false;
+
+  get currentStore => StoreRepository.currentStore;
 
   Future setup() async {
     await locator.allReady();
 //    await  Future.delayed(Duration(seconds: 1));
-    if (await checkLoggedIn())
-      _navigationService.replaceWith(Routes.mainViewRoute);
+    if (await checkLoggedIn()) {
+      if (confirmHasStore()) {
+        _navigationService.replaceWith(Routes.mainViewRoute);
+        _logService.getValues(null, DateTime.now(), 'sign-in', '', false);
+      }
+    }
     else
       _navigationService.replaceWith(Routes.onboardingViewRoute);
+  }
+
+  bool confirmHasStore() {
+    print('Current store is $currentStore');
+    if (currentStore == null) {
+      _navigationService.replaceWith(Routes.createBusinessView);
+      return false;
+    }
+    return true;
   }
 
   Future<String> getEncryptionKey() async {
@@ -36,6 +56,9 @@ class StartupViewModel extends BaseViewModel {
       () => Future.value({
         'phone_number': _storage.getString(AppPreferenceKey.USER_PHONE),
         'password': _storage.getString(AppPreferenceKey.USER_PASS),
+        'id': _storage.getString(AppPreferenceKey.USER_ID),
+        'first_name': _storage.getString(AppPreferenceKey.USER_FULL_NAME),
+        'email': _storage.getString(AppPreferenceKey.USER_EMAIL),
       }),
     );
   }
@@ -50,6 +73,13 @@ class StartupViewModel extends BaseViewModel {
     try {
       Map deets = await getDecryptedDetails(key);
       if (deets == null) throw AuthException('Incorrect password');
+      _auth.updateCurrentUser(User(
+        id: deets['id'] ?? 'dvdykdsd9784-mkl-8hnf',
+        phoneNumber: deets['phone_number'],
+        firstName: deets['first_name'],
+        email: deets['email'],
+      ));
+      await StoreRepository.updateStores();
       // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
       return true;
     } on AuthException catch (e, s) {

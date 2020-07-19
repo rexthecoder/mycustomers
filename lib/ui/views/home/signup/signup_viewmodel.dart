@@ -1,10 +1,13 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/mixins/validators.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
+import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
@@ -20,6 +23,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
   final DialogService _dialogService = locator<DialogService>();
 
   PhoneNumber number = PhoneNumber(isoCode: isoCode);
+
 
   void getPhoneNumber(String phoneNumber) async {}
 
@@ -37,6 +41,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
       duration: Duration(milliseconds: 400),
     );
   }
+
 
   Future completeSignup() async {
     await _navigationService.replaceWithTransition(
@@ -73,6 +78,16 @@ class SignUpViewModel extends BaseViewModel with Validators {
       );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
+  }
+
+   Future navigateToOnboarding() async {
+    await _navigationService.replaceWithTransition(
+      OnboardingView(),
+      opaque: true,
+      popGesture: true,
+      transition: 'rightToLeftWithFade',
+      duration: Duration(milliseconds: 100),
+    );
   }
 
   /// A test to check dialog service and Toast

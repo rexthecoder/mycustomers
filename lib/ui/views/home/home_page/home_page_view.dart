@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'home_page_viewmodel.dart';
@@ -16,7 +17,7 @@ class HomePageView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<HomePageViewModel>.reactive(
-      onModelReady: (model) {
+      onModelReady: (model) async {
         model.getContacts();
         model.getTransactions();
       },
@@ -35,7 +36,7 @@ class HomePageView extends StatelessWidget {
                       border: Border(
                           bottom: BorderSide(color: Colors.grey, width: 0.5))),
                   child: TabBar(
-                    labelPadding: EdgeInsets.symmetric(horizontal: 10),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 1),
                     unselectedLabelColor: Theme.of(context).cursorColor,
                     labelColor: Theme.of(context).buttonColor,
                     indicatorSize: TabBarIndicatorSize.label,
@@ -46,11 +47,12 @@ class HomePageView extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Customers owing you",
+                              AppLocalizations.of(context).customersOwingYou,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
+                              //maxLines: 1,
                             ),
                           ),
                         ),
@@ -60,10 +62,10 @@ class HomePageView extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "People you owe",
+                              AppLocalizations.of(context).peopleYouOwe,
                               textAlign: TextAlign.center,
                                style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),
@@ -77,7 +79,7 @@ class HomePageView extends StatelessWidget {
                               "All Customers",
                               textAlign: TextAlign.center,
                                style: TextStyle(
-                                fontSize: SizeConfig.textSize(context, 2.5),
+                                fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
                           ),
@@ -93,11 +95,9 @@ class HomePageView extends StatelessWidget {
                         DebtorsView(),
                         CreditorsView(),
                         model.contacts.length == 0
-                            ? Expanded(
-                                child: Center(
-                                  child: Text('No Customer Added'),
-                                ),
-                              )
+                            ? Center(
+                              child: Text('No Customer Added'),
+                            )
                             : ContactList()
                       ],
                     ),
@@ -132,7 +132,7 @@ class ContactList extends StatelessWidget {
                     fontSize: 14,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Search by name',
+                    hintText: AppLocalizations.of(context).searchByName,
                     hintStyle: TextStyle(
                       color: Color(0xFFACACAC),
                       fontSize: 14,
@@ -222,7 +222,10 @@ class ContactList extends StatelessWidget {
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
-                                title: Text(item.name),
+                                title: Text(
+                                  item.name,
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
+                                ),
                               ),
                             ),
                           )

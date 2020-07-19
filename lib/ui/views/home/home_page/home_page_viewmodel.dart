@@ -2,10 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/models/store.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -31,6 +36,7 @@ class HomePageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final _customerContactService = locator<CustomerContactService>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  
 
   PermissionService _permission =  locator<IPermissionService>();
   List<CustomerContact> get contacts => _customerContactService.contacts;
@@ -39,12 +45,15 @@ class HomePageViewModel extends ReactiveViewModel {
   int tabNo = 0;
   List<TransactionModel> get owingcustomers => _transactionService.owingcustomers;
   List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
+  final _bussinessService = locator<BussinessSettingService>();
+  CountryCurrency get currency => _bussinessService.curren;
   String sName;
   String sDName;
   String sCName;
   bool contains;
   bool containsD;
   bool containsC;
+  Store get currentStore => StoreRepository.currentStore;
 
   // Future navigateToAddCustomer() async {
   //   final bool isPermitted =
@@ -54,7 +63,7 @@ class HomePageViewModel extends ReactiveViewModel {
   // }
 
   void getTransactions() {
-    _transactionService.getAllTransactions();
+    _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
     notifyListeners();
   }
 
@@ -152,6 +161,6 @@ class HomePageViewModel extends ReactiveViewModel {
 
   @override
   // TODO: implement reactiveServices
-  List<ReactiveServiceMixin> get reactiveServices => [_customerContactService, _transactionService];
+  List<ReactiveServiceMixin> get reactiveServices => [_customerContactService, _transactionService, _bussinessService];
 }
 

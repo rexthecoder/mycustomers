@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/ui/shared/themes.dart' as themes;
 
-
 class SettingsPageViewModel extends ReactiveViewModel {
-  bool _lightTheme = true;
-  bool _notification = true;
-  bool _newsletter = false;
-  bool _special = false;
-  bool _update = true;
+  bool _lightTheme = _localStorageServices.darkMode;
+  bool _notification = _localStorageServices.notification;
+  bool _newsletter = _localStorageServices.newsletter;
+  bool _special = _localStorageServices.specialOffers;
+  bool _update = _localStorageServices.updates;
   int index;
 
   ThemeData _light = themes.primaryMaterialTheme;
@@ -20,6 +20,7 @@ class SettingsPageViewModel extends ReactiveViewModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
   final _bussinessSettingService = locator<BussinessSettingService>();
+  static final _localStorageServices = locator<LocalStorageService>();
 
   bool get lightTheme => _lightTheme;
   bool get notification => _notification;
