@@ -15,7 +15,7 @@ class BusinessMenu extends HookViewModelWidget<MainViewModel> {
       ),
       color: Theme.of(context).backgroundColor,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           BusinessMenuOptions(),
           Divider(color: ThemeColors.gray[700]),
