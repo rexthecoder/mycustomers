@@ -174,7 +174,6 @@ class BottomSheetButtons extends StatelessWidget {
                     .then(
                   (File image) async {
                     model.imageFile = image;
-                    await model.saveBusinessCard();
                     FlushbarHelper.createSuccess(
                       duration: const Duration(seconds: 5),
                       message: 'Sharing...',
@@ -219,7 +218,6 @@ class BottomSheetButtons extends StatelessWidget {
                 )
                     .then((File image) async {
                   model.imageFile = image;
-                  await model.saveBusinessCard();
                   FlushbarHelper.createSuccess(
                     duration: const Duration(seconds: 5),
                     message: 'downloading...',
@@ -373,7 +371,7 @@ class _DefaultPhoneFormField
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color:  Theme.of(context).cursorColor,
+          color: Theme.of(context).cursorColor,
           fontSize: SizeConfig.textSize(context, 5),
         ),
         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
