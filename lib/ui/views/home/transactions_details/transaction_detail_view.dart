@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
-import 'package:mycustomers/core/downloads/receipt_report_view.dart';
+// import 'package:mycustomers/core/downloads/receipt_report_view.dart';
 
 class TransactionDetails extends StatelessWidget {
   final Color color = BrandColors.primary;
@@ -409,8 +409,8 @@ class TransactionDetails extends StatelessWidget {
                 child: Center(
                   child: GestureDetector(
                     onTap: () {
-
-                      ReceiptReport().buildPdf(context);
+                   //   TODO: PDF
+                      // ReceiptReport().buildPdf(context);
                       Navigator.of(context).push(new PageRouteBuilder(
                           opaque: false,
                           barrierColor: Colors.black.withOpacity(0.5),
