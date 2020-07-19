@@ -33,10 +33,10 @@ class CustomerCircleAvatar extends StatelessWidget {
             '${customer?.name?.substring(0, 1) ?? contact?.initial ?? '(*)'}${customer.lastName ==''?'': customer?.lastName?.substring(0, 1) ?? ''}'.toUpperCase(),
             style: TextStyle(
               color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
-              fontSize: SizeConfig.yMargin(context, 2.8),
+              fontSize: SizeConfig.yMargin(context, 2.6),
             ),
           ),
-      radius: SizeConfig.xMargin(context, 7.3),
+      radius: SizeConfig.xMargin(context, 7),
       backgroundColor: this.bgColor != null ? this.bgColor : action == 'debtor' ? BrandColors.primary.withOpacity(0.3) : BrandColors.secondary.withOpacity(0.3),
     );
   }

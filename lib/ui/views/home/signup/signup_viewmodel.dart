@@ -1,12 +1,14 @@
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/mixins/validators.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
+import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
-import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -20,7 +22,8 @@ class SignUpViewModel extends BaseViewModel with Validators {
   bool obscureText = true;
   final DialogService _dialogService = locator<DialogService>();
 
-  PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  PhoneNumber number = PhoneNumber(isoCode: isoCode);
+
 
   void getPhoneNumber(String phoneNumber) async {}
 
@@ -35,16 +38,17 @@ class SignUpViewModel extends BaseViewModel with Validators {
       SignInView(),
       opaque: true,
       transition: 'fade',
-      duration: Duration(milliseconds: 600),
+      duration: Duration(milliseconds: 400),
     );
   }
+
 
   Future completeSignup() async {
     await _navigationService.replaceWithTransition(
       BusinessView(),
       opaque: true,
       transition: 'rotate',
-      duration: Duration(milliseconds: 600),
+      duration: Duration(milliseconds: 400),
     );
   }
 
@@ -74,6 +78,16 @@ class SignUpViewModel extends BaseViewModel with Validators {
       );
     }
     if (busy) _dialogService.completeDialog(DialogResponse());
+  }
+
+   Future navigateToOnboarding() async {
+    await _navigationService.replaceWithTransition(
+      OnboardingView(),
+      opaque: true,
+      popGesture: true,
+      transition: 'rightToLeftWithFade',
+      duration: Duration(milliseconds: 100),
+    );
   }
 
   /// A test to check dialog service and Toast

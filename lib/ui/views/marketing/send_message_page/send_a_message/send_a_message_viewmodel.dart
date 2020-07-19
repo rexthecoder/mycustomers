@@ -2,9 +2,12 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_viewmodel.dart';
+
 
 class StuffModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
+   MessageArgument argument;
 
   String _upperBoxText = 'Happy New Year!';
   String get upperBoxText => _upperBoxText;
@@ -38,7 +41,12 @@ class StuffModel extends BaseViewModel {
     await _navigationService.navigateTo(Routes.marketingHomepageView);
   }
 
-  Future navigateToQuickMessage() async {
-    // await _navigationService.navigateTo(Routes.quickMessageView);
+  Future navigateToQuickMessage(selected) async {
+    MessageArgument argument = MessageArgument(selectedCustomers: selected);
+     await _navigationService.navigateTo(Routes.quickMessages, arguments: argument);
+  }
+  Future navigateToMessage(selected) async {
+    MessageArgument  argument = MessageArgument(selectedCustomers: selected,title: '',message: '', isQuick: false);
+     await _navigationService.navigateTo(Routes.messageView, arguments: argument);
   }
 }

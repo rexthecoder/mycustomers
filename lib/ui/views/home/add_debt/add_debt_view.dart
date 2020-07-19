@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
@@ -34,7 +35,10 @@ class AddDebtView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: ScreenUtil().setWidth(18),
                       vertical: ScreenUtil().setHeight(10)),
-                  child: SvgPicture.asset('assets/icons/backarrow.svg', color: const Color(0xFFFF8C5F),),
+                  child: SvgPicture.asset(
+                    'assets/icons/backarrow.svg',
+                    color: const Color(0xFFFF8C5F),
+                  ),
                 ),
               ),
               backgroundColor: Colors.white,
@@ -57,7 +61,7 @@ class AddDebtView extends StatelessWidget {
                               margin: EdgeInsets.only(
                                   bottom: ScreenUtil().setHeight(20)),
                               child: Text(
-                                'Customer Details',
+                                AppLocalizations.of(context).customerDetails,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -101,7 +105,8 @@ class AddDebtView extends StatelessWidget {
                                     borderSide: const BorderSide(
                                         color: Colors.red, width: 2.0),
                                   ),
-                                  hintText: 'Enter Amount',
+                                  hintText:
+                                      AppLocalizations.of(context).enterAmount,
                                   errorText: model.error,
                                   prefixIcon: Container(
                                     padding: EdgeInsets.symmetric(
@@ -127,17 +132,11 @@ class AddDebtView extends StatelessWidget {
                                     onTap: () async {
                                       final DateTime picked =
                                           await showDatePicker(
-                                              context: context,
-                                              initialDate: model.selectedDate,
-                                              firstDate: DateTime(2000),
-                                              lastDate: DateTime(
-                                                  int.parse(DateFormat('yyyy')
-                                                      .format(DateTime.now())),
-                                                  int.parse(DateFormat('MM')
-                                                      .format(DateTime.now())),
-                                                  int.parse(DateFormat('dd')
-                                                      .format(
-                                                          DateTime.now()))));
+                                        context: context,
+                                        initialDate: model.selectedDate,
+                                        firstDate: DateTime(2000),
+                                        lastDate: DateTime(2300),
+                                      );
                                       if (picked != null) model.setDate(picked);
                                     },
                                     child: Container(
@@ -159,12 +158,15 @@ class AddDebtView extends StatelessWidget {
                                                 right:
                                                     ScreenUtil().setWidth(15)),
                                             child: SvgPicture.asset(
-                                                'assets/icons/calendar.svg', color: const Color(0xFFFF8C5F),),
+                                              'assets/icons/calendar.svg',
+                                              color: const Color(0xFFFF8C5F),
+                                            ),
                                           ),
                                           Container(
                                             child: Text(
                                               model.newDate ??
-                                                  'Select Due Date',
+                                                  AppLocalizations.of(context)
+                                                      .selectDueDate,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -202,7 +204,9 @@ class AddDebtView extends StatelessWidget {
                                             enabledBorder: InputBorder.none,
                                             errorBorder: InputBorder.none,
                                             disabledBorder: InputBorder.none,
-                                            hintText: 'Enter Items Purchased',
+                                            hintText:
+                                                AppLocalizations.of(context)
+                                                    .enterItemspurchased,
                                             hintStyle: TextStyle(
                                                 fontSize:
                                                     ScreenUtil().setSp(15)),
@@ -233,7 +237,9 @@ class AddDebtView extends StatelessWidget {
                                                     ),
                                                     Container(
                                                       child: Text(
-                                                        'Add',
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .addButton,
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .headline6
@@ -330,8 +336,7 @@ class AddDebtView extends StatelessWidget {
   }
 }
 
-InkWell saveButton(
-    AddDebtViewModel model, double width, BuildContext context) {
+InkWell saveButton(AddDebtViewModel model, double width, BuildContext context) {
   return InkWell(
     onTap: () {},
     child: Container(
@@ -344,7 +349,7 @@ InkWell saveButton(
       width: width,
       child: Center(
         child: Text(
-          'Save',
+          AppLocalizations.of(context).save,
           style: Theme.of(context).textTheme.headline6.copyWith(
               fontSize: ScreenUtil().setSp(16),
               color: Colors.white,

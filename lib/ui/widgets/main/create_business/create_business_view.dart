@@ -14,9 +14,20 @@ import 'create_business_viewmodel.dart';
 //   @override
   Widget createBusinessDialog(BuildContext context, DialogRequest request) {
 
-  final _businessPageKey = GlobalKey<ScaffoldState>();
 
-    return ViewModelBuilder<CreateBusinessViewModel>.reactive(
+    return CreateBusinessView();
+  }
+
+class CreateBusinessView extends StatelessWidget {
+  final _businessPageKey = GlobalKey<ScaffoldState>();
+  CreateBusinessView({
+    Key key,
+  }) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<CreateBusinessViewModel>.nonReactive(
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
           statusBarColor: BrandColors.primary,
@@ -32,6 +43,7 @@ import 'create_business_viewmodel.dart';
       viewModelBuilder: () => CreateBusinessViewModel(),
     );
   }
+}
 // }
 
 class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
@@ -42,8 +54,9 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
   @override
   Widget buildViewModelWidget(
       BuildContext context, CreateBusinessViewModel viewModel) {
-    var _storeName = useTextEditingController();
-    var _storeAddress = useTextEditingController();
+    final _storeName = useTextEditingController();
+    final _storeAddress = useTextEditingController();
+    print('Building ${_storeName.text}');
 
     return Form(
       key: _businessFormPageKey,
@@ -69,7 +82,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
                 fontWeight: FontWeight.w300,
-                color: Colors.black,
+                color: Theme.of(context).cursorColor,
               ),
               decoration: InputDecoration(
                   labelText: "Enter your  store name",
@@ -87,7 +100,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 fontFamily: 'Lato',
                 fontSize: SizeConfig.yMargin(context, 2),
                 fontWeight: FontWeight.w300,
-                color: Colors.black,
+                color: Theme.of(context).cursorColor,
               ),
               decoration: InputDecoration(
                   labelText: "Enter your store address",

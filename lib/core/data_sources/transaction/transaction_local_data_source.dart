@@ -1,14 +1,24 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 
+abstract class TransactionDataSource{
+  Future<void> init();
+}
+
 
 @lazySingleton
-class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
-  static const String _boxname = "transactionBox";
+class TransactionLocalDataSourceImpl extends TransactionDataSource with ReactiveServiceMixin {
+  //static const String _boxname = "transactionBox";
+  final _hiveService = locator<HiveInterface>();
+
+  bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
+  Box<TransactionModel> get _transactionBox => _hiveService.box<TransactionModel>(HiveBox.transaction);
 
   RxValue<List<TransactionModel>> _alltransactions = RxValue<List<TransactionModel>>(initial: []);
   List<TransactionModel> get alltransactions => _alltransactions.value;
@@ -33,23 +43,39 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
 
   List<String> formattedate = [];
   String date;
-  var box = Hive.openBox<TransactionModel>(_boxname);
+  
+  get box => _hiveService.openBox<TransactionModel>(HiveBox.transaction);
+  //var box = Hive.openBox<TransactionModel>(_boxname);
 
   RxValue<TransactionModel> _stransaction = RxValue<TransactionModel>(initial: null);
   TransactionModel get stransaction => _stransaction.value;
 
 
-  TransactionService(){
+  TransactionLocalDataSourceImpl(){
     listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions]);
+  }
+
+  @override
+  Future<void> init() async {
+    _hiveService.registerAdapter(TransactionAdapter());
+
+    if (!_isBoxOpen) {
+      await box;
+    }
   }
 
   void setTransaction(TransactionModel transaction){
     _stransaction.value = transaction;
   }
 
-  void getAllTransactions() async{
-    final bbox = await box;
-    _alltransactions.value = bbox.values.toList();
+  void getAllTransactions(String id) async{
+    //final bbox = await box;
+    _alltransactions.value = [];
+    for(var trans in _transactionBox.values.toList()) {
+      if (trans.sId == id){
+        _alltransactions.value.add(trans);
+      }
+    }
     _alltransactions.value = new List<TransactionModel>.from(_alltransactions.value.reversed);
     _whatyouowe.value = 0;
     _owingcustomers.value = [];
@@ -65,12 +91,12 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
     }
   }
   
-  void getTransactions(int id) async{
+  void getTransactions(int id, String stid) async{
     print('get'+id.toString());
-    final bbox = await box;
+    //final bbox = await box;
     _transactions.value = [];
-    for (var transaction in bbox.values.toList()) {
-      if (transaction.cId == id){
+    for (var transaction in _transactionBox.values.toList()) {
+      if (transaction.cId == id && transaction.sId == stid){
         _transactions.value.add(transaction);
         print(transaction.boughtdate);
       }
@@ -121,10 +147,10 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
 
   void addTransaction(TransactionModel transaction) async {
     print(transaction.cId);
-    final bbox = await box;
-    await bbox.add(transaction);
+    //final bbox = await box;
+    await _transactionBox.add(transaction);
     _transactions.value = [];
-    for (var transactionb in bbox.values.toList()) {
+    for (var transactionb in _transactionBox.values.toList()) {
       if (transactionb.cId == transaction.cId){
         _transactions.value.add(transactionb);
       }
@@ -171,15 +197,15 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
         }
       }
     }
-    getAllTransactions();
+    getAllTransactions(transaction.sId);
     print('done');
   }
 
   void updateTransaction(TransactionModel transaction)async{
-    final bbox = await box;
-    await bbox.putAt(bbox.values.toList().indexOf(_stransaction.value), transaction);
+    //final bbox = await box;
+    await _transactionBox.putAt(_transactionBox.values.toList().indexOf(_stransaction.value), transaction);
     _transactions.value = [];
-    for (var ttransaction in bbox.values.toList()) {
+    for (var ttransaction in _transactionBox.values.toList()) {
       if (ttransaction.cId == transaction.cId){
         _transactions.value.add(ttransaction);
       }
@@ -226,7 +252,7 @@ class TransactionLocalDataSourceImpl with ReactiveServiceMixin {
         _creditlist.value.add(transactionb);
       }
     }
-    getAllTransactions();
+    getAllTransactions(transaction.sId);
   }
 
 }
