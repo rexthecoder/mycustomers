@@ -44,8 +44,9 @@ class MainTransaction extends StatelessWidget {
                                       right: ScreenUtil().setWidth(15)),
                                   child: CircleAvatar(
                                     radius: 25,
-                                    backgroundColor: BrandColors.primary,
-                                    child: Text(model.contact.initials),
+                                    backgroundColor:
+                                        Theme.of(context).textSelectionColor,
+                                    child: Text(model.contact.initials, style: TextStyle(color: ThemeColors.background),),
                                   ),
                                 )
                               : Container(
@@ -74,7 +75,8 @@ class MainTransaction extends StatelessWidget {
                                         .textTheme
                                         .headline6
                                         .copyWith(
-                                            color: Colors.black,
+                                            color:
+                                                Theme.of(context).cursorColor,
                                             fontSize: SizeConfig.yMargin(
                                                 context, 2.4),
                                             fontWeight: FontWeight.w500),
@@ -87,7 +89,8 @@ class MainTransaction extends StatelessWidget {
                                         .textTheme
                                         .headline6
                                         .copyWith(
-                                            color: Colors.black,
+                                            color:
+                                                Theme.of(context).cursorColor,
                                             fontSize:
                                                 SizeConfig.yMargin(context, 2),
                                             fontWeight: FontWeight.w400),
@@ -107,7 +110,7 @@ class MainTransaction extends StatelessWidget {
                             vertical: ScreenUtil().setHeight(10)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
-                          color: Colors.black,
+                          color: Theme.of(context).textSelectionColor,
                         ),
                       ),
                     ),
@@ -134,8 +137,9 @@ class MainTransaction extends StatelessWidget {
                         },
                       )
                     ],
-                    actionsIconTheme: IconThemeData(color: Colors.black),
-                    backgroundColor: Colors.white,
+                    actionsIconTheme:
+                        IconThemeData(color: Theme.of(context).cursorColor),
+                    backgroundColor: Theme.of(context).backgroundColor,
                     centerTitle: true,
                   ),
                 ),
@@ -147,7 +151,7 @@ class MainTransaction extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 vertical: ScreenUtil().setHeight(10)),
                             width: width,
-                            color: Colors.white,
+                            color: Theme.of(context).backgroundColor,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
@@ -164,6 +168,8 @@ class MainTransaction extends StatelessWidget {
                                                   ScreenUtil().setHeight(5)),
                                           child: SvgPicture.asset(
                                             'assets/icons/book.svg',
+                                            color: Theme.of(context)
+                                                .textSelectionColor,
                                           ),
                                         ),
                                         Container(
@@ -173,10 +179,11 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                  fontSize: SizeConfig.yMargin(
-                                                      context, 2.2),
-                                                  color: Color(0xFF333CC1),
-                                                ),
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2.2),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
                                           ),
                                         ),
                                         Container(
@@ -186,10 +193,11 @@ class MainTransaction extends StatelessWidget {
                                                 .textTheme
                                                 .headline5
                                                 .copyWith(
-                                                  fontSize: SizeConfig.yMargin(
-                                                      context, 2.2),
-                                                  color: Color(0xFF333CC1),
-                                                ),
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2.2),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
                                           ),
                                         )
                                       ],
@@ -206,7 +214,10 @@ class MainTransaction extends StatelessWidget {
                                             bottom: ScreenUtil().setHeight(5),
                                           ),
                                           child: SvgPicture.asset(
-                                              'assets/icons/message.svg'),
+                                            'assets/icons/message.svg',
+                                            color: Theme.of(context)
+                                                .textSelectionColor,
+                                          ),
                                         ),
                                         Container(
                                           child: Text(
@@ -218,7 +229,8 @@ class MainTransaction extends StatelessWidget {
                                                     fontSize:
                                                         SizeConfig.yMargin(
                                                             context, 2.2),
-                                                    color: Color(0xFF333CC1)),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
                                           ),
                                         ),
                                         Container(
@@ -231,7 +243,8 @@ class MainTransaction extends StatelessWidget {
                                                     fontSize:
                                                         SizeConfig.yMargin(
                                                             context, 2.2),
-                                                    color: Color(0xFF333CC1)),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
                                           ),
                                         )
                                       ],
@@ -277,8 +290,8 @@ class MainTransaction extends StatelessWidget {
                                         margin: EdgeInsets.only(
                                           bottom: ScreenUtil().setHeight(8),
                                         ),
-                                        color: Theme.of(context)
-                                            .scaffoldBackgroundColor,
+                                        color:
+                                            Theme.of(context).backgroundColor,
                                         child: Center(
                                           child: Text(
                                             model.formattedate[index]
@@ -347,11 +360,11 @@ class MainTransaction extends StatelessWidget {
                                                                             decoration: BoxDecoration(
                                                                                 border: Border.all(color: Color(0xFFE8E8E8), width: 1.5),
                                                                                 borderRadius: BorderRadius.circular(8),
-                                                                                color: Colors.white),
+                                                                                color: Theme.of(context).cursorColor),
                                                                             child:
                                                                                 Text(
                                                                               model.currency.symbol + currency.format(item.amount).toString(),
-                                                                              style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.4), color: Color(0xFF333CC1), fontWeight: FontWeight.w900, fontFamily: 'Roboto'),
+                                                                              style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.4), color: Theme.of(context).textSelectionColor, fontWeight: FontWeight.w900, fontFamily: 'Roboto'),
                                                                             ),
                                                                           ),
                                                                           Container(
@@ -362,7 +375,11 @@ class MainTransaction extends StatelessWidget {
                                                                                 children: <Widget>[
                                                                                   Text(
                                                                                     'Cost of goods purchased',
-                                                                                    style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.2), color: Colors.black38, fontWeight: FontWeight.w400),
+                                                                                    style: Theme.of(context).textTheme.headline5.copyWith(
+                                                                                          fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                                          color: Theme.of(context).cursorColor,
+                                                                                          fontWeight: FontWeight.w400,
+                                                                                        ),
                                                                                   ),
                                                                                   // Text(
                                                                                   //   'Click to view Transaction Details',
@@ -385,7 +402,7 @@ class MainTransaction extends StatelessWidget {
                                                                             .headline5
                                                                             .copyWith(
                                                                               fontSize: SizeConfig.yMargin(context, 1.8),
-                                                                              color: Colors.black38,
+                                                                              color: Theme.of(context).cursorColor,
                                                                             ),
                                                                       ),
                                                                     )
@@ -438,7 +455,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 '${model.contact.name} paid',
                                                                                 style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                       fontSize: SizeConfig.yMargin(context, 2.2),
-                                                                                      color: Colors.black38,
+                                                                                      color: Theme.of(context).cursorColor,
                                                                                       fontWeight: FontWeight.w400,
                                                                                     ),
                                                                               ),
@@ -455,11 +472,16 @@ class MainTransaction extends StatelessWidget {
                                                                                   width: 1.5,
                                                                                 ),
                                                                                 borderRadius: BorderRadius.circular(8),
-                                                                                color: Colors.white),
+                                                                                color: Theme.of(context).cursorColor),
                                                                             child:
                                                                                 Text(
                                                                               model.currency.symbol + currency.format(item.paid).toString(),
-                                                                              style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.4), color: Color(0xFF21D184), fontWeight: FontWeight.w900, fontFamily: 'Roboto'),
+                                                                              style: Theme.of(context).textTheme.headline5.copyWith(
+                                                                                    fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                                    color: Color(0xFF21D184),
+                                                                                    fontWeight: FontWeight.w900,
+                                                                                    fontFamily: 'Roboto',
+                                                                                  ),
                                                                             ),
                                                                           )
                                                                         ],
@@ -475,7 +497,7 @@ class MainTransaction extends StatelessWidget {
                                                                             .headline5
                                                                             .copyWith(
                                                                               fontSize: SizeConfig.yMargin(context, 1.8),
-                                                                              color: Colors.black38,
+                                                                              color: Theme.of(context).cursorColor,
                                                                             ),
                                                                       ),
                                                                     )
@@ -521,7 +543,8 @@ class MainTransaction extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(50),
-                                          color: Colors.white),
+                                          color: Theme.of(context)
+                                              .backgroundColor),
                                       width: width,
                                       child: model.bought() > model.paid()
                                           ? Center(
@@ -537,7 +560,9 @@ class MainTransaction extends StatelessWidget {
                                                           fontSize: SizeConfig
                                                               .yMargin(
                                                                   context, 2.3),
-                                                          color: Colors.black38,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .cursorColor,
                                                         ),
                                                   ),
                                                   Text(
@@ -577,7 +602,7 @@ class MainTransaction extends StatelessWidget {
                                                           fontSize: SizeConfig
                                                               .yMargin(
                                                                   context, 2.3),
-                                                          color: Colors.black38,
+                                                          color: Theme.of(context).cursorColor,
                                                         ),
                                                   ),
                                                   Text(
@@ -697,7 +722,8 @@ class AddTransaction extends StatelessWidget {
                                     child: Text(
                                   'Add Debt',
                                   style: TextStyle(
-                                      color: BrandColors.primary,
+                                      color:
+                                          Theme.of(context).textSelectionColor,
                                       fontSize:
                                           SizeConfig.yMargin(context, 2.3)),
                                 )))),
@@ -745,7 +771,7 @@ class AddTransaction extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          color: Color(0xFF333CC1),
+          color: Theme.of(context).textSelectionColor,
         ),
         width: width,
         child: Center(

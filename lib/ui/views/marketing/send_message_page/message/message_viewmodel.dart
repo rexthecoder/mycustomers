@@ -56,7 +56,6 @@ class MessageViewModel extends StreamViewModel {
   }
 
   Future returnHome(bool quick) async {
-     _navigationService.popRepeated(quick == true?5:4);
      _navigationService.popUntil((route){
        if(route.settings.name == '/main'){
         (route.settings.arguments as Map)['result'] = _selectedCustomers;
@@ -127,7 +126,7 @@ class MessageViewModel extends StreamViewModel {
       titleController.text= title;
       messageController.text = message;
     }
-    notifyListeners();
+    
   }
   void getFrequentCustomers() {
     //todo: get frequent customers
