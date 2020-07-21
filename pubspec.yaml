@@ -111,9 +111,6 @@ dependencies:
   # Persisting user settings
   shared_preferences: ^0.5.8
 
-  # Widgets
-  getwidget: ^1.1.0
-
   # Notifications
   flutter_local_notifications: ^1.4.4+1
   

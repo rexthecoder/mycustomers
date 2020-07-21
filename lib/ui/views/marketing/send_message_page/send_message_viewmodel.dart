@@ -158,9 +158,8 @@ import 'package:mycustomers/core/models/customer.dart';
 class MessageArgument{
   String title,message;
   List<Customer> selectedCustomers;
-  bool isQuick;
 
 
-  MessageArgument({this.title, this.message, this.selectedCustomers, this.isQuick});
+  MessageArgument({this.title, this.message, this.selectedCustomers});
 
 }

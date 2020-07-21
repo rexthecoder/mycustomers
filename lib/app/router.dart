@@ -65,6 +65,8 @@ abstract class Routes {
   static const supportViewRoute = '/support';
   static const importCustomerDebtorViewRoute = '/importcustomerdebtor';
   static const importCustomerCreditorViewRoute = '/importcustomercreditor';
+  static const addnewCredit = '/addnewCredit';
+  static const addnewDebt = '/addnewDebt';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
   static const selectDebt = '/selectDebt';
@@ -94,9 +96,9 @@ abstract class Routes {
   static const addCustomerMarketing = '/addCustomerMarketing';
   static const addNewCustomerMarketing = '/addNewCustomerMarketing';
   static const notificationsViewRoute = '/NotificationsViews';
-  static const businessCardDisplayModal='/businessCardDisplayModal';
-  static const quickMessages='/quickMessages';
-  static const messageSntDialog='/dialog';
+  static const businessCardDisplayModal = '/businessCardDisplayModal';
+  static const quickMessages = '/quickMessages';
+  static const messageSntDialog = '/dialog';
   static const createBusinessView = '/createBusiness';
 
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
@@ -107,11 +109,11 @@ abstract class Routes {
 class Router {
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-     case Routes.startupViewRoute:
-       return CupertinoPageRoute<dynamic>(
-         builder: (context) => StartupView(),
-         settings: settings,
-       );
+      case Routes.startupViewRoute:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => StartupView(),
+          settings: settings,
+        );
       case Routes.onboardingViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => OnboardingView(),
@@ -166,11 +168,30 @@ class Router {
           ),
           settings: settings,
         );
+      case Routes.addnewDebt:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddDebtCreditView(
+            action: 'debit',
+            update: false,
+            newCus: true,
+          ),
+          settings: settings,
+        );
+      case Routes.addnewCredit:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddDebtCreditView(
+            action: 'credit',
+            update: false,
+            newCus: true,
+          ),
+          settings: settings,
+        );
       case Routes.addDebt:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddDebtCreditView(
             action: 'debit',
             update: false,
+            newCus: false,
           ),
           settings: settings,
         );
@@ -179,6 +200,7 @@ class Router {
           builder: (context) => AddDebtCreditView(
             action: 'credit',
             update: false,
+            newCus: false,
           ),
           settings: settings,
         );
@@ -187,6 +209,7 @@ class Router {
           builder: (context) => AddDebtCreditView(
             action: 'debit',
             update: true,
+            newCus: false,
           ),
           settings: settings,
         );
@@ -195,6 +218,7 @@ class Router {
           builder: (context) => AddDebtCreditView(
             action: 'credit',
             update: true,
+            newCus: false,
           ),
           settings: settings,
         );
@@ -219,8 +243,9 @@ class Router {
           settings: settings,
         );
       case Routes.addCustomerMessageRoute:
+        final frequentCustomerList = settings.arguments;
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddCustomerMessageView(),
+          builder: (context) => AddCustomerMessageView(frequent: frequentCustomerList,),
           settings: settings,
         );
       case Routes.signupViewRoute:
@@ -258,7 +283,6 @@ class Router {
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
           settings: settings,
-
         );
       case Routes.addAssistantRoute:
         return CupertinoPageRoute<dynamic>(
@@ -324,11 +348,11 @@ class Router {
           settings: settings,
         );
       case Routes.sendMessageViewRoute:
-         final customerList = settings.arguments;
-         return CupertinoPageRoute<dynamic>(
-           builder: (context) => SendAMessage(customerList),
-           settings: settings,
-         );
+        final customerList = settings.arguments;
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => SendAMessage(customerList),
+          settings: settings,
+        );
       case Routes.quickMessages:
         final customerList = settings.arguments;
         return CupertinoPageRoute<dynamic>(
@@ -344,7 +368,8 @@ class Router {
       case Routes.marketingHomepageView:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MarketingHomePageView(),
-          settings:  RouteSettings(name: Routes.marketingHomepageView, arguments: Map()),
+          settings: RouteSettings(
+              name: Routes.marketingHomepageView, arguments: Map()),
         );
       case Routes.createBusinessView:
         return CupertinoPageRoute<dynamic>(
@@ -387,7 +412,9 @@ class Router {
         );
       case Routes.scheduleNotifications:
         return CupertinoPageRoute<dynamic>(
-            builder: (context) => ScheduleNotifications(), settings: settings);
+          builder: (context) => ScheduleNotifications(),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }

@@ -46,7 +46,7 @@ String isoCode = 'NG';
 
 Future<void> setIso() async {
   try {
-    isoCode = await FlutterSimCountryCode.simCountryCode;
+    isoCode = (await FlutterSimCountryCode.simCountryCode) ?? isoCode;
   } on PlatformException {}
 }
 

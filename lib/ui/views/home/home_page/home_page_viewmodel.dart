@@ -111,7 +111,7 @@ class HomePageViewModel extends ReactiveViewModel {
   double bought(){
     double sum = 0;
     for (var item in transactions) {
-      if(item.amount != 0) {
+      if(item.amount > item.paid) {
         sum += item.amount;
       }
     }
@@ -137,7 +137,7 @@ class HomePageViewModel extends ReactiveViewModel {
     _customerContactService.getContacts();
   }
 
-  void setContact(int id, String name, String phone, String initials) {
+  void setContact(String id, String name, String phone, String initials) {
     print(id);
     CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone, initials: initials);
     _customerContactService.setContact(cus);
@@ -157,6 +157,14 @@ class HomePageViewModel extends ReactiveViewModel {
   void searchAllCustomers(value){
     notifyListeners();
     //todo: implement allCustomers search
+  }
+
+  void navigateToDebt(){
+    _navigationService.navigateTo(Routes.addnewDebt);
+  }
+
+  void navigateToCredit(){
+    _navigationService.navigateTo(Routes.addnewCredit);
   }
 
   @override
