@@ -17,8 +17,9 @@ import 'add_debt_credit_viewmodel.dart';
 class AddDebtCreditView extends StatelessWidget {
   final String action;
   final bool update;
+  final bool newCus;
 
-  AddDebtCreditView({Key key, this.action, this.update})
+  AddDebtCreditView({Key key, this.action, this.update, this.newCus})
       : super(key: key);
 
   ScrollController controller = new ScrollController();
@@ -32,7 +33,9 @@ class AddDebtCreditView extends StatelessWidget {
     NotificationRemindersService reminders = NotificationRemindersService();
     return ViewModelBuilder<AddDebtCreditViewModel>.reactive(
       onModelReady: (model) {
-        model.init();
+        if(newCus) {
+          model.init();
+        }
       },
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
@@ -184,7 +187,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           ),
                                           textInputAction: TextInputAction.go,
                                           onChanged: (value) =>
-                                              model.updateAmount(value, update, action),
+                                              model.updateAmount(value, update, action, newCus),
                                         ),
                                       ],
                                     ),
@@ -250,7 +253,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   );
                                                   if (picked != null)
                                                     model.setOtherDate(
-                                                        picked, update, action);
+                                                        picked, update, action, newCus);
                                                 },
                                                 child: Container(
                                                   margin: EdgeInsets.only(bottom: 15),
@@ -369,7 +372,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                           },
                                                         );
                                                         if (picked != null)
-                                                          model.setDate(picked);
+                                                          model.setDate(picked, action, newCus);
                                                       },
                                                       child: Container(
                                                         margin: EdgeInsets.only(bottom: 15),
@@ -603,222 +606,234 @@ class AddDebtCreditView extends StatelessWidget {
                             ),
                             Divider(
                               color: Color(0xFFD1D1D1),
-                              thickness: 1,
+                              thickness: update ? 0 : 1,
                             ),
-                            Container(
-                              //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        bottom: ScreenUtil().setHeight(15)),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: 3),
-                                          child: Text(
-                                            'Customer Name',
-                                            style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
-                                          ),
-                                        ),
-                                        Focus(
-                                          onFocusChange: (hasFocus){
-                                            if(hasFocus) {
-                                              print(controller.position.viewportDimension);
-                                              controller.jumpTo(controller.position.viewportDimension);
-                                              //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
-                                            }
-                                          },
-                                          child: TextField(
-                                            controller: model.searchController,
-                                            maxLines: null,
-                                            maxLengthEnforced: false,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline6
-                                                .copyWith(
-                                                    color: action == 'debit'
-                                                        ? BrandColors.secondary
-                                                        : Theme.of(context)
-                                                            .textSelectionColor,
-                                                    fontSize: SizeConfig.yMargin(context, 2),
-                                                    fontWeight: FontWeight.bold),
-                                            decoration: new InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(0xFFD1D1D1),
-                                                    width: 2.0),
-                                              ),
-                                              disabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(0xFFD1D1D1),
-                                                    width: 2.0),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(0xFFD1D1D1),
-                                                    width: 2.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
-                                                    width: 2.0),
-                                              ),
-                                              errorBorder: const OutlineInputBorder(
-                                                borderSide: const BorderSide(
-                                                    color: Colors.red, width: 2.0),
-                                              ),
-                                              hintText: 'Enter Customer Name',
-                                              hintStyle: TextStyle(
-                                                  fontSize:
-                                                      SizeConfig.yMargin(context, 2)),
-                                              errorText: model.error,
-                                              prefixIcon: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: ScreenUtil()
-                                                        .setHeight(11)),
-                                                child: SvgPicture.asset(
-                                                  'assets/images/phone.svg',
-                                                  color: Theme.of(context)
-                                                      .cursorColor,
-                                                ),
-                                              ),
-                                              contentPadding: EdgeInsets.symmetric(
-                                                  vertical: ScreenUtil().setHeight(20)),
-                                            ),
-                                            textInputAction: TextInputAction.go,
-                                            onChanged: model.updateName,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  
-                                  for(var item in model.contactsList) model.name != null && model.shownames ?
-                                  MyListTile(
-                                    onTap: () => model.setName(item),
-                                    action: action,
-                                    //leading: Center(child: CustomerCircleAvatar(customer: item, action: action,)),
-                                    title: Text(
-                                      '${item.displayName}',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: SizeConfig.yMargin(context, 1.9)
-                                      ),
-                                    ),
-                                    subtitle: Text(
-                                      '${item.phone.isNotEmpty ? item.phone : 'No number'}',
-                                      style: TextStyle(
-                                        color: ThemeColors.gray.shade600,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: SizeConfig.yMargin(context, 2)
-                                      ),
-                                    ),
-                                  ) : SizedBox(height: MediaQuery.of(context).viewInsets.bottom,),
-                                  model.contactsList.length == 0 && model.name != null ? model.manual ? 
-                                  SizedBox(height: model.manual ? 0 : MediaQuery.of(context).viewInsets.bottom,) : Container(
-                                    padding: EdgeInsets.symmetric(vertical: 50),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(bottom: 20),
-                                          child: Text(
-                                            'No result found for \'${model.name}\'',
-                                            style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
-                                          ),
-                                        ),
-                                        InkWell(
-                                        onTap: () => model.setManual(),
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              color: action == 'debit' ? BrandColors.secondary.withOpacity(0.2) : BrandColors.primary.withOpacity(0.2)
-                                            ),
+                            Visibility(
+                              visible: newCus,
+                              child: Container(
+                                //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          bottom: ScreenUtil().setHeight(15)),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 3),
                                             child: Text(
-                                              'Add New Customer',
-                                              style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
+                                              'Customer Name',
+                                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ) : SizedBox(),
-                                  Visibility(
-                                    visible: model.manual,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Color(0xff77869e),
-                                            width: 1,
+                                          Focus(
+                                            onFocusChange: (hasFocus){
+                                              if(hasFocus) {
+                                                print(controller.position.viewportDimension);
+                                                controller.jumpTo(controller.position.viewportDimension);
+                                                //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
+                                              }
+                                            },
+                                            child: TextField(
+                                              controller: model.searchController,
+                                              maxLines: null,
+                                              maxLengthEnforced: false,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      color: action == 'debit'
+                                                          ? BrandColors.secondary
+                                                          : Theme.of(context)
+                                                              .textSelectionColor,
+                                                      fontSize: SizeConfig.yMargin(context, 2),
+                                                      fontWeight: FontWeight.bold),
+                                              decoration: new InputDecoration(
+                                                border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Color(0xFFD1D1D1),
+                                                      width: 2.0),
+                                                ),
+                                                disabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Color(0xFFD1D1D1),
+                                                      width: 2.0),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Color(0xFFD1D1D1),
+                                                      width: 2.0),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
+                                                      width: 2.0),
+                                                ),
+                                                errorBorder: const OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color: Colors.red, width: 2.0),
+                                                ),
+                                                hintText: 'Enter Customer Name',
+                                                hintStyle: TextStyle(
+                                                    fontSize:
+                                                        SizeConfig.yMargin(context, 2)),
+                                                errorText: model.error,
+                                                prefixIcon: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: ScreenUtil()
+                                                          .setHeight(11)),
+                                                  child: SvgPicture.asset(
+                                                    'assets/images/phone.svg',
+                                                    color: Theme.of(context)
+                                                        .cursorColor,
+                                                  ),
+                                                ),
+                                                contentPadding: EdgeInsets.symmetric(
+                                                    vertical: ScreenUtil().setHeight(20)),
+                                              ),
+                                              textInputAction: TextInputAction.go,
+                                              onChanged: (value) => model.updateName(value, action),
+                                            ),
                                           ),
-                                          borderRadius: BorderRadius.circular(4.0)),
-                                      child: 
-                                      Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: InternationalPhoneNumberInput(
-                                          onInputChanged: (PhoneNumber number) {
-                                            model.number = number;
-                                            print(number);
-                                          },
-                                        
-                                          ignoreBlank: false,
-                                          errorMessage: 'Invalid Phone Number',
-                                          selectorType: PhoneInputSelectorType.DIALOG,
-                                          selectorTextStyle:
-                                              TextStyle(color: Theme.of(context).cursorColor),
-                                          initialValue: model.number,
-                                          textFieldController: model.inputNumberController,
-                                          inputBorder: InputBorder.none,
+                                        ],
+                                      ),
+                                    ),
+                                    
+                                    for(var item in model.contactsList) model.name != null && model.shownames ?
+                                    MyListTile(
+                                      onTap: () => model.setName(item),
+                                      action: action,
+                                      leading: Center(child: CircleAvatar(
+                                        child: Text(
+                                          '${item.displayName[0].toUpperCase()}',
+                                          style: TextStyle(
+                                            color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
+                                            fontSize: SizeConfig.yMargin(context, 2),
+                                          ),
+                                        ),
+                                        radius: SizeConfig.xMargin(context, 6),
+                                        backgroundColor: action == 'debt' ? BrandColors.primary.withOpacity(0.3) : BrandColors.secondary.withOpacity(0.3),
+                                      )),
+                                      title: Text(
+                                        '${item.displayName}',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: SizeConfig.yMargin(context, 1.9)
                                         ),
                                       ),
-                                      // Row(
-                                      //   mainAxisSize: MainAxisSize.min,
-                                      //   children: <Widget>[
-                                      //     Padding(
-                                      //       padding: const EdgeInsets.all(8.0),
-                                      //       child: DropdownButton<String>(
-                                      //         underline: Container(),
-                                      //         value: model.dropDownValue,
-                                      //         items: model.countryCode
-                                      //             .map<DropdownMenuItem<String>>((String value) {
-                                      //           return DropdownMenuItem<String>(
-                                      //             value: value,
-                                      //             child: Text(value),
-                                      //           );
-                                      //         }).toList(),
-                                      //         onChanged: (String newValue) {
-                                      //           model.updateCountryCode(newValue);
-                                      //         },
-                                      //         icon: Icon(Icons.arrow_drop_down,
-                                      //             color: Theme.of(context).cursorColor),
-                                      //       ),
-                                      //     ),
-                                      //     Container(
-                                      //         height: 24.0,
-                                      //         decoration: BoxDecoration(
-                                      //             border: Border(
-                                      //                 left: BorderSide(color: Color(0xff77869e))))),
-                                      //     Expanded(
-                                      //       child: TextField(
-                                      //         textAlign: TextAlign.left,
-                                      //         keyboardType: TextInputType.number,
-                                      //         decoration: InputDecoration(
-                                      //           hintText: 'Mobile Number',
-                                      //           border: OutlineInputBorder(borderSide: BorderSide.none),
-                                      //         ),
-                                      //         controller: phoneNumber,
-                                      //         onChanged: model.updateContact,
-                                      //       ),
-                                      //     )
-                                      //   ],
-                                      // ),
+                                      subtitle: Text(
+                                        '${item.phone.isNotEmpty ? item.phone : 'No number'}',
+                                        style: TextStyle(
+                                          color: ThemeColors.gray.shade600,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: SizeConfig.yMargin(context, 2)
+                                        ),
                                       ),
-                                  ),
-                                ],
+                                    ) : SizedBox(height: MediaQuery.of(context).viewInsets.bottom,),
+                                    model.contactsList.length == 0 && model.name != null ? model.manual ? 
+                                    SizedBox(height: model.manual ? 0 : MediaQuery.of(context).viewInsets.bottom,) : Container(
+                                      padding: EdgeInsets.symmetric(vertical: 50),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 20),
+                                            child: Text(
+                                              'No result found for \'${model.name}\'',
+                                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                                            ),
+                                          ),
+                                          InkWell(
+                                          onTap: () => model.setManual(),
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5),
+                                                color: action == 'debit' ? BrandColors.secondary.withOpacity(0.2) : BrandColors.primary.withOpacity(0.2)
+                                              ),
+                                              child: Text(
+                                                'Add New Customer',
+                                                style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ) : SizedBox(),
+                                    Visibility(
+                                      visible: model.manual,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Color(0xff77869e),
+                                              width: 1,
+                                            ),
+                                            borderRadius: BorderRadius.circular(4.0)),
+                                        child: 
+                                        Padding(
+                                          padding: EdgeInsets.all(8),
+                                          child: InternationalPhoneNumberInput(
+                                            onInputChanged: (PhoneNumber number) {
+                                              model.updateNumber(number, action);
+                                            },
+                                          
+                                            ignoreBlank: false,
+                                            errorMessage: 'Invalid Phone Number',
+                                            selectorType: PhoneInputSelectorType.DIALOG,
+                                            selectorTextStyle:
+                                                TextStyle(color: Theme.of(context).cursorColor),
+                                            initialValue: model.number,
+                                            textFieldController: model.inputNumberController,
+                                            inputBorder: InputBorder.none,
+                                          ),
+                                        ),
+                                        // Row(
+                                        //   mainAxisSize: MainAxisSize.min,
+                                        //   children: <Widget>[
+                                        //     Padding(
+                                        //       padding: const EdgeInsets.all(8.0),
+                                        //       child: DropdownButton<String>(
+                                        //         underline: Container(),
+                                        //         value: model.dropDownValue,
+                                        //         items: model.countryCode
+                                        //             .map<DropdownMenuItem<String>>((String value) {
+                                        //           return DropdownMenuItem<String>(
+                                        //             value: value,
+                                        //             child: Text(value),
+                                        //           );
+                                        //         }).toList(),
+                                        //         onChanged: (String newValue) {
+                                        //           model.updateCountryCode(newValue);
+                                        //         },
+                                        //         icon: Icon(Icons.arrow_drop_down,
+                                        //             color: Theme.of(context).cursorColor),
+                                        //       ),
+                                        //     ),
+                                        //     Container(
+                                        //         height: 24.0,
+                                        //         decoration: BoxDecoration(
+                                        //             border: Border(
+                                        //                 left: BorderSide(color: Color(0xff77869e))))),
+                                        //     Expanded(
+                                        //       child: TextField(
+                                        //         textAlign: TextAlign.left,
+                                        //         keyboardType: TextInputType.number,
+                                        //         decoration: InputDecoration(
+                                        //           hintText: 'Mobile Number',
+                                        //           border: OutlineInputBorder(borderSide: BorderSide.none),
+                                        //         ),
+                                        //         controller: phoneNumber,
+                                        //         onChanged: model.updateContact,
+                                        //       ),
+                                        //     )
+                                        //   ],
+                                        // ),
+                                        ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -830,7 +845,7 @@ class AddDebtCreditView extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: InkWell(
                       onTap: () {
-                        model.addtransaction(action, update);
+                        model.addtransaction(action, update, newCus);
                         // reminders.sendNotificationOnce(
                         //     0,
                         //     'Reminder: ',
