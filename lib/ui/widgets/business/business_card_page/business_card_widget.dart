@@ -41,6 +41,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
               children: <Widget>[
                 RoundIconButton(
                   icon: Icons.edit,
+                  onTap: model.navigateToBusinessCardPage,
                 ),
                 SizedBox(height: 10),
                 RoundIconButton(
