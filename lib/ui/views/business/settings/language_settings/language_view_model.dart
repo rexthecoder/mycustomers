@@ -16,6 +16,7 @@ class LanguageViewModel extends BaseViewModel {
     // {'image': 'assets/languages/icons/ng.png','code': 'yo', 'name': 'Yoruba'},
     {'image': 'assets/languages/icons/es.png','code': 'es', 'name': 'Spanish'},
     // {'image': 'assets/languages/icons/ng.png','code': 'ig', 'name': 'Igbo'},
+    {'image': 'assets/languages/icons/hi.png','code': 'hi', 'name': 'Hindu'},
     ];
 
   // Future<void> setLanguage(int index) async {
