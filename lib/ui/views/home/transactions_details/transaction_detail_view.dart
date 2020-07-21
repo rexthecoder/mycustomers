@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
-// import 'package:mycustomers/core/downloads/receipt_report_view.dart';
 
 class TransactionDetails extends StatelessWidget {
   final Color color = BrandColors.primary;
@@ -50,7 +50,7 @@ class TransactionDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Center(
                   child: SingleChildScrollView(
                     child: Center(
@@ -129,52 +129,6 @@ class TransactionDetails extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Container(
-                                        padding: EdgeInsets.only(left: 15),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .itemsPurchased,
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 30.sp),
-                                              ),
-                                            ),
-                                            Container(
-                                                child: Row(
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                for (var item
-                                                    in model.transaction.goods)
-                                                  Text(
-                                                    model.transaction.goods
-                                                                .indexOf(
-                                                                    item) ==
-                                                            model
-                                                                    .transaction
-                                                                    .goods
-                                                                    .length -
-                                                                1
-                                                        ? item + ' '
-                                                        : item + ', ',
-                                                    style: TextStyle(
-                                                        fontSize: 30.sp),
-                                                  )
-                                              ],
-                                            ))
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
                                       Container(
                                         child: Row(
                                           children: <Widget>[
@@ -290,52 +244,6 @@ class TransactionDetails extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              flex: 20,
-                                              child: Text(
-                                                '${AppLocalizations.of(context).amountOwed}:',
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 30.sp),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              flex: 30,
-                                              child: Text(
-                                                model.transaction.paid !=
-                                                            null &&
-                                                        model.transaction
-                                                                .amount !=
-                                                            null &&
-                                                        (model.transaction
-                                                                    .paid -
-                                                                model
-                                                                    .transaction
-                                                                    .amount) >
-                                                            0
-                                                    ? '₦${currency.format(model.transaction.paid - model.transaction.amount)}'
-                                                    : '₦0',
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color:
-                                                        BrandColors.secondary,
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 30.sp),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -347,6 +255,9 @@ class TransactionDetails extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 20.sp,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.w),
@@ -362,7 +273,7 @@ class TransactionDetails extends StatelessWidget {
                             border: Border.all(
                               color: BrandColors.primary,
                             ),
-                            borderRadius: BorderRadius.circular(20.sp)),
+                            borderRadius: BorderRadius.circular(10.sp)),
                         child: Center(
                           child: Text(
                             AppLocalizations.of(context).delete,
@@ -383,7 +294,7 @@ class TransactionDetails extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: BrandColors.primary.withOpacity(0.9),
                           //border: Border(top: BorderSide(color: Colors.blue)),
-                          borderRadius: BorderRadius.circular(20.sp),
+                          borderRadius: BorderRadius.circular(10.sp),
                         ),
                         child: Center(
                           child: Text(
@@ -405,108 +316,13 @@ class TransactionDetails extends StatelessWidget {
               ),
               Center(
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    ReceiptReport().buildPdf(context);
+                    // await ReceiptReport().generateReport(context);
+                    //model.shareTextandImage();
                     //   TODO: PDF
-                    // ReceiptReport().buildPdf(context);
-                    Navigator.of(context).push(new PageRouteBuilder(
-                        opaque: false,
-                        barrierColor: Colors.black.withOpacity(0.5),
-                        barrierDismissible: true,
-                        pageBuilder: (BuildContext context, __, _) {
-                          return Center(
-                            child: Column(
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 1,
-                                  child: SizedBox(),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    padding: EdgeInsets.only(
-                                        top: 20,
-                                        left: 10,
-                                        right: 10,
-                                        bottom: 80),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      //borderRadius: BorderRadius.only(topRight: Radius.circular(40.sp), topLeft: Radius.circular(40.sp))
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Center(
-                                                child: Container(
-                                                  margin: EdgeInsets.only(
-                                                      bottom: 10),
-                                                  child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .shareTo,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5
-                                                        .copyWith(
-                                                          fontSize: 40.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: color,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () =>
-                                                  Navigator.pop(context),
-                                              child: SvgPicture.asset(
-                                                'assets/icons/cancel.svg',
-                                                color: BrandColors.primary,
-                                                width: 35.w,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            )
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
-                                            BottomButton(
-                                              text: 'Facebook',
-                                              imagePath:
-                                                  'assets/images/Subtract.svg',
-                                            ),
-                                            BottomButton(
-                                              text: 'Whatsapp',
-                                              imagePath:
-                                                  'assets/images/Page-1.svg',
-                                            ),
-                                            BottomButton(
-                                              text: 'Gmail',
-                                              imagePath:
-                                                  'assets/images/super-g.svg',
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }));
-                  }, // TODO:
+                    //ReceiptReport().buildPdf(context);
+                  }, // TODO: Implement shareTextandFile
                   child: Container(
                     height: 90.h,
                     width: 350.w,
@@ -523,9 +339,10 @@ class TransactionDetails extends StatelessWidget {
                         Text(
                           AppLocalizations.of(context).share,
                           style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 30.sp),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 30.sp,
+                          )
                         ),
                       ],
                     ),
@@ -586,3 +403,102 @@ class BottomButton extends StatelessWidget {
     );
   }
 }
+
+// Navigator.of(context).push(new PageRouteBuilder(
+//                         opaque: false,
+//                         barrierColor: Colors.black.withOpacity(0.5),
+//                         barrierDismissible: true,
+//                         pageBuilder: (BuildContext context, __, _) {
+//                           return Center(
+//                             child: Column(
+//                               children: <Widget>[
+//                                 Expanded(
+//                                   flex: 1,
+//                                   child: SizedBox(),
+//                                 ),
+//                                 Align(
+//                                   alignment: Alignment.bottomCenter,
+//                                   child: Container(
+//                                     padding: EdgeInsets.only(
+//                                         top: 20,
+//                                         left: 10,
+//                                         right: 10,
+//                                         bottom: 80),
+//                                     decoration: BoxDecoration(
+//                                       color: Colors.white,
+//                                       //borderRadius: BorderRadius.only(topRight: Radius.circular(40.sp), topLeft: Radius.circular(40.sp))
+//                                     ),
+//                                     child: Column(
+//                                       mainAxisAlignment:
+//                                           MainAxisAlignment.spaceAround,
+//                                       crossAxisAlignment:
+//                                           CrossAxisAlignment.end,
+//                                       children: <Widget>[
+//                                         Row(
+//                                           mainAxisAlignment:
+//                                               MainAxisAlignment.end,
+//                                           children: <Widget>[
+//                                             Expanded(
+//                                               child: Center(
+//                                                 child: Container(
+//                                                   margin: EdgeInsets.only(
+//                                                       bottom: 10),
+//                                                   child: Text(
+//                                                     AppLocalizations.of(context)
+//                                                         .shareTo,
+//                                                     style: Theme.of(context)
+//                                                         .textTheme
+//                                                         .headline5
+//                                                         .copyWith(
+//                                                           fontSize: 40.sp,
+//                                                           fontWeight:
+//                                                               FontWeight.bold,
+//                                                           color: color,
+//                                                         ),
+//                                                   ),
+//                                                 ),
+//                                               ),
+//                                             ),
+//                                             GestureDetector(
+//                                               onTap: () =>
+//                                                   Navigator.pop(context),
+//                                               child: SvgPicture.asset(
+//                                                 'assets/icons/cancel.svg',
+//                                                 color: BrandColors.primary,
+//                                                 width: 35.w,
+//                                               ),
+//                                             ),
+//                                             SizedBox(
+//                                               width: 10.w,
+//                                             )
+//                                           ],
+//                                         ),
+//                                         Row(
+//                                           mainAxisAlignment:
+//                                               MainAxisAlignment.spaceAround,
+//                                           children: <Widget>[
+//                                             BottomButton(
+//                                               text: 'Facebook',
+//                                               imagePath:
+//                                                   'assets/images/Subtract.svg',
+//                                             ),
+//                                             BottomButton(
+//                                               text: 'Whatsapp',
+//                                               imagePath:
+//                                                   'assets/images/Page-1.svg',
+//                                             ),
+//                                             BottomButton(
+//                                               text: 'Gmail',
+//                                               imagePath:
+//                                                   'assets/images/super-g.svg',
+//                                             ),
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ),
+//                                 )
+//                               ],
+//                             ),
+//                           );
+//                         }));
