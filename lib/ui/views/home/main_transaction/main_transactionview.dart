@@ -32,7 +32,7 @@ class MainTransaction extends StatelessWidget {
                   preferredSize: Size.fromHeight(70.0),
                   child: AppBar(
                     brightness: Brightness.light,
-                    elevation: 0,
+                    elevation: .5,
                     title: Container(
                       margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                       child: Row(
@@ -45,7 +45,11 @@ class MainTransaction extends StatelessWidget {
                                     radius: 25,
                                     backgroundColor:
                                         Theme.of(context).textSelectionColor,
-                                    child: Text(model.contact.initials, style: TextStyle(color: ThemeColors.background),),
+                                    child: Text(
+                                      model.contact.initials,
+                                      style: TextStyle(
+                                          color: ThemeColors.background),
+                                    ),
                                   ),
                                 )
                               : Container(
@@ -113,29 +117,29 @@ class MainTransaction extends StatelessWidget {
                         ),
                       ),
                     ),
-                    actions: <Widget>[
-                      PopupMenuButton<String>(
-                        onSelected: (String item) {
-                          itemAction(item, context);
-                        },
-                        itemBuilder: (BuildContext context) {
-                          return model.items.map((String item) {
-                            return PopupMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6
-                                    .copyWith(
-                                        fontSize:
-                                            SizeConfig.yMargin(context, 2)),
-                              ),
-                            );
-                          }).toList();
-                        },
-                      )
-                    ],
+                    // actions: <Widget>[
+                    //   PopupMenuButton<String>(
+                    //     onSelected: (String item) {
+                    //       itemAction(item, context);
+                    //     },
+                    //     itemBuilder: (BuildContext context) {
+                    //       return model.items.map((String item) {
+                    //         return PopupMenuItem<String>(
+                    //           value: item,
+                    //           child: Text(
+                    //             item,
+                    //             style: Theme.of(context)
+                    //                 .textTheme
+                    //                 .headline6
+                    //                 .copyWith(
+                    //                     fontSize:
+                    //                         SizeConfig.yMargin(context, 2)),
+                    //           ),
+                    //         );
+                    //       }).toList();
+                    //     },
+                    //   )
+                    // ],
                     actionsIconTheme:
                         IconThemeData(color: Theme.of(context).cursorColor),
                     backgroundColor: Theme.of(context).backgroundColor,
@@ -148,61 +152,12 @@ class MainTransaction extends StatelessWidget {
                         ? SizedBox()
                         : Container(
                             padding: EdgeInsets.symmetric(
-                                vertical: ScreenUtil().setHeight(10)),
+                                vertical: ScreenUtil().setHeight(20)),
                             width: width,
                             color: Theme.of(context).backgroundColor,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                InkWell(
-                                  onTap: () {
-                                    SavedDialog().showPdfDialog(context);
-                                  },
-                                  child: Container(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              bottom:
-                                                  ScreenUtil().setHeight(5)),
-                                          child: SvgPicture.asset(
-                                            'assets/icons/book.svg',
-                                            color: Theme.of(context)
-                                                .textSelectionColor,
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            'Download',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 2.2),
-                                                    color: Theme.of(context)
-                                                        .textSelectionColor),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            'Report',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 2.2),
-                                                    color: Theme.of(context)
-                                                        .textSelectionColor),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
                                 InkWell(
                                   onTap: () {},
                                   child: Container(
@@ -220,20 +175,6 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Send',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 2.2),
-                                                    color: Theme.of(context)
-                                                        .textSelectionColor),
-                                          ),
-                                        ),
-                                        Container(
-                                          child: Text(
                                             'Reminder',
                                             style: Theme.of(context)
                                                 .textTheme
@@ -245,7 +186,108 @@ class MainTransaction extends StatelessWidget {
                                                     color: Theme.of(context)
                                                         .textSelectionColor),
                                           ),
-                                        )
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    SavedDialog().showPdfDialog(context);
+                                  },
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              bottom:
+                                                  ScreenUtil().setHeight(5)),
+                                          child: SvgPicture.asset(
+                                            'assets/images/pdf.svg',
+                                            color: Theme.of(context)
+                                                .textSelectionColor,
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            'Report',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2.2),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                            bottom: ScreenUtil().setHeight(5),
+                                          ),
+                                          child: SvgPicture.asset(
+                                            'assets/images/msg.svg',
+                                            color: Theme.of(context)
+                                                .textSelectionColor,
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            'SMS',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2.2),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                            bottom: ScreenUtil().setHeight(5),
+                                          ),
+                                          child: SvgPicture.asset(
+                                            'assets/images/phone_device.svg',
+                                            color: Theme.of(context)
+                                                .textSelectionColor,
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            'Call',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2.2),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -359,11 +401,16 @@ class MainTransaction extends StatelessWidget {
                                                                             decoration: BoxDecoration(
                                                                                 border: Border.all(color: Color(0xFFE8E8E8), width: 1.5),
                                                                                 borderRadius: BorderRadius.circular(8),
-                                                                                color: Theme.of(context).cursorColor),
+                                                                                color: Theme.of(context).backgroundColor),
                                                                             child:
                                                                                 Text(
                                                                               model.currency.symbol + currency.format(item.amount).toString(),
-                                                                              style: Theme.of(context).textTheme.headline5.copyWith(fontSize: SizeConfig.yMargin(context, 2.4), color: Theme.of(context).textSelectionColor, fontWeight: FontWeight.w900, fontFamily: 'Roboto'),
+                                                                              style: Theme.of(context).textTheme.headline5.copyWith(
+                                                                                    fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                                    color: Theme.of(context).textSelectionColor,
+                                                                                    fontWeight: FontWeight.w900,
+                                                                                    fontFamily: 'Roboto',
+                                                                                  ),
                                                                             ),
                                                                           ),
                                                                           Container(
@@ -373,7 +420,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: <Widget>[
                                                                                   Text(
-                                                                                    'Cost of goods purchased',
+                                                                                    'Amount',
                                                                                     style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                           fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                           color: Theme.of(context).cursorColor,
@@ -464,14 +511,18 @@ class MainTransaction extends StatelessWidget {
                                                                             margin:
                                                                                 EdgeInsets.only(left: 8),
                                                                             padding:
-                                                                                EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5), horizontal: SizeConfig.xMargin(context, 3)),
+                                                                                EdgeInsets.symmetric(
+                                                                              vertical: SizeConfig.yMargin(context, 1.5),
+                                                                              horizontal: SizeConfig.xMargin(context, 3),
+                                                                            ),
                                                                             decoration: BoxDecoration(
                                                                                 border: Border.all(
                                                                                   color: Color(0xFFE8E8E8),
                                                                                   width: 1.5,
                                                                                 ),
                                                                                 borderRadius: BorderRadius.circular(8),
-                                                                                color: Theme.of(context).cursorColor),
+                                                                                //color: Theme.of(context).cursorColor
+                                                                                ),
                                                                             child:
                                                                                 Text(
                                                                               model.currency.symbol + currency.format(item.paid).toString(),
@@ -601,7 +652,9 @@ class MainTransaction extends StatelessWidget {
                                                           fontSize: SizeConfig
                                                               .yMargin(
                                                                   context, 2.3),
-                                                          color: Theme.of(context).cursorColor,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .cursorColor,
                                                         ),
                                                   ),
                                                   Text(
@@ -684,7 +737,7 @@ class MainTransaction extends StatelessWidget {
       // Navigator.pushNamed(context, '/transactionDetails');
       //Code to call customer
     } else {
-      Navigator.pushNamed(context, '/sendNotificationMessage');
+      Navigator.pushNamed(context, '/setReminders');
     }
   }
 }
@@ -697,92 +750,134 @@ class AddTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        showModalBottomSheet(
-            context: context,
-            barrierColor: Colors.black.withOpacity(0.5),
-            builder: (context) => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    height: SizeConfig.yMargin(context, 30),
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                              creditlist.length == 0
-                                  ? Navigator.pushNamed(context, '/addDebt')
-                                  : Navigator.pushNamed(
-                                      context, '/selectCredit');
-                            },
-                            child: Container(
-                                height: SizeConfig.yMargin(context, 8),
-                                child: Center(
-                                    child: Text(
-                                  'Add Debt',
-                                  style: TextStyle(
-                                      color:
-                                          Theme.of(context).textSelectionColor,
-                                      fontSize:
-                                          SizeConfig.yMargin(context, 2.3)),
-                                )))),
-                        Divider(color: Colors.black.withOpacity(0.5)),
-                        InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                              debitlist.length == 0
-                                  ? Navigator.pushNamed(context, '/addCredit')
-                                  : Navigator.pushNamed(context, '/selectDebt');
-                            },
-                            child: Container(
-                                height: SizeConfig.yMargin(context, 8),
-                                child: Center(
-                                    child: Text(
-                                  'Add Credit',
-                                  style: TextStyle(
-                                      color: BrandColors.secondary,
-                                      fontSize:
-                                          SizeConfig.yMargin(context, 2.3)),
-                                )))),
-                        Divider(color: Colors.black.withOpacity(0.5)),
-                        InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                                height: SizeConfig.yMargin(context, 8),
-                                child: Center(
-                                    child: Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize:
-                                          SizeConfig.yMargin(context, 2.3)),
-                                )))),
-                      ],
-                    ),
-                  ),
-                ));
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: ScreenUtil().setHeight(15),
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Theme.of(context).textSelectionColor,
-        ),
-        width: width,
-        child: Center(
-          child: Text(
-            'Add Transaction',
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: SizeConfig.yMargin(context, 2.3),
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+      // onTap: () {
+      //   showModalBottomSheet(
+      //       context: context,
+      //       barrierColor: Colors.black.withOpacity(0.5),
+      //       builder: (context) => Padding(
+      //             padding: const EdgeInsets.all(10.0),
+      //             child: Container(
+      //               height: SizeConfig.yMargin(context, 30),
+      //               child: Column(
+      //                 children: <Widget>[
+      //                   InkWell(
+      //                       onTap: () {
+      //                         Navigator.pop(context);
+      //                         creditlist.length == 0
+      //                             ? Navigator.pushNamed(context, '/addDebt')
+      //                             : Navigator.pushNamed(
+      //                                 context, '/selectCredit');
+      //                       },
+      //                       child: Container(
+      //                           height: SizeConfig.yMargin(context, 8),
+      //                           child: Center(
+      //                               child: Text(
+      //                             'Add Debt',
+      //                             style: TextStyle(
+      //                                 color:
+      //                                     Theme.of(context).textSelectionColor,
+      //                                 fontSize:
+      //                                     SizeConfig.yMargin(context, 2.3)),
+      //                           )))),
+      //                   Divider(color: Colors.black.withOpacity(0.5)),
+      //                   InkWell(
+      //                       onTap: () {
+      //                         Navigator.pop(context);
+      //                         debitlist.length == 0
+      //                             ? Navigator.pushNamed(context, '/addCredit')
+      //                             : Navigator.pushNamed(context, '/selectDebt');
+      //                       },
+      //                       child: Container(
+      //                           height: SizeConfig.yMargin(context, 8),
+      //                           child: Center(
+      //                               child: Text(
+      //                             'Add Credit',
+      //                             style: TextStyle(
+      //                                 color: BrandColors.secondary,
+      //                                 fontSize:
+      //                                     SizeConfig.yMargin(context, 2.3)),
+      //                           )))),
+      //                   Divider(color: Colors.black.withOpacity(0.5)),
+      //                   InkWell(
+      //                       onTap: () {
+      //                         Navigator.pop(context);
+      //                       },
+      //                       child: Container(
+      //                           height: SizeConfig.yMargin(context, 8),
+      //                           child: Center(
+      //                               child: Text(
+      //                             'Cancel',
+      //                             style: TextStyle(
+      //                                 color: Colors.red,
+      //                                 fontSize:
+      //                                     SizeConfig.yMargin(context, 2.3)),
+      //                           )))),
+      //                 ],
+      //               ),
+      //             ),
+      //           ));
+      // },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+              creditlist.length == 0
+                  ? Navigator.pushNamed(context, '/addDebt')
+                  : Navigator.pushNamed(
+                      context, '/selectCredit');
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: ScreenUtil().setHeight(15),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: BrandColors.secondary,
+              ),
+              width: width/2.5,
+              child: Center(
+                child: Text(
+                  'They are owing you',
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        fontSize: SizeConfig.yMargin(context, 2),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
+              ),
+            ),
           ),
-        ),
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+              debitlist.length == 0
+                  ? Navigator.pushNamed(context, '/addCredit')
+                  : Navigator.pushNamed(context, '/selectDebt');
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: ScreenUtil().setHeight(15),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: Theme.of(context).textSelectionColor,
+              ),
+              width: width/2.5,
+              child: Center(
+                child: Text(
+                  'you are owing them',
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        fontSize: SizeConfig.yMargin(context, 2),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

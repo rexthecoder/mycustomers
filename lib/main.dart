@@ -103,7 +103,7 @@ class App extends StatelessWidget {
     // Status bar
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+        // statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
     );
@@ -133,7 +133,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      builder: DevicePreview.appBuilder,
+       builder: DevicePreview.appBuilder,
       theme: viewModel.theme,
       locale: viewModel.locale,
       debugShowCheckedModeBanner: false,
