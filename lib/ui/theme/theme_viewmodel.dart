@@ -8,7 +8,7 @@ import 'package:mycustomers/ui/shared/themes.dart' as _theme;
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 
-class SettingManagerModel extends BaseViewModel {
+class SettingManagerModel extends MultipleStreamViewModel {
 
   IStorageUtil _su = locator<IStorageUtil>();
   final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
@@ -18,7 +18,7 @@ class SettingManagerModel extends BaseViewModel {
 
 
   // Language settings
-  Locale get locale {
+ Locale get locale {
     Locale loc;
     String _langCode = _su.getString(AppPreferenceKey.SELECTED_LOCALE);
     if (_langCode != null && _langCode.isNotEmpty) loc = Locale.fromSubtags(languageCode: _langCode);
@@ -56,4 +56,11 @@ class SettingManagerModel extends BaseViewModel {
     await  _su.saveString(AppPreferenceKey.SELECTED_STORE, newStoreId);
     notifyListeners();
   }
+
+  @override
+  // TODO: implement streamsMap
+  Map<String, StreamData> get streamsMap => {
+
+    
+  };
 }
