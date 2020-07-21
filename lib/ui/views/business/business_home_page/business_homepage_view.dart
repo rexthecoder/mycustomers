@@ -69,16 +69,16 @@ class BusinessHomePageView extends StatelessWidget {
                 context: context,
                 icon: phoneNumber,
                 label: 'Registered Phone Number',
-                subtitle: '+2348138989638',
+                subtitle: '${model.businessCard.phoneNumber}',
                 opens: false,
                 // onTap: () => _displayBusinessCardModal(context, model)
               ),
-              optionButton(
-                context: context,
-                icon: businessCard,
-                label: 'Issue Digital Reciept',
-                // onTap: () => _displayBusinessCardModal(context, model),
-              ),
+              // optionButton(
+              //   context: context,
+              //   icon: businessCard,
+              //   label: 'Issue Digital Reciept',
+              //   // onTap: () => _displayBusinessCardModal(context, model),
+              // ),
               optionButton(
                 context: context,
                 icon: settings,
