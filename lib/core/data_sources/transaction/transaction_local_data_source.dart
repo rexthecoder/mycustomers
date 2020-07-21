@@ -91,7 +91,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     }
   }
   
-  void getTransactions(int id, String stid) async{
+  void getTransactions(String id, String stid) async{
     print('get'+id.toString());
     //final bbox = await box;
     _transactions.value = [];

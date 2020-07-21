@@ -152,7 +152,9 @@ class TransactionHistory extends StatelessWidget {
                                               fontWeight: FontWeight.w500),
                                       underline: SizedBox(),
                                       onChanged: (value) async {
-                                        if (value == 'Select a Date') {
+                                        if (value ==
+                                            AppLocalizations.of(context)
+                                                .selectADate) {
                                           final DateTime picked =
                                               await showDatePicker(
                                                   context: context,
@@ -172,7 +174,8 @@ class TransactionHistory extends StatelessWidget {
                                                               .now()))));
                                           if (picked != null)
                                             model.setDate(picked);
-                                        } else if (value == 'All') {
+                                        } else if (value ==
+                                            AppLocalizations.of(context).all) {
                                           model.loadAll();
                                         } else {
                                           model.setValue(value);
@@ -355,7 +358,7 @@ class TransactionHistory extends StatelessWidget {
                               })
                           : Center(
                               child: Text(
-                                'No Transaction for this day',
+                                AppLocalizations.of(context).noTransaction,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6

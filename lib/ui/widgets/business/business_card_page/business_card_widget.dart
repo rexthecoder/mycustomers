@@ -1,11 +1,13 @@
 part of '../../../views/business/business_card_page/business_cardpage_view.dart';
 
-class _BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
-  _BusinessCardWidget({
+class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
+  BusinessCardWidget({
     Key key,
     @required this.screenshotController,
+    @required this.showArrow,
   }) : super(key: key, reactive: true);
   final ScreenshotController screenshotController;
+  final bool showArrow;
 
   @override
   Widget build(
@@ -40,6 +42,9 @@ class _BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
                   );
                 }
               },
+              physics: showArrow
+                  ? new BouncingScrollPhysics()
+                  : new NeverScrollableScrollPhysics(),
               allowImplicitScrolling: true,
               controller: businessCardController,
               children: <Widget>[
@@ -50,38 +55,89 @@ class _BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
               ],
             ),
           ),
-          Positioned(
-            left: SizeConfig.xMargin(context, 2),
-            top: SizeConfig.yMargin(context, 10),
-            bottom: SizeConfig.yMargin(context, 10),
-            child: IconButton(
-              icon: Icon(
-                Icons.chevron_left,
-                color: ThemeColors.error,
-                size: SizeConfig.textSize(context, 10),
-              ),
-              onPressed: () => businessCardController.previousPage(
-                duration: new Duration(milliseconds: 300),
-                curve: Curves.easeIn,
-              ),
-            ),
-          ),
-          Positioned(
-            right: SizeConfig.xMargin(context, 2),
-            top: SizeConfig.yMargin(context, 10),
-            bottom: SizeConfig.yMargin(context, 10),
-            child: IconButton(
-              icon: Icon(
-                Icons.chevron_right,
-                color: ThemeColors.error,
-                size: SizeConfig.textSize(context, 10),
-              ),
-              onPressed: () => businessCardController.nextPage(
-                duration: new Duration(milliseconds: 300),
-                curve: Curves.easeIn,
-              ),
-            ),
-          ),
+          showArrow
+              ? Container()
+              : Positioned(
+                  bottom: SizeConfig.yMargin(context, 2),
+                  right: SizeConfig.xMargin(context, 4),
+                  child: Column(
+                    children: <Widget>[
+                      RoundIconButton(
+                        icon: Icons.edit,
+                        onTap: model.navigateToBusinessCardPage,
+                      ),
+                      SizedBox(height: 10),
+                      RoundIconButton(
+                        icon: Icons.share,
+                        onTap: () {
+                          screenshotController
+                              .capture(
+                            pixelRatio: ScreenUtil.pixelRatio,
+                            delay: Duration(milliseconds: 10),
+                          )
+                              .then(
+                            (File image) {
+                              model.imageFile = image;
+                              FlushbarHelper.createSuccess(
+                                duration: const Duration(seconds: 5),
+                                message: 'Sharing...',
+                              ).show(context);
+                              model.shareImageAndText();
+                              FlushbarHelper.createSuccess(
+                                duration: const Duration(seconds: 5),
+                                message: 'Successful',
+                              ).show(context);
+                            },
+                          ).catchError(
+                            (onError) {
+                              FlushbarHelper.createError(
+                                duration: const Duration(seconds: 5),
+                                message: onError.toString(),
+                              ).show(context);
+                            },
+                          );
+                          return;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+          showArrow
+              ? Positioned(
+                  left: SizeConfig.xMargin(context, 2),
+                  top: SizeConfig.yMargin(context, 10),
+                  bottom: SizeConfig.yMargin(context, 10),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.chevron_left,
+                      color: ThemeColors.error,
+                      size: SizeConfig.textSize(context, 10),
+                    ),
+                    onPressed: () => businessCardController.previousPage(
+                      duration: new Duration(milliseconds: 300),
+                      curve: Curves.easeIn,
+                    ),
+                  ),
+                )
+              : Container(),
+          showArrow
+              ? Positioned(
+                  right: SizeConfig.xMargin(context, 2),
+                  top: SizeConfig.yMargin(context, 10),
+                  bottom: SizeConfig.yMargin(context, 10),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.chevron_right,
+                      color: ThemeColors.error,
+                      size: SizeConfig.textSize(context, 10),
+                    ),
+                    onPressed: () => businessCardController.nextPage(
+                      duration: new Duration(milliseconds: 300),
+                      curve: Curves.easeIn,
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -648,6 +704,34 @@ class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  final IconData icon;
+  final Widget child;
+  final Function() onTap;
+
+  const RoundIconButton({Key key, this.icon, this.child, this.onTap})
+      : assert(icon != null || child != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      // constraints: BoxConstraints(maxHeight: 100, maxWidth: 100),
+      icon: Container(
+        child: child ?? Icon(icon, color: Colors.white),
+        // padding: EdgeInsets.all(padding),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: BrandColors.primary,
+        ),
+      ),
+      onPressed: onTap,
+      padding: EdgeInsets.zero,
     );
   }
 }

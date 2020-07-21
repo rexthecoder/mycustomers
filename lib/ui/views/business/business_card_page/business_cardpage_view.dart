@@ -27,6 +27,7 @@ part '../../../widgets/business/business_card_page/business_card_widget.dart';
 class BusinessCardPageView extends StatelessWidget {
   final String share = 'assets/icons/svg/share.svg';
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     ScreenshotController screenshotController = ScreenshotController();
@@ -53,8 +54,9 @@ class BusinessCardPageView extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    _BusinessCardWidget(
+                    BusinessCardWidget(
                       screenshotController: screenshotController,
+                      showArrow: true,
                     ),
                     SizedBox(
                       height: SizeConfig.yMargin(context, 3),
@@ -72,7 +74,7 @@ class BusinessCardPageView extends StatelessWidget {
                       borderColor: BrandColors.primary,
                       child: SvgPicture.asset(
                         share,
-                        height: SizeConfig.xMargin(context, 4),
+                        height: SizeConfig.xMargin(context, 6),
                         color: ThemeColors.background,
                       ),
                       onPressed: () {
@@ -120,134 +122,6 @@ class BusinessCardPageView extends StatelessWidget {
       },
       viewModelBuilder: () => BusinessCardPageViewModel(),
       onModelReady: (model) => model.init(),
-    );
-  }
-}
-
-class BusinessCardModal extends StatelessWidget {
-  const BusinessCardModal({
-    Key key,
-    @required this.screenshotController,
-  }) : super(key: key);
-
-  final ScreenshotController screenshotController;
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
-      builder: (context, model, child) {
-        return _BusinessCardWidget(
-          screenshotController: screenshotController,
-        );
-      },
-      viewModelBuilder: () => BusinessCardPageViewModel(),
-      onModelReady: (model) => model.init(),
-    );
-  }
-}
-
-class BottomSheetButtons extends StatelessWidget {
-  final ScreenshotController screenshotController;
-
-  const BottomSheetButtons({
-    Key key,
-    @required this.screenshotController,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final String share = 'assets/icons/svg/share.svg';
-
-    return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
-      builder: (context, model, child) => Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: CustomShareRaisedButton(
-              txtColor: ThemeColors.background,
-              btnColor: BrandColors.primary,
-              btnText: AppLocalizations.of(context).share,
-              borderColor: BrandColors.primary,
-              child: SvgPicture.asset(
-                share,
-                height: SizeConfig.xMargin(context, 4),
-                color: ThemeColors.background,
-              ),
-              onPressed: () async {
-                screenshotController
-                    .capture(
-                  pixelRatio: ScreenUtil.pixelRatio,
-                  delay: Duration(milliseconds: 10),
-                )
-                    .then(
-                  (File image) async {
-                    model.imageFile = image;
-                    FlushbarHelper.createSuccess(
-                      duration: const Duration(seconds: 5),
-                      message: 'Sharing...',
-                    ).show(context);
-                    model.shareImageAndText();
-                    FlushbarHelper.createSuccess(
-                      duration: const Duration(seconds: 5),
-                      message: 'Successful',
-                    ).show(context);
-                  },
-                ).catchError(
-                  (onError) {
-                    FlushbarHelper.createError(
-                      duration: const Duration(seconds: 5),
-                      message: onError.toString(),
-                    ).show(context);
-                  },
-                );
-                return;
-              },
-            ),
-          ),
-          SizedBox(
-            width: SizeConfig.xMargin(context, 3.0),
-          ),
-          Expanded(
-            flex: 1,
-            child: CustomShareRaisedButton(
-              txtColor: BrandColors.primary,
-              btnColor: ThemeColors.background,
-              btnText: AppLocalizations.of(context).download,
-              borderColor: BrandColors.primary,
-              child: SvgPicture.asset(
-                share,
-                color: ThemeColors.background,
-              ),
-              onPressed: () async {
-                screenshotController
-                    .capture(
-                  pixelRatio: ScreenUtil.pixelRatio,
-                  delay: Duration(milliseconds: 10),
-                )
-                    .then((File image) async {
-                  model.imageFile = image;
-                  FlushbarHelper.createSuccess(
-                    duration: const Duration(seconds: 5),
-                    message: 'downloading...',
-                  ).show(context);
-                  model.downloadImage();
-                  FlushbarHelper.createSuccess(
-                    duration: const Duration(seconds: 5),
-                    message: 'Download Completed to internalStorage/myCustomer',
-                  ).show(context);
-                }).catchError((onError) {
-                  FlushbarHelper.createError(
-                    duration: const Duration(seconds: 5),
-                    message: onError.toString(),
-                  ).show(context);
-                });
-                return;
-              },
-            ),
-          )
-        ],
-      ),
-      viewModelBuilder: () => BusinessCardPageViewModel(),
     );
   }
 }
