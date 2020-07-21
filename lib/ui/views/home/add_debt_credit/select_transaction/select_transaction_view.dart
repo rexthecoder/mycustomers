@@ -178,9 +178,7 @@ class SelectTransactionView extends StatelessWidget {
                                         child: Row(
                                           children: <Widget>[
                                             Text(
-                                              item.goods.length > 1
-                                                  ? 'Items: '
-                                                  : 'Item: ',
+                                              item.description,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -190,23 +188,23 @@ class SelectTransactionView extends StatelessWidget {
                                                             context, 2),
                                                   ),
                                             ),
-                                            for (var goods in item.goods)
-                                              Container(
-                                                child: Text(
-                                                  item.goods.indexOf(goods) !=
-                                                          item.goods.length - 1
-                                                      ? goods + ', '
-                                                      : goods,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6
-                                                      .copyWith(
-                                                        fontSize:
-                                                            SizeConfig.yMargin(
-                                                                context, 2),
-                                                      ),
-                                                ),
-                                              )
+                                            // for (var goods in item.goods)
+                                            //   Container(
+                                            //     child: Text(
+                                            //       item.goods.indexOf(goods) !=
+                                            //               item.goods.length - 1
+                                            //           ? goods + ', '
+                                            //           : goods,
+                                            //       style: Theme.of(context)
+                                            //           .textTheme
+                                            //           .headline6
+                                            //           .copyWith(
+                                            //             fontSize:
+                                            //                 SizeConfig.yMargin(
+                                            //                     context, 2),
+                                            //           ),
+                                            //     ),
+                                            //   )
                                           ],
                                         ),
                                       ),

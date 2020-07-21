@@ -256,17 +256,23 @@ class ReceiptReport {
                                         fontSize: 8,
                                       ),
                                     ),
-                                    for (var item in transaction.goods)
-                                      pw.Text(
-                                        //TODO: Enter live items here
-                                        transaction.goods.indexOf(item) ==
-                                                transaction.goods.length - 1
-                                            ? item + ' '
-                                            : item + ', ',
-                                        style: pw.TextStyle(
-                                          fontSize: 8,
-                                        ),
+                                    // for (var item in transaction.goods)
+                                    //   pw.Text(
+                                    //     //TODO: Enter live items here
+                                    //     transaction.goods.indexOf(item) ==
+                                    //             transaction.goods.length - 1
+                                    //         ? item + ' '
+                                    //         : item + ', ',
+                                    //     style: pw.TextStyle(
+                                    //       fontSize: 8,
+                                    //     ),
+                                    //   ),
+                                    pw.Text(
+                                      transaction.description,
+                                      style: pw.TextStyle(
+                                        fontSize: 8,
                                       ),
+                                    )
                                   ],
                                 ),
                                 pw.SizedBox(height: 5),

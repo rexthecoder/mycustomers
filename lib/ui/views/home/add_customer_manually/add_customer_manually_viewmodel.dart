@@ -58,7 +58,7 @@ PhoneNumber number = PhoneNumber(isoCode: isoCode);
   void addContact(String action)async {
     print(customerPhoneNumber);
     if(customerName != null && customerPhoneNumber != null) {
-      _customerContactService.addContact(customerPhoneNumber, customerName, dropDownValue, customerName.split(' ').length > 1 ? (customerName.split(' ')[0][0]+customerName.split(' ')[1][0]).toUpperCase() : customerName.split(' ')[0][0].toUpperCase(), action);
+      //_customerContactService.addContact(customerPhoneNumber, customerName, dropDownValue, customerName.split(' ').length > 1 ? (customerName.split(' ')[0][0]+customerName.split(' ')[1][0]).toUpperCase() : customerName.split(' ')[0][0].toUpperCase(), action);
     }
     notifyListeners();
   }

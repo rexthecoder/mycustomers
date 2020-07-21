@@ -38,22 +38,22 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   final transactionModel1 = TransactionModel(
-      cId: 1,
+      cId: 'aaab',
       amount: 20000.0,
       paid: 0,
-      goods: ['Rice', 'Bread'],
+      description: 'Rice',
       duedate: '08/07/2020');
   final transactionModel2 = TransactionModel(
-      cId: 1,
+      cId: 'qqknk',
       amount: 0,
       paid: 9000.0,
-      goods: ['Rice', 'Bread'],
+      description: 'Rice',
       duedate: '05/07/2020');
   final transactionModel3 = TransactionModel(
-      cId: 1,
+      cId: 'nwjdm',
       amount: 300.0,
       paid: 0,
-      goods: ['Rice', 'Bread'],
+      description: 'Rice',
       duedate: '03/07/2020');
 
   final transactionModeList = [
