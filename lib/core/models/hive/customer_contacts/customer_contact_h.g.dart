@@ -19,7 +19,7 @@ class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
     return CustomerContact(
       name: fields[0] as String,
       phoneNumber: fields[1] as String,
-      id: fields[2] as int,
+      id: fields[2] as String,
       initials: fields[3] as String,
     );
   }

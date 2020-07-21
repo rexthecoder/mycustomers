@@ -25,6 +25,7 @@ class CreditorsView extends StatelessWidget {
             Expanded(
               child: Container(
                 child: SingleChildScrollView(
+                  physics: model.owedcustomers.length == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -35,16 +36,16 @@ class CreditorsView extends StatelessWidget {
                             left: 20.0, right: 20.0, top: 20.0),
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                              vertical: SizeConfig.yMargin(context, 4.0)),
+                              vertical: SizeConfig.yMargin(context, 2.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: BrandColors.secondary,
+                              color: BrandColors.primary,
                               image: DecorationImage(
                                   image: ExactAssetImage(
-                                    'assets/images/orange_banner.png',
+                                    'assets/images/Mask Group.png',
                                   ),
                                   fit: BoxFit.fill),
-                              borderRadius: BorderRadius.circular(5)),
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -75,7 +76,7 @@ class CreditorsView extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: '00.',
+                                              text: '00',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: SizeConfig.yMargin(context, 3),
@@ -99,16 +100,18 @@ class CreditorsView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     SvgPicture.asset(
-                                        'assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
+                                        'assets/images/no-transaction-cred.svg', height: SizeConfig.yMargin(context, 18),),
                                     SizedBox(
                                       height: 20.h,
                                     ),
-                                    Text(
-                                      'You don\'t owe any customer. Tap the big orange button at the bottom of the screen to add one',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .textSelectionColor, fontSize: SizeConfig.yMargin(context, 2)),
+                                    Container(
+                                      margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 3), horizontal: SizeConfig.xMargin(context, 8)),
+                                      child: Text(
+                                        'You currently do not owe any person money. Record all your debts to keep track and stay updated',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Color(0xFF7276A9), fontSize: SizeConfig.yMargin(context, 2)),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -124,20 +127,19 @@ class CreditorsView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, '/importcustomercreditor'),
+                onTap: () => model.navigateToCredit(),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      color: BrandColors.secondary,
+                      color: BrandColors.primary,
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
                       AppLocalizations.of(context).addPeopleYouOwe,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontSize: SizeConfig.yMargin(context, 2.2),
                       ),
                     ),
                   ),

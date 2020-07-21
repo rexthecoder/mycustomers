@@ -27,6 +27,7 @@ class DebtorsView extends StatelessWidget {
             Expanded(
               child: Container(
                 child: SingleChildScrollView(
+                  physics: model.owingcustomers.length == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -37,16 +38,16 @@ class DebtorsView extends StatelessWidget {
                             left: 20.0, right: 20.0, top: 20.0),
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                              vertical: SizeConfig.yMargin(context, 4.0)),
+                              vertical: SizeConfig.yMargin(context, 2.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: BrandColors.primary,
+                              color: BrandColors.secondary,
                               image: DecorationImage(
                                   image: ExactAssetImage(
-                                    'assets/images/Mask Group.png',
+                                    'assets/images/orange_banner.png',
                                   ),
                                   fit: BoxFit.fill),
-                              borderRadius: BorderRadius.circular(5)),
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,12 +59,12 @@ class DebtorsView extends StatelessWidget {
                                     color: Colors.white,
                                     fontSize: SizeConfig.yMargin(context, 2)),
                               ),
-                              model.bought() - model.paid() > 0
+                              model.bought() > 0
                                   ? Text(
                                       model.currency.symbol +
                                           currency
                                               .format(
-                                                  model.bought() - model.paid())
+                                                  model.bought())
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -83,7 +84,7 @@ class DebtorsView extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: '00.',
+                                              text: '00',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: SizeConfig.yMargin(
@@ -108,20 +109,20 @@ class DebtorsView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     SvgPicture.asset(
-                                      'assets/images/no-transaction.svg',
+                                      'assets/images/no-transaction-debt.svg',
                                       height: SizeConfig.yMargin(context, 18),
                                     ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Text(
-                                        'You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
+                                    // SizedBox(
+                                    //   height: 20.h,
+                                    // ),
+                                    Container(
+                                      margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 3), horizontal: SizeConfig.xMargin(context, 8)),
+                                      child: Text(
+                                        'You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to create one',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .textSelectionColor,
-                                            fontSize: SizeConfig.yMargin(
-                                                context, 2))),
+                                        style: TextStyle(color: Color(0xFF7276A9), fontSize: SizeConfig.yMargin(context, 2))
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -137,20 +138,19 @@ class DebtorsView extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
 //                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
-                onTap: () =>
-                    Navigator.pushNamed(context, '/importcustomerdebtor'),
+                onTap: () => model.navigateToDebt(),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      color: BrandColors.primary,
+                      color: BrandColors.secondary,
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
                       AppLocalizations.of(context).addCustomersOwingYou,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontSize: SizeConfig.yMargin(context, 2.2),
                       ),
                     ),
                   ),
@@ -191,7 +191,7 @@ class ContactList extends StatelessWidget {
                   contentPadding: const EdgeInsets.only(top: 18.0),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: BrandColors.primary,
+                    color: BrandColors.secondary,
                   ),
                   border: InputBorder.none,
                 ),

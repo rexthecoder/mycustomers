@@ -12,7 +12,7 @@ class CustomerContact{
   final String phoneNumber;
 
   @HiveField(2)
-  final int id;
+  final String id;
 
   @HiveField(3)
   final String initials;
