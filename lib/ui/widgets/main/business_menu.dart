@@ -9,42 +9,27 @@ class BusinessMenu extends HookViewModelWidget<MainViewModel> {
     MainViewModel model,
   ) {
     return Container(
-      constraints: BoxConstraints(
-        minWidth: SizeConfig.xMargin(context, 25),
-        maxWidth: SizeConfig.xMargin(context, 25),
+      padding: EdgeInsets.symmetric(
+        vertical: SizeConfig.yMargin(context, 2),
       ),
-      color: Theme.of(context).backgroundColor,
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        ),
+      ),
+      height: SizeConfig.yMargin(context, 45),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          BusinessMenuOptions(),
-          Divider(color: ThemeColors.gray[700]),
-          AddBusinessIcon(),
-          FlatButton(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.xMargin(context, 3),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.first_page,
-                  size: SizeConfig.textSize(context, 5),
-                ),
-                Expanded(
-                  child: Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 3),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () => model.signOut,
+          Expanded(
+            child: BusinessMenuOptions(),
           ),
+          SizedBox(
+            height: SizeConfig.yMargin(context, 2),
+          ),
+          _AddBusinessButton(),
         ],
       ),
     );
