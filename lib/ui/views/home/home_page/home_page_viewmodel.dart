@@ -160,11 +160,11 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   void navigateToDebt(){
-    _navigationService.navigateTo(Routes.addDebt);
+    _navigationService.navigateTo(Routes.addnewDebt);
   }
 
   void navigateToCredit(){
-    _navigationService.navigateTo(Routes.addCredit);
+    _navigationService.navigateTo(Routes.addnewCredit);
   }
 
   @override
