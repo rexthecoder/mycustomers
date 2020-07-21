@@ -49,7 +49,7 @@ class BusinessCardPageView extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    _BusinessCardWidget(
+                    BusinessCardWidget(
                       screenshotController: screenshotController,
                     ),
                     SizedBox(
@@ -132,7 +132,7 @@ class BusinessCardModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
-        return _BusinessCardWidget(
+        return BusinessCardWidget(
           screenshotController: screenshotController,
         );
       },

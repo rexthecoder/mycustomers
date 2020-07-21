@@ -87,6 +87,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   List<String> get countryCode=>_countryCodes;
   String get dropDownValue=> _dropDownValue;
 
+  var inputNumberController = TextEditingController();
+
   bool manual = false;
 
   init({String query}) async {
@@ -111,10 +113,21 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   void updateName(String value) {
     _debouncer.run(() {
       _name = value;
-      _busy = true;
-      shownames = true;
-      notifyListeners();
-      init(query: name);
+    _busy = true;
+    shownames = true;
+    if(value.length == 0){
+      manual = false;
+      inputNumberController.clear();
+      number = null;
+      shownames = false;
+    }
+    if(contactsList.length != 0){
+      manual = false;
+      number = null;
+      inputNumberController.clear();
+    }
+    notifyListeners();
+    init(query: name);
     });
   }
 
@@ -291,7 +304,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               duedate: dueDate.toString(),
               boughtdate: otherDate.toString(),
               paiddate: null);
-          _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           //_transactionService.addTransaction(transaction);
           //_logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           notifyListeners();
@@ -306,12 +319,12 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: null,
               paiddate: otherDate.toString());
           //_transactionService.addTransaction(transaction);
-          _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           notifyListeners();
         }
       }
-      _navigationService.replaceWith(Routes.mainTransaction);
+      //_navigationService.replaceWith(Routes.mainTransaction);
     } else {
       if (newDate == null) {
         date1err = true;
