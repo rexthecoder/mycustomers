@@ -36,6 +36,7 @@ class CustomShareRaisedButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            
             child,
 
             SizedBox(width: SizeConfig.xMargin(context, 2)),
