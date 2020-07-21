@@ -1,5 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,7 +43,8 @@ class MessageView extends StatelessWidget {
 //        arguments.selectedCustomers.length;
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-              title: 'Send a Message', arrowColor: BrandColors.secondary),
+              title: AppLocalizations.of(context).sendAMessage,
+              arrowColor: BrandColors.secondary),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
@@ -52,7 +54,7 @@ class MessageView extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Text('Title'),
+                  Text(AppLocalizations.of(context).title),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -73,7 +75,7 @@ class MessageView extends StatelessWidget {
                   SizedBox(
                     height: 10.h,
                   ),
-                  Text('Message'),
+                  Text(AppLocalizations.of(context).message),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -157,7 +159,7 @@ class MessageView extends StatelessWidget {
                                 color: BrandColors.primary,
                               ),
                               label: Text(
-                                'Add',
+                                AppLocalizations.of(context).add,
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   color: BrandColors.primary,
@@ -200,7 +202,7 @@ class MessageView extends StatelessWidget {
                         width: width,
                         child: Center(
                           child: Text(
-                            'Send',
+                            AppLocalizations.of(context).send,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -237,7 +239,7 @@ class MessageView extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "Access denied!",
+                      AppLocalizations.of(context).accessDenied,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.sp,
@@ -250,7 +252,8 @@ class MessageView extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      "My Customer needs access to your contact!",
+                      AppLocalizations.of(context)
+                          .myCustomerNeedsAccessToYourContacts,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
@@ -288,7 +291,7 @@ class MessageView extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Deny',
+                                  AppLocalizations.of(context).deny,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
                                     fontSize: 16.sp,
@@ -318,7 +321,7 @@ class MessageView extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Allow',
+                                  AppLocalizations.of(context).allow,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
                                     fontSize: 16.sp,
@@ -363,7 +366,7 @@ class MessageView extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      'Message sent!',
+                      AppLocalizations.of(context).messageSent,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
@@ -389,7 +392,7 @@ class MessageView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Continue',
+                              AppLocalizations.of(context).continueButton,
                               style: TextStyle(
                                 color: Color(0xFF333CC1),
                                 fontSize: 16.sp,
@@ -500,7 +503,7 @@ class BottomSheetView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Select contacts'),
+                    Text(AppLocalizations.of(context).selectContacts),
                     FlatButton(
                       color: const Color(0xFFDEE9FF),
                       shape: RoundedRectangleBorder(
@@ -539,7 +542,8 @@ class BottomSheetView extends StatelessWidget {
                         child: TextField(
                           controller: model.searchController,
                           decoration: InputDecoration(
-                            hintText: 'Type customer name',
+                            hintText:
+                                AppLocalizations.of(context).typeCustomerName,
                             prefixIcon: Icon(Icons.search),
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -662,7 +666,6 @@ class BottomSheetView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      
                     ],
                   ),
                 ),
