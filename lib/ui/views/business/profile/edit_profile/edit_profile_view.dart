@@ -78,7 +78,7 @@ class EditProfileView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.sp),
                       ),
                       child: FlatButton(
-                        onPressed: model.getImagefromGallery,
+                        onPressed: model.getImagefromGallery.toString,
                         child: Text(
                           model.image == null
                               ? 'Add  Profile Picture'
