@@ -25,9 +25,9 @@ class MarketingHomePageView extends StatelessWidget {
           // // backgroundColor:BrandColors.primary,
           // body:
           Container(
+            color:  Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
           Container(
-            color: Theme.of(context).backgroundColor,
             width: width,
             child: Padding(
               padding:
@@ -58,13 +58,11 @@ class MarketingHomePageView extends StatelessWidget {
               ? Container(
                   width: double.infinity,
                   height: 1,
-                  color: Colors.grey[300],
                 )
               : Container(),
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
-                    color: backgroundColor,
                    width: width,
                     // height: height,
                     child: Padding(
@@ -75,13 +73,9 @@ class MarketingHomePageView extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-//                              SizedBox(
-////                                    height: 10,
-//                                height: SizeConfig.yMargin(context, 5),
-//                              ),
                               ClipRect(
                                 child: Image(
-                                  height: height / 4,
+                                  height: height /4,
                                   image:
                                       AssetImage('assets/images/megaphone.png'),
                                   fit: BoxFit.contain,
@@ -91,10 +85,10 @@ class MarketingHomePageView extends StatelessWidget {
                                 height: SizeConfig.yMargin(context, 3),
                               ),
                               Text(
-                                'It\'s all about sending messages to customers. Click the nice orange button below to get that started',
+                                'It\'s all about sending messages to your customers. Click the nice orange button below to get that started',
                                 style: TextStyle(
                                     fontSize: 14.sp,
-                                    color: Theme.of(context).cursorColor),
+                                    color: BrandColors.primary),
                                 textAlign: TextAlign.center,
 // =======
 //                               Container(
@@ -644,13 +638,10 @@ class MarketingHomePageView extends StatelessWidget {
                 )
               : model.allCustomers.length == 0
                   ? Container(
-                      color: backgroundColor,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                        padding: const EdgeInsets.only(left: 10,right: 10,bottom: 10,),
                         child: Container(
                           height: 50.h,
-                          color: backgroundColor,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
@@ -669,7 +660,7 @@ class MarketingHomePageView extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
                                 child: Container(
-                                  width: width / 2,
+                                  width: width / 3,
                                   child: Center(
                                     child: Text(
                                       'Send message',
@@ -682,6 +673,58 @@ class MarketingHomePageView extends StatelessWidget {
                             ],
                           ),
                         ),
+//                        child: Column(
+//                          crossAxisAlignment: CrossAxisAlignment.end,
+//                          children: <Widget>[
+//                            Row(
+//                              mainAxisAlignment: MainAxisAlignment.end,
+//                              children: <Widget>[
+//                                Text('Add New Customer',style: TextStyle(
+//                            fontSize: 14.sp),),
+//                                SizedBox(width: 10.w,),
+//                                FloatingActionButton(
+//                                  onPressed:(){},
+//                                  backgroundColor: Colors.white,
+//                                  child: Icon(Icons.add,color: BrandColors.primary,),
+//                                ),
+//                              ],
+//                            ),
+//                            SizedBox(height: 20.h,),
+//                            Container(
+//                          height: 50.h,
+//                          child: Row(
+//                            mainAxisAlignment: MainAxisAlignment.end,
+//                            children: <Widget>[
+//                              FlatButton(
+//                                onPressed: ()async{
+//                                   final bool isPermitted = await model.checkPermission();
+//                                   if(isPermitted){
+//                                     model.navigateToAddCustomers(context);
+//
+//                                   }else{
+//                                     permissionDialog(context, model);
+//                                   }
+//                                  //  model.navigateToAddCustomer();
+//                                },
+//                                color: BrandColors.secondary,
+//                                shape: RoundedRectangleBorder(
+//                                    borderRadius: BorderRadius.circular(5.0)),
+//                                child: Container(
+//                                  width: width / 3,
+//                                  child: Center(
+//                                    child: Text(
+//                                      'Send message',
+//                                      style: TextStyle(
+//                                          fontSize: 14.sp, color: Colors.white),
+//                                    ),
+//                                  ),
+//                                ),
+//                              ),
+//                            ],
+//                          ),
+//                        )
+//                          ],
+//                        ),
                       ),
                     )
                   : Container(),

@@ -116,7 +116,7 @@ class MessageView extends StatelessWidget {
                             FlatButton.icon(
                               onPressed: () async {
                                  final bool isPermitted = await model.checkPermission();
-                                 if(isPermitted){
+                                 if(!isPermitted){
                                    permissionDialog(context, model) ;
                                    
                                   }else{
@@ -174,7 +174,6 @@ class MessageView extends StatelessWidget {
                               customer: model.selectedCustomers.length !=0?
                               model.selectedCustomers[index]:
                               arguments.selectedCustomers[index],
-//                                customer: Customer(name: 'jmsb',phone: '278849'),
                               action: 'debtor',
                             ),
                           ),

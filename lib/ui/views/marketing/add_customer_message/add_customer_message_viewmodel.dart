@@ -48,9 +48,10 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     notifyListeners();
   }
 
-  void getFrequentCustomers() {
+  void getFrequentCustomers(value) {
     //todo: get frequent customers
-//    allFrequentCustomers
+    _allFrequentCustomers = value;
+    notifyListeners();
   }
 
   void deselectCustomer(Customer customer) {
