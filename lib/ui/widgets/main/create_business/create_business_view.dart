@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -64,6 +65,9 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
   @override
   Widget buildViewModelWidget(
       BuildContext context, CreateBusinessViewModel viewModel) {
+    var _businessNameController = useTextEditingController();
+    var _aboutBusinessController = useTextEditingController();
+
     return Container(
       color: Theme.of(context).backgroundColor,
       child: Form(
@@ -78,6 +82,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 height: SizeConfig.yMargin(context, 5),
               ),
               TextFormField(
+                controller: _businessNameController,
                 onChanged: (value) => viewModel.updateStoreName(value),
                 validator: (value) =>
                     (value.isEmpty) ? "Please enter business name" : null,
@@ -106,6 +111,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 height: SizeConfig.yMargin(context, 3),
               ),
               TextFormField(
+                controller: _aboutBusinessController,
                 maxLines: 6,
                 minLines: 4,
                 onChanged: (value) => viewModel.updateStoreAddress(value),
@@ -145,7 +151,6 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 onPressed: () {
                   //Validation
                   if (_businessFormPageKey.currentState.validate()) {
-                    
                     //Dismiss keyboard during async call
                     FocusScope.of(context).requestFocus(
                       FocusNode(),
