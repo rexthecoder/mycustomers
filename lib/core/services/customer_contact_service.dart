@@ -37,13 +37,24 @@ class CustomerContactService with ReactiveServiceMixin {
     _contacts.value.sort((a,b) => b.id.compareTo(a.id));
   }
 
+  int getCustomerCount(String stid) {
+    int sum = 0;
+    for(var item in _contacts.value) {
+      if(item.storeid == stid) {
+        sum+=1;
+      }
+    }
+    //print(sum == null ? 0 : sum);
+    return sum;
+  }
+
   void setContact(CustomerContact cont){
     _contact.value = cont;
     print(cont.id);
     _navigationService.navigateTo(Routes.mainTransaction);
   }
 
-  void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String action, TransactionModel transaction)async {
+  void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String action, TransactionModel transaction, String stid)async {
     print(customerPhoneNumber);
     print(customerName);
     print(dropDownValue);
@@ -53,7 +64,7 @@ class CustomerContactService with ReactiveServiceMixin {
       bool isStored = false;
       for(var item in bbox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber){
-          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials);
+          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid);
           isStored = true;
         }
       }
@@ -72,11 +83,11 @@ class CustomerContactService with ReactiveServiceMixin {
           _navigationService.navigateTo(Routes.mainViewRoute);
         //_navigationService.navigateTo(Routes.mainTransaction);
       } else {
-        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials);
+        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid);
         bbox.add(contact).then((value){
           success = true;
           print(success);
-          _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials);
+          _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid);
           print('set ${contact.id}');
           _contacts.value = bbox.values.toList();
           TransactionModel ntransaction = new TransactionModel(
