@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -131,7 +132,18 @@ class SendMessage extends StatelessWidget {
                           color: BrandColors.primary,
                           elevation: 0,
                           onPressed: () {
-                            print('Clicked');
+                          model.sendSms();
+                                Flushbar(
+                                      backgroundColor: BrandColors.primary,
+                                      duration: const Duration(seconds: 3),
+                                      message: 'Could not send message in development ',
+                                      icon: Icon(
+                                        Icons.info_outline,
+                                        size: 28.0,
+                                        color: ThemeColors.background,
+                                      ),
+                                      leftBarIndicatorColor: Colors.blue[300],
+                                    ).show(context);
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),

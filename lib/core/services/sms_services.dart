@@ -12,3 +12,9 @@
 //     _otpController.add(message);
 //   }
 // }
+
+import 'package:url_launcher/url_launcher.dart';
+ class MessageServices{
+     void sendSms(String number) => launch("sms:$number");
+
+ }
