@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/core/models/customer.dart';
@@ -99,11 +100,11 @@ class AddCustomerMessageView extends StatelessWidget {
 //                                  : 10.w
                           ),
                           child: Text(
-                            'Add New Customer',
+                            'Add customer Manually',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: BrandColors.secondary,
-                              //todo:dreplace this
+                              fontSize: 16.sp,
 //                                        color: model.allSelected
 //                                            ? ThemeColors.gray.shade800
 //                                            : ThemeColors.cta,
@@ -154,59 +155,66 @@ class AddCustomerMessageView extends StatelessWidget {
                           return Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 15.h, horizontal: 10.w),
-                            child: Row(
+                            child: Column(
                               children: <Widget>[
-                                CustomerCircleAvatar(
-                                  customer: customer,
-                                  action: 'debtor',
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 30.w),
-                                    child: Column(
-                                      mainAxisSize:
-                                      MainAxisSize.min,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-                                      children: <Widget>[
-                                        Text(
-                                          '${customer.name} '
-                                              '${customer.lastName}',
-                                          style: TextStyle(
-                                            fontWeight:
-                                            FontWeight.w600,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 3.sp,
-                                        ),
-                                        Text(
-                                          '${customer.phone}',
-                                          style: TextStyle(
-                                            color: ThemeColors
-                                                .gray.shade600,
-                                            fontWeight:
-                                            FontWeight.w600,
-                                          ),
-                                        )
-                                      ],
+                                Row(
+                                  children: <Widget>[
+                                    CustomerCircleAvatar(
+                                      customer: customer,
+                                      action: 'debtor',
                                     ),
-                                  ),
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 30.w),
+                                        child: Column(
+                                          mainAxisSize:
+                                          MainAxisSize.min,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment
+                                              .start,
+                                          children: <Widget>[
+                                            Text(
+                                              '${customer.name} '
+                                                  '${customer.lastName}',
+                                              style: TextStyle(
+                                                fontWeight:
+                                                FontWeight.w600,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 3.sp,
+                                            ),
+                                            Text(
+                                              '${customer.phone}',
+                                              style: TextStyle(
+                                                color: ThemeColors
+                                                    .gray.shade800,
+                                                fontWeight:
+                                                FontWeight.w600,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Checkbox(
+                                        activeColor:
+                                        BrandColors.primary,
+                                        value: _isSelected,
+                                        onChanged: (value) {
+                                          _isSelected
+                                              ? model
+                                              .deselectCustomer(
+                                              customer)
+                                              : model.selectCustomer(
+                                              customer);
+                                        })
+                                  ],
                                 ),
-                                Checkbox(
-                                    activeColor:
-                                    BrandColors.primary,
-                                    value: _isSelected,
-                                    onChanged: (value) {
-                                      _isSelected
-                                          ? model
-                                          .deselectCustomer(
-                                          customer)
-                                          : model.selectCustomer(
-                                          customer);
-                                    })
+                                Divider(
+                                  color: Colors.grey[500],
+                                ),
                               ],
                             ),
                           );
@@ -247,60 +255,67 @@ class AddCustomerMessageView extends StatelessWidget {
                           model.isSelected(customer);
                           return Container(
                             padding: EdgeInsets.symmetric(
-                                vertical: 15.h, horizontal: 10.w),
-                            child: Row(
+                                horizontal: 10.w),
+                            child: Column(
                               children: <Widget>[
-                                CustomerCircleAvatar(
-                                  customer: customer,
-                                  action: 'debtor',
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 30.w),
-                                    child: Column(
-                                      mainAxisSize:
-                                      MainAxisSize.min,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-                                      children: <Widget>[
-                                        Text(
-                                          '${customer.name} '
-                                              '${customer.lastName}',
-                                          style: TextStyle(
-                                            fontWeight:
-                                            FontWeight.w600,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 3.sp,
-                                        ),
-                                        Text(
-                                          '${customer.phone}',
-                                          style: TextStyle(
-                                            color: ThemeColors
-                                                .gray.shade600,
-                                            fontWeight:
-                                            FontWeight.w600,
-                                          ),
-                                        )
-                                      ],
+                                Row(
+                                  children: <Widget>[
+                                    CustomerCircleAvatar(
+                                      customer: customer,
+                                      action: 'debtor',
                                     ),
-                                  ),
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10.w),
+                                        child: Column(
+                                          mainAxisSize:
+                                          MainAxisSize.min,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment
+                                              .start,
+                                          children: <Widget>[
+                                            Text(
+                                              '${customer.name} '
+                                                  '${customer.lastName}',
+                                              style: TextStyle(
+                                                fontWeight:
+                                                FontWeight.w600,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 3.sp,
+                                            ),
+                                            Text(
+                                              '${customer.phone}',
+                                              style: TextStyle(
+                                                color: ThemeColors
+                                                    .gray.shade800,
+                                                fontWeight:
+                                                FontWeight.w600,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Checkbox(
+                                        activeColor:
+                                        BrandColors.primary,
+                                        value: _isSelected,
+                                        onChanged: (value) {
+                                          _isSelected
+                                              ? model
+                                              .deselectCustomer(
+                                              customer)
+                                              : model.selectCustomer(
+                                              customer);
+                                        })
+                                  ],
                                 ),
-                                Checkbox(
-                                    activeColor:
-                                    BrandColors.primary,
-                                    value: _isSelected,
-                                    onChanged: (value) {
-                                      _isSelected
-                                          ? model
-                                          .deselectCustomer(
-                                          customer)
-                                          : model.selectCustomer(
-                                          customer);
-                                    })
+                                Divider(
+                                  color: Colors.grey[500],
+                                ),
                               ],
                             ),
                           );
@@ -362,7 +377,19 @@ class AddCustomerMessageView extends StatelessWidget {
 //              padding: EdgeInsets.all(30.w),
               child: FlatButton(
                 onPressed: () {
-                  model.sendMessage();
+                  model.selectedCustomers.length !=0?
+                  model.sendMessage():
+                  Flushbar(
+                    backgroundColor: BrandColors.primary,
+                    duration: const Duration(seconds: 3),
+                    message: 'Select a customer from the list',
+                    icon: Icon(
+                      Icons.info_outline,
+                      size: 28.0,
+                      color: ThemeColors.background,
+                    ),
+                    leftBarIndicatorColor: Colors.blue[300],
+                  ).show(context);
                 },
                 color: BrandColors.secondary,
                 padding: EdgeInsets.symmetric(vertical: 15.0),

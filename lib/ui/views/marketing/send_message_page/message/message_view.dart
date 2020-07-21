@@ -379,7 +379,7 @@ class MessageView extends StatelessWidget {
                   Container(
                     child: InkWell(
                       onTap: () {
-                        model.returnHome(arguments.isQuick);
+                        model.returnHome();
                         //TODO: route to screen
                       },
                       child: Container(

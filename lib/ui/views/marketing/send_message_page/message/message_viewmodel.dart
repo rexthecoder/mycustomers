@@ -55,7 +55,7 @@ class MessageViewModel extends StreamViewModel {
     return await [Permission.contacts].request();
   }
 
-  Future returnHome(bool quick) async {
+  Future returnHome() async {
      _navigationService.popUntil((route){
        if(route.settings.name == '/main'){
         (route.settings.arguments as Map)['result'] = _selectedCustomers;
