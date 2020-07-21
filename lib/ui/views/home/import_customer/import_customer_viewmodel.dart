@@ -49,7 +49,7 @@ class ImportCustomerViewModel extends StreamViewModel {
 
   void addContact(String name, String phone, String initials, String action){
     print(initials);
-    _customerContactService.addContact(phone, name, '', initials, action);
+    //_customerContactService.addContact(phone, name, '', initials, action);
   }
 
   /// View initialize and close section

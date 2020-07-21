@@ -149,22 +149,25 @@ class TransactionDetails extends StatelessWidget {
                                                 SizedBox(
                                                   width: 10,
                                                 ),
-                                                for (var item
-                                                    in model.transaction.goods)
-                                                  Text(
-                                                    model.transaction.goods
-                                                                .indexOf(
-                                                                    item) ==
-                                                            model
-                                                                    .transaction
-                                                                    .goods
-                                                                    .length -
-                                                                1
-                                                        ? item + ' '
-                                                        : item + ', ',
-                                                    style: TextStyle(
-                                                        fontSize: 30.sp),
-                                                  )
+                                                Text(
+                                                  model.transaction.description
+                                                )
+                                                // for (var item
+                                                //     in model.transaction.goods)
+                                                //   Text(
+                                                //     model.transaction.goods
+                                                //                 .indexOf(
+                                                //                     item) ==
+                                                //             model
+                                                //                     .transaction
+                                                //                     .goods
+                                                //                     .length -
+                                                //                 1
+                                                //         ? item + ' '
+                                                //         : item + ', ',
+                                                //     style: TextStyle(
+                                                //         fontSize: 30.sp),
+                                                //   )
                                               ],
                                             ))
                                           ],
