@@ -153,7 +153,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                  color: Color(0xFFD1D1D1),
+                                                  color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
                                                   width: 2.0),
                                             ),
                                             errorBorder: const OutlineInputBorder(
