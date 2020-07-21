@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
@@ -86,7 +87,8 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 ),
                 decoration: InputDecoration(
                   suffixIcon: Container(
-                    padding: EdgeInsets.symmetric(vertical: SizeConfig.xMargin(context, 5)),
+                    padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.xMargin(context, 5)),
                     child: SvgPicture.asset(
                       edit,
                       color: Theme.of(context).cursorColor.withOpacity(0.5),
@@ -116,7 +118,8 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 decoration: InputDecoration(
                   alignLabelWithHint: true,
                   suffixIcon: Container(
-                    padding: EdgeInsets.symmetric(vertical: SizeConfig.xMargin(context, 5)),
+                    padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.xMargin(context, 5)),
                     child: SvgPicture.asset(
                       edit,
                       color: Theme.of(context).cursorColor.withOpacity(0.5),
@@ -133,48 +136,26 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
               SizedBox(
                 height: SizeConfig.yMargin(context, 3),
               ),
-              ButtonTheme(
-                minWidth: SizeConfig.xMargin(context, 90),
-                height: SizeConfig.yMargin(context, 9),
-                child: RaisedButton(
-                  onPressed: () {
-                    if (_businessFormPageKey.currentState.validate()) {
-                      viewModel.updateUser();
-                    }
-                  },
-                  child: Text(
-                    'Create new business',
-                    style: TextStyle(
-                      color: ThemeColors.background,
-                      fontSize: SizeConfig.textSize(context, 5),
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  color: BrandColors.primary,
-                ),
+              CustomRaisedButton(
+                txtColor: ThemeColors.background,
+                btnColor: BrandColors.primary,
+                btnText: 'Create new business',
+                borderColor: BrandColors.primary,
+                child: Container(),
+                onPressed: () {
+                  //Validation
+                  if (_businessFormPageKey.currentState.validate()) {
+                    
+                    //Dismiss keyboard during async call
+                    FocusScope.of(context).requestFocus(
+                      FocusNode(),
+                    );
+
+                    //Call Function to AddStore
+                    viewModel.updateUser();
+                  }
+                },
               ),
-//          CustomRaisedButton(
-//            btnColor: BrandColors.primary,
-//            txtColor: ThemeColors.background,
-//            btnText: 'Create new business',
-//            borderColor: BrandColors.primary,
-//            child: Container(),
-//            onPressed: () async {
-//              // viewModel.signUpTest();
-//              if (_businessFormPageKey.currentState.validate()) {
-//                //Dismiss keyboard during async call
-//                FocusScope.of(context).requestFocus(
-//                  FocusNode(),
-//                );
-//
-//                //Call Function to Signin
-////                viewModel.updateUser(
-////                    _storeName.text.trim(), _storeAddress.text.trim());
-//              }
-//            },
-//          ),
             ],
           ),
         ),
