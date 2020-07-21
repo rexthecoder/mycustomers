@@ -48,7 +48,8 @@ class MarketingHomePageView extends StatelessWidget {
                       height: 10.h,
                     ),
                     Text(
-                      'Show your customers that you really care about them',
+                      AppLocalizations.of(context)
+                          .showYourCustomersThatYouReallyCare,
                       style: TextStyle(
                           fontSize: 14.sp,
                           color: Theme.of(context).cursorColor),
@@ -88,7 +89,8 @@ class MarketingHomePageView extends StatelessWidget {
                                 height: SizeConfig.yMargin(context, 3),
                               ),
                               Text(
-                                'It\'s all about sending messages to your customers. Click the nice orange button below to get that started',
+                                AppLocalizations.of(context)
+                                    .itsAllAboutSendingMessagesToCustomers,
                                 style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400,
@@ -172,7 +174,7 @@ class MarketingHomePageView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                'Customer List',
+                                AppLocalizations.of(context).customerList,
                                 style: TextStyle(
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.w600),
@@ -184,7 +186,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
-                                      'Send message to all',
+                                      AppLocalizations.of(context)
+                                          .sendMessageAll,
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           color: BrandColors.secondary),
@@ -208,7 +211,8 @@ class MarketingHomePageView extends StatelessWidget {
                               textInputAction: TextInputAction.search,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search),
-                                hintText: 'Type customer name',
+                                hintText: AppLocalizations.of(context)
+                                    .typeCustomerName,
                                 border: InputBorder.none,
                                 focusColor: BrandColors.primary,
                               ),
@@ -231,7 +235,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),
                                   child: Text(
-                                    'Frequently contacted',
+                                    AppLocalizations.of(context)
+                                        .frequentlyContacted,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         color: BrandColors.primary),
@@ -343,7 +348,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),
                                   child: Text(
-                                    'All',
+                                    AppLocalizations.of(context).all,
 //                                'Frequently contacted',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
@@ -706,7 +711,7 @@ class MarketingHomePageView extends StatelessWidget {
                               width: width / 3,
                               child: Center(
                                 child: Text(
-                                  'Send message',
+                                  AppLocalizations.of(context).sendMessage,
                                   style: TextStyle(
                                       fontSize: 14.sp, color: Colors.white),
                                 ),
@@ -800,7 +805,7 @@ class MarketingHomePageView extends StatelessWidget {
                               width: width / 3,
                               child: Center(
                                 child: Text(
-                                  'Send message',
+                                  AppLocalizations.of(context).sendMessage,
                                   style: TextStyle(
                                       fontSize: 14.sp, color: Colors.white),
                                 ),
@@ -1076,7 +1081,7 @@ class MarketingHomePageView extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "Access denied!",
+                      AppLocalizations.of(context).accessDenied,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.sp,
@@ -1089,7 +1094,8 @@ class MarketingHomePageView extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      "My Customer needs access to your contact!",
+                      AppLocalizations.of(context)
+                          .myCustomerNeedsAccessToYourContacts,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
@@ -1116,7 +1122,7 @@ class MarketingHomePageView extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Deny',
+                                  AppLocalizations.of(context).deny,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
                                     fontSize: 16.sp,
@@ -1145,7 +1151,7 @@ class MarketingHomePageView extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Allow',
+                                  AppLocalizations.of(context).allow,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
                                     fontSize: 16.sp,
