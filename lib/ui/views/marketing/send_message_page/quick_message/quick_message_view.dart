@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,6 @@ import 'package:mycustomers/ui/shared/const_text.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_viewmodel.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_viewmodel.dart';
-
-
 
 class QuickMessageView extends StatelessWidget {
 //  final MessageArgument arguments;
@@ -29,7 +28,7 @@ class QuickMessageView extends StatelessWidget {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
 //              title: 'Quick messages',
-              title: 'Send message',
+              title: AppLocalizations.of(context).sendMessage,
               arrowColor: BrandColors.secondary),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -40,72 +39,84 @@ class QuickMessageView extends StatelessWidget {
                   shrinkWrap: true,
                   padding: EdgeInsets.all(0.0),
                   itemCount: quickMessageTitle.length,
-                  itemBuilder: (BuildContext context, int index)=>Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    FlatButton(
-                      onPressed: () =>
-                          model.navigateToMessageView(selectedCustomers,quickMessageTitle[index],
-                              quickMessageText[index]),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: BorderSide(color: BrandColors.secondary.withOpacity(0.5))),
-                      child: Container(
-                        height: 100.h,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(quickMessageTitle[index],
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold,
+                  itemBuilder: (BuildContext context, int index) => Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      FlatButton(
+                        onPressed: () => model.navigateToMessageView(
+                            selectedCustomers,
+                            quickMessageTitle[index],
+                            quickMessageText[index]),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            side: BorderSide(
+                                color: BrandColors.secondary.withOpacity(0.5))),
+                        child: Container(
+                          height: 100.h,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        quickMessageTitle[index],
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(quickMessageText[index],
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold,
+                                      SizedBox(
+                                        height: 5.h,
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        quickMessageText[index],
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Icon(Icons.navigate_next,),
-                            ],
+                                Icon(
+                                  Icons.navigate_next,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),),
-                SizedBox(height:5.h),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5.h),
                 InkWell(
-                  onTap:(){},
-                  child: Text('See All',
+                  onTap: () {},
+                  child: Text(
+                    'See All',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: BrandColors.secondary,
                       fontWeight: FontWeight.bold,
                       fontSize: 18.sp,
-                    ),),
+                    ),
+                  ),
                 ),
-                SizedBox(height:50.h),
+                SizedBox(height: 50.h),
                 FlatButton(
                   color: BrandColors.secondary,
                   onPressed: () {
-                    model.navigateToMessage(selectedCustomers,);
+                    model.navigateToMessage(
+                      selectedCustomers,
+                    );
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)),
@@ -113,7 +124,7 @@ class QuickMessageView extends StatelessWidget {
                     height: 50.h,
                     child: Center(
                       child: Text(
-                        'Compose Message',
+                        AppLocalizations.of(context).composeMessage,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -123,7 +134,6 @@ class QuickMessageView extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             ),
           ),

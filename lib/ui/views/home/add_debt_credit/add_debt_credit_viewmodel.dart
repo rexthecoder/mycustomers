@@ -110,12 +110,13 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     print(contacts);
   }
 
-  void updateName(String value) {
+  void updateName(String value, String action) {
     _debouncer.run(() {
       _name = value;
     _busy = true;
     shownames = true;
     if(value.length == 0){
+      _name = null;
       manual = false;
       inputNumberController.clear();
       number = null;
@@ -126,6 +127,13 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
       number = null;
       inputNumberController.clear();
     }
+    action == 'debit'
+      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+          ? save = true
+          : save = false
+      : amount != null && newODate != null && name != null && number != null
+          ? save = true
+          : save = false;
     notifyListeners();
     init(query: name);
     });
@@ -146,7 +154,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     return num.tryParse(amt) != null;
   }
 
-  void updateAmount(String value, bool update, String action) {
+  void updateAmount(String value, bool update, String action, bool newCus) {
     _debouncer.run(() {
       if (value.length != 0) {
         String val = '';
@@ -161,7 +169,13 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           show = true;
           update
               ? amount != null && newODate != null ? save = true : save = false
-              : action == 'debit'
+              : newCus ? action == 'debit'
+                  ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+                      ? save = true
+                      : save = false
+                  : amount != null && newODate != null && name != null && number != null
+                      ? save = true
+                      : save = false : action == 'debit'
                   ? amount != null && newDate != null && newODate.length > 0
                       ? save = true
                       : save = false
@@ -181,37 +195,66 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     });
   }
 
-  void setDate(DateTime date) {
+  void setDate(DateTime date, String action, bool newCus) {
     print(date);
     dueDate = date;
     newDate = dformat.format(date);
     date1err = false;
-    amount != null && newDate.length > 0 && newODate.length != null
-        ? save = true
-        : save = false;
+    newCus ? action == 'debit'
+      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+          ? save = true
+          : save = false
+      : amount != null && newODate != null && name != null && number != null
+          ? save = true
+          : save = false : action == 'debit'
+      ? amount != null && newDate != null && newODate.length > 0
+          ? save = true
+          : save = false
+      : amount != null && newODate != null
+          ? save = true
+          : save = false;
     notifyListeners();
   }
 
-  void setOtherDate(DateTime date, bool update, String action) {
+  void setOtherDate(DateTime date, bool update, String action, bool newCus) {
     print(date);
     otherDate = date;
     newODate = dformat.format(date);
     date2err = false;
     update
         ? amount != null && newODate != null ? save = true : save = false
-        : action == 'debit'
-            ? amount != null && newDate != null && newODate.length != null
-                ? save = true
-                : save = false
-            : amount != null && newODate.length != null
-                ? save = true
-                : save = false;
+        : newCus ? action == 'debit'
+                  ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+                      ? save = true
+                      : save = false
+                  : amount != null && newODate != null && name != null && number != null
+                      ? save = true
+                      : save = false : action == 'debit'
+                  ? amount != null && newDate != null && newODate.length > 0
+                      ? save = true
+                      : save = false
+                  : amount != null && newODate != null
+                      ? save = true
+                      : save = false;
     notifyListeners();
   }
 
   void updateItem(String value) {
     _description = value;
     notifyListeners();
+  }
+
+  void updateNumber(PhoneNumber phoneNumber, String action){
+    number=phoneNumber;
+    action == 'debit'
+      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+          ? save = true
+          : save = false
+      : amount != null && newODate != null && name != null && number != null
+          ? save = true
+          : save = false;
+    notifyListeners();
+
   }
 
   void updateContact(String phoneNumber){
@@ -254,7 +297,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   //   }
   // }
 
-  void addtransaction(String action, bool update) {
+  void addtransaction(String action, bool update, bool newCus) {
     if (save) {
       date1err = false;
       date2err = false;
@@ -272,8 +315,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
             boughtdate: _transactionService.stransaction.boughtdate,
             paiddate: otherDate.toString()
           );
-          _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
-          //_transactionService.updateTransaction(transaction);
+          //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          _transactionService.updateTransaction(transaction);
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           notifyListeners();
         } else {
@@ -287,16 +330,16 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               duedate: _transactionService.stransaction.duedate,
               boughtdate: otherDate.toString(),
               paiddate: _transactionService.stransaction.paiddate);
-          _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
-          //_transactionService.updateTransaction(transaction);
-          //_logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          _transactionService.updateTransaction(transaction);
+          _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           notifyListeners();
         }
       } else {
         if (action == 'debit') {
           print(dueDate);
           TransactionModel transaction = new TransactionModel(
-              cId: '',
+              cId: newCus ? '' : contact.id,
               sId: currentStore.id,
               amount: amount,
               paid: 0,
@@ -304,13 +347,17 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               duedate: dueDate.toString(),
               boughtdate: otherDate.toString(),
               paiddate: null);
-          number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
-          //_transactionService.addTransaction(transaction);
+          if(newCus) {
+            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          }
+          if(!newCus) {
+            _transactionService.addTransaction(transaction);
+          }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
-              cId: '',
+              cId: newCus ? '' : contact.id,
               sId: currentStore.id,
               amount: 0,
               paid: amount,
@@ -318,8 +365,12 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               duedate: dueDate.toString(),
               boughtdate: null,
               paiddate: otherDate.toString());
-          //_transactionService.addTransaction(transaction);
-          number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          if(newCus) {
+            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          }
+          if(!newCus) {
+            _transactionService.addTransaction(transaction);
+          }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           notifyListeners();
         }

@@ -64,7 +64,7 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               AppLocalizations.of(context).peopleYouOwe,
                               textAlign: TextAlign.center,
-                               style: TextStyle(
+                              style: TextStyle(
                                 fontSize: SizeConfig.yMargin(context, 2),
                               ),
                             ),
@@ -222,10 +222,11 @@ class ContactList extends StatelessWidget {
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
-                                title: Text(
-                                  item.name,
-                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                                ),
+                                title: Text(item.name,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize:
+                                            SizeConfig.yMargin(context, 2))),
                               ),
                             ),
                           )

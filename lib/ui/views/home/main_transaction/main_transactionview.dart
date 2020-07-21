@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
@@ -175,7 +177,8 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Reminder',
+                                            AppLocalizations.of(context)
+                                                .reminder,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -192,8 +195,9 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {
-                                    SavedDialog().showPdfDialog(context);
+                                  onTap: () async{
+                                    ReceiptReport().buildPdf(context);
+                                    await ReceiptReport().generateReport(context);
                                   },
                                   child: Container(
                                     child: Column(
@@ -210,7 +214,7 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Report',
+                                            AppLocalizations.of(context).report,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -243,7 +247,7 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'SMS',
+                                            AppLocalizations.of(context).sms,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -276,7 +280,7 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Call',
+                                            AppLocalizations.of(context).call,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -515,14 +519,15 @@ class MainTransaction extends StatelessWidget {
                                                                               vertical: SizeConfig.yMargin(context, 1.5),
                                                                               horizontal: SizeConfig.xMargin(context, 3),
                                                                             ),
-                                                                            decoration: BoxDecoration(
-                                                                                border: Border.all(
-                                                                                  color: Color(0xFFE8E8E8),
-                                                                                  width: 1.5,
-                                                                                ),
-                                                                                borderRadius: BorderRadius.circular(8),
-                                                                                //color: Theme.of(context).cursorColor
-                                                                                ),
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              border: Border.all(
+                                                                                color: Color(0xFFE8E8E8),
+                                                                                width: 1.5,
+                                                                              ),
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                              //color: Theme.of(context).cursorColor
+                                                                            ),
                                                                             child:
                                                                                 Text(
                                                                               model.currency.symbol + currency.format(item.paid).toString(),
@@ -730,10 +735,10 @@ class MainTransaction extends StatelessWidget {
   }
 
   void itemAction(String item, BuildContext context) {
-    if (item == 'SMS') {
+    if (item == AppLocalizations.of(context).sms) {
       // Navigator.pushNamed(context, '/transactionHistory');
       //Code to send sms
-    } else if (item == 'Call') {
+    } else if (item == AppLocalizations.of(context).call) {
       // Navigator.pushNamed(context, '/transactionDetails');
       //Code to call customer
     } else {
@@ -822,11 +827,9 @@ class AddTransaction extends StatelessWidget {
         children: <Widget>[
           InkWell(
             onTap: () {
-              Navigator.pop(context);
               creditlist.length == 0
                   ? Navigator.pushNamed(context, '/addDebt')
-                  : Navigator.pushNamed(
-                      context, '/selectCredit');
+                  : Navigator.pushNamed(context, '/selectCredit');
             },
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -836,7 +839,7 @@ class AddTransaction extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.0),
                 color: BrandColors.secondary,
               ),
-              width: width/2.5,
+              width: width / 2.5,
               child: Center(
                 child: Text(
                   'They are owing you',
@@ -851,7 +854,6 @@ class AddTransaction extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.pop(context);
               debitlist.length == 0
                   ? Navigator.pushNamed(context, '/addCredit')
                   : Navigator.pushNamed(context, '/selectDebt');
@@ -864,7 +866,7 @@ class AddTransaction extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.0),
                 color: Theme.of(context).textSelectionColor,
               ),
-              width: width/2.5,
+              width: width / 2.5,
               child: Center(
                 child: Text(
                   'you are owing them',

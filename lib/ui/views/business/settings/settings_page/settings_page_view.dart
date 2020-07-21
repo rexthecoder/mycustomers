@@ -19,7 +19,8 @@ class SettingsPage extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
               backgroundColor: Theme.of(context).backgroundColor,
               appBar: customizeAppBar(context, 1.0,
-                  title: 'Settings', arrowColor: BrandColors.primary),
+                  title: AppLocalizations.of(context).settings,
+                  arrowColor: BrandColors.primary),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -51,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                                 context,
                                 viewModel.isDarkTheme,
                                 viewModel.setTheme,
-                                'Dark Mode'),
+                                AppLocalizations.of(context).darkMode),
                           ),
                           switchTile(
                               context,
