@@ -69,7 +69,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
             Text(
-              AppLocalizations.of(context).signIn,
+              AppLocalizations.of(context).signIn.toUpperCase(),
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: SizeConfig.textSize(context, 6),

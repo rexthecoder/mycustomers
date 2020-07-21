@@ -102,23 +102,13 @@ class _AddBusinessButton extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return ButtonTheme(
-      minWidth: SizeConfig.xMargin(context, 90),
-      height: SizeConfig.yMargin(context, 9),
-      child: RaisedButton(
-        onPressed: () => model.navigateToAddBusiness(),
-        child: Text(
-          'Add another business',
-          style: TextStyle(
-            color: ThemeColors.background,
-            fontSize: SizeConfig.textSize(context, 5),
-          ),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        color: BrandColors.primary,
-      ),
+    return CustomRaisedButton(
+      txtColor: ThemeColors.background,
+      btnColor: BrandColors.primary,
+      btnText: 'Add another business',
+      borderColor: BrandColors.primary,
+      child: Container(),
+      onPressed: () => model.navigateToAddBusiness(),
     );
   }
 }
