@@ -26,9 +26,12 @@ class SettingManagerModel extends BaseViewModel {
     return loc;
   }
 
-  Future<void> setLocale(String localeCode) async {
+  String get selectedLanguage => _su.getString(AppPreferenceKey.USER_PREF_LANGUAGE) ?? 'English';
+
+  Future<void> setLocale(String localeCode, [String language]) async {
     // print('Setting locale...\nValue is $localeCode');
     await _su.saveString(AppPreferenceKey.SELECTED_LOCALE, localeCode);
+    await _su.saveString(AppPreferenceKey.USER_PREF_LANGUAGE, language);
     showToastCustom(
       message: 'Your language has been changed successfully',
       success: true,

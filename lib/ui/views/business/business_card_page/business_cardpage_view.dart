@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -56,7 +57,7 @@ class BusinessCardPageView extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    _BusinessCardWidget(
+                    BusinessCardWidget(
                       screenshotController: screenshotController,
                     ),
                     SizedBox(
@@ -128,7 +129,7 @@ class BusinessCardModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
-        return _BusinessCardWidget(
+        return BusinessCardWidget(
           screenshotController: screenshotController,
         );
       },
