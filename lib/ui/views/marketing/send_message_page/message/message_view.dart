@@ -115,17 +115,20 @@ class MessageView extends StatelessWidget {
                             ),
                             FlatButton.icon(
                               onPressed: () async {
-                                final bool isPermitted =
-                                    await model.checkPermission();
-                                if (!isPermitted) {
-                                  permissionDialog(context, model);
-                                } else {
-                                  showModalBottomSheet(
-                                    enableDrag: true,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
+
+                                 final bool isPermitted = await model.checkPermission();
+                                 if(!isPermitted){
+                                   permissionDialog(context, model) ;
+                                   
+                                  }else{
+                                    
+                                    showModalBottomSheet(
+                                      enableDrag: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
                                       ),
                                     ),
                                     context: context,
@@ -172,10 +175,9 @@ class MessageView extends StatelessWidget {
                             itemCount: length,
                             itemBuilder: (BuildContext context, int index) =>
                                 CustomerCircleAvatar(
-                              customer: model.selectedCustomers.length != 0
-                                  ? model.selectedCustomers[index]
-                                  : arguments.selectedCustomers[index],
-//                                customer: Customer(name: 'jmsb',phone: '278849'),
+                              customer: model.selectedCustomers.length !=0?
+                              model.selectedCustomers[index]:
+                              arguments.selectedCustomers[index],
                               action: 'debtor',
                             ),
                           ),
@@ -377,7 +379,7 @@ class MessageView extends StatelessWidget {
                   Container(
                     child: InkWell(
                       onTap: () {
-                        model.returnHome(arguments.isQuick);
+                        model.returnHome();
                         //TODO: route to screen
                       },
                       child: Container(

@@ -178,7 +178,6 @@ class BottomSheetButtons extends StatelessWidget {
                     .then(
                   (File image) async {
                     model.imageFile = image;
-                    await model.saveBusinessCard();
                     FlushbarHelper.createSuccess(
                       duration: const Duration(seconds: 5),
                       message: 'Sharing...',
@@ -223,7 +222,6 @@ class BottomSheetButtons extends StatelessWidget {
                 )
                     .then((File image) async {
                   model.imageFile = image;
-                  await model.saveBusinessCard();
                   FlushbarHelper.createSuccess(
                     duration: const Duration(seconds: 5),
                     message: 'downloading...',

@@ -219,8 +219,9 @@ class Router {
           settings: settings,
         );
       case Routes.addCustomerMessageRoute:
+        final frequentCustomerList = settings.arguments;
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddCustomerMessageView(),
+          builder: (context) => AddCustomerMessageView(frequent: frequentCustomerList,),
           settings: settings,
         );
       case Routes.signupViewRoute:
