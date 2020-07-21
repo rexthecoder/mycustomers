@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:getwidget/components/avatar/gf_avatar.dart';
-import 'package:getwidget/shape/gf_avatar_shape.dart';
 import 'package:mycustomers/core/models/store.dart';
+import 'package:mycustomers/core/extensions/string_extension.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -20,8 +19,6 @@ import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'main_view_model.dart';
-
-part '../../widgets/main/menu_options.dart';
 
 part '../../widgets/main/main_menu.dart';
 
@@ -49,6 +46,7 @@ class MainView extends StatelessWidget {
       onModelReady: (model) {
         //model.addlog();
         model.getcurr();
+        model.getCustomers();
       },
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
@@ -60,6 +58,7 @@ class MainView extends StatelessWidget {
             children: <Widget>[
               mainView(context, model),
               MainMenu(),
+              MainHeader(),
             ],
           ),
         ),
@@ -70,29 +69,15 @@ class MainView extends StatelessWidget {
   Widget mainView(BuildContext context, MainViewModel model) {
     return AnimatedPositioned(
       duration: model.duration,
-      top: 0,
+      top: SizeConfig.yMargin(context, 12),
       bottom: 0,
-      right: model.isCollapsed ? 0 : SizeConfig.xMargin(context, -25),
-      left: model.isCollapsed ? 0 : SizeConfig.xMargin(context, 25),
-//      child: GestureDetector(
-//        onHorizontalDragUpdate: (details) {
-//          if (details.delta.dx > 0) {
-//            model.openMenu();
-//          }
-//        },
+      width: SizeConfig.xMargin(context, 100),
       child: Scaffold(
-        body: Column(
-          children: <Widget>[
-            MainHeader(),
-            Expanded(
-              child: LazyIndexedStack(
-                reuse: true,
-                index: model.index,
-                itemCount: _views.length,
-                itemBuilder: (_, index) => _views[index],
-              ),
-            ),
-          ],
+        body: LazyIndexedStack(
+          reuse: true,
+          index: model.index,
+          itemCount: _views.length,
+          itemBuilder: (_, index) => _views[index],
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).backgroundColor,
@@ -101,46 +86,48 @@ class MainView extends StatelessWidget {
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                title: Text(AppLocalizations.of(context).home),
-                icon: SvgPicture.asset(
-                  home,
-                  color: ThemeColors.unselect,
-                  semanticsLabel: 'Home',
-                ),
-                activeIcon: SvgPicture.asset(
-                  home,
-                  color: Theme.of(context).textSelectionColor,
-                  semanticsLabel: 'Home Navigator is Active',
-                )),
+              title: Text(AppLocalizations.of(context).home),
+              icon: SvgPicture.asset(
+                home,
+                color: ThemeColors.unselect,
+                semanticsLabel: 'Home',
+              ),
+              activeIcon: SvgPicture.asset(
+                home,
+                color: Theme.of(context).textSelectionColor,
+                semanticsLabel: 'Home Navigator is Active',
+              ),
+            ),
             BottomNavigationBarItem(
-                title: Text(AppLocalizations.of(context).marketing),
-                icon: SvgPicture.asset(
-                  marketing,
-                  color: ThemeColors.unselect,
-                  semanticsLabel: 'Marketing',
-                ),
-                activeIcon: SvgPicture.asset(
-                  marketing,
-                  color: Theme.of(context).textSelectionColor,
-                  semanticsLabel: 'Marketing Navigator is Active',
-                )),
+              title: Text(AppLocalizations.of(context).marketing),
+              icon: SvgPicture.asset(
+                marketing,
+                color: ThemeColors.unselect,
+                semanticsLabel: 'Marketing',
+              ),
+              activeIcon: SvgPicture.asset(
+                marketing,
+                color: Theme.of(context).textSelectionColor,
+                semanticsLabel: 'Marketing Navigator is Active',
+              ),
+            ),
             BottomNavigationBarItem(
-                title: Text(AppLocalizations.of(context).business),
-                icon: SvgPicture.asset(
-                  business,
-                  color: ThemeColors.unselect,
-                  semanticsLabel: AppLocalizations.of(context).business,
-                ),
-                activeIcon: SvgPicture.asset(
-                  business,
-                  color: Theme.of(context).textSelectionColor,
-                  semanticsLabel: 'Business Navigator is Active',
-                )),
+              title: Text(AppLocalizations.of(context).business),
+              icon: SvgPicture.asset(
+                business,
+                color: ThemeColors.unselect,
+                semanticsLabel: AppLocalizations.of(context).business,
+              ),
+              activeIcon: SvgPicture.asset(
+                business,
+                color: Theme.of(context).textSelectionColor,
+                semanticsLabel: 'Business Navigator is Active',
+              ),
+            ),
           ],
           onTap: model.changeTab,
         ),
       ),
-//      ),
     );
   }
 }

@@ -48,9 +48,10 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     notifyListeners();
   }
 
-  void getFrequentCustomers() {
+  void getFrequentCustomers(value) {
     //todo: get frequent customers
-//    allFrequentCustomers
+    _allFrequentCustomers = value !=null? value:[];
+    notifyListeners();
   }
 
   void deselectCustomer(Customer customer) {
@@ -73,7 +74,8 @@ class AddCustomerMessageViewModel extends StreamViewModel {
   void sendMessage(){
 
     _navigationService
-        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
+        .navigateTo(Routes.quickMessages,arguments: _selectedCustomers);
+//        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
   /// View initialize and close section
