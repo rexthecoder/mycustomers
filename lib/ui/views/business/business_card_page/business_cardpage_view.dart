@@ -14,12 +14,15 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flushbar/flushbar_helper.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 
 import 'business_cardpage_viewmodel.dart';
 
 part '../../../widgets/business/business_card_page/business_card_widget.dart';
 
 class BusinessCardPageView extends StatelessWidget {
+  final String share = 'assets/icons/svg/share.svg';
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     ScreenshotController screenshotController = ScreenshotController();
@@ -27,31 +30,21 @@ class BusinessCardPageView extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
-
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
-            elevation: 0,
-            centerTitle: true,
-            title: Text(
-              AppLocalizations.of(context).buisnessCard,
-              style: TextStyle(
-                color: Theme.of(context).cursorColor,
-                fontSize: SizeConfig.textSize(context, 6),
-              ),
-            ),
-            iconTheme: IconThemeData(
-              color: Theme.of(context).textSelectionColor,
-            ),
+          appBar: customizeAppBar(
+            context,
+            0,
+            title: AppLocalizations.of(context).buisnessCard,
+            arrowColor: Theme.of(context).textSelectionColor,
           ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.xMargin(context, 4),
+                horizontal: SizeConfig.xMargin(context, 7),
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -62,43 +55,54 @@ class BusinessCardPageView extends StatelessWidget {
                     SizedBox(
                       height: SizeConfig.yMargin(context, 3),
                     ),
-                    _BusinessCardForm(),
+                    _BusinessCardForm(
+                      formKey: formKey,
+                    ),
                     SizedBox(
-                      height: SizeConfig.yMargin(context, 1),
+                      height: SizeConfig.yMargin(context, 5.5),
                     ),
                     CustomShareRaisedButton(
                       txtColor: ThemeColors.background,
                       btnColor: BrandColors.primary,
                       btnText: AppLocalizations.of(context).saveAndShare,
                       borderColor: BrandColors.primary,
-                      child: Container(),
+                      child: SvgPicture.asset(
+                        share,
+                        height: SizeConfig.xMargin(context, 4),
+                        color: ThemeColors.background,
+                      ),
                       onPressed: () {
-                        screenshotController
-                            .capture(
-                          pixelRatio: ScreenUtil.pixelRatio,
-                          delay: Duration(milliseconds: 10),
-                        )
-                            .then(
-                          (File image) async {
-                            //Capture Done
-                            model.imageFile = image;
-                            await model.saveBusinessCard();
-                            FlushbarHelper.createSuccess(
-                              duration: const Duration(seconds: 5),
-                              message: 'Save Successful',
-                            ).show(context);
-                            model.shareImageAndText();
-                          },
-                        ).catchError(
-                          (onError) {
-                            FlushbarHelper.createError(
-                              duration: const Duration(seconds: 5),
-                              message: onError.toString(),
-                            ).show(context);
-                          },
-                        );
+                        if (formKey.currentState.validate()) {
+                          screenshotController
+                              .capture(
+                            pixelRatio: ScreenUtil.pixelRatio,
+                            delay: Duration(milliseconds: 10),
+                          )
+                              .then(
+                            (File image) async {
+                              //Capture Done
+                              model.imageFile = image;
+                              await model.saveBusinessCard();
+                              FlushbarHelper.createSuccess(
+                                duration: const Duration(seconds: 5),
+                                message: 'Save Successful',
+                              ).show(context);
+                              model.shareImageAndText();
+                            },
+                          ).catchError(
+                            (onError) {
+                              FlushbarHelper.createError(
+                                duration: const Duration(seconds: 5),
+                                message: onError.toString(),
+                              ).show(context);
+                            },
+                          );
+                        }
                         return;
                       },
+                    ),
+                    SizedBox(
+                      height: SizeConfig.yMargin(context, 5),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).viewInsets.bottom,
@@ -247,7 +251,9 @@ class BottomSheetButtons extends StatelessWidget {
 }
 
 class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
-  _BusinessCardForm({Key key}) : super(key: key, reactive: false);
+  _BusinessCardForm({Key key, @required this.formKey})
+      : super(key: key, reactive: false);
+  final formKey;
 
   @override
   Widget buildViewModelWidget(
@@ -256,40 +262,62 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
   ) {
     return Form(
       autovalidate: true,
+      key: formKey,
       child: Column(
         children: <Widget>[
           // TODO VALIDATE STORE NAME FORM FIELD
           _DefaultFormField(
+            validate: (value) {
+              if (value.isEmpty) {
+                return "Field cannot be empty";
+              }
+              return null;
+            },
             label: "Store Name",
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
-          // TODO VALIDATE TAG LINE FORM FIELD
-          _DefaultFormField(
-            label: "Company Tag Line",
-            onChange: (value) => model.updateBusinessCard(tagLine: value),
-          ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
+            validate: (value) {
+              if (value.isEmpty) {
+                return "Field cannot be empty";
+              }
+              return null;
+            },
             label: "Personal Name",
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
-          // TODO VALIDATE POSITION FORM FIELD
-          _DefaultFormField(
-            label: "Position",
-            onChange: (value) => model.updateBusinessCard(position: value),
-          ),
+          // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultPhoneFormField(
+            validate: (value) {
+              if (value.isEmpty) {
+                return "Field cannot be empty";
+              }
+              return null;
+            },
             label: "Phone Number",
             onChange: (PhoneNumber value) =>
                 model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
           // TODO VALIDATE EMAIL ADDRESS FORM FIELD
           _DefaultFormField(
+            validate: (value) {
+              if (value.isEmpty) {
+                return "Field cannot be empty";
+              }
+              return null;
+            },
             label: "Email Address",
             onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
           // TODO VALIDATE SHOP/OFFICE ADDRESS FORM FIELD
           _DefaultFormField(
+            validate: (value) {
+              if (value.isEmpty) {
+                return "Field cannot be empty";
+              }
+              return null;
+            },
             label: "Shop/Office Address",
             onChange: (value) {
               model.updateBusinessCard(address: value);
@@ -320,12 +348,12 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
         ),
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.xMargin(context, 4),
-          vertical: SizeConfig.yMargin(context, 0.5),
+          vertical: SizeConfig.yMargin(context, 0.3),
         ),
         decoration: BoxDecoration(
           border: Border.all(color: ThemeColors.gray[700]),
           color: Theme.of(context).backgroundColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(SizeConfig.yMargin(context, 0.5)),
         ),
         child: TextFormField(
           onChanged: onChange,
@@ -364,19 +392,22 @@ class _DefaultPhoneFormField
   ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1)),
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 4)),
+      padding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.xMargin(context, 4),
+        vertical: SizeConfig.yMargin(context, 0.3),
+      ),
       decoration: BoxDecoration(
         border: Border.all(color: ThemeColors.gray[700]),
         color: Theme.of(context).backgroundColor,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(SizeConfig.yMargin(context, 0.5)),
       ),
       child: InternationalPhoneNumberInput(
         onInputChanged: onChange,
         textStyle: TextStyle(
-          color:  Theme.of(context).cursorColor,
+          color: Theme.of(context).cursorColor,
           fontSize: SizeConfig.textSize(context, 5),
         ),
-        selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+        selectorType: PhoneInputSelectorType.DIALOG,
         selectorTextStyle: TextStyle(color: Theme.of(context).cursorColor),
         inputBorder: InputBorder.none,
         hintText: '903 9393 9383',
