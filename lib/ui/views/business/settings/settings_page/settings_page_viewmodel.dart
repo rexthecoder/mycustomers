@@ -8,7 +8,7 @@ import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/ui/shared/themes.dart' as themes;
 
 class SettingsPageViewModel extends ReactiveViewModel {
-  bool _lightTheme = _localStorageServices.darkMode;
+  bool _lightTheme = false;
   bool _notification = _localStorageServices.notification;
   bool _newsletter = _localStorageServices.newsletter;
   bool _special = _localStorageServices.specialOffers;
