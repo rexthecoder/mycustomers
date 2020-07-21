@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -35,9 +36,9 @@ class AddDebtCreditView extends StatelessWidget {
                             model.amount.round().toString()
                         : '${model.contact.name} owes you'
                     : model.amount != null
-                        ? 'You owe ${model.contact.name} ₦' +
+                        ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
                             model.amount.round().toString()
-                        : 'You owe ${model.contact.name}',
+                        : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -260,8 +261,12 @@ class AddDebtCreditView extends StatelessWidget {
                                               model.newODate != null
                                                   ? model.newODate
                                                   : action == 'debit'
-                                                      ? 'Select Date of Purchase'
-                                                      : 'Select Date of Payment',
+                                                      ? AppLocalizations.of(
+                                                              context)
+                                                          .selectDateOfPurchase
+                                                      : AppLocalizations.of(
+                                                              context)
+                                                          .selectDateOfPayment,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -451,7 +456,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                       ),
                                                       Container(
                                                         child: Text(
-                                                          'Add',
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .add,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -554,7 +561,7 @@ class AddDebtCreditView extends StatelessWidget {
                           0,
                           'Reminder: ',
                           action == 'credit'
-                              ? 'You owe ${model.contact.name} ' +
+                              ? '${AppLocalizations.of(context).youOwe} ${model.contact.name}' +
                                   model.amount.round().toString()
                               : '${model.contact.name} owes you ' +
                                   model.amount.round().toString(),

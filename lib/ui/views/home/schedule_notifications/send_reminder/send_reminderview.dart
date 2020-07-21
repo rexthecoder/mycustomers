@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'send_reminderviewmodel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -16,7 +17,7 @@ class SendMessage extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-              title: 'Send Reminder',
+              title: AppLocalizations.of(context).sendReminder,
               arrowColor: Theme.of(context).textSelectionColor),
           body: Container(
             margin: EdgeInsets.only(left: 30, right: 30),
@@ -35,7 +36,8 @@ class SendMessage extends StatelessWidget {
                               style: TextStyle(height: height * 0.002),
                               maxLines: 1,
                               decoration: InputDecoration(
-                                hintText: 'Type a heading',
+                                hintText:
+                                    AppLocalizations.of(context).typeAHeading,
                                 hintStyle: TextStyle(color: ThemeColors.black),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -64,7 +66,8 @@ class SendMessage extends StatelessWidget {
                               style: TextStyle(height: height * 0.002),
                               maxLines: 3,
                               decoration: InputDecoration(
-                                hintText: 'Start typing your message',
+                                hintText: AppLocalizations.of(context)
+                                    .startTypingYourmessage,
                                 hintStyle: TextStyle(color: ThemeColors.black),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -107,7 +110,7 @@ class SendMessage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5.0)),
                           child: Center(
                             child: Text(
-                              'Schedule',
+                              AppLocalizations.of(context).schedule,
                               style: TextStyle(
                                   fontSize: 18.sp, color: BrandColors.primary),
                             ),
@@ -128,7 +131,7 @@ class SendMessage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5.0)),
                           child: Center(
                             child: Text(
-                              'Send',
+                              AppLocalizations.of(context).send,
                               style: TextStyle(
                                 fontSize: 18.sp,
                                 color: ThemeColors.background,

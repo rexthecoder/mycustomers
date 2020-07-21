@@ -16,7 +16,9 @@ class MarketingHomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    Color backgroundColor = Theme.of(context).brightness==Brightness.dark?Theme.of(context).backgroundColor :ThemeColors.gray[400];
+    Color backgroundColor = Theme.of(context).brightness == Brightness.dark
+        ? Theme.of(context).backgroundColor
+        : ThemeColors.gray[400];
     ScreenUtil.init(context,
         width: width, height: height, allowFontScaling: true);
     return ViewModelBuilder<MarketingHomePageViewModel>.reactive(
@@ -46,7 +48,8 @@ class MarketingHomePageView extends StatelessWidget {
                       height: 10.h,
                     ),
                     Text(
-                      'Show your customers that you really care about them',
+                      AppLocalizations.of(context)
+                          .showYourCustomersThatYouReallyCare,
                       style: TextStyle(
                           fontSize: 14.sp,
                           color: Theme.of(context).cursorColor),
@@ -65,7 +68,7 @@ class MarketingHomePageView extends StatelessWidget {
               ? Expanded(
                   child: Container(
                     color: backgroundColor,
-                   width: width,
+                    width: width,
                     // height: height,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -91,7 +94,8 @@ class MarketingHomePageView extends StatelessWidget {
                                 height: SizeConfig.yMargin(context, 3),
                               ),
                               Text(
-                                'It\'s all about sending messages to customers. Click the nice orange button below to get that started',
+                                AppLocalizations.of(context)
+                                    .itsAllAboutSendingMessagesToCustomers,
                                 style: TextStyle(
                                     fontSize: 14.sp,
                                     color: Theme.of(context).cursorColor),
@@ -176,22 +180,23 @@ class MarketingHomePageView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
-                                  'Customer List',
+                                  AppLocalizations.of(context).customerList,
                                   style: TextStyle(
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 InkWell(
                                   child: Container(
-                                    color: BrandColors.secondary.withOpacity(0.07),
+                                    color:
+                                        BrandColors.secondary.withOpacity(0.07),
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Text(
-                                        'Send message to all',
+                                        AppLocalizations.of(context)
+                                            .sendMessageAll,
                                         style: TextStyle(
                                             fontSize: 14.sp,
                                             color: BrandColors.secondary),
-
                                       ),
                                     ),
                                   ),
@@ -212,7 +217,8 @@ class MarketingHomePageView extends StatelessWidget {
                                 textInputAction: TextInputAction.search,
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.search),
-                                  hintText: 'Type customer name',
+                                  hintText: AppLocalizations.of(context)
+                                      .typeCustomerName,
                                   border: InputBorder.none,
                                   focusColor: BrandColors.primary,
                                 ),
@@ -227,21 +233,22 @@ class MarketingHomePageView extends StatelessWidget {
                           ),
                           model.allFrequentCustomers.length == 0
                               ? Container()
-                              :Container(
-                            width: double.infinity,
-                            height: 15.h,
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(
-                                'Frequently contacted',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: BrandColors.primary),
-                              ),
-                            ),
-                          ),
+                              : Container(
+                                  width: double.infinity,
+                                  height: 15.h,
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .frequentlyContacted,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: BrandColors.primary),
+                                    ),
+                                  ),
+                                ),
                           model.allFrequentCustomers.length == 0
                               ? Container()
                               : ListView.builder(
@@ -251,7 +258,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     Customer customer =
-                                    model.allFrequentCustomers[index];
+                                        model.allFrequentCustomers[index];
                                     bool _isSelected =
                                         model.isSelected(customer);
                                     return Container(
@@ -313,13 +320,13 @@ class MarketingHomePageView extends StatelessWidget {
                           model.allFrequentCustomers.length == 0
                               ? Container()
                               : Divider(
-                            color: Colors.grey[300],
-                          ),
+                                  color: Colors.grey[300],
+                                ),
                           model.allFrequentCustomers.length == 0
                               ? Container()
-                              :SizedBox(
-                            height: 10.h,
-                          ),
+                              : SizedBox(
+                                  height: 10.h,
+                                ),
                           Container(
                             width: double.infinity,
                             height: 15.h,
@@ -329,7 +336,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
 //                                'All',
-                                'Frequently contacted',
+                                AppLocalizations.of(context)
+                                    .frequentlyContacted,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: BrandColors.primary),
@@ -581,16 +589,16 @@ class MarketingHomePageView extends StatelessWidget {
                         children: <Widget>[
                           Expanded(
                             child: FlatButton(
-                              onPressed: () async{ 
-                                   final bool isPermitted = await model.checkPermission();
-                                   if(isPermitted){
-                                     model.navigateToAddCustomers(context);
-
-                                   }else{
-                                     permissionDialog(context, model);
-                                   }
-                                   model.navigateToAddCustomer();
-                                },
+                              onPressed: () async {
+                                final bool isPermitted =
+                                    await model.checkPermission();
+                                if (isPermitted) {
+                                  model.navigateToAddCustomers(context);
+                                } else {
+                                  permissionDialog(context, model);
+                                }
+                                model.navigateToAddCustomer();
+                              },
                               color: BrandColors.primary,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
@@ -605,31 +613,34 @@ class MarketingHomePageView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 5.h,),
+                          SizedBox(
+                            width: 5.h,
+                          ),
                           Expanded(
                             child: FlatButton(
-
-                              onPressed: () { model.selectedCustomers.length !=0?
-                               model.navigateToSendMessageView():
-                                Flushbar(
-                                      backgroundColor: BrandColors.primary,
-                                      duration: const Duration(seconds: 3),
-                                      message: 'Select a customer from the list or add new contacts',
-                                      icon: Icon(
-                                        Icons.info_outline,
-                                        size: 28.0,
-                                        color: ThemeColors.background,
-                                      ),
-                                      leftBarIndicatorColor: Colors.blue[300],
-                                    ).show(context);
-                               },
+                              onPressed: () {
+                                model.selectedCustomers.length != 0
+                                    ? model.navigateToSendMessageView()
+                                    : Flushbar(
+                                        backgroundColor: BrandColors.primary,
+                                        duration: const Duration(seconds: 3),
+                                        message:
+                                            'Select a customer from the list or add new contacts',
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          size: 28.0,
+                                          color: ThemeColors.background,
+                                        ),
+                                        leftBarIndicatorColor: Colors.blue[300],
+                                      ).show(context);
+                              },
                               color: BrandColors.secondary,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
                               child: Container(
                                 child: Center(
                                   child: Text(
-                                    'Send message',
+                                    AppLocalizations.of(context).sendMessage,
                                     style: TextStyle(
                                         fontSize: 14.sp, color: Colors.white),
                                   ),
@@ -655,14 +666,14 @@ class MarketingHomePageView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               FlatButton(
-                                onPressed: ()async{ 
-                                   final bool isPermitted = await model.checkPermission();
-                                   if(isPermitted){
-                                     model.navigateToAddCustomers(context);
-
-                                   }else{
-                                     permissionDialog(context, model);
-                                   }
+                                onPressed: () async {
+                                  final bool isPermitted =
+                                      await model.checkPermission();
+                                  if (isPermitted) {
+                                    model.navigateToAddCustomers(context);
+                                  } else {
+                                    permissionDialog(context, model);
+                                  }
                                   //  model.navigateToAddCustomer();
                                 },
                                 color: BrandColors.secondary,
@@ -672,7 +683,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   width: width / 2,
                                   child: Center(
                                     child: Text(
-                                      'Send message',
+                                      AppLocalizations.of(context).sendMessage,
                                       style: TextStyle(
                                           fontSize: 14.sp, color: Colors.white),
                                     ),
@@ -881,12 +892,12 @@ class MarketingHomePageView extends StatelessWidget {
       viewModelBuilder: () => MarketingHomePageViewModel(),
     );
   }
-   Future<void> permissionDialog(
+
+  Future<void> permissionDialog(
       BuildContext context, MarketingHomePageViewModel model) async {
-        
     return showDialog<void>(
         context: context,
-        barrierDismissible: true, 
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Color(0xFF333CC1),
@@ -895,9 +906,9 @@ class MarketingHomePageView extends StatelessWidget {
             content: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                   Container(
+                  Container(
                     child: Text(
-                      "Access denied!",
+                      AppLocalizations.of(context).accessDenied,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.sp,
@@ -908,10 +919,10 @@ class MarketingHomePageView extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-               
                   Container(
                     child: Text(
-                      "My Customer needs access to your contact!",
+                      AppLocalizations.of(context)
+                          .myCustomerNeedsAccessToYourContacts,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
@@ -923,38 +934,37 @@ class MarketingHomePageView extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                     
-                       Expanded(
-                                                child: Container(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                          model.navigateToAddNewCustomer(context);
-                      },
-                      child: Container(
-                            height: 50.h,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Deny',
-                                style: TextStyle(
-                                  color: Color(0xFF333CC1),
-                                  fontSize: 16.sp,
+                      Expanded(
+                        child: Container(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                              model.navigateToAddNewCustomer(context);
+                            },
+                            child: Container(
+                              height: 50.h,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppLocalizations.of(context).deny,
+                                  style: TextStyle(
+                                    color: Color(0xFF333CC1),
+                                    fontSize: 16.sp,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                    ),
-                  ),
-                       ),
-                        SizedBox(
-                    width: 10.h,
-                  ),
-                   Expanded(
-                                        child: Container(
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10.h,
+                      ),
+                      Expanded(
+                        child: Container(
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
@@ -968,7 +978,7 @@ class MarketingHomePageView extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Allow',
+                                  AppLocalizations.of(context).allow,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
                                     fontSize: 16.sp,
@@ -978,11 +988,9 @@ class MarketingHomePageView extends StatelessWidget {
                             ),
                           ),
                         ),
-                   ),
-                
+                      ),
                     ],
                   ),
-                  
                 ],
               ),
             ),

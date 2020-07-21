@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,6 @@ import 'package:mycustomers/ui/shared/const_text.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_viewmodel.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_viewmodel.dart';
-
-
 
 class QuickMessageView extends StatelessWidget {
   final MessageArgument arguments;
@@ -28,64 +27,69 @@ class QuickMessageView extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-              title: 'Quick messages', arrowColor: BrandColors.secondary),
+              title: AppLocalizations.of(context).quickMessage,
+              arrowColor: BrandColors.secondary),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView.builder(
               itemCount: quickMessageTitle.length,
-              itemBuilder: (BuildContext context, int index)=>Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 20.h,
-                ),
-                FlatButton(
-                  onPressed: () =>
-                      model.navigateToMessageView(arguments.selectedCustomers,quickMessageTitle[index],
-                          quickMessageText[index]),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                      side: BorderSide(color: BrandColors.secondary)),
-                  child: Container(
-                    height: 100.h,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(quickMessageTitle[index],
-                                  style: TextStyle(
-                                    color: BrandColors.secondary,
-                                    fontSize: 16.sp,
+              itemBuilder: (BuildContext context, int index) => Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  FlatButton(
+                    onPressed: () => model.navigateToMessageView(
+                        arguments.selectedCustomers,
+                        quickMessageTitle[index],
+                        quickMessageText[index]),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide(color: BrandColors.secondary)),
+                    child: Container(
+                      height: 100.h,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    quickMessageTitle[index],
+                                    style: TextStyle(
+                                      color: BrandColors.secondary,
+                                      fontSize: 16.sp,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text(quickMessageText[index],
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: BrandColors.secondary,
+                                  SizedBox(
+                                    height: 5.h,
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    quickMessageText[index],
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      color: BrandColors.secondary,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Icon(
-                            Icons.navigate_next,
-                            color: BrandColors.secondary,
-                          ),
-                        ],
+                            Icon(
+                              Icons.navigate_next,
+                              color: BrandColors.secondary,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),),
+                ],
+              ),
+            ),
           ),
 //          body: SingleChildScrollView(
 //            child: Padding(

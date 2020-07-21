@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
@@ -45,7 +46,11 @@ class MainTransaction extends StatelessWidget {
                                     radius: 25,
                                     backgroundColor:
                                         Theme.of(context).textSelectionColor,
-                                    child: Text(model.contact.initials, style: TextStyle(color: ThemeColors.background),),
+                                    child: Text(
+                                      model.contact.initials,
+                                      style: TextStyle(
+                                          color: ThemeColors.background),
+                                    ),
                                   ),
                                 )
                               : Container(
@@ -173,7 +178,8 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Download',
+                                            AppLocalizations.of(context)
+                                                .download,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -187,7 +193,7 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Report',
+                                            AppLocalizations.of(context).report,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -220,7 +226,7 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Send',
+                                            AppLocalizations.of(context).send,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -234,7 +240,8 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                         Container(
                                           child: Text(
-                                            'Reminder',
+                                            AppLocalizations.of(context)
+                                                .reminder,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline5
@@ -373,7 +380,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: <Widget>[
                                                                                   Text(
-                                                                                    'Cost of goods purchased',
+                                                                                    AppLocalizations.of(context).costOfGoodsPurchased,
                                                                                     style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                           fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                           color: Theme.of(context).cursorColor,
@@ -601,7 +608,9 @@ class MainTransaction extends StatelessWidget {
                                                           fontSize: SizeConfig
                                                               .yMargin(
                                                                   context, 2.3),
-                                                          color: Theme.of(context).cursorColor,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .cursorColor,
                                                         ),
                                                   ),
                                                   Text(
@@ -677,10 +686,10 @@ class MainTransaction extends StatelessWidget {
   }
 
   void itemAction(String item, BuildContext context) {
-    if (item == 'SMS') {
+    if (item == AppLocalizations.of(context).sms) {
       // Navigator.pushNamed(context, '/transactionHistory');
       //Code to send sms
-    } else if (item == 'Call') {
+    } else if (item == AppLocalizations.of(context).call) {
       // Navigator.pushNamed(context, '/transactionDetails');
       //Code to call customer
     } else {
@@ -719,7 +728,7 @@ class AddTransaction extends StatelessWidget {
                                 height: SizeConfig.yMargin(context, 8),
                                 child: Center(
                                     child: Text(
-                                  'Add Debt',
+                                  AppLocalizations.of(context).addDebt,
                                   style: TextStyle(
                                       color:
                                           Theme.of(context).textSelectionColor,
@@ -753,7 +762,7 @@ class AddTransaction extends StatelessWidget {
                                 height: SizeConfig.yMargin(context, 8),
                                 child: Center(
                                     child: Text(
-                                  'Cancel',
+                                  AppLocalizations.of(context).cancel,
                                   style: TextStyle(
                                       color: Colors.red,
                                       fontSize:
@@ -775,7 +784,7 @@ class AddTransaction extends StatelessWidget {
         width: width,
         child: Center(
           child: Text(
-            'Add Transaction',
+            AppLocalizations.of(context).addTransaction,
             style: Theme.of(context).textTheme.headline6.copyWith(
                   fontSize: SizeConfig.yMargin(context, 2.3),
                   color: Colors.white,

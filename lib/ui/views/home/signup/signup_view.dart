@@ -30,7 +30,7 @@ class SignUpView extends StatelessWidget {
         child: SafeArea(
           child: WillPopScope(
             onWillPop: () => model.navigateToOnboarding(),
-                      child: Scaffold(
+            child: Scaffold(
               key: _signupPageKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: BrandColors.primary,
@@ -67,8 +67,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
             Text(
-          // AppLocalizations.of(context).signUp,
-          'SIGN UP',
+              // AppLocalizations.of(context).signUp,
+              AppLocalizations.of(context).signUp,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: SizeConfig.textSize(context, 6),
@@ -80,7 +80,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your phone number',
+                  AppLocalizations.of(context).pleaseEnterYourPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -110,7 +110,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 ignoreBlank: false,
                 // autoValidate: true,
                 // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
-                errorMessage: 'Invalid Phone Number',
+                errorMessage: AppLocalizations.of(context).invalidPhoneNo,
                 selectorType: PhoneInputSelectorType.DIALOG,
                 selectorTextStyle:
                     TextStyle(color: Theme.of(context).cursorColor),
@@ -125,7 +125,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your password',
+                  AppLocalizations.of(context).pleaseEnterPassword,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                   //     },
                   //   ),
                   // ),
-                  labelText: "Password",
+                  labelText: AppLocalizations.of(context).password,
                   // border: OutlineInputBorder(),
                 ),
               ),
@@ -185,7 +185,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               btnColor: BrandColors.primary,
               txtColor: ThemeColors.background,
               borderColor: BrandColors.primary,
-              btnText: 'Next',
+              btnText: AppLocalizations.of(context).nextButton,
               onPressed: () async {
                 // viewModel.signUpTest();
                 if (!_signupFormPageKey.currentState.validate()) return;

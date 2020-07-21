@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import './schedule_reminderviewmodel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -29,7 +30,7 @@ class ScheduleNotifications extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: customizeAppBar(context, 1.0,
-                title: 'Schedule Reminder',
+                title: AppLocalizations.of(context).scheduleReminder,
                 arrowColor: Theme.of(context).textSelectionColor),
             body: Container(
               margin: EdgeInsets.only(left: 30, right: 30),
@@ -44,7 +45,8 @@ class ScheduleNotifications extends StatelessWidget {
                               height: 10.h,
                             ),
                             Text(
-                              'Pick a date and type in your message',
+                              AppLocalizations.of(context)
+                                  .pickADateAndTypeInYourMessage,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -112,7 +114,9 @@ class ScheduleNotifications extends StatelessWidget {
                                         children: <Widget>[
                                           Container(
                                             child: Text(
-                                              model.newDate ?? 'Select Date',
+                                              model.newDate ??
+                                                  AppLocalizations.of(context)
+                                                      .selectDate,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -155,7 +159,8 @@ class ScheduleNotifications extends StatelessWidget {
                                     child: TextFormField(
                                       validator: (value) {
                                         if (value.isEmpty) {
-                                          return 'Field should not be empty!';
+                                          return AppLocalizations.of(context)
+                                              .fieldShouldNotBeEmpty;
                                         }
                                         return null;
                                       },
@@ -163,7 +168,8 @@ class ScheduleNotifications extends StatelessWidget {
                                       style: TextStyle(height: height * 0.002),
                                       maxLines: 1,
                                       decoration: InputDecoration(
-                                        hintText: 'Type a heading',
+                                        hintText: AppLocalizations.of(context)
+                                            .typeAHeading,
                                         hintStyle: TextStyle(
                                             color: BrandColors.greyedText),
                                         border: OutlineInputBorder(
@@ -196,7 +202,8 @@ class ScheduleNotifications extends StatelessWidget {
                                     child: TextFormField(
                                       validator: (value) {
                                         if (value.isEmpty) {
-                                          return 'Field should not be empty!';
+                                          return AppLocalizations.of(context)
+                                              .fieldShouldNotBeEmpty;
                                         }
                                         return null;
                                       },
@@ -204,7 +211,8 @@ class ScheduleNotifications extends StatelessWidget {
                                       style: TextStyle(height: height * 0.002),
                                       maxLines: 3,
                                       decoration: InputDecoration(
-                                        hintText: 'Start typing your message',
+                                        hintText: AppLocalizations.of(context)
+                                            .startTypingYourmessage,
                                         hintStyle: TextStyle(
                                             color: BrandColors.greyedText),
                                         border: OutlineInputBorder(
@@ -250,7 +258,8 @@ class ScheduleNotifications extends StatelessWidget {
                         if (_schedule.currentState.validate()) {
                           reminders.sendNotificationOnce(
                               random,
-                              'You a have a pending message to send',
+                              AppLocalizations.of(context)
+                                  .youHaveAPendingMessageToSend,
                               'Heading: ' + _heading.text,
                               model.getDateTime());
                           await Navigator.pushNamed(
@@ -262,7 +271,7 @@ class ScheduleNotifications extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5.0)),
                       child: Center(
                         child: Text(
-                          'Schedule',
+                          AppLocalizations.of(context).schedule,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: ThemeColors.background,

@@ -115,7 +115,8 @@ class DebtorsView extends StatelessWidget {
                                       height: 20.h,
                                     ),
                                     Text(
-                                        'You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
+                                        AppLocalizations.of(context)
+                                            .youDoNotHaveAnyCustomerOwingYou,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Theme.of(context)

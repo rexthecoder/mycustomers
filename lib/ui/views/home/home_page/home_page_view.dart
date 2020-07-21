@@ -64,7 +64,7 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               AppLocalizations.of(context).peopleYouOwe,
                               textAlign: TextAlign.center,
-                               style: TextStyle(
+                              style: TextStyle(
                                 fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
@@ -76,9 +76,9 @@ class HomePageView extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "All Customers",
+                              AppLocalizations.of(context).allCustomers,
                               textAlign: TextAlign.center,
-                               style: TextStyle(
+                              style: TextStyle(
                                 fontSize: SizeConfig.yMargin(context, 1.5),
                               ),
                             ),
@@ -96,8 +96,8 @@ class HomePageView extends StatelessWidget {
                         CreditorsView(),
                         model.contacts.length == 0
                             ? Center(
-                              child: Text('No Customer Added'),
-                            )
+                                child: Text('No Customer Added'),
+                              )
                             : ContactList()
                       ],
                     ),
@@ -222,10 +222,11 @@ class ContactList extends StatelessWidget {
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
-                                title: Text(
-                                  item.name,
-                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                                ),
+                                title: Text(item.name,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize:
+                                            SizeConfig.yMargin(context, 2))),
                               ),
                             ),
                           )

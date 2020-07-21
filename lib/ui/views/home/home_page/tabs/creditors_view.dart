@@ -49,9 +49,12 @@ class CreditorsView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'You are owing customers',
+                                AppLocalizations.of(context)
+                                    .youAreOwingCustomers,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: SizeConfig.yMargin(context, 2),),
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.yMargin(context, 2),
+                                ),
                               ),
                               model.whatyouowe > 0
                                   ? Text(
@@ -61,7 +64,8 @@ class CreditorsView extends StatelessWidget {
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: SizeConfig.yMargin(context, 5),
+                                          fontSize:
+                                              SizeConfig.yMargin(context, 5),
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.bold),
                                     )
@@ -70,7 +74,8 @@ class CreditorsView extends StatelessWidget {
                                           text: '₦ 0.',
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: SizeConfig.yMargin(context, 5),
+                                              fontSize: SizeConfig.yMargin(
+                                                  context, 5),
                                               fontFamily: 'Roboto',
                                               fontWeight: FontWeight.bold),
                                           children: <TextSpan>[
@@ -78,7 +83,8 @@ class CreditorsView extends StatelessWidget {
                                               text: '00.',
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: SizeConfig.yMargin(context, 3),
+                                                  fontSize: SizeConfig.yMargin(
+                                                      context, 3),
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.bold),
                                             )
@@ -99,16 +105,21 @@ class CreditorsView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     SvgPicture.asset(
-                                        'assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
+                                      'assets/images/no-transaction.svg',
+                                      height: SizeConfig.yMargin(context, 18),
+                                    ),
                                     SizedBox(
                                       height: 20.h,
                                     ),
                                     Text(
-                                      'You don\'t owe any customer. Tap the big orange button at the bottom of the screen to add one',
+                                      AppLocalizations.of(context)
+                                          .youCurrentlyDoNotOweAnyPerson,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Theme.of(context)
-                                              .textSelectionColor, fontSize: SizeConfig.yMargin(context, 2)),
+                                              .textSelectionColor,
+                                          fontSize:
+                                              SizeConfig.yMargin(context, 2)),
                                     ),
                                   ],
                                 ),
@@ -187,9 +198,9 @@ class ContactList extends StatelessWidget {
             ),
             model.sCName != null && !model.containsC
                 ? Text(
-                  'No Customer Found',
-                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
-                )
+                    'No Customer Found',
+                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                  )
                 : SizedBox(),
             for (var cont in model.owedcustomers)
               for (var item in model.contacts)
@@ -233,8 +244,10 @@ class ContactList extends StatelessWidget {
                                                     fit: BoxFit.cover)),
                                           ),
                                     title: Text(item.name,
-                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                                    ),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2))),
                                     /*subtitle: Text(
                       DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
                     ),*/
@@ -247,15 +260,18 @@ class ContactList extends StatelessWidget {
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.paiddate == null ? BrandColors.secondary : (DateTime.now()
-                                                        .difference(
-                                                            DateTime.parse(
-                                                                cont.paiddate))
-                                                        .inDays) >
-                                                    0
-                                                ? Colors.red
-                                                : Colors.green,
-                                            fontSize: SizeConfig.yMargin(context, 1.8),
+                                            color: cont.paiddate == null
+                                                ? BrandColors.secondary
+                                                : (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .paiddate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 1.8),
                                             fontFamily: 'Roboto'),
                                       ),
                                     ),
@@ -300,8 +316,10 @@ class ContactList extends StatelessWidget {
                                                     fit: BoxFit.cover)),
                                           ),
                                     title: Text(item.name,
-                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                                    ),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2))),
                                     /*subtitle: Text(
                     DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
                   ),*/
@@ -314,15 +332,18 @@ class ContactList extends StatelessWidget {
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.paiddate == null ? BrandColors.secondary : (DateTime.now()
-                                                        .difference(
-                                                            DateTime.parse(
-                                                                cont.paiddate))
-                                                        .inDays) >
-                                                    0
-                                                ? Colors.red
-                                                : Colors.green,
-                                            fontSize: SizeConfig.yMargin(context, 1.8),
+                                            color: cont.paiddate == null
+                                                ? BrandColors.secondary
+                                                : (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .paiddate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 1.8),
                                             fontFamily: 'Roboto'),
                                       ),
                                     ),
