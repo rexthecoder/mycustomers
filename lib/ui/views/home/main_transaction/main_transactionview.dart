@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
@@ -192,8 +193,9 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {
-                                    SavedDialog().showPdfDialog(context);
+                                  onTap: () async{
+                                    ReceiptReport().buildPdf(context);
+                                    await ReceiptReport().generateReport(context);
                                   },
                                   child: Container(
                                     child: Column(
