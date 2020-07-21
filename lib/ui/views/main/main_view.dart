@@ -37,9 +37,9 @@ class MainView extends StatelessWidget {
   final String business = 'assets/icons/svg/business.svg';
 
   final _views = <Widget>[
-    FadeIn(child: HomePageView()),
-    FadeIn(child: MarketingHomePageView()),
-    FadeIn(child: BusinessHomePageView()),
+    HomePageView(),
+    MarketingHomePageView(),
+    BusinessHomePageView(),
   ];
 
   @override
