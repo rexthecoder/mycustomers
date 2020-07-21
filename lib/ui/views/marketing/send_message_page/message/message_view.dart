@@ -662,32 +662,7 @@ class BottomSheetView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   padding: EdgeInsets.all(30.w),
-                      //   child: FlatButton(
-                      //     onPressed: () {
-                      //       parentModel.mergeSelectCustomer(model.selectedCustomers);
-                      //       Navigator.pop(context);
-                      //     },
-                      //     color: BrandColors.secondary,
-                      //     padding: EdgeInsets.symmetric(vertical: 15.0),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(5.0),
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: <Widget>[
-                      //         Text(
-                      //           'Continue',
-                      //           style: TextStyle(
-                      //             color: Colors.white,
-                      //             fontWeight: FontWeight.bold,
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                      
                     ],
                   ),
                 ),
