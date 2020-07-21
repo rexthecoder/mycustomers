@@ -8,7 +8,7 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 class BusinessHomePageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
-  String get profileCardTitle => StoreRepository?.currentStore?.name ?? 'None';
+  String get profileCardTitle => 'Profile';
 
   String get profileCardSubtitle =>
       StoreRepository?.currentStore?.address ?? '---';

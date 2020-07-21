@@ -29,12 +29,13 @@ class SettingsPage extends StatelessWidget {
                       child: SingleChildScrollView(
                           child: Column(
                         children: <Widget>[
-                          cardTile(
+                          CustomPartialBuild<SettingManagerModel>(
+                            builder: (context, viewModel) => cardTile(
                               AppLocalizations.of(context).changeLanguage,
-                              model.langs[model.langIndex]['name'],
+                              viewModel.selectedLanguage,
                               //Todo: Set Functionality to Change when Language is Changed,
                               model.navigateToLanguageSettings,
-                              context),
+                              context),),
                           cardTile(
                               AppLocalizations.of(context).changeCurrency,
                               model.currs[model.currIndex]['name'],

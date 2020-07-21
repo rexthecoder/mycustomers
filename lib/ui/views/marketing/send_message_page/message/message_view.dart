@@ -119,7 +119,7 @@ class MessageView extends StatelessWidget {
                               onPressed: () async {
                                 final bool isPermitted =
                                     await model.checkPermission();
-                                if (isPermitted) {
+                                if (!isPermitted) {
                                   permissionDialog(context, model);
                                 } else {
                                   showModalBottomSheet(
@@ -177,7 +177,6 @@ class MessageView extends StatelessWidget {
                               customer: model.selectedCustomers.length != 0
                                   ? model.selectedCustomers[index]
                                   : arguments.selectedCustomers[index],
-//                                customer: Customer(name: 'jmsb',phone: '278849'),
                               action: 'debtor',
                             ),
                           ),
@@ -380,7 +379,7 @@ class MessageView extends StatelessWidget {
                   Container(
                     child: InkWell(
                       onTap: () {
-                        model.returnHome(arguments.isQuick);
+                        model.returnHome();
                         //TODO: route to screen
                       },
                       child: Container(
@@ -667,32 +666,6 @@ class BottomSheetView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   padding: EdgeInsets.all(30.w),
-                      //   child: FlatButton(
-                      //     onPressed: () {
-                      //       parentModel.mergeSelectCustomer(model.selectedCustomers);
-                      //       Navigator.pop(context);
-                      //     },
-                      //     color: BrandColors.secondary,
-                      //     padding: EdgeInsets.symmetric(vertical: 15.0),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(5.0),
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: <Widget>[
-                      //         Text(
-                      //           'Continue',
-                      //           style: TextStyle(
-                      //             color: Colors.white,
-                      //             fontWeight: FontWeight.bold,
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

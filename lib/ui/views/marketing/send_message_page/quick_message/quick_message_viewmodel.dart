@@ -15,7 +15,12 @@ class QuickMessageViewModel extends BaseViewModel {
   }
 
   Future navigateToMessageView(selected, title, message) async {
-    MessageArgument argument = MessageArgument(selectedCustomers: selected, title: title,message: message, isQuick: true);
+    MessageArgument argument = MessageArgument(selectedCustomers: selected, title: title,message: message);
      await _navigationService.navigateTo(Routes.messageView,arguments: argument);
+  }
+
+  Future navigateToMessage(selected) async {
+    MessageArgument  argument = MessageArgument(selectedCustomers: selected,title: '',message: '');
+    await _navigationService.navigateTo(Routes.messageView, arguments: argument);
   }
 }

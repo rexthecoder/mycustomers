@@ -46,7 +46,7 @@ class StuffModel extends BaseViewModel {
      await _navigationService.navigateTo(Routes.quickMessages, arguments: argument);
   }
   Future navigateToMessage(selected) async {
-    MessageArgument  argument = MessageArgument(selectedCustomers: selected,title: '',message: '', isQuick: false);
+    MessageArgument  argument = MessageArgument(selectedCustomers: selected,title: '',message: '');
      await _navigationService.navigateTo(Routes.messageView, arguments: argument);
   }
 }

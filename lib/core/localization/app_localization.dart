@@ -235,7 +235,7 @@ class AppLocalizations {
   String get notPickedImage => translate(LocalKeys.not_picked_image);
   String get addProfilePicture => translate(LocalKeys.add_profile_picture);
   String get darkMode => translate(LocalKeys.dark_mode);
-  String get setApplock_Pin => translate(LocalKeys.set_applock_pin);
+  String get setApplockPin => translate(LocalKeys.set_applock_pin);
   String get enterOldPin => translate(LocalKeys.enter_old_pin);
   String get currency => translate(LocalKeys.currency);
   String get language => translate(LocalKeys.language);

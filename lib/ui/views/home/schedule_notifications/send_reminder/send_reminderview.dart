@@ -38,7 +38,8 @@ class SendMessage extends StatelessWidget {
                               decoration: InputDecoration(
                                 hintText:
                                     AppLocalizations.of(context).typeAHeading,
-                                hintStyle: TextStyle(color: ThemeColors.black),
+                                hintStyle:
+                                    TextStyle(color: BrandColors.greyedText),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: ThemeColors.gray, width: 2.0),
@@ -68,7 +69,8 @@ class SendMessage extends StatelessWidget {
                               decoration: InputDecoration(
                                 hintText: AppLocalizations.of(context)
                                     .startTypingYourmessage,
-                                hintStyle: TextStyle(color: ThemeColors.black),
+                                hintStyle:
+                                    TextStyle(color: BrandColors.greyedText),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: ThemeColors.gray, width: 2.0),
