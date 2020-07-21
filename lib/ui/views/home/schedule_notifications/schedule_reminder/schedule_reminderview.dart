@@ -250,7 +250,7 @@ class ScheduleNotifications extends StatelessWidget {
                         if (_schedule.currentState.validate()) {
                           reminders.sendNotificationOnce(
                               random,
-                              'You a have a pending message to send',
+                              'You have this pending message to send',
                               'Heading: ' + _heading.text,
                               model.getDateTime());
                           await Navigator.pushNamed(
