@@ -90,27 +90,29 @@ class TransactionDetails extends StatelessWidget {
                                       SizedBox(
                                         width: 20.w,
                                       ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Flexible(
-                                            child: Text(
-                                              model.contact.name,
-                                              style: TextStyle(
-                                                fontSize: 40.sp,
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Flexible(
+                                              child: Text(
+                                                model.contact.name,
+                                                style: TextStyle(
+                                                  fontSize: 40.sp,
+                                                ),
                                               ),
-                                            ),
-                                          ), // TODO: implement Profile picture
-                                          Text(
-                                            model.contact.phoneNumber,
-                                            style: TextStyle(
-                                              fontSize: 30.sp,
-                                              color: Colors.grey[600],
-                                            ),
-                                          )
-                                        ],
+                                            ), // TODO: implement Profile picture
+                                            Text(
+                                              model.contact.phoneNumber,
+                                              style: TextStyle(
+                                                fontSize: 30.sp,
+                                                color: Colors.grey[600],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -339,64 +341,6 @@ class TransactionDetails extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap:
-                                        () {}, // TODO: implement delete button
-                                    child: Container(
-                                      height: 90.sp,
-                                      decoration: BoxDecoration(
-                                          color: containerColor,
-                                          border: Border.all(
-                                            color: BrandColors.primary,
-                                          ),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(8.sp),
-                                              bottomLeft:
-                                                  Radius.circular(10.sp))),
-                                      child: Center(
-                                        child: Text(
-                                          AppLocalizations.of(context).delete,
-                                          style: TextStyle(
-                                              fontSize: 30.sp,
-                                              color: BrandColors.primary,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {}, // TODO: implement Edit button
-                                    child: Container(
-                                      height: 90.sp,
-                                      decoration: BoxDecoration(
-                                        color: BrandColors.primary
-                                            .withOpacity(0.9),
-                                        //border: Border(top: BorderSide(color: Colors.blue)),
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(8.sp),
-                                            bottomRight:
-                                                Radius.circular(10.sp)),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          AppLocalizations.of(context).edit,
-                                          style: TextStyle(
-                                            fontSize: 30.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
@@ -404,130 +348,191 @@ class TransactionDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                   //   TODO: PDF
-                      // ReceiptReport().buildPdf(context);
-                      Navigator.of(context).push(new PageRouteBuilder(
-                          opaque: false,
-                          barrierColor: Colors.black.withOpacity(0.5),
-                          barrierDismissible: true,
-                          pageBuilder: (BuildContext context, __, _) {
-                            return Center(
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 1,
-                                    child: SizedBox(),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      padding: EdgeInsets.only(
-                                          top: 20,
-                                          left: 10,
-                                          right: 10,
-                                          bottom: 80),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        //borderRadius: BorderRadius.only(topRight: Radius.circular(40.sp), topLeft: Radius.circular(40.sp))
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          GestureDetector(
-                                            onTap: () => Navigator.pop(context),
-                                            child: SvgPicture.asset(
-                                              'assets/icons/cancel.svg',
-                                              color: BrandColors.primary,
-                                              width: 50.w,
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Container(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.w),
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {}, // TODO: implement delete button
+                      child: Container(
+                        height: 90.sp,
+                        width: 280.sp,
+                        decoration: BoxDecoration(
+                            color: containerColor,
+                            border: Border.all(
+                              color: BrandColors.primary,
+                            ),
+                            borderRadius: BorderRadius.circular(20.sp)),
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context).delete,
+                            style: TextStyle(
+                                fontSize: 30.sp,
+                                color: BrandColors.primary,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {}, // TODO: implement Edit button
+                      child: Container(
+                        height: 90.sp,
+                        width: 280.sp,
+                        decoration: BoxDecoration(
+                          color: BrandColors.primary.withOpacity(0.9),
+                          //border: Border(top: BorderSide(color: Colors.blue)),
+                          borderRadius: BorderRadius.circular(20.sp),
+                        ),
+                        child: Center(
+                          child: Text(
+                            AppLocalizations.of(context).edit,
+                            style: TextStyle(
+                              fontSize: 30.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 60.sp,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    //   TODO: PDF
+                    // ReceiptReport().buildPdf(context);
+                    Navigator.of(context).push(new PageRouteBuilder(
+                        opaque: false,
+                        barrierColor: Colors.black.withOpacity(0.5),
+                        barrierDismissible: true,
+                        pageBuilder: (BuildContext context, __, _) {
+                          return Center(
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                        top: 20,
+                                        left: 10,
+                                        right: 10,
+                                        bottom: 80),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      //borderRadius: BorderRadius.only(topRight: Radius.circular(40.sp), topLeft: Radius.circular(40.sp))
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Center(
+                                                child: Container(
                                                   margin: EdgeInsets.only(
                                                       bottom: 10),
                                                   child: Text(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .shareTo,
-
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headline5
-                                                          .copyWith(
-                                                            fontSize: 40.sp,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: color,
-                                                          ))),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: <Widget>[
-                                              BottomButton(
-                                                text: 'Facebook',
-                                                imagePath:
-                                                    'assets/images/Subtract.svg',
+                                                    AppLocalizations.of(context)
+                                                        .shareTo,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline5
+                                                        .copyWith(
+                                                          fontSize: 40.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: color,
+                                                        ),
+                                                  ),
+                                                ),
                                               ),
-                                              BottomButton(
-                                                text: 'Whatsapp',
-                                                imagePath:
-                                                    'assets/images/Page-1.svg',
+                                            ),
+                                            GestureDetector(
+                                              onTap: () =>
+                                                  Navigator.pop(context),
+                                              child: SvgPicture.asset(
+                                                'assets/icons/cancel.svg',
+                                                color: BrandColors.primary,
+                                                width: 35.w,
                                               ),
-                                              BottomButton(
-                                                text: 'Gmail',
-                                                imagePath:
-                                                    'assets/images/super-g.svg',
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                            ),
+                                            SizedBox(
+                                              width: 10.w,
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: <Widget>[
+                                            BottomButton(
+                                              text: 'Facebook',
+                                              imagePath:
+                                                  'assets/images/Subtract.svg',
+                                            ),
+                                            BottomButton(
+                                              text: 'Whatsapp',
+                                              imagePath:
+                                                  'assets/images/Page-1.svg',
+                                            ),
+                                            BottomButton(
+                                              text: 'Gmail',
+                                              imagePath:
+                                                  'assets/images/super-g.svg',
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            );
-                          }));
-                    }, // TODO: implement this part i dont understand
-                    child: Container(
-                      height: 90.h,
-                      width: 350.w,
-                      decoration: BoxDecoration(
-                          color: BrandColors.primary,
-                          borderRadius: BorderRadius.circular(15.sp)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SvgPicture.asset('assets/images/Vector.svg'),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          Text(
-                            AppLocalizations.of(context).share,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 30.sp),
-                          ),
-                        ],
-                      ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }));
+                  }, // TODO:
+                  child: Container(
+                    height: 90.h,
+                    width: 350.w,
+                    decoration: BoxDecoration(
+                        color: BrandColors.primary,
+                        borderRadius: BorderRadius.circular(15.sp)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SvgPicture.asset('assets/images/Vector.svg'),
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Text(
+                          AppLocalizations.of(context).share,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 30.sp),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
+              Spacer(),
             ],
           ),
         );
@@ -557,7 +562,7 @@ class BottomButton extends StatelessWidget {
           GestureDetector(
             onTap: onTap,
             child: Container(
-              margin: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
+              margin: EdgeInsets.only(top: 20, bottom: 20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: Colors.grey[200])),
