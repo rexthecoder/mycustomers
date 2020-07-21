@@ -90,7 +90,7 @@ class MarketingHomePageView extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400,
-                                    color: BrandColors.primary),
+                                    color: Theme.of(context).textSelectionColor),
                                 textAlign: TextAlign.center,
 // =======
 //                               Container(

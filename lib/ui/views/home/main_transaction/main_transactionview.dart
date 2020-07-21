@@ -698,7 +698,7 @@ class MainTransaction extends StatelessWidget {
       // Navigator.pushNamed(context, '/transactionDetails');
       //Code to call customer
     } else {
-      Navigator.pushNamed(context, '/setReminders');
+      //
     }
   }
 }

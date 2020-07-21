@@ -179,7 +179,7 @@ class ContactList extends StatelessWidget {
                 //controller: model.allCustomersController,
                 //onChanged: model.searchAllCustomers,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Theme.of(context).cursorColor,
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
@@ -278,10 +278,7 @@ class ContactList extends StatelessWidget {
                                                                       .inDays
                                                                       .abs())
                                                                   .toString() +
-                                                              cont.duedate ==
-                                                          '1'
-                                                      ? ' day'
-                                                      : 'days'
+                                                              ' days'
                                           : '',
                                       style: TextStyle(
                                           fontSize:
@@ -416,10 +413,7 @@ class ContactList extends StatelessWidget {
                                                   ? 'Expected ' +
                                                               (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                                   .toString() +
-                                                              cont.duedate ==
-                                                          '1'
-                                                      ? ' day ago'
-                                                      : 'days ago'
+                                                              ' days ago'
                                                   : 'Expected in ' +
                                                       (DateTime.now()
                                                               .difference(

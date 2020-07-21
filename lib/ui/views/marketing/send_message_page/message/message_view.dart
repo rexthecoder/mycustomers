@@ -115,20 +115,17 @@ class MessageView extends StatelessWidget {
                             ),
                             FlatButton.icon(
                               onPressed: () async {
-
-                                 final bool isPermitted = await model.checkPermission();
-                                 if(!isPermitted){
-                                   permissionDialog(context, model) ;
-                                   
-                                  }else{
-                                    
-                                    showModalBottomSheet(
-                                      enableDrag: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
-                                        ),
+                                final bool isPermitted =
+                                    await model.checkPermission();
+                                if (!isPermitted) {
+                                  permissionDialog(context, model);
+                                } else {
+                                  showModalBottomSheet(
+                                    enableDrag: true,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
                                       ),
                                     ),
                                     context: context,
@@ -175,9 +172,9 @@ class MessageView extends StatelessWidget {
                             itemCount: length,
                             itemBuilder: (BuildContext context, int index) =>
                                 CustomerCircleAvatar(
-                              customer: model.selectedCustomers.length !=0?
-                              model.selectedCustomers[index]:
-                              arguments.selectedCustomers[index],
+                              customer: model.selectedCustomers.length != 0
+                                  ? model.selectedCustomers[index]
+                                  : arguments.selectedCustomers[index],
                               action: 'debtor',
                             ),
                           ),
@@ -665,32 +662,7 @@ class BottomSheetView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   padding: EdgeInsets.all(30.w),
-                      //   child: FlatButton(
-                      //     onPressed: () {
-                      //       parentModel.mergeSelectCustomer(model.selectedCustomers);
-                      //       Navigator.pop(context);
-                      //     },
-                      //     color: BrandColors.secondary,
-                      //     padding: EdgeInsets.symmetric(vertical: 15.0),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(5.0),
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: <Widget>[
-                      //         Text(
-                      //           'Continue',
-                      //           style: TextStyle(
-                      //             color: Colors.white,
-                      //             fontWeight: FontWeight.bold,
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                      
                     ],
                   ),
                 ),
