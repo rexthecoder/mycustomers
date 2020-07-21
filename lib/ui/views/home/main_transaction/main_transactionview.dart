@@ -160,7 +160,7 @@ class MainTransaction extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {},//Todo: Reminder Functionality
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -229,7 +229,7 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {},//Todo: Message Functionality
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -262,7 +262,7 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {},
+                                  onTap: () {},//Todo: Call Functionality
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
