@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
@@ -10,15 +11,24 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
 
+abstract class CustomerContactDataSource{
+  Future<void> init();
+}
+
 @lazySingleton
-class CustomerContactService with ReactiveServiceMixin {
-  static const String _boxname = "contactBox";
+class CustomerContactService extends CustomerContactDataSource with ReactiveServiceMixin {
+  //static const String _boxname = "contactBox";
+  final _hiveService = locator<HiveInterface>();
+
+  bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.contact);
+  Box<CustomerContact> get _contactBox => _hiveService.box<CustomerContact>(HiveBox.contact);
+  
   RxValue<List<CustomerContact>> _contacts = RxValue<List<CustomerContact>>(initial: []);
   List<CustomerContact> get contacts => _contacts.value;
   bool success, error;
 
   NavigationService _navigationService = locator<NavigationService>();
-  var box = Hive.openBox<CustomerContact>(_boxname);
+  //var box = Hive.openBox<CustomerContact>(_boxname);
 
   RxValue<CustomerContact> _contact = RxValue<CustomerContact> (initial: null);
   CustomerContact get contact => _contact.value;
@@ -31,9 +41,18 @@ class CustomerContactService with ReactiveServiceMixin {
     listenToReactiveValues([_contacts, _contact]);
   }
 
+  @override
+  Future<void> init() async {
+    _hiveService.registerAdapter(CustomerContactAdapter());
+
+    if (!_isBoxOpen) {
+      await _hiveService.openBox<CustomerContact>(HiveBox.contact);
+    }
+  }
+
   void getContacts() async {
-    final bbox = await box;
-    _contacts.value = bbox.values.toList();
+    //final bbox = await box;
+    _contacts.value = _contactBox.values.toList();
     _contacts.value.sort((a,b) => b.id.compareTo(a.id));
   }
 
@@ -60,9 +79,9 @@ class CustomerContactService with ReactiveServiceMixin {
     print(dropDownValue);
     if(customerName != null && customerPhoneNumber != null) {
       print('sent');
-      final bbox = await box;
+      //final bbox = await box;
       bool isStored = false;
-      for(var item in bbox.values.toList()){
+      for(var item in _contactBox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber){
           _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid);
           isStored = true;
@@ -84,12 +103,12 @@ class CustomerContactService with ReactiveServiceMixin {
         //_navigationService.navigateTo(Routes.mainTransaction);
       } else {
         CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid);
-        bbox.add(contact).then((value){
+        _contactBox.add(contact).then((value){
           success = true;
           print(success);
           _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid);
           print('set ${contact.id}');
-          _contacts.value = bbox.values.toList();
+          _contacts.value = _contactBox.values.toList();
           TransactionModel ntransaction = new TransactionModel(
             cId: contact.id,
             sId: transaction.sId,
@@ -110,7 +129,7 @@ class CustomerContactService with ReactiveServiceMixin {
           print('Failed To save Contact');
           success = false;
         });
-        print(bbox.values.toList());
+        print(_contactBox.values.toList());
       }
       
     }

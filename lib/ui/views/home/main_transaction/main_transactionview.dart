@@ -33,10 +33,10 @@ class MainTransaction extends StatelessWidget {
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(70.0),
                   child: AppBar(
-                    brightness: Brightness.light,
+                    brightness: Brightness.dark,
                     elevation: .5,
                     title: Container(
-                      margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
+                      margin: EdgeInsets.only(right: ScreenUtil().setWidth(15), top: 6),
                       child: Row(
                         children: <Widget>[
                           model.contact.initials != null
@@ -823,7 +823,7 @@ class AddTransaction extends StatelessWidget {
       //           ));
       // },
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           InkWell(
             onTap: () {
