@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/core/pdf/receipt_report_view.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
@@ -49,264 +52,212 @@ class TransactionDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: containerColor,
-                            border: Border.all(color: BrandColors.primary),
-                            borderRadius: BorderRadius.circular(15.sp)),
-                        margin: EdgeInsets.only(
-                            left: 50.w, right: 50.w, top: 40.h, bottom: 0.0),
-                        width: double.infinity,
-                        //height: 550.w,
-                        child: Column(
-                          children: <Widget>[
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 20.w, vertical: 15.h),
-                                  child: Row(
-                                    children: <Widget>[
-                                      model.contact.initials != null
-                                          ? CircleAvatar(
-                                              radius: 30,
-                                              backgroundColor:
-                                                  BrandColors.primary,
-                                              child:
-                                                  Text(model.contact.initials),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 30,
-                                              backgroundColor: color,
-                                              backgroundImage: AssetImage(
-                                                  'assets/images/man.png'),
-                                            ),
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Flexible(
-                                              child: Text(
-                                                model.contact.name,
-                                                style: TextStyle(
-                                                  fontSize: 40.sp,
-                                                ),
-                                              ),
-                                            ), // TODO: implement Profile picture
-                                            Text(
-                                              model.contact.phoneNumber,
+              Center(
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: containerColor,
+                          border: Border.all(color: BrandColors.primary),
+                          borderRadius: BorderRadius.circular(15.sp)),
+                      margin: EdgeInsets.only(
+                          left: 50.w, right: 50.w, top: 40.h, bottom: 0.0),
+                      width: double.infinity,
+                      //height: 550.w,
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20.w, vertical: 15.h),
+                                child: Row(
+                                  children: <Widget>[
+                                    model.contact.initials != null
+                                        ? CircleAvatar(
+                                            radius: 30,
+                                            backgroundColor:
+                                                BrandColors.primary,
+                                            child:
+                                                Text(model.contact.initials),
+                                          )
+                                        : CircleAvatar(
+                                            radius: 30,
+                                            backgroundColor: color,
+                                            backgroundImage: AssetImage(
+                                                'assets/images/man.png'),
+                                          ),
+                                    SizedBox(
+                                      width: 20.w,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Text(
+                                              model.contact.name,
                                               style: TextStyle(
-                                                fontSize: 30.sp,
-                                                color: Colors.grey[600],
+                                                fontSize: 40.sp,
                                               ),
-                                            )
-                                          ],
-                                        ),
+                                            ),
+                                          ), // TODO: implement Profile picture
+                                          Text(
+                                            model.contact.phoneNumber,
+                                            style: TextStyle(
+                                              fontSize: 30.sp,
+                                              color: Colors.grey[600],
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                                Divider(
-                                  color: BrandColors.primary,
+                              ),
+                              Divider(
+                                color: BrandColors.primary,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: 30.sp,
+                                    left: 30.sp,
+                                    right: 30.sp,
+                                    bottom: 40.sp),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 20,
+                                            child: Text(
+                                              AppLocalizations.of(context)
+                                                  .costOfItems,
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.grey[600],
+                                                  fontSize: 30.sp),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Expanded(
+                                            flex: 30,
+                                            child: Text(
+                                              model.transaction.amount != null
+                                                  ? '₦${currency.format(model.transaction.amount)}'
+                                                  : '₦0',
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: color,
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 30.sp),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 20,
+                                            child: Text(
+                                              AppLocalizations.of(context)
+                                                  .amountPaid,
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.grey[600],
+                                                  fontSize: 30.sp),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Expanded(
+                                            flex: 30,
+                                            child: Text(
+                                              model.transaction.paid != null
+                                                  ? '₦${currency.format(model.transaction.paid)}'
+                                                  : '₦0',
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 30.sp),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 40.h,
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 20,
+                                            child: Text(
+                                              AppLocalizations.of(context)
+                                                  .amountOwing,
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.grey[600],
+                                                  fontSize: 30.sp),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Expanded(
+                                            flex: 30,
+                                            child: Text(
+                                              model.transaction.amount !=
+                                                          null &&
+                                                      model.transaction
+                                                              .paid !=
+                                                          null &&
+                                                      (model.transaction
+                                                                  .amount -
+                                                              model
+                                                                  .transaction
+                                                                  .paid) >
+                                                          0
+                                                  ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
+                                                  : '₦0',
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.red[800],
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 30.sp),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 30.sp,
-                                      left: 30.sp,
-                                      right: 30.sp,
-                                      bottom: 40.sp),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Container(
-                                        padding: EdgeInsets.only(left: 15),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .itemsPurchased,
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 30.sp),
-                                              ),
-                                            ),
-                                            Container(
-                                                child: Row(
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  model.transaction.description
-                                                )
-                                                // for (var item
-                                                //     in model.transaction.goods)
-                                                //   Text(
-                                                //     model.transaction.goods
-                                                //                 .indexOf(
-                                                //                     item) ==
-                                                //             model
-                                                //                     .transaction
-                                                //                     .goods
-                                                //                     .length -
-                                                //                 1
-                                                //         ? item + ' '
-                                                //         : item + ', ',
-                                                //     style: TextStyle(
-                                                //         fontSize: 30.sp),
-                                                //   )
-                                              ],
-                                            ))
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              flex: 20,
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .costOfItems,
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 30.sp),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              flex: 30,
-                                              child: Text(
-                                                model.transaction.amount != null
-                                                    ? '₦${currency.format(model.transaction.amount)}'
-                                                    : '₦0',
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: color,
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 30.sp),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              flex: 20,
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .amountPaid,
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 30.sp),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              flex: 30,
-                                              child: Text(
-                                                model.transaction.paid != null
-                                                    ? '₦${currency.format(model.transaction.paid)}'
-                                                    : '₦0',
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.green,
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 30.sp),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 40.h,
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              flex: 20,
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .amountOwing,
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 30.sp),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              flex: 30,
-                                              child: Text(
-                                                model.transaction.amount !=
-                                                            null &&
-                                                        model.transaction
-                                                                .paid !=
-                                                            null &&
-                                                        (model.transaction
-                                                                    .amount -
-                                                                model
-                                                                    .transaction
-                                                                    .paid) >
-                                                            0
-                                                    ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
-                                                    : '₦0',
-                                                textAlign: TextAlign.end,
-                                                style: TextStyle(
-                                                    color: Colors.red[800],
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 30.sp),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
               ),
               SizedBox(
-                height: 20.sp,
+                height: 30.sp,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.w),
@@ -365,12 +316,13 @@ class TransactionDetails extends StatelessWidget {
               ),
               Center(
                 child: GestureDetector(
-                  onTap: () async {
-                    ReceiptReport().buildPdf(context);
-                    // await ReceiptReport().generateReport(context);
-                    //model.shareTextandImage();
+                  onTap: () {
+                    ReceiptReport().buildPdf(context).then((file)
+                      {
+                       model.imageFile = file;
+                       model.shareTextandImage();
+                      });
                     //   TODO: PDF
-                    //ReceiptReport().buildPdf(context);
                   }, // TODO: Implement shareTextandFile
                   child: Container(
                     height: 90.h,

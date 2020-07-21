@@ -41,7 +41,7 @@ class AppLockSettingsPageView extends StatelessWidget {
                             model.navigateToChangePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title:model.getThecurrentStateOfPin() == false ? Text(
-                               AppLocalizations.of(context).setApplock_Pin,
+                               AppLocalizations.of(context).setApplockPin,
                               style: TextStyle(
                                 fontSize: SizeConfig.textSize(context, 4),
                                 fontWeight: FontWeight.w600,

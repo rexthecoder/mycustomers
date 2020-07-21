@@ -31,7 +31,7 @@ class StartupViewModel extends BaseViewModel {
       }
     }
     else
-      _navigationService.replaceWith(Routes.transactionDetails);
+      _navigationService.replaceWith(Routes.onboardingViewRoute);
   }
 
   bool confirmHasStore() {
