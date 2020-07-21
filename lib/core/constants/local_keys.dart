@@ -164,9 +164,9 @@ class LocalKeys {
   static const no_customer_yet = 'no-customer-yet';
   static const type_customer_name = 'type-customer-name';
   static const all = 'all';
-  static const store_name ='store-name';
+  static const store_name = 'store-name';
   static const company_tag_line = 'company-tag-line';
-  static const personal_name ='personal-name';
+  static const personal_name = 'personal-name';
   static const position = 'position';
   static const phone_number = 'phone-number';
   static const email_address = 'email-address';
@@ -197,12 +197,69 @@ class LocalKeys {
   static const add_new_debit = 'add-new-debit';
   static const existing_credits = 'existing-credits';
   static const existing_debits = 'existing-debits';
-
-
-
-
-
-
-
-
+  static const you_are_owing_customers = 'you-are-owing-customers';
+  static const you_do_not_have_any_customer_owing_you =
+      'you-do-not-have-any-customer-owing-you';
+  static const you_currently_do_not_owe_any_person =
+      'you-currently-do-not-owe-any-person';
+  static const select_date_of_purchase = 'select-date-of-purchase';
+  static const select_date_of_payment = 'select-date-of-payment';
+  static const add = 'add';
+  static const you_owe = 'you-owe';
+  static const add_from_contacts = 'add-from-contacts';
+  static const add_manually = 'add-manually';
+  static const transactions_go_here = 'transactions-go-here';
+  static const collecting = 'collecting';
+  static const giving = 'giving';
+  static const add_creditor_from_contacts = 'add-creditor-from-contacts';
+  static const search = 'search';
+  static const report = 'report';
+  static const reminder = 'reminder';
+  static const my_customer_is_safe_and_secure =
+      'my-customer-is-safe-and-secure';
+  static const can_view_this_transaction = 'can-view-this-transaction';
+  static const cost_of_goods_purchased = 'cost-of-goods-purchased';
+  static const paid = 'paid';
+  static const add_debt = 'add-debt';
+  static const reminders = 'reminders';
+  static const activities = 'activities';
+  static const no_reminders_yet = 'no-reminders-yet';
+  static const no_activities_yet = 'no-activites-yet';
+  static const field_should_not_be_empty = 'field-should-not-be-empty';
+  static const you_have_a_pending_message_to_send =
+      'you-have-a-pending-message-to-send';
+  static const password = 'password';
+  static const please_enter_your_full_name = 'please-enter-your-full-name';
+  static const please_enter_your_phone_number =
+      'please-enter-your-phone-number';
+  static const please_enter_your_email_address =
+      'please-enter-your-email-address';
+  static const select_a_date = 'select-a-date';
+  static const show_your_customers_that_you_really_care =
+      'show-your-customers-that-you-really-care';
+  static const its_all_about_sending_messages_to_customers =
+      'its-all-about-sending-messages-to-customers';
+  static const select_contacts = 'select-contacts';
+  static const phone_contacts = 'phone-contacts';
+  static const we_have_already_made_messages_for_you =
+      'we-have-already-made-messages-for-you';
+  static const create_unique_messages_for_customers =
+      'create-unique-messages-for-customers';
+  static const quick_messages = 'quick-messages';
+  static const happy_new_year = 'happy-new-year';
+  static const best_wishes_from_me = 'best-wishes-from-me';
+  static const season_greetings = 'season-greetings';
+  static const wishing_you_a_happy_new_year = 'wishing-you-a-happy-new-year';
+  static const send_a_message = 'send-a-message';
+  static const zero_selected_customers = 'zero-selected-customers';
+  static const access_denied = 'access-denied';
+  static const my_customer_needs_access_to__your_contacts =
+      'my-customer-needs-access-to-your-contacts';
+  static const deny = 'deny';
+  static const allow = 'allow';
+  static const debtor = 'debtor';
+  static const no_number = 'no-number';
+  static const credit = 'credit';
+  static const pick_a_date_and_type_in_your_message =
+      'pick-a-date-and-type-in-your-message';
 }

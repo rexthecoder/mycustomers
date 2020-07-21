@@ -45,7 +45,8 @@ class ScheduleNotifications extends StatelessWidget {
                               height: 10.h,
                             ),
                             Text(
-                              AppLocalizations.of(context).reminderDate,
+                              AppLocalizations.of(context)
+                                  .pickADateAndTypeInYourMessage,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -113,7 +114,9 @@ class ScheduleNotifications extends StatelessWidget {
                                         children: <Widget>[
                                           Container(
                                             child: Text(
-                                              model.newDate ?? AppLocalizations.of(context).selectDate,
+                                              model.newDate ??
+                                                  AppLocalizations.of(context)
+                                                      .selectDate,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -156,7 +159,8 @@ class ScheduleNotifications extends StatelessWidget {
                                     child: TextFormField(
                                       validator: (value) {
                                         if (value.isEmpty) {
-                                          return 'Field should not be empty!';
+                                          return AppLocalizations.of(context)
+                                              .fieldShouldNotBeEmpty;
                                         }
                                         return null;
                                       },
@@ -164,7 +168,8 @@ class ScheduleNotifications extends StatelessWidget {
                                       style: TextStyle(height: height * 0.002),
                                       maxLines: 1,
                                       decoration: InputDecoration(
-                                        hintText: AppLocalizations.of(context).typeAHeading,
+                                        hintText: AppLocalizations.of(context)
+                                            .typeAHeading,
                                         hintStyle: TextStyle(
                                             color: BrandColors.greyedText),
                                         border: OutlineInputBorder(
@@ -197,7 +202,8 @@ class ScheduleNotifications extends StatelessWidget {
                                     child: TextFormField(
                                       validator: (value) {
                                         if (value.isEmpty) {
-                                          return 'Field should not be empty!';
+                                          return AppLocalizations.of(context)
+                                              .fieldShouldNotBeEmpty;
                                         }
                                         return null;
                                       },
@@ -205,7 +211,8 @@ class ScheduleNotifications extends StatelessWidget {
                                       style: TextStyle(height: height * 0.002),
                                       maxLines: 3,
                                       decoration: InputDecoration(
-                                        hintText: AppLocalizations.of(context).startTypingYourmessage,
+                                        hintText: AppLocalizations.of(context)
+                                            .startTypingYourmessage,
                                         hintStyle: TextStyle(
                                             color: BrandColors.greyedText),
                                         border: OutlineInputBorder(
@@ -263,7 +270,7 @@ class ScheduleNotifications extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5.0)),
                       child: Center(
                         child: Text(
-                          'Schedule',
+                          AppLocalizations.of(context).schedule,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: ThemeColors.background,

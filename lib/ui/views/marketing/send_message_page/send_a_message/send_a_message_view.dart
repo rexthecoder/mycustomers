@@ -32,7 +32,8 @@ class SendAMessage extends StatelessWidget {
 //        print(selectedCustomers.length);
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-              title: 'Send a Message', arrowColor: BrandColors.secondary),
+              title: AppLocalizations.of(context).sendAMessage,
+              arrowColor: BrandColors.secondary),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SingleChildScrollView(
             child: Padding(
@@ -75,7 +76,9 @@ class SendAMessage extends StatelessWidget {
                                 // pause: Duration(seconds: 10),
                                 displayFullTextOnTap: true,
                                 stopPauseOnTap: true,
-                                text: [ AppLocalizations.of(context).quickMessage],
+                                text: [
+                                  AppLocalizations.of(context).quickMessage
+                                ],
                                 textStyle: TextStyle(
                                   color: BrandColors.secondary,
                                   fontWeight: FontWeight.w500,
@@ -93,7 +96,8 @@ class SendAMessage extends StatelessWidget {
                                 height: 10.h,
                               ),
                               Text(
-                                 AppLocalizations.of(context).quickMessageDesc,
+                                AppLocalizations.of(context)
+                                    .weHaveAlreadyMadeMessagesForYou,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: BrandColors.secondary,
@@ -123,7 +127,7 @@ class SendAMessage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                 AppLocalizations.of(context).composeMessage,
+                                AppLocalizations.of(context).composeMessage,
                                 style: TextStyle(
                                   color: bgColor,
                                   fontWeight: FontWeight.w500,
@@ -149,7 +153,8 @@ class SendAMessage extends StatelessWidget {
                                 height: 10.h,
                               ),
                               Text(
-                                 AppLocalizations.of(context).composeMessageDesc,
+                                AppLocalizations.of(context)
+                                    .createUniqueMessagesForCustomers,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: bgColor,

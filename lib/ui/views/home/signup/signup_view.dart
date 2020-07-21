@@ -30,7 +30,7 @@ class SignUpView extends StatelessWidget {
         child: SafeArea(
           child: WillPopScope(
             onWillPop: () => model.navigateToOnboarding(),
-                      child: Scaffold(
+            child: Scaffold(
               key: _signupPageKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: BrandColors.primary,
@@ -67,8 +67,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
             Text(
-          // AppLocalizations.of(context).signUp,
-          AppLocalizations.of(context).signUp,
+              // AppLocalizations.of(context).signUp,
+              AppLocalizations.of(context).signUp,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: SizeConfig.textSize(context, 6),
@@ -80,7 +80,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  AppLocalizations.of(context).signUpEnterPhoneNumber,
+                  AppLocalizations.of(context).pleaseEnterYourPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                   //     },
                   //   ),
                   // ),
-                  labelText: "Password",
+                  labelText: AppLocalizations.of(context).password,
                   // border: OutlineInputBorder(),
                 ),
               ),

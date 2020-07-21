@@ -33,7 +33,7 @@ class SignInView extends StatelessWidget {
         child: SafeArea(
           child: WillPopScope(
             onWillPop: () => model.navigateToOnboarding(),
-                      child: Scaffold(
+            child: Scaffold(
               key: _signinPageKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: BrandColors.primary,
@@ -81,7 +81,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  AppLocalizations.of(context).signUpEnterPhoneNumber,
+                  AppLocalizations.of(context).pleaseEnterYourPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -174,7 +174,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                   //     },
                   //   ),
                   // ),
-                  labelText: "Password",
+                  labelText: AppLocalizations.of(context).password,
                   // border: OutlineInputBorder(),
                 ),
               ),

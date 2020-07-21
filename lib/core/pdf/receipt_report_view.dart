@@ -134,7 +134,8 @@ class ReceiptReport {
                         children: [
                           pw.TextSpan(
                             //TODO: Add transaction ID
-                            text: transaction.cId.toString(),
+                            text: //transaction.cId.toString(),
+                            '1100-001',
                             style: pw.TextStyle(
                               color: PdfColors.grey,
                               fontSize: 15,
@@ -268,7 +269,8 @@ class ReceiptReport {
                                     //     ),
                                     //   ),
                                     pw.Text(
-                                      transaction.description??'',
+                                      //transaction.description,
+                                      'Some Items',
                                       style: pw.TextStyle(
                                         fontSize: 8,
                                       ),
@@ -287,9 +289,10 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      transaction.amount != null
-                                          ? '${_formatCurrency(transaction.amount)}'
-                                          : _formatCurrency(0),
+                                      // transaction.amount != null
+                                      //     ? '${_formatCurrency(transaction.amount)}'
+                                      //     : _formatCurrency(0),
+                                      'N80,000',
                                       style: pw.TextStyle(
                                         color: PdfColor.fromInt(0xFF333CC1),
                                         fontSize: 8,
@@ -309,9 +312,10 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      transaction.paid != null
-                                          ? '${_formatCurrency(transaction.paid)}'
-                                          : _formatCurrency(0),
+                                      // transaction.paid != null
+                                      //     ? '${_formatCurrency(transaction.paid)}'
+                                      //     : _formatCurrency(0),
+                                      'N80,000',
                                       style: pw.TextStyle(
                                         color: PdfColors.green,
                                         fontSize: 8,
@@ -331,13 +335,14 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      transaction.amount != null &&
-                                              transaction.paid != null &&
-                                              (transaction.amount -
-                                                      transaction.paid) >
-                                                  0
-                                          ? '${_formatCurrency(transaction.amount - transaction.paid)}'
-                                          : _formatCurrency(0),
+                                      // transaction.amount != null &&
+                                      //         transaction.paid != null &&
+                                      //         (transaction.amount -
+                                      //                 transaction.paid) >
+                                      //             0
+                                      //     ? '${_formatCurrency(transaction.amount - transaction.paid)}'
+                                      //     : _formatCurrency(0),
+                                      'N80,000',
                                       style: pw.TextStyle(
                                         color: PdfColors.red,
                                         fontSize: 8,
@@ -357,13 +362,14 @@ class ReceiptReport {
                                       ),
                                     ),
                                     pw.Text(
-                                      transaction.paid != null &&
-                                              transaction.amount != null &&
-                                              (transaction.paid -
-                                                      transaction.amount) >
-                                                  0
-                                          ? '${_formatCurrency(transaction.paid - transaction.amount)}'
-                                          : _formatCurrency(0),
+                                      // transaction.paid != null &&
+                                      //         transaction.amount != null &&
+                                      //         (transaction.paid -
+                                      //                 transaction.amount) >
+                                      //             0
+                                      //     ? '${_formatCurrency(transaction.paid - transaction.amount)}'
+                                      //     : _formatCurrency(0),
+                                      'N80,000',
                                       style: pw.TextStyle(
                                         color: PdfColors.red,
                                         fontSize: 8,

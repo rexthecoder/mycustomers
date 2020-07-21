@@ -65,6 +65,8 @@ abstract class Routes {
   static const supportViewRoute = '/support';
   static const importCustomerDebtorViewRoute = '/importcustomerdebtor';
   static const importCustomerCreditorViewRoute = '/importcustomercreditor';
+  static const addnewCredit = '/addnewCredit';
+  static const addnewDebt = '/addnewDebt';
   static const addCredit = '/addCredit';
   static const addDebt = '/addDebt';
   static const selectDebt = '/selectDebt';
@@ -166,11 +168,30 @@ class Router {
           ),
           settings: settings,
         );
+      case Routes.addnewDebt:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddDebtCreditView(
+            action: 'debit',
+            update: false,
+            newCus: true,
+          ),
+          settings: settings,
+        );
+      case Routes.addnewCredit:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddDebtCreditView(
+            action: 'credit',
+            update: false,
+            newCus: true,
+          ),
+          settings: settings,
+        );
       case Routes.addDebt:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => AddDebtCreditView(
             action: 'debit',
             update: false,
+            newCus: false,
           ),
           settings: settings,
         );
@@ -179,6 +200,7 @@ class Router {
           builder: (context) => AddDebtCreditView(
             action: 'credit',
             update: false,
+            newCus: false,
           ),
           settings: settings,
         );
@@ -187,6 +209,7 @@ class Router {
           builder: (context) => AddDebtCreditView(
             action: 'debit',
             update: true,
+            newCus: false,
           ),
           settings: settings,
         );
@@ -195,6 +218,7 @@ class Router {
           builder: (context) => AddDebtCreditView(
             action: 'credit',
             update: true,
+            newCus: false,
           ),
           settings: settings,
         );
