@@ -57,7 +57,8 @@ class AddNewCustomerViewModel extends BaseViewModel {
     List<Customer> _newCustomer = [_customer];
 
     _navigationService
-        .navigateTo(Routes.sendMessageViewRoute,arguments: _newCustomer);
+        .navigateTo(Routes.quickMessages,arguments: _newCustomer);
+//        .navigateTo(Routes.sendMessageViewRoute,arguments: _newCustomer);
   }
 
 

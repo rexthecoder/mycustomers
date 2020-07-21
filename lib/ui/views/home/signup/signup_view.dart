@@ -195,9 +195,9 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
 
                 //Call Function to Signup
                 viewModel.signUp(
-                  '0' +
+                  viewModel.number.dialCode +
                       int.parse(_inputSignupNumberController.text
-                          .splitMapJoin(' ', onMatch: (_) => '')).toString(),
+                          .splitMapJoin(RegExp(r'[^0-9]'), onMatch: (_) => '')).toString(),
                   _userPassword.text.trim(),
                 );
               },

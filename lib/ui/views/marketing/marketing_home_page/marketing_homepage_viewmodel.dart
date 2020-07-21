@@ -30,7 +30,8 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   // Function to serve as a helper for the navigation
   Future navigateToSendMessageView() async {
-    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+    await _navigationService.navigateTo(Routes.quickMessages, arguments: _selectedCustomers);
+//    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
   }
 
   // Get the services required
@@ -119,10 +120,11 @@ class MarketingHomePageViewModel extends BaseViewModel {
     return await [Permission.contacts].request();
   }
    Future navigateToAddCustomers(context) async{
-     Navigator.of(context).pushNamed(Routes.addCustomerMarketing).then((_){
+     Navigator.of(context).pushNamed(Routes.addCustomerMarketing, arguments: _allFrequentCustomers).then((_){
        final arguments = ModalRoute.of(context).settings.arguments as Map;
        final result = arguments['result'];
      allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+     _allFrequentCustomers = allCustomers;
       notifyListeners();
      
      });
@@ -206,7 +208,8 @@ class MarketingHomePageViewModel extends BaseViewModel {
     
 
     _navigationService
-        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
+        .navigateTo(Routes.quickMessages,arguments: _selectedCustomers);
+//        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
   /// View initialize and close section
