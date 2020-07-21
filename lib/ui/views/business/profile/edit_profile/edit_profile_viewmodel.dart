@@ -25,13 +25,14 @@ class EditProfileViewModel extends BaseViewModel {
 
   File get image => _imgFile;
 
+
   set retrieveDataError(value) {
     _retrieveDataError = value;
   }
 
   Future getImagefromcamera() async {
     final pickedImage = await _imagePicker.getImage(source: ImageSource.camera);
-    _imgFile = File(pickedImage.path);
+    _imgFile =File(pickedImage.path);
     notifyListeners();
   }
 
@@ -39,6 +40,8 @@ class EditProfileViewModel extends BaseViewModel {
     final pickedImage =
     await _imagePicker.getImage(source: ImageSource.gallery);
     _imgFile = File(pickedImage.path);
+
+
     notifyListeners();
   }
 
