@@ -130,6 +130,55 @@ class TransactionDetails extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       Container(
+                                        padding: EdgeInsets.only(left: 15),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Container(
+                                              child: Text(
+                                                AppLocalizations.of(context)
+                                                    .itemsPurchased,
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 30.sp),
+                                              ),
+                                            ),
+                                            Container(
+                                                child: Row(
+                                              children: <Widget>[
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  model.transaction.description
+                                                )
+                                                // for (var item
+                                                //     in model.transaction.goods)
+                                                //   Text(
+                                                //     model.transaction.goods
+                                                //                 .indexOf(
+                                                //                     item) ==
+                                                //             model
+                                                //                     .transaction
+                                                //                     .goods
+                                                //                     .length -
+                                                //                 1
+                                                //         ? item + ' '
+                                                //         : item + ', ',
+                                                //     style: TextStyle(
+                                                //         fontSize: 30.sp),
+                                                //   )
+                                              ],
+                                            ))
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Container(
                                         child: Row(
                                           children: <Widget>[
                                             Expanded(

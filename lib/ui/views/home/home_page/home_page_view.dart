@@ -22,7 +22,7 @@ class HomePageView extends StatelessWidget {
         model.getTransactions();
       },
       builder: (context, model, child) => DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           body: Container(
             child: Column(
@@ -50,7 +50,7 @@ class HomePageView extends StatelessWidget {
                               AppLocalizations.of(context).customersOwingYou,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: SizeConfig.yMargin(context, 1.5),
+                                fontSize: SizeConfig.yMargin(context, 2),
                               ),
                               //maxLines: 1,
                             ),
@@ -65,26 +65,26 @@ class HomePageView extends StatelessWidget {
                               AppLocalizations.of(context).peopleYouOwe,
                               textAlign: TextAlign.center,
                                style: TextStyle(
-                                fontSize: SizeConfig.yMargin(context, 1.5),
+                                fontSize: SizeConfig.yMargin(context, 2),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              AppLocalizations.of(context).allCustomers,
-                              textAlign: TextAlign.center,
-                               style: TextStyle(
-                                fontSize: SizeConfig.yMargin(context, 1.5),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Tab(
+                      //   child: Container(
+                      //     child: Align(
+                      //       alignment: Alignment.center,
+                      //       child: Text(
+                      //         "All Customers",
+                      //         textAlign: TextAlign.center,
+                      //          style: TextStyle(
+                      //           fontSize: SizeConfig.yMargin(context, 1.5),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -94,11 +94,11 @@ class HomePageView extends StatelessWidget {
                       children: <Widget>[
                         DebtorsView(),
                         CreditorsView(),
-                        model.contacts.length == 0
-                            ? Center(
-                              child: Text(AppLocalizations.of(context).noCustomerAdded),
-                            )
-                            : ContactList()
+                        // model.contacts.length == 0
+                        //     ? Center(
+                        //       child: Text('No Customer Added'),
+                        //     )
+                        //     : ContactList()
                       ],
                     ),
                   ),

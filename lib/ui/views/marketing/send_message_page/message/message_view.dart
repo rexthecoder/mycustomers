@@ -35,10 +35,9 @@ class MessageView extends StatelessWidget {
       builder: (context, model, child) {
         model.initSelected(arguments.selectedCustomers);
         model.setQuickText(arguments.title, arguments.message);
-        final int length =
-        model.selectedCustomers.length !=0?
-        model.selectedCustomers.length:
-        arguments.selectedCustomers.length;
+        final int length = model.selectedCustomers.length != 0
+            ? model.selectedCustomers.length
+            : arguments.selectedCustomers.length;
         print(arguments.selectedCustomers.length);
 
 //        arguments.selectedCustomers.length;
@@ -110,33 +109,35 @@ class MessageView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              length == 1 ? '$length Selected Customer'
+                              length == 1
+                                  ? '$length Selected Customer'
                                   : '$length Selected Customers',
                               style: TextStyle(fontSize: 16.sp),
                             ),
                             FlatButton.icon(
                               onPressed: () async {
-                                 final bool isPermitted = await model.checkPermission();
-                                 if(isPermitted){
-                                   permissionDialog(context, model) ;
-                                   
-                                  }else{
-                                    
-                                    showModalBottomSheet(
-                                      enableDrag: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
-                                        ),
+                                final bool isPermitted =
+                                    await model.checkPermission();
+                                if (!isPermitted) {
+                                  permissionDialog(context, model);
+                                } else {
+                                  showModalBottomSheet(
+                                    enableDrag: true,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
                                       ),
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return BottomSheetView(model.selectedCustomers,height, model);
-                                      },
-                                );
-
-                                  }
+                                    ),
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return BottomSheetView(
+                                          model.selectedCustomers,
+                                          height,
+                                          model);
+                                    },
+                                  );
+                                }
 //                                await model.initSelected(selectedCustomers);
                                 // showModalBottomSheet(
                                 //   enableDrag: true,
@@ -169,13 +170,12 @@ class MessageView extends StatelessWidget {
                         Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount:length,
+                            itemCount: length,
                             itemBuilder: (BuildContext context, int index) =>
                                 CustomerCircleAvatar(
-                              customer: model.selectedCustomers.length !=0?
-                              model.selectedCustomers[index]:
-                              arguments.selectedCustomers[index],
-//                                customer: Customer(name: 'jmsb',phone: '278849'),
+                              customer: model.selectedCustomers.length != 0
+                                  ? model.selectedCustomers[index]
+                                  : arguments.selectedCustomers[index],
                               action: 'debtor',
                             ),
                           ),
@@ -222,12 +222,12 @@ class MessageView extends StatelessWidget {
       },
     );
   }
+
   Future<void> permissionDialog(
       BuildContext context, MessageViewModel model) async {
-        
     return showDialog<void>(
         context: context,
-        barrierDismissible: true, 
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Color(0xFF333CC1),
@@ -236,7 +236,7 @@ class MessageView extends StatelessWidget {
             content: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                   Container(
+                  Container(
                     child: Text(
                       "Access denied!",
                       style: TextStyle(
@@ -249,7 +249,6 @@ class MessageView extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-               
                   Container(
                     child: Text(
                       "My Customer needs access to your contact!",
@@ -264,52 +263,52 @@ class MessageView extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                     
-                       Expanded(
-                                                child: Container(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                           Flushbar(
-                                      backgroundColor: BrandColors.primary,
-                                      duration: const Duration(seconds: 3),
-                                      message: 'You denied permission to your contacts',
-                                      icon: Icon(
-                                        Icons.info_outline,
-                                        size: 28.0,
-                                        color: ThemeColors.background,
-                                      ),
-                                      leftBarIndicatorColor: Colors.blue[300],
-                                    ).show(context);
-                      },
-                      child: Container(
-                            height: 50.h,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Deny',
-                                style: TextStyle(
-                                  color: Color(0xFF333CC1),
-                                  fontSize: 16.sp,
+                      Expanded(
+                        child: Container(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                              Flushbar(
+                                backgroundColor: BrandColors.primary,
+                                duration: const Duration(seconds: 3),
+                                message:
+                                    'You denied permission to your contacts',
+                                icon: Icon(
+                                  Icons.info_outline,
+                                  size: 28.0,
+                                  color: ThemeColors.background,
+                                ),
+                                leftBarIndicatorColor: Colors.blue[300],
+                              ).show(context);
+                            },
+                            child: Container(
+                              height: 50.h,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Deny',
+                                  style: TextStyle(
+                                    color: Color(0xFF333CC1),
+                                    fontSize: 16.sp,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                    ),
-                  ),
-                       ),
-                        SizedBox(
-                    width: 10.h,
-                  ),
-                   Expanded(
-                                        child: Container(
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10.h,
+                      ),
+                      Expanded(
+                        child: Container(
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
-                              
+
                               model.requestPermission();
                             },
                             child: Container(
@@ -330,11 +329,9 @@ class MessageView extends StatelessWidget {
                             ),
                           ),
                         ),
-                   ),
-                
+                      ),
                     ],
                   ),
-                  
                 ],
               ),
             ),
@@ -342,12 +339,11 @@ class MessageView extends StatelessWidget {
         });
   }
 
-
   Future<void> successDialog(
       BuildContext context, MessageViewModel model) async {
     return showDialog<void>(
         context: context,
-        barrierDismissible: true, 
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Color(0xFF333CC1),
@@ -381,7 +377,7 @@ class MessageView extends StatelessWidget {
                   Container(
                     child: InkWell(
                       onTap: () {
-                        model.returnHome(arguments.isQuick);
+                        model.returnHome();
                         //TODO: route to screen
                       },
                       child: Container(
@@ -415,7 +411,7 @@ class MessageView extends StatelessWidget {
   Future<void> failureDialog(BuildContext context) async {
     return showDialog<void>(
         context: context,
-        barrierDismissible: true, 
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Color(0xFF333CC1),
@@ -511,8 +507,9 @@ class BottomSheetView extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      onPressed: (){
-                        parentModel.mergeSelectCustomer(model.selectedCustomers);
+                      onPressed: () {
+                        parentModel
+                            .mergeSelectCustomer(model.selectedCustomers);
                         Navigator.pop(context);
                       },
                       child: Text(
@@ -562,7 +559,10 @@ class BottomSheetView extends StatelessWidget {
                               child: Container(
                                 width: double.infinity,
                                 height: 40,
-                                color: Theme.of(context).brightness==Brightness.dark?Theme.of(context).backgroundColor :ThemeColors.gray.shade400,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Theme.of(context).backgroundColor
+                                    : ThemeColors.gray.shade400,
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -570,7 +570,7 @@ class BottomSheetView extends StatelessWidget {
                                   child: Text(
                                     'PHONE CONTACTS',
                                     style:
-                                    TextStyle(fontWeight: FontWeight.w600),
+                                        TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ),
@@ -578,117 +578,95 @@ class BottomSheetView extends StatelessWidget {
                             SliverToBoxAdapter(child: SizedBox(height: 10.h)),
                             model.isLoadBusy /* || !model.dataReady*/
                                 ? SliverToBoxAdapter(
-                              child: Center(
-                                child: LoadingAnimation(),
-                              ),
-                            ) :
+                                    child: Center(
+                                      child: LoadingAnimation(),
+                                    ),
+                                  )
+                                :
 //
-                            SliverPadding(
-                              padding: EdgeInsets.symmetric(vertical: 8.w),
-                              sliver: SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                                      (BuildContext context, int index) {
-                                    Customer customer = model.data[index];
-                                    bool _isSelected = model.isSelected(customer);
-                                    return Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 15.h, horizontal: 10.w),
-                                      child: Row(
-                                        children: <Widget>[
-                                          CustomerCircleAvatar(
-                                            customer: customer,
-                                            action: 'debtor',
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 30.w),
-                                              child: Column(
-                                                mainAxisSize:
-                                                MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    '${customer.name} '
-                                                        '${customer.lastName}',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight.w600,
+                                SliverPadding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.w),
+                                    sliver: SliverList(
+                                      delegate: SliverChildBuilderDelegate(
+                                        (BuildContext context, int index) {
+                                          Customer customer = model.data[index];
+                                          bool _isSelected =
+                                              model.isSelected(customer);
+                                          return Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 15.h,
+                                                horizontal: 10.w),
+                                            child: Row(
+                                              children: <Widget>[
+                                                CustomerCircleAvatar(
+                                                  customer: customer,
+                                                  action: 'debtor',
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 30.w),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          '${customer.name} '
+                                                          '${customer.lastName}',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 3.sp,
+                                                        ),
+                                                        Text(
+                                                          '${customer.phone}',
+                                                          style: TextStyle(
+                                                            color: ThemeColors
+                                                                .gray.shade600,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    height: 3.sp,
-                                                  ),
-                                                  Text(
-                                                    '${customer.phone}',
-                                                    style: TextStyle(
-                                                      color: ThemeColors
-                                                          .gray.shade600,
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
+                                                ),
+                                                Checkbox(
+                                                    activeColor:
+                                                        BrandColors.primary,
+                                                    value: _isSelected,
+                                                    onChanged: (value) {
+                                                      _isSelected
+                                                          ? model
+                                                              .deselectCustomer(
+                                                                  customer)
+                                                          : model
+                                                              .selectCustomer(
+                                                                  customer);
+                                                    })
+                                              ],
                                             ),
-                                          ),
-
-                                          Checkbox(
-                                              activeColor:
-                                              BrandColors.primary,
-                                              value: _isSelected,
-
-                                              onChanged: (value) {
-                                                _isSelected
-                                                    ? model
-                                                    .deselectCustomer(
-                                                    customer)
-                                                    : model.selectCustomer(
-                                                    customer);
-                                              })
-                                        ],
+                                          );
+                                        },
+                                        childCount: model.data.length,
                                       ),
-                                    );
-                                  },
-                                  childCount: model.data.length,
-                                ),
-                              ),
-                            ),
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
-                      // Container(
-                      //   padding: EdgeInsets.all(30.w),
-                      //   child: FlatButton(
-                      //     onPressed: () {
-                      //       parentModel.mergeSelectCustomer(model.selectedCustomers);
-                      //       Navigator.pop(context);
-                      //     },
-                      //     color: BrandColors.secondary,
-                      //     padding: EdgeInsets.symmetric(vertical: 15.0),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(5.0),
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: <Widget>[
-                      //         Text(
-                      //           'Continue',
-                      //           style: TextStyle(
-                      //             color: Colors.white,
-                      //             fontWeight: FontWeight.bold,
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                      
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
@@ -699,5 +677,4 @@ class BottomSheetView extends StatelessWidget {
       },
     );
   }
-
 }

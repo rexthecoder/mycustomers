@@ -43,18 +43,18 @@ void main() async {
     await setupLocator();
     
    runApp(App());
-    //  runApp(
-    //    DevicePreview(
-    //      // onScreenshot: (screenshot) {
-    //      //   final bytes = screenshot.bytes;
-    //      //   //  Send the bytes to a drive, to the file system, to
-    //      //   // the device gallery for example. It may be useful for
-    //      //   // preparing your app release for example.
-    //      // },
-    //      enabled: !kReleaseMode,
-    //      builder: (context) => App(),
-    //    ),
-    //  );
+//      runApp(
+//        DevicePreview(
+//          // onScreenshot: (screenshot) {
+//          //   final bytes = screenshot.bytes;
+//          //   //  Send the bytes to a drive, to the file system, to
+//          //   // the device gallery for example. It may be useful for
+//          //   // preparing your app release for example.
+//          // },
+//          enabled: !kReleaseMode,
+//          builder: (context) => App(),
+//        ),
+//      );
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -103,7 +103,7 @@ class App extends StatelessWidget {
     // Status bar
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+        // statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
     );
@@ -133,7 +133,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // builder: DevicePreview.appBuilder,
+//       builder: DevicePreview.appBuilder,
       theme: viewModel.theme,
       locale: viewModel.locale,
       debugShowCheckedModeBanner: false,

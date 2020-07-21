@@ -46,7 +46,7 @@ class LanguageSelectionPageView extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             // model.setLanguage(index);
-                            viewModel.setLocale(model.languages[index]['code']);
+                            viewModel.setLocale(model.languages[index]['code'], model.languages[index]['name']);
                           },
                           child: Container(
                             height: SizeConfig.yMargin(context, 7),

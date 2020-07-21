@@ -36,8 +36,9 @@ class SendMessage extends StatelessWidget {
                               style: TextStyle(height: height * 0.002),
                               maxLines: 1,
                               decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context).typeAHeading,
-                                hintStyle: TextStyle(color: ThemeColors.black),
+                                hintText: 'Type a heading',
+                                hintStyle:
+                                    TextStyle(color: BrandColors.greyedText),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: ThemeColors.gray, width: 2.0),
@@ -65,8 +66,9 @@ class SendMessage extends StatelessWidget {
                               style: TextStyle(height: height * 0.002),
                               maxLines: 3,
                               decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context).startTypingYourmessage,
-                                hintStyle: TextStyle(color: ThemeColors.black),
+                                hintText: 'Start typing your message',
+                                hintStyle:
+                                    TextStyle(color: BrandColors.greyedText),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: ThemeColors.gray, width: 2.0),

@@ -32,6 +32,7 @@ class SettingsPageViewModel extends ReactiveViewModel {
   List get langs => _bussinessSettingService.langs;
   List get currs => _bussinessSettingService.currencies;
 
+
   setTheme() {
     if (_lightTheme == true) {
       _light = themes.primaryMaterialTheme;
