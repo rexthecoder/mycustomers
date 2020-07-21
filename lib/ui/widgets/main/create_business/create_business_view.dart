@@ -14,7 +14,7 @@ Widget createBusinessDialog(BuildContext context, DialogRequest request) {
 }
 
 class CreateBusinessView extends StatelessWidget {
-  final _businessPageKey = GlobalKey<ScaffoldState>();
+  static final _businessPageKey = GlobalKey<ScaffoldState>();
 
   CreateBusinessView({
     Key key,
@@ -32,11 +32,12 @@ class CreateBusinessView extends StatelessWidget {
           key: _businessPageKey,
           resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).backgroundColor,
-          bottomSheet: _PartialBuildForm(),
+          body: _PartialCreateBusinessBuildForm(),
           appBar: AppBar(
             iconTheme: IconThemeData(color: BrandColors.primary),
             backgroundColor: Theme.of(context).backgroundColor,
             centerTitle: true,
+            elevation: 0,
             title: Text(
               'Add Business',
               style: TextStyle(
@@ -53,10 +54,10 @@ class CreateBusinessView extends StatelessWidget {
 }
 // }
 
-class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
-  static final _businessFormPageKey = GlobalKey<FormState>();
+class _PartialCreateBusinessBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
+  static final _businessFormPageKey = GlobalKey<FormState>(debugLabel: 'businessForm');
 
-  _PartialBuildForm({Key key}) : super(key: key, reactive: false);
+  _PartialCreateBusinessBuildForm({Key key}) : super(key: key, reactive: false);
 
   final String edit = 'assets/icons/svg/edit.svg';
 
@@ -77,6 +78,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 height: SizeConfig.yMargin(context, 5),
               ),
               TextFormField(
+                key: Key('businessName'),
                 onChanged: (value) => viewModel.updateStoreName(value),
                 validator: (value) =>
                     (value.isEmpty) ? "Please enter business name" : null,
@@ -104,6 +106,7 @@ class _PartialBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
                 height: SizeConfig.yMargin(context, 3),
               ),
               TextFormField(
+                key: Key('businessDesc'),
                 maxLines: 6,
                 minLines: 4,
                 onChanged: (value) => viewModel.updateStoreAddress(value),
