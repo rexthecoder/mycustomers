@@ -137,7 +137,6 @@ class SendMessage extends StatelessWidget {
                           color: BrandColors.primary,
                           elevation: 0,
                           onPressed: () {
-                          model.sendSms();
                                 Flushbar(
                                       backgroundColor: BrandColors.primary,
                                       duration: const Duration(seconds: 3),

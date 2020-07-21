@@ -8,7 +8,7 @@ class SendMessageViewModel extends BaseViewModel {
   final List<String> _messageEntries = <String>[
     " Don't leave me",
     "Happy New year",
-     "Debt reminder"
+    "Debt reminder"
   ];
   final MessageServices _messageServices = locator<MessageServices>();
   final _customerContactService = locator<CustomerContactService>();
@@ -19,8 +19,7 @@ class SendMessageViewModel extends BaseViewModel {
   List<String> get messageEntries => _messageEntries;
 
   void sendSms(){
-   _messageServices.sendSms(number);
-   print('I have no idea what the fuck I am doing');
+   print('I have no idea what I am doing');
   }
 
 }
