@@ -22,7 +22,6 @@ class AddDebtCreditView extends StatelessWidget {
       : super(key: key);
 
   ScrollController controller = new ScrollController();
-  var _inputNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -701,7 +700,7 @@ class AddDebtCreditView extends StatelessWidget {
                                   MyListTile(
                                     onTap: () => model.setName(item),
                                     action: action,
-                                    leading: Center(child: CustomerCircleAvatar(customer: item, action: action,)),
+                                    //leading: Center(child: CustomerCircleAvatar(customer: item, action: action,)),
                                     title: Text(
                                       '${item.displayName}',
                                       style: TextStyle(
@@ -719,7 +718,7 @@ class AddDebtCreditView extends StatelessWidget {
                                     ),
                                   ) : SizedBox(height: MediaQuery.of(context).viewInsets.bottom,),
                                   model.contactsList.length == 0 && model.name != null ? model.manual ? 
-                                  SizedBox() : Container(
+                                  SizedBox(height: model.manual ? 0 : MediaQuery.of(context).viewInsets.bottom,) : Container(
                                     padding: EdgeInsets.symmetric(vertical: 50),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -763,7 +762,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         child: InternationalPhoneNumberInput(
                                           onInputChanged: (PhoneNumber number) {
                                             model.number = number;
-                                            
+                                            print(number);
                                           },
                                         
                                           ignoreBlank: false,
@@ -772,7 +771,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           selectorTextStyle:
                                               TextStyle(color: Theme.of(context).cursorColor),
                                           initialValue: model.number,
-                                          textFieldController: _inputNumberController,
+                                          textFieldController: model.inputNumberController,
                                           inputBorder: InputBorder.none,
                                         ),
                                       ),
