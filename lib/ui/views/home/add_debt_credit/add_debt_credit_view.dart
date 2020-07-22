@@ -1019,15 +1019,15 @@ class AddDebtCreditView extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         model.addtransaction(action, update, newCus);
-                        // reminders.sendNotificationOnce(
-                        //     0,
-                        //     'Reminder: ',
-                        //     action == 'credit'
-                        //         ? 'You owe ${model.contact.name} ' +
-                        //             model.amount.round().toString()
-                        //         : '${model.contact.name} owes you ' +
-                        //             model.amount.round().toString(),
-                        //     action == 'debit' ? model.dueDate : model.otherDate);
+                        reminders.sendNotificationOnce(
+                            0,
+                            'Reminder: ',
+                            action == 'credit'
+                                ? 'You owe ${model.contact.name} ' +
+                                    model.amount.round().toString()
+                                : '${model.contact.name} owes you ' +
+                                    model.amount.round().toString(),
+                            action == 'debit' ? model.dueDate : model.dueDate);
                       }, //Todo: Save User Input
                       child: Container(
                         padding: EdgeInsets.symmetric(
