@@ -86,9 +86,10 @@ class BusinessCardPageView extends StatelessWidget {
                               model.imageFile = image;
                               await model.saveBusinessCard();
                               FlushbarHelper.createSuccess(
-                                duration: const Duration(seconds: 5),
-                                message: 'Save Successful',
-                              ).show(context);
+                                      duration: const Duration(seconds: 5),
+                                      message: AppLocalizations.of(context)
+                                          .saveSuccessful)
+                                  .show(context);
                               model.shareImageAndText();
                             },
                           ).catchError(
@@ -270,33 +271,33 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Store Name",
+            label: AppLocalizations.of(context).storeName,
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Personal Name",
+            label: AppLocalizations.of(context).personalName,
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultPhoneFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Phone Number",
+            label: AppLocalizations.of(context).phoneNumber,
             onChange: (PhoneNumber value) =>
                 model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
@@ -304,18 +305,18 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Email Address",
+            label: AppLocalizations.of(context).emailAddress,
             onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
           // TODO VALIDATE SHOP/OFFICE ADDRESS FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },

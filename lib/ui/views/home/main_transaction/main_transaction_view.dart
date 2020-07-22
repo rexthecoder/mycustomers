@@ -8,7 +8,6 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
-import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -317,7 +316,7 @@ class MainTransaction extends StatelessWidget {
                                     height: 20.h,
                                   ),
                                   Text(
-                                      "${AppLocalizations.of(context).myCustomerIsSafeAndSecure} + "
+                                      "${AppLocalizations.of(context).isSafeAndSecure} + "
                                       " + ${model.contact.name} + "
                                       " +  ${AppLocalizations.of(context).canViewThisTransaction}"
                                       // 'MyCustomer is 100% safe and secure, only you and \
@@ -613,7 +612,11 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    '${model.contact.name} ' + AppLocalizations.of(context).owesYou  + ' ',
+                                                    '${model.contact.name} ' +
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .owesYou +
+                                                        ' ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -655,7 +658,9 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    'You owe ${model.contact.name} ',
+                                                    AppLocalizations.of(context)
+                                                            .youOwe +
+                                                        '${model.contact.name} ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -848,7 +853,7 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  'They are owing you',
+                  AppLocalizations.of(context).theyAreOwingYou,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
                         color: Colors.white,
@@ -875,7 +880,7 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  'you are owing them',
+                  AppLocalizations.of(context).youAreOwingThem,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
                         color: Colors.white,
