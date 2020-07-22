@@ -44,8 +44,8 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   List<String> formattedate = [];
   String date;
   
-  // get box => _hiveService.openBox<TransactionModel>(HiveBox.transaction);
-  var box = Hive.openBox<TransactionModel>(_boxname);
+  get box => _hiveService.openBox<TransactionModel>(HiveBox.transaction);
+//   var box = Hive.openBox<TransactionModel>(_boxname);
 
   RxValue<TransactionModel> _stransaction = RxValue<TransactionModel>(initial: null);
   TransactionModel get stransaction => _stransaction.value;
