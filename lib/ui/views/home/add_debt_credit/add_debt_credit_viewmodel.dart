@@ -53,7 +53,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   double get amount => _amount;
 
   String _error;
-  String get error => _error;
+ // String get error => _error;
 
   String _description;
   String get description => _description;

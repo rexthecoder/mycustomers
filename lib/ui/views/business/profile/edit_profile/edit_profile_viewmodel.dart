@@ -60,6 +60,7 @@ class EditProfileViewModel extends BaseViewModel {
 
   static String base64String(Uint8List data){
     return base64Encode(data);
+    
   }
  
 

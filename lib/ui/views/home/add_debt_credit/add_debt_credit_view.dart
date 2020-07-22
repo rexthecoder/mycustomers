@@ -166,7 +166,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             hintStyle: TextStyle(
                                                 fontSize:
                                                     SizeConfig.yMargin(context, 2)),
-                                            errorText: model.error,
+                                           // errorText: model.error,
                                             prefixIcon: Container(
                                                 padding: EdgeInsets.symmetric(
                                                     vertical: ScreenUtil().setHeight(15),
@@ -679,7 +679,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 hintStyle: TextStyle(
                                                     fontSize:
                                                         SizeConfig.yMargin(context, 2)),
-                                                errorText: model.error,
+                                        //        errorText: model.error,
                                                 prefixIcon: Container(
                                                   padding: EdgeInsets.symmetric(
                                                       vertical: ScreenUtil()
