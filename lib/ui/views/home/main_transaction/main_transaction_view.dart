@@ -957,8 +957,8 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  'They are owing you',
-                  //AppLocalizations.of(context).theyAreOwingYou,
+//'They are owing you',
+                  AppLocalizations.of(context).theyAreOwingYou,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
                         color: Colors.white,
@@ -985,8 +985,8 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  "You are owing them",
-                  //AppLocalizations.of(context).youAreOwingThem,
+                  //"You are owing them",
+                  AppLocalizations.of(context).youAreOwingThem,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
                         color: Colors.white,
