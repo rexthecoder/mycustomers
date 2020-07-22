@@ -38,7 +38,7 @@ class TransactionDetails extends StatelessWidget {
                 ),
               ),
               title: Text(
-               AppLocalizations.of(context).transactionDetails,
+                AppLocalizations.of(context).transactionDetails,
                 style: TextStyle(
                     fontSize: 40.sp,
                     color: Colors.white,
@@ -79,8 +79,7 @@ class TransactionDetails extends StatelessWidget {
                                             radius: 30,
                                             backgroundColor:
                                                 BrandColors.primary,
-                                            child:
-                                                Text(model.contact.initials),
+                                            child: Text(model.contact.initials),
                                           )
                                         : CircleAvatar(
                                             radius: 30,
@@ -224,13 +223,11 @@ class TransactionDetails extends StatelessWidget {
                                             child: Text(
                                               model.transaction.amount !=
                                                           null &&
-                                                      model.transaction
-                                                              .paid !=
+                                                      model.transaction.paid !=
                                                           null &&
                                                       (model.transaction
                                                                   .amount -
-                                                              model
-                                                                  .transaction
+                                                              model.transaction
                                                                   .paid) >
                                                           0
                                                   ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
@@ -317,11 +314,10 @@ class TransactionDetails extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    ReceiptReport().buildPdf(context).then((file)
-                      {
-                       model.imageFile = file;
-                       model.shareTextandImage();
-                      });
+                    ReceiptReport().buildPdf(context).then((file) {
+                      model.imageFile = file;
+                      model.shareTextandImage();
+                    });
                     //   TODO: PDF
                   }, // TODO: Implement shareTextandFile
                   child: Container(
@@ -337,14 +333,12 @@ class TransactionDetails extends StatelessWidget {
                         SizedBox(
                           width: 20.w,
                         ),
-                        Text(
-                          AppLocalizations.of(context).share,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30.sp,
-                          )
-                        ),
+                        Text(AppLocalizations.of(context).share,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 30.sp,
+                            )),
                       ],
                     ),
                   ),

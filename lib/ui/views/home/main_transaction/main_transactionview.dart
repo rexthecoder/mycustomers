@@ -317,7 +317,7 @@ class MainTransaction extends StatelessWidget {
                                     height: 20.h,
                                   ),
                                   Text(
-                                      "${AppLocalizations.of(context).myCustomerIsSafeAndSecure} + "
+                                      "${AppLocalizations.of(context).isSafeAndSecure} + "
                                       " + ${model.contact.name} + "
                                       " +  ${AppLocalizations.of(context).canViewThisTransaction}"
                                       // 'MyCustomer is 100% safe and secure, only you and \
@@ -430,7 +430,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: <Widget>[
                                                                                   Text(
-                                                                                    'Amount',
+                                                                                    AppLocalizations.of(context).amount,
                                                                                     style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                           fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                           color: Theme.of(context).cursorColor,
@@ -508,7 +508,7 @@ class MainTransaction extends StatelessWidget {
                                                                             child:
                                                                                 Flexible(
                                                                               child: Text(
-                                                                                '${model.contact.name} paid',
+                                                                                '${model.contact.name}' + AppLocalizations.of(context).paid,
                                                                                 style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                       fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                       color: Theme.of(context).cursorColor,
@@ -613,7 +613,11 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    '${model.contact.name} ' + AppLocalizations.of(context).owesYou  + ' ',
+                                                    '${model.contact.name} ' +
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .owesYou +
+                                                        ' ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -655,7 +659,9 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    'You owe ${model.contact.name} ',
+                                                    AppLocalizations.of(context)
+                                                            .youOwe +
+                                                        '${model.contact.name} ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -848,7 +854,7 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  'They are owing you',
+                  AppLocalizations.of(context).theyAreOwingYou,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
                         color: Colors.white,
@@ -875,7 +881,7 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  'you are owing them',
+                  AppLocalizations.of(context).youAreOwingThem,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
                         color: Colors.white,
