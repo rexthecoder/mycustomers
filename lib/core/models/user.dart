@@ -19,7 +19,7 @@ class User {
   String userRole;
 
   @JsonKey(name: 'phone_number')
-  var phoneNumber;
+  String phoneNumber;
   
 
   User({this.id, this.email, this.firstName, this.lastName, this.userRole, this.phoneNumber});
