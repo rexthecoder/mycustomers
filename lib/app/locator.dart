@@ -101,12 +101,10 @@ Future<void> setupLocator(
   locator.registerLazySingleton<IOwnerServices>(
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
   );
-
   locator.registerLazySingleton<UserService>(
     () => UserService(),
   );
-
-  locator.registerLazySingleton<MessageServices>(() => MessageServices());
+//   locator.registerLazySingleton<MessageServices>(() => MessageServices());
 
   ///Repository
   locator.registerLazySingleton<BusinessCardRepository>(
