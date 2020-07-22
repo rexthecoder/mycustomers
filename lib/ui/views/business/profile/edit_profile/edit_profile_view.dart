@@ -84,9 +84,9 @@ class EditProfileView extends StatelessWidget {
                       onPressed: model.getImagefromGallery,
                     ),
                   ),
-                  SizedBox(height: SizeConfig.yMargin(context, 1.5)),
+                   SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Divider(color: ThemeColors.gray.shade600),
-                  SizedBox(height: SizeConfig.yMargin(context, 2.5)),
+                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Column(
                     children: <Widget>[
                       Container(
@@ -144,22 +144,39 @@ class EditProfileView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.yMargin(context, 18),
+                    height: SizeConfig.yMargin(context, 25),
                   ),
-                  CustomRaisedButton(
-                    txtColor: ThemeColors.background,
-                    btnColor: BrandColors.primary,
-                    btnText: AppLocalizations.of(context).save,
-                    borderColor: BrandColors.primary,
-                    child: Container(),
-                    onPressed: () {
-                      model.updateProfile();
-                      FlushbarHelper.createInformation(
-                        duration: const Duration(seconds: 5),
-                        message: AppLocalizations.of(context).save,
-                      ).show(context);
-                    },
-                  ),
+                  // CustomRaisedButton(
+                  //   txtColor: ThemeColors.background,
+                  //   btnColor: BrandColors.primary,
+                  //   btnText: AppLocalizations.of(context).save,
+                  //   borderColor: BrandColors.primary,
+                  //   child: Container(),
+                  //   onPressed: () {
+                  //     model.updateProfile();
+                  //     FlushbarHelper.createInformation(
+                  //       duration: const Duration(seconds: 5),
+                  //       message: AppLocalizations.of(context).save,
+                  //     ).show(context);
+                  //   },
+                  //   padding: EdgeInsets.symmetric(
+                  //     horizontal: SizeConfig.xMargin(context, 40),
+                  //     vertical: SizeConfig.yMargin(context, 2.6),
+                  //   ),
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(3),
+                  //   ),
+                  //   child: Text(
+                  //     AppLocalizations.of(context).save,
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(
+                  //       color: ThemeColors.background,
+                  //       fontStyle: FontStyle.normal,
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: SizeConfig.yMargin(context, 2),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 2),
                   )
