@@ -4,7 +4,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
   BusinessCardWidget({
     Key key,
     @required this.screenshotController,
-    @required this.showArrow,
+    this.showArrow: false,
   }) : super(key: key, reactive: true);
   final ScreenshotController screenshotController;
   final bool showArrow;

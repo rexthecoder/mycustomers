@@ -59,6 +59,7 @@ class MainViewModel extends ReactiveViewModel {
     StoreRepository.changeSelectedStore(id);
     _transactionService.getAllTransactions(id);
     notifyListeners();
+//    updateMenu();
   }
 
   void getcurr() {

@@ -11,7 +11,7 @@ class LocalKeys {
   static const engaged_with_your_people = 'engaged-with-your-people';
   static const engaged_with_your_people_desc = 'engaged-with-your-people-desc';
   static const sign_up = 'signup-signup';
-  static const enter_phone_number = 'sign-up-enter-phone-number';
+  static const enter_phone_number = 'signup-enter-phone-number';
   static const continue_with_social_account = 'continue-with-social-account';
   static const already_a_member_sign_in = 'already-a-member-sign-in';
   static const not_a_member_sign_up = 'not-a-member-sign-up';
@@ -109,7 +109,7 @@ class LocalKeys {
   static const customer_name = 'customer-name';
   static const customer_phone_no = 'customer-phone-no';
   static const customer_list = 'customer-list';
-  static const send_message_all = 'send-message-to-all';
+  static const send_message_all = 'send-message-all';
   static const quick_message = 'quick-message';
   static const quick_message_desc = 'quick-message-desc';
   static const compose_message = 'compose-message';

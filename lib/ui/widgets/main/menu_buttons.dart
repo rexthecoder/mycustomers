@@ -29,7 +29,10 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
       BuildContext context, Store business, MainViewModel model) {
     return CustomPartialBuild<SettingManagerModel>(
       builder: (context, viewModel) => InkWell(
-        onTap: () => viewModel.changeSelectedStore(business.id),
+        onTap: () async {
+          await viewModel.changeSelectedStore(business.id);
+          model.updateMenu();
+        },
         child: Container(
           height: SizeConfig.yMargin(context, 12),
           color: model.currStore.id == business.id

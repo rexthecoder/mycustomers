@@ -108,8 +108,6 @@ Future<void> setupLocator(
   ///Repository
   locator.registerLazySingleton<BusinessCardRepository>(
     () => BusinessCardRepositoryImpl(
-        authService: locator(),
-        storeRepository: locator(),
         localDataSource: locator()),
   );
   locator.registerLazySingleton<StoreRepository>(

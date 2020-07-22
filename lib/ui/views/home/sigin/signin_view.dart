@@ -81,7 +81,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  AppLocalizations.of(context).pleaseEnterYourPhoneNumber,
+                  'Please enter your phone number', // AppLocalizations.of(context).pleaseEnterYourPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
