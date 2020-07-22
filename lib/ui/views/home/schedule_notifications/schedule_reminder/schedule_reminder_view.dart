@@ -36,6 +36,7 @@ class ScheduleNotifications extends StatelessWidget {
             body: Container(
               margin: EdgeInsets.only(left: 30, right: 30),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
                     child: SingleChildScrollView(
@@ -52,7 +53,7 @@ class ScheduleNotifications extends StatelessWidget {
                                   .textTheme
                                   .headline6
                                   .copyWith(
-                                      fontSize: ScreenUtil().setSp(20),
+                                      fontSize: ScreenUtil().setSp(10),
                                       fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -273,8 +274,7 @@ class ScheduleNotifications extends StatelessWidget {
                             ),
                             leftBarIndicatorColor: Colors.blue[300],
                           ).show(context);
-                          await Navigator.pushNamed(
-                              context, '/mainView');
+                          await Navigator.pushNamed(context, '/mainView');
                           // print(_heading.text + _description.text);
                         }
                       },
