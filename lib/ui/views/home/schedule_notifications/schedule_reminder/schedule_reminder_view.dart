@@ -1,9 +1,10 @@
 import 'dart:math';
 
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
-import './schedule_reminderviewmodel.dart';
+import 'schedule_reminder_viewmodel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -35,6 +36,7 @@ class ScheduleNotifications extends StatelessWidget {
             body: Container(
               margin: EdgeInsets.only(left: 30, right: 30),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
                     child: SingleChildScrollView(
@@ -51,7 +53,7 @@ class ScheduleNotifications extends StatelessWidget {
                                   .textTheme
                                   .headline6
                                   .copyWith(
-                                      fontSize: ScreenUtil().setSp(20),
+                                      fontSize: ScreenUtil().setSp(15),
                                       fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -261,9 +263,19 @@ class ScheduleNotifications extends StatelessWidget {
                               'You have this pending message to send',
                               'Heading: ' + _heading.text,
                               model.getDateTime());
-                          await Navigator.pushNamed(
-                              context, '/mainTransaction');
-                          print(_heading.text + _description.text);
+                          Flushbar(
+                            backgroundColor: BrandColors.primary,
+                            duration: const Duration(seconds: 3),
+                            message: 'Your Reminder have been set successfully',
+                            icon: Icon(
+                              Icons.info_outline,
+                              size: 28.0,
+                              color: ThemeColors.background,
+                            ),
+                            leftBarIndicatorColor: Colors.blue[300],
+                          ).show(context);
+                          await Navigator.pushNamed(context, '/mainView');
+                          // print(_heading.text + _description.text);
                         }
                       },
                       shape: RoundedRectangleBorder(

@@ -38,7 +38,7 @@ class TransactionDetails extends StatelessWidget {
                 ),
               ),
               title: Text(
-               AppLocalizations.of(context).transactionDetails,
+                AppLocalizations.of(context).transactionDetails,
                 style: TextStyle(
                     fontSize: 40.sp,
                     color: Colors.white,
@@ -57,8 +57,8 @@ class TransactionDetails extends StatelessWidget {
                   child: Center(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: containerColor,
-                          border: Border.all(color: BrandColors.primary),
+                          // color: containerColor,
+                          border: Border.all(color: Theme.of(context).textSelectionColor),
                           borderRadius: BorderRadius.circular(15.sp)),
                       margin: EdgeInsets.only(
                           left: 50.w, right: 50.w, top: 40.h, bottom: 0.0),
@@ -79,12 +79,16 @@ class TransactionDetails extends StatelessWidget {
                                             radius: 30,
                                             backgroundColor:
                                                 BrandColors.primary,
-                                            child:
-                                                Text(model.contact.initials),
+                                            child: Text(
+                                              model.contact.initials,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .backgroundColor),
+                                            ),
                                           )
                                         : CircleAvatar(
                                             radius: 30,
-                                            backgroundColor: color,
+                                            backgroundColor: Theme.of(context).textSelectionColor,
                                             backgroundImage: AssetImage(
                                                 'assets/images/man.png'),
                                           ),
@@ -119,118 +123,108 @@ class TransactionDetails extends StatelessWidget {
                                 ),
                               ),
                               Divider(
-                                color: BrandColors.primary,
+                                color: Theme.of(context).textSelectionColor,
                               ),
                               Padding(
-                                padding: EdgeInsets.only(
-                                    top: 30.sp,
-                                    left: 30.sp,
-                                    right: 30.sp,
-                                    bottom: 40.sp),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Container(
-                                      child: Row(
+                                  padding: EdgeInsets.only(
+                                      top: 30.sp,
+                                      left: 30.sp,
+                                      right: 30.sp,
+                                      bottom: 40.sp),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Expanded(
-                                            flex: 20,
-                                            child: Text(
-                                              AppLocalizations.of(context)
-                                                  .costOfItems,
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 30.sp),
-                                            ),
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .costOfItems,
+                                            // textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 30.sp),
                                           ),
                                           SizedBox(
-                                            width: 10.w,
+                                            height: 20.h,
                                           ),
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              model.transaction.amount != null
-                                                  ? '₦${currency.format(model.transaction.amount)}'
-                                                  : '₦0',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: color,
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 30.sp),
-                                            ),
-                                          )
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .amountPaid,
+                                            // textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 30.sp),
+                                          ),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .amountOwing,
+                                            // textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 30.sp),
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Container(
-                                      child: Row(
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          Expanded(
-                                            flex: 20,
-                                            child: Text(
-                                              AppLocalizations.of(context)
-                                                  .amountPaid,
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 30.sp),
-                                            ),
+                                          Text(
+                                            model.transaction.amount != null
+                                                ? '₦${currency.format(model.transaction.amount)}'
+                                                : '₦0',
+                                            // textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                                color: Theme.of(context).textSelectionColor,
+                                                fontFamily: 'Roboto',
+                                                fontSize: 30.sp),
                                           ),
                                           SizedBox(
-                                            width: 10.w,
+                                            height: 20.h,
                                           ),
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              model.transaction.paid != null
-                                                  ? '₦${currency.format(model.transaction.paid)}'
-                                                  : '₦0',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 30.sp),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 40.h,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 20,
-                                            child: Text(
-                                              AppLocalizations.of(context)
-                                                  .amountOwing,
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 30.sp),
-                                            ),
+                                          Text(
+                                            model.transaction.paid != null
+                                                ? '₦${currency.format(model.transaction.paid)}'
+                                                : '₦0',
+                                           // textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontFamily: 'Roboto',
+                                                fontSize: 30.sp),
                                           ),
                                           SizedBox(
-                                            width: 10.w,
+                                            height: 20.h,
+                                          ),
+                                          Text(
+                                            model.transaction.amount != null &&
+                                                    model.transaction.paid !=
+                                                        null &&
+                                                    (model.transaction.amount -
+                                                            model.transaction
+                                                                .paid) >
+                                                        0
+                                                ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
+                                                : '₦0',
+                                           // textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                                color: Colors.red[800],
+                                                fontFamily: 'Roboto',
+                                                fontSize: 30.sp),
                                           ),
                                           Expanded(
                                             flex: 30,
                                             child: Text(
                                               model.transaction.amount !=
                                                           null &&
-                                                      model.transaction
-                                                              .paid !=
+                                                      model.transaction.paid !=
                                                           null &&
                                                       (model.transaction
                                                                   .amount -
-                                                              model
-                                                                  .transaction
+                                                              model.transaction
                                                                   .paid) >
                                                           0
                                                   ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
@@ -243,11 +237,129 @@ class TransactionDetails extends StatelessWidget {
                                             ),
                                           )
                                         ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                      )
+                                    ],
+                                  )
+                                  //Column(
+                                  //   mainAxisSize: MainAxisSize.min,
+                                  //   mainAxisAlignment: MainAxisAlignment.start,
+                                  //   children: <Widget>[
+                                  //     Container(
+                                  //       child: Row(
+                                  //         children: <Widget>[
+                                  //           Expanded(
+                                  //             flex: 20,
+                                  //             child: Text(
+                                  //               AppLocalizations.of(context)
+                                  //                   .costOfItems,
+                                  //               textAlign: TextAlign.end,
+                                  //               style: TextStyle(
+                                  //                   color: Colors.grey[600],
+                                  //                   fontSize: 30.sp),
+                                  //             ),
+                                  //           ),
+                                  //           SizedBox(
+                                  //             width: 10.w,
+                                  //           ),
+                                  //           Expanded(
+                                  //             flex: 30,
+                                  //             child: Text(
+                                  //               model.transaction.amount != null
+                                  //                   ? '₦${currency.format(model.transaction.amount)}'
+                                  //                   : '₦0',
+                                  //               textAlign: TextAlign.end,
+                                  //               style: TextStyle(
+                                  //                   color: color,
+                                  //                   fontFamily: 'Roboto',
+                                  //                   fontSize: 30.sp),
+                                  //             ),
+                                  //           )
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //     SizedBox(
+                                  //       height: 20.h,
+                                  //     ),
+                                  //     Container(
+                                  //       child: Row(
+                                  //         children: <Widget>[
+                                  //           Expanded(
+                                  //             flex: 20,
+                                  //             child: Text(
+                                  //               AppLocalizations.of(context)
+                                  //                   .amountPaid,
+                                  //               textAlign: TextAlign.end,
+                                  //               style: TextStyle(
+                                  //                   color: Colors.grey[600],
+                                  //                   fontSize: 30.sp),
+                                  //             ),
+                                  //           ),
+                                  //           SizedBox(
+                                  //             width: 10.w,
+                                  //           ),
+                                  //           Expanded(
+                                  //             flex: 30,
+                                  //             child: Text(
+                                  //               model.transaction.paid != null
+                                  //                   ? '₦${currency.format(model.transaction.paid)}'
+                                  //                   : '₦0',
+                                  //               textAlign: TextAlign.end,
+                                  //               style: TextStyle(
+                                  //                   color: Colors.green,
+                                  //                   fontFamily: 'Roboto',
+                                  //                   fontSize: 30.sp),
+                                  //             ),
+                                  //           )
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //     SizedBox(
+                                  //       height: 40.h,
+                                  //     ),
+                                  //     Container(
+                                  //       child: Row(
+                                  //         children: <Widget>[
+                                  //           Expanded(
+                                  //             flex: 20,
+                                  //             child: Text(
+                                  //               AppLocalizations.of(context)
+                                  //                   .amountOwing,
+                                  //               textAlign: TextAlign.end,
+                                  //               style: TextStyle(
+                                  //                   color: Colors.grey[600],
+                                  //                   fontSize: 30.sp),
+                                  //             ),
+                                  //           ),
+                                  //           SizedBox(
+                                  //             width: 10.w,
+                                  //           ),
+                                  //           Expanded(
+                                  //             flex: 30,
+                                  //             child: Text(
+                                  //               model.transaction.amount !=
+                                  //                           null &&
+                                  //                       model.transaction.paid !=
+                                  //                           null &&
+                                  //                       (model.transaction
+                                  //                                   .amount -
+                                  //                               model.transaction
+                                  //                                   .paid) >
+                                  //                           0
+                                  //                   ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
+                                  //                   : '₦0',
+                                  //               textAlign: TextAlign.end,
+                                  //               style: TextStyle(
+                                  //                   color: Colors.red[800],
+                                  //                   fontFamily: 'Roboto',
+                                  //                   fontSize: 30.sp),
+                                  //             ),
+                                  //           )
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                  ),
                             ],
                           ),
                         ],
@@ -269,9 +381,9 @@ class TransactionDetails extends StatelessWidget {
                         height: 90.sp,
                         width: 280.sp,
                         decoration: BoxDecoration(
-                            color: containerColor,
+                            //color: containerColor,
                             border: Border.all(
-                              color: BrandColors.primary,
+                              color: Theme.of(context).textSelectionColor
                             ),
                             borderRadius: BorderRadius.circular(10.sp)),
                         child: Center(
@@ -279,7 +391,7 @@ class TransactionDetails extends StatelessWidget {
                             AppLocalizations.of(context).delete,
                             style: TextStyle(
                                 fontSize: 30.sp,
-                                color: BrandColors.primary,
+                                color: Theme.of(context).textSelectionColor,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -317,11 +429,10 @@ class TransactionDetails extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    ReceiptReport().buildPdf(context).then((file)
-                      {
-                       model.imageFile = file;
-                       model.shareTextandImage();
-                      });
+                    ReceiptReport().buildPdf(context).then((file) {
+                      model.imageFile = file;
+                      model.shareTextandImage();
+                    });
                     //   TODO: PDF
                   }, // TODO: Implement shareTextandFile
                   child: Container(
@@ -337,14 +448,12 @@ class TransactionDetails extends StatelessWidget {
                         SizedBox(
                           width: 20.w,
                         ),
-                        Text(
-                          AppLocalizations.of(context).share,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 30.sp,
-                          )
-                        ),
+                        Text(AppLocalizations.of(context).share,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 30.sp,
+                            )),
                       ],
                     ),
                   ),

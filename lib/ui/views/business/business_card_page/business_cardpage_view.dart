@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_picker_dropdown.dart';
+import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -86,9 +90,10 @@ class BusinessCardPageView extends StatelessWidget {
                               model.imageFile = image;
                               await model.saveBusinessCard();
                               FlushbarHelper.createSuccess(
-                                duration: const Duration(seconds: 5),
-                                message: 'Save Successful',
-                              ).show(context);
+                                      duration: const Duration(seconds: 5),
+                                      message: AppLocalizations.of(context)
+                                          .saveSuccessful)
+                                  .show(context);
                               model.shareImageAndText();
                             },
                           ).catchError(
@@ -122,7 +127,6 @@ class BusinessCardPageView extends StatelessWidget {
   }
 }
 
-
 class BusinessCardModal extends StatelessWidget {
   const BusinessCardModal({
     Key key,
@@ -136,6 +140,7 @@ class BusinessCardModal extends StatelessWidget {
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
         return BusinessCardWidget(
+          showArrow: false,
           screenshotController: screenshotController,
         );
       },
@@ -270,29 +275,29 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Store Name",
+            label: AppLocalizations.of(context).storeName,
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Personal Name",
+            label: AppLocalizations.of(context).personalName,
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultPhoneFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
@@ -304,18 +309,18 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Email Address",
+            label: AppLocalizations.of(context).emailAddress,
             onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
           // TODO VALIDATE SHOP/OFFICE ADDRESS FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },

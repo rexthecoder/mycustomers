@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -15,23 +16,15 @@ class EditProfileView extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            title: Text(
-              'Edit Profile',
-              style: TextStyle(
-                color: Theme.of(context).cursorColor,
-                fontWeight: FontWeight.bold,
-                fontSize: SizeConfig.textSize(context, 6),
-              ),
-            ),
-            centerTitle: true,
-            elevation: 0.0,
-            iconTheme: IconThemeData(color: BrandColors.primary),
-          ),
+          appBar: customizeAppBar(context, 1.0,
+              children: [],
+              title: AppLocalizations.of(context).editProfile,
+              arrowColor: BrandColors.primary),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: SizeConfig.yMargin(context, 4)),
                   Align(
                     alignment: Alignment.topCenter,
                     child: !kIsWeb &&
@@ -45,7 +38,8 @@ class EditProfileView extends StatelessWidget {
                                 case ConnectionState.waiting:
                                   return CircleAvatar(
                                     child: Text(
-                                      AppLocalizations.of(context).notPickedImage,
+                                      AppLocalizations.of(context)
+                                          .notPickedImage,
                                       textAlign: TextAlign.center,
                                     ),
                                   );
@@ -54,12 +48,15 @@ class EditProfileView extends StatelessWidget {
                                 default:
                                   if (snapshot.hasError) {
                                     return Text(
-                                      'Pick image: ${snapshot.error}}',
+                                      AppLocalizations.of(context).pickImage +
+                                          ':' +
+                                          '${snapshot.error}}',
                                       textAlign: TextAlign.center,
                                     );
                                   } else {
                                     return Text(
-                                       AppLocalizations.of(context).notPickedImage,
+                                      AppLocalizations.of(context)
+                                          .notPickedImage,
                                       textAlign: TextAlign.center,
                                     );
                                   }
@@ -70,26 +67,24 @@ class EditProfileView extends StatelessWidget {
                   ),
                   SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Container(
-                    height: SizeConfig.yMargin(context, 8),
-                    width: SizeConfig.xMargin(context, 70),
+                    height: SizeConfig.yMargin(context, 6),
+                    width: SizeConfig.xMargin(context, 60),
                     decoration: BoxDecoration(
                       color: BrandColors.primary,
                       borderRadius: BorderRadius.circular(8.sp),
                     ),
-                    child: FlatButton(
+                    child: CustomRaisedButton(
+                      txtColor: ThemeColors.background,
+                      btnColor: BrandColors.primary,
+                      btnText: model.image == null
+                          ? AppLocalizations.of(context).addProfilePicture
+                          : AppLocalizations.of(context).changePic,
+                      borderColor: BrandColors.primary,
+                      child: Container(),
                       onPressed: model.getImagefromGallery,
-                      child: Text(
-                        model.image == null
-                            ? 'Add a Profile Picture'
-                            : 'Change Profile Picture',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 4),
-                          color: ThemeColors.background,
-                        ),
-                      ),
                     ),
                   ),
+                  SizedBox(height: SizeConfig.yMargin(context, 1.5)),
                   Divider(color: ThemeColors.gray.shade600),
                   SizedBox(height: SizeConfig.yMargin(context, 2.5)),
                   Column(
@@ -111,7 +106,7 @@ class EditProfileView extends StatelessWidget {
                             onChanged: (value) => model.updateUserName(value),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'User Name',
+                              hintText: AppLocalizations.of(context).userName,
                             ),
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
@@ -137,9 +132,9 @@ class EditProfileView extends StatelessWidget {
                             initialValue: model.businessName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Business Name',
-                            ),
+                                border: InputBorder.none,
+                                hintText:
+                                    AppLocalizations.of(context).businessName),
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
                             ),
@@ -151,32 +146,19 @@ class EditProfileView extends StatelessWidget {
                   SizedBox(
                     height: SizeConfig.yMargin(context, 18),
                   ),
-                  FlatButton(
-                    color: BrandColors.primary,
+                  CustomRaisedButton(
+                    txtColor: ThemeColors.background,
+                    btnColor: BrandColors.primary,
+                    btnText: AppLocalizations.of(context).save,
+                    borderColor: BrandColors.primary,
+                    child: Container(),
                     onPressed: () {
                       model.updateProfile();
                       FlushbarHelper.createInformation(
                         duration: const Duration(seconds: 5),
-                        message: 'Coming soon..',
+                        message: AppLocalizations.of(context).save,
                       ).show(context);
                     },
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.xMargin(context, 41),
-                      vertical: SizeConfig.yMargin(context, 2.6),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context).save,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: ThemeColors.background,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.bold,
-                        fontSize: SizeConfig.yMargin(context, 2),
-                      ),
-                    ),
                   ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 2),

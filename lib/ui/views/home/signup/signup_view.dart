@@ -238,17 +238,17 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
             //     ),
             //     SocialIconButton(
             //       onTap: () {
-            //         Flushbar(
-            //           backgroundColor: BrandColors.primary,
-            //           duration: const Duration(seconds: 3),
-            //           message: 'Facebook signin coming soon',
-            //           icon: Icon(
-            //             Icons.info_outline,
-            //             size: 28.0,
-            //             color: ThemeColors.background,
-            //           ),
-            //           leftBarIndicatorColor: Colors.blue[300],
-            //         ).show(context);
+                    // Flushbar(
+                    //   backgroundColor: BrandColors.primary,
+                    //   duration: const Duration(seconds: 3),
+                    //   message: 'Facebook signin coming soon',
+                    //   icon: Icon(
+                    //     Icons.info_outline,
+                    //     size: 28.0,
+                    //     color: ThemeColors.background,
+                    //   ),
+                    //   leftBarIndicatorColor: Colors.blue[300],
+                    // ).show(context);
             //       },
             //       socialIconUrl: 'assets/icons/facebook_icon.png',
             //     ),

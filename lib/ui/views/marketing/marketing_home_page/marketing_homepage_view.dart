@@ -16,17 +16,10 @@ class MarketingHomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    Color backgroundColor = Theme.of(context).brightness == Brightness.dark
-        ? Theme.of(context).backgroundColor
-        : ThemeColors.gray[400];
     ScreenUtil.init(context,
         width: width, height: height, allowFontScaling: true);
     return ViewModelBuilder<MarketingHomePageViewModel>.reactive(
-      builder: (context, model, child) =>
-          // Scaffold(
-          // // backgroundColor:BrandColors.primary,
-          // body:
-          Container(
+      builder: (context, model, child) => Container(
         color: Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
           Container(
@@ -68,7 +61,6 @@ class MarketingHomePageView extends StatelessWidget {
               ? Expanded(
                   child: Container(
                     width: width,
-                    // height: height,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 20.0),
@@ -79,7 +71,7 @@ class MarketingHomePageView extends StatelessWidget {
                             children: <Widget>[
                               ClipRect(
                                 child: Image(
-                                  height: height / 4,
+                                  height: height / 6,
                                   image:
                                       AssetImage('assets/images/megaphone.png'),
                                   fit: BoxFit.contain,
@@ -94,61 +86,9 @@ class MarketingHomePageView extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400,
-                                    color: BrandColors.primary),
+                                    color:
+                                        Theme.of(context).textSelectionColor),
                                 textAlign: TextAlign.center,
-// =======
-//                               Container(
-//                                 color: ThemeColors.gray[400],
-//                                 height: 50.h,
-//                                 child: Row(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceBetween,
-//                                   children: <Widget>[
-//                                     Expanded(
-//                                       child: InkWell(
-//                                         child: Container(
-//                                           decoration: BoxDecoration(
-// //                                        color: ThemeColors.gray,
-//                                               color: ThemeColors.gray[400],
-//                                               borderRadius:
-//                                                   BorderRadius.circular(5.0)),
-//                                           child: Center(
-//                                             child: Text(
-//                                               AppLocalizations.of(context)
-//                                                   .addACustomer,
-//                                               style: TextStyle(
-//                                                   fontSize: 14.sp,
-//                                                   color: ThemeColors.gray[400]),
-//                                             ),
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                     SizedBox(
-//                                       width: 10.w,
-//                                     ),
-//                                     Expanded(
-//                                       child: InkWell(
-//                                         child: Container(
-//                                           decoration: BoxDecoration(
-//                                               color: BrandColors.secondary,
-//                                               borderRadius:
-//                                                   BorderRadius.circular(5.0)),
-//                                           child: Center(
-//                                             child: Text(
-//                                               AppLocalizations.of(context)
-//                                                   .sendMessage,
-//                                               style: TextStyle(
-//                                                   fontSize: 14.sp,
-//                                                   color: Colors.white),
-//                                             ),
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-// >>>>>>> language
                               ),
                             ],
                           ),
@@ -186,8 +126,9 @@ class MarketingHomePageView extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
-                                      'Send message', // AppLocalizations.of(context)
-                                          // .sendMessageAll,
+                                      AppLocalizations.of(context)
+                                          .sendMessage, // AppLocalizations.of(context)
+                                      // .sendMessageAll,
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           color: BrandColors.secondary),
@@ -254,7 +195,6 @@ class MarketingHomePageView extends StatelessWidget {
                                 child: ListView.builder(
                                     padding: const EdgeInsets.all(0.0),
                                     itemCount: 1,
-//                                  itemCount: model.allFrequentCustomers.length,
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder:
@@ -384,7 +324,13 @@ class MarketingHomePageView extends StatelessWidget {
                                           model.isSelected(customer);
                                       return Dismissible(
                                         background: Container(
-                                          color: BrandColors.secondary,
+                                          padding: EdgeInsets.only(right: 15),
+                                          color: Colors.red,
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Icon(Icons.delete,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                         key: UniqueKey(),
                                         onDismissed:
@@ -471,208 +417,6 @@ class MarketingHomePageView extends StatelessWidget {
                     ),
                   ),
                 ),
-//                         Expanded(
-//                  child: Container(
-//                    color: ThemeColors.gray[400],
-//                    width: width,
-//                    child: Column(
-//                        crossAxisAlignment: CrossAxisAlignment.start,
-//                        children: <Widget>[
-//                          Expanded(
-//                            child: SingleChildScrollView(
-//                              child: Column(
-//                                crossAxisAlignment: CrossAxisAlignment.start,
-//                                children: <Widget>[
-//                                  SizedBox(
-//                                    height: 5.h,
-//                                  ),
-//                                  Container(
-//                                    padding: const EdgeInsets.symmetric(
-//                                      horizontal: 20.0,
-//                                    ),
-//                                    child: Row(
-//                                      mainAxisAlignment:
-//                                          MainAxisAlignment.spaceBetween,
-//                                      children: <Widget>[
-//                                        Text(
-//                                          'Customer List',
-//                                          style: TextStyle(
-//                                            fontSize: 20.sp,
-//                                          ),
-//                                        ),
-//                                        Text(
-//                                          'Send message to all',
-//                                          style: TextStyle(
-//                                              fontSize: 14.sp,
-//                                              color: BrandColors.secondary),
-//                                        ),
-//                                      ],
-//                                    ),
-//                                  ),
-//                                  SizedBox(
-//                                    height: 10.h,
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.symmetric(
-//                                        horizontal: 15.0, vertical: 10),
-//                                    child: Container(
-//                                      child: TextField(
-//                                        controller: model.searchController,
-//                                        onChanged: model.search,
-//                                        textInputAction: TextInputAction.search,
-//                                        decoration: InputDecoration(
-//                                          prefixIcon: Icon(Icons.search),
-//                                          hintText: 'Type customer name',
-//                                          border: InputBorder.none,
-//                                          focusColor: BrandColors.primary,
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.symmetric(
-//                                        horizontal: 20.0, vertical: 10),
-//                                    child: Text('All'),
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.symmetric(
-//                                        horizontal: 20.0),
-//                                    child: ListView.builder(
-//                                        shrinkWrap: true,
-//                                        physics: NeverScrollableScrollPhysics(),
-//                                        itemCount:
-//                                            model.searchController.text != null
-//                                                ? model.searchedCustomer.length
-//                                                : model.allCustomers.length,
-//                                        itemBuilder:
-//                                            (BuildContext context, int index) {
-//                                          Customer customer = model
-//                                                      .searchController.text !=
-//                                                  null
-//                                              ? model.searchedCustomer[index]
-//                                              : model.allCustomers[index];
-//                                          bool _isSelected =
-//                                              model.isSelected(customer);
-//                                          return Dismissible(
-//                                            background: Container(color: Colors.red,),
-//                                            key: Key(index.toString()),
-//                                            onDismissed: (direction)=>model.removeCustomers(index),
-//                                            child: MyListTile(
-//                                              leading: CustomerCircleAvatar(
-//                                                  customer: customer),
-//                                              title: Text(
-//                                                customer.lastName!=null?
-//                                                '${customer.name} '
-//                                                '${customer.lastName}':'${customer.name} ',
-//                                                style: TextStyle(
-//                                                  fontWeight: FontWeight.w600,
-//                                                ),
-//                                              ),
-//                                              subtitle: Text(
-//                                                '${customer.phone}',
-//                                                style: TextStyle(
-//                                                  color:
-//                                                      ThemeColors.gray.shade600,
-//                                                  fontWeight: FontWeight.w600,
-//                                                ),
-//                                              ),
-//                                              trailing: Checkbox(
-//                                                  activeColor:
-//                                                      BrandColors.primary,
-//                                                  value: _isSelected,
-//                                                  onChanged: (value) {
-//                                                    _isSelected
-//                                                        ? model.deselectCustomer(
-//                                                            customer)
-//                                                        : model.addCustomer(
-//                                                            customer);
-//                                                  }),
-//                                            ),
-//                                          );
-//                                        }),
-//                                  )
-//                                ],
-//                              ),
-//                            ),
-//                          ),
-//                        ]),
-//                  ),
-//                ),
-//          model.allCustomers.length != 0
-//              ? Container(
-//                  color: Colors.transparent,
-//                  child: Padding(
-//                    padding: const EdgeInsets.symmetric(
-//                        horizontal: 10, vertical: 10),
-//                    child: Container(
-//                      height: 50.h,
-//                      color: Colors.transparent,
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                        children: <Widget>[
-//                          Expanded(
-//                            child: FlatButton(
-//                              onPressed: () async{
-//                                   final bool isPermitted = await model.checkPermission();
-//                                   if(isPermitted){
-//                                     model.navigateToAddCustomers(context);
-//
-//                                   }else{
-//                                     permissionDialog(context, model);
-//                                   }
-//                                   model.navigateToAddCustomer();
-//                                },
-//                              color: BrandColors.primary,
-//                              shape: RoundedRectangleBorder(
-//                                  borderRadius: BorderRadius.circular(5.0)),
-//                              child: Container(
-//                                child: Center(
-//                                  child: Text(
-//                                    'New Contacts',
-//                                    style: TextStyle(
-//                                        fontSize: 14.sp, color: Colors.white),
-//                                  ),
-//                                ),
-//                              ),
-//                            ),
-//                          ),
-//                          SizedBox(width: 5.h,),
-//                          Expanded(
-//                            child: FlatButton(
-//
-//                              onPressed: () { model.selectedCustomers.length !=0?
-//                               model.navigateToSendMessageView():
-//                                Flushbar(
-//                                      backgroundColor: BrandColors.primary,
-//                                      duration: const Duration(seconds: 3),
-//                                      message: 'Select a customer from the list or add new contacts',
-//                                      icon: Icon(
-//                                        Icons.info_outline,
-//                                        size: 28.0,
-//                                        color: ThemeColors.background,
-//                                      ),
-//                                      leftBarIndicatorColor: Colors.blue[300],
-//                                    ).show(context);
-//                               },
-//                              color: BrandColors.secondary,
-//                              shape: RoundedRectangleBorder(
-//                                  borderRadius: BorderRadius.circular(5.0)),
-//                              child: Container(
-//                                child: Center(
-//                                  child: Text(
-//                                    'Send message',
-//                                    style: TextStyle(
-//                                        fontSize: 14.sp, color: Colors.white),
-//                                  ),
-//                                ),
-//                              ),
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
-//                )
           model.allCustomers.length != 0
               ? Container(
                   child: Padding(
@@ -702,7 +446,6 @@ class MarketingHomePageView extends StatelessWidget {
                                       ),
                                       leftBarIndicatorColor: Colors.blue[300],
                                     ).show(context);
-                              //  model.navigateToAddCustomer();
                             },
                             color: BrandColors.secondary,
                             shape: RoundedRectangleBorder(
@@ -721,58 +464,6 @@ class MarketingHomePageView extends StatelessWidget {
                         ],
                       ),
                     ),
-//                        child: Column(
-//                          crossAxisAlignment: CrossAxisAlignment.end,
-//                          children: <Widget>[
-//                            Row(
-//                              mainAxisAlignment: MainAxisAlignment.end,
-//                              children: <Widget>[
-//                                Text('Add New Customer',style: TextStyle(
-//                            fontSize: 14.sp),),
-//                                SizedBox(width: 10.w,),
-//                                FloatingActionButton(
-//                                  onPressed:(){},
-//                                  backgroundColor: Colors.white,
-//                                  child: Icon(Icons.add,color: BrandColors.primary,),
-//                                ),
-//                              ],
-//                            ),
-//                            SizedBox(height: 20.h,),
-//                            Container(
-//                          height: 50.h,
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.end,
-//                            children: <Widget>[
-//                              FlatButton(
-//                                onPressed: ()async{
-//                                   final bool isPermitted = await model.checkPermission();
-//                                   if(isPermitted){
-//                                     model.navigateToAddCustomers(context);
-//
-//                                   }else{
-//                                     permissionDialog(context, model);
-//                                   }
-//                                  //  model.navigateToAddCustomer();
-//                                },
-//                                color: BrandColors.secondary,
-//                                shape: RoundedRectangleBorder(
-//                                    borderRadius: BorderRadius.circular(5.0)),
-//                                child: Container(
-//                                  width: width / 3,
-//                                  child: Center(
-//                                    child: Text(
-//                                      'Send message',
-//                                      style: TextStyle(
-//                                          fontSize: 14.sp, color: Colors.white),
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                            ],
-//                          ),
-//                        )
-//                          ],
-//                        ),
                   ),
                 )
               : Container(
@@ -815,253 +506,10 @@ class MarketingHomePageView extends StatelessWidget {
                         ],
                       ),
                     ),
-//                        child: Column(
-//                          crossAxisAlignment: CrossAxisAlignment.end,
-//                          children: <Widget>[
-//                            Row(
-//                              mainAxisAlignment: MainAxisAlignment.end,
-//                              children: <Widget>[
-//                                Text('Add New Customer',style: TextStyle(
-//                            fontSize: 14.sp),),
-//                                SizedBox(width: 10.w,),
-//                                FloatingActionButton(
-//                                  onPressed:(){},
-//                                  backgroundColor: Colors.white,
-//                                  child: Icon(Icons.add,color: BrandColors.primary,),
-//                                ),
-//                              ],
-//                            ),
-//                            SizedBox(height: 20.h,),
-//                            Container(
-//                          height: 50.h,
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.end,
-//                            children: <Widget>[
-//                              FlatButton(
-//                                onPressed: ()async{
-//                                   final bool isPermitted = await model.checkPermission();
-//                                   if(isPermitted){
-//                                     model.navigateToAddCustomers(context);
-//
-//                                   }else{
-//                                     permissionDialog(context, model);
-//                                   }
-//                                  //  model.navigateToAddCustomer();
-//                                },
-//                                color: BrandColors.secondary,
-//                                shape: RoundedRectangleBorder(
-//                                    borderRadius: BorderRadius.circular(5.0)),
-//                                child: Container(
-//                                  width: width / 3,
-//                                  child: Center(
-//                                    child: Text(
-//                                      'Send message',
-//                                      style: TextStyle(
-//                                          fontSize: 14.sp, color: Colors.white),
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                            ],
-//                          ),
-//                        )
-//                          ],
-//                        ),
                   ),
                 ),
-
-//              : Expanded(
-//                  child: Container(
-//                    color: ThemeColors.gray[400],
-//                    width: width,
-//                    child: Column(
-//                        crossAxisAlignment: CrossAxisAlignment.start,
-//                        children: <Widget>[
-//                          Expanded(
-//                            child: SingleChildScrollView(
-//                              child: Column(
-//                                crossAxisAlignment: CrossAxisAlignment.start,
-//                                children: <Widget>[
-//                                  SizedBox(
-//                                    height: 5.h,
-//                                  ),
-//                                  Container(
-//                                    padding: const EdgeInsets.symmetric(
-//                                      horizontal: 20.0,
-//                                    ),
-//                                    child: Row(
-//                                      mainAxisAlignment:
-//                                          MainAxisAlignment.spaceBetween,
-//                                      children: <Widget>[
-//                                        Text(
-//                                          'Customer List',
-//                                          style: TextStyle(
-//                                            fontSize: 20.sp,
-//                                          ),
-//                                        ),
-//                                        Text(
-//                                          'Send message to all',
-//                                          style: TextStyle(
-//                                              fontSize: 14.sp,
-//                                              color: BrandColors.secondary),
-//                                        ),
-//                                      ],
-//                                    ),
-//                                  ),
-//                                  SizedBox(
-//                                    height: 10.h,
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.symmetric(
-//                                        horizontal: 15.0, vertical: 10),
-//                                    child: Container(
-//                                      child: TextField(
-//                                        controller: model.searchController,
-//                                        onChanged: model.search,
-//                                        textInputAction: TextInputAction.search,
-//                                        decoration: InputDecoration(
-//                                          prefixIcon: Icon(Icons.search),
-//                                          hintText: 'Type customer name',
-//                                          border: InputBorder.none,
-//                                          focusColor: BrandColors.primary,
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.symmetric(
-//                                        horizontal: 20.0, vertical: 10),
-//                                    child: Text('All'),
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.symmetric(
-//                                        horizontal: 20.0),
-//                                    child: ListView.builder(
-//                                        shrinkWrap: true,
-//                                        physics: NeverScrollableScrollPhysics(),
-//                                        itemCount:
-//                                            model.searchController.text != null
-//                                                ? model.searchedCustomer.length
-//                                                : model.allCustomers.length,
-//                                        itemBuilder:
-//                                            (BuildContext context, int index) {
-//                                          Customer customer = model
-//                                                      .searchController.text !=
-//                                                  null
-//                                              ? model.searchedCustomer[index]
-//                                              : model.allCustomers[index];
-//                                          bool _isSelected =
-//                                              model.isSelected(customer);
-//                                          return MyListTile(
-//                                            leading: CustomerCircleAvatar(
-//                                                customer: customer),
-//                                            title: Text(
-//                                              '${customer.name} '
-//                                              '${customer.lastName}',
-//                                              style: TextStyle(
-//                                                fontWeight: FontWeight.w600,
-//                                              ),
-//                                            ),
-//                                            subtitle: Text(
-//                                              '${customer.phone}',
-//                                              style: TextStyle(
-//                                                color:
-//                                                    ThemeColors.gray.shade600,
-//                                                fontWeight: FontWeight.w600,
-//                                              ),
-//                                            ),
-//                                            trailing: Checkbox(
-//                                                activeColor:
-//                                                    BrandColors.primary,
-//                                                value: _isSelected,
-//                                                onChanged: (value) {
-//                                                  _isSelected
-//                                                      ? model.deselectCustomer(
-//                                                          customer)
-//                                                      : model.addCustomer(
-//                                                          customer);
-//                                                }),
-//                                          );
-//                                        }),
-//                                  )
-//                                ],
-//                              ),
-//                            ),
-//                          ),
-//                          Padding(
-//                            padding: const EdgeInsets.symmetric(
-//                                horizontal: 20.0, vertical: 10),
-//                            child: Container(
-//                              color: Theme.of(context).backgroundColor,
-//                              height: 50.h,
-//                              child: Row(
-//                                mainAxisAlignment:
-//                                    MainAxisAlignment.spaceBetween,
-//                                children: <Widget>[
-//                                  Expanded(
-//                                    child: InkWell(
-//                                      onTap: () =>
-//                                          model.navigateToAddCustomer(),
-//                                      // =>Navigator.pushNamed(context, '/addCustomerMarketing'),
-//                                      child: Container(
-//                                        decoration: BoxDecoration(
-//                                            color: BrandColors.primary,
-//                                            borderRadius:
-//                                                BorderRadius.circular(5.0)),
-//                                        child: Center(
-//                                          child: Text(
-//                                            'Add a customer',
-//                                            style: TextStyle(
-//                                                fontSize: 14.sp,
-//                                                color: Colors.white),
-//                                          ),
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  SizedBox(
-//                                    width: 10.w,
-//                                  ),
-//                                  Expanded(
-//                                    child: InkWell(
-//                                      onTap: () {
-//                                        // Navigator.pushNamed(context, '/sendMessage');
-////                                        model.selectedCustomers
-////                                            .length ==
-////                                            0
-////                                            ??
-//                                        model.sendMessage();
-//                                      },
-//                                      child: Container(
-//                                        decoration: BoxDecoration(
-//                                            color: model.selectedCustomers
-//                                                        .length ==
-//                                                    0
-//                                                ? ThemeColors.gray
-//                                                : BrandColors.secondary,
-//                                            borderRadius:
-//                                                BorderRadius.circular(5.0)),
-//                                        child: Center(
-//                                          child: Text(
-//                                            'Send message',
-//                                            style: TextStyle(
-//                                                fontSize: 14.sp,
-//                                                color: Colors.white),
-//                                          ),
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
-//                                ],
-//                              ),
-//                            ),
-//                          ),
-//                        ]),
-//                  ),
-//                ),
         ]),
       ),
-      // ),
       viewModelBuilder: () => MarketingHomePageViewModel(),
     );
   }

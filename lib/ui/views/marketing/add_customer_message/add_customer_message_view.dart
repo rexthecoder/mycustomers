@@ -11,6 +11,7 @@ import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'add_customer_message_viewmodel.dart';
 
@@ -39,7 +40,7 @@ class AddCustomerMessageView extends StatelessWidget {
       builder: (context, model, child) {
         model.getFrequentCustomers(frequent);
         return Scaffold(
-          appBar: customizeAppBar(context, 0.0, title: 'Send a Message', arrowColor: Theme.of(context).backgroundColor),
+          appBar: customizeAppBar(context, 0.0, title: AppLocalizations.of(context).sendMessage, arrowColor: BrandColors.secondary),
 //        appBar: customizeAppBar(context, 0.0, title: 'Select contacts', arrowColor: BrandColors.secondary),
           body: Column(
           children: <Widget>[
@@ -61,7 +62,7 @@ class AddCustomerMessageView extends StatelessWidget {
                 child: TextField(
                   controller: model.searchController,
                   decoration: InputDecoration(
-                    hintText: 'Type customer name',
+                    hintText: AppLocalizations.of(context).typeCustomerName,
                     prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -100,7 +101,7 @@ class AddCustomerMessageView extends StatelessWidget {
 //                                  : 10.w
                           ),
                           child: Text(
-                            'Add customer Manually',
+                            AppLocalizations.of(context).addCustomer,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: BrandColors.secondary,
@@ -231,7 +232,7 @@ class AddCustomerMessageView extends StatelessWidget {
                       color: backgroundColor,
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'PHONE CONTACTS',
+                        AppLocalizations.of(context).phoneContacts,
                         style:
                             TextStyle(fontWeight: FontWeight.w600),
                       ),
@@ -400,7 +401,7 @@ class AddCustomerMessageView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Continue',
+                      AppLocalizations.of(context).continueButton,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
