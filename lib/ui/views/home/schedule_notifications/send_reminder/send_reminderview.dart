@@ -1,5 +1,7 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'send_reminderviewmodel.dart';
@@ -10,9 +12,9 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 class SendMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    ScreenUtil.init(context, width: width, height: height);
+    // var height = MediaQuery.of(context).size.height;
+    // var width = MediaQuery.of(context).size.width;
+    // ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
@@ -29,11 +31,11 @@ class SendMessage extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           SizedBox(
-                            height: 60.h,
+                            height: 30.h,
                           ),
                           Container(
                             child: TextField(
-                              style: TextStyle(height: height * 0.002),
+                              style: TextStyle(height: SizeConfig.yMargin(context, 0.002)),
                               maxLines: 1,
                               decoration: InputDecoration(
                                 hintText:
@@ -60,11 +62,16 @@ class SendMessage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 30.h,
+                            height: 15.h,
                           ),
+                          SizedBox(
+                            height: SizeConfig.yMargin(context, 6),
+                            child: messageSnippetHolder(context, model)),
+                            SizedBox(
+                              height: 15.h,),
                           Container(
                             child: TextField(
-                              style: TextStyle(height: height * 0.002),
+                              style: TextStyle(height: SizeConfig.yMargin(context, 0.18)),
                               maxLines: 3,
                               decoration: InputDecoration(
                                 hintText: AppLocalizations.of(context)
@@ -102,14 +109,17 @@ class SendMessage extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: MaterialButton(
-                          color: ThemeColors.gray[500],
-                          elevation: 2,
+                          color: ThemeColors.background,
+                          elevation: 0,
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, '/scheduleNotifications');
                           },
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                              borderRadius: BorderRadius.circular(5.0),
+                               side: BorderSide(
+                                color:BrandColors.primary )
+                              ),
                           child: Center(
                             child: Text(
                               AppLocalizations.of(context).schedule,
@@ -125,12 +135,25 @@ class SendMessage extends StatelessWidget {
                       Expanded(
                         child: MaterialButton(
                           color: BrandColors.primary,
-                          elevation: 2,
+                          elevation: 0,
                           onPressed: () {
-                            print('Clicked');
+                                Flushbar(
+                                      backgroundColor: BrandColors.primary,
+                                      duration: const Duration(seconds: 3),
+                                      message: 'Could not send message in development ',
+                                      icon: Icon(
+                                        Icons.info_outline,
+                                        size: 28.0,
+                                        color: ThemeColors.background,
+                                      ),
+                                      leftBarIndicatorColor: Colors.blue[300],
+                                    ).show(context);
                           },
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                              borderRadius: BorderRadius.circular(5.0),
+                             
+                              ),
+                              
                           child: Center(
                             child: Text(
                               AppLocalizations.of(context).send,
@@ -156,4 +179,37 @@ class SendMessage extends StatelessWidget {
       viewModelBuilder: () => SendMessageViewModel(),
     );
   }
+}
+
+Widget messageSnippet(String value, SendMessageViewModel model, BuildContext context){
+  return Container(
+  margin:EdgeInsets.only(left:SizeConfig.yMargin(context, 1.2)) ,
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(50),
+    color:ThemeColors.unselect
+  ),
+  child:FlatButton(
+    onPressed: ()=> print('Button has been pressed'), 
+    child: Text(
+      value,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: BrandColors.primary,
+        fontSize: SizeConfig.textSize(context, 4.4)
+      ),
+    )
+    )
+);
+}
+
+Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model){
+   return ListView.builder(
+    itemCount: model.messageEntries.length,
+    scrollDirection: Axis.horizontal,
+    shrinkWrap: true,
+    itemBuilder: (context, int index){
+      return messageSnippet(model.messageEntries[index], model, context);
+    }
+    );
+
 }

@@ -146,7 +146,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                     child: TextField(
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
-                        hintText: 'Enter Name',
+                        hintText: AppLocalizations.of(context).enterName,
                         border: OutlineInputBorder(borderSide: BorderSide.none),
                       ),
                       controller: name,
@@ -174,7 +174,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 },
                
                 ignoreBlank: false,
-                errorMessage: 'Invalid Phone Number',
+                errorMessage: AppLocalizations.of(context).invalidPhoneNo,
                 selectorType: PhoneInputSelectorType.DIALOG,
                 selectorTextStyle:
                     TextStyle(color: Theme.of(context).cursorColor),

@@ -28,7 +28,6 @@ class LocalKeys {
   static const customers_owing_you = 'customers-owing-you';
   static const people_you_owe = 'people-you-owe';
   static const customers_are_owing_you = 'customers-are-owing-you';
-  static const customers_owing_you_desc = 'customers-owing-you-desc';
   static const add_customers_owing_you = 'add-customers-owing-you';
   static const home = 'home';
   static const marketing = 'marketing';
@@ -36,7 +35,6 @@ class LocalKeys {
   static const search_by_name = 'search-by-name';
   static const you_are_owing = 'you-are-owing';
   static const add_people_you_owe = 'add-people-you-owe';
-  static const people_you_owe_desc = 'people-you-owe-desc';
   static const notifications = 'notifications';
   static const view = 'view';
   static const your_company = 'your-company';
@@ -56,7 +54,6 @@ class LocalKeys {
   static const enter_name_of_debtor = 'enter-name-of-debtor';
   static const continue_button = 'continue-button';
   static const add_transaction = 'add-transaction';
-  static const transaction_desc = 'transaction-desc';
   static const download_report = 'download-report';
   static const send_reminder = 'send-reminder';
   static const add_debit = 'add-debit';
@@ -82,7 +79,6 @@ class LocalKeys {
   static const schedule = 'schedule';
   static const send_capital = 'send-capital';
   static const schedule_reminder = 'schedule-reminder';
-  static const reminder_date = 'reminder-date';
   static const transaction_history = 'transaction-history';
   static const select_date = 'select-date';
   static const payed_you = 'payed-you';
@@ -101,8 +97,6 @@ class LocalKeys {
   static const monthly_report = 'monthly-report';
   static const date = 'date';
   static const remark = 'remark';
-  static const marketing_speech = 'marketing-speech';
-  static const marketing_desc = 'marketing-desc';
   static const send_message = 'send-message';
   static const add_customer_from_contacts = 'add-customer-from-contacts';
   static const contacts = 'contacts';
@@ -111,9 +105,7 @@ class LocalKeys {
   static const customer_list = 'customer-list';
   static const send_message_all = 'send-message-all';
   static const quick_message = 'quick-message';
-  static const quick_message_desc = 'quick-message-desc';
   static const compose_message = 'compose-message';
-  static const compose_message_desc = 'compose-message-desc';
   static const title = 'title';
   static const message = 'message';
   static const selected_customer = 'selected-customer';
