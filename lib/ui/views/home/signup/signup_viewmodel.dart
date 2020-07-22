@@ -56,7 +56,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
     _dialogService.showCustomDialog(
-        title: 'Please hold on while we try to Sign you up');
+        title: 'Please hold on while we try to sign you up');
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());

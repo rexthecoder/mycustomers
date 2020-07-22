@@ -43,11 +43,13 @@ class AddDebtCreditView extends StatelessWidget {
               elevation: 1,
               title: Text(
                 action == 'debit'
-                    ? 'Add New Debtor' //model.amount != null
+                    ? 'Add new debtor' 
+                    //model.amount != null
                     //     ? '${model.contact.name} owes you ₦' +
                     //         model.amount.round().toString()
                     //     : '${model.contact.name} owes you'
-                    : 'Add New Creditor',//model.amount != null
+                    : 'Add new creditor',
+                    //model.amount != null
                     //     ? 'You owe ${model.contact.name} ₦' +
                     //         model.amount.round().toString()
                     //     : 'You owe ${model.contact.name}',
@@ -203,7 +205,7 @@ class AddDebtCreditView extends StatelessWidget {
                                               Container(
                                                 margin: EdgeInsets.only(bottom: 3),
                                                 child: Text(
-                                                  'Purchase Date',
+                                                  'Payment Date',
                                                   style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
                                                 ),
                                               ),
@@ -287,8 +289,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                           model.newODate != null
                                                               ? model.newODate
                                                               : action == 'debit'
-                                                                  ? 'Select Date of Purchase'
-                                                                  : 'Select Date of Payment',
+                                                                  ? 'Select date of payment'
+                                                                  : 'Select due date',
                                                           style: Theme.of(context)
                                                               .textTheme
                                                               .headline6

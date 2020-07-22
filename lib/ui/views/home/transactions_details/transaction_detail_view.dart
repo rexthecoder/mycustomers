@@ -35,7 +35,7 @@ class TransactionDetails extends StatelessWidget {
                 ),
               ),
               title: Text(
-                'Transaction details',
+               AppLocalizations.of(context).transactionDetails,
                 style: TextStyle(
                     fontSize: 40.sp,
                     color: Colors.white,
