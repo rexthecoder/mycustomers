@@ -41,7 +41,7 @@ dependencies:
   dio: ^3.0.9
 
   # For logging in the app
-  logger: ^0.9.1
+  logger: 
 
   # For linting
   pedantic: ^1.9.0

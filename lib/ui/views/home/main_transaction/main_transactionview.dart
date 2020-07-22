@@ -13,6 +13,7 @@ import 'package:stacked/stacked.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
+
 class MainTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,11 +34,10 @@ class MainTransaction extends StatelessWidget {
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(70.0),
                   child: AppBar(
-                    brightness: Brightness.dark,
+                    brightness: Brightness.light,
                     elevation: .5,
                     title: Container(
-                      margin: EdgeInsets.only(
-                          right: ScreenUtil().setWidth(15), top: 6),
+                      margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
                       child: Row(
                         children: <Widget>[
                           model.contact.initials != null
@@ -162,7 +162,7 @@ class MainTransaction extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 InkWell(
-                                  onTap: () {}, //Todo: Reminder Functionality
+                                  onTap: () {},
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -196,10 +196,9 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () async {
+                                  onTap: () async{
                                     ReceiptReport().buildPdf(context);
-                                    await ReceiptReport()
-                                        .generateReport(context);
+                                    await ReceiptReport().generateReport(context);
                                   },
                                   child: Container(
                                     child: Column(
@@ -232,8 +231,54 @@ class MainTransaction extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                InkWell(
-                                  onTap: () {}, //Todo: Message Functionality
+                      InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                            bottom: ScreenUtil().setHeight(5),
+                                          ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Color(0xFF333CC1),
+                            ),
+                            width: width,
+                            child: Center(
+                              child: Text(
+                                'PDF',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                      fontSize: ScreenUtil().setSp(8),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                                          child: Text(
+                                            'Report',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5
+                                                .copyWith(
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2.2),
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor),
+                                          ),
+                                        ),
+                                         ],
+                                    ),
+                                  ),
+                        ),
+                      InkWell(
+                                  onTap: () {},
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -266,7 +311,7 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {}, //Todo: Call Functionality
+                                  onTap: () {},
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -301,7 +346,15 @@ class MainTransaction extends StatelessWidget {
                               ],
                             ),
                           ),
-                    model.formattedate.length == 0
+          ],
+                ),
+              ),
+        // ignore: missing_return
+        ), viewModelBuilder: () { 
+
+         },
+    );
+                    child: model.formattedate.length == 0
                         ? Expanded(
                             child: Padding(
                               padding:
@@ -317,13 +370,9 @@ class MainTransaction extends StatelessWidget {
                                     height: 20.h,
                                   ),
                                   Text(
-                                      "${AppLocalizations.of(context).myCustomerIsSafeAndSecure} + "
-                                      " + ${model.contact.name} + "
-                                      " +  ${AppLocalizations.of(context).canViewThisTransaction}"
-                                      // 'MyCustomer is 100% safe and secure, only you and \
-                                      // ${model.contact.name} can view this transaction',
-                                      // textAlign: TextAlign.center,
-                                      ),
+                                    'MyCustomer is 100% safe and secure, only you and ${model.contact.name} can view this transaction',
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ],
                               ))),
                             ),
@@ -551,7 +600,8 @@ class MainTransaction extends StatelessWidget {
                                                                     Container(
                                                                       child:
                                                                           Text(
-                                                                        model.getTime(
+                                                                            'Customer paid',
+                                                                        semanticsLabel: model.getTime(
                                                                             item.paiddate),
                                                                         style: Theme.of(context)
                                                                             .textTheme
@@ -576,16 +626,17 @@ class MainTransaction extends StatelessWidget {
                                     ),
                                   );
                                 }),
-                          ),
-                    Container(
-                      // padding: EdgeInsets.symmetric(
-                      //   horizontal: ScreenUtil().setWidth(25),
-                      //   vertical: ScreenUtil().setHeight(12),
-                      // ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          model.formattedate.length == 0
+                          );
+                    
+                                        Container(
+                                          // padding: EdgeInsets.symmetric(
+                                          //   horizontal: ScreenUtil().setWidth(25),
+                                          //   vertical: ScreenUtil().setHeight(12),
+                                          // ),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              model.formattedate.length == 0
                               ? SizedBox()
                               : Container(
                                   padding: EdgeInsets.symmetric(
@@ -613,7 +664,7 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    '${model.contact.name} ' + AppLocalizations.of(context).owesYou  + ' ',
+                                                    '${model.contact.name} Owes you ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -655,7 +706,7 @@ class MainTransaction extends StatelessWidget {
                                                 alignment: WrapAlignment.center,
                                                 children: <Widget>[
                                                   Text(
-                                                    'You owe ${model.contact.name} ',
+                                                    'Customer owes you',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -700,6 +751,41 @@ class MainTransaction extends StatelessWidget {
                               ),
                               child: AddTransaction(
                                   width, model.debitlist, model.creditlist)),
+
+                         InkWell(
+                           onTap: () {
+
+                            showBottomSheet(context: context,
+                            builder: (context)=> Container());
+                          },
+                            child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: ScreenUtil().setHeight(15),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: Color(0xFF333CC1),
+                            ),
+                            width: width,
+                            child: Center(
+                             child: Text(
+                           'They are owing',
+                              style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                 .copyWith(
+                                      fontSize: ScreenUtil().setSp(16),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        )
+                        ],
+                      ),
+                    );
+                  
 //                        InkWell(
 //                          onTap: () {
 //
@@ -730,13 +816,132 @@ class MainTransaction extends StatelessWidget {
 //                            ),
 //                          ),
 //                        )
+            return WillPopScope(
+              onWillPop: () async {
+                model.navigateToHome();
+                return true;
+              },
+              child: Scaffold(
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(70.0),
+                  child: AppBar(
+                    brightness: Brightness.light,
+                    elevation: 0,
+                    title: Container(
+                      margin: EdgeInsets.only(right: ScreenUtil().setWidth(15)),
+                      child: Row(
+                        children: <Widget>[
+                          model.contact.initials != null
+                              ? Container(
+                                  margin: EdgeInsets.only(
+                                      right: ScreenUtil().setWidth(15)),
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    backgroundColor:
+                                        Theme.of(context).textSelectionColor,
+                                    child: Text(model.contact.initials, style: TextStyle(color: ThemeColors.background),),
+                                  ),
+                                )
+                              : Container(
+                                  margin: EdgeInsets.only(
+                                      right: ScreenUtil().setWidth(15)),
+                                  width: ScreenUtil().setWidth(50),
+                                  height: ScreenUtil().setHeight(50),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          ScreenUtil().setWidth(50)),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                            'assets/images/man.png',
+                                          ),
+                                          fit: BoxFit.cover)),
+                                ),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    model.contact.name ?? '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).cursorColor,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2.4),
+                                            fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    model.contact.phoneNumber ?? '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).cursorColor,
+                                            fontSize:
+                                                SizeConfig.yMargin(context, 2),
+                                            fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    )
-                  ],
+                    ),
+                    leading: InkWell(
+                      onTap: () => model.navigateToHome(),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(18),
+                            vertical: ScreenUtil().setHeight(10)),
+                        child: SvgPicture.asset(
+                          'assets/icons/backarrow.svg',
+                          color: Theme.of(context).textSelectionColor,
+                        ),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      PopupMenuButton<String>(
+                        onSelected: (String item) {
+                          itemAction(item, context);
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return model.items.map((String item) {
+                            return PopupMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                        fontSize:
+                                            SizeConfig.yMargin(context, 2)),
+                              ),
+                            );
+                          }).toList();
+                        },
+                      )
+                    ],
+                    actionsIconTheme:
+                        IconThemeData(color: Theme.of(context).cursorColor),
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    centerTitle: true,
+                  ),
+                ),
+                body: Column(
+                  children: children2,
                 ),
               ),
-            ),
+            );
+        },
         viewModelBuilder: () => MainTransactionViewModel());
   }
 
@@ -829,7 +1034,7 @@ class AddTransaction extends StatelessWidget {
       //           ));
       // },
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           InkWell(
             onTap: () {
