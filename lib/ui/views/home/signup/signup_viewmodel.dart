@@ -47,7 +47,7 @@ class SignUpViewModel extends BaseViewModel with Validators {
     await _navigationService.replaceWithTransition(
       BusinessView(),
       opaque: true,
-      transition: 'rotate',
+      transition: 'fade',
       duration: Duration(milliseconds: 400),
     );
   }

@@ -68,7 +68,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
         child: Column(
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
-            Text(
+            Text( 
               AppLocalizations.of(context).signIn.toUpperCase(),
               style: TextStyle(
                 fontWeight: FontWeight.w900,
@@ -80,8 +80,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 5)),
               child: Align(
                 alignment: Alignment.bottomLeft,
-                child: Text(
-                  AppLocalizations.of(context).pleaseEnterYourPhoneNumber,
+                child: Text( 
+                  AppLocalizations.of(context).signUpEnterPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

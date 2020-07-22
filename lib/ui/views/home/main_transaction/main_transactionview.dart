@@ -36,7 +36,8 @@ class MainTransaction extends StatelessWidget {
                     brightness: Brightness.dark,
                     elevation: .5,
                     title: Container(
-                      margin: EdgeInsets.only(right: ScreenUtil().setWidth(15), top: 6),
+                      margin: EdgeInsets.only(
+                          right: ScreenUtil().setWidth(15), top: 6),
                       child: Row(
                         children: <Widget>[
                           model.contact.initials != null
@@ -161,7 +162,7 @@ class MainTransaction extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 InkWell(
-                                  onTap: () {},//Todo: Reminder Functionality
+                                  onTap: () {}, //Todo: Reminder Functionality
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -195,9 +196,10 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () async{
+                                  onTap: () async {
                                     ReceiptReport().buildPdf(context);
-                                    await ReceiptReport().generateReport(context);
+                                    await ReceiptReport()
+                                        .generateReport(context);
                                   },
                                   child: Container(
                                     child: Column(
@@ -231,7 +233,7 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {},//Todo: Message Functionality
+                                  onTap: () {}, //Todo: Message Functionality
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -264,7 +266,7 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () {},//Todo: Call Functionality
+                                  onTap: () {}, //Todo: Call Functionality
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -315,9 +317,13 @@ class MainTransaction extends StatelessWidget {
                                     height: 20.h,
                                   ),
                                   Text(
-                                    'MyCustomer is 100% safe and secure, only you and ${model.contact.name} can view this transaction',
-                                    textAlign: TextAlign.center,
-                                  ),
+                                      "${AppLocalizations.of(context).myCustomerIsSafeAndSecure} + "
+                                      " + ${model.contact.name} + "
+                                      " +  ${AppLocalizations.of(context).canViewThisTransaction}"
+                                      // 'MyCustomer is 100% safe and secure, only you and \
+                                      // ${model.contact.name} can view this transaction',
+                                      // textAlign: TextAlign.center,
+                                      ),
                                 ],
                               ))),
                             ),
