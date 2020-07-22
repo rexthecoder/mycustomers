@@ -103,7 +103,7 @@ class LocalKeys {
   static const customer_name = 'customer-name';
   static const customer_phone_no = 'customer-phone-no';
   static const customer_list = 'customer-list';
-  static const send_message_all = 'send-message-to-all';
+  static const send_message_all = 'send-message-all';
   static const quick_message = 'quick-message';
   static const compose_message = 'compose-message';
   static const title = 'title';
@@ -207,8 +207,7 @@ class LocalKeys {
   static const search = 'search';
   static const report = 'report';
   static const reminder = 'reminder';
-  static const my_customer_is_safe_and_secure =
-      'my-customer-is-safe-and-secure';
+  static const is_safe_and_secure = 'my-customer-is-safe-and-secure';
   static const can_view_this_transaction = 'can-view-this-transaction';
   static const cost_of_goods_purchased = 'cost-of-goods-purchased';
   static const paid = 'paid';
@@ -254,4 +253,21 @@ class LocalKeys {
   static const credit = 'credit';
   static const pick_a_date_and_type_in_your_message =
       'pick-a-date-and-type-in-your-message';
+  static const they_are_owing_you = 'they-are-owing-you';
+  static const you_are_owing_them = 'you-are-owing-them';
+  static const pick_image = 'pick-image';
+  static const user_name = 'user-name';
+  static const facebook = 'facebook';
+  static const gmail = 'gmail';
+  static const whatsapp = 'whatsapp';
+  static const coming_soon = 'coming-soon';
+  static const amount = 'amount';
+  static const due_date = 'due-date';
+  static const description = 'description';
+  static const enter_description = 'enter-description';
+  static const enter_customer_name = 'enter-customer-name';
+  static const no_result_found_for = 'no-result-found-for';
+  static const payment_date = 'payment-date';
+  static const add_new_debtor = 'add-new-debtor';
+  static const add_new_creditor = 'add-new-creditor';
 }

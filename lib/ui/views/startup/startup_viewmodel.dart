@@ -66,7 +66,7 @@ class StartupViewModel extends BaseViewModel {
   Future<bool> checkLoggedIn() async {
     bool hasLoggedIn =
         _storage.getString(AppPreferenceKey.USER_SIGNED_IN) != null;
-    Logger.d('User has ${hasLoggedIn ? '' : 'not'} logged in');
+    Logger.d('User has${hasLoggedIn ? '' : 'not '} logged in');
     if (!hasLoggedIn) return false;
     var key = await getEncryptionKey();
     if (key == null) return false;
@@ -79,6 +79,7 @@ class StartupViewModel extends BaseViewModel {
         firstName: deets['first_name'],
         email: deets['email'],
       ));
+      print(_auth.currentUser.phoneNumber);
       await StoreRepository.updateStores();
       // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
       return true;

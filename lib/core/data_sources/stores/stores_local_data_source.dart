@@ -94,6 +94,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         newStore.email);
     await storeBox.put(newStoreH.id, newStoreH);
     await StoreRepository.updateStores();
+    StoreRepository.changeSelectedStore(newStoreH.id);
     return true;
   }
 

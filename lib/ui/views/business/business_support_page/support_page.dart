@@ -16,9 +16,9 @@ class SupportPageView extends StatelessWidget {
     return ViewModelBuilder<SupportPageViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
               resizeToAvoidBottomInset: false,
-
               appBar: customizeAppBar(context, 1.0,
-                  title: AppLocalizations.of(context).customerSupport, arrowColor: BrandColors.primary),
+                  title: AppLocalizations.of(context).customerSupport,
+                  arrowColor: BrandColors.primary),
               body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
@@ -49,7 +49,8 @@ class SupportPageView extends StatelessWidget {
                                 validator: (value) =>
                                     model.validateFields(value),
                                 decoration: InputDecoration(
-                                    hintText: AppLocalizations.of(context).email,
+                                    hintText:
+                                        AppLocalizations.of(context).email,
                                     hintStyle: TextStyle(fontSize: 16.sp),
                                     contentPadding:
                                         EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),
@@ -115,7 +116,8 @@ class SupportPageView extends StatelessWidget {
                                 minLines: 8,
                                 maxLines: 12,
                                 decoration: InputDecoration(
-                                    hintText: AppLocalizations.of(context).writeMessageHere,
+                                    hintText: AppLocalizations.of(context)
+                                        .writeMessageHere,
                                     hintStyle: TextStyle(fontSize: 16.sp),
                                     contentPadding:
                                         EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),

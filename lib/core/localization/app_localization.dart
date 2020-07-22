@@ -261,8 +261,7 @@ class AppLocalizations {
   String get search => translate(LocalKeys.search);
   String get report => translate(LocalKeys.report);
   String get reminder => translate(LocalKeys.reminder);
-  String get myCustomerIsSafeAndSecure =>
-      translate(LocalKeys.my_customer_is_safe_and_secure);
+  String get isSafeAndSecure => translate(LocalKeys.is_safe_and_secure);
   String get canViewThisTransaction =>
       translate(LocalKeys.can_view_this_transaction);
   String get costOfGoodsPurchased =>
@@ -313,6 +312,23 @@ class AppLocalizations {
   String get credit => translate(LocalKeys.credit);
   String get pickADateAndTypeInYourMessage =>
       translate(LocalKeys.pick_a_date_and_type_in_your_message);
+  String get theyAreOwingYou => translate(LocalKeys.they_are_owing_you);
+  String get youAreOwingThem => translate(LocalKeys.you_are_owing_them);
+  String get facebook => translate(LocalKeys.facebook);
+  String get whatsapp => translate(LocalKeys.whatsapp);
+  String get gmail => translate(LocalKeys.gmail);
+  String get pickImage => translate(LocalKeys.pick_image);
+  String get userName => translate(LocalKeys.user_name);
+  String get comingSoon => translate(LocalKeys.coming_soon);
+  String get amount => translate(LocalKeys.amount);
+  String get dueDate => translate(LocalKeys.due_date);
+  String get description => translate(LocalKeys.description);
+  String get enterDescription => translate(LocalKeys.enter_description);
+  String get enterCustomerName => translate(LocalKeys.enter_customer_name);
+  String get noResultFoundFor => translate(LocalKeys.no_result_found_for);
+  String get paymentDate => translate(LocalKeys.payment_date);
+  String get addNewDebtor => translate(LocalKeys.add_new_debtor);
+  String get addNewCreditor => translate(LocalKeys.add_new_creditor);
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -215,6 +215,27 @@ class TransactionDetails extends StatelessWidget {
                                                 fontFamily: 'Roboto',
                                                 fontSize: 30.sp),
                                           ),
+                                          Expanded(
+                                            flex: 30,
+                                            child: Text(
+                                              model.transaction.amount !=
+                                                          null &&
+                                                      model.transaction.paid !=
+                                                          null &&
+                                                      (model.transaction
+                                                                  .amount -
+                                                              model.transaction
+                                                                  .paid) >
+                                                          0
+                                                  ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
+                                                  : '₦0',
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.red[800],
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 30.sp),
+                                            ),
+                                          )
                                         ],
                                       )
                                     ],
