@@ -14,7 +14,7 @@ abstract class TransactionDataSource{
 
 @lazySingleton
 class TransactionLocalDataSourceImpl extends TransactionDataSource with ReactiveServiceMixin {
-  //static const String _boxname = "transactionBox";
+  static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
@@ -45,7 +45,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   String date;
   
   get box => _hiveService.openBox<TransactionModel>(HiveBox.transaction);
-  //var box = Hive.openBox<TransactionModel>(_boxname);
+//   var box = Hive.openBox<TransactionModel>(_boxname);
 
   RxValue<TransactionModel> _stransaction = RxValue<TransactionModel>(initial: null);
   TransactionModel get stransaction => _stransaction.value;

@@ -26,10 +26,11 @@ class MainMenu extends HookViewModelWidget<MainViewModel> {
         onHorizontalDragEnd: (DragEndDetails details) {
           //  TODO ... MOVEMENT ANIMATION
         },
+        onTap: () => model.updateMenu(),
         child: Scaffold(
           backgroundColor:
               ThemeColors.black.withOpacity(model.isCollapsed ? 0 : 0.7),
-          body: BusinessMenu(),
+          body: GestureDetector(onTap: (){},child: BusinessMenu()),
         ),
       ),
     );

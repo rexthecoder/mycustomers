@@ -29,7 +29,10 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
       BuildContext context, Store business, MainViewModel model) {
     return CustomPartialBuild<SettingManagerModel>(
       builder: (context, viewModel) => InkWell(
-        onTap: () => viewModel.changeSelectedStore(business.id),
+        onTap: () async {
+          await viewModel.changeSelectedStore(business.id);
+          model.updateMenu();
+        },
         child: Container(
           height: SizeConfig.yMargin(context, 12),
           color: model.currStore.id == business.id
@@ -74,7 +77,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                 ),
               ),
               subtitle: Text(
-                '${model.customers[business.id]} customers',
+                model.getCustomerCount(business.id) > 1 ? model.getCustomerCount(business.id).toString()+' customers' : model.getCustomerCount(business.id).toString()+' customer',
                 style: TextStyle(
                   color: Theme.of(context).cursorColor,
                   fontSize: SizeConfig.textSize(context, 4),

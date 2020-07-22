@@ -26,6 +26,7 @@ import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
+import 'package:mycustomers/core/services/sms_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/file_helper.dart';
 import 'package:path_provider/path_provider.dart';
@@ -81,9 +82,6 @@ Future<void> setupLocator(
   locator.registerLazySingleton<ICustomerService>(
     () => USE_MOCK_CUSTOMER ? MockCustomerService() : CustomerService(),
   );
-  locator.registerLazySingleton<CustomerContactService>(
-    () => CustomerContactService(),
-  );
   locator.registerLazySingleton<PasswordManagerService>(
     () => PasswordManagerService(),
   );
@@ -100,16 +98,14 @@ Future<void> setupLocator(
   locator.registerLazySingleton<IOwnerServices>(
     () => useMockContacts ? MockOwnerService() : OwnerServices(),
   );
-
   locator.registerLazySingleton<UserService>(
     () => UserService(),
   );
+//   locator.registerLazySingleton<MessageServices>(() => MessageServices());
 
   ///Repository
   locator.registerLazySingleton<BusinessCardRepository>(
     () => BusinessCardRepositoryImpl(
-        authService: locator(),
-        storeRepository: locator(),
         localDataSource: locator()),
   );
   locator.registerLazySingleton<StoreRepository>(
@@ -127,6 +123,9 @@ Future<void> setupLocator(
    );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
+  );
+  locator.registerLazySingleton<CustomerContactService>(
+    () => CustomerContactService(),
   );
   locator.registerLazySingleton<LogsLocalDataSourceImpl>(
     () => LogsLocalDataSourceImpl(),
@@ -160,10 +159,11 @@ Future<void> setupLocator(
   await LogsLocalDataSourceImpl().init();
   await TransactionLocalDataSourceImpl().init();
   await BussinessSettingService().init();
+  await CustomerContactService().init();
 
 //  Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
-  Hive.registerAdapter(CustomerContactAdapter());
+  //Hive.registerAdapter(CustomerContactAdapter());
   //Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(StoreHAdapter());
 

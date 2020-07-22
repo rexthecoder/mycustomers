@@ -40,7 +40,7 @@ class AddDebtCreditView extends StatelessWidget {
         },
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
-              brightness: Brightness.light,
+              brightness: Brightness.dark,
               elevation: 1,
               title: Text(
                 action == 'debit'
@@ -57,7 +57,7 @@ class AddDebtCreditView extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    //color: Colors.black,
                     fontFamily: 'Roboto'),
               ),
               leading: InkWell(
@@ -568,7 +568,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   child: Column(
                                                     children: <Widget>[
                                                       TextField(
-                                                        controller: _controller,
+                                                        //controller: _controller,
                                                         maxLines: null,
                                                         maxLengthEnforced:
                                                             false,
