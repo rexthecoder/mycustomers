@@ -81,9 +81,6 @@ Future<void> setupLocator(
   locator.registerLazySingleton<ICustomerService>(
     () => USE_MOCK_CUSTOMER ? MockCustomerService() : CustomerService(),
   );
-  locator.registerLazySingleton<CustomerContactService>(
-    () => CustomerContactService(),
-  );
   locator.registerLazySingleton<PasswordManagerService>(
     () => PasswordManagerService(),
   );
@@ -128,6 +125,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
+  locator.registerLazySingleton<CustomerContactService>(
+    () => CustomerContactService(),
+  );
   locator.registerLazySingleton<LogsLocalDataSourceImpl>(
     () => LogsLocalDataSourceImpl(),
   );
@@ -160,10 +160,11 @@ Future<void> setupLocator(
   await LogsLocalDataSourceImpl().init();
   await TransactionLocalDataSourceImpl().init();
   await BussinessSettingService().init();
+  await CustomerContactService().init();
 
 //  Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
-  Hive.registerAdapter(CustomerContactAdapter());
+  //Hive.registerAdapter(CustomerContactAdapter());
   //Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(StoreHAdapter());
 
