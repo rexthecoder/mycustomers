@@ -45,17 +45,16 @@ class AddDebtCreditView extends StatelessWidget {
               brightness: Brightness.dark,
               elevation: 1,
               title: Text(
-                action == 'debit'
-                    ? AppLocalizations.of(context)
-                        .addNewDebtor //model.amount != null
-                    //     ? '${model.contact.name} owes you ₦' +
-                    //         model.amount.round().toString()
-                    //     : '${model.contact.name} owes you'
-                    : AppLocalizations.of(context)
-                        .addNewCreditor, //model.amount != null
-                //     ? 'You owe ${model.contact.name} ₦' +
-                //         model.amount.round().toString()
-                //     : 'You owe ${model.contact.name}',
+                newCus ? action == 'debit'
+                    ? AppLocalizations.of(context).addNewDebtor : AppLocalizations.of(context).addNewCreditor :  
+                    action == 'debit' ? model.amount != null
+                        ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
+                            model.amount.round().toString()
+                        : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
+                    : model.amount != null
+                        ? '${AppLocalizations.of(context).owesYou} ${model.contact.name} ₦' +
+                            model.amount.round().toString()
+                        : '${AppLocalizations.of(context).owesYou} ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -219,186 +218,131 @@ class AddDebtCreditView extends StatelessWidget {
                                     visible: model.show,
                                     child: Column(
                                       children: <Widget>[
-                                        Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(bottom: 3),
-                                                child: Text(
-                                                  AppLocalizations.of(context)
-                                                      .paymentDate,
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          SizeConfig.yMargin(
-                                                              context, 2.2),
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                onTap: () async {
-                                                  final DateTime picked =
-                                                      await showDatePicker(
-                                                    context: context,
-                                                    initialDate:
-                                                        model.selectedDate,
-                                                    firstDate: DateTime(2000),
-                                                    lastDate: action == 'credit'
-                                                        ? DateTime(2030)
-                                                        : DateTime(
-                                                            int.parse(DateFormat(
-                                                                    'yyyy')
-                                                                .format(DateTime
-                                                                    .now())),
-                                                            int.parse(DateFormat(
-                                                                    'MM')
-                                                                .format(DateTime
-                                                                    .now())),
-                                                            int.parse(
-                                                                DateFormat('dd')
-                                                                    .format(
-                                                                        DateTime.now()))),
-                                                    builder:
-                                                        (BuildContext context,
-                                                            Widget child) {
-                                                      return Theme(
-                                                        data: Theme.of(context)
-                                                            .copyWith(
-                                                          primaryColor: action ==
-                                                                  'debit'
-                                                              ? BrandColors
-                                                                  .secondary
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .textSelectionColor,
-                                                          accentColor: action ==
-                                                                  'debit'
-                                                              ? BrandColors
-                                                                  .secondary
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .textSelectionColor,
-                                                          colorScheme: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .copyWith(
-                                                                  primary: action ==
-                                                                          'debit'
-                                                                      ? BrandColors
-                                                                          .secondary
-                                                                      : Theme.of(
-                                                                              context)
-                                                                          .textSelectionColor),
-                                                          buttonTheme: ButtonThemeData(
-                                                              textTheme:
-                                                                  ButtonTextTheme
-                                                                      .primary),
-                                                        ),
-                                                        child: child,
-                                                      );
-                                                    },
-                                                  );
-                                                  if (picked != null)
-                                                    model.setOtherDate(picked,
-                                                        update, action, newCus);
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.only(
-                                                      bottom: 15),
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: ScreenUtil()
-                                                          .setHeight(15),
-                                                      horizontal: ScreenUtil()
-                                                          .setWidth(15)),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: model.date2err
-                                                              ? Colors.red
-                                                              : Color(
-                                                                  0xFFD1D1D1),
-                                                          width: 2.0),
-                                                      borderRadius: BorderRadius
-                                                          .circular(ScreenUtil()
-                                                              .setWidth(5))),
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Container(
-                                                        margin: EdgeInsets.only(
-                                                            right: ScreenUtil()
-                                                                .setWidth(15)),
-                                                        child: SvgPicture.asset(
-                                                            'assets/icons/calendar.svg',
-                                                            color: action ==
-                                                                    'debit'
-                                                                ? BrandColors
-                                                                    .secondary
-                                                                : Theme.of(
-                                                                        context)
-                                                                    .textSelectionColor),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          model.newODate != null
-                                                              ? model.newODate
-                                                              : action ==
-                                                                      'debit'
-                                                                  ? AppLocalizations.of(
-                                                                          context)
-                                                                      .selectDateOfPayment
-                                                                  : AppLocalizations.of(
-                                                                          context)
-                                                                      .selectDueDate,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .headline6
-                                                                  .copyWith(
-                                                                    fontSize: ScreenUtil()
-                                                                        .setSp(
-                                                                            16),
-                                                                    color: action ==
-                                                                            'debit'
-                                                                        ? BrandColors
-                                                                            .secondary
-                                                                        : Theme.of(context)
-                                                                            .textSelectionColor,
-                                                                  ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        action == 'credit'
+                                        // Container(
+                                        //   child: Column(
+                                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                                        //     children: <Widget>[
+                                        //       Container(
+                                        //         margin: EdgeInsets.only(bottom: 3),
+                                        //         child: Text(
+                                        //           'Purchase Date',
+                                        //           style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
+                                        //         ),
+                                        //       ),
+                                        //       InkWell(
+                                        //         onTap: () async {
+                                        //           final DateTime picked =
+                                        //               await showDatePicker(
+                                        //             context: context,
+                                        //             initialDate: model.selectedDate,
+                                        //             firstDate: DateTime(2000),
+                                        //             lastDate: action == 'credit'
+                                        //                 ? DateTime(2030)
+                                        //                 : DateTime(
+                                        //                     int.parse(DateFormat('yyyy')
+                                        //                         .format(DateTime.now())),
+                                        //                     int.parse(DateFormat('MM')
+                                        //                         .format(DateTime.now())),
+                                        //                     int.parse(DateFormat('dd')
+                                        //                         .format(DateTime.now()))),
+                                        //             builder: (BuildContext context,
+                                        //                 Widget child) {
+                                        //               return Theme(
+                                        //                 data: Theme.of(context).copyWith(
+                                        //                   primaryColor: action == 'debit'
+                                        //                       ? BrandColors.secondary
+                                        //                       : Theme.of(context)
+                                        //                           .textSelectionColor,
+                                        //                   accentColor: action == 'debit'
+                                        //                       ? BrandColors.secondary
+                                        //                       : Theme.of(context)
+                                        //                           .textSelectionColor,
+                                        //                   colorScheme: Theme.of(context)
+                                        //                       .colorScheme
+                                        //                       .copyWith(
+                                        //                           primary: action == 'debit'
+                                        //                               ? BrandColors
+                                        //                                   .secondary
+                                        //                               : Theme.of(context)
+                                        //                                   .textSelectionColor),
+                                        //                   buttonTheme: ButtonThemeData(
+                                        //                       textTheme:
+                                        //                           ButtonTextTheme.primary),
+                                        //                 ),
+                                        //                 child: child,
+                                        //               );
+                                        //             },
+                                        //           );
+                                        //           if (picked != null)
+                                        //             model.setOtherDate(
+                                        //                 picked, update, action, newCus);
+                                        //         },
+                                        //         child: Container(
+                                        //           margin: EdgeInsets.only(bottom: 15),
+                                        //           padding: EdgeInsets.symmetric(
+                                        //               vertical: ScreenUtil().setHeight(15),
+                                        //               horizontal:
+                                        //                   ScreenUtil().setWidth(15)),
+                                        //           decoration: BoxDecoration(
+                                        //               border: Border.all(
+                                        //                   color: model.date2err
+                                        //                       ? Colors.red
+                                        //                       : Color(0xFFD1D1D1),
+                                        //                   width: 2.0),
+                                        //               borderRadius: BorderRadius.circular(
+                                        //                   ScreenUtil().setWidth(5))),
+                                        //           child: Row(
+                                        //             children: <Widget>[
+                                        //               Container(
+                                        //                 margin: EdgeInsets.only(
+                                        //                     right:
+                                        //                         ScreenUtil().setWidth(15)),
+                                        //                 child: SvgPicture.asset(
+                                        //                     'assets/icons/calendar.svg',
+                                        //                     color: action == 'debit'
+                                        //                         ? BrandColors.secondary
+                                        //                         : Theme.of(context)
+                                        //                             .textSelectionColor),
+                                        //               ),
+                                        //               Container(
+                                        //                 child: Text(
+                                        //                   model.newODate != null
+                                        //                       ? model.newODate
+                                        //                       : action == 'debit'
+                                        //                           ? 'Select Date of Purchase'
+                                        //                           : 'Select Date of Payment',
+                                        //                   style: Theme.of(context)
+                                        //                       .textTheme
+                                        //                       .headline6
+                                        //                       .copyWith(
+                                        //                         fontSize:
+                                        //                             ScreenUtil().setSp(16),
+                                        //                         color: action == 'debit'
+                                        //                             ? BrandColors.secondary
+                                        //                             : Theme.of(context)
+                                        //                                 .textSelectionColor,
+                                        //                       ),
+                                        //                 ),
+                                        //               )
+                                        //             ],
+                                        //           ),
+                                        //         ),
+                                        //       ),
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        action == 'xx'//'Credit'
                                             ? SizedBox()
                                             : Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 3),
-                                                      child: Text(
-                                                        AppLocalizations.of(
-                                                                context)
-                                                            .dueDate,
-                                                        style: TextStyle(
-                                                            fontSize: SizeConfig
-                                                                .yMargin(
-                                                                    context,
-                                                                    2.2),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                      ),
-                                                    ),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin: EdgeInsets.only(bottom: 3),
+                                                    child: Text(
+                                                      'Payment Date',
+                                                      style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
+                                                    ),),
                                                     InkWell(
                                                       onTap: () async {
                                                         final DateTime picked =
