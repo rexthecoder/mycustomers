@@ -12,7 +12,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     firstName: json['first_name'] as String,
     lastName: json['last_name'] as String,
     userRole: json['user_role'] as String,
-    phoneNumber: json['phone_number'],
+    phoneNumber: json['phone_number'] as String,
   );
 }
 
