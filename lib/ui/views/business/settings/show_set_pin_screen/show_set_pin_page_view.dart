@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/settings/show_set_pin_screen/show_set_pin_page_viewmodel.dart';
@@ -40,7 +41,7 @@ class ShowSetPinPageView extends StatelessWidget {
           ),
           backgroundColor: BrandColors.primary,
           body: PinField(
-            title: 'Enter PIN',
+            title:  AppLocalizations.of(context).enterPin,
             textEditingController: controller,
             onCompleted: (value) => model.onEnterPinCompleted(value,controller),
           ),

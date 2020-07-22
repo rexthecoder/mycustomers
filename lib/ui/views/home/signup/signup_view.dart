@@ -67,7 +67,6 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
             Text(
-              // AppLocalizations.of(context).signUp,
               AppLocalizations.of(context).signUp,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
@@ -80,7 +79,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  AppLocalizations.of(context).pleaseEnterYourPhoneNumber,
+                  AppLocalizations.of(context).signUpEnterPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -196,8 +195,9 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 //Call Function to Signup
                 viewModel.signUp(
                   viewModel.number.dialCode +
-                      int.parse(_inputSignupNumberController.text
-                          .splitMapJoin(RegExp(r'[^0-9]'), onMatch: (_) => '')).toString(),
+                      int.parse(_inputSignupNumberController.text.splitMapJoin(
+                          RegExp(r'[^0-9]'),
+                          onMatch: (_) => '')).toString(),
                   _userPassword.text.trim(),
                 );
               },
@@ -238,17 +238,17 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
             //     ),
             //     SocialIconButton(
             //       onTap: () {
-            //         Flushbar(
-            //           backgroundColor: BrandColors.primary,
-            //           duration: const Duration(seconds: 3),
-            //           message: 'Facebook signin coming soon',
-            //           icon: Icon(
-            //             Icons.info_outline,
-            //             size: 28.0,
-            //             color: ThemeColors.background,
-            //           ),
-            //           leftBarIndicatorColor: Colors.blue[300],
-            //         ).show(context);
+                    // Flushbar(
+                    //   backgroundColor: BrandColors.primary,
+                    //   duration: const Duration(seconds: 3),
+                    //   message: 'Facebook signin coming soon',
+                    //   icon: Icon(
+                    //     Icons.info_outline,
+                    //     size: 28.0,
+                    //     color: ThemeColors.background,
+                    //   ),
+                    //   leftBarIndicatorColor: Colors.blue[300],
+                    // ).show(context);
             //       },
             //       socialIconUrl: 'assets/icons/facebook_icon.png',
             //     ),

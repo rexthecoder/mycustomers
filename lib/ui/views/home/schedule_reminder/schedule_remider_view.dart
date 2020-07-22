@@ -1,168 +1,293 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
-import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/size_extension.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
+import 'package:mycustomers/ui/views/home/schedule_notifications/schedule_reminder/widgets/timeWheel.dart';
 
 import 'schedule_remider_viewmodel.dart';
 
 class ScheduleReminders extends StatelessWidget {
+  final _heading = TextEditingController();
+  final _description = TextEditingController();
+  final _schedule = GlobalKey<FormState>();
+  // This is temporary to give each notification a unique id
+  int random = Random().nextInt(100);
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
+
+    NotificationRemindersService reminders = NotificationRemindersService();
+
     return ViewModelBuilder<ScheduleReminderViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: Icon(Icons.arrow_back, color: BrandColors.primary),
-          ),
-          title: Text(
-            AppLocalizations.of(context).scheduleReminder,
-            style: TextStyle(
-              fontSize: 18.sp,
-            ),
-          ),
-        ),
-        body: Container(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        builder: (context, model, child) {
+          return Scaffold(
+            appBar: customizeAppBar(context, 1.0,
+                title: AppLocalizations.of(context).scheduleReminder,
+                arrowColor: Theme.of(context).textSelectionColor),
+            body: Container(
+              margin: EdgeInsets.only(left: 30, right: 30),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    AppLocalizations.of(context).pickADateAndTypeInYourMessage,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text(
+                              AppLocalizations.of(context)
+                                  .pickADateAndTypeInYourMessage,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                      fontSize: ScreenUtil().setSp(20),
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            Form(
+                              key: _schedule,
+                              child: Column(
+                                children: <Widget>[
+                                  InkWell(
+                                    onTap: () async {
+                                      final DateTime picked =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: model.selectedDate,
+                                        firstDate: DateTime(
+                                            int.parse(DateFormat('yyyy')
+                                                .format(DateTime.now())),
+                                            int.parse(DateFormat('MM')
+                                                .format(DateTime.now())),
+                                            int.parse(DateFormat('dd')
+                                                .format(DateTime.now()))),
+                                        lastDate: DateTime(2300),
+                                        builder: (BuildContext context,
+                                            Widget child) {
+                                          return Theme(
+                                            data: Theme.of(context).copyWith(
+                                              primaryColor: BrandColors.primary,
+                                              accentColor: BrandColors.primary,
+                                              colorScheme: Theme.of(context)
+                                                  .colorScheme
+                                                  .copyWith(
+                                                      primary:
+                                                          BrandColors.primary),
+                                              buttonTheme: ButtonThemeData(
+                                                  textTheme:
+                                                      ButtonTextTheme.primary),
+                                            ),
+                                            child: child,
+                                          );
+                                        },
+                                      );
+                                      if (picked != null) model.setDate(picked);
+                                      print(model.scheduledDate);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: ScreenUtil().setHeight(15),
+                                          horizontal:
+                                              ScreenUtil().setWidth(15)),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color(0xFFD1D1D1),
+                                              width: 2.0),
+                                          borderRadius: BorderRadius.circular(
+                                              ScreenUtil().setWidth(5))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Container(
+                                            child: Text(
+                                              model.newDate ??
+                                                  AppLocalizations.of(context)
+                                                      .selectDate,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                    fontSize:
+                                                        ScreenUtil().setSp(16),
+                                                    color:
+                                                        BrandColors.greyedText,
+                                                  ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                right:
+                                                    ScreenUtil().setWidth(15)),
+                                            child: SvgPicture.asset(
+                                                'assets/icons/calendar.svg',
+                                                color: BrandColors.greyedText),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Container(
+                                    alignment: Alignment.topCenter,
+                                    child: Container(
+                                      child: TimeWheel(
+                                        updateTimeChanged: (val) =>
+                                            model.updateSelectedTime(val),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Container(
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return AppLocalizations.of(context)
+                                              .fieldShouldNotBeEmpty;
+                                        }
+                                        return null;
+                                      },
+                                      controller: _heading,
+                                      style: TextStyle(height: height * 0.002),
+                                      maxLines: 1,
+                                      decoration: InputDecoration(
+                                        hintText: AppLocalizations.of(context)
+                                            .typeAHeading,
+                                        hintStyle: TextStyle(
+                                            color: BrandColors.greyedText),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Container(
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return AppLocalizations.of(context)
+                                              .fieldShouldNotBeEmpty;
+                                        }
+                                        return null;
+                                      },
+                                      controller: _description,
+                                      style: TextStyle(height: height * 0.002),
+                                      maxLines: 3,
+                                      decoration: InputDecoration(
+                                        hintText: AppLocalizations.of(context)
+                                            .startTypingYourmessage,
+                                        hintStyle: TextStyle(
+                                            color: BrandColors.greyedText),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: ThemeColors.gray,
+                                              width: 2.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 40.h,
                   ),
-                  TextField(
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                    ),
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.calendar_today),
-                      hintText: AppLocalizations.of(context).typeAHeading,
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ThemeColors.gray[500],
+                  Container(
+                    height: height * 0.06,
+                    child: MaterialButton(
+                      color: BrandColors.primary,
+                      elevation: 2,
+                      onPressed: () async {
+                        if (_schedule.currentState.validate()) {
+                          reminders.sendNotificationOnce(
+                              random,
+                              'You have this pending message to send',
+                              'Heading: ' + _heading.text,
+                              model.getDateTime());
+                          await Navigator.pushNamed(
+                              context, '/mainTransaction');
+                          print(_heading.text + _description.text);
+                        }
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context).schedule,
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: ThemeColors.background,
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: BrandColors.primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  TextField(
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context).typeAHeading,
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ThemeColors.gray[500],
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: BrandColors.primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 20.h,
-                  ),
-                  TextField(
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                    ),
-                    maxLines: 5,
-                    decoration: InputDecoration(
-                      hintText:
-                          AppLocalizations.of(context).startTypingYourmessage,
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ThemeColors.gray[500],
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: BrandColors.primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
+                    height: 50.h,
                   ),
                 ],
               ),
             ),
-          ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            left: 20,
-            right: 20,
-          ),
-          child: Container(
-            color: Colors.white,
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: 20,
-              ),
-              child: Container(
-                height: 50.h,
-                child: Expanded(
-                  child: InkWell(
-                      child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: BrandColors.primary,
-                    ),
-                    child: Center(
-                      child: Text(
-                        AppLocalizations.of(context).schedule,
-                        style: TextStyle(fontSize: 18.sp, color: Colors.white),
-                      ),
-                    ),
-                  )),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      viewModelBuilder: () => ScheduleReminderViewModel(),
-    );
+          );
+        },
+        viewModelBuilder: () => ScheduleReminderViewModel());
   }
 }

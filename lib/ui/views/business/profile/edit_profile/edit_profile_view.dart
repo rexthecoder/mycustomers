@@ -17,7 +17,7 @@ class EditProfileView extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(
-              'Edit Profile',
+              AppLocalizations.of(context).editProfile,
               style: TextStyle(
                 color: Theme.of(context).cursorColor,
                 fontWeight: FontWeight.bold,
@@ -44,8 +44,9 @@ class EditProfileView extends StatelessWidget {
                                 case ConnectionState.none:
                                 case ConnectionState.waiting:
                                   return CircleAvatar(
-                                    child: const Text(
-                                      'You have not yet picked an image.',
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .notPickedImage,
                                       textAlign: TextAlign.center,
                                     ),
                                   );
@@ -54,12 +55,15 @@ class EditProfileView extends StatelessWidget {
                                 default:
                                   if (snapshot.hasError) {
                                     return Text(
-                                      'Pick image: ${snapshot.error}}',
+                                      AppLocalizations.of(context).pickImage +
+                                          ':' +
+                                          '${snapshot.error}}',
                                       textAlign: TextAlign.center,
                                     );
                                   } else {
-                                    return const Text(
-                                      'You have not yet picked an image.',
+                                    return Text(
+                                      AppLocalizations.of(context)
+                                          .notPickedImage,
                                       textAlign: TextAlign.center,
                                     );
                                   }
@@ -80,8 +84,8 @@ class EditProfileView extends StatelessWidget {
                       onPressed: model.getImagefromGallery,
                       child: Text(
                         model.image == null
-                            ? 'Add a Profile Picture'
-                            : 'Change Profile Picture',
+                            ? AppLocalizations.of(context).addProfilePicture
+                            : AppLocalizations.of(context).changePic,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: SizeConfig.textSize(context, 4),
@@ -111,7 +115,7 @@ class EditProfileView extends StatelessWidget {
                             onChanged: (value) => model.updateUserName(value),
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'User Name',
+                              hintText: AppLocalizations.of(context).userName,
                             ),
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
@@ -137,9 +141,9 @@ class EditProfileView extends StatelessWidget {
                             initialValue: model.businessName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Business Name',
-                            ),
+                                border: InputBorder.none,
+                                hintText:
+                                    AppLocalizations.of(context).businessName),
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
                             ),
@@ -157,7 +161,7 @@ class EditProfileView extends StatelessWidget {
                       model.updateProfile();
                       FlushbarHelper.createInformation(
                         duration: const Duration(seconds: 5),
-                        message: 'Coming soon..',
+                        message: AppLocalizations.of(context).comingSoon,
                       ).show(context);
                     },
                     padding: EdgeInsets.symmetric(

@@ -4,13 +4,16 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'add_debt_credit_viewmodel.dart';
 
@@ -32,18 +35,18 @@ class AddDebtCreditView extends StatelessWidget {
     ScreenUtil.init(context, width: width, height: height);
     NotificationRemindersService reminders = NotificationRemindersService();
     return ViewModelBuilder<AddDebtCreditViewModel>.reactive(
-      onModelReady: (model) {
-        if(newCus) {
-          model.init();
-        }
-      },
+        onModelReady: (model) {
+          if (newCus) {
+            model.init();
+          }
+        },
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
               brightness: Brightness.dark,
               elevation: 1,
               title: Text(
                 newCus ? action == 'debit'
-                    ? 'Add New Debtor' : 'Add New Creditor' :  
+                    ? AppLocalizations.of(context).addNewDebtor : AppLocalizations.of(context).addNewCreditor :  
                     action == 'debit' ? model.amount != null
                         ? '${model.contact.name} owes you ₦' +
                             model.amount.round().toString()
@@ -113,13 +116,17 @@ class AddDebtCreditView extends StatelessWidget {
                                     margin: EdgeInsets.only(
                                         bottom: ScreenUtil().setHeight(15)),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
                                           margin: EdgeInsets.only(bottom: 3),
                                           child: Text(
-                                            'Amount',
-                                            style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
+                                            AppLocalizations.of(context).amount,
+                                            style: TextStyle(
+                                                fontSize: SizeConfig.yMargin(
+                                                    context, 2.2),
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ),
                                         TextField(
@@ -134,7 +141,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                       ? BrandColors.secondary
                                                       : Theme.of(context)
                                                           .textSelectionColor,
-                                                  fontSize: SizeConfig.yMargin(context, 2),
+                                                  fontSize: SizeConfig.yMargin(
+                                                      context, 2),
                                                   fontWeight: FontWeight.bold),
                                           decoration: new InputDecoration(
                                             border: OutlineInputBorder(
@@ -154,41 +162,53 @@ class AddDebtCreditView extends StatelessWidget {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                  color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
+                                                  color: action == 'debit'
+                                                      ? BrandColors.secondary
+                                                      : BrandColors.primary,
                                                   width: 2.0),
                                             ),
-                                            errorBorder: const OutlineInputBorder(
+                                            errorBorder:
+                                                const OutlineInputBorder(
                                               borderSide: const BorderSide(
-                                                  color: Colors.red, width: 2.0),
+                                                  color: Colors.red,
+                                                  width: 2.0),
                                             ),
-                                            hintText: 'Enter Amount',//action == 'credit'
+                                            hintText: AppLocalizations.of(
+                                                    context)
+                                                .enterAmount, //action == 'credit'
                                             //     ? 'Enter Amount you owe ${model.contact.name}'
                                             //     : 'Enter Amount ${model.contact.name} Owes You',
                                             hintStyle: TextStyle(
-                                                fontSize:
-                                                    SizeConfig.yMargin(context, 2)),
+                                                fontSize: SizeConfig.yMargin(
+                                                    context, 2)),
                                             errorText: model.error,
                                             prefixIcon: Container(
                                                 padding: EdgeInsets.symmetric(
-                                                    vertical: ScreenUtil().setHeight(15),
-                                                    horizontal:
-                                                        ScreenUtil().setWidth(10)),
+                                                    vertical: ScreenUtil()
+                                                        .setHeight(15),
+                                                    horizontal: ScreenUtil()
+                                                        .setWidth(10)),
                                                 child: Text(
                                                   model.currency.symbol,
                                                   style: TextStyle(
-                                                      color:
-                                                          Theme.of(context).cursorColor,
+                                                      color: Theme.of(context)
+                                                          .cursorColor,
                                                       fontSize:
-                                                          SizeConfig.yMargin(context, 3),
-                                                      fontWeight: FontWeight.bold,
+                                                          SizeConfig.yMargin(
+                                                              context, 3),
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontFamily: 'Roboto'),
                                                 )),
-                                            contentPadding: EdgeInsets.symmetric(
-                                                vertical: ScreenUtil().setHeight(8)),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: ScreenUtil()
+                                                        .setHeight(8)),
                                           ),
                                           textInputAction: TextInputAction.go,
                                           onChanged: (value) =>
-                                              model.updateAmount(value, update, action, newCus),
+                                              model.updateAmount(value, update,
+                                                  action, newCus),
                                         ),
                                       ],
                                     ),
@@ -321,107 +341,129 @@ class AddDebtCreditView extends StatelessWidget {
                                                     child: Text(
                                                       'Payment Date',
                                                       style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
-                                                    ),
-                                                  ),
-                                                  InkWell(
+                                                    ),),
+                                                    InkWell(
                                                       onTap: () async {
                                                         final DateTime picked =
                                                             await showDatePicker(
                                                           context: context,
-                                                          initialDate: model.selectedDate,
+                                                          initialDate: model
+                                                              .selectedDate,
                                                           firstDate: DateTime(
-                                                              int.parse(DateFormat('yyyy')
-                                                                  .format(DateTime.now())),
+                                                              int.parse(DateFormat(
+                                                                      'yyyy')
+                                                                  .format(DateTime
+                                                                      .now())),
                                                               int.parse(DateFormat('MM')
-                                                                  .format(DateTime.now())),
-                                                              int.parse(DateFormat('dd')
-                                                                  .format(DateTime.now()))),
-                                                          lastDate: DateTime(2300),
-                                                          builder: (BuildContext context,
+                                                                  .format(DateTime
+                                                                      .now())),
+                                                              int.parse(DateFormat(
+                                                                      'dd')
+                                                                  .format(DateTime
+                                                                      .now()))),
+                                                          lastDate:
+                                                              DateTime(2300),
+                                                          builder: (BuildContext
+                                                                  context,
                                                               Widget child) {
                                                             return Theme(
-                                                              data: Theme.of(context)
+                                                              data: Theme.of(
+                                                                      context)
                                                                   .copyWith(
-                                                                primaryColor: action ==
-                                                                        'debit'
-                                                                    ? BrandColors.secondary
-                                                                    : Theme.of(context)
+                                                                primaryColor: action == 'debit'
+                                                                    ? BrandColors
+                                                                        .secondary
+                                                                    : Theme.of(
+                                                                            context)
                                                                         .textSelectionColor,
-                                                                accentColor: action ==
-                                                                        'debit'
-                                                                    ? BrandColors.secondary
-                                                                    : Theme.of(context)
+                                                                accentColor: action == 'debit'
+                                                                    ? BrandColors
+                                                                        .secondary
+                                                                    : Theme.of(
+                                                                            context)
                                                                         .textSelectionColor,
                                                                 colorScheme: Theme.of(
                                                                         context)
                                                                     .colorScheme
                                                                     .copyWith(
-                                                                        primary: action == 'debit'
-                                                                            ? BrandColors
-                                                                                .secondary
-                                                                            : Theme.of(
-                                                                                    context)
-                                                                                .textSelectionColor),
-                                                                buttonTheme:
-                                                                    ButtonThemeData(
-                                                                        textTheme:
-                                                                            ButtonTextTheme
-                                                                                .primary),
+                                                                        primary: action ==
+                                                                                'debit'
+                                                                            ? BrandColors.secondary
+                                                                            : Theme.of(context).textSelectionColor),
+                                                                buttonTheme: ButtonThemeData(
+                                                                    textTheme:
+                                                                        ButtonTextTheme
+                                                                            .primary),
                                                               ),
                                                               child: child,
                                                             );
                                                           },
                                                         );
                                                         if (picked != null)
-                                                          model.setDate(picked, action, newCus);
+                                                          model.setDate(picked,
+                                                              action, newCus);
                                                       },
                                                       child: Container(
-                                                        margin: EdgeInsets.only(bottom: 15),
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 15),
                                                         padding: EdgeInsets.symmetric(
                                                             vertical:
-                                                                ScreenUtil().setHeight(15),
+                                                                ScreenUtil()
+                                                                    .setHeight(
+                                                                        15),
                                                             horizontal:
-                                                                ScreenUtil().setWidth(15)),
+                                                                ScreenUtil()
+                                                                    .setWidth(
+                                                                        15)),
                                                         decoration: BoxDecoration(
                                                             border: Border.all(
-                                                                color: model.date1err
+                                                                color: model
+                                                                        .date1err
                                                                     ? Colors.red
-                                                                    : Color(0xFFD1D1D1),
+                                                                    : Color(
+                                                                        0xFFD1D1D1),
                                                                 width: 2.0),
                                                             borderRadius:
                                                                 BorderRadius.circular(
                                                                     ScreenUtil()
-                                                                        .setWidth(5))),
+                                                                        .setWidth(
+                                                                            5))),
                                                         child: Row(
                                                           children: <Widget>[
                                                             Container(
                                                               margin: EdgeInsets.only(
                                                                   right: ScreenUtil()
-                                                                      .setWidth(15)),
+                                                                      .setWidth(
+                                                                          15)),
                                                               child: SvgPicture.asset(
                                                                   'assets/icons/calendar.svg',
-                                                                  color: action == 'debit'
+                                                                  color: action ==
+                                                                          'debit'
                                                                       ? BrandColors
                                                                           .secondary
-                                                                      : Theme.of(context)
+                                                                      : Theme.of(
+                                                                              context)
                                                                           .textSelectionColor),
                                                             ),
                                                             Container(
                                                               child: Text(
                                                                 model.newDate ??
-                                                                    'Select Due Date',
-                                                                style: Theme.of(context)
+                                                                    AppLocalizations.of(
+                                                                            context)
+                                                                        .selectDueDate,
+                                                                style: Theme.of(
+                                                                        context)
                                                                     .textTheme
                                                                     .headline6
                                                                     .copyWith(
-                                                                      fontSize: ScreenUtil()
-                                                                          .setSp(16),
+                                                                      fontSize:
+                                                                          ScreenUtil()
+                                                                              .setSp(16),
                                                                       color: action ==
                                                                               'debit'
                                                                           ? BrandColors
                                                                               .secondary
-                                                                          : Theme.of(
-                                                                                  context)
+                                                                          : Theme.of(context)
                                                                               .textSelectionColor,
                                                                     ),
                                                               ),
@@ -430,51 +472,75 @@ class AddDebtCreditView extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
                                         Visibility(
                                           visible: update ? false : true,
                                           child: Container(
                                             margin: EdgeInsets.only(bottom: 15),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
-                                                  margin: EdgeInsets.only(bottom: 3),
+                                                  margin: EdgeInsets.only(
+                                                      bottom: 3),
                                                   child: Text(
-                                                    'Description',
-                                                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
+                                                    AppLocalizations.of(context)
+                                                        .description,
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            SizeConfig.yMargin(
+                                                                context, 2.2),
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                                   ),
                                                 ),
                                                 Container(
                                                   padding: EdgeInsets.symmetric(
-                                                      horizontal: ScreenUtil().setWidth(10),
-                                                      vertical: ScreenUtil().setHeight(4)),
+                                                      horizontal: ScreenUtil()
+                                                          .setWidth(10),
+                                                      vertical: ScreenUtil()
+                                                          .setHeight(4)),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
-                                                          color: Color(0xFFD1D1D1),
+                                                          color:
+                                                              Color(0xFFD1D1D1),
                                                           width: 2.0),
-                                                      borderRadius: BorderRadius.circular(
-                                                          ScreenUtil().setWidth(5))),
+                                                      borderRadius: BorderRadius
+                                                          .circular(ScreenUtil()
+                                                              .setWidth(5))),
                                                   child: Column(
                                                     children: <Widget>[
                                                       TextField(
                                                         //controller: _controller,
                                                         maxLines: null,
-                                                        maxLengthEnforced: false,
+                                                        maxLengthEnforced:
+                                                            false,
                                                         keyboardType:
-                                                            TextInputType.multiline,
-                                                        decoration: new InputDecoration(
-                                                          border: InputBorder.none,
-                                                          focusedBorder: InputBorder.none,
-                                                          enabledBorder: InputBorder.none,
-                                                          errorBorder: InputBorder.none,
-                                                          disabledBorder: InputBorder.none,
-                                                          hintText: 'Enter Description',
+                                                            TextInputType
+                                                                .multiline,
+                                                        decoration:
+                                                            new InputDecoration(
+                                                          border:
+                                                              InputBorder.none,
+                                                          focusedBorder:
+                                                              InputBorder.none,
+                                                          enabledBorder:
+                                                              InputBorder.none,
+                                                          errorBorder:
+                                                              InputBorder.none,
+                                                          disabledBorder:
+                                                              InputBorder.none,
+                                                          hintText: AppLocalizations
+                                                                  .of(context)
+                                                              .enterDescription,
                                                           hintStyle: TextStyle(
                                                               fontSize:
-                                                                  ScreenUtil().setSp(15)),
+                                                                  ScreenUtil()
+                                                                      .setSp(
+                                                                          15)),
                                                           // prefixIcon: Container(
                                                           //   padding: EdgeInsets.symmetric(
                                                           //       vertical: ScreenUtil()
@@ -536,7 +602,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                         //   _controller.clear();
                                                         //   model.addItem(action, update);
                                                         // },
-                                                        onChanged: model.updateItem,
+                                                        onChanged:
+                                                            model.updateItem,
                                                       ),
                                                       // for (var item in model.items)
                                                       //   Container(
@@ -613,32 +680,42 @@ class AddDebtCreditView extends StatelessWidget {
                               visible: newCus,
                               child: Container(
                                 //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 15),
                                 child: Column(
                                   children: <Widget>[
                                     Container(
                                       margin: EdgeInsets.only(
                                           bottom: ScreenUtil().setHeight(15)),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
                                             margin: EdgeInsets.only(bottom: 3),
                                             child: Text(
-                                              'Customer Name',
-                                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
+                                              AppLocalizations.of(context)
+                                                  .customerName,
+                                              style: TextStyle(
+                                                  fontSize: SizeConfig.yMargin(
+                                                      context, 2.2),
+                                                  fontWeight: FontWeight.w600),
                                             ),
                                           ),
                                           Focus(
-                                            onFocusChange: (hasFocus){
-                                              if(hasFocus) {
-                                                print(controller.position.viewportDimension);
-                                                controller.jumpTo(controller.position.viewportDimension);
+                                            onFocusChange: (hasFocus) {
+                                              if (hasFocus) {
+                                                print(controller.position
+                                                    .viewportDimension);
+                                                controller.jumpTo(controller
+                                                    .position
+                                                    .viewportDimension);
                                                 //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
                                               }
                                             },
                                             child: TextField(
-                                              controller: model.searchController,
+                                              controller:
+                                                  model.searchController,
                                               maxLines: null,
                                               maxLengthEnforced: false,
                                               style: Theme.of(context)
@@ -646,40 +723,55 @@ class AddDebtCreditView extends StatelessWidget {
                                                   .headline6
                                                   .copyWith(
                                                       color: action == 'debit'
-                                                          ? BrandColors.secondary
+                                                          ? BrandColors
+                                                              .secondary
                                                           : Theme.of(context)
                                                               .textSelectionColor,
-                                                      fontSize: SizeConfig.yMargin(context, 2),
-                                                      fontWeight: FontWeight.bold),
+                                                      fontSize:
+                                                          SizeConfig.yMargin(
+                                                              context, 2),
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                               decoration: new InputDecoration(
                                                 border: OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                       color: Color(0xFFD1D1D1),
                                                       width: 2.0),
                                                 ),
-                                                disabledBorder: OutlineInputBorder(
+                                                disabledBorder:
+                                                    OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                       color: Color(0xFFD1D1D1),
                                                       width: 2.0),
                                                 ),
-                                                enabledBorder: OutlineInputBorder(
+                                                enabledBorder:
+                                                    OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                       color: Color(0xFFD1D1D1),
                                                       width: 2.0),
                                                 ),
-                                                focusedBorder: OutlineInputBorder(
+                                                focusedBorder:
+                                                    OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                      color: action == 'debit' ? BrandColors.secondary : BrandColors.primary,
+                                                      color: action == 'debit'
+                                                          ? BrandColors
+                                                              .secondary
+                                                          : BrandColors.primary,
                                                       width: 2.0),
                                                 ),
-                                                errorBorder: const OutlineInputBorder(
+                                                errorBorder:
+                                                    const OutlineInputBorder(
                                                   borderSide: const BorderSide(
-                                                      color: Colors.red, width: 2.0),
+                                                      color: Colors.red,
+                                                      width: 2.0),
                                                 ),
-                                                hintText: 'Enter Customer Name',
+                                                hintText:
+                                                    AppLocalizations.of(context)
+                                                        .enterCustomerName,
                                                 hintStyle: TextStyle(
                                                     fontSize:
-                                                        SizeConfig.yMargin(context, 2)),
+                                                        SizeConfig.yMargin(
+                                                            context, 2)),
                                                 errorText: model.error,
                                                 prefixIcon: Container(
                                                   padding: EdgeInsets.symmetric(
@@ -691,78 +783,152 @@ class AddDebtCreditView extends StatelessWidget {
                                                         .cursorColor,
                                                   ),
                                                 ),
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    vertical: ScreenUtil().setHeight(20)),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: ScreenUtil()
+                                                            .setHeight(20)),
                                               ),
-                                              textInputAction: TextInputAction.go,
-                                              onChanged: (value) => model.updateName(value, action),
+                                              textInputAction:
+                                                  TextInputAction.go,
+                                              onChanged: (value) => model
+                                                  .updateName(value, action),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    
-                                    for(var item in model.contactsList) model.name != null && model.shownames ?
-                                    MyListTile(
-                                      onTap: () => model.setName(item),
-                                      action: action,
-                                      leading: Center(child: CircleAvatar(
-                                        child: Text(
-                                          '${item.displayName[0].toUpperCase()}',
-                                          style: TextStyle(
-                                            color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
-                                            fontSize: SizeConfig.yMargin(context, 2),
-                                          ),
-                                        ),
-                                        radius: SizeConfig.xMargin(context, 6),
-                                        backgroundColor: action == 'debt' ? BrandColors.primary.withOpacity(0.3) : BrandColors.secondary.withOpacity(0.3),
-                                      )),
-                                      title: Text(
-                                        '${item.displayName}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: SizeConfig.yMargin(context, 1.9)
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '${item.phone.isNotEmpty ? item.phone : 'No number'}',
-                                        style: TextStyle(
-                                          color: ThemeColors.gray.shade600,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: SizeConfig.yMargin(context, 2)
-                                        ),
-                                      ),
-                                    ) : SizedBox(height: MediaQuery.of(context).viewInsets.bottom,),
-                                    model.contactsList.length == 0 && model.name != null ? model.manual ? 
-                                    SizedBox(height: model.manual ? 0 : MediaQuery.of(context).viewInsets.bottom,) : Container(
-                                      padding: EdgeInsets.symmetric(vertical: 50),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Container(
-                                            margin: EdgeInsets.only(bottom: 20),
-                                            child: Text(
-                                              'No result found for \'${model.name}\'',
-                                              style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
-                                            ),
-                                          ),
-                                          InkWell(
-                                          onTap: () => model.setManual(),
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(5),
-                                                color: action == 'debit' ? BrandColors.secondary.withOpacity(0.2) : BrandColors.primary.withOpacity(0.2)
+                                    for (var item in model.contactsList)
+                                      model.name != null && model.shownames
+                                          ? MyListTile(
+                                              onTap: () => model.setName(item),
+                                              action: action,
+                                              leading: Center(
+                                                  child: CircleAvatar(
+                                                child: Text(
+                                                  '${item.displayName[0].toUpperCase()}',
+                                                  style: TextStyle(
+                                                    color: action == 'debtor'
+                                                        ? BrandColors.primary
+                                                        : BrandColors.secondary,
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2),
+                                                  ),
+                                                ),
+                                                radius: SizeConfig.xMargin(
+                                                    context, 6),
+                                                backgroundColor:
+                                                    action == 'debt'
+                                                        ? BrandColors.primary
+                                                            .withOpacity(0.3)
+                                                        : BrandColors.secondary
+                                                            .withOpacity(0.3),
+                                              )),
+                                              title: Text(
+                                                '${item.displayName}',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 1.9)),
                                               ),
-                                              child: Text(
-                                                'Add New Customer',
-                                                style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
+                                              // child: Text(
+                                                // 'Add new customer',
+                                                // style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
+                                              subtitle: Text(
+                                                '${item.phone.isNotEmpty ? item.phone : 'No number'}',
+                                                style: TextStyle(
+                                                    color: ThemeColors
+                                                        .gray.shade600,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2)),
                                               ),
+                                            )
+                                          : SizedBox(
+                                              height: MediaQuery.of(context)
+                                                  .viewInsets
+                                                  .bottom,
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ) : SizedBox(),
+                                    model.contactsList.length == 0 &&
+                                            model.name != null
+                                        ? model.manual
+                                            ? SizedBox(
+                                                height: model.manual
+                                                    ? 0
+                                                    : MediaQuery.of(context)
+                                                        .viewInsets
+                                                        .bottom,
+                                              )
+                                            : Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 50),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 20),
+                                                      child: Text(
+                                                        AppLocalizations.of(
+                                                                    context)
+                                                                .noResultFoundFor +
+                                                            '\'${model.name}\'',
+                                                        style: TextStyle(
+                                                            fontSize: SizeConfig
+                                                                .yMargin(
+                                                                    context,
+                                                                    2)),
+                                                      ),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () =>
+                                                          model.setManual(),
+                                                      child: Container(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 15,
+                                                                horizontal: 15),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            color: action ==
+                                                                    'debit'
+                                                                ? BrandColors
+                                                                    .secondary
+                                                                    .withOpacity(
+                                                                        0.2)
+                                                                : BrandColors
+                                                                    .primary
+                                                                    .withOpacity(
+                                                                        0.2)),
+                                                        child: Text(
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .addNewCustomer,
+                                                          style: TextStyle(
+                                                              color: action ==
+                                                                      'debit'
+                                                                  ? BrandColors
+                                                                      .secondary
+                                                                  : BrandColors
+                                                                      .primary,
+                                                              fontSize: SizeConfig
+                                                                  .yMargin(
+                                                                      context,
+                                                                      2)),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                        : SizedBox(),
                                     Visibility(
                                       visible: model.manual,
                                       child: Container(
@@ -771,22 +937,28 @@ class AddDebtCreditView extends StatelessWidget {
                                               color: Color(0xff77869e),
                                               width: 1,
                                             ),
-                                            borderRadius: BorderRadius.circular(4.0)),
-                                        child: 
-                                        Padding(
+                                            borderRadius:
+                                                BorderRadius.circular(4.0)),
+                                        child: Padding(
                                           padding: EdgeInsets.all(8),
                                           child: InternationalPhoneNumberInput(
-                                            onInputChanged: (PhoneNumber number) {
-                                              model.updateNumber(number, action);
+                                            onInputChanged:
+                                                (PhoneNumber number) {
+                                              model.updateNumber(
+                                                  number, action);
                                             },
-                                          
                                             ignoreBlank: false,
-                                            errorMessage: 'Invalid Phone Number',
-                                            selectorType: PhoneInputSelectorType.DIALOG,
-                                            selectorTextStyle:
-                                                TextStyle(color: Theme.of(context).cursorColor),
+                                            errorMessage:
+                                                AppLocalizations.of(context)
+                                                    .invalidPhoneNo,
+                                            selectorType:
+                                                PhoneInputSelectorType.DIALOG,
+                                            selectorTextStyle: TextStyle(
+                                                color: Theme.of(context)
+                                                    .cursorColor),
                                             initialValue: model.number,
-                                            textFieldController: model.inputNumberController,
+                                            textFieldController:
+                                                model.inputNumberController,
                                             inputBorder: InputBorder.none,
                                           ),
                                         ),
@@ -831,7 +1003,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         //     )
                                         //   ],
                                         // ),
-                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -873,11 +1045,14 @@ class AddDebtCreditView extends StatelessWidget {
                         width: width,
                         child: Center(
                           child: Text(
-                            'Save',
-                            style: Theme.of(context).textTheme.headline6.copyWith(
-                                fontSize: ScreenUtil().setSp(16),
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            AppLocalizations.of(context).save,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(
+                                    fontSize: ScreenUtil().setSp(16),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),

@@ -94,7 +94,8 @@ class MarketingHomePageView extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400,
-                                    color: BrandColors.primary),
+                                    color:
+                                        Theme.of(context).textSelectionColor),
                                 textAlign: TextAlign.center,
 // =======
 //                               Container(
@@ -186,8 +187,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
-                                      AppLocalizations.of(context)
-                                          .sendMessageAll,
+                                      'Send message', // AppLocalizations.of(context)
+                                          // .sendMessageAll,
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           color: BrandColors.secondary),

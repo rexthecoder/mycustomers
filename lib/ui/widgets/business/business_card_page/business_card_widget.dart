@@ -4,7 +4,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
   BusinessCardWidget({
     Key key,
     @required this.screenshotController,
-    @required this.showArrow,
+    this.showArrow: false,
   }) : super(key: key, reactive: true);
   final ScreenshotController screenshotController;
   final bool showArrow;
@@ -218,16 +218,16 @@ class _BusinessCard1 extends ViewModelWidget<BusinessCardPageViewModel> {
                           fontWeight: FontWeight.bold,
                           color: ThemeColors.black,
                         ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: '\n   ${model.businessCard.position}',
-                            style: TextStyle(
-                              fontSize: SizeConfig.textSize(context, 3),
-                              color: ThemeColors.black,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
+                        // children: <TextSpan>[
+                        //   TextSpan(
+                        //     text: '\n   ${model.businessCard.position}',
+                        //     style: TextStyle(
+                        //       fontSize: SizeConfig.textSize(context, 3),
+                        //       color: ThemeColors.black,
+                        //       fontWeight: FontWeight.normal,
+                        //     ),
+                        //   ),
+                        // ],
                       ),
                     ),
                   ],
@@ -369,14 +369,14 @@ class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
                       color: ThemeColors.black,
                     ),
                     children: <TextSpan>[
-                      TextSpan(
-                        text: '\n${model.businessCard.position}',
-                        style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 3),
-                          color: ThemeColors.black,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
+                      // TextSpan(
+                      //   text: '\n${model.businessCard.position}',
+                      //   style: TextStyle(
+                      //     fontSize: SizeConfig.textSize(context, 3),
+                      //     color: ThemeColors.black,
+                      //     fontWeight: FontWeight.normal,
+                      //   ),
+                      // ),
                       TextSpan(
                         text: '\n${model.businessCard.phoneNumber}',
                         style: TextStyle(
@@ -632,14 +632,14 @@ class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
                           color: ThemeColors.background,
                         ),
                         children: <TextSpan>[
-                          TextSpan(
-                            text: '\n   ${model.businessCard.position}',
-                            style: TextStyle(
-                              fontSize: SizeConfig.textSize(context, 2),
-                              color: ThemeColors.background,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
+                      //     TextSpan(
+                      //       text: '\n   ${model.businessCard.position}',
+                      //       style: TextStyle(
+                      //         fontSize: SizeConfig.textSize(context, 2),
+                      //         color: ThemeColors.background,
+                      //         fontWeight: FontWeight.normal,
+                      //       ),
+                      //     ),
                         ],
                       ),
                     ),

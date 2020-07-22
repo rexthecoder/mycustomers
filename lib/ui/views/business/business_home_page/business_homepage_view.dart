@@ -38,7 +38,7 @@ class BusinessHomePageView extends StatelessWidget {
                   ),
                   child: ListTile(
                     title: Text(
-                      model.profileCardTitle,
+                      AppLocalizations.of(context).profile,
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 5),
                         fontWeight: FontWeight.bold,
@@ -68,8 +68,8 @@ class BusinessHomePageView extends StatelessWidget {
                 optionButton(
                   context: context,
                   icon: phoneNumber,
-                  label: 'Registered Phone Number',
-                  subtitle: '${model.businessCard.phoneNumber}',
+                  label: AppLocalizations.of(context).regPhoneNo,
+                  subtitle: '${model.pNum}',
                   opens: false,
                   // onTap: () => _displayBusinessCardModal(context, model)
                 ),
@@ -91,44 +91,46 @@ class BusinessHomePageView extends StatelessWidget {
                   label: AppLocalizations.of(context).support,
                   onTap: model.navigateToSupportPage,
                 ),
+                SizedBox(height: SizeConfig.yMargin(context, 4)),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: 20, horizontal: SizeConfig.xMargin(context, 7)),
                   child:
                       ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
                     builder: (_, __, ___) => BusinessCardWidget(
+                      showArrow: false,
                         screenshotController: screenshotController),
                     viewModelBuilder: () => BusinessCardPageViewModel(),
                     onModelReady: (model) => model.init(),
                   ),
                 ),
-                optionButton(
-                  context: context,
-                  icon: settings,
-                  label: AppLocalizations.of(context).settings,
-                  onTap: model.navigateToSettingsPage,
-                ),
-                optionButton(
-                  context: context,
-                  icon: support,
-                  label: AppLocalizations.of(context).support,
-                  onTap: model.navigateToSupportPage,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.yMargin(context, 5),
-                    horizontal: SizeConfig.xMargin(context, 5),
-                  ),
-                  child:
-                      ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
-                    builder: (_, __, ___) => BusinessCardWidget(
-                      screenshotController: screenshotController,
-                      showArrow: false,
-                    ),
-                    viewModelBuilder: () => BusinessCardPageViewModel(),
-                    onModelReady: (model) => model.init(),
-                  ),
-                ),
+//                optionButton(
+//                  context: context,
+//                  icon: settings,
+//                  label: AppLocalizations.of(context).settings,
+//                  onTap: model.navigateToSettingsPage,
+//                ),
+//                optionButton(
+//                  context: context,
+//                  icon: support,
+//                  label: AppLocalizations.of(context).support,
+//                  onTap: model.navigateToSupportPage,
+//                ),
+//                Padding(
+//                  padding: EdgeInsets.symmetric(
+//                    vertical: SizeConfig.yMargin(context, 5),
+//                    horizontal: SizeConfig.xMargin(context, 5),
+//                  ),
+//                  child:
+//                      ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
+//                    builder: (_, __, ___) => BusinessCardWidget(
+//                      screenshotController: screenshotController,
+//                      showArrow: false,
+//                    ),
+//                    viewModelBuilder: () => BusinessCardPageViewModel(),
+//                    onModelReady: (model) => model.init(),
+//                  ),
+//                ),
               ],
             ),
           ),

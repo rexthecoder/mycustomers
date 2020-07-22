@@ -74,7 +74,7 @@ class CreditorsView extends StatelessWidget {
                                     )
                                   : RichText(
                                       text: TextSpan(
-                                          text: '₦ 0.',
+                                          text: model.currency.symbol + '0.',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: SizeConfig.yMargin(
@@ -189,7 +189,7 @@ class ContactList extends StatelessWidget {
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Search by name',
+                  hintText: AppLocalizations.of(context).searchByName,
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
