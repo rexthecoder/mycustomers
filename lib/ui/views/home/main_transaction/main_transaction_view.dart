@@ -161,7 +161,9 @@ class MainTransaction extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 InkWell(
-                                  onTap: () {}, //Todo: Reminder Functionality
+                                  onTap: () {
+                                    model.navigateToSchedule();
+                                  },
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -429,7 +431,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: <Widget>[
                                                                                   Text(
-                                                                                    '${model.contact.name} owe you',
+                                                                                    '${model.contact.name}' + AppLocalizations.of(context).owesYou,
                                                                                     style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                           fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                           color: Theme.of(context).cursorColor,
@@ -507,7 +509,7 @@ class MainTransaction extends StatelessWidget {
                                                                             child:
                                                                                 Flexible(
                                                                               child: Text(
-                                                                                'You owe ${model.contact.name}',
+                                                                                AppLocalizations.of(context).youOwe + ' ' + '${model.contact.name}',
                                                                                 style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                       fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                       color: Theme.of(context).cursorColor,
@@ -616,7 +618,7 @@ class MainTransaction extends StatelessWidget {
                                                         AppLocalizations.of(
                                                                 context)
                                                             .owesYou +
-                                                        ' ',
+                                                        " ",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -660,7 +662,8 @@ class MainTransaction extends StatelessWidget {
                                                   Text(
                                                     AppLocalizations.of(context)
                                                             .youOwe +
-                                                        '${model.contact.name} ',
+                                                        ' '
+                                                            '${model.contact.name} ',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline5
@@ -748,10 +751,10 @@ class MainTransaction extends StatelessWidget {
   void itemAction(String item, BuildContext context) {
     if (item == AppLocalizations.of(context).sms) {
       // Navigator.pushNamed(context, '/transactionHistory');
-      //Code to send sms
+      //TODO: Code to send sms
     } else if (item == AppLocalizations.of(context).call) {
       // Navigator.pushNamed(context, '/transactionDetails');
-      //Code to call customer
+      //TODO: Code to call customer
     } else {
       Navigator.pushNamed(context, '/setReminders');
     }
@@ -853,6 +856,7 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
+                  // 'Test2',
                   AppLocalizations.of(context).theyAreOwingYou,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
