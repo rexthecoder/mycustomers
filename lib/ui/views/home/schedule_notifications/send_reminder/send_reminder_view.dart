@@ -6,7 +6,6 @@ import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'send_reminder_viewmodel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
-import 'send_reminder_viewmodel.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
 class SendMessage extends StatelessWidget {

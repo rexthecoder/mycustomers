@@ -37,8 +37,6 @@ import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_hom
 import 'package:mycustomers/ui/views/home/add_debt_credit/add_debt_credit_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
 import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
-import 'package:mycustomers/ui/views/home/schedule_reminder/schedule_remider_view.dart';
-import 'package:mycustomers/ui/views/home/schedule_reminder/send_message_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/send_a_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/notification_view/notification_view.dart';
@@ -334,16 +332,6 @@ class Router {
       case Routes.detailsViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DetailsView(),
-          settings: settings,
-        );
-      case Routes.sendReminder:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => SendReminders(),
-          settings: settings,
-        );
-      case Routes.scheduleReminder:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => ScheduleReminders(),
           settings: settings,
         );
       case Routes.sendMessageViewRoute:
