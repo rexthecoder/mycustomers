@@ -94,8 +94,9 @@ class EditProfileView extends StatelessWidget {
                       ),
                     ),
                   ),
+                   SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Divider(color: ThemeColors.gray.shade600),
-                  SizedBox(height: SizeConfig.yMargin(context, 2.5)),
+                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Column(
                     children: <Widget>[
                       Container(
@@ -153,7 +154,7 @@ class EditProfileView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.yMargin(context, 18),
+                    height: SizeConfig.yMargin(context, 25),
                   ),
                   FlatButton(
                     color: BrandColors.primary,
@@ -165,11 +166,11 @@ class EditProfileView extends StatelessWidget {
                       ).show(context);
                     },
                     padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.xMargin(context, 41),
+                      horizontal: SizeConfig.xMargin(context, 40),
                       vertical: SizeConfig.yMargin(context, 2.6),
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(3),
                     ),
                     child: Text(
                       AppLocalizations.of(context).save,

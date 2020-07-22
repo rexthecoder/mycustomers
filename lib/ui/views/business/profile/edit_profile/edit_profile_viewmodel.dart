@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfileViewModel extends BaseViewModel {
   final _storeRepository = locator<StoreRepository>();
@@ -25,22 +29,42 @@ class EditProfileViewModel extends BaseViewModel {
 
   File get image => _imgFile;
 
+
   set retrieveDataError(value) {
     _retrieveDataError = value;
   }
 
-  Future getImagefromcamera() async {
+  Future getImagefromcamera(String value) async {
     final pickedImage = await _imagePicker.getImage(source: ImageSource.camera);
-    _imgFile = File(pickedImage.path);
+    _imgFile =File(pickedImage.path);
+
     notifyListeners();
   }
 
-  Future getImagefromGallery() async {
+  Future getImagefromGallery(String value) async {
     final pickedImage =
     await _imagePicker.getImage(source: ImageSource.gallery);
     _imgFile = File(pickedImage.path);
     notifyListeners();
   }
+
+  static Image  imageFromBaseString(String base64String){
+     return Image.memory(base64Decode(base64String),
+     fit: BoxFit.fill,
+    );
+  }
+
+ static Uint8List dataFromBase64String(String base64String){
+   return base64Decode(base64String);
+ } 
+
+  static String base64String(Uint8List data){
+    return base64Encode(data);
+    
+  }
+ 
+
+
 
   void updateUserName(String value) {
     _userName = value;
@@ -75,4 +99,9 @@ class EditProfileViewModel extends BaseViewModel {
   void updateProfile() {
     // TODO UPDATE PROFILE
   }
+
+
+
+
+
 }

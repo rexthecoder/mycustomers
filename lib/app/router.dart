@@ -82,7 +82,7 @@ abstract class Routes {
   static const businessCardRoute = '/businessCard';
   static const bussinessSettingsPage = '/bussinessSettingsPage';
   static const currencySettingsViewRoute = '/currencySettings';
-  static const profileViewRoute = '/profile';
+  static const profileViewRoute = '/Profile';
   static const editProfileViewRoute = '/editProfile';
   static const appLockSettingsViewRoute = '/appLockSettings';
   static const changePinSettingsViewRoute = '/changePinSettings';
