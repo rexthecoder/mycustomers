@@ -6,23 +6,6 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 import 'package:stacked/stacked.dart';
 
 class NotificationViewModel extends ReactiveViewModel {
-  List notifications = [
-    {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'},
-    // {'msg':'A reminder was set for Invoice 007 debt (receivable) due on 30/06/2020', 'price': '3000', 'time': '10:30AM'}
-  ];
 
   final _logService = locator<LogsLocalDataSourceImpl>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
@@ -49,7 +32,6 @@ class NotificationViewModel extends ReactiveViewModel {
   }
 
   void getlogs(){
-    print('called2');
     _logService.getLogs();
     if(notify){
       _logService.setnotify();

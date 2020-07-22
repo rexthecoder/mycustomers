@@ -40,7 +40,7 @@ class AddCustomerMessageView extends StatelessWidget {
       builder: (context, model, child) {
         model.getFrequentCustomers(frequent);
         return Scaffold(
-          appBar: customizeAppBar(context, 0.0, title: 'Send a Message', arrowColor: Theme.of(context).backgroundColor),
+          appBar: customizeAppBar(context, 0.0, title: AppLocalizations.of(context).sendMessage, arrowColor: BrandColors.secondary),
 //        appBar: customizeAppBar(context, 0.0, title: 'Select contacts', arrowColor: BrandColors.secondary),
           body: Column(
           children: <Widget>[
@@ -62,7 +62,7 @@ class AddCustomerMessageView extends StatelessWidget {
                 child: TextField(
                   controller: model.searchController,
                   decoration: InputDecoration(
-                    hintText: 'Type customer name',
+                    hintText: AppLocalizations.of(context).typeCustomerName,
                     prefixIcon: Icon(Icons.search),
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -101,7 +101,7 @@ class AddCustomerMessageView extends StatelessWidget {
 //                                  : 10.w
                           ),
                           child: Text(
-                            'Add customer Manually',
+                            AppLocalizations.of(context).addCustomer,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: BrandColors.secondary,

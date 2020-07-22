@@ -239,5 +239,22 @@
     "debtor": "Deudor",
     "no-number": "Sin número",
     "credit": "crédito",
-    "pick-a-date-and-type-in-your-message": "Elige una fecha y escribe tu mensaje"
+    "pick-a-date-and-type-in-your-message": "Elige una fecha y escribe tu mensaje",
+    "they-are-owing-you": "Ellos te deben",
+    "you-are-owing-them": "Los debes",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp",
+    "gmail": "Gmail",
+    "pick-image": "Seleccionar imagen",
+    "user-name": "Nombre de usuario",
+    "coming-soon": "Próximamente...",
+    "amount": "Cantidad",
+    "due-date": "Fecha de vencimiento",
+    "description": "Descripción",
+    "enter-description":"Ingrese la descripción",
+    "enter-customer-name": "Ingrese el nombre del cliente",
+    "no-result-found-for": "No se encontraron resultados para",
+    "payment-date": "Fecha de pago",
+    "add-new-debtor": "Agregar nuevo deudor",
+    "add-new-creditor": "Agregar nuevo acreedor"
 }
