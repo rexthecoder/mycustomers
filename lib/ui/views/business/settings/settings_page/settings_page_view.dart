@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
@@ -109,14 +110,14 @@ class SettingsPage extends StatelessWidget {
               Text(
                 text,
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: ScreenUtil().setSp(18),
+                      fontSize: SizeConfig.yMargin(context, 2),
                       color: Theme.of(context).cursorColor,
                     ),
               ),
               Text(
                 subtext ?? '',
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                    fontSize: ScreenUtil().setSp(12),
+                    fontSize: SizeConfig.yMargin(context, 1.6),
                     color: Theme.of(context).cursorColor),
               )
             ],
@@ -144,7 +145,7 @@ class SettingsPage extends StatelessWidget {
               Text(
                 text,
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: ScreenUtil().setSp(16),
+                      fontSize: SizeConfig.yMargin(context, 2),
                       color: Theme.of(context).cursorColor,
                     ),
               )

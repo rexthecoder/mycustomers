@@ -23,6 +23,7 @@ part '../../../widgets/business/business_card_page/business_card_widget.dart';
 class BusinessCardPageView extends StatelessWidget {
   final String share = 'assets/icons/svg/share.svg';
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     ScreenshotController screenshotController = ScreenshotController();
@@ -51,6 +52,7 @@ class BusinessCardPageView extends StatelessWidget {
                   children: <Widget>[
                     BusinessCardWidget(
                       screenshotController: screenshotController,
+                      showArrow: true,
                     ),
                     SizedBox(
                       height: SizeConfig.yMargin(context, 3),
@@ -68,7 +70,7 @@ class BusinessCardPageView extends StatelessWidget {
                       borderColor: BrandColors.primary,
                       child: SvgPicture.asset(
                         share,
-                        height: SizeConfig.xMargin(context, 4),
+                        height: SizeConfig.xMargin(context, 6),
                         color: ThemeColors.background,
                       ),
                       onPressed: () {
@@ -119,6 +121,7 @@ class BusinessCardPageView extends StatelessWidget {
     );
   }
 }
+
 
 class BusinessCardModal extends StatelessWidget {
   const BusinessCardModal({
