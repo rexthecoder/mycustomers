@@ -56,7 +56,7 @@ class NotificationsView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -102,16 +102,17 @@ class NotificationsView extends StatelessWidget {
                                             background: Container(
                                               padding:
                                                   EdgeInsets.only(right: 15),
-                                              color: BrandColors.primary,
+                                              color: Colors.red,
                                               child: Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .view,
-                                                    style: TextStyle(
-                                                        color: Colors.white)),
-                                              ),
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: Icon(Icons.delete)
+                                                  // Text(
+                                                  //     AppLocalizations.of(context)
+                                                  //         .delete,
+                                                  //     style: TextStyle(
+                                                  //         color: Colors.white)),
+                                                  ),
                                             ),
                                             child: Padding(
                                               padding:
