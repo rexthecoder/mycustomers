@@ -15,6 +15,7 @@ class SendMessage extends StatelessWidget {
     // var height = MediaQuery.of(context).size.height;
     // var width = MediaQuery.of(context).size.width;
     // ScreenUtil.init(context, width: width, height: height);
+    var _formKey = GlobalKey<FormState>();
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
@@ -33,68 +34,101 @@ class SendMessage extends StatelessWidget {
                           SizedBox(
                             height: 30.h,
                           ),
-                          Container(
-                            child: TextField(
-                              style: TextStyle(height: SizeConfig.yMargin(context, 0.002)),
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                hintText:
-                                    AppLocalizations.of(context).typeAHeading,
-                                hintStyle:
-                                    TextStyle(color: BrandColors.greyedText),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Field should not be empty';
+                                      }
+                                      return null;
+                                    },
+                                    style: TextStyle(
+                                        height:
+                                            SizeConfig.yMargin(context, 0.002)),
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                      hintText: AppLocalizations.of(context)
+                                          .typeAHeading,
+                                      hintStyle: TextStyle(
+                                          color: BrandColors.greyedText),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                disabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
+                                SizedBox(
+                                  height: 15.h,
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
+                                SizedBox(
+                                    height: SizeConfig.yMargin(context, 6),
+                                    child:
+                                        messageSnippetHolder(context, model)),
+                                SizedBox(
+                                  height: 15.h,
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
+                                Container(
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Field should not be empty';
+                                      }
+                                      return null;
+                                    },
+                                    style: TextStyle(
+                                        height:
+                                            SizeConfig.yMargin(context, 0.18)),
+                                    maxLines: 3,
+                                    decoration: InputDecoration(
+                                      hintText: AppLocalizations.of(context)
+                                          .startTypingYourmessage,
+                                      hintStyle: TextStyle(
+                                          color: BrandColors.greyedText),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                      disabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: ThemeColors.gray,
+                                            width: 2.0),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          SizedBox(
-                            height: SizeConfig.yMargin(context, 6),
-                            child: messageSnippetHolder(context, model)),
-                            SizedBox(
-                              height: 15.h,),
-                          Container(
-                            child: TextField(
-                              style: TextStyle(height: SizeConfig.yMargin(context, 0.18)),
-                              maxLines: 3,
-                              decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)
-                                    .startTypingYourmessage,
-                                hintStyle:
-                                    TextStyle(color: BrandColors.greyedText),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
-                                ),
-                                disabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: ThemeColors.gray, width: 2.0),
-                                ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -104,6 +138,7 @@ class SendMessage extends StatelessWidget {
                 ),
                 Container(
                   height: 50.h,
+                  color: Theme.of(context).backgroundColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -117,9 +152,7 @@ class SendMessage extends StatelessWidget {
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
-                               side: BorderSide(
-                                color:BrandColors.primary )
-                              ),
+                              side: BorderSide(color: BrandColors.primary)),
                           child: Center(
                             child: Text(
                               AppLocalizations.of(context).schedule,
@@ -137,23 +170,24 @@ class SendMessage extends StatelessWidget {
                           color: BrandColors.primary,
                           elevation: 0,
                           onPressed: () {
-                                Flushbar(
-                                      backgroundColor: BrandColors.primary,
-                                      duration: const Duration(seconds: 3),
-                                      message: 'Could not send message in development ',
-                                      icon: Icon(
-                                        Icons.info_outline,
-                                        size: 28.0,
-                                        color: ThemeColors.background,
-                                      ),
-                                      leftBarIndicatorColor: Colors.blue[300],
-                                    ).show(context);
+                            if (_formKey.currentState.validate()) {
+                              Flushbar(
+                                backgroundColor: BrandColors.primary,
+                                duration: const Duration(seconds: 3),
+                                message:
+                                    'Could not send message in development ',
+                                icon: Icon(
+                                  Icons.info_outline,
+                                  size: 28.0,
+                                  color: ThemeColors.background,
+                                ),
+                                leftBarIndicatorColor: Colors.blue[300],
+                              ).show(context);
+                            }
                           },
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                             
-                              ),
-                              
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           child: Center(
                             child: Text(
                               AppLocalizations.of(context).send,
@@ -181,35 +215,29 @@ class SendMessage extends StatelessWidget {
   }
 }
 
-Widget messageSnippet(String value, SendMessageViewModel model, BuildContext context){
+Widget messageSnippet(
+    String value, SendMessageViewModel model, BuildContext context) {
   return Container(
-  margin:EdgeInsets.only(left:SizeConfig.yMargin(context, 1.2)) ,
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(50),
-    color:ThemeColors.unselect
-  ),
-  child:FlatButton(
-    onPressed: ()=> print('Button has been pressed'), 
-    child: Text(
-      value,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        color: BrandColors.primary,
-        fontSize: SizeConfig.textSize(context, 4.4)
-      ),
-    )
-    )
-);
+      margin: EdgeInsets.only(left: SizeConfig.yMargin(context, 1.2)),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50), color: ThemeColors.unselect),
+      child: FlatButton(
+          onPressed: () => print('Button has been pressed'),
+          child: Text(
+            value,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: BrandColors.primary,
+                fontSize: SizeConfig.textSize(context, 4.4)),
+          )));
 }
 
-Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model){
-   return ListView.builder(
-    itemCount: model.messageEntries.length,
-    scrollDirection: Axis.horizontal,
-    shrinkWrap: true,
-    itemBuilder: (context, int index){
-      return messageSnippet(model.messageEntries[index], model, context);
-    }
-    );
-
+Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model) {
+  return ListView.builder(
+      itemCount: model.messageEntries.length,
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      itemBuilder: (context, int index) {
+        return messageSnippet(model.messageEntries[index], model, context);
+      });
 }
