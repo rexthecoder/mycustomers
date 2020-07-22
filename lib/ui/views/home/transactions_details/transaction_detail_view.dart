@@ -35,7 +35,7 @@ class TransactionDetails extends StatelessWidget {
                 ),
               ),
               title: Text(
-                'Transaction details',
+                AppLocalizations.of(context).transactionDetails,
                 style: TextStyle(
                     fontSize: 40.sp,
                     color: Colors.white,
@@ -149,9 +149,8 @@ class TransactionDetails extends StatelessWidget {
                                                 SizedBox(
                                                   width: 10,
                                                 ),
-                                                Text(
-                                                  model.transaction.description
-                                                )
+                                                Text(model
+                                                    .transaction.description)
                                                 // for (var item
                                                 //     in model.transaction.goods)
                                                 //   Text(
@@ -300,7 +299,8 @@ class TransactionDetails extends StatelessWidget {
                                             Expanded(
                                               flex: 20,
                                               child: Text(
-                                                'Amount Owed:',
+                                                AppLocalizations.of(context)
+                                                    .amountOwed,
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.grey[600],
@@ -361,7 +361,7 @@ class TransactionDetails extends StatelessWidget {
                                                   Radius.circular(10.sp))),
                                       child: Center(
                                         child: Text(
-                                          'Delete',
+                                          AppLocalizations.of(context).delete,
                                           style: TextStyle(
                                               fontSize: 30.sp,
                                               color: BrandColors.primary,
@@ -412,7 +412,7 @@ class TransactionDetails extends StatelessWidget {
                 child: Center(
                   child: GestureDetector(
                     onTap: () {
-                   //   TODO: PDF
+                      //   TODO: PDF
                       // ReceiptReport().buildPdf(context);
                       Navigator.of(context).push(new PageRouteBuilder(
                           opaque: false,
@@ -463,7 +463,6 @@ class TransactionDetails extends StatelessWidget {
                                                       AppLocalizations.of(
                                                               context)
                                                           .shareTo,
-
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .headline5
@@ -480,17 +479,23 @@ class TransactionDetails extends StatelessWidget {
                                                 MainAxisAlignment.spaceAround,
                                             children: <Widget>[
                                               BottomButton(
-                                                text: 'Facebook',
+                                                text:
+                                                    AppLocalizations.of(context)
+                                                        .facebook,
                                                 imagePath:
                                                     'assets/images/Subtract.svg',
                                               ),
                                               BottomButton(
-                                                text: 'Whatsapp',
+                                                text:
+                                                    AppLocalizations.of(context)
+                                                        .whatsapp,
                                                 imagePath:
                                                     'assets/images/Page-1.svg',
                                               ),
                                               BottomButton(
-                                                text: 'Gmail',
+                                                text:
+                                                    AppLocalizations.of(context)
+                                                        .gmail,
                                                 imagePath:
                                                     'assets/images/super-g.svg',
                                               ),

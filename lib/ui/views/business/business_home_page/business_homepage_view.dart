@@ -68,7 +68,7 @@ class BusinessHomePageView extends StatelessWidget {
                 optionButton(
                   context: context,
                   icon: phoneNumber,
-                  label: 'Registered Phone Number',
+                  label: AppLocalizations.of(context).regPhoneNo,
                   subtitle: '${model.businessCard.phoneNumber}',
                   opens: false,
                   // onTap: () => _displayBusinessCardModal(context, model)
