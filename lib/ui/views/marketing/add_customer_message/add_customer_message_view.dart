@@ -11,6 +11,7 @@ import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'add_customer_message_viewmodel.dart';
 
@@ -231,7 +232,7 @@ class AddCustomerMessageView extends StatelessWidget {
                       color: backgroundColor,
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'PHONE CONTACTS',
+                        AppLocalizations.of(context).phoneContacts,
                         style:
                             TextStyle(fontWeight: FontWeight.w600),
                       ),
@@ -400,7 +401,7 @@ class AddCustomerMessageView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Continue',
+                      AppLocalizations.of(context).continueButton,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -126,7 +126,6 @@ class BusinessCardPageView extends StatelessWidget {
   }
 }
 
-
 class BusinessCardModal extends StatelessWidget {
   const BusinessCardModal({
     Key key,
@@ -140,6 +139,7 @@ class BusinessCardModal extends StatelessWidget {
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
         return BusinessCardWidget(
+          showArrow: false,
           screenshotController: screenshotController,
         );
       },
@@ -412,7 +412,6 @@ class _DefaultPhoneFormField
         children: <Widget>[
           SizedBox(
             child: CountryPickerDropdown(
-              
               isFirstDefaultIfInitialValueNotProvided: true,
               icon: Icon(Icons.keyboard_arrow_down),
               iconSize: 25.w,
@@ -464,12 +463,11 @@ class _DefaultPhoneFormField
   }
 
   Widget _buildDropdownItem(Country country) => Container(
-        child: 
-        //Row(
-          //children: <Widget>[
+        child:
+            //Row(
+            //children: <Widget>[
             Text("+${country.phoneCode}"),
-         // ],
+        // ],
         //s),
       );
 }
-

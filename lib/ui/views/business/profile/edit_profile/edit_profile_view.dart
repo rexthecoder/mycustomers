@@ -17,7 +17,7 @@ class EditProfileView extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(
-              'Edit Profile',
+              AppLocalizations.of(context).editProfile,
               style: TextStyle(
                 color: Theme.of(context).cursorColor,
                 fontWeight: FontWeight.bold,
@@ -45,7 +45,8 @@ class EditProfileView extends StatelessWidget {
                                 case ConnectionState.waiting:
                                   return CircleAvatar(
                                     child: Text(
-                                      AppLocalizations.of(context).notPickedImage,
+                                      AppLocalizations.of(context)
+                                          .notPickedImage,
                                       textAlign: TextAlign.center,
                                     ),
                                   );
@@ -59,7 +60,8 @@ class EditProfileView extends StatelessWidget {
                                     );
                                   } else {
                                     return Text(
-                                       AppLocalizations.of(context).notPickedImage,
+                                      AppLocalizations.of(context)
+                                          .notPickedImage,
                                       textAlign: TextAlign.center,
                                     );
                                   }
@@ -80,7 +82,7 @@ class EditProfileView extends StatelessWidget {
                       onPressed: model.getImagefromGallery,
                       child: Text(
                         model.image == null
-                            ? 'Add a Profile Picture'
+                            ? AppLocalizations.of(context).addProfilePicture
                             : 'Change Profile Picture',
                         textAlign: TextAlign.center,
                         style: TextStyle(

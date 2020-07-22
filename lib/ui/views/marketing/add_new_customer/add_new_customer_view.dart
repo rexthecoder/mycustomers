@@ -147,7 +147,7 @@ class AddNewCustomerView extends StatelessWidget {
                         ),
                         padding: EdgeInsets.symmetric(vertical: 16.h),
                         child: Text(
-                          'Continue',
+                          AppLocalizations.of(context).continueButton,
                           style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.bold,

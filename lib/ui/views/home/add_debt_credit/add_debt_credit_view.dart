@@ -11,6 +11,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'add_debt_credit_viewmodel.dart';
 
@@ -162,7 +163,7 @@ class AddDebtCreditView extends StatelessWidget {
                                               borderSide: const BorderSide(
                                                   color: Colors.red, width: 2.0),
                                             ),
-                                            hintText: 'Enter Amount',//action == 'credit'
+                                            hintText: AppLocalizations.of(context).enterAmount,//action == 'credit'
                                             //     ? 'Enter Amount you owe ${model.contact.name}'
                                             //     : 'Enter Amount ${model.contact.name} Owes You',
                                             hintStyle: TextStyle(
@@ -289,8 +290,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                           model.newODate != null
                                                               ? model.newODate
                                                               : action == 'debit'
-                                                                  ? 'Select date of payment'
-                                                                  : 'Select due date',
+                                                                  ? AppLocalizations.of(context).selectDateOfPayment
+                                                                  : AppLocalizations.of(context).selectDueDate,
                                                           style: Theme.of(context)
                                                               .textTheme
                                                               .headline6
@@ -410,7 +411,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             Container(
                                                               child: Text(
                                                                 model.newDate ??
-                                                                    'Select Due Date',
+                                                                    AppLocalizations.of(context).selectDueDate,
                                                                 style: Theme.of(context)
                                                                     .textTheme
                                                                     .headline6
@@ -874,7 +875,7 @@ class AddDebtCreditView extends StatelessWidget {
                         width: width,
                         child: Center(
                           child: Text(
-                            'Save',
+                            AppLocalizations.of(context).save,
                             style: Theme.of(context).textTheme.headline6.copyWith(
                                 fontSize: ScreenUtil().setSp(16),
                                 color: Colors.white,

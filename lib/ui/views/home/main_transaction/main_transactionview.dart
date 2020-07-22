@@ -334,28 +334,136 @@ class MainTransaction extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return Container(
                                     child: StickyHeader(
-                                      header: Container(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: ScreenUtil().setHeight(10),
-                                        ),
-                                        margin: EdgeInsets.only(
-                                          bottom: ScreenUtil().setHeight(8),
-                                        ),
-                                        color:
-                                            Theme.of(context).backgroundColor,
-                                        child: Center(
-                                          child: Text(
-                                            model.formattedate[index]
-                                                .toUpperCase(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5
-                                                .copyWith(
-                                                  fontSize: SizeConfig.yMargin(
-                                                      context, 2.2),
+                                      header: Column(
+                                        children: <Widget>[
+                                          model.formattedate.length == 0
+                                              ? SizedBox()
+                                              : Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                    horizontal: ScreenUtil()
+                                                        .setWidth(25),
+                                                    vertical:
+                                                        SizeConfig.yMargin(
+                                                            context, 2),
+                                                  ),
+                                                  child: Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            SizeConfig.xMargin(
+                                                                context, 3),
+                                                        vertical: ScreenUtil()
+                                                            .setHeight(10),
+                                                      ),
+                                                      // margin: EdgeInsets.only(
+                                                      //   bottom: ScreenUtil().setHeight(5),
+                                                      // ),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(50),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .backgroundColor),
+                                                      width: width,
+                                                      child:
+                                                          model.bought() >
+                                                                  model.paid()
+                                                              ? Center(
+                                                                  child: Wrap(
+                                                                    alignment:
+                                                                        WrapAlignment
+                                                                            .center,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                        '${model.contact.name}' +
+                                                                            AppLocalizations.of(context).owesYou +
+                                                                            ' ',
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline5
+                                                                            .copyWith(
+                                                                              fontSize: SizeConfig.yMargin(context, 2.3),
+                                                                              color: Theme.of(context).cursorColor,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        model.currency.symbol +
+                                                                            currency.format(model.bought() - model.paid()).toString(),
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline5
+                                                                            .copyWith(
+                                                                              fontSize: SizeConfig.yMargin(context, 2.5),
+                                                                              color: Color(0xFFEB5757),
+                                                                              fontFamily: 'Roboto',
+                                                                              fontWeight: FontWeight.w900,
+                                                                            ),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                )
+                                                              : Center(
+                                                                  child: Wrap(
+                                                                    alignment:
+                                                                        WrapAlignment
+                                                                            .center,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                        'You owe ${model.contact.name} ',
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline5
+                                                                            .copyWith(
+                                                                              fontSize: SizeConfig.yMargin(context, 2.3),
+                                                                              color: Theme.of(context).cursorColor,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        model.currency.symbol +
+                                                                            currency.format(model.paid() - model.bought()).toString(),
+                                                                        style: Theme.of(context)
+                                                                            .textTheme
+                                                                            .headline5
+                                                                            .copyWith(
+                                                                              fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                              color: Color(0xFFEB5757),
+                                                                              fontFamily: 'Roboto',
+                                                                              fontWeight: FontWeight.w900,
+                                                                            ),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                )),
                                                 ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  ScreenUtil().setHeight(10),
+                                            ),
+                                            margin: EdgeInsets.only(
+                                              bottom: ScreenUtil().setHeight(8),
+                                            ),
+                                            color: Theme.of(context)
+                                                .backgroundColor,
+                                            child: Center(
+                                              child: Text(
+                                                model.formattedate[index]
+                                                    .toUpperCase(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline5
+                                                    .copyWith(
+                                                      fontSize:
+                                                          SizeConfig.yMargin(
+                                                              context, 2.2),
+                                                    ),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                       content: Container(
                                         padding: EdgeInsets.symmetric(
@@ -401,8 +509,7 @@ class MainTransaction extends StatelessWidget {
                                                                       ),
                                                                       child:
                                                                           Row(
-                                                                        children: <
-                                                                            Widget>[
+                                                                        children: <Widget>[
                                                                           Container(
                                                                             margin:
                                                                                 EdgeInsets.only(right: 8),
@@ -416,7 +523,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 Text(
                                                                               model.currency.symbol + currency.format(item.amount).toString(),
                                                                               style: Theme.of(context).textTheme.headline5.copyWith(
-                                                                                    fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                                    fontSize: SizeConfig.yMargin(context, 3),
                                                                                     color: Theme.of(context).textSelectionColor,
                                                                                     fontWeight: FontWeight.w900,
                                                                                     fontFamily: 'Roboto',
@@ -430,7 +537,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: <Widget>[
                                                                                   Text(
-                                                                                    'Amount',
+                                                                                    'Price of goods',
                                                                                     style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                           fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                           color: Theme.of(context).cursorColor,
@@ -538,7 +645,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 Text(
                                                                               model.currency.symbol + currency.format(item.paid).toString(),
                                                                               style: Theme.of(context).textTheme.headline5.copyWith(
-                                                                                    fontSize: SizeConfig.yMargin(context, 2.4),
+                                                                                    fontSize: SizeConfig.yMargin(context, 3),
                                                                                     color: Color(0xFF21D184),
                                                                                     fontWeight: FontWeight.w900,
                                                                                     fontFamily: 'Roboto',
@@ -585,114 +692,114 @@ class MainTransaction extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          model.formattedate.length == 0
-                              ? SizedBox()
-                              : Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: ScreenUtil().setWidth(25),
-                                    vertical: SizeConfig.yMargin(context, 2),
-                                  ),
-                                  child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            SizeConfig.xMargin(context, 3),
-                                        vertical: ScreenUtil().setHeight(10),
-                                      ),
-                                      // margin: EdgeInsets.only(
-                                      //   bottom: ScreenUtil().setHeight(5),
-                                      // ),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          color: Theme.of(context)
-                                              .backgroundColor),
-                                      width: width,
-                                      child: model.bought() > model.paid()
-                                          ? Center(
-                                              child: Wrap(
-                                                alignment: WrapAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                    '${model.contact.name} ' + AppLocalizations.of(context).owesYou  + ' ',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5
-                                                        .copyWith(
-                                                          fontSize: SizeConfig
-                                                              .yMargin(
-                                                                  context, 2.3),
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .cursorColor,
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    model.currency.symbol +
-                                                        currency
-                                                            .format(model
-                                                                    .bought() -
-                                                                model.paid())
-                                                            .toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5
-                                                        .copyWith(
-                                                          fontSize: SizeConfig
-                                                              .yMargin(
-                                                                  context, 2.5),
-                                                          color:
-                                                              Color(0xFFEB5757),
-                                                          fontFamily: 'Roboto',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                        ),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          : Center(
-                                              child: Wrap(
-                                                alignment: WrapAlignment.center,
-                                                children: <Widget>[
-                                                  Text(
-                                                    'You owe ${model.contact.name} ',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5
-                                                        .copyWith(
-                                                          fontSize: SizeConfig
-                                                              .yMargin(
-                                                                  context, 2.3),
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .cursorColor,
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    model.currency.symbol +
-                                                        currency
-                                                            .format(model
-                                                                    .paid() -
-                                                                model.bought())
-                                                            .toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5
-                                                        .copyWith(
-                                                          fontSize: SizeConfig
-                                                              .yMargin(
-                                                                  context, 2.5),
-                                                          color:
-                                                              Color(0xFFEB5757),
-                                                          fontFamily: 'Roboto',
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                        ),
-                                                  )
-                                                ],
-                                              ),
-                                            )),
-                                ),
+                          // model.formattedate.length == 0
+                          //     ? SizedBox()
+                          //     : Container(
+                          //         padding: EdgeInsets.symmetric(
+                          //           horizontal: ScreenUtil().setWidth(25),
+                          //           vertical: SizeConfig.yMargin(context, 2),
+                          //         ),
+                          //         child: Container(
+                          //             padding: EdgeInsets.symmetric(
+                          //               horizontal:
+                          //                   SizeConfig.xMargin(context, 3),
+                          //               vertical: ScreenUtil().setHeight(10),
+                          //             ),
+                          //             // margin: EdgeInsets.only(
+                          //             //   bottom: ScreenUtil().setHeight(5),
+                          //             // ),
+                          //             decoration: BoxDecoration(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(50),
+                          //                 color: Theme.of(context)
+                          //                     .backgroundColor),
+                          //             width: width,
+                          //             child: model.bought() > model.paid()
+                          //                 ? Center(
+                          //                     child: Wrap(
+                          //                       alignment: WrapAlignment.center,
+                          //                       children: <Widget>[
+                          //                         Text(
+                          //                           '${model.contact.name} ' + AppLocalizations.of(context).owesYou  + ' ',
+                          //                           style: Theme.of(context)
+                          //                               .textTheme
+                          //                               .headline5
+                          //                               .copyWith(
+                          //                                 fontSize: SizeConfig
+                          //                                     .yMargin(
+                          //                                         context, 2.3),
+                          //                                 color:
+                          //                                     Theme.of(context)
+                          //                                         .cursorColor,
+                          //                               ),
+                          //                         ),
+                          //                         Text(
+                          //                           model.currency.symbol +
+                          //                               currency
+                          //                                   .format(model
+                          //                                           .bought() -
+                          //                                       model.paid())
+                          //                                   .toString(),
+                          //                           style: Theme.of(context)
+                          //                               .textTheme
+                          //                               .headline5
+                          //                               .copyWith(
+                          //                                 fontSize: SizeConfig
+                          //                                     .yMargin(
+                          //                                         context, 2.5),
+                          //                                 color:
+                          //                                     Color(0xFFEB5757),
+                          //                                 fontFamily: 'Roboto',
+                          //                                 fontWeight:
+                          //                                     FontWeight.w900,
+                          //                               ),
+                          //                         )
+                          //                       ],
+                          //                     ),
+                          //                   )
+                          //                 : Center(
+                          //                     child: Wrap(
+                          //                       alignment: WrapAlignment.center,
+                          //                       children: <Widget>[
+                          //                         Text(
+                          //                           'You owe ${model.contact.name} ',
+                          //                           style: Theme.of(context)
+                          //                               .textTheme
+                          //                               .headline5
+                          //                               .copyWith(
+                          //                                 fontSize: SizeConfig
+                          //                                     .yMargin(
+                          //                                         context, 2.3),
+                          //                                 color:
+                          //                                     Theme.of(context)
+                          //                                         .cursorColor,
+                          //                               ),
+                          //                         ),
+                          //                         Text(
+                          //                           model.currency.symbol +
+                          //                               currency
+                          //                                   .format(model
+                          //                                           .paid() -
+                          //                                       model.bought())
+                          //                                   .toString(),
+                          //                           style: Theme.of(context)
+                          //                               .textTheme
+                          //                               .headline5
+                          //                               .copyWith(
+                          //                                 fontSize: SizeConfig
+                          //                                     .yMargin(
+                          //                                         context, 2.5),
+                          //                                 color:
+                          //                                     Color(0xFFEB5757),
+                          //                                 fontFamily: 'Roboto',
+                          //                                 fontWeight:
+                          //                                     FontWeight.w900,
+                          //                               ),
+                          //                         )
+                          //                       ],
+                          //                     ),
+                          //                   )),
+                          //       ),
                           Container(
                               padding: EdgeInsets.symmetric(
                                 horizontal: ScreenUtil().setWidth(25),
@@ -875,7 +982,7 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  'you are owing them',
+                  'You are owing them',
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),
                         color: Colors.white,

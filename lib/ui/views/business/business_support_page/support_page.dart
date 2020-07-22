@@ -88,7 +88,7 @@ class SupportPageView extends StatelessWidget {
                                         underline: SizedBox(),
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
-                                          color: Colors.black,
+                                          color: Theme.of(context).cursorColor,
                                         ),
                                         elevation: 0,
                                         isDense: false,

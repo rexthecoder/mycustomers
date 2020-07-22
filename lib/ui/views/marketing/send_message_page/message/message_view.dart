@@ -111,8 +111,8 @@ class MessageView extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               length == 1
-                                  ? '$length Selected Customer'
-                                  : '$length Selected Customers',
+                                  ? '$length ' + AppLocalizations.of(context).selectedCustomer
+                                  : '$length ' + AppLocalizations.of(context).selectedCustomer + 's',
                               style: TextStyle(fontSize: 16.sp),
                             ),
                             FlatButton.icon(

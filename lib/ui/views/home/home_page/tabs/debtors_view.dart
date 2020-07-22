@@ -137,7 +137,6 @@ class DebtorsView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
-//                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
                 onTap: () => model.navigateToDebt(),
                 child: Container(
                   height: 50.h,
