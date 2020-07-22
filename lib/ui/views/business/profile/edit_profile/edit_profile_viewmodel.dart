@@ -74,5 +74,6 @@ class EditProfileViewModel extends BaseViewModel {
 
   void updateProfile() {
     // TODO UPDATE PROFILE
+    
   }
 }

@@ -53,7 +53,7 @@ class ScheduleNotifications extends StatelessWidget {
                                   .textTheme
                                   .headline6
                                   .copyWith(
-                                      fontSize: ScreenUtil().setSp(10),
+                                      fontSize: ScreenUtil().setSp(15),
                                       fontWeight: FontWeight.bold),
                             ),
                             SizedBox(

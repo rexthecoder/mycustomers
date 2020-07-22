@@ -379,6 +379,7 @@ class MainTransaction extends StatelessWidget {
                                                                         Widget>[
                                                                       Text(
                                                                         '${model.contact.name}' +
+                                                                            ' ' +
                                                                             AppLocalizations.of(context).owesYou +
                                                                             ' ',
                                                                         style: Theme.of(context)
@@ -539,7 +540,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: <Widget>[
                                                                                   Text(
-                                                                                    '${model.contact.name}' + AppLocalizations.of(context).owesYou,
+                                                                                    '${model.contact.name}' + ' ' + AppLocalizations.of(context).owesYou,
                                                                                     style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                           fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                           color: Theme.of(context).cursorColor,
@@ -942,9 +943,9 @@ class AddTransaction extends StatelessWidget {
         children: <Widget>[
           InkWell(
             onTap: () {
-              //creditlist.length == 0? 
+              //creditlist.length == 0?
               Navigator.pushNamed(context, '/addDebt');
-                 // : Navigator.pushNamed(context, '/selectCredit');
+              // : Navigator.pushNamed(context, '/selectCredit');
             },
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -970,9 +971,9 @@ class AddTransaction extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              //debitlist.length == 0? 
+              //debitlist.length == 0?
               Navigator.pushNamed(context, '/addCredit');
-                  //: Navigator.pushNamed(context, '/selectDebt');
+              //: Navigator.pushNamed(context, '/selectDebt');
             },
             child: Container(
               padding: EdgeInsets.symmetric(

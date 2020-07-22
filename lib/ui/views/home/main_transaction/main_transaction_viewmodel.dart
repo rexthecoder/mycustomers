@@ -106,7 +106,7 @@ void navigateToSchedule(){
     _transactionService.setTransaction(item);
     _navigationService.navigateTo(Routes.transactionDetails);
   }
-// children: [],
+
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService];
 }
