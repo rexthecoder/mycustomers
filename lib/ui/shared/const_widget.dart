@@ -8,7 +8,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 /// - Title
 /// - Elevation
 Widget customizeAppBar(BuildContext context, double elevation,
-    {Color arrowColor, String title}) {
+    {Color arrowColor, String title, List<Widget> children}) {
   return AppBar(
     brightness: Brightness.light,
     backgroundColor: Theme.of(context).backgroundColor,
@@ -32,18 +32,7 @@ Widget customizeAppBar(BuildContext context, double elevation,
         ),
       ),
     ),
-    // actions: <Widget>[
-    //   FlatButton(
-    //     textColor: Colors.white,
-    //     onPressed: (){},
-    //     child: Text("View",
-    //       style: TextStyle(
-    //         color: Color(0xFF333CC1),
-    //       ),
-    //   ),
-    //     shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-    //   )
-    // ],
+    actions: children,
   );
 }
 
