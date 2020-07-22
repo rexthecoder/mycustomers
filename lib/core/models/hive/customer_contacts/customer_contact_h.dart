@@ -17,5 +17,8 @@ class CustomerContact{
   @HiveField(3)
   final String initials;
 
-  CustomerContact({this.name, this.phoneNumber, this.id, this.initials});
+  @HiveField(4)
+  final String storeid;
+
+  CustomerContact({this.name, this.phoneNumber, this.id, this.initials, this.storeid});
 }

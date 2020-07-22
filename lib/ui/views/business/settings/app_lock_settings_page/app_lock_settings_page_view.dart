@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -13,7 +14,7 @@ class AppLockSettingsPageView extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-                title:'App Lock' , arrowColor: BrandColors.primary),
+                title: AppLocalizations.of(context).appLock , arrowColor: BrandColors.primary),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: <Widget>[
@@ -40,14 +41,14 @@ class AppLockSettingsPageView extends StatelessWidget {
                             model.navigateToChangePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title:model.getThecurrentStateOfPin() == false ? Text(
-                              'Set App lock Pin',
+                               AppLocalizations.of(context).setApplockPin,
                               style: TextStyle(
                                 fontSize: SizeConfig.textSize(context, 4),
                                 fontWeight: FontWeight.w600,
                               ),
                             ) 
                             : Text(
-                              'Change App lock Pin',
+                               AppLocalizations.of(context).changeAppLockPin,
                               style:TextStyle(
                                 fontSize:SizeConfig.textSize(context, 4),
                                 fontWeight: FontWeight.w600
@@ -72,7 +73,7 @@ class AppLockSettingsPageView extends StatelessWidget {
                             onTap: () => model.navigateToRemovePinPage(),
                             trailing: Icon(Icons.chevron_right),
                             title: Text(
-                              'Remove App lock',
+                               AppLocalizations.of(context).removeAppLock,
                               style: TextStyle(
                                 fontSize: SizeConfig.textSize(context, 4),
                                 fontWeight: FontWeight.w600,

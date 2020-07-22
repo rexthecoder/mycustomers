@@ -39,22 +39,24 @@ class AddDebtCreditView extends StatelessWidget {
       },
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
-              brightness: Brightness.light,
+              brightness: Brightness.dark,
               elevation: 1,
               title: Text(
                 action == 'debit'
-                    ? 'Add New Debtor' //model.amount != null
+                    ? 'Add new debtor' 
+                    //model.amount != null
                     //     ? '${model.contact.name} owes you ₦' +
                     //         model.amount.round().toString()
                     //     : '${model.contact.name} owes you'
-                    : 'Add New Creditor',//model.amount != null
+                    : 'Add new creditor',
+                    //model.amount != null
                     //     ? 'You owe ${model.contact.name} ₦' +
                     //         model.amount.round().toString()
                     //     : 'You owe ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    //color: Colors.black,
                     fontFamily: 'Roboto'),
               ),
               leading: InkWell(
@@ -203,7 +205,7 @@ class AddDebtCreditView extends StatelessWidget {
                                               Container(
                                                 margin: EdgeInsets.only(bottom: 3),
                                                 child: Text(
-                                                  'Purchase Date',
+                                                  'Payment Date',
                                                   style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
                                                 ),
                                               ),
@@ -287,8 +289,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                           model.newODate != null
                                                               ? model.newODate
                                                               : action == 'debit'
-                                                                  ? 'Select Date of Purchase'
-                                                                  : 'Select Date of Payment',
+                                                                  ? 'Select date of payment'
+                                                                  : 'Select due date',
                                                           style: Theme.of(context)
                                                               .textTheme
                                                               .headline6
@@ -459,7 +461,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   child: Column(
                                                     children: <Widget>[
                                                       TextField(
-                                                        controller: _controller,
+                                                        //controller: _controller,
                                                         maxLines: null,
                                                         maxLengthEnforced: false,
                                                         keyboardType:

@@ -186,8 +186,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
-                                      AppLocalizations.of(context)
-                                          .sendMessageAll,
+                                      'Send message', // AppLocalizations.of(context)
+                                          // .sendMessageAll,
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           color: BrandColors.secondary),
