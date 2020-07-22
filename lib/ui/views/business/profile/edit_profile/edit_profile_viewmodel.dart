@@ -48,11 +48,11 @@ class EditProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  // static Image  imageFromBaseString(String baseString){
-  //   return Image.memory(base64Decode(base64String),
-  //    fit: BoxFit.fill,
-  //   );
-  // }
+  static Image  imageFromBaseString(String base64String){
+     return Image.memory(base64Decode(base64String),
+     fit: BoxFit.fill,
+    );
+  }
 
  static Uint8List dataFromBase64String(String base64String){
    return base64Decode(base64String);
