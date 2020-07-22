@@ -38,7 +38,7 @@ class BusinessHomePageView extends StatelessWidget {
                   ),
                   child: ListTile(
                     title: Text(
-                      model.profileCardTitle,
+                      AppLocalizations.of(context).profile,
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 5),
                         fontWeight: FontWeight.bold,
@@ -98,6 +98,7 @@ class BusinessHomePageView extends StatelessWidget {
                   child:
                       ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
                     builder: (_, __, ___) => BusinessCardWidget(
+                      showArrow: false,
                         screenshotController: screenshotController),
                     viewModelBuilder: () => BusinessCardPageViewModel(),
                     onModelReady: (model) => model.init(),
