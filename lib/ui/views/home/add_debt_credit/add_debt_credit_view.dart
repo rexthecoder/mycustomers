@@ -48,13 +48,13 @@ class AddDebtCreditView extends StatelessWidget {
                 newCus ? action == 'debit'
                     ? AppLocalizations.of(context).addNewDebtor : AppLocalizations.of(context).addNewCreditor :  
                     action == 'debit' ? model.amount != null
-                        ? '${model.contact.name} owes you ₦' +
+                        ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
                             model.amount.round().toString()
-                        : '${model.contact.name} owes you'
+                        : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
                     : model.amount != null
-                        ? 'You owe ${model.contact.name} ₦' +
+                        ? '${AppLocalizations.of(context).owesYou} ${model.contact.name} ₦' +
                             model.amount.round().toString()
-                        : 'You owe ${model.contact.name}',
+                        : '${AppLocalizations.of(context).owesYou} ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
