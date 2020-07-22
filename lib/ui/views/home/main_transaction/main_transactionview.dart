@@ -827,9 +827,9 @@ class AddTransaction extends StatelessWidget {
         children: <Widget>[
           InkWell(
             onTap: () {
-              creditlist.length == 0
-                  ? Navigator.pushNamed(context, '/addDebt')
-                  : Navigator.pushNamed(context, '/selectCredit');
+              //creditlist.length == 0? 
+              Navigator.pushNamed(context, '/addDebt');
+                 // : Navigator.pushNamed(context, '/selectCredit');
             },
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -854,9 +854,9 @@ class AddTransaction extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              debitlist.length == 0
-                  ? Navigator.pushNamed(context, '/addCredit')
-                  : Navigator.pushNamed(context, '/selectDebt');
+              //debitlist.length == 0? 
+              Navigator.pushNamed(context, '/addCredit');
+                  //: Navigator.pushNamed(context, '/selectDebt');
             },
             child: Container(
               padding: EdgeInsets.symmetric(

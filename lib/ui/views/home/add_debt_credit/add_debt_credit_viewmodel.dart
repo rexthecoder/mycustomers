@@ -30,9 +30,9 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   bool save = false;
   DateTime selectedDate = DateTime.now();
   DateTime dueDate;
-  DateTime otherDate;
+  DateTime otherDate = DateTime.now();
   String newDate;
-  String newODate;
+  String get newODate => dformat.format(DateTime.now());
   bool date1err = false;
   bool date2err = false;
   List<String> items = [];
@@ -219,7 +219,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   void setOtherDate(DateTime date, bool update, String action, bool newCus) {
     print(date);
     otherDate = date;
-    newODate = dformat.format(date);
+    //newODate = dformat.format(date);
     date2err = false;
     update
         ? amount != null && newODate != null ? save = true : save = false
