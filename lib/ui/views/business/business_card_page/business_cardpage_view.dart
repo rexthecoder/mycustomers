@@ -301,7 +301,9 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
               }
               return null;
             },
-            onChange: (value) => model.updateBusinessCard(phoneNumber: value),
+            label: "Phone Number",
+            onChange: (PhoneNumber value) =>
+                model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
           // TODO VALIDATE EMAIL ADDRESS FORM FIELD
           _DefaultFormField(
@@ -394,11 +396,8 @@ class _DefaultPhoneFormField
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
-    var _inputNumberController = useTextEditingController();
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: SizeConfig.yMargin(context, 1),
-      ),
+      margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1)),
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.xMargin(context, 4),
         vertical: SizeConfig.yMargin(context, 0.3),
@@ -408,67 +407,18 @@ class _DefaultPhoneFormField
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(SizeConfig.yMargin(context, 0.5)),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(
-            child: CountryPickerDropdown(
-              isFirstDefaultIfInitialValueNotProvided: true,
-              icon: Icon(Icons.keyboard_arrow_down),
-              iconSize: 25.w,
-              initialValue: 'NG',
-              itemBuilder: (country) => _buildDropdownItem(country),
-              priorityList: [
-                CountryPickerUtils.getCountryByIsoCode('NG'),
-                CountryPickerUtils.getCountryByIsoCode('IN'),
-              ],
-              onValuePicked: (Country country) {
-                print("${country.name}");
-              },
-            ),
-          ),
-          Container(
-            width: SizeConfig.xMargin(context, 0.3),
-            height: SizeConfig.yMargin(context, 4.5),
-            color: Colors.grey,
-          ),
-          Expanded(
-            child: Container(
-              child: TextFormField(
-                onChanged: onChange,
-                keyboardType: TextInputType.number,
-                maxLength: 12,
-                key: Key('num'),
-                controller: _inputNumberController,
-                decoration: InputDecoration(
-                  counterText: '',
-                  hintText: '8123456789',
-                  hintStyle: TextStyle(
-                    fontSize: 16.sp,
-                  ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.only(
-                    left: SizeConfig.xMargin(context, 4),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+      child: InternationalPhoneNumberInput(
+        onInputChanged: onChange,
+        textStyle: TextStyle(
+          color: Theme.of(context).cursorColor,
+          fontSize: SizeConfig.textSize(context, 5),
+        ),
+        selectorType: PhoneInputSelectorType.DIALOG,
+        selectorTextStyle: TextStyle(color: Theme.of(context).cursorColor),
+        inputBorder: InputBorder.none,
+        hintText: '903 9393 9383',
+        formatInput: true,
       ),
     );
   }
-
-  Widget _buildDropdownItem(Country country) => Container(
-        child:
-            //Row(
-            //children: <Widget>[
-            Text("+${country.phoneCode}"),
-        // ],
-        //s),
-      );
 }
