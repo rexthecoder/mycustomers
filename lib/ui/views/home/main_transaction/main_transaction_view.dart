@@ -430,7 +430,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: <Widget>[
                                                                                   Text(
-                                                                                    'Amount',
+                                                                                    '${model.contact.name} owe you',
                                                                                     style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                           fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                           color: Theme.of(context).cursorColor,
@@ -508,7 +508,7 @@ class MainTransaction extends StatelessWidget {
                                                                             child:
                                                                                 Flexible(
                                                                               child: Text(
-                                                                                '${model.contact.name} paid',
+                                                                                'You owe ${model.contact.name}',
                                                                                 style: Theme.of(context).textTheme.headline5.copyWith(
                                                                                       fontSize: SizeConfig.yMargin(context, 2.2),
                                                                                       color: Theme.of(context).cursorColor,

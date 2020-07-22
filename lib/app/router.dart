@@ -19,7 +19,7 @@ import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
-import 'package:mycustomers/ui/views/home/main_transaction/main_transactionview.dart';
+import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_notifications/schedule_reminder/schedule_reminderview.dart';

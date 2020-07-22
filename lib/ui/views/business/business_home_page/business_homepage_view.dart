@@ -91,6 +91,7 @@ class BusinessHomePageView extends StatelessWidget {
                   label: AppLocalizations.of(context).support,
                   onTap: model.navigateToSupportPage,
                 ),
+                SizedBox(height: SizeConfig.yMargin(context, 4)),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: 20, horizontal: SizeConfig.xMargin(context, 7)),

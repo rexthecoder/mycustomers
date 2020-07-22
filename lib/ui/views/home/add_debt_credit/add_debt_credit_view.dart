@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -320,7 +321,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   Container(
                                                     margin: EdgeInsets.only(bottom: 3),
                                                     child: Text(
-                                                      'Due Date',
+                                                      'Due date',
                                                       style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
                                                     ),
                                                   ),
@@ -410,7 +411,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             Container(
                                                               child: Text(
                                                                 model.newDate ??
-                                                                    'Select Due Date',
+                                                                    'Select due date',
                                                                 style: Theme.of(context)
                                                                     .textTheme
                                                                     .headline6
@@ -472,7 +473,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                           enabledBorder: InputBorder.none,
                                                           errorBorder: InputBorder.none,
                                                           disabledBorder: InputBorder.none,
-                                                          hintText: 'Enter Description',
+                                                          hintText: 'Enter description',
                                                           hintStyle: TextStyle(
                                                               fontSize:
                                                                   ScreenUtil().setSp(15)),
@@ -626,7 +627,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           Container(
                                             margin: EdgeInsets.only(bottom: 3),
                                             child: Text(
-                                              'Customer Name',
+                                              'Customer name',
                                               style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
                                             ),
                                           ),
@@ -677,7 +678,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   borderSide: const BorderSide(
                                                       color: Colors.red, width: 2.0),
                                                 ),
-                                                hintText: 'Enter Customer Name',
+                                                hintText: 'Enter customer name',
                                                 hintStyle: TextStyle(
                                                     fontSize:
                                                         SizeConfig.yMargin(context, 2)),
@@ -756,7 +757,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 color: action == 'debit' ? BrandColors.secondary.withOpacity(0.2) : BrandColors.primary.withOpacity(0.2)
                                               ),
                                               child: Text(
-                                                'Add New Customer',
+                                                'Add new customer',
                                                 style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
                                               ),
                                             ),
@@ -782,7 +783,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             },
                                           
                                             ignoreBlank: false,
-                                            errorMessage: 'Invalid Phone Number',
+                                            errorMessage: 'Invalid phone number',
                                             selectorType: PhoneInputSelectorType.DIALOG,
                                             selectorTextStyle:
                                                 TextStyle(color: Theme.of(context).cursorColor),
@@ -874,7 +875,7 @@ class AddDebtCreditView extends StatelessWidget {
                         width: width,
                         child: Center(
                           child: Text(
-                            'Save',
+                            AppLocalizations.of(context).save,
                             style: Theme.of(context).textTheme.headline6.copyWith(
                                 fontSize: ScreenUtil().setSp(16),
                                 color: Colors.white,
