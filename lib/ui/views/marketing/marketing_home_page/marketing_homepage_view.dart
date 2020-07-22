@@ -79,7 +79,7 @@ class MarketingHomePageView extends StatelessWidget {
                             children: <Widget>[
                               ClipRect(
                                 child: Image(
-                                  height: height / 4,
+                                  height: height / 6,
                                   image:
                                       AssetImage('assets/images/megaphone.png'),
                                   fit: BoxFit.contain,
@@ -97,59 +97,6 @@ class MarketingHomePageView extends StatelessWidget {
                                     color:
                                         Theme.of(context).textSelectionColor),
                                 textAlign: TextAlign.center,
-// =======
-//                               Container(
-//                                 color: ThemeColors.gray[400],
-//                                 height: 50.h,
-//                                 child: Row(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceBetween,
-//                                   children: <Widget>[
-//                                     Expanded(
-//                                       child: InkWell(
-//                                         child: Container(
-//                                           decoration: BoxDecoration(
-// //                                        color: ThemeColors.gray,
-//                                               color: ThemeColors.gray[400],
-//                                               borderRadius:
-//                                                   BorderRadius.circular(5.0)),
-//                                           child: Center(
-//                                             child: Text(
-//                                               AppLocalizations.of(context)
-//                                                   .addACustomer,
-//                                               style: TextStyle(
-//                                                   fontSize: 14.sp,
-//                                                   color: ThemeColors.gray[400]),
-//                                             ),
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                     SizedBox(
-//                                       width: 10.w,
-//                                     ),
-//                                     Expanded(
-//                                       child: InkWell(
-//                                         child: Container(
-//                                           decoration: BoxDecoration(
-//                                               color: BrandColors.secondary,
-//                                               borderRadius:
-//                                                   BorderRadius.circular(5.0)),
-//                                           child: Center(
-//                                             child: Text(
-//                                               AppLocalizations.of(context)
-//                                                   .sendMessage,
-//                                               style: TextStyle(
-//                                                   fontSize: 14.sp,
-//                                                   color: Colors.white),
-//                                             ),
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-// >>>>>>> language
                               ),
                             ],
                           ),

@@ -31,7 +31,7 @@ class ProfilePageView extends StatelessWidget {
                     ),
                   )
                 ],
-                title: AppLocalizations.of(context).customerSupport,
+                title: AppLocalizations.of(context).profile,
                 arrowColor: BrandColors.primary),
             body: SafeArea(
               child: Column(
