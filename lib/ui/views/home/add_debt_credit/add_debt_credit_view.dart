@@ -175,7 +175,8 @@ class AddDebtCreditView extends StatelessWidget {
                                             ),
                                             hintText: AppLocalizations.of(
                                                     context)
-                                                .enterAmount, //action == 'credit'
+                                                .enterAmount, 
+                                            //action == 'credit'
                                             //     ? 'Enter Amount you owe ${model.contact.name}'
                                             //     : 'Enter Amount ${model.contact.name} Owes You',
                                             hintStyle: TextStyle(
@@ -833,8 +834,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                             context, 1.9)),
                                               ),
                                               // child: Text(
-                                                // 'Add new customer',
-                                                // style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
+                                              // 'Add new customer',
+                                              // style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
                                               subtitle: Text(
                                                 '${item.phone.isNotEmpty ? item.phone : 'No number'}',
                                                 style: TextStyle(
