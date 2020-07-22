@@ -1,5 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
@@ -23,7 +24,7 @@ class AddNewCustomerView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Customer name',
+                       AppLocalizations.of(context).customerName,
                       style:
                           TextStyle(fontSize: 18.sp, color: ThemeColors.black),
                     ),
@@ -53,7 +54,7 @@ class AddNewCustomerView extends StatelessWidget {
                         )),
                     SizedBox(height: 16.0),
                     Text(
-                      'Customer phone number',
+                       AppLocalizations.of(context).customerPhoneNo,
                       style:
                           TextStyle(fontSize: 18.sp, color: ThemeColors.black),
                     ),
@@ -99,7 +100,7 @@ class AddNewCustomerView extends StatelessWidget {
                                 keyboardType: TextInputType.numberWithOptions(),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
-                                  hintText: 'Mobile Number',
+                                  hintText:  AppLocalizations.of(context).mobileNumber,
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none),
                                 ),

@@ -148,7 +148,7 @@ class ContactList extends StatelessWidget {
                 ),
               ),
               model.sName != null && !model.contains
-                  ? Text('No Customer Found')
+                  ? Text(AppLocalizations.of(context).noCustomerFound)
                   : SizedBox(),
               for (var item in model.contacts)
                 model.sName != null && model.contains

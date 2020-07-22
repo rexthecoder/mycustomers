@@ -128,10 +128,10 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
       inputNumberController.clear();
     }
     action == 'debit'
-      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+      ? amount != null && newDate != null && newODate.length > 0 && name != null //&& number != null
           ? save = true
           : save = false
-      : amount != null && newODate != null && name != null && number != null
+      : amount != null && newODate != null && name != null //&& number != null
           ? save = true
           : save = false;
     notifyListeners();
@@ -170,10 +170,10 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           update
               ? amount != null && newODate != null ? save = true : save = false
               : newCus ? action == 'debit'
-                  ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+                  ? amount != null && newDate != null && newODate.length > 0 && name != null //&& number != null
                       ? save = true
                       : save = false
-                  : amount != null && newODate != null && name != null && number != null
+                  : amount != null && newODate != null && name != null //&& number != null
                       ? save = true
                       : save = false : action == 'debit'
                   ? amount != null && newDate != null && newODate.length > 0
@@ -201,10 +201,10 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     newDate = dformat.format(date);
     date1err = false;
     newCus ? action == 'debit'
-      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+      ? amount != null && newDate != null && newODate.length > 0 && name != null //&& number != null
           ? save = true
           : save = false
-      : amount != null && newODate != null && name != null && number != null
+      : amount != null && newODate != null && name != null //&& number != null
           ? save = true
           : save = false : action == 'debit'
       ? amount != null && newDate != null && newODate.length > 0
@@ -224,10 +224,10 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     update
         ? amount != null && newODate != null ? save = true : save = false
         : newCus ? action == 'debit'
-                  ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+                  ? amount != null && newDate != null && newODate.length > 0 && name != null //&& number != null
                       ? save = true
                       : save = false
-                  : amount != null && newODate != null && name != null && number != null
+                  : amount != null && newODate != null && name != null //&& number != null
                       ? save = true
                       : save = false : action == 'debit'
                   ? amount != null && newDate != null && newODate.length > 0
@@ -247,10 +247,10 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   void updateNumber(PhoneNumber phoneNumber, String action){
     number=phoneNumber;
     action == 'debit'
-      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
+      ? amount != null && newDate != null && newODate.length > 0 && name != null //&& number != null
           ? save = true
           : save = false
-      : amount != null && newODate != null && name != null && number != null
+      : amount != null && newODate != null && name != null //&& number != null
           ? save = true
           : save = false;
     notifyListeners();
@@ -348,7 +348,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: otherDate.toString(),
               paiddate: null);
           if(newCus) {
-            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction, currentStore.id) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction, currentStore.id);
           }
           if(!newCus) {
             _transactionService.addTransaction(transaction);
@@ -366,7 +366,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: null,
               paiddate: otherDate.toString());
           if(newCus) {
-            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction, currentStore.id) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction, currentStore.id);
           }
           if(!newCus) {
             _transactionService.addTransaction(transaction);

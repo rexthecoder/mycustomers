@@ -183,7 +183,7 @@ class ContactList extends StatelessWidget {
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Search by name',
+                  hintText: AppLocalizations.of(context).searchByName,
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
@@ -200,7 +200,7 @@ class ContactList extends StatelessWidget {
             ),
             model.sDName != null && !model.containsD
                 ? Text(
-                    'No Customer Found',
+                    AppLocalizations.of(context).noCustomerFound,
                     style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   )
                 : SizedBox(),

@@ -44,8 +44,8 @@ class EditProfileView extends StatelessWidget {
                                 case ConnectionState.none:
                                 case ConnectionState.waiting:
                                   return CircleAvatar(
-                                    child: const Text(
-                                      'You have not yet picked an image.',
+                                    child: Text(
+                                      AppLocalizations.of(context).notPickedImage,
                                       textAlign: TextAlign.center,
                                     ),
                                   );
@@ -58,8 +58,8 @@ class EditProfileView extends StatelessWidget {
                                       textAlign: TextAlign.center,
                                     );
                                   } else {
-                                    return const Text(
-                                      'You have not yet picked an image.',
+                                    return Text(
+                                       AppLocalizations.of(context).notPickedImage,
                                       textAlign: TextAlign.center,
                                     );
                                   }

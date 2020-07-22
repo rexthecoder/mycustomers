@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -19,7 +20,7 @@ class SendReminders extends StatelessWidget {
             onPressed: ()=>Navigator.of(context).pop(),
             icon:Icon(Icons.arrow_back,color: BrandColors.primary),
           ),
-          title: Text('Send Reminder',style:  TextStyle(
+          title: Text(AppLocalizations.of(context).sendReminder,style:  TextStyle(
             fontSize: 18.sp,),),
         ),
         body: Container(
@@ -31,7 +32,7 @@ class SendReminders extends StatelessWidget {
                   style:  TextStyle(
                     fontSize: 16.sp,),
                   decoration: InputDecoration(
-                    hintText: 'Type a heading',
+                    hintText: AppLocalizations.of(context).typeAHeading,
                     hintStyle: TextStyle(
                       fontSize: 16.sp,),
                     border: OutlineInputBorder(
@@ -50,7 +51,7 @@ class SendReminders extends StatelessWidget {
                   fontSize: 16.sp,),
                   maxLines: 5,
                   decoration: InputDecoration(
-                    hintText: 'Start typing your message',
+                    hintText: AppLocalizations.of(context).startTypingYourmessage,
                     hintStyle: TextStyle(
                       fontSize: 16.sp,),
                     border: OutlineInputBorder(
@@ -96,7 +97,7 @@ class SendReminders extends StatelessWidget {
                               color: ThemeColors.gray[500],
                             ),
                             child: Center(
-                              child: Text('SCHEDULE',style:  TextStyle(fontSize: 18.sp,
+                              child: Text(AppLocalizations.of(context).schedule,style:  TextStyle(fontSize: 18.sp,
                               color: BrandColors.primary),
                           ),
                             ),
@@ -113,7 +114,7 @@ class SendReminders extends StatelessWidget {
 
 
                               child: Center(
-                                child: Text('SEND',style:  TextStyle(fontSize: 18.sp,
+                                child: Text(AppLocalizations.of(context).sendCapital,style:  TextStyle(fontSize: 18.sp,
                                 color: Colors.white),
                                 ),
                               ),
