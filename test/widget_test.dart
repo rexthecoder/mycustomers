@@ -7,6 +7,7 @@ import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/hive/log/log_h.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
@@ -17,6 +18,7 @@ import 'package:mycustomers/main.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 
 class MockTransactionAdapter extends Mock implements TransactionDataSource {}
 
@@ -76,14 +78,15 @@ void main() {
     final businessCardMockBox = MockBox<BusinessCardH>();
     final currencymockBox = MockBox<CountryCurrency>();
     final storemockBox = MockBox<StoreH>();
+    final contactmockBox = MockBox<CustomerContact>();
 
     final mockhive = MockHive();
 
     when(mockhive.isBoxOpen(HiveBox.transaction)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.logs)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.currency)).thenAnswer((_) => false);
-    when(mockhive.isBoxOpen(HiveBox.businessCardBoxName))
-        .thenAnswer((_) => false);
+    when(mockhive.isBoxOpen(HiveBox.businessCardBoxName)).thenAnswer((_) => false);
+    when(mockhive.isBoxOpen(HiveBox.contact)).thenAnswer((_) => false);
 
     when(mockhive.openBox<TransactionModel>(HiveBox.transaction))
         .thenAnswer((_) async => Future.value(transactionmockBox));
@@ -95,6 +98,8 @@ void main() {
         .thenAnswer((_) async => Future.value(currencymockBox));
     when(mockhive.openBox<StoreH>('STORE'))
         .thenAnswer((_) async => Future.value(storemockBox));
+    when(mockhive.openBox<CustomerContact>(HiveBox.contact))
+        .thenAnswer((_) async => Future.value(contactmockBox));
 
     locator.registerSingleton<TransactionDataSource>(mockTransactionAdapters);
     locator.registerSingleton<HiveInterface>(mockhive);

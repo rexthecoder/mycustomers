@@ -75,7 +75,7 @@ class DebtorsView extends StatelessWidget {
                                     )
                                   : RichText(
                                       text: TextSpan(
-                                          text: '₦ 0.',
+                                          text: model.currency.symbol + '0.',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: SizeConfig.yMargin(
@@ -137,7 +137,6 @@ class DebtorsView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
-//                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
                 onTap: () => model.navigateToDebt(),
                 child: Container(
                   height: 50.h,
@@ -179,11 +178,11 @@ class ContactList extends StatelessWidget {
                 //controller: model.allCustomersController,
                 //onChanged: model.searchAllCustomers,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Theme.of(context).cursorColor,
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Search by name',
+                  hintText: AppLocalizations.of(context).searchByName,
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
@@ -200,7 +199,7 @@ class ContactList extends StatelessWidget {
             ),
             model.sDName != null && !model.containsD
                 ? Text(
-                    'No Customer Found',
+                    AppLocalizations.of(context).noCustomerFound,
                     style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   )
                 : SizedBox(),
@@ -278,10 +277,7 @@ class ContactList extends StatelessWidget {
                                                                       .inDays
                                                                       .abs())
                                                                   .toString() +
-                                                              cont.duedate ==
-                                                          '1'
-                                                      ? ' day'
-                                                      : 'days'
+                                                              ' days'
                                           : '',
                                       style: TextStyle(
                                           fontSize:
@@ -416,10 +412,7 @@ class ContactList extends StatelessWidget {
                                                   ? 'Expected ' +
                                                               (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                                   .toString() +
-                                                              cont.duedate ==
-                                                          '1'
-                                                      ? ' day ago'
-                                                      : 'days ago'
+                                                              ' days ago'
                                                   : 'Expected in ' +
                                                       (DateTime.now()
                                                               .difference(

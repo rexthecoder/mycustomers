@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_picker_dropdown.dart';
+import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -23,6 +27,7 @@ part '../../../widgets/business/business_card_page/business_card_widget.dart';
 class BusinessCardPageView extends StatelessWidget {
   final String share = 'assets/icons/svg/share.svg';
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     ScreenshotController screenshotController = ScreenshotController();
@@ -51,6 +56,7 @@ class BusinessCardPageView extends StatelessWidget {
                   children: <Widget>[
                     BusinessCardWidget(
                       screenshotController: screenshotController,
+                      showArrow: true,
                     ),
                     SizedBox(
                       height: SizeConfig.yMargin(context, 3),
@@ -68,7 +74,7 @@ class BusinessCardPageView extends StatelessWidget {
                       borderColor: BrandColors.primary,
                       child: SvgPicture.asset(
                         share,
-                        height: SizeConfig.xMargin(context, 4),
+                        height: SizeConfig.xMargin(context, 6),
                         color: ThemeColors.background,
                       ),
                       onPressed: () {
@@ -84,9 +90,10 @@ class BusinessCardPageView extends StatelessWidget {
                               model.imageFile = image;
                               await model.saveBusinessCard();
                               FlushbarHelper.createSuccess(
-                                duration: const Duration(seconds: 5),
-                                message: 'Save Successful',
-                              ).show(context);
+                                      duration: const Duration(seconds: 5),
+                                      message: AppLocalizations.of(context)
+                                          .saveSuccessful)
+                                  .show(context);
                               model.shareImageAndText();
                             },
                           ).catchError(
@@ -133,6 +140,7 @@ class BusinessCardModal extends StatelessWidget {
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
         return BusinessCardWidget(
+          showArrow: false,
           screenshotController: screenshotController,
         );
       },
@@ -180,12 +188,12 @@ class BottomSheetButtons extends StatelessWidget {
                     model.imageFile = image;
                     FlushbarHelper.createSuccess(
                       duration: const Duration(seconds: 5),
-                      message: 'Sharing...',
+                      message: AppLocalizations.of(context).sharing,
                     ).show(context);
                     model.shareImageAndText();
                     FlushbarHelper.createSuccess(
                       duration: const Duration(seconds: 5),
-                      message: 'Successful',
+                      message: AppLocalizations.of(context).successful,
                     ).show(context);
                   },
                 ).catchError(
@@ -267,29 +275,29 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Store Name",
+            label: AppLocalizations.of(context).storeName,
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Personal Name",
+            label: AppLocalizations.of(context).personalName,
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
           // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultPhoneFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
@@ -301,18 +309,18 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },
-            label: "Email Address",
+            label: AppLocalizations.of(context).emailAddress,
             onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
           // TODO VALIDATE SHOP/OFFICE ADDRESS FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
-                return "Field cannot be empty";
+                return AppLocalizations.of(context).fieldShouldNotBeEmpty;
               }
               return null;
             },

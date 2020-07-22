@@ -21,8 +21,8 @@ class AddDebtView extends StatelessWidget {
               elevation: 1,
               title: Text(
                 model.amount != null
-                    ? 'Sheyi owes you \$' + model.amount.toString()
-                    : 'Sheyi owes you',
+                    ? 'Sheyi ${AppLocalizations.of(context).owesYou} \$' + model.amount.toString()
+                    : 'Sheyi ${AppLocalizations.of(context).owesYou}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                       fontSize: ScreenUtil().setSp(18),
                       fontWeight: FontWeight.bold,

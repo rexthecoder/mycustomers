@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'partial_build_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -37,7 +38,7 @@ class PartialBuildsView extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(vertical: 16.h),
               child: Text(
-                'Next',
+                AppLocalizations.of(context).nextButton,
                 style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -93,7 +94,7 @@ class _StringForm extends HookViewModelWidget<PartialBuildsViewModel> {
                     child: TextField(
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
-                        hintText: 'Enter Name',
+                        hintText: AppLocalizations.of(context).enterName,
                         border:
                             OutlineInputBorder(borderSide: BorderSide.none),
                       ),
@@ -145,7 +146,7 @@ class _StringForm extends HookViewModelWidget<PartialBuildsViewModel> {
                   child: TextField(
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
-                      hintText: 'Mobile Number',
+                      hintText: AppLocalizations.of(context).mobileNumber,
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                     ),
                     controller: phoneNumber,

@@ -47,7 +47,7 @@ class ReceiptReport {
   PdfImage _receiptLogo;
   PdfImage _mainLogo;
 
-  Future<Uint8List> buildPdf(BuildContext context) async {
+  Future<File> buildPdf(BuildContext context) async {
     await storagePermission();
     doc = pw.Document();
 
@@ -460,17 +460,18 @@ class ReceiptReport {
       ),
     );
 
-    await generateReport(context);
+    return await generateReport(context);
   }
 
-  Future<void> generateReport(BuildContext context) async {
+  Future<File> generateReport(BuildContext context) async {
     final Directory appDocDir = await getExternalStorageDirectory();
     final String appDocPath = appDocDir.path;
     final String path = '$appDocPath/report' + updatedDt + '.pdf';
     File file = File(path);
     print('Save as file ${file.path} ...');
     file.writeAsBytesSync(doc.save());
+    return file;
 
-    OpenFile.open(path);
+    //OpenFile.open(path);
   }
 }

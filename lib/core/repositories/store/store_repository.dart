@@ -2,6 +2,7 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
@@ -13,6 +14,7 @@ class StoreRepository {
   static IStorageUtil _su = locator<IStorageUtil>();
   static DialogService _dialog = locator<DialogService>();
   static Store _currentStore;
+  static final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   static List<Store> get stores => _stores;
   static Store get currentStore {
@@ -25,6 +27,7 @@ class StoreRepository {
   static changeSelectedStore(String id) {
     var newStore = _stores.firstWhere((elem) => elem.id == id, orElse: () => null);
     _currentStore = newStore ?? _currentStore;
+    _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
   }
 
   static Future<void> updateStores() async {

@@ -59,7 +59,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   String get description => _description;
 
   String _name;
-  String get name  => _name;
+  String get name => _name;
 
   List<Contact> contacts = [];
   bool contains = false;
@@ -77,15 +77,15 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   String _customerName;
   String _customerPhoneNumber;
 
-  String _dropDownValue='+234';
+  String _dropDownValue = '+234';
   PhoneNumber number = PhoneNumber(isoCode: isoCode);
-  List<String> _countryCodes=['+234','+254','+250','+230'];
+  List<String> _countryCodes = ['+234', '+254', '+250', '+230'];
 
   String get customerName => _customerName;
   String get customerPhoneNumber => _customerPhoneNumber;
 
-  List<String> get countryCode=>_countryCodes;
-  String get dropDownValue=> _dropDownValue;
+  List<String> get countryCode => _countryCodes;
+  String get dropDownValue => _dropDownValue;
 
   var inputNumberController = TextEditingController();
 
@@ -93,53 +93,60 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
 
   init({String query}) async {
     contactsList.clear();
-    for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+    for (Customer customer
+        in (await iOwnerServices.getPhoneContacts(query: query))) {
       print('Iterate');
       if (_busy) {
         _busy = false;
         notifyListeners();
       }
       contactsList.add(customer);
-    _contactStream.add(contactsList);
+      _contactStream.add(contactsList);
     }
     notifyListeners();
   }
 
-  void getContacts() async{
-    contacts = (await ContactsService.getContacts(withThumbnails: false)).toList();
+  void getContacts() async {
+    contacts =
+        (await ContactsService.getContacts(withThumbnails: false)).toList();
     print(contacts);
   }
 
   void updateName(String value, String action) {
     _debouncer.run(() {
       _name = value;
-    _busy = true;
-    shownames = true;
-    if(value.length == 0){
-      _name = null;
-      manual = false;
-      inputNumberController.clear();
-      number = null;
-      shownames = false;
-    }
-    if(contactsList.length != 0){
-      manual = false;
-      number = null;
-      inputNumberController.clear();
-    }
-    action == 'debit'
-      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
-          ? save = true
-          : save = false
-      : amount != null && newODate != null && name != null && number != null
-          ? save = true
-          : save = false;
-    notifyListeners();
-    init(query: name);
+      _busy = true;
+      shownames = true;
+      if (value.length == 0) {
+        _name = null;
+        manual = false;
+        inputNumberController.clear();
+        number = null;
+        shownames = false;
+      }
+      if (contactsList.length != 0) {
+        manual = false;
+        number = null;
+        inputNumberController.clear();
+      }
+      action == 'debit'
+          ? amount != null &&
+                  newDate != null &&
+                  newODate.length > 0 &&
+                  name != null //&& number != null
+              ? save = true
+              : save = false
+          : amount != null &&
+                  newODate != null &&
+                  name != null //&& number != null
+              ? save = true
+              : save = false;
+      notifyListeners();
+      init(query: name);
     });
   }
 
-  void setName(Customer cus){
+  void setName(Customer cus) {
     searchController.text = cus.displayName;
     _name = cus.displayName;
     selectedCustomer = cus;
@@ -169,19 +176,26 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           show = true;
           update
               ? amount != null && newODate != null ? save = true : save = false
-              : newCus ? action == 'debit'
-                  ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
-                      ? save = true
-                      : save = false
-                  : amount != null && newODate != null && name != null && number != null
-                      ? save = true
-                      : save = false : action == 'debit'
-                  ? amount != null && newDate != null && newODate.length > 0
-                      ? save = true
-                      : save = false
-                  : amount != null && newODate != null
-                      ? save = true
-                      : save = false;
+              : newCus
+                  ? action == 'debit'
+                      ? amount != null &&
+                              newDate != null &&
+                              newODate.length > 0 &&
+                              name != null //&& number != null
+                          ? save = true
+                          : save = false
+                      : amount != null &&
+                              newODate != null &&
+                              name != null //&& number != null
+                          ? save = true
+                          : save = false
+                  : action == 'debit'
+                      ? amount != null && newDate != null && newODate.length > 0
+                          ? save = true
+                          : save = false
+                      : amount != null && newODate != null
+                          ? save = true
+                          : save = false;
           notifyListeners();
         } else {
           _error = 'Enter a valid amount';
@@ -200,19 +214,24 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     dueDate = date;
     newDate = dformat.format(date);
     date1err = false;
-    newCus ? action == 'debit'
-      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
-          ? save = true
-          : save = false
-      : amount != null && newODate != null && name != null && number != null
-          ? save = true
-          : save = false : action == 'debit'
-      ? amount != null && newDate != null && newODate.length > 0
-          ? save = true
-          : save = false
-      : amount != null && newODate != null
-          ? save = true
-          : save = false;
+    newCus
+        ? action == 'debit'
+            ? amount != null &&
+                    newDate != null &&
+                    newODate.length > 0 &&
+                    name != null //&& number != null
+                ? save = true
+                : save = false
+            : amount != null &&
+                    newODate != null &&
+                    name != null //&& number != null
+                ? save = true
+                : save = false
+        : action == 'debit'
+            ? amount != null && newDate != null && newODate.length > 0
+                ? save = true
+                : save = false
+            : amount != null && newODate != null ? save = true : save = false;
     notifyListeners();
   }
 
@@ -223,19 +242,26 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     date2err = false;
     update
         ? amount != null && newODate != null ? save = true : save = false
-        : newCus ? action == 'debit'
-                  ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
-                      ? save = true
-                      : save = false
-                  : amount != null && newODate != null && name != null && number != null
-                      ? save = true
-                      : save = false : action == 'debit'
-                  ? amount != null && newDate != null && newODate.length > 0
-                      ? save = true
-                      : save = false
-                  : amount != null && newODate != null
-                      ? save = true
-                      : save = false;
+        : newCus
+            ? action == 'debit'
+                ? amount != null &&
+                        newDate != null &&
+                        newODate.length > 0 &&
+                        name != null //&& number != null
+                    ? save = true
+                    : save = false
+                : amount != null &&
+                        newODate != null &&
+                        name != null //&& number != null
+                    ? save = true
+                    : save = false
+            : action == 'debit'
+                ? amount != null && newDate != null && newODate.length > 0
+                    ? save = true
+                    : save = false
+                : amount != null && newODate != null
+                    ? save = true
+                    : save = false;
     notifyListeners();
   }
 
@@ -244,31 +270,32 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  void updateNumber(PhoneNumber phoneNumber, String action){
-    number=phoneNumber;
+  void updateNumber(PhoneNumber phoneNumber, String action) {
+    number = phoneNumber;
     action == 'debit'
-      ? amount != null && newDate != null && newODate.length > 0 && name != null && number != null
-          ? save = true
-          : save = false
-      : amount != null && newODate != null && name != null && number != null
-          ? save = true
-          : save = false;
-    notifyListeners();
-
-  }
-
-  void updateContact(String phoneNumber){
-    _customerPhoneNumber=phoneNumber;
-    notifyListeners();
-
-  }
-
-  void updateCountryCode(String value){
-    _dropDownValue=value;
+        ? amount != null &&
+                newDate != null &&
+                newODate.length > 0 &&
+                name != null //&& number != null
+            ? save = true
+            : save = false
+        : amount != null && newODate != null && name != null //&& number != null
+            ? save = true
+            : save = false;
     notifyListeners();
   }
 
-  void setManual(){
+  void updateContact(String phoneNumber) {
+    _customerPhoneNumber = phoneNumber;
+    notifyListeners();
+  }
+
+  void updateCountryCode(String value) {
+    _dropDownValue = value;
+    notifyListeners();
+  }
+
+  void setManual() {
     manual = true;
     notifyListeners();
   }
@@ -306,18 +333,18 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           print(dueDate);
           print('crediting');
           TransactionModel transaction = new TransactionModel(
-            cId: _transactionService.stransaction.cId,
-            sId: _transactionService.stransaction.sId,
-            amount: _transactionService.stransaction.amount,
-            paid: amount,
-            description: _transactionService.stransaction.description,
-            duedate: _transactionService.stransaction.duedate,
-            boughtdate: _transactionService.stransaction.boughtdate,
-            paiddate: otherDate.toString()
-          );
+              cId: _transactionService.stransaction.cId,
+              sId: _transactionService.stransaction.sId,
+              amount: _transactionService.stransaction.amount,
+              paid: amount,
+              description: _transactionService.stransaction.description,
+              duedate: _transactionService.stransaction.duedate,
+              boughtdate: _transactionService.stransaction.boughtdate,
+              paiddate: otherDate.toString());
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           _transactionService.updateTransaction(transaction);
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           print('debiting');
@@ -332,7 +359,9 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               paiddate: _transactionService.stransaction.paiddate);
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           _transactionService.updateTransaction(transaction);
-          _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          _logService.getValues(
+              amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       } else {
@@ -347,13 +376,35 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               duedate: dueDate.toString(),
               boughtdate: otherDate.toString(),
               paiddate: null);
-          if(newCus) {
-            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          if (newCus) {
+            number != null
+                ? _customerContactService.addContact(
+                    number.toString(),
+                    name,
+                    '',
+                    name.split(' ').length > 1
+                        ? (name.split(' ')[0][0] + name.split(' ')[1][0])
+                            .toUpperCase()
+                        : name.split(' ')[0][0].toUpperCase(),
+                    action,
+                    transaction,
+                    currentStore.id)
+                : _customerContactService.addContact(
+                    selectedCustomer.phone.isNotEmpty
+                        ? selectedCustomer.phone
+                        : 'No number',
+                    selectedCustomer.displayName,
+                    '',
+                    selectedCustomer.initials,
+                    action,
+                    transaction,
+                    currentStore.id);
           }
-          if(!newCus) {
+          if (!newCus) {
             _transactionService.addTransaction(transaction);
           }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
@@ -365,13 +416,35 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               duedate: dueDate.toString(),
               boughtdate: null,
               paiddate: otherDate.toString());
-          if(newCus) {
-            number != null ? _customerContactService.addContact(number.toString(), name, '', name.split(' ').length > 1 ? (name.split(' ')[0][0]+name.split(' ')[1][0]).toUpperCase() : name.split(' ')[0][0].toUpperCase(), action, transaction) : _customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          if (newCus) {
+            number != null
+                ? _customerContactService.addContact(
+                    number.toString(),
+                    name,
+                    '',
+                    name.split(' ').length > 1
+                        ? (name.split(' ')[0][0] + name.split(' ')[1][0])
+                            .toUpperCase()
+                        : name.split(' ')[0][0].toUpperCase(),
+                    action,
+                    transaction,
+                    currentStore.id)
+                : _customerContactService.addContact(
+                    selectedCustomer.phone.isNotEmpty
+                        ? selectedCustomer.phone
+                        : 'No number',
+                    selectedCustomer.displayName,
+                    '',
+                    selectedCustomer.initials,
+                    action,
+                    transaction,
+                    currentStore.id);
           }
-          if(!newCus) {
+          if (!newCus) {
             _transactionService.addTransaction(transaction);
           }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       }
@@ -387,7 +460,12 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService, _logService];
+  List<ReactiveServiceMixin> get reactiveServices => [
+        _transactionService,
+        _customerContactService,
+        _bussinessService,
+        _logService
+      ];
 }
 
 class Debouncer {

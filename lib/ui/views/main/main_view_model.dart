@@ -6,6 +6,7 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -17,6 +18,7 @@ class MainViewModel extends ReactiveViewModel {
   final _bussinessService = locator<BussinessSettingService>();
   final ICustomerService _customerService = locator<ICustomerService>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _customerContactService = locator<CustomerContactService>();
 
   final Duration duration = const Duration(milliseconds: 500);
   List<Store> _stores = StoreRepository.stores;
@@ -59,6 +61,7 @@ class MainViewModel extends ReactiveViewModel {
     StoreRepository.changeSelectedStore(id);
     _transactionService.getAllTransactions(id);
     notifyListeners();
+//    updateMenu();
   }
 
   void getcurr() {
@@ -77,6 +80,13 @@ class MainViewModel extends ReactiveViewModel {
       customerMap.putIfAbsent(store.id, () => customers.length);
     }
     _customers = customerMap;
+  }
+
+  int getCustomerCount(String id) {
+    //print(_customerContactService.getCustomerCount(id).then((value) => print(value)));
+    //int tot;
+   return _customerContactService.getCustomerCount(id);
+    //return tot;
   }
 
   void navigateToNotifications() {
