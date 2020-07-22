@@ -6,6 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'language_viewmodel.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 
 class LanguageSelectionPageView extends StatelessWidget {
   @override
@@ -24,7 +25,7 @@ class LanguageSelectionPageView extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: SizeConfig.yMargin(context, 3)),
               Text(
-                'Select your Language',
+                AppLocalizations.of(context).selectYourLanguage,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
