@@ -14,6 +14,7 @@ import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:async/async.dart';
 
 class EditProfileViewModel extends BaseViewModel {
   final _storeRepository = locator<StoreRepository>();
@@ -36,10 +37,12 @@ class EditProfileViewModel extends BaseViewModel {
 
   File get image => _imgFile;
 
-  String sImage;
+  
 
   Profile get userP => _profileService.getProfile();
-  
+
+  String sImage;
+  final AsyncMemoizer memoizer = AsyncMemoizer();
 
 
   set retrieveDataError(value) {
@@ -53,11 +56,11 @@ class EditProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future getImagefromGallery(String value) async {
-    final pickedImage =
-    await _imagePicker.getImage(source: ImageSource.gallery);
+  void getImagefromGallery() async {
+    final pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
     _imgFile = File(pickedImage.path);
     sImage = base64String(_imgFile.readAsBytesSync());
+    print(sImage);
     notifyListeners();
   }
 
@@ -83,6 +86,7 @@ class EditProfileViewModel extends BaseViewModel {
 
   void updateUserName(String value) {
     _userName = value;
+    print('ttty');
     notifyListeners();
   }
 
@@ -91,17 +95,18 @@ class EditProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> retrieveLostData() async {
+  Future<String> retrieveLostData() async {
     final LostData response = await _imagePicker.getLostData();
     if (response.isEmpty) {
-      return;
+      return '';
     }
     if (response.file != null) {
       _imgFile = File(response.file.path);
-      sImage = base64String(_imgFile.readAsBytesSync());
+      return sImage = base64String(_imgFile.readAsBytesSync());
 
     } else {
       _retrieveDataError = response.exception.code;
+      return _retrieveDataError;
     }
   }
 
