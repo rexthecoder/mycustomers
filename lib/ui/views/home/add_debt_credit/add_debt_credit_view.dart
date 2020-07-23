@@ -52,9 +52,9 @@ class AddDebtCreditView extends StatelessWidget {
                             model.amount.round().toString()
                         : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
                     : model.amount != null
-                        ? '${AppLocalizations.of(context).owesYou} ${model.contact.name} ₦' +
+                        ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
                             model.amount.round().toString()
-                        : '${AppLocalizations.of(context).owesYou} ${model.contact.name}',
+                        : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -182,7 +182,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             hintStyle: TextStyle(
                                                 fontSize: SizeConfig.yMargin(
                                                     context, 2)),
-                                            errorText: model.error,
+                                            errorText: model.errormsg,
                                             prefixIcon: Container(
                                                 padding: EdgeInsets.symmetric(
                                                     vertical: ScreenUtil()
@@ -515,6 +515,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   child: Column(
                                                     children: <Widget>[
                                                       TextField(
+                                                        focusNode: model.descFocus,
                                                         //controller: _controller,
                                                         maxLines: null,
                                                         maxLengthEnforced:
@@ -706,11 +707,14 @@ class AddDebtCreditView extends StatelessWidget {
                                           Focus(
                                             onFocusChange: (hasFocus) {
                                               if (hasFocus) {
-                                                print(controller.position
-                                                    .viewportDimension);
-                                                controller.jumpTo(controller
-                                                    .position
-                                                    .viewportDimension);
+                                                if(controller.position.viewportDimension < controller.position.maxScrollExtent) {
+                                                  controller.animateTo(controller.position.maxScrollExtent, duration: new Duration(milliseconds: 200), curve: Curves.easeInOut);
+                                                }
+                                                // print(controller.position
+                                                //     .viewportDimension);
+                                                // controller.jumpTo(controller
+                                                //     .position
+                                                //     .viewportDimension);
                                                 //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
                                               }
                                             },
@@ -773,7 +777,6 @@ class AddDebtCreditView extends StatelessWidget {
                                                     fontSize:
                                                         SizeConfig.yMargin(
                                                             context, 2)),
-                                                errorText: model.error,
                                                 prefixIcon: Container(
                                                   padding: EdgeInsets.symmetric(
                                                       vertical: ScreenUtil()

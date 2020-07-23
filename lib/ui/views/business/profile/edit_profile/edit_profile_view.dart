@@ -101,7 +101,7 @@ class EditProfileView extends StatelessWidget {
                             horizontal: SizeConfig.xMargin(context, 4),
                           ),
                           child: TextFormField(
-                            initialValue: model.userName,
+                            initialValue: model.userP.name,
                             keyboardType: TextInputType.text,
                             onChanged: (value) => model.updateUserName(value),
                             decoration: InputDecoration(
@@ -146,37 +146,37 @@ class EditProfileView extends StatelessWidget {
                   SizedBox(
                     height: SizeConfig.yMargin(context, 25),
                   ),
-                  // CustomRaisedButton(
-                  //   txtColor: ThemeColors.background,
-                  //   btnColor: BrandColors.primary,
-                  //   btnText: AppLocalizations.of(context).save,
-                  //   borderColor: BrandColors.primary,
-                  //   child: Container(),
-                  //   onPressed: () {
-                  //     model.updateProfile();
-                  //     FlushbarHelper.createInformation(
-                  //       duration: const Duration(seconds: 5),
-                  //       message: AppLocalizations.of(context).save,
-                  //     ).show(context);
-                  //   },
-                  //   padding: EdgeInsets.symmetric(
-                  //     horizontal: SizeConfig.xMargin(context, 40),
-                  //     vertical: SizeConfig.yMargin(context, 2.6),
-                  //   ),
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.circular(3),
-                  //   ),
-                  //   child: Text(
-                  //     AppLocalizations.of(context).save,
-                  //     textAlign: TextAlign.center,
-                  //     style: TextStyle(
-                  //       color: ThemeColors.background,
-                  //       fontStyle: FontStyle.normal,
-                  //       fontWeight: FontWeight.bold,
-                  //       fontSize: SizeConfig.yMargin(context, 2),
-                  //     ),
-                  //   ),
-                  // ),
+                  CustomRaisedButton(
+                    txtColor: ThemeColors.background,
+                    btnColor: BrandColors.primary,
+                    btnText: AppLocalizations.of(context).save,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.xMargin(context, 40),
+                        vertical: SizeConfig.yMargin(context, 2.6),
+                      ),
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(3),
+                      // ),
+                      child: Text(
+                        AppLocalizations.of(context).save,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: ThemeColors.background,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.bold,
+                          fontSize: SizeConfig.yMargin(context, 2),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      model.save();
+                      FlushbarHelper.createInformation(
+                        duration: const Duration(seconds: 5),
+                        message: AppLocalizations.of(context).save,
+                      ).show(context);
+                    },
+                  ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 2),
                   )
@@ -187,7 +187,7 @@ class EditProfileView extends StatelessWidget {
         );
       },
       viewModelBuilder: () => EditProfileViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) => model.initt(),
     );
   }
 }
@@ -200,7 +200,7 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
 
   return CircleAvatar(
     backgroundColor: ThemeColors.unselect,
-    child: model.image == null
+    child: model.userP.image.length == 0
         ? Text(
             model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
             style: TextStyle(
@@ -210,12 +210,7 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
             ),
           )
         : ClipOval(
-            child: Image.file(
-              model.image,
-              width: SizeConfig.xMargin(context, 50),
-              height: SizeConfig.xMargin(context, 50),
-              fit: BoxFit.cover,
-            ),
+            child: model.imageFromBaseString(model.userP.image, context),
           ),
     radius: 70,
   );

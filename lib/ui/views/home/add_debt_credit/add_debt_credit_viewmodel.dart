@@ -53,7 +53,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   double get amount => _amount;
 
   String _error;
- // String get error => _error;
+  String get errormsg => _error;
 
   String _description;
   String get description => _description;
@@ -88,6 +88,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   String get dropDownValue => _dropDownValue;
 
   var inputNumberController = TextEditingController();
+  var descFocus = FocusNode();
 
   bool manual = false;
 
@@ -214,6 +215,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     dueDate = date;
     newDate = dformat.format(date);
     date1err = false;
+    descFocus.requestFocus();
     newCus
         ? action == 'debit'
             ? amount != null &&

@@ -9,8 +9,8 @@ class BusinessMenu extends HookViewModelWidget<MainViewModel> {
     MainViewModel model,
   ) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: SizeConfig.yMargin(context, 2),
+      padding: EdgeInsets.only(
+        bottom: SizeConfig.yMargin(context, 2),
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
