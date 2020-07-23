@@ -15,7 +15,7 @@ class AddNewCustomerView extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: customizeAppBar(context, 1.0,
-                title: model.title, arrowColor: BrandColors.secondary),
+                title:  AppLocalizations.of(context).sendMessage, arrowColor: BrandColors.secondary),
             body: SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(20.w),
@@ -43,7 +43,7 @@ class AddNewCustomerView extends StatelessWidget {
                             child: TextField(
                               textAlign: TextAlign.left,
                               decoration: InputDecoration(
-                                hintText: 'Enter Name of customer',
+                                hintText:  AppLocalizations.of(context).enterCustomerName,
                                 prefixIcon: Icon(Icons.person),
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide.none),
@@ -132,7 +132,7 @@ class AddNewCustomerView extends StatelessWidget {
                                   ? Flushbar(
                                       backgroundColor: BrandColors.primary,
                                       duration: const Duration(seconds: 3),
-                                      message: 'Enter a customer Name',
+                                      message:  AppLocalizations.of(context).enterCustomerName,
                                       icon: Icon(
                                         Icons.info_outline,
                                         size: 28.0,
@@ -147,7 +147,7 @@ class AddNewCustomerView extends StatelessWidget {
                         ),
                         padding: EdgeInsets.symmetric(vertical: 16.h),
                         child: Text(
-                          'Continue',
+                          AppLocalizations.of(context).continueButton,
                           style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.bold,

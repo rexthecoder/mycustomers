@@ -6,7 +6,7 @@ import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transactionViewmodel.dart';
+import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transaction_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class SelectTransactionView extends StatelessWidget {

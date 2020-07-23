@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_picker_dropdown.dart';
+import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -123,7 +127,6 @@ class BusinessCardPageView extends StatelessWidget {
   }
 }
 
-
 class BusinessCardModal extends StatelessWidget {
   const BusinessCardModal({
     Key key,
@@ -137,6 +140,7 @@ class BusinessCardModal extends StatelessWidget {
     return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
       builder: (context, model, child) {
         return BusinessCardWidget(
+          showArrow: false,
           screenshotController: screenshotController,
         );
       },
@@ -297,7 +301,7 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
               }
               return null;
             },
-            label: AppLocalizations.of(context).phoneNumber,
+            label: "Phone Number",
             onChange: (PhoneNumber value) =>
                 model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),

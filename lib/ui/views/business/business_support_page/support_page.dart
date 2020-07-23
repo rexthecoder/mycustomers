@@ -17,6 +17,7 @@ class SupportPageView extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
               resizeToAvoidBottomInset: false,
               appBar: customizeAppBar(context, 1.0,
+                  children: [],
                   title: AppLocalizations.of(context).customerSupport,
                   arrowColor: BrandColors.primary),
               body: SafeArea(
@@ -38,10 +39,9 @@ class SupportPageView extends StatelessWidget {
                                     hintStyle: TextStyle(fontSize: 16.sp),
                                     contentPadding:
                                         EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),
-                                    border: new OutlineInputBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(5.0),
-                                      borderSide: new BorderSide(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(
                                           color: Color(0xffd1d1d1), width: 2),
                                     ))),
                             SizedBox(height: 15.h),
@@ -54,10 +54,9 @@ class SupportPageView extends StatelessWidget {
                                     hintStyle: TextStyle(fontSize: 16.sp),
                                     contentPadding:
                                         EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),
-                                    border: new OutlineInputBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(5.0),
-                                      borderSide: new BorderSide(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderSide: BorderSide(
                                           color: Color(0xffd1d1d1), width: 2),
                                     ))),
                             SizedBox(height: 20.h),
@@ -85,19 +84,19 @@ class SupportPageView extends StatelessWidget {
                                             color: Color(0xff8c8c8c),
                                             fontSize: 18.sp),
                                       ),
-                                      new DropdownButton<String>(
+                                      DropdownButton<String>(
                                         underline: SizedBox(),
                                         icon: Icon(
                                           Icons.keyboard_arrow_down,
-                                          color: Colors.black,
+                                          color: Theme.of(context).cursorColor,
                                         ),
                                         elevation: 0,
                                         isDense: false,
                                         items:
                                             (model.items).map((String value) {
-                                          return new DropdownMenuItem<String>(
+                                          return DropdownMenuItem<String>(
                                             value: value,
-                                            child: new Text(value),
+                                            child: Text(value),
                                           );
                                         }).toList(),
                                         onChanged: (item) {

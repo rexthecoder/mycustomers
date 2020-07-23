@@ -74,7 +74,7 @@ class CreditorsView extends StatelessWidget {
                                     )
                                   : RichText(
                                       text: TextSpan(
-                                          text: '₦ 0.',
+                                          text: model.currency.symbol + '0.',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: SizeConfig.yMargin(

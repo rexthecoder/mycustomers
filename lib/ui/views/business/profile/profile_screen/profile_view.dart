@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_viewmodel.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
@@ -17,55 +18,42 @@ class ProfilePageView extends StatelessWidget {
 
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              title: Text(
-                AppLocalizations.of(context).profile,
-                style: TextStyle(
-                  color: Theme.of(context).cursorColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.textSize(context, 6),
-                ),
-              ),
-              centerTitle: true,
-              elevation: 0.0,
-              iconTheme: IconThemeData(color: BrandColors.primary),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: model.navigateToEditProfilePage,
-                  child: Text(
-                    AppLocalizations.of(context).edit,
-                    style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 4.4),
-                      color: Theme.of(context).textSelectionColor,
+            appBar: customizeAppBar(context, 1.0,
+                children: [
+                  FlatButton(
+                    onPressed: model.navigateToEditProfilePage,
+                    child: Text(
+                      AppLocalizations.of(context).edit,
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, 4.4),
+                        color: Theme.of(context).textSelectionColor,
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
+                  )
+                ],
+                title: AppLocalizations.of(context).profile,
+                arrowColor: BrandColors.primary),
             body: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.yMargin(context, 2),
-                    ),
-                    child: Center(
-                      child: CircleAvatar(
-                        backgroundColor: ThemeColors.unselect,
-                        radius: SizeConfig.yMargin(context, 12),
-                        child: Text(
-                          _userName.text.substring(0, 1),
-                          style: TextStyle(
-                            color: BrandColors.primary,
-                            fontSize: SizeConfig.textSize(context, 18),
-                            fontWeight: FontWeight.bold,
-                          ),
+                  SizedBox(height: SizeConfig.yMargin(context, 5)),
+                  Center(
+                    child: CircleAvatar(
+                      backgroundColor: ThemeColors.unselect,
+                      radius: SizeConfig.yMargin(context, 10),
+                      child: Text(
+                        _userName.text.substring(0, 1),
+                        style: TextStyle(
+                          color: BrandColors.primary,
+                          fontSize: SizeConfig.textSize(context, 15),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
+                  SizedBox(height: SizeConfig.yMargin(context, 4)),
                   Divider(color: ThemeColors.gray.shade600),
                   Expanded(
                     child: Container(
@@ -78,7 +66,14 @@ class ProfilePageView extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: Row(
                               children: <Widget>[
-                                Text(AppLocalizations.of(context).name),
+                                Text(
+                                  AppLocalizations.of(context).name + ":",
+                                  style: TextStyle(
+                                    color: BrandColors.primary,
+                                    fontSize: SizeConfig.textSize(context, 5),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 SizedBox(width: 30),
                                 Expanded(
                                   child: TextField(
@@ -98,7 +93,12 @@ class ProfilePageView extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: Row(
                               children: <Widget>[
-                                Text(AppLocalizations.of(context).businessName),
+                                Text(AppLocalizations.of(context).businessName + ":",
+                                  style: TextStyle(
+                                    color: BrandColors.primary,
+                                    fontSize: SizeConfig.textSize(context, 5),
+                                    fontWeight: FontWeight.bold,
+                                  ),),
                                 SizedBox(width: 18),
                                 Expanded(
                                   child: TextField(
