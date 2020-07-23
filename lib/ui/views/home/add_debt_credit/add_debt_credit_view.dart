@@ -79,7 +79,7 @@ class AddDebtCreditView extends StatelessWidget {
               centerTitle: true,
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(vertical: 25),
+              padding: EdgeInsets.only(bottom: 25),
               child: Column(
                 children: <Widget>[
                   Expanded(
@@ -114,13 +114,13 @@ class AddDebtCreditView extends StatelessWidget {
                                 children: <Widget>[
                                   Container(
                                     margin: EdgeInsets.only(
-                                        bottom: ScreenUtil().setHeight(15)),
+                                        bottom: ScreenUtil().setHeight(15), top: 25),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
-                                          margin: EdgeInsets.only(bottom: 3),
+                                          margin: EdgeInsets.only(bottom: 5, left: 2),
                                           child: Text(
                                             AppLocalizations.of(context).amount,
                                             style: TextStyle(
@@ -338,7 +338,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Container(
-                                                    margin: EdgeInsets.only(bottom: 3),
+                                                    margin: EdgeInsets.only(bottom: 5, left: 2),
                                                     child: Text(
                                                       'Payment Date',
                                                       style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
@@ -485,8 +485,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
-                                                  margin: EdgeInsets.only(
-                                                      bottom: 3),
+                                                  margin: EdgeInsets.only(bottom: 5, left: 2),
                                                   child: Text(
                                                     AppLocalizations.of(context)
                                                         .description,
@@ -694,7 +693,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
-                                            margin: EdgeInsets.only(bottom: 3),
+                                            margin: EdgeInsets.only(bottom: 5, left: 2),
                                             child: Text(
                                               AppLocalizations.of(context)
                                                   .customerName,
@@ -707,9 +706,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           Focus(
                                             onFocusChange: (hasFocus) {
                                               if (hasFocus) {
-                                                if(controller.position.viewportDimension < controller.position.maxScrollExtent) {
-                                                  controller.animateTo(controller.position.maxScrollExtent, duration: new Duration(milliseconds: 200), curve: Curves.easeInOut);
-                                                }
+                                                controller.animateTo(controller.position.viewportDimension, duration: new Duration(milliseconds: 200), curve: Curves.easeInOut);
                                                 // print(controller.position
                                                 //     .viewportDimension);
                                                 // controller.jumpTo(controller
@@ -801,6 +798,9 @@ class AddDebtCreditView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    SizedBox(
+                                      height: model.name != null ? 0 : 300,
+                                    ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames
                                           ? MyListTile(
@@ -850,11 +850,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             context, 2)),
                                               ),
                                             )
-                                          : SizedBox(
-                                              height: MediaQuery.of(context)
-                                                  .viewInsets
-                                                  .bottom,
-                                            ),
+                                          : SizedBox(),
                                     model.contactsList.length == 0 &&
                                             model.name != null
                                         ? model.manual

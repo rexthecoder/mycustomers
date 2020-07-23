@@ -346,7 +346,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           _transactionService.updateTransaction(transaction);
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           print('debiting');
@@ -363,7 +363,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           _transactionService.updateTransaction(transaction);
           _logService.getValues(
               amount.toInt(), DateTime.now(), 'debit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       } else {
@@ -406,7 +406,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
             _transactionService.addTransaction(transaction);
           }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
@@ -446,7 +446,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
             _transactionService.addTransaction(transaction);
           }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       }
