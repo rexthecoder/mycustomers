@@ -513,153 +513,57 @@ class AddDebtCreditView extends StatelessWidget {
                                                               .setWidth(5))),
                                                   child: Column(
                                                     children: <Widget>[
-                                                      TextField(
-                                                        focusNode: model.descFocus,
-                                                        //controller: _controller,
-                                                        maxLines: null,
-                                                        maxLengthEnforced:
-                                                            false,
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .multiline,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          focusedBorder:
-                                                              InputBorder.none,
-                                                          enabledBorder:
-                                                              InputBorder.none,
-                                                          errorBorder:
-                                                              InputBorder.none,
-                                                          disabledBorder:
-                                                              InputBorder.none,
-                                                          hintText: AppLocalizations
-                                                                  .of(context)
-                                                              .enterDescription,
-                                                          hintStyle: TextStyle(
-                                                              fontSize:
-                                                                  ScreenUtil()
-                                                                      .setSp(
-                                                                          15)),
-                                                          // prefixIcon: Container(
-                                                          //   padding: EdgeInsets.symmetric(
-                                                          //       vertical: ScreenUtil()
-                                                          //           .setHeight(10)),
-                                                          //   child: SvgPicture.asset(
-                                                          //     'assets/icons/cart.svg',
-                                                          //     color: Theme.of(context)
-                                                          //         .cursorColor,
-                                                          //   ),
-                                                          // ),
-                                                          // suffixIcon: InkWell(
-                                                          //   onTap: () {
-                                                          //     _controller.clear();
-                                                          //     model.addItem(action, update);
-                                                          //   },
-                                                          //   child: Container(
-                                                          //     width:
-                                                          //         ScreenUtil().setWidth(10),
-                                                          //     child: Row(
-                                                          //       children: <Widget>[
-                                                          //         Icon(
-                                                          //           Icons.add,
-                                                          //           color: action ==
-                                                          //                   'credit'
-                                                          //               ? BrandColors
-                                                          //                   .secondary
-                                                          //               : Theme.of(context)
-                                                          //                   .textSelectionColor,
-                                                          //           size: ScreenUtil()
-                                                          //               .setWidth(18),
-                                                          //         ),
-                                                          //         Container(
-                                                          //           child: Text(
-                                                          //             'Add',
-                                                          //             style:
-                                                          //                 Theme.of(context)
-                                                          //                     .textTheme
-                                                          //                     .headline6
-                                                          //                     .copyWith(
-                                                          //                       fontSize: ScreenUtil()
-                                                          //                           .setSp(
-                                                          //                               14),
-                                                          //                       color: action ==
-                                                          //                               'credit'
-                                                          //                           ? BrandColors
-                                                          //                               .secondary
-                                                          //                           : Theme.of(context)
-                                                          //                               .textSelectionColor,
-                                                          //                     ),
-                                                          //           ),
-                                                          //         )
-                                                          //       ],
-                                                          //     ),
-                                                          //   ),
-                                                          // ),
+                                                      Focus(
+                                                        onFocusChange: (hasFocus) {
+                                                          if (hasFocus) {
+                                                            controller.animateTo(controller.position.viewportDimension, duration: new Duration(milliseconds: 200), curve: Curves.easeOut);
+                                                            // print(controller.position
+                                                            //     .viewportDimension);
+                                                            // controller.jumpTo(controller
+                                                            //     .position
+                                                            //     .viewportDimension);
+                                                            //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
+                                                          }
+                                                        },
+                                                        child: TextField(
+                                                          focusNode: model.descFocus,
+                                                          //controller: _controller,
+                                                          maxLines: null,
+                                                          maxLengthEnforced:
+                                                              false,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .multiline,
+                                                          decoration:
+                                                              new InputDecoration(
+                                                            border:
+                                                                InputBorder.none,
+                                                            focusedBorder:
+                                                                InputBorder.none,
+                                                            enabledBorder:
+                                                                InputBorder.none,
+                                                            errorBorder:
+                                                                InputBorder.none,
+                                                            disabledBorder:
+                                                                InputBorder.none,
+                                                            hintText: AppLocalizations
+                                                                    .of(context)
+                                                                .enterDescription,
+                                                            hintStyle: TextStyle(
+                                                                fontSize:
+                                                                    ScreenUtil()
+                                                                        .setSp(
+                                                                            15)),
+                                                          ),
+                                                          //textInputAction: TextInputAction.go,
+                                                          // onSubmitted: (value) {
+                                                          //   _controller.clear();
+                                                          //   model.addItem(action, update);
+                                                          // },
+                                                          onChanged:
+                                                              model.updateItem,
                                                         ),
-                                                        //textInputAction: TextInputAction.go,
-                                                        // onSubmitted: (value) {
-                                                        //   _controller.clear();
-                                                        //   model.addItem(action, update);
-                                                        // },
-                                                        onChanged:
-                                                            model.updateItem,
                                                       ),
-                                                      // for (var item in model.items)
-                                                      //   Container(
-                                                      //     margin: EdgeInsets.symmetric(
-                                                      //         vertical: ScreenUtil()
-                                                      //             .setHeight(4)),
-                                                      //     padding: EdgeInsets.symmetric(
-                                                      //         vertical: ScreenUtil()
-                                                      //             .setHeight(10),
-                                                      //         horizontal: ScreenUtil()
-                                                      //             .setWidth(15)),
-                                                      //     decoration: BoxDecoration(
-                                                      //         borderRadius:
-                                                      //             BorderRadius.circular(
-                                                      //                 ScreenUtil()
-                                                      //                     .setWidth(5)),
-                                                      //         color: Theme.of(context)
-                                                      //             .backgroundColor),
-                                                      //     child: Row(
-                                                      //       mainAxisAlignment:
-                                                      //           MainAxisAlignment
-                                                      //               .spaceBetween,
-                                                      //       children: <Widget>[
-                                                      //         Container(
-                                                      //           child: Flexible(
-                                                      //             child: Text(
-                                                      //               item,
-                                                      //               style: Theme.of(context)
-                                                      //                   .textTheme
-                                                      //                   .headline4
-                                                      //                   .copyWith(
-                                                      //                       fontSize:
-                                                      //                           ScreenUtil()
-                                                      //                               .setSp(
-                                                      //                                   16),
-                                                      //                       fontWeight:
-                                                      //                           FontWeight
-                                                      //                               .w400),
-                                                      //             ),
-                                                      //           ),
-                                                      //         ),
-                                                      //         InkWell(
-                                                      //           onTap: () {
-                                                      //             model.removeItem(model
-                                                      //                 .items
-                                                      //                 .indexOf(item));
-                                                      //           },
-                                                      //           child: Container(
-                                                      //             child: SvgPicture.asset(
-                                                      //                 'assets/icons/cancel.svg'),
-                                                      //           ),
-                                                      //         )
-                                                      //       ],
-                                                      //     ),
-                                                      //   )
                                                     ],
                                                   ),
                                                 ),
@@ -799,7 +703,7 @@ class AddDebtCreditView extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: model.name != null ? 0 : 300,
+                                      height: model.name != null ? 0 : SizeConfig.yMargin(context, 100),
                                     ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames
