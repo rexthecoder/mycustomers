@@ -6,4 +6,5 @@ class HiveBox {
   static const String transaction = "transactionBox";
   static const String currency = "currencyBox";
   static const String contact = "contactBox";
+  static const String profile = "profileBox";
 }
