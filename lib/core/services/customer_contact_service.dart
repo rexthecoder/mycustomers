@@ -99,7 +99,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
             paiddate: transaction.paiddate
           );
         _transactionService.addTransaction(ntransaction);
-          _navigationService.navigateTo(Routes.mainViewRoute);
+          _navigationService.clearStackAndShow(Routes.mainViewRoute);
         //_navigationService.navigateTo(Routes.mainTransaction);
       } else {
         CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid);
@@ -120,7 +120,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
             paiddate: transaction.paiddate
           );
           _transactionService.addTransaction(ntransaction);
-          _navigationService.navigateTo(Routes.mainViewRoute);
+          _navigationService.clearStackAndShow(Routes.mainViewRoute);
           //_contacts.value.sort((a,b) => b.id.compareTo(a.id));
           //action == 'debtor' ? _navigationService.navigateTo(Routes.addDebt) : _navigationService.navigateTo(Routes.addCredit);
         }).catchError((err){
