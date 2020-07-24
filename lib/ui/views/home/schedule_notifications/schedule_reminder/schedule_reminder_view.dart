@@ -260,13 +260,17 @@ class ScheduleNotifications extends StatelessWidget {
                         if (_schedule.currentState.validate()) {
                           reminders.sendNotificationOnce(
                               random,
-                              'You have this pending message to send',
-                              'Heading: ' + _heading.text,
+                              AppLocalizations.of(context)
+                                  .youHaveThisMessagePendingToSend,
+                              AppLocalizations.of(context).heading +
+                                  ' ' +
+                                  _heading.text,
                               model.getDateTime());
                           Flushbar(
                             backgroundColor: BrandColors.primary,
                             duration: const Duration(seconds: 3),
-                            message: 'Your Reminder have been set successfully',
+                            message: AppLocalizations.of(context)
+                                .yourReminderHasBeenSetSuccessfully,
                             icon: Icon(
                               Icons.info_outline,
                               size: 28.0,

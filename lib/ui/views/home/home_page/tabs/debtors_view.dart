@@ -27,7 +27,9 @@ class DebtorsView extends StatelessWidget {
             Expanded(
               child: Container(
                 child: SingleChildScrollView(
-                  physics: model.owingcustomers.length == 0 ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
+                  physics: model.owingcustomers.length == 0
+                      ? NeverScrollableScrollPhysics()
+                      : BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -63,8 +65,7 @@ class DebtorsView extends StatelessWidget {
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(
-                                                  model.bought())
+                                              .format(model.bought())
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -116,12 +117,19 @@ class DebtorsView extends StatelessWidget {
                                     //   height: 20.h,
                                     // ),
                                     Container(
-                                      margin: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 3), horizontal: SizeConfig.xMargin(context, 8)),
+                                      margin: EdgeInsets.symmetric(
+                                          vertical:
+                                              SizeConfig.yMargin(context, 3),
+                                          horizontal:
+                                              SizeConfig.xMargin(context, 8)),
                                       child: Text(
-                                        AppLocalizations.of(context).youDoNotHaveAnyCustomerOwingYou,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(color: Color(0xFF7276A9), fontSize: SizeConfig.yMargin(context, 2))
-                                      ),
+                                          AppLocalizations.of(context)
+                                              .youDoNotHaveAnyCustomerOwingYou,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFF7276A9),
+                                              fontSize: SizeConfig.yMargin(
+                                                  context, 2))),
                                     ),
                                   ],
                                 ),
@@ -255,29 +263,40 @@ class ContactList extends StatelessWidget {
                                       cont.duedate != null
                                           ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0
                                               ? (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
+                                                  ? AppLocalizations.of(context)
+                                                          .expected +
+                                                      ' ' +
                                                       (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7)
                                                           .toString() +
-                                                      ' weeks ago'
-                                                  : 'Expected in ' +
-                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs())
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .weeksAgo
+                                                  : AppLocalizations.of(context).expectedIn +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
+                                                              7.abs())
                                                           .toString() +
-                                                      ' weeks'
+                                                      '' +
+                                                      AppLocalizations.of(context)
+                                                          .weeks
                                               : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
-                                                      (DateTime.now()
-                                                              .difference(DateTime.parse(
-                                                                  cont.duedate))
-                                                              .inDays)
+                                                  ? AppLocalizations.of(context)
+                                                          .expected +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                           .toString() +
-                                                      ' days ago'
-                                                  : 'Expected in ' +
-                                                              (DateTime.now()
-                                                                      .difference(DateTime.parse(cont.duedate))
-                                                                      .inDays
-                                                                      .abs())
-                                                                  .toString() +
-                                                              ' days'
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .daysAgo
+                                                  : AppLocalizations.of(context).expectedIn +
+                                                      ' ' +
+                                                      (DateTime.now()
+                                                              .difference(DateTime.parse(cont.duedate))
+                                                              .inDays
+                                                              .abs())
+                                                          .toString() +
+                                                      '' +
+                                                      AppLocalizations.of(context).days
                                           : '',
                                       style: TextStyle(
                                           fontSize:
@@ -331,8 +350,10 @@ class ContactList extends StatelessWidget {
                                                                 cont.duedate))
                                                         .inDays) >
                                                     0
-                                                ? 'Overdue'
-                                                : 'Not Paid',
+                                                ? AppLocalizations.of(context)
+                                                    .overdue
+                                                : AppLocalizations.of(context)
+                                                    .notPaid,
                                             style: TextStyle(
                                                 color: (DateTime.now()
                                                             .difference(DateTime
@@ -395,30 +416,42 @@ class ContactList extends StatelessWidget {
                                                 context, 2))),
                                     subtitle: Text(
                                       cont.duedate != null
-                                          ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
-                                                      7 ==0 && DateTime.now().difference(DateTime.parse(cont.duedate)).inDays / 7 != 0
+                                          ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 && DateTime.now().difference(DateTime.parse(cont.duedate)).inDays / 7 != 0
                                               ? (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
-                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/ 7).toString() +
-                                                      ' weeks ago'
-                                                  : 'Expected in ' +
-                                                      ((DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/
-                                                              7).abs())
+                                                  ? AppLocalizations.of(context).expected +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/ 7)
                                                           .toString() +
-                                                      ' weeks'
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .weeksAgo
+                                                  : AppLocalizations.of(context).expectedIn +
+                                                      ' ' +
+                                                      ((DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/ 7).abs())
+                                                          .toString() +
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .weeks
                                               : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
-                                                              (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
-                                                                  .toString() +
-                                                              ' days ago'
-                                                  : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 && model.checkToday(cont.duedate) ? 'Expected Today' : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 ? 'Expected Tomorrow' : 'Expected in ' +
-                                                      (DateTime.now()
-                                                              .difference(
-                                                                  DateTime.parse(cont.duedate))
-                                                              .inDays
-                                                              .abs())
+                                                  ? AppLocalizations.of(context).expected +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                           .toString() +
-                                                      ' days'
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .daysAgo
+                                                  : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 && model.checkToday(cont.duedate)
+                                                      ? 'Expected Today'
+                                                      : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0
+                                                          ? 'Expected Tomorrow'
+                                                          : 'Expected in ' +
+                                                              (DateTime.now()
+                                                                      .difference(DateTime.parse(cont.duedate))
+                                                                      .inDays
+                                                                      .abs())
+                                                                  .toString() +
+                                                              ' ' +
+                                                              AppLocalizations.of(context).days
                                           : '',
                                       style: TextStyle(
                                           fontSize:
@@ -472,8 +505,10 @@ class ContactList extends StatelessWidget {
                                                                 cont.duedate))
                                                         .inDays) >
                                                     0
-                                                ? 'Overdue'
-                                                : 'Not Paid',
+                                                ? AppLocalizations.of(context)
+                                                    .overdue
+                                                : AppLocalizations.of(context)
+                                                    .notPaid,
                                             style: TextStyle(
                                                 color: (DateTime.now()
                                                             .difference(DateTime
