@@ -44,10 +44,10 @@ class CreateBusinessViewModel extends BaseViewModel {
       );
 
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(
-        message: 'Welcome Back!',
-        success: true,
-      );
+      // showToastCustom(
+      //   message: 'Welcome Back!',
+      //   success: true,
+      // );
       _logService.getValues(
           null, DateTime.now(), 'create-store', storeName, false);
 

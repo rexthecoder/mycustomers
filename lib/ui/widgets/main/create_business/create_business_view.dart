@@ -115,7 +115,7 @@ class _PartialCreateBusinessBuildForm
                 minLines: 4,
                 onChanged: (value) => viewModel.updateStoreAddress(value),
                 validator: (value) =>
-                    (value.isEmpty) ? "Please enter about business" : null,
+                    (value.isEmpty) ? "Please enter business address" : null,
                 style: TextStyle(
                   fontSize: SizeConfig.textSize(context, 5),
                   color: Theme.of(context).cursorColor,
@@ -134,7 +134,7 @@ class _PartialCreateBusinessBuildForm
                     fontSize: SizeConfig.textSize(context, 5),
                     color: Theme.of(context).cursorColor.withOpacity(0.5),
                   ),
-                  labelText: "About Business",
+                  labelText: "Business Address",
                   border: OutlineInputBorder(),
                 ),
               ),

@@ -58,7 +58,7 @@ class OnboardingView extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                  bottom: SizeConfig.yMargin(context, 26),
+                  bottom: SizeConfig.yMargin(context, 24),
                   left: 0,
                   right: 0,
                   child: WormIndicator(
