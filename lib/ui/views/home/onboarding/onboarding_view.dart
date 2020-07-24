@@ -74,7 +74,7 @@ class OnboardingView extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: SizeConfig.yMargin(context, 16),
+                  bottom: SizeConfig.yMargin(context, 15),
                   child: CustomRaisedButton(
                     txtColor: ThemeColors.background,
                     btnColor: BrandColors.primary,
@@ -289,13 +289,16 @@ class _Pages extends StatelessWidget {
           ),
         ),
         SizedBox(height: SizeConfig.yMargin(context, 1.2)),
-        Text(
-          txt2,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: SizeConfig.textSize(context, 4),
+        Padding(
+          padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 4), right: SizeConfig.xMargin(context, 4)),
+          child: Text(
+            txt2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: SizeConfig.textSize(context, 4),
+            ),
+            softWrap: true,
           ),
-          softWrap: true,
         ),
       ],
     );
