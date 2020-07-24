@@ -397,16 +397,14 @@ class ContactList extends StatelessWidget {
                                     subtitle: Text(
                                       cont.duedate != null
                                           ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
-                                                      7 ==
-                                                  0
+                                                      7 ==0 && DateTime.now().difference(DateTime.parse(cont.duedate)).inDays / 7 != 0
                                               ? (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
                                                   ? 'Expected ' +
-                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7)
-                                                          .toString() +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/ 7).toString() +
                                                       ' weeks ago'
                                                   : 'Expected in ' +
-                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
-                                                              7.abs())
+                                                      ((DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/
+                                                              7).abs())
                                                           .toString() +
                                                       ' weeks'
                                               : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
@@ -414,7 +412,7 @@ class ContactList extends StatelessWidget {
                                                               (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                                   .toString() +
                                                               ' days ago'
-                                                  : 'Expected in ' +
+                                                  : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 ? 'Expected Tomorrow' : 'Expected in ' +
                                                       (DateTime.now()
                                                               .difference(
                                                                   DateTime.parse(cont.duedate))

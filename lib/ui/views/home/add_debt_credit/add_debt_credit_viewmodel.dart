@@ -24,7 +24,6 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
 
 class AddDebtCreditViewModel extends ReactiveViewModel {
-  final focusNode = FocusNode();
   final _debouncer = Debouncer(milliseconds: 100);
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = true;
@@ -54,7 +53,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   double get amount => _amount;
 
   String _error;
-  String get error => _error;
+  String get errormsg => _error;
 
   String _description;
   String get description => _description;
@@ -89,6 +88,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   String get dropDownValue => _dropDownValue;
 
   var inputNumberController = TextEditingController();
+  var descFocus = FocusNode();
 
   bool manual = false;
 
@@ -215,6 +215,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     dueDate = date;
     newDate = dformat.format(date);
     date1err = false;
+    descFocus.requestFocus();
     newCus
         ? action == 'debit'
             ? amount != null &&
@@ -345,7 +346,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           _transactionService.updateTransaction(transaction);
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           print('debiting');
@@ -362,7 +363,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           _transactionService.updateTransaction(transaction);
           _logService.getValues(
               amount.toInt(), DateTime.now(), 'debit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       } else {
@@ -405,7 +406,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
             _transactionService.addTransaction(transaction);
           }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
@@ -445,7 +446,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
             _transactionService.addTransaction(transaction);
           }
           //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
-          _navigationService.replaceWith(Routes.mainTransaction);
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       }

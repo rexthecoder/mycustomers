@@ -11,7 +11,10 @@ class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NotificationViewModel>.reactive(
-        onModelReady: (model) => model.getlogs(),
+        onModelReady: (model) {
+          model.getlogs();
+          model.getReminders();
+        },
         builder: (context, model, child) => DefaultTabController(
               length: 2,
               child: Scaffold(
@@ -64,13 +67,59 @@ class NotificationsView extends StatelessWidget {
                       Expanded(
                         child: TabBarView(
                           children: <Widget>[
-                            Container(
+                            model.reminders.length == 0 ? Container(
                               child: Center(
                                 child: Text(
                                   AppLocalizations.of(context).noRemindersYet,
                                   style: TextStyle(
                                       fontSize: SizeConfig.yMargin(context, 2)),
                                 ),
+                              ),
+                            ) : SingleChildScrollView(
+                              child: Column(
+                                children: <Widget>[
+                                  for (var item in model.reminders) Padding(
+                                      padding:
+                                          const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Row(children: <Widget>[
+                                            Expanded(
+                                                child: Text(
+                                              'Reminder for ${item.amount}',
+                                              style: TextStyle(
+                                                  fontSize: SizeConfig
+                                                      .yMargin(
+                                                          context, 2)),
+                                            )),
+                                            SizedBox(width: 20.0),
+                                            Column(
+                                              children: <Widget>[
+                                                Text(
+                                                  '',
+                                                  style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                    color: Color(
+                                                        0xFF333CC1),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 8.0),
+                                                Text(DateFormat('MMM dd yyyy').format(DateTime.parse(item.duedate)),
+                                                    style: TextStyle(
+                                                      color:
+                                                          Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                    )),
+                                              ],
+                                            ),
+                                          ])
+                                        ],
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                             model.loglist.length == 0

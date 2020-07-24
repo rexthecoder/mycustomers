@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
@@ -6,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 import 'edit_profile_viewmodel.dart';
 import 'package:flushbar/flushbar_helper.dart';
+import 'package:async/async.dart';
 
-class EditProfileView extends StatelessWidget {
+class EditProfileView extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<EditProfileViewModel>.reactive(
+    return ViewModelBuilder<EditProfileViewModel>.nonReactive(
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -38,6 +41,7 @@ class EditProfileView extends StatelessWidget {
                                 case ConnectionState.none:
                                 case ConnectionState.waiting:
                                   return CircleAvatar(
+                                    radius: 70,
                                     child: Text(
                                       AppLocalizations.of(context)
                                           .notPickedImage,
@@ -52,12 +56,6 @@ class EditProfileView extends StatelessWidget {
                                       AppLocalizations.of(context).pickImage +
                                           ':' +
                                           '${snapshot.error}}',
-                                      textAlign: TextAlign.center,
-                                    );
-                                  } else {
-                                    return Text(
-                                      AppLocalizations.of(context)
-                                          .notPickedImage,
                                       textAlign: TextAlign.center,
                                     );
                                   }
@@ -85,9 +83,9 @@ class EditProfileView extends StatelessWidget {
                       onPressed: model.getImagefromGallery,
                     ),
                   ),
-                  SizedBox(height: SizeConfig.yMargin(context, 1.5)),
+                   SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Divider(color: ThemeColors.gray.shade600),
-                  SizedBox(height: SizeConfig.yMargin(context, 2.5)),
+                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Column(
                     children: <Widget>[
                       Container(
@@ -101,19 +99,7 @@ class EditProfileView extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                             horizontal: SizeConfig.xMargin(context, 4),
                           ),
-                          child: TextFormField(
-                            textCapitalization: TextCapitalization.sentences,
-                            initialValue: model.userName,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) => model.updateUserName(value),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: AppLocalizations.of(context).userName,
-                            ),
-                            style: TextStyle(
-                              color: Theme.of(context).textSelectionColor,
-                            ),
-                          ),
+                          child: _StringForm()
                         ),
                       ),
                       SizedBox(height: SizeConfig.yMargin(context, 2)),
@@ -147,16 +133,16 @@ class EditProfileView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.yMargin(context, 18),
+                    height: SizeConfig.yMargin(context, 15),
                   ),
                   CustomRaisedButton(
                     txtColor: ThemeColors.background,
                     btnColor: BrandColors.primary,
-                    btnText: AppLocalizations.of(context).save,
                     borderColor: BrandColors.primary,
+                    btnText: AppLocalizations.of(context).save,
                     child: Container(),
                     onPressed: () {
-                      model.updateProfile();
+                      model.save();
                       FlushbarHelper.createInformation(
                         duration: const Duration(seconds: 5),
                         message: AppLocalizations.of(context).save,
@@ -173,7 +159,30 @@ class EditProfileView extends StatelessWidget {
         );
       },
       viewModelBuilder: () => EditProfileViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) {
+        model.initt();
+      },
+    );
+  }
+}
+
+class _StringForm extends HookViewModelWidget<EditProfileViewModel>{
+  const _StringForm({Key key}) : super(key: key, reactive: false);
+
+  @override
+  Widget buildViewModelWidget(BuildContext context, EditProfileViewModel model) {
+    return TextFormField(
+      textCapitalization: TextCapitalization.sentences,
+      initialValue: model.userP.name,
+      keyboardType: TextInputType.text,
+      onChanged: (value) => model.updateUserName(value),
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: AppLocalizations.of(context).userName,
+      ),
+      style: TextStyle(
+        color: Theme.of(context).textSelectionColor,
+      ),
     );
   }
 }
@@ -183,10 +192,11 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
   if (retrieveError != null) {
     return retrieveError;
   }
+  print('her');
 
   return CircleAvatar(
     backgroundColor: ThemeColors.unselect,
-    child: model.image == null
+    child: model.userP.image.length == 0 && model.sImage == null
         ? Text(
             model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
             style: TextStyle(
@@ -195,13 +205,10 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
               fontWeight: FontWeight.bold,
             ),
           )
-        : ClipOval(
-            child: Image.file(
-              model.image,
-              width: SizeConfig.xMargin(context, 50),
-              height: SizeConfig.xMargin(context, 50),
-              fit: BoxFit.cover,
-            ),
+        : model.sImage == null ?ClipOval(
+            child: model.imageFromBaseString(model.userP.image, context),
+          ) : ClipOval(
+            child: model.imageFromBaseString(model.sImage, context),
           ),
     radius: 70,
   );

@@ -76,6 +76,14 @@ class MainTransactionViewModel extends ReactiveViewModel{
     return dformat.format(DateTime.parse(gdate)).toString();
   }
 
+  String getdDate(String gdate) {
+    final dformat = new DateFormat('dd/MM/yyyy');
+    if(dformat.format(DateTime.parse(gdate)).toString() != date) {
+      date = dformat.format(DateTime.parse(gdate)).toString();
+    }
+    return dformat.format(DateTime.parse(gdate)).toString();
+  }
+
   String getTime(String gdate) {
     final dformat = new DateFormat('jm');
     return dformat.format(DateTime.parse(gdate)).toString();
