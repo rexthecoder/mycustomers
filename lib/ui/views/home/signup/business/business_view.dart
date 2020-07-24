@@ -60,7 +60,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
             SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: SizeConfig.yMargin(context, 7)),
+                  SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Text(
                     AppLocalizations.of(context).businessDetails,
                     style: TextStyle(
@@ -68,7 +68,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                       fontSize: SizeConfig.yMargin(context, 4),
                     ),
                   ),
-                  SizedBox(height: SizeConfig.yMargin(context, 5)),
+                  SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Text(
                     AppLocalizations.of(context).oneLastStep,
                     style: TextStyle(
@@ -78,7 +78,10 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                   ),
                   SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Padding(
-                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.xMargin(context, 4),
+                        right: SizeConfig.xMargin(context, 4),
+                        bottom: SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
                       autofocus: true,
                       textCapitalization: TextCapitalization.sentences,
@@ -100,7 +103,10 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.xMargin(context, 4),
+                        right: SizeConfig.xMargin(context, 4),
+                        bottom: SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
                       key: Key("email"),
                       keyboardType: TextInputType.emailAddress,
@@ -120,7 +126,10 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.xMargin(context, 4),
+                        right: SizeConfig.xMargin(context, 4),
+                        bottom: SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
                       textCapitalization: TextCapitalization.sentences,
                       key: Key("storeName"),
@@ -141,7 +150,10 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.xMargin(context, 4),
+                        right: SizeConfig.xMargin(context, 4),
+                        bottom: SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
                       textCapitalization: TextCapitalization.sentences,
                       key: Key("storeAddress"),
@@ -161,7 +173,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                           border: OutlineInputBorder()),
                     ),
                   ),
-                  SizedBox(height: SizeConfig.yMargin(context, 4)),
+                  // SizedBox(height: SizeConfig.yMargin(context, 2)),
                 ],
               ),
             ),
