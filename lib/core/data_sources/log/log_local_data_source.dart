@@ -39,6 +39,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   List<LogH> get loglist => _loglist.value;
 
   bool shouldnotify = false;
+  bool once = false;
 
   LogsLocalDataSourceImpl(){
     listenToReactiveValues([_loglist, shouldnotify]);
@@ -60,7 +61,10 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     for(var item in transactions){
       if(item.duedate != 'null') {
         if(DateTime.now().difference(DateTime.parse(item.duedate ?? item.paiddate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate ?? item.paiddate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
-          shouldnotify = true;
+          if(!once) {
+            shouldnotify = true;
+            once = true;
+          }
         }
       }
     }
