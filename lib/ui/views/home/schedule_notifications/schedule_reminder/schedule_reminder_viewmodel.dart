@@ -16,7 +16,8 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
   dynamic _selectedTime;
   DateTime _today = DateTime.now();
   NotificationRemindersService reminders = NotificationRemindersService();
-  int id = int.parse(Uuid().v1());
+  // This is temporary to give each notification a unique id
+  int id = Random().nextInt(100);
 
   int get selectedDay => _selectedDay;
   setSelectedDay(int selectedDay) => _selectedDay = selectedDay;

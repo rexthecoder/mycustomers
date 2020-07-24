@@ -32,12 +32,13 @@ class UnderConstruction extends StatelessWidget{
                 ),
                 SizedBox(height: 10.h,),
                 Text(
-                  'Team Sentry \n MB Devs At Work!!!',
+                  'Team Justice League \n MB Devs At Work!!!',
                   style: TextStyle(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.blueGrey,
                   ),
+                  softWrap: true,
                 ),
               ],
             ),
