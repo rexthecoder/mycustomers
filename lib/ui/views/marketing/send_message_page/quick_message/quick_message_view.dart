@@ -102,7 +102,7 @@ class QuickMessageView extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    'See All',
+                    AppLocalizations.of(context).seeAll,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: BrandColors.secondary,

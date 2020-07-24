@@ -128,7 +128,8 @@ class AddNewCustomerView extends StatelessWidget {
                               ? Flushbar(
                                   backgroundColor: BrandColors.primary,
                                   duration: const Duration(seconds: 3),
-                                  message: 'Enter a valid number',
+                                  message: AppLocalizations.of(context)
+                                      .enterAValidNumber,
                                   icon: Icon(
                                     Icons.info_outline,
                                     size: 28.0,

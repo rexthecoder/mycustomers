@@ -207,7 +207,7 @@ class ContactList extends StatelessWidget {
             ),
             model.sCName != null && !model.containsC
                 ? Text(
-                    'No Customer Found',
+                    AppLocalizations.of(context).noCustomerFound,
                     style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   )
                 : SizedBox(),

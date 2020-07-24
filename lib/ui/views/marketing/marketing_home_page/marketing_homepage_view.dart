@@ -438,8 +438,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   : Flushbar(
                                       backgroundColor: BrandColors.primary,
                                       duration: const Duration(seconds: 3),
-                                      message:
-                                          'Select a customer from the list',
+                                      message: AppLocalizations.of(context)
+                                          .selectACustomerFromTheList,
                                       icon: Icon(
                                         Icons.info_outline,
                                         size: 28.0,

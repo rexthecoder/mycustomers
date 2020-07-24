@@ -43,7 +43,8 @@ class SendMessage extends StatelessWidget {
                                     textCapitalization: TextCapitalization.sentences,
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Field should not be empty';
+                                        return AppLocalizations.of(context)
+                                            .fieldShouldNotBeEmpty;
                                       }
                                       return null;
                                     },
@@ -92,7 +93,8 @@ class SendMessage extends StatelessWidget {
                                     textCapitalization: TextCapitalization.sentences,
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Field should not be empty';
+                                        return AppLocalizations.of(context)
+                                            .fieldShouldNotBeEmpty;
                                       }
                                       return null;
                                     },

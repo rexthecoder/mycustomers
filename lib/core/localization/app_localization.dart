@@ -329,6 +329,39 @@ class AppLocalizations {
   String get paymentDate => translate(LocalKeys.payment_date);
   String get addNewDebtor => translate(LocalKeys.add_new_debtor);
   String get addNewCreditor => translate(LocalKeys.add_new_creditor);
+  String get debtOf => translate(LocalKeys.debt_of);
+  String get creditOf => translate(LocalKeys.credit_of);
+  String get isDueToday => translate(LocalKeys.is_due_today);
+  String get downloading => translate(LocalKeys.downloading);
+  String get downloadCompletedToInternalStorage =>
+      translate(LocalKeys.download_completed_to_internal_storage);
+  String get languageSettings => translate(LocalKeys.language_settings);
+  String get expected => translate(LocalKeys.expected);
+  String get expectedIn => translate(LocalKeys.expected_in);
+  String get days => translate(LocalKeys.days);
+  String get daysAgo => translate(LocalKeys.days_ago);
+  String get weeks => translate(LocalKeys.weeks);
+  String get weeksAgo => translate(LocalKeys.weeks_ago);
+  String get overdue => translate(LocalKeys.overdue);
+  String get notPaid => translate(LocalKeys.not_paid);
+  String get paidYou => translate(LocalKeys.paid_you);
+  String get heading => translate(LocalKeys.heading);
+  String get youHaveThisMessagePendingToSend =>
+      translate(LocalKeys.you_have_this_message_pending_to_send);
+  String get yourReminderHasBeenSetSuccessfully =>
+      translate(LocalKeys.your_reminder_has_been_set_successfully);
+  String get frequentCustomers => translate(LocalKeys.frequent_customers);
+  String get selectACustomerFromTheList =>
+      translate(LocalKeys.select_a_customer_from_the_list);
+  String get enterAValidNumber => translate(LocalKeys.enter_a_valid_number);
+  String get retry => translate(LocalKeys.retry);
+  String get failedToSend => translate(LocalKeys.failed_to_send);
+  String get enterTitleOfMessage => translate(LocalKeys.enter_title_of_message);
+  String get youDeniedPermissionToYourContacts =>
+      translate(LocalKeys.you_denied_permission_to_your_contacts);
+  String get enterMessage => translate(LocalKeys.enter_message);
+  String get done => translate(LocalKeys.done);
+  String get seeAll => translate(LocalKeys.see_all);
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

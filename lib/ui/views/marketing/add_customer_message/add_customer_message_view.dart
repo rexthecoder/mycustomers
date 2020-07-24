@@ -42,6 +42,7 @@ class AddCustomerMessageView extends StatelessWidget {
       builder: (context, model, child) {
         model.getFrequentCustomers(frequent);
         return Scaffold(
+<<<<<<< HEAD
           appBar: customizeAppBar(
             context,
             0.0,
@@ -49,6 +50,11 @@ class AddCustomerMessageView extends StatelessWidget {
             arrowColor: BrandColors.secondary,
             backgroundColor: Theme.of(context).backgroundColor,
           ),
+=======
+          appBar: customizeAppBar(context, 0.0,
+              title: AppLocalizations.of(context).sendMessage,
+              arrowColor: BrandColors.secondary),
+>>>>>>> 6961b99094f01f377fd129ffee61f9ea9b07f372
 //        appBar: customizeAppBar(context, 0.0, title: 'Select contacts', arrowColor: BrandColors.secondary),
           body: Column(
             children: <Widget>[
@@ -67,7 +73,10 @@ class AddCustomerMessageView extends StatelessWidget {
                   ),
                   clipBehavior: Clip.hardEdge,
                   child: TextField(
+<<<<<<< HEAD
                     textCapitalization: TextCapitalization.sentences,
+=======
+>>>>>>> 6961b99094f01f377fd129ffee61f9ea9b07f372
                     controller: model.searchController,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context).typeCustomerName,
@@ -142,7 +151,11 @@ class AddCustomerMessageView extends StatelessWidget {
                               color: backgroundColor,
                               alignment: Alignment.centerLeft,
                               child: Text(
+<<<<<<< HEAD
                                 'FREQUENT CUSTOMERS',
+=======
+                                AppLocalizations.of(context).frequentCustomers,
+>>>>>>> 6961b99094f01f377fd129ffee61f9ea9b07f372
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
                             ),
@@ -391,7 +404,12 @@ class AddCustomerMessageView extends StatelessWidget {
                         : Flushbar(
                             backgroundColor: BrandColors.primary,
                             duration: const Duration(seconds: 3),
+<<<<<<< HEAD
                             message: 'Select a customer from the list',
+=======
+                            message: AppLocalizations.of(context)
+                                .selectACustomerFromTheList,
+>>>>>>> 6961b99094f01f377fd129ffee61f9ea9b07f372
                             icon: Icon(
                               Icons.info_outline,
                               size: 28.0,
@@ -800,7 +818,7 @@ class NewContactsHeader extends SliverPersistentHeaderDelegate {
 //                                  : 10.w
                       ),
                   child: Text(
-                    'Add New Customer',
+                    AppLocalizations.of(context).addNewCustomer,
                     style: TextStyle(
                         //todo:dreplace this
 //                                        color: model.allSelected
