@@ -51,8 +51,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
       decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(SizeConfig.xMargin(context, 8)),
-              topRight: Radius.circular(SizeConfig.xMargin(context, 8)))),
+              topLeft: Radius.circular(SizeConfig.xMargin(context, 7)),
+              topRight: Radius.circular(SizeConfig.xMargin(context, 7)))),
       child: Form(
         key: _businessFormPageKey,
         child: Column(
@@ -162,34 +162,59 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                     ),
                   ),
                   SizedBox(height: SizeConfig.yMargin(context, 4)),
+                  CustomRaisedButton(
+                    btnColor: BrandColors.primary,
+                    txtColor: ThemeColors.background,
+                    btnText: AppLocalizations.of(context).submitAndFinish,
+                    borderColor: BrandColors.primary,
+                    child: Container(),
+                    onPressed: () async {
+                      // viewModel.signUpTest();
+                      if (_businessFormPageKey.currentState.validate()) {
+                        //Dismiss keyboard during async call
+                        FocusScope.of(context).requestFocus(FocusNode());
+
+                        //Call Function to Signin
+                        viewModel.updateUserDeets(
+                            _fullName.text.trim(), _emailAddress.text.trim());
+                        viewModel.updateUser(
+                            _storeName.text.trim(), _storeAddress.text.trim());
+                      }
+                    },
+                  ),
+                  SizedBox(height: SizeConfig.yMargin(context, 6)),
+                  Container(
+                      width: SizeConfig.xMargin(context, 60),
+                      child: CustomizeProgressIndicator(4, 4)),
+                  SizedBox(height: SizeConfig.yMargin(context, 4)),
                 ],
               ),
             ),
-            CustomRaisedButton(
-              btnColor: BrandColors.primary,
-              txtColor: ThemeColors.background,
-              btnText: AppLocalizations.of(context).submitAndFinish,
-              borderColor: BrandColors.primary,
-              child: Container(),
-              onPressed: () async {
-                // viewModel.signUpTest();
-                if (_businessFormPageKey.currentState.validate()) {
-                  //Dismiss keyboard during async call
-                  FocusScope.of(context).requestFocus(FocusNode());
+            // CustomRaisedButton(
+            //   btnColor: BrandColors.primary,
+            //   txtColor: ThemeColors.background,
+            //   btnText: AppLocalizations.of(context).submitAndFinish,
+            //   borderColor: BrandColors.primary,
+            //   child: Container(),
+            //   onPressed: () async {
+            //     // viewModel.signUpTest();
+            //     if (_businessFormPageKey.currentState.validate()) {
+            //       //Dismiss keyboard during async call
+            //       FocusScope.of(context).requestFocus(FocusNode());
 
-                  //Call Function to Signin
-                  viewModel.updateUserDeets(
-                      _fullName.text.trim(), _emailAddress.text.trim());
-                  viewModel.updateUser(
-                      _storeName.text.trim(), _storeAddress.text.trim());
-                }
-              },
-            ),
-            SizedBox(height: SizeConfig.yMargin(context, 6)),
-            Container(
-                width: SizeConfig.xMargin(context, 60),
-                child: CustomizeProgressIndicator(4, 4)),
-            SizedBox(height: SizeConfig.yMargin(context, 4)),
+            //       //Call Function to Signin
+            //       viewModel.updateUserDeets(
+            //           _fullName.text.trim(), _emailAddress.text.trim());
+            //       viewModel.updateUser(
+            //           _storeName.text.trim(), _storeAddress.text.trim());
+            //     }
+            //   },
+            // ),
+            // SizedBox(height: SizeConfig.yMargin(context, 6)),
+            // Container(
+            //     width: SizeConfig.xMargin(context, 60),
+            //     child: CustomizeProgressIndicator(4, 4)),
+            // SizedBox(height: SizeConfig.yMargin(context, 4)),
           ],
         ),
       ),

@@ -104,7 +104,7 @@ class AddNewCustomerView extends StatelessWidget {
                             ),
                             Expanded(
                               child: TextField(
-                                keyboardType: TextInputType.numberWithOptions(),
+                                keyboardType: TextInputType.number,
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   hintText:
