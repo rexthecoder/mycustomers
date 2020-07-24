@@ -9,7 +9,6 @@ import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 
 class MainViewModel extends ReactiveViewModel {
   /// Fields
@@ -21,7 +20,7 @@ class MainViewModel extends ReactiveViewModel {
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
   final _customerContactService = locator<CustomerContactService>();
 
-  final Duration duration = const Duration(milliseconds: 500);
+  final Duration duration = const Duration(milliseconds: 300);
   List<Store> _stores = StoreRepository.stores;
   Map<String, int> _customers = {};
 

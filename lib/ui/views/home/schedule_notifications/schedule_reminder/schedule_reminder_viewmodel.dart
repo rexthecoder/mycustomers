@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
+import 'dart:math';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
+import 'package:uuid/uuid.dart';
 
 class ScheduleNotificationsViewModel extends BaseViewModel {
   final dformat = new DateFormat('MMM dd, yyyy');
@@ -11,6 +15,9 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
   int _selectedMonth;
   dynamic _selectedTime;
   DateTime _today = DateTime.now();
+  NotificationRemindersService reminders = NotificationRemindersService();
+  // This is temporary to give each notification a unique id
+  int id = Random().nextInt(100);
 
   int get selectedDay => _selectedDay;
   setSelectedDay(int selectedDay) => _selectedDay = selectedDay;
@@ -25,6 +32,11 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
     scheduledDate = date;
     newDate = dformat.format(date);
     notifyListeners();
+  }
+
+  void scheduleReminder(String heading) {
+    reminders.sendNotificationOnce(id, 'You have this pending message to send',
+        'Heading: ' + heading, getDateTime());
   }
 
   // When time picker is added to the screen,

@@ -8,7 +8,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:stacked_services/stacked_services.dart';
-
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'create_business_viewmodel.dart';
 
 Widget createBusinessDialog(BuildContext context, DialogRequest request) {
@@ -35,19 +35,10 @@ class CreateBusinessView extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).backgroundColor,
           body: _PartialCreateBusinessBuildForm(),
-          appBar: AppBar(
-            iconTheme: IconThemeData(color: BrandColors.primary),
-            backgroundColor: Theme.of(context).backgroundColor,
-            centerTitle: true,
-            elevation: 0,
-            title: Text(
-              'Add Business',
-              style: TextStyle(
-                color: Theme.of(context).cursorColor,
-                fontSize: SizeConfig.textSize(context, 6),
-              ),
-            ),
-          ),
+          appBar: customizeAppBar(context, 0,
+              title: 'Add Business',
+              arrowColor: Theme.of(context).textSelectionColor,
+              backgroundColor: Theme.of(context).backgroundColor),
         ),
       ),
       viewModelBuilder: () => CreateBusinessViewModel(),
@@ -56,8 +47,10 @@ class CreateBusinessView extends StatelessWidget {
 }
 // }
 
-class _PartialCreateBusinessBuildForm extends HookViewModelWidget<CreateBusinessViewModel> {
-  static final _businessFormPageKey = GlobalKey<FormState>(debugLabel: 'businessForm');
+class _PartialCreateBusinessBuildForm
+    extends HookViewModelWidget<CreateBusinessViewModel> {
+  static final _businessFormPageKey =
+      GlobalKey<FormState>(debugLabel: 'businessForm');
 
   _PartialCreateBusinessBuildForm({Key key}) : super(key: key, reactive: false);
 
@@ -83,6 +76,8 @@ class _PartialCreateBusinessBuildForm extends HookViewModelWidget<CreateBusiness
                 height: SizeConfig.yMargin(context, 5),
               ),
               TextFormField(
+                autofocus: true,
+                textCapitalization: TextCapitalization.sentences,
                 key: Key('businessName'),
                 controller: _businessNameController,
                 onChanged: (value) => viewModel.updateStoreName(value),
@@ -113,13 +108,14 @@ class _PartialCreateBusinessBuildForm extends HookViewModelWidget<CreateBusiness
                 height: SizeConfig.yMargin(context, 3),
               ),
               TextFormField(
+                textCapitalization: TextCapitalization.sentences,
                 key: Key('businessDesc'),
                 controller: _aboutBusinessController,
                 maxLines: 6,
                 minLines: 4,
                 onChanged: (value) => viewModel.updateStoreAddress(value),
                 validator: (value) =>
-                    (value.isEmpty) ? "Please enter about business" : null,
+                    (value.isEmpty) ? "Please enter business address" : null,
                 style: TextStyle(
                   fontSize: SizeConfig.textSize(context, 5),
                   color: Theme.of(context).cursorColor,
@@ -138,7 +134,7 @@ class _PartialCreateBusinessBuildForm extends HookViewModelWidget<CreateBusiness
                     fontSize: SizeConfig.textSize(context, 5),
                     color: Theme.of(context).cursorColor.withOpacity(0.5),
                   ),
-                  labelText: "About Business",
+                  labelText: "Business Address",
                   border: OutlineInputBorder(),
                 ),
               ),

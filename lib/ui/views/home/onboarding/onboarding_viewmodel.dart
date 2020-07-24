@@ -12,14 +12,21 @@ class OnboardingViewModel extends BaseViewModel {
   final pageController = new PageController(initialPage: 0);
   Timer _animationTimer;
 
+  int _animeTimerSecs = 5;
+  int _pageAnimeSecs = 350;
+
+  int get animeSecs => _animeTimerSecs;
+  int get pageAnimeSecs => _pageAnimeSecs;
+
   //Init State
   void initState() {
-    _animationTimer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    _animationTimer =
+        Timer.periodic(Duration(seconds: animeSecs), (Timer timer) {
       currentIndex < 4 ? currentIndex++ : currentIndex = 0;
 
       pageController.animateToPage(
         currentIndex,
-        duration: Duration(milliseconds: 350),
+        duration: Duration(milliseconds: pageAnimeSecs),
         curve: Curves.easeIn,
       );
     });

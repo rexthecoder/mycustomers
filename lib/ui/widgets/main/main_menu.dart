@@ -28,9 +28,8 @@ class MainMenu extends HookViewModelWidget<MainViewModel> {
         },
         onTap: () => model.updateMenu(),
         child: Scaffold(
-          backgroundColor:
-              ThemeColors.black.withOpacity(model.isCollapsed ? 0 : 0.7),
-          body: GestureDetector(onTap: (){},child: BusinessMenu()),
+          backgroundColor: Colors.transparent,
+          body: BusinessMenu(),
         ),
       ),
     );

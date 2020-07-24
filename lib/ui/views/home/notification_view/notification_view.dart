@@ -20,7 +20,8 @@ class NotificationsView extends StatelessWidget {
               child: Scaffold(
                   appBar: customizeAppBar(context, 0.0,
                       title: AppLocalizations.of(context).notifications,
-                      arrowColor: BrandColors.primary),
+                      arrowColor: BrandColors.primary,
+                      backgroundColor: Theme.of(context).backgroundColor),
                   body: Column(
                     children: <Widget>[
                       Container(

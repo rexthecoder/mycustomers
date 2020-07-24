@@ -545,7 +545,11 @@ class AddDebtCreditView extends StatelessWidget {
                                                                     .easeOut);
                                                           }
                                                         },
-                                                        child: TextField(
+                                                        child: TextFormField(
+                                                          textCapitalization:
+                                                              TextCapitalization
+                                                                  .sentences,
+
                                                           focusNode:
                                                               model.descFocus,
                                                           //controller: _controller,
@@ -650,7 +654,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                 //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
                                               }
                                             },
-                                            child: TextField(
+                                            child: TextFormField(
+                                              textCapitalization:
+                                                  TextCapitalization.sentences,
                                               controller:
                                                   model.searchController,
                                               maxLines: null,

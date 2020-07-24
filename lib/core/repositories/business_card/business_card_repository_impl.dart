@@ -41,9 +41,9 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
         personalName: '${user.firstName == null ? '' : user.firstName + ' '}${user.lastName ?? ''}' ??
             BusinessCardH.empty().personalName,
         phoneNumber: user.phoneNumber ?? BusinessCardH.empty().phoneNumber,
-        emailAddress: user.email ?? '', // BusinessCardH.empty().emailAddress,
+        emailAddress: user.email ?? BusinessCardH.empty().emailAddress,
         address: store.address ?? BusinessCardH.empty().address,
-        tagLine: store.tagline ?? '', // BusinessCardH.empty().tagLine,
+        tagLine: store.tagline ?? BusinessCardH.empty().tagLine,
         position: BusinessCardH.empty().position,
         cardDesign: BusinessCardH.empty().cardDesign,
       );

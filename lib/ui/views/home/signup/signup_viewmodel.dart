@@ -60,10 +60,10 @@ class SignUpViewModel extends BaseViewModel with Validators {
     try {
       await _authService.signUpWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(
-        message: 'Your account has been created successfully',
-        success: true,
-      );
+      // showToastCustom(
+      //   message: 'Your account has been created successfully',
+      //   success: true,
+      // );
       busy = false;
       unawaited(completeSignup());
     } on AuthException catch (e) {

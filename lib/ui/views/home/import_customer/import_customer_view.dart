@@ -260,6 +260,7 @@ class __SearchBarState extends State<_SearchBar> {
       ),
       clipBehavior: Clip.hardEdge,
       child: TextField(
+        textCapitalization: TextCapitalization.sentences,
         controller: widget.model.searchController,
         decoration: InputDecoration(
           hintText: AppLocalizations.of(context).search,

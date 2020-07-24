@@ -8,10 +8,10 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 /// - Title
 /// - Elevation
 Widget customizeAppBar(BuildContext context, double elevation,
-    {Color arrowColor, String title, List<Widget> children}) {
+    {Color arrowColor, String title, List<Widget> children, Color backgroundColor}) {
   return AppBar(
-    brightness: Brightness.light,
-    backgroundColor: Theme.of(context).backgroundColor,
+    brightness: Brightness.dark,
+    backgroundColor: backgroundColor,
     elevation: elevation,
     centerTitle: true,
     title: Text(

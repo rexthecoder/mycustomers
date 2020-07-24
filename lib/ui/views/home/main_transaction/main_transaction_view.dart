@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -275,13 +276,27 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                      SavedDialog().showPdfDialog(context);
-                                      // ReceiptReport().buildPdf(context);
-                                      // await ReceiptReport()
-                                      //     .generateReport(context);
+                                      Flushbar(
+                                        backgroundColor: BrandColors.primary,
+                                        duration: const Duration(seconds: 3),
+                                        message: 'PDF Feature coming soon',
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          size: 28.0,
+                                          color: ThemeColors.background,
+                                        ),
+                                        leftBarIndicatorColor: Colors.blue[300],
+                                      ).show(context);
+                                     
+                                      // SavedDialog().showPdfDialog(context);
+
+                                      // // ReceiptReport().buildPdf(context);
+                                      // // await ReceiptReport()
+                                      // //     .generateReport(context);
                                     },
                                     child: Container(
-                                      width: SizeConfig.xMargin(context, 100) * 0.3,
+                                      width: SizeConfig.xMargin(context, 100) *
+                                          0.3,
                                       child: Column(
                                         children: <Widget>[
                                           Container(
@@ -316,7 +331,8 @@ class MainTransaction extends StatelessWidget {
                                   InkWell(
                                     onTap: () {}, //Todo: Call Functionality
                                     child: Container(
-                                      width: SizeConfig.xMargin(context, 100) * 0.3,
+                                      width: SizeConfig.xMargin(context, 100) *
+                                          0.3,
                                       child: Column(
                                         children: <Widget>[
                                           Container(
@@ -352,7 +368,8 @@ class MainTransaction extends StatelessWidget {
                                       model.navigateToSchedule();
                                     },
                                     child: Container(
-                                      width: SizeConfig.xMargin(context, 100) * 0.3,
+                                      width: SizeConfig.xMargin(context, 100) *
+                                          0.3,
                                       child: Column(
                                         children: <Widget>[
                                           Container(

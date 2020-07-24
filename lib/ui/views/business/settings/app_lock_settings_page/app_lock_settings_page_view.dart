@@ -16,7 +16,8 @@ class AppLockSettingsPageView extends StatelessWidget {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
               title: AppLocalizations.of(context).appLock,
-              arrowColor: BrandColors.primary),
+              arrowColor: BrandColors.primary,
+              backgroundColor: Theme.of(context).backgroundColor),
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: <Widget>[

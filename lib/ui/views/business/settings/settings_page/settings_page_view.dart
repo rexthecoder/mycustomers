@@ -21,7 +21,8 @@ class SettingsPage extends StatelessWidget {
               backgroundColor: Theme.of(context).backgroundColor,
               appBar: customizeAppBar(context, 1.0,
                   title: AppLocalizations.of(context).settings,
-                  arrowColor: BrandColors.primary),
+                  arrowColor: BrandColors.primary,
+                  backgroundColor: Theme.of(context).backgroundColor),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(

@@ -5,19 +5,24 @@ import 'package:stacked_services/stacked_services.dart';
 
 class LanguageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-   
-   List get languages => _supportedLanguages;
+
+  List get languages => _supportedLanguages;
 
   List<Map<String, String>> _supportedLanguages = [
-    {'image': 'assets/languages/icons/uk.png','code': 'en', 'name': 'English'},
-    {'image': 'assets/languages/icons/fr.png','code': 'fr', 'name': 'Francias'},
-    {'image': 'assets/languages/icons/de.png','code': 'de', 'name': 'German'},
-    {'image': 'assets/languages/icons/ar.png','code': 'ar', 'name': 'Arabic'},
-    // {'image': 'assets/languages/icons/ng.png','code': 'yo', 'name': 'Yoruba'},
-    {'image': 'assets/languages/icons/es.png','code': 'es', 'name': 'Spanish'},
-    // {'image': 'assets/languages/icons/ng.png','code': 'ig', 'name': 'Igbo'},
-    {'image': 'assets/languages/icons/hi.png','code': 'hi', 'name': 'Hindu'},
-    ];
+    {'image': 'assets/languages/icons/uk.png', 'code': 'en', 'name': 'English'},
+    {
+      'image': 'assets/languages/icons/fr.png',
+      'code': 'fr',
+      'name': 'Francias'
+    },
+    {'image': 'assets/languages/icons/de.png', 'code': 'de', 'name': 'German'},
+    // {'image': 'assets/languages/icons/ng.png', 'code': 'ha', 'name': 'Hausa'},
+    {'image': 'assets/languages/icons/ar.png', 'code': 'ar', 'name': 'Arabic'},
+    // {'image': 'assets/languages/icons/ng.png', 'code': 'yo', 'name': 'Yoruba'},
+    {'image': 'assets/languages/icons/es.png', 'code': 'es', 'name': 'Spanish'},
+    // {'image': 'assets/languages/icons/ng.png', 'code': 'ig', 'name': 'Igbo'},
+    {'image': 'assets/languages/icons/hi.png', 'code': 'hi', 'name': 'Hindu'},
+  ];
 
   // Future<void> setLanguage(int index) async {
   //   await locator<IStorageUtil>()
@@ -29,7 +34,4 @@ class LanguageViewModel extends BaseViewModel {
     await Future.value();
     await _navigationService.clearStackAndShow(Routes.signupViewRoute);
   }
-  
-
-  
 }

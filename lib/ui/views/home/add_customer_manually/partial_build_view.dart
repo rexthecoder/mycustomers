@@ -92,6 +92,7 @@ class _StringForm extends HookViewModelWidget<PartialBuildsViewModel> {
                 Expanded(
                   child: Center(
                     child: TextField(
+                      textCapitalization: TextCapitalization.sentences,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context).enterName,
@@ -144,6 +145,7 @@ class _StringForm extends HookViewModelWidget<PartialBuildsViewModel> {
                             left: BorderSide(color: Color(0xff77869e))))),
                 Expanded(
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context).mobileNumber,

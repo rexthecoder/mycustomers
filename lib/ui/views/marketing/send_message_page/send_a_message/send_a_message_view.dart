@@ -33,7 +33,8 @@ class SendAMessage extends StatelessWidget {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
               title: AppLocalizations.of(context).sendAMessage,
-              arrowColor: BrandColors.secondary),
+              arrowColor: BrandColors.secondary,
+              backgroundColor: Theme.of(context).backgroundColor),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SingleChildScrollView(
             child: Padding(

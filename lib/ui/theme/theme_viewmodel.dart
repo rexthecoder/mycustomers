@@ -34,10 +34,10 @@ class SettingManagerModel extends MultipleStreamViewModel {
     // print('Setting locale...\nValue is $localeCode');
     await _su.saveString(AppPreferenceKey.SELECTED_LOCALE, localeCode);
     await _su.saveString(AppPreferenceKey.USER_PREF_LANGUAGE, language);
-    showToastCustom(
-      message: 'Your language has been changed successfully',
-      success: true,
-    );
+    // showToastCustom(
+    //   message: 'Your language has been changed successfully',
+    //   success: true,
+    // );
     _logService.getValues(null, DateTime.now(), 'lang-change', '', false);
     notifyListeners();
   }

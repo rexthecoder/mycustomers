@@ -6,10 +6,12 @@ import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/core/pdf/receipt_report_view.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 
 class TransactionDetails extends StatelessWidget {
   final Color color = BrandColors.primary;
@@ -27,26 +29,29 @@ class TransactionDetails extends StatelessWidget {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(70),
             child: AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                }, //TODO: implement backbutton
-                icon: Icon(
-                  Icons.keyboard_backspace,
-                  size: 50.sp,
-                  color: Colors.white,
-                ),
-              ),
+              brightness: Brightness.dark,
+              backgroundColor: BrandColors.primary,
+              elevation: 0,
+              centerTitle: true,
               title: Text(
                 AppLocalizations.of(context).transactionDetails,
-                style: TextStyle(
-                    fontSize: 40.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontSize: SizeConfig.textSize(context, 5),
+                  color: Theme.of(context).backgroundColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              centerTitle: true,
-              backgroundColor: BrandColors.primary,
-            ),
+              leading: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                  child: SvgPicture.asset(
+                    'assets/icons/backarrow.svg',
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+              ),
+            )
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -58,7 +63,8 @@ class TransactionDetails extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                           // color: containerColor,
-                          border: Border.all(color: Theme.of(context).textSelectionColor),
+                          border: Border.all(
+                              color: Theme.of(context).textSelectionColor),
                           borderRadius: BorderRadius.circular(15.sp)),
                       margin: EdgeInsets.only(
                           left: 50.w, right: 50.w, top: 40.h, bottom: 0.0),
@@ -88,7 +94,8 @@ class TransactionDetails extends StatelessWidget {
                                           )
                                         : CircleAvatar(
                                             radius: 30,
-                                            backgroundColor: Theme.of(context).textSelectionColor,
+                                            backgroundColor: Theme.of(context)
+                                                .textSelectionColor,
                                             backgroundImage: AssetImage(
                                                 'assets/images/man.png'),
                                           ),
@@ -132,7 +139,8 @@ class TransactionDetails extends StatelessWidget {
                                       right: 30.sp,
                                       bottom: 40.sp),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Column(
                                         crossAxisAlignment:
@@ -171,7 +179,8 @@ class TransactionDetails extends StatelessWidget {
                                         ],
                                       ),
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             model.transaction.amount != null
@@ -179,7 +188,8 @@ class TransactionDetails extends StatelessWidget {
                                                 : '₦0',
                                             // textAlign: TextAlign.end,
                                             style: TextStyle(
-                                                color: Theme.of(context).textSelectionColor,
+                                                color: Theme.of(context)
+                                                    .textSelectionColor,
                                                 fontFamily: 'Roboto',
                                                 fontSize: 30.sp),
                                           ),
@@ -190,7 +200,7 @@ class TransactionDetails extends StatelessWidget {
                                             model.transaction.paid != null
                                                 ? '₦${currency.format(model.transaction.paid)}'
                                                 : '₦0',
-                                           // textAlign: TextAlign.end,
+                                            // textAlign: TextAlign.end,
                                             style: TextStyle(
                                                 color: Colors.green,
                                                 fontFamily: 'Roboto',
@@ -209,157 +219,16 @@ class TransactionDetails extends StatelessWidget {
                                                         0
                                                 ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
                                                 : '₦0',
-                                           // textAlign: TextAlign.end,
+                                            // textAlign: TextAlign.end,
                                             style: TextStyle(
                                                 color: Colors.red[800],
                                                 fontFamily: 'Roboto',
                                                 fontSize: 30.sp),
                                           ),
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              model.transaction.amount !=
-                                                          null &&
-                                                      model.transaction.paid !=
-                                                          null &&
-                                                      (model.transaction
-                                                                  .amount -
-                                                              model.transaction
-                                                                  .paid) >
-                                                          0
-                                                  ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
-                                                  : '₦0',
-                                              textAlign: TextAlign.end,
-                                              style: TextStyle(
-                                                  color: Colors.red[800],
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 30.sp),
-                                            ),
-                                          )
                                         ],
                                       )
                                     ],
-                                  )
-                                  //Column(
-                                  //   mainAxisSize: MainAxisSize.min,
-                                  //   mainAxisAlignment: MainAxisAlignment.start,
-                                  //   children: <Widget>[
-                                  //     Container(
-                                  //       child: Row(
-                                  //         children: <Widget>[
-                                  //           Expanded(
-                                  //             flex: 20,
-                                  //             child: Text(
-                                  //               AppLocalizations.of(context)
-                                  //                   .costOfItems,
-                                  //               textAlign: TextAlign.end,
-                                  //               style: TextStyle(
-                                  //                   color: Colors.grey[600],
-                                  //                   fontSize: 30.sp),
-                                  //             ),
-                                  //           ),
-                                  //           SizedBox(
-                                  //             width: 10.w,
-                                  //           ),
-                                  //           Expanded(
-                                  //             flex: 30,
-                                  //             child: Text(
-                                  //               model.transaction.amount != null
-                                  //                   ? '₦${currency.format(model.transaction.amount)}'
-                                  //                   : '₦0',
-                                  //               textAlign: TextAlign.end,
-                                  //               style: TextStyle(
-                                  //                   color: color,
-                                  //                   fontFamily: 'Roboto',
-                                  //                   fontSize: 30.sp),
-                                  //             ),
-                                  //           )
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       height: 20.h,
-                                  //     ),
-                                  //     Container(
-                                  //       child: Row(
-                                  //         children: <Widget>[
-                                  //           Expanded(
-                                  //             flex: 20,
-                                  //             child: Text(
-                                  //               AppLocalizations.of(context)
-                                  //                   .amountPaid,
-                                  //               textAlign: TextAlign.end,
-                                  //               style: TextStyle(
-                                  //                   color: Colors.grey[600],
-                                  //                   fontSize: 30.sp),
-                                  //             ),
-                                  //           ),
-                                  //           SizedBox(
-                                  //             width: 10.w,
-                                  //           ),
-                                  //           Expanded(
-                                  //             flex: 30,
-                                  //             child: Text(
-                                  //               model.transaction.paid != null
-                                  //                   ? '₦${currency.format(model.transaction.paid)}'
-                                  //                   : '₦0',
-                                  //               textAlign: TextAlign.end,
-                                  //               style: TextStyle(
-                                  //                   color: Colors.green,
-                                  //                   fontFamily: 'Roboto',
-                                  //                   fontSize: 30.sp),
-                                  //             ),
-                                  //           )
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       height: 40.h,
-                                  //     ),
-                                  //     Container(
-                                  //       child: Row(
-                                  //         children: <Widget>[
-                                  //           Expanded(
-                                  //             flex: 20,
-                                  //             child: Text(
-                                  //               AppLocalizations.of(context)
-                                  //                   .amountOwing,
-                                  //               textAlign: TextAlign.end,
-                                  //               style: TextStyle(
-                                  //                   color: Colors.grey[600],
-                                  //                   fontSize: 30.sp),
-                                  //             ),
-                                  //           ),
-                                  //           SizedBox(
-                                  //             width: 10.w,
-                                  //           ),
-                                  //           Expanded(
-                                  //             flex: 30,
-                                  //             child: Text(
-                                  //               model.transaction.amount !=
-                                  //                           null &&
-                                  //                       model.transaction.paid !=
-                                  //                           null &&
-                                  //                       (model.transaction
-                                  //                                   .amount -
-                                  //                               model.transaction
-                                  //                                   .paid) >
-                                  //                           0
-                                  //                   ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
-                                  //                   : '₦0',
-                                  //               textAlign: TextAlign.end,
-                                  //               style: TextStyle(
-                                  //                   color: Colors.red[800],
-                                  //                   fontFamily: 'Roboto',
-                                  //                   fontSize: 30.sp),
-                                  //             ),
-                                  //           )
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  ),
+                                  )),
                             ],
                           ),
                         ],
@@ -383,8 +252,7 @@ class TransactionDetails extends StatelessWidget {
                         decoration: BoxDecoration(
                             //color: containerColor,
                             border: Border.all(
-                              color: Theme.of(context).textSelectionColor
-                            ),
+                                color: Theme.of(context).textSelectionColor),
                             borderRadius: BorderRadius.circular(10.sp)),
                         child: Center(
                           child: Text(
