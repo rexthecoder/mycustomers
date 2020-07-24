@@ -61,7 +61,8 @@ class MessageView extends StatelessWidget {
                   TextField(
                     controller: model.titleController,
                     decoration: InputDecoration(
-                      hintText: 'Enter Title of message',
+                      hintText:
+                          AppLocalizations.of(context).enterTitleOfMessage,
                       hintStyle: TextStyle(fontSize: 16.sp),
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: ThemeColors.gray)),
@@ -82,7 +83,7 @@ class MessageView extends StatelessWidget {
                   TextField(
                     controller: model.messageController,
                     decoration: InputDecoration(
-                      hintText: 'Enter message',
+                      hintText: AppLocalizations.of(context).enterMessage,
                       hintStyle: TextStyle(fontSize: 16.sp),
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: ThemeColors.gray)),
@@ -111,8 +112,13 @@ class MessageView extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               length == 1
-                                  ? '$length ' + AppLocalizations.of(context).selectedCustomer
-                                  : '$length ' + AppLocalizations.of(context).selectedCustomer + 's',
+                                  ? '$length ' +
+                                      AppLocalizations.of(context)
+                                          .selectedCustomer
+                                  : '$length ' +
+                                      AppLocalizations.of(context)
+                                          .selectedCustomer +
+                                      's',
                               style: TextStyle(fontSize: 16.sp),
                             ),
                             FlatButton.icon(
@@ -273,8 +279,8 @@ class MessageView extends StatelessWidget {
                               Flushbar(
                                 backgroundColor: BrandColors.primary,
                                 duration: const Duration(seconds: 3),
-                                message:
-                                    'You denied permission to your contacts',
+                                message: AppLocalizations.of(context)
+                                    .youDeniedPermissionToYourContacts,
                                 icon: Icon(
                                   Icons.info_outline,
                                   size: 28.0,
@@ -434,7 +440,7 @@ class MessageView extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      'Failed to send!',
+                      AppLocalizations.of(context).failedToSend,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.sp,
@@ -459,7 +465,7 @@ class MessageView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Retry',
+                              AppLocalizations.of(context).retry,
                               style: TextStyle(
                                 color: Color(0xFF333CC1),
                                 fontSize: 16.sp,
@@ -515,7 +521,7 @@ class BottomSheetView extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        'Done',
+                        AppLocalizations.of(context).done,
                         style: TextStyle(
                           fontSize: SizeConfig.textSize(context, 3.5),
                           color: BrandColors.primary,
@@ -571,7 +577,9 @@ class BottomSheetView extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                   child: Text(
-                                    'PHONE CONTACTS',
+                                    AppLocalizations.of(context)
+                                        .phoneContacts
+                                        .toUpperCase(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600),
                                   ),

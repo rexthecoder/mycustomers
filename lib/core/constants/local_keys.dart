@@ -270,4 +270,37 @@ class LocalKeys {
   static const payment_date = 'payment-date';
   static const add_new_debtor = 'add-new-debtor';
   static const add_new_creditor = 'add-new-creditor';
+  static const debt_of = 'debt-of';
+  static const credit_of = 'credit-of';
+  static const is_due_today = 'is-due-today';
+  static const downloading = 'downloading';
+  static const download_completed_to_internal_storage =
+      'download-completed-to-internal-storage';
+  static const language_settings = 'language-settings';
+  static const expected = 'expected';
+  static const expected_in = 'expected-in';
+  static const days = 'days';
+  static const days_ago = 'days-ago';
+  static const weeks = 'weeks';
+  static const weeks_ago = 'weeks-ago';
+  static const overdue = 'overdue';
+  static const not_paid = 'not-paid';
+  static const paid_you = 'paid-you';
+  static const heading = 'heading';
+  static const you_have_this_message_pending_to_send =
+      'you-have-this-message-pending-to-send';
+  static const your_reminder_has_been_set_successfully =
+      'your-reminder-has-been-set-successfully';
+  static const frequent_customers = 'frequent-customers';
+  static const select_a_customer_from_the_list =
+      'select-a-customer-from-the-list';
+  static const enter_a_valid_number = 'enter-a-valid-number';
+  static const retry = 'retry';
+  static const failed_to_send = 'failed-to-send';
+  static const enter_title_of_message = 'enter-title-of-message';
+  static const you_denied_permission_to_your_contacts =
+      'you-denied-permission-to-your-contacts';
+  static const enter_message = 'enter-message';
+  static const done = 'done';
+  static const see_all = 'see-all';
 }
