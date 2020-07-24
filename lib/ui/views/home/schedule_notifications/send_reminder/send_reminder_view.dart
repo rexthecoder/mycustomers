@@ -9,11 +9,11 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
 class SendMessage extends StatelessWidget {
+  final headingController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    // var height = MediaQuery.of(context).size.height;
-    // var width = MediaQuery.of(context).size.width;
-    // ScreenUtil.init(context, width: width, height: height);
+    
     var _formKey = GlobalKey<FormState>();
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (context, model, child) {
@@ -40,6 +40,7 @@ class SendMessage extends StatelessWidget {
                               children: <Widget>[
                                 Container(
                                   child: TextFormField(
+                                    controller: headingController,
                                     textCapitalization: TextCapitalization.sentences,
                                     validator: (value) {
                                       if (value.isEmpty) {
@@ -85,7 +86,7 @@ class SendMessage extends StatelessWidget {
                                 SizedBox(
                                     height: SizeConfig.yMargin(context, 6),
                                     child:
-                                        messageSnippetHolder(context, model)),
+                                        messageSnippetHolder(context, model, headingController)),
                                 SizedBox(
                                     height: SizeConfig.yMargin(context, 5)),
                                 Container(
@@ -140,7 +141,7 @@ class SendMessage extends StatelessWidget {
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 3)),
                 Container(
-                  height: 50.h,
+                  height: 50,
                   color: Theme.of(context).backgroundColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,7 +159,7 @@ class SendMessage extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(width: 10.w),
+                      SizedBox(width: 10),
                       Expanded(
                         child: CustomRaisedButton(
                           txtColor: ThemeColors.background,
@@ -187,7 +188,7 @@ class SendMessage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 30),
               ],
             ),
           ),
@@ -199,13 +200,16 @@ class SendMessage extends StatelessWidget {
 }
 
 Widget messageSnippet(
-    String value, SendMessageViewModel model, BuildContext context) {
+    String value, SendMessageViewModel model, BuildContext context, TextEditingController controllerValue) {
   return Container(
       margin: EdgeInsets.only(left: SizeConfig.yMargin(context, 1.2)),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50), color: ThemeColors.unselect),
       child: FlatButton(
-          onPressed: () => print('Button has been pressed'),
+          onPressed: (){
+            model.updateFieldValue(value);
+            controllerValue.text=model.controllerValue;
+          } ,
           child: Text(
             value,
             textAlign: TextAlign.center,
@@ -215,12 +219,12 @@ Widget messageSnippet(
           )));
 }
 
-Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model) {
+Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model, TextEditingController controllerValue) {
   return ListView.builder(
       itemCount: model.messageEntries.length,
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
       itemBuilder: (context, int index) {
-        return messageSnippet(model.messageEntries[index], model, context);
+        return messageSnippet(model.messageEntries[index], model, context,controllerValue);
       });
 }
