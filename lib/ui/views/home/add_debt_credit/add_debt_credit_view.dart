@@ -529,7 +529,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                                 model
                                                                     .controller
                                                                     .position
-                                                                    .maxScrollExtent,
+                                                                    .maxScrollExtent - 90,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:
@@ -725,7 +725,7 @@ class AddDebtCreditView extends StatelessWidget {
                                       height: model.name != null
                                           ? 0
                                           : SizeConfig.yMargin(context, 100) *
-                                              0.48,
+                                              0.33,
                                     ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames
