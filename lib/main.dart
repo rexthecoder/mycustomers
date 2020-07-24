@@ -140,7 +140,9 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
       localeResolutionCallback: loadSupportedLocals,
-      initialRoute: Routes.startupViewRoute,
+      initialRoute: Routes.createReceipt,
+      // Change Route for Aysha to easily use, Change back to default, to continue working
+      // Routes.startupViewRoute,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
