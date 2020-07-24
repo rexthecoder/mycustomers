@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dropdown.dart';
 import 'package:country_pickers/utils/utils.dart';
@@ -44,6 +43,7 @@ class BusinessCardPageView extends StatelessWidget {
             0,
             title: AppLocalizations.of(context).buisnessCard,
             arrowColor: Theme.of(context).textSelectionColor,
+            backgroundColor: Theme.of(context).backgroundColor
           ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
@@ -232,12 +232,13 @@ class BottomSheetButtons extends StatelessWidget {
                   model.imageFile = image;
                   FlushbarHelper.createSuccess(
                     duration: const Duration(seconds: 5),
-                    message: 'downloading...',
+                    message: AppLocalizations.of(context).downloading,
                   ).show(context);
                   model.downloadImage();
                   FlushbarHelper.createSuccess(
                     duration: const Duration(seconds: 5),
-                    message: 'Download Completed to internalStorage/myCustomer',
+                    message: AppLocalizations.of(context)
+                        .downloadCompletedToInternalStorage,
                   ).show(context);
                 }).catchError((onError) {
                   FlushbarHelper.createError(
@@ -301,7 +302,7 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
               }
               return null;
             },
-            label: "Phone Number",
+            label: AppLocalizations.of(context).phoneNumber,
             onChange: (PhoneNumber value) =>
                 model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
@@ -324,7 +325,7 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
               }
               return null;
             },
-            label: "Shop/Office Address",
+            label: AppLocalizations.of(context).shopAddress,
             onChange: (value) {
               model.updateBusinessCard(address: value);
             },
@@ -362,6 +363,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
           borderRadius: BorderRadius.circular(SizeConfig.yMargin(context, 0.5)),
         ),
         child: TextFormField(
+          textCapitalization: TextCapitalization.sentences,
           onChanged: onChange,
           validator: validate,
           cursorColor: ThemeColors.gray[800],

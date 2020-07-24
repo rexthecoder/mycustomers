@@ -32,7 +32,8 @@ class ProfilePageView extends StatelessWidget {
                   )
                 ],
                 title: AppLocalizations.of(context).profile,
-                arrowColor: BrandColors.primary),
+                arrowColor: BrandColors.primary,
+                backgroundColor: Theme.of(context).backgroundColor),
             body: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,6 +78,7 @@ class ProfilePageView extends StatelessWidget {
                                 SizedBox(width: 30),
                                 Expanded(
                                   child: TextField(
+                                    textCapitalization: TextCapitalization.sentences,
                                     autofocus: false,
                                     controller: _userName,
                                     textAlign: TextAlign.left,
@@ -102,6 +104,7 @@ class ProfilePageView extends StatelessWidget {
                                 SizedBox(width: 18),
                                 Expanded(
                                   child: TextField(
+                                    textCapitalization: TextCapitalization.sentences,
                                     autofocus: false,
                                     controller: _businessName,
                                     textAlign: TextAlign.left,

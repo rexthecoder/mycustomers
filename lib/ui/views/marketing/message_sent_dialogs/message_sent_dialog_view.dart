@@ -44,7 +44,7 @@ class MessageDialogView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                               AppLocalizations.of(context).send,
+                              AppLocalizations.of(context).send,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16.sp,
@@ -90,7 +90,7 @@ Future<void> successDialog(BuildContext context) async {
                 ),
                 Container(
                   child: Text(
-                     AppLocalizations.of(context).messageSent,
+                    AppLocalizations.of(context).messageSent,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.sp,
@@ -115,7 +115,7 @@ Future<void> successDialog(BuildContext context) async {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                             AppLocalizations.of(context).continueButton,
+                            AppLocalizations.of(context).continueButton,
                             style: TextStyle(
                               color: Color(0xFF333CC1),
                               fontSize: 16.sp,
@@ -157,7 +157,7 @@ Future<void> failureDialog(BuildContext context) async {
                 ),
                 Container(
                   child: Text(
-                    'Failed to send!',
+                    AppLocalizations.of(context).failedToSend,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.sp,
@@ -182,7 +182,7 @@ Future<void> failureDialog(BuildContext context) async {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Retry',
+                            AppLocalizations.of(context).retry,
                             style: TextStyle(
                               color: Color(0xFF333CC1),
                               fontSize: 16.sp,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
+import 'package:mycustomers/ui/views/business/digital_reciept/create_receipt_view.dart';
 import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_view.dart';
@@ -101,6 +102,7 @@ abstract class Routes {
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
   static const sendNotificationMessage = '/sendNotificationMessage';
   static const scheduleNotifications = '/scheduleNotifications';
+  static const createReceipt = 'createReceipt';
 }
 
 class Router {
@@ -400,6 +402,11 @@ class Router {
       case Routes.scheduleNotifications:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => ScheduleNotifications(),
+          settings: settings,
+        );
+        case Routes.createReceipt:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CreateReceiptView(),
           settings: settings,
         );
       default:

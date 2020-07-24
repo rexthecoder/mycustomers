@@ -147,6 +147,7 @@ class MarketingHomePageView extends StatelessWidget {
                               horizontal: 15.0, vertical: 5),
                           child: Container(
                             child: TextField(
+                              textCapitalization: TextCapitalization.sentences,
                               controller: model.searchController,
                               onChanged: model.search,
                               textInputAction: TextInputAction.search,
@@ -437,8 +438,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   : Flushbar(
                                       backgroundColor: BrandColors.primary,
                                       duration: const Duration(seconds: 3),
-                                      message:
-                                          'Select a customer from the list',
+                                      message: AppLocalizations.of(context)
+                                          .selectACustomerFromTheList,
                                       icon: Icon(
                                         Icons.info_outline,
                                         size: 28.0,

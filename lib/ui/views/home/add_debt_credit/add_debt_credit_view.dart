@@ -25,11 +25,8 @@ class AddDebtCreditView extends StatelessWidget {
   AddDebtCreditView({Key key, this.action, this.update, this.newCus})
       : super(key: key);
 
-  ScrollController controller = new ScrollController();
-
   @override
   Widget build(BuildContext context) {
-    var _controller = TextEditingController();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
@@ -45,16 +42,19 @@ class AddDebtCreditView extends StatelessWidget {
               brightness: Brightness.dark,
               elevation: 1,
               title: Text(
-                newCus ? action == 'debit'
-                    ? AppLocalizations.of(context).addNewDebtor : AppLocalizations.of(context).addNewCreditor :  
-                    action == 'debit' ? model.amount != null
-                        ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
-                            model.amount.round().toString()
-                        : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
-                    : model.amount != null
-                        ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
-                            model.amount.round().toString()
-                        : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
+                newCus
+                    ? action == 'debit'
+                        ? AppLocalizations.of(context).addNewDebtor
+                        : AppLocalizations.of(context).addNewCreditor
+                    : action == 'debit'
+                        ? model.amount != null
+                            ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
+                                model.amount.round().toString()
+                            : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
+                        : model.amount != null
+                            ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
+                                model.amount.round().toString()
+                            : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -79,12 +79,12 @@ class AddDebtCreditView extends StatelessWidget {
               centerTitle: true,
             ),
             body: Container(
-              padding: EdgeInsets.symmetric(vertical: 25),
+              padding: EdgeInsets.only(bottom: 25),
               child: Column(
                 children: <Widget>[
                   Expanded(
                     child: SingleChildScrollView(
-                      controller: controller,
+                      controller: model.controller,
                       child: Container(
                         //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                         //padding: EdgeInsets.symmetric(vertical: 25),
@@ -114,13 +114,15 @@ class AddDebtCreditView extends StatelessWidget {
                                 children: <Widget>[
                                   Container(
                                     margin: EdgeInsets.only(
-                                        bottom: ScreenUtil().setHeight(15)),
+                                        bottom: ScreenUtil().setHeight(15),
+                                        top: 25),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
-                                          margin: EdgeInsets.only(bottom: 3),
+                                          margin: EdgeInsets.only(
+                                              bottom: 5, left: 2),
                                           child: Text(
                                             AppLocalizations.of(context).amount,
                                             style: TextStyle(
@@ -173,9 +175,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                   color: Colors.red,
                                                   width: 2.0),
                                             ),
-                                            hintText: AppLocalizations.of(
-                                                    context)
-                                                .enterAmount, 
+                                            hintText:
+                                                AppLocalizations.of(context)
+                                                    .enterAmount,
                                             //action == 'credit'
                                             //     ? 'Enter Amount you owe ${model.contact.name}'
                                             //     : 'Enter Amount ${model.contact.name} Owes You',
@@ -331,18 +333,30 @@ class AddDebtCreditView extends StatelessWidget {
                                         //     ],
                                         //   ),
                                         // ),
-                                        action == 'xx'//'Credit'
+                                        action == 'xx' //'Credit'
                                             ? SizedBox()
                                             : Container(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Container(
-                                                    margin: EdgeInsets.only(bottom: 3),
-                                                    child: Text(
-                                                      'Payment Date',
-                                                      style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
-                                                    ),),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 5, left: 2),
+                                                      child: Text(
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .paymentDate,
+                                                        style: TextStyle(
+                                                            fontSize: SizeConfig
+                                                                .yMargin(
+                                                                    context,
+                                                                    2.2),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    ),
                                                     InkWell(
                                                       onTap: () async {
                                                         final DateTime picked =
@@ -486,7 +500,7 @@ class AddDebtCreditView extends StatelessWidget {
                                               children: <Widget>[
                                                 Container(
                                                   margin: EdgeInsets.only(
-                                                      bottom: 3),
+                                                      bottom: 5, left: 2),
                                                   child: Text(
                                                     AppLocalizations.of(context)
                                                         .description,
@@ -514,153 +528,71 @@ class AddDebtCreditView extends StatelessWidget {
                                                               .setWidth(5))),
                                                   child: Column(
                                                     children: <Widget>[
-                                                      TextField(
-                                                        focusNode: model.descFocus,
-                                                        //controller: _controller,
-                                                        maxLines: null,
-                                                        maxLengthEnforced:
-                                                            false,
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .multiline,
-                                                        decoration:
-                                                            new InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          focusedBorder:
-                                                              InputBorder.none,
-                                                          enabledBorder:
-                                                              InputBorder.none,
-                                                          errorBorder:
-                                                              InputBorder.none,
-                                                          disabledBorder:
-                                                              InputBorder.none,
-                                                          hintText: AppLocalizations
-                                                                  .of(context)
-                                                              .enterDescription,
-                                                          hintStyle: TextStyle(
-                                                              fontSize:
-                                                                  ScreenUtil()
-                                                                      .setSp(
-                                                                          15)),
-                                                          // prefixIcon: Container(
-                                                          //   padding: EdgeInsets.symmetric(
-                                                          //       vertical: ScreenUtil()
-                                                          //           .setHeight(10)),
-                                                          //   child: SvgPicture.asset(
-                                                          //     'assets/icons/cart.svg',
-                                                          //     color: Theme.of(context)
-                                                          //         .cursorColor,
-                                                          //   ),
-                                                          // ),
-                                                          // suffixIcon: InkWell(
-                                                          //   onTap: () {
-                                                          //     _controller.clear();
-                                                          //     model.addItem(action, update);
-                                                          //   },
-                                                          //   child: Container(
-                                                          //     width:
-                                                          //         ScreenUtil().setWidth(10),
-                                                          //     child: Row(
-                                                          //       children: <Widget>[
-                                                          //         Icon(
-                                                          //           Icons.add,
-                                                          //           color: action ==
-                                                          //                   'credit'
-                                                          //               ? BrandColors
-                                                          //                   .secondary
-                                                          //               : Theme.of(context)
-                                                          //                   .textSelectionColor,
-                                                          //           size: ScreenUtil()
-                                                          //               .setWidth(18),
-                                                          //         ),
-                                                          //         Container(
-                                                          //           child: Text(
-                                                          //             'Add',
-                                                          //             style:
-                                                          //                 Theme.of(context)
-                                                          //                     .textTheme
-                                                          //                     .headline6
-                                                          //                     .copyWith(
-                                                          //                       fontSize: ScreenUtil()
-                                                          //                           .setSp(
-                                                          //                               14),
-                                                          //                       color: action ==
-                                                          //                               'credit'
-                                                          //                           ? BrandColors
-                                                          //                               .secondary
-                                                          //                           : Theme.of(context)
-                                                          //                               .textSelectionColor,
-                                                          //                     ),
-                                                          //           ),
-                                                          //         )
-                                                          //       ],
-                                                          //     ),
-                                                          //   ),
-                                                          // ),
+                                                      Focus(
+                                                        onFocusChange:
+                                                            (hasFocus) {
+                                                          if (hasFocus) {
+                                                            model.controller.animateTo(
+                                                                model
+                                                                    .controller
+                                                                    .position
+                                                                    .maxScrollExtent,
+                                                                duration:
+                                                                    new Duration(
+                                                                        milliseconds:
+                                                                            500),
+                                                                curve: Curves
+                                                                    .easeOut);
+                                                          }
+                                                        },
+                                                        child: TextFormField(
+                                                          textCapitalization:
+                                                              TextCapitalization
+                                                                  .sentences,
+
+                                                          focusNode:
+                                                              model.descFocus,
+                                                          //controller: _controller,
+                                                          maxLines: null,
+                                                          maxLengthEnforced:
+                                                              false,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .multiline,
+                                                          decoration:
+                                                              new InputDecoration(
+                                                            border: InputBorder
+                                                                .none,
+                                                            focusedBorder:
+                                                                InputBorder
+                                                                    .none,
+                                                            enabledBorder:
+                                                                InputBorder
+                                                                    .none,
+                                                            errorBorder:
+                                                                InputBorder
+                                                                    .none,
+                                                            disabledBorder:
+                                                                InputBorder
+                                                                    .none,
+                                                            hintText: AppLocalizations
+                                                                    .of(context)
+                                                                .enterDescription,
+                                                            hintStyle: TextStyle(
+                                                                fontSize:
+                                                                    ScreenUtil()
+                                                                        .setSp(
+                                                                            15)),
+                                                          ),
+                                                          //textInputAction: TextInputAction.go,
+                                                          // onSubmitted: (value) {
+                                                          //   _controller.clear();
+                                                          //   model.addItem(action, update);
+                                                          // },
+                                                          onChanged:
+                                                              model.updateItem,
                                                         ),
-                                                        //textInputAction: TextInputAction.go,
-                                                        // onSubmitted: (value) {
-                                                        //   _controller.clear();
-                                                        //   model.addItem(action, update);
-                                                        // },
-                                                        onChanged:
-                                                            model.updateItem,
                                                       ),
-                                                      // for (var item in model.items)
-                                                      //   Container(
-                                                      //     margin: EdgeInsets.symmetric(
-                                                      //         vertical: ScreenUtil()
-                                                      //             .setHeight(4)),
-                                                      //     padding: EdgeInsets.symmetric(
-                                                      //         vertical: ScreenUtil()
-                                                      //             .setHeight(10),
-                                                      //         horizontal: ScreenUtil()
-                                                      //             .setWidth(15)),
-                                                      //     decoration: BoxDecoration(
-                                                      //         borderRadius:
-                                                      //             BorderRadius.circular(
-                                                      //                 ScreenUtil()
-                                                      //                     .setWidth(5)),
-                                                      //         color: Theme.of(context)
-                                                      //             .backgroundColor),
-                                                      //     child: Row(
-                                                      //       mainAxisAlignment:
-                                                      //           MainAxisAlignment
-                                                      //               .spaceBetween,
-                                                      //       children: <Widget>[
-                                                      //         Container(
-                                                      //           child: Flexible(
-                                                      //             child: Text(
-                                                      //               item,
-                                                      //               style: Theme.of(context)
-                                                      //                   .textTheme
-                                                      //                   .headline4
-                                                      //                   .copyWith(
-                                                      //                       fontSize:
-                                                      //                           ScreenUtil()
-                                                      //                               .setSp(
-                                                      //                                   16),
-                                                      //                       fontWeight:
-                                                      //                           FontWeight
-                                                      //                               .w400),
-                                                      //             ),
-                                                      //           ),
-                                                      //         ),
-                                                      //         InkWell(
-                                                      //           onTap: () {
-                                                      //             model.removeItem(model
-                                                      //                 .items
-                                                      //                 .indexOf(item));
-                                                      //           },
-                                                      //           child: Container(
-                                                      //             child: SvgPicture.asset(
-                                                      //                 'assets/icons/cancel.svg'),
-                                                      //           ),
-                                                      //         )
-                                                      //       ],
-                                                      //     ),
-                                                      //   )
                                                     ],
                                                   ),
                                                 ),
@@ -694,7 +626,8 @@ class AddDebtCreditView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
-                                            margin: EdgeInsets.only(bottom: 3),
+                                            margin: EdgeInsets.only(
+                                                bottom: 5, left: 2),
                                             child: Text(
                                               AppLocalizations.of(context)
                                                   .customerName,
@@ -707,9 +640,12 @@ class AddDebtCreditView extends StatelessWidget {
                                           Focus(
                                             onFocusChange: (hasFocus) {
                                               if (hasFocus) {
-                                                if(controller.position.viewportDimension < controller.position.maxScrollExtent) {
-                                                  controller.animateTo(controller.position.maxScrollExtent, duration: new Duration(milliseconds: 200), curve: Curves.easeInOut);
-                                                }
+                                                model.controller.animateTo(
+                                                    model.controller.position
+                                                        .maxScrollExtent,
+                                                    duration: new Duration(
+                                                        milliseconds: 500),
+                                                    curve: Curves.easeInOut);
                                                 // print(controller.position
                                                 //     .viewportDimension);
                                                 // controller.jumpTo(controller
@@ -718,7 +654,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                 //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
                                               }
                                             },
-                                            child: TextField(
+                                            child: TextFormField(
+                                              textCapitalization:
+                                                  TextCapitalization.sentences,
                                               controller:
                                                   model.searchController,
                                               maxLines: null,
@@ -801,6 +739,12 @@ class AddDebtCreditView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    SizedBox(
+                                      height: model.name != null
+                                          ? 0
+                                          : SizeConfig.yMargin(context, 100) *
+                                              0.48,
+                                    ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames
                                           ? MyListTile(
@@ -850,11 +794,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             context, 2)),
                                               ),
                                             )
-                                          : SizedBox(
-                                              height: MediaQuery.of(context)
-                                                  .viewInsets
-                                                  .bottom,
-                                            ),
+                                          : SizedBox(),
                                     model.contactsList.length == 0 &&
                                             model.name != null
                                         ? model.manual
@@ -1027,9 +967,11 @@ class AddDebtCreditView extends StatelessWidget {
                             0,
                             'Reminder: ',
                             action == 'credit'
-                                ? 'You owe ${model.contact.name} ' +
+                                ? AppLocalizations.of(context).youOwe +
+                                    '${model.contact.name}' +
                                     model.amount.round().toString()
-                                : '${model.contact.name} owes you ' +
+                                : '${model.contact.name}' +
+                                    AppLocalizations.of(context).owesYou +
                                     model.amount.round().toString(),
                             action == 'debit' ? model.dueDate : model.dueDate);
                       }, //Todo: Save User Input

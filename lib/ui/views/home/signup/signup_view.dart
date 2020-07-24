@@ -59,8 +59,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
       decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(SizeConfig.xMargin(context, 8)),
-              topRight: Radius.circular(SizeConfig.xMargin(context, 8)))),
+              topLeft: Radius.circular(SizeConfig.xMargin(context, 7)),
+              topRight: Radius.circular(SizeConfig.xMargin(context, 7)))),
       child: Form(
         key: _signupFormPageKey,
         child: Column(
@@ -88,7 +88,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 ),
               ),
             ),
-            SizedBox(height: SizeConfig.yMargin(context, 1)),
+            SizedBox(height: SizeConfig.yMargin(context, 0.2)),
             Padding(
               padding: EdgeInsets.only(
                 left: SizeConfig.xMargin(context, 5),
@@ -106,6 +106,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 //   viewModel.activeBtn();
                 //   print('Value is: $value');
                 // },
+                hintText: AppLocalizations.of(context).signUpEnterPhoneNumber,
                 ignoreBlank: false,
                 // autoValidate: true,
                 // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
@@ -174,7 +175,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                   //     },
                   //   ),
                   // ),
-                  labelText: AppLocalizations.of(context).password,
+                  hintText: AppLocalizations.of(context).password,
+                  hintStyle: TextStyle(fontSize: SizeConfig.textSize(context, 3.5,))
                   // border: OutlineInputBorder(),
                 ),
               ),
@@ -222,26 +224,10 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
             //   children: <Widget>[
             //     SocialIconButton(
             //       onTap: () {
-            //         Flushbar(
-            //           backgroundColor: BrandColors.primary,
-            //           duration: const Duration(seconds: 3),
-            //           message: 'Google signin coming soon',
-            //           icon: Icon(
-            //             Icons.info_outline,
-            //             size: 28.0,
-            //             color: ThemeColors.background,
-            //           ),
-            //           leftBarIndicatorColor: Colors.blue[300],
-            //         ).show(context);
-            //       },
-            //       socialIconUrl: 'assets/icons/google_icon.png',
-            //     ),
-            //     SocialIconButton(
-            //       onTap: () {
                     // Flushbar(
                     //   backgroundColor: BrandColors.primary,
                     //   duration: const Duration(seconds: 3),
-                    //   message: 'Facebook signin coming soon',
+                    //   message: 'Google signin coming soon',
                     //   icon: Icon(
                     //     Icons.info_outline,
                     //     size: 28.0,
@@ -249,6 +235,22 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                     //   ),
                     //   leftBarIndicatorColor: Colors.blue[300],
                     // ).show(context);
+            //       },
+            //       socialIconUrl: 'assets/icons/google_icon.png',
+            //     ),
+            //     SocialIconButton(
+            //       onTap: () {
+            // Flushbar(
+            //   backgroundColor: BrandColors.primary,
+            //   duration: const Duration(seconds: 3),
+            //   message: 'Facebook signin coming soon',
+            //   icon: Icon(
+            //     Icons.info_outline,
+            //     size: 28.0,
+            //     color: ThemeColors.background,
+            //   ),
+            //   leftBarIndicatorColor: Colors.blue[300],
+            // ).show(context);
             //       },
             //       socialIconUrl: 'assets/icons/facebook_icon.png',
             //     ),

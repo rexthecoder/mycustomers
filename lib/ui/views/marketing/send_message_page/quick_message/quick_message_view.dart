@@ -29,7 +29,8 @@ class QuickMessageView extends StatelessWidget {
           appBar: customizeAppBar(context, 1.0,
 //              title: 'Quick messages',
               title: AppLocalizations.of(context).sendMessage,
-              arrowColor: BrandColors.secondary),
+              arrowColor: BrandColors.secondary,
+              backgroundColor: Theme.of(context).backgroundColor),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -101,7 +102,7 @@ class QuickMessageView extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Text(
-                    'See All',
+                    AppLocalizations.of(context).seeAll,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       color: BrandColors.secondary,

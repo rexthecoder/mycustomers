@@ -20,7 +20,7 @@ class MainViewModel extends ReactiveViewModel {
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
   final _customerContactService = locator<CustomerContactService>();
 
-  final Duration duration = const Duration(milliseconds: 500);
+  final Duration duration = const Duration(milliseconds: 300);
   List<Store> _stores = StoreRepository.stores;
   Map<String, int> _customers = {};
 
@@ -37,7 +37,13 @@ class MainViewModel extends ReactiveViewModel {
 
   Store get currStore => StoreRepository.currentStore;
 
-  bool get showdot => _logService.shouldnotify;
+  bool get showdot =>_logService.shouldnotify;
+
+  void gettransactions(){
+    _transactionService.getAllTransactions(currStore.id);
+    _logService.dot();
+    notifyListeners();
+  }
 
   /// Setters
 
