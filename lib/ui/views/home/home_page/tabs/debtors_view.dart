@@ -411,7 +411,7 @@ class ContactList extends StatelessWidget {
                                                               (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                                   .toString() +
                                                               ' days ago'
-                                                  : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 ? 'Expected Tomorrow' : 'Expected in ' +
+                                                  : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 && model.checkToday(cont.duedate) ? 'Expected Today' : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 ? 'Expected Tomorrow' : 'Expected in ' +
                                                       (DateTime.now()
                                                               .difference(
                                                                   DateTime.parse(cont.duedate))
