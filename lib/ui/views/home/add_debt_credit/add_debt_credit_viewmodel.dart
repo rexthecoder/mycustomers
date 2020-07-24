@@ -88,7 +88,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   String get dropDownValue => _dropDownValue;
 
   var inputNumberController = TextEditingController();
-  var descFocus = FocusNode();
+  final descFocus = FocusNode();
 
   bool manual = false;
 

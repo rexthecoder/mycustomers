@@ -562,8 +562,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                           textCapitalization:
                                                               TextCapitalization
                                                                   .sentences,
-                                                          focusNode:
-                                                              model.descFocus,
+                                                          // focusNode:
+                                                          //     model.descFocus,
                                                           //controller: _controller,
                                                           maxLines: null,
                                                           maxLengthEnforced:
