@@ -224,17 +224,17 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
             //   children: <Widget>[
             //     SocialIconButton(
             //       onTap: () {
-            //         Flushbar(
-            //           backgroundColor: BrandColors.primary,
-            //           duration: const Duration(seconds: 3),
-            //           message: 'Google signin coming soon',
-            //           icon: Icon(
-            //             Icons.info_outline,
-            //             size: 28.0,
-            //             color: ThemeColors.background,
-            //           ),
-            //           leftBarIndicatorColor: Colors.blue[300],
-            //         ).show(context);
+                    // Flushbar(
+                    //   backgroundColor: BrandColors.primary,
+                    //   duration: const Duration(seconds: 3),
+                    //   message: 'Google signin coming soon',
+                    //   icon: Icon(
+                    //     Icons.info_outline,
+                    //     size: 28.0,
+                    //     color: ThemeColors.background,
+                    //   ),
+                    //   leftBarIndicatorColor: Colors.blue[300],
+                    // ).show(context);
             //       },
             //       socialIconUrl: 'assets/icons/google_icon.png',
             //     ),
