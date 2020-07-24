@@ -13,6 +13,7 @@ import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:intl/intl.dart';
 
 
 
@@ -65,6 +66,11 @@ class HomePageViewModel extends ReactiveViewModel {
   void getTransactions() {
     _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
     notifyListeners();
+  }
+
+  bool checkToday(String date) {
+    final dformat = new DateFormat('dd/MM/yyyy');
+    return dformat.format(DateTime.parse(date)) == dformat.format(DateTime.now());
   }
 
   void searchName(String value){

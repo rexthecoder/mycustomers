@@ -107,7 +107,7 @@ class AddDebtView extends StatelessWidget {
                                   ),
                                   hintText:
                                       AppLocalizations.of(context).enterAmount,
-                                  errorText: model.error,
+                               //   errorText: model.error,
                                   prefixIcon: Container(
                                     padding: EdgeInsets.symmetric(
                                         vertical: ScreenUtil().setHeight(15),
