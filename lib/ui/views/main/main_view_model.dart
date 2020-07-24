@@ -9,6 +9,7 @@ import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 
 class MainViewModel extends ReactiveViewModel {
   /// Fields
@@ -37,7 +38,13 @@ class MainViewModel extends ReactiveViewModel {
 
   Store get currStore => StoreRepository.currentStore;
 
-  bool get showdot => _logService.shouldnotify;
+  bool get showdot =>_logService.shouldnotify;
+
+  void gettransactions(){
+    _transactionService.getAllTransactions(currStore.id);
+    _logService.dot();
+    notifyListeners();
+  }
 
   /// Setters
 

@@ -27,7 +27,7 @@ class PartialBuildsViewModel extends BaseViewModel {
   List<String> get countryCode=>_countryCodes;
   String get dropDownValue=> _dropDownValue;
   bool success = false;
-  String error;
+ // String error;
   NavigationService _navigationService = locator<NavigationService>();
 
   String _title='Add Customer';
