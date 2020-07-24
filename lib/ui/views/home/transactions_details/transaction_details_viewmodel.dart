@@ -28,6 +28,11 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
   int amountPaid = 20000;
   int amountOwing = 30000;
 
+  void delete(){
+    _navigationService.back();
+    _transactionService.deleteTransaction();
+  }
+
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
 
