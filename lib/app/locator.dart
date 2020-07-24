@@ -13,6 +13,7 @@ import 'package:mycustomers/core/repositories/business_card/business_card_reposi
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/connectivity/connectivity_service_impl.dart';
@@ -88,6 +89,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<BussinessSettingService>(
     () => BussinessSettingService(),
   );
+  locator.registerLazySingleton<ProfileService>(
+    () => ProfileService(),
+  );
   await _setupSharedPreferences();
   locator.registerLazySingleton<AuthService>(
     () => AuthServiceImpl(),
@@ -160,6 +164,7 @@ Future<void> setupLocator(
   await TransactionLocalDataSourceImpl().init();
   await BussinessSettingService().init();
   await CustomerContactService().init();
+  await ProfileService().init();
 
 //  Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
