@@ -41,7 +41,8 @@ class SendMessage extends StatelessWidget {
                                   child: TextFormField(
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Field should not be empty';
+                                        return AppLocalizations.of(context)
+                                            .fieldShouldNotBeEmpty;
                                       }
                                       return null;
                                     },
@@ -89,7 +90,8 @@ class SendMessage extends StatelessWidget {
                                   child: TextFormField(
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Field should not be empty';
+                                        return AppLocalizations.of(context)
+                                            .fieldShouldNotBeEmpty;
                                       }
                                       return null;
                                     },

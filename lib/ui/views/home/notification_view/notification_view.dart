@@ -66,63 +66,83 @@ class NotificationsView extends StatelessWidget {
                       Expanded(
                         child: TabBarView(
                           children: <Widget>[
-                            model.reminders.length == 0 ? Container(
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context).noRemindersYet,
-                                  style: TextStyle(
-                                      fontSize: SizeConfig.yMargin(context, 2)),
-                                ),
-                              ),
-                            ) : SingleChildScrollView(
-                              child: Column(
-                                children: <Widget>[
-                                  for (var item in model.reminders) Container(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(color: Color(0xFFC4C4C4))
-                                      )
+                            model.reminders.length == 0
+                                ? Container(
+                                    child: Center(
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .noRemindersYet,
+                                        style: TextStyle(
+                                            fontSize:
+                                                SizeConfig.yMargin(context, 2)),
+                                      ),
                                     ),
-                                      padding:
-                                          const EdgeInsets.all(20.0),
-                                      child: Row(
-                                        children: <Widget>[
-                                        Expanded(
-                                            child: Text(
-                                          item.amount >  item.paid ? model.getName(item.cId)+'debt of ${item.amount} is due today' : model.getName(item.cId)+'Credit of ${item.paid} is due today',
-                                          style: TextStyle(
-                                              fontSize: SizeConfig
-                                                  .yMargin(
-                                                      context, 2)),
-                                        )),
-                                        SizedBox(width: 20.0),
-                                        Column(
-                                          children: <Widget>[
-                                            Text(
-                                              '',
-                                              style: TextStyle(
-                                                fontWeight:
-                                                    FontWeight.bold,
-                                                color: Color(
-                                                    0xFF333CC1),
-                                              ),
-                                            ),
-                                            SizedBox(height: 8.0),
-                                            Text(DateFormat('MMM dd yyyy').format(DateTime.parse(item.duedate)),
+                                  )
+                                : SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        for (var item in model.reminders)
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                border: Border(
+                                                    bottom: BorderSide(
+                                                        color: Color(
+                                                            0xFFC4C4C4)))),
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: Row(children: <Widget>[
+                                              Expanded(
+                                                  child: Text(
+                                                item.amount > item.paid
+                                                    ? model.getName(item.cId) +
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .debtOf +
+                                                        '${item.amount}' +
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .isDueToday
+                                                    : model.getName(item.cId) +
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .creditOf +
+                                                        '${item.paid}' +
+                                                        AppLocalizations.of(
+                                                                context)
+                                                            .isDueToday,
                                                 style: TextStyle(
-                                                  color:
-                                                      Colors.grey,
-                                                  fontWeight:
-                                                      FontWeight
-                                                          .bold,
-                                                )),
-                                          ],
-                                        ),
-                                      ]),
+                                                    fontSize:
+                                                        SizeConfig.yMargin(
+                                                            context, 2)),
+                                              )),
+                                              SizedBox(width: 20.0),
+                                              Column(
+                                                children: <Widget>[
+                                                  Text(
+                                                    '',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color(0xFF333CC1),
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 8.0),
+                                                  Text(
+                                                      DateFormat('MMM dd yyyy')
+                                                          .format(DateTime
+                                                              .parse(item
+                                                                  .duedate)),
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )),
+                                                ],
+                                              ),
+                                            ]),
+                                          ),
+                                      ],
                                     ),
-                                ],
-                              ),
-                            ),
+                                  ),
                             model.loglist.length == 0
                                 ? Center(
                                     child: Container(
@@ -167,10 +187,10 @@ class NotificationsView extends StatelessWidget {
                                             ),
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                border: Border(
-                                                  bottom: BorderSide(color: Color(0xFFC4C4C4))
-                                                )
-                                              ),
+                                                  border: Border(
+                                                      bottom: BorderSide(
+                                                          color: Color(
+                                                              0xFFC4C4C4)))),
                                               padding:
                                                   const EdgeInsets.all(20.0),
                                               child: Column(
