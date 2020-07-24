@@ -19,7 +19,8 @@ class SupportPageView extends StatelessWidget {
               appBar: customizeAppBar(context, 1.0,
                   children: [],
                   title: AppLocalizations.of(context).customerSupport,
-                  arrowColor: BrandColors.primary),
+                  arrowColor: BrandColors.primary,
+                  backgroundColor: Theme.of(context).backgroundColor),
               body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
@@ -30,6 +31,7 @@ class SupportPageView extends StatelessWidget {
                           children: <Widget>[
                             // Expanded(child: null),
                             TextFormField(
+                              textCapitalization: TextCapitalization.sentences,
                                 validator: (value) =>
                                     model.validateFields(value),
                                 keyboardType: TextInputType.text,
@@ -110,6 +112,7 @@ class SupportPageView extends StatelessWidget {
                                 )),
                             SizedBox(height: 19.h),
                             TextFormField(
+                              textCapitalization: TextCapitalization.sentences,
                                 validator: (value) =>
                                     model.validateFields(value),
                                 minLines: 8,

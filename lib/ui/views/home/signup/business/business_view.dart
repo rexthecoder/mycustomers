@@ -80,6 +80,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                   Padding(
                     padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
+                      autofocus: true,
+                      textCapitalization: TextCapitalization.sentences,
                       key: Key("fullname"),
                       controller: _fullName,
                       validator: (value) => (value.isEmpty)
@@ -120,6 +122,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                   Padding(
                     padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
+                      textCapitalization: TextCapitalization.sentences,
                       key: Key("storeName"),
                       controller: _storeName,
                       validator: (value) => (value.isEmpty)
@@ -140,6 +143,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                   Padding(
                     padding: EdgeInsets.all(SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
+                      textCapitalization: TextCapitalization.sentences,
                       key: Key("storeAddress"),
                       controller: _storeAddress,
                       validator: (value) => (value.isEmpty)

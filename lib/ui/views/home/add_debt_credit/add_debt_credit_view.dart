@@ -45,16 +45,19 @@ class AddDebtCreditView extends StatelessWidget {
               brightness: Brightness.dark,
               elevation: 1,
               title: Text(
-                newCus ? action == 'debit'
-                    ? AppLocalizations.of(context).addNewDebtor : AppLocalizations.of(context).addNewCreditor :  
-                    action == 'debit' ? model.amount != null
-                        ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
-                            model.amount.round().toString()
-                        : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
-                    : model.amount != null
-                        ? '${AppLocalizations.of(context).owesYou} ${model.contact.name} ₦' +
-                            model.amount.round().toString()
-                        : '${AppLocalizations.of(context).owesYou} ${model.contact.name}',
+                newCus
+                    ? action == 'debit'
+                        ? AppLocalizations.of(context).addNewDebtor
+                        : AppLocalizations.of(context).addNewCreditor
+                    : action == 'debit'
+                        ? model.amount != null
+                            ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
+                                model.amount.round().toString()
+                            : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
+                        : model.amount != null
+                            ? '${AppLocalizations.of(context).owesYou} ${model.contact.name} ₦' +
+                                model.amount.round().toString()
+                            : '${AppLocalizations.of(context).owesYou} ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -130,6 +133,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           ),
                                         ),
                                         TextField(
+                                          focusNode: model.focusNode,
                                           maxLines: null,
                                           maxLengthEnforced: false,
                                           keyboardType: TextInputType.number,
@@ -173,9 +177,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                   color: Colors.red,
                                                   width: 2.0),
                                             ),
-                                            hintText: AppLocalizations.of(
-                                                    context)
-                                                .enterAmount, 
+                                            hintText:
+                                                AppLocalizations.of(context)
+                                                    .enterAmount,
                                             //action == 'credit'
                                             //     ? 'Enter Amount you owe ${model.contact.name}'
                                             //     : 'Enter Amount ${model.contact.name} Owes You',
@@ -206,7 +210,11 @@ class AddDebtCreditView extends StatelessWidget {
                                                     vertical: ScreenUtil()
                                                         .setHeight(8)),
                                           ),
-                                          textInputAction: TextInputAction.go,
+                                          textInputAction: TextInputAction.next,
+                                          onSubmitted: (value) =>
+                                              model.focusNode.nextFocus(),
+                                          // FocusScope.of(context)
+                                          //     .nextFocus(),
                                           onChanged: (value) =>
                                               model.updateAmount(value, update,
                                                   action, newCus),
@@ -331,20 +339,32 @@ class AddDebtCreditView extends StatelessWidget {
                                         //     ],
                                         //   ),
                                         // ),
-                                        action == 'xx'//'Credit'
+                                        action == 'xx' //'Credit'
                                             ? SizedBox()
                                             : Container(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Container(
-                                                    margin: EdgeInsets.only(bottom: 3),
-                                                    child: Text(
-                                                      'Payment Date',
-                                                      style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
-                                                    ),),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 3),
+                                                      child: Text(
+                                                        'Payment Date',
+                                                        style: TextStyle(
+                                                            fontSize: SizeConfig
+                                                                .yMargin(
+                                                                    context,
+                                                                    2.2),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    ),
                                                     InkWell(
                                                       onTap: () async {
+                                                        model.focusNode
+                                                            .unfocus();
                                                         final DateTime picked =
                                                             await showDatePicker(
                                                           context: context,
@@ -514,7 +534,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                               .setWidth(5))),
                                                   child: Column(
                                                     children: <Widget>[
-                                                      TextField(
+                                                      TextField(  
+                                                        textCapitalization: TextCapitalization.sentences,
                                                         //controller: _controller,
                                                         maxLines: null,
                                                         maxLengthEnforced:
@@ -605,6 +626,15 @@ class AddDebtCreditView extends StatelessWidget {
                                                         // },
                                                         onChanged:
                                                             model.updateItem,
+                                                        textInputAction:
+                                                            TextInputAction
+                                                                .next,
+                                                        onSubmitted: (value) =>
+                                                            model.focusNode
+                                                                .nextFocus(),
+                                                        // FocusScope.of(
+                                                        //         context)
+                                                        //     .nextFocus(),
                                                       ),
                                                       // for (var item in model.items)
                                                       //   Container(
@@ -715,6 +745,7 @@ class AddDebtCreditView extends StatelessWidget {
                                               }
                                             },
                                             child: TextField(
+                                              textCapitalization: TextCapitalization.sentences,
                                               controller:
                                                   model.searchController,
                                               maxLines: null,
@@ -790,7 +821,11 @@ class AddDebtCreditView extends StatelessWidget {
                                                             .setHeight(20)),
                                               ),
                                               textInputAction:
-                                                  TextInputAction.go,
+                                                  TextInputAction.done,
+                                              onSubmitted: (value) =>
+                                                  model.focusNode.unfocus(),
+                                              // FocusScope.of(context)
+                                              //     .unfocus(),
                                               onChanged: (value) => model
                                                   .updateName(value, action),
                                             ),

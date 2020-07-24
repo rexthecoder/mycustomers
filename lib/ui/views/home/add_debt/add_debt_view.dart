@@ -194,6 +194,7 @@ class AddDebtView extends StatelessWidget {
                                     child: Column(
                                       children: <Widget>[
                                         TextField(
+                                          textCapitalization: TextCapitalization.sentences,
                                           controller: _controller,
                                           maxLines: null,
                                           maxLengthEnforced: false,

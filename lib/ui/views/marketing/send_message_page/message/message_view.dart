@@ -44,7 +44,8 @@ class MessageView extends StatelessWidget {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
               title: AppLocalizations.of(context).sendAMessage,
-              arrowColor: BrandColors.secondary),
+              arrowColor: BrandColors.secondary,
+              backgroundColor: Theme.of(context).backgroundColor),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
@@ -59,6 +60,7 @@ class MessageView extends StatelessWidget {
                     height: 10.h,
                   ),
                   TextField(
+                    textCapitalization: TextCapitalization.sentences,
                     controller: model.titleController,
                     decoration: InputDecoration(
                       hintText: 'Enter Title of message',
@@ -80,6 +82,7 @@ class MessageView extends StatelessWidget {
                     height: 10.h,
                   ),
                   TextField(
+                    textCapitalization: TextCapitalization.sentences,
                     controller: model.messageController,
                     decoration: InputDecoration(
                       hintText: 'Enter message',
@@ -540,6 +543,7 @@ class BottomSheetView extends StatelessWidget {
                         ),
                         clipBehavior: Clip.hardEdge,
                         child: TextField(
+                          textCapitalization: TextCapitalization.sentences,
                           controller: model.searchController,
                           decoration: InputDecoration(
                             hintText:

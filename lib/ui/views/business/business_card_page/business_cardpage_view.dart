@@ -44,6 +44,7 @@ class BusinessCardPageView extends StatelessWidget {
             0,
             title: AppLocalizations.of(context).buisnessCard,
             arrowColor: Theme.of(context).textSelectionColor,
+            backgroundColor: Theme.of(context).backgroundColor
           ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
@@ -362,6 +363,7 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
           borderRadius: BorderRadius.circular(SizeConfig.yMargin(context, 0.5)),
         ),
         child: TextFormField(
+          textCapitalization: TextCapitalization.sentences,
           onChanged: onChange,
           validator: validate,
           cursorColor: ThemeColors.gray[800],

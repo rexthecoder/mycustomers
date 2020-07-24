@@ -14,8 +14,13 @@ class AddNewCustomerView extends StatelessWidget {
     return ViewModelBuilder<AddNewCustomerViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
-            appBar: customizeAppBar(context, 1.0,
-                title:  AppLocalizations.of(context).sendMessage, arrowColor: BrandColors.secondary),
+            appBar: customizeAppBar(
+              context,
+              1.0,
+              title: AppLocalizations.of(context).sendMessage,
+              arrowColor: BrandColors.secondary,
+              backgroundColor: Theme.of(context).backgroundColor,
+            ),
             body: SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(20.w),
@@ -24,7 +29,7 @@ class AddNewCustomerView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                       AppLocalizations.of(context).customerName,
+                      AppLocalizations.of(context).customerName,
                       style:
                           TextStyle(fontSize: 18.sp, color: ThemeColors.black),
                     ),
@@ -41,9 +46,11 @@ class AddNewCustomerView extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             child: TextField(
+                              textCapitalization: TextCapitalization.sentences,
                               textAlign: TextAlign.left,
                               decoration: InputDecoration(
-                                hintText:  AppLocalizations.of(context).enterCustomerName,
+                                hintText: AppLocalizations.of(context)
+                                    .enterCustomerName,
                                 prefixIcon: Icon(Icons.person),
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide.none),
@@ -54,7 +61,7 @@ class AddNewCustomerView extends StatelessWidget {
                         )),
                     SizedBox(height: 16.0),
                     Text(
-                       AppLocalizations.of(context).customerPhoneNo,
+                      AppLocalizations.of(context).customerPhoneNo,
                       style:
                           TextStyle(fontSize: 18.sp, color: ThemeColors.black),
                     ),
@@ -100,7 +107,8 @@ class AddNewCustomerView extends StatelessWidget {
                                 keyboardType: TextInputType.numberWithOptions(),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
-                                  hintText:  AppLocalizations.of(context).mobileNumber,
+                                  hintText:
+                                      AppLocalizations.of(context).mobileNumber,
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none),
                                 ),
@@ -132,7 +140,8 @@ class AddNewCustomerView extends StatelessWidget {
                                   ? Flushbar(
                                       backgroundColor: BrandColors.primary,
                                       duration: const Duration(seconds: 3),
-                                      message:  AppLocalizations.of(context).enterCustomerName,
+                                      message: AppLocalizations.of(context)
+                                          .enterCustomerName,
                                       icon: Icon(
                                         Icons.info_outline,
                                         size: 28.0,

@@ -32,7 +32,8 @@ class ScheduleNotifications extends StatelessWidget {
           return Scaffold(
             appBar: customizeAppBar(context, 1.0,
                 title: AppLocalizations.of(context).scheduleReminder,
-                arrowColor: Theme.of(context).textSelectionColor),
+                arrowColor: Theme.of(context).textSelectionColor,
+                backgroundColor: Theme.of(context).backgroundColor),
             body: Container(
               margin: EdgeInsets.only(left: 30, right: 30),
               child: Column(
@@ -159,6 +160,7 @@ class ScheduleNotifications extends StatelessWidget {
                                   ),
                                   Container(
                                     child: TextFormField(
+                                      textCapitalization: TextCapitalization.sentences,
                                       validator: (value) {
                                         if (value.isEmpty) {
                                           return AppLocalizations.of(context)
@@ -202,6 +204,7 @@ class ScheduleNotifications extends StatelessWidget {
                                   ),
                                   Container(
                                     child: TextFormField(
+                                      textCapitalization: TextCapitalization.sentences,
                                       validator: (value) {
                                         if (value.isEmpty) {
                                           return AppLocalizations.of(context)
