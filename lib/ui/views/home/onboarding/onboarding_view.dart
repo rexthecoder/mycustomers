@@ -130,7 +130,8 @@ class OnboardingView extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ), viewModelBuilder: () => LanguageViewModel(),
+                    ),
+                    viewModelBuilder: () => LanguageViewModel(),
                   ),
                 ),
               ],
@@ -149,7 +150,6 @@ class OnboardingView extends StatelessWidget {
     LanguageViewModel model,
   ) {
     showModalBottomSheet(
-
       enableDrag: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -218,8 +218,8 @@ class OnboardingView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Padding(
-                              padding:
-                                  EdgeInsets.all(SizeConfig.yMargin(context, 1)),
+                              padding: EdgeInsets.all(
+                                  SizeConfig.yMargin(context, 1)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(
                                     SizeConfig.yMargin(context, 5)),
@@ -290,7 +290,9 @@ class _Pages extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.yMargin(context, 1.2)),
         Padding(
-          padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 4), right: SizeConfig.xMargin(context, 4)),
+          padding: EdgeInsets.only(
+              left: SizeConfig.xMargin(context, 4),
+              right: SizeConfig.xMargin(context, 4)),
           child: Text(
             txt2,
             textAlign: TextAlign.center,
