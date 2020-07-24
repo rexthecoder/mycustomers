@@ -49,6 +49,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
   List<Customer> contactsList = List<Customer>();
 
+  ScrollController controller = new ScrollController();
+
   double _amount;
   double get amount => _amount;
 
@@ -345,8 +347,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               paiddate: otherDate.toString());
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           _transactionService.updateTransaction(transaction);
-          //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
-          //_navigationService.replaceWith(Routes.mainTransaction);
+          _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           print('debiting');
@@ -363,7 +365,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           _transactionService.updateTransaction(transaction);
           _logService.getValues(
               amount.toInt(), DateTime.now(), 'debit', contact.name, update);
-          //_navigationService.replaceWith(Routes.mainTransaction);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       } else {
@@ -401,11 +403,14 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                     action,
                     transaction,
                     currentStore.id);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'debit', name, update);
           }
           if (!newCus) {
+            print('here');
             _transactionService.addTransaction(transaction);
+            _navigationService.replaceWith(Routes.mainTransaction);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           }
-          //_logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
@@ -441,11 +446,14 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                     action,
                     transaction,
                     currentStore.id);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'credit', name, update);
           }
           if (!newCus) {
+            print('here');
             _transactionService.addTransaction(transaction);
+            _navigationService.replaceWith(Routes.mainTransaction);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           }
-          //_logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
