@@ -25,11 +25,9 @@ class AddDebtCreditView extends StatelessWidget {
   AddDebtCreditView({Key key, this.action, this.update, this.newCus})
       : super(key: key);
 
-  ScrollController controller = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    var _controller = TextEditingController();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
@@ -84,7 +82,7 @@ class AddDebtCreditView extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: SingleChildScrollView(
-                      controller: controller,
+                      controller: model.controller,
                       child: Container(
                         //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                         //padding: EdgeInsets.symmetric(vertical: 25),
@@ -516,13 +514,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                       Focus(
                                                         onFocusChange: (hasFocus) {
                                                           if (hasFocus) {
-                                                            controller.animateTo(controller.position.viewportDimension, duration: new Duration(milliseconds: 200), curve: Curves.easeOut);
-                                                            // print(controller.position
-                                                            //     .viewportDimension);
-                                                            // controller.jumpTo(controller
-                                                            //     .position
-                                                            //     .viewportDimension);
-                                                            //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
+                                                            model.controller.animateTo(model.controller.position.maxScrollExtent, duration: new Duration(milliseconds: 500), curve: Curves.easeOut);
                                                           }
                                                         },
                                                         child: TextField(
@@ -610,7 +602,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           Focus(
                                             onFocusChange: (hasFocus) {
                                               if (hasFocus) {
-                                                controller.animateTo(controller.position.viewportDimension, duration: new Duration(milliseconds: 200), curve: Curves.easeInOut);
+                                                model.controller.animateTo(model.controller.position.maxScrollExtent, duration: new Duration(milliseconds: 500), curve: Curves.easeInOut);
                                                 // print(controller.position
                                                 //     .viewportDimension);
                                                 // controller.jumpTo(controller
@@ -703,7 +695,7 @@ class AddDebtCreditView extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: model.name != null ? 0 : SizeConfig.yMargin(context, 100),
+                                      height: model.name != null ? 0 : SizeConfig.yMargin(context, 100)*0.48,
                                     ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames

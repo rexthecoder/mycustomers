@@ -44,7 +44,7 @@ class MainView extends StatelessWidget {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => MainViewModel(),
       onModelReady: (model) {
-        //model.addlog();
+        model.gettransactions();
         model.getcurr();
         model.getCustomers();
       },

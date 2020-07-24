@@ -77,46 +77,48 @@ class NotificationsView extends StatelessWidget {
                             ) : SingleChildScrollView(
                               child: Column(
                                 children: <Widget>[
-                                  for (var item in model.reminders) Padding(
+                                  for (var item in model.reminders) Container(
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(color: Color(0xFFC4C4C4))
+                                      )
+                                    ),
                                       padding:
                                           const EdgeInsets.all(20.0),
-                                      child: Column(
+                                      child: Row(
                                         children: <Widget>[
-                                          Row(children: <Widget>[
-                                            Expanded(
-                                                child: Text(
-                                              'Reminder for ${item.amount}',
+                                        Expanded(
+                                            child: Text(
+                                          item.amount >  item.paid ? model.getName(item.cId)+'debt of ${item.amount} is due today' : model.getName(item.cId)+'Credit of ${item.paid} is due today',
+                                          style: TextStyle(
+                                              fontSize: SizeConfig
+                                                  .yMargin(
+                                                      context, 2)),
+                                        )),
+                                        SizedBox(width: 20.0),
+                                        Column(
+                                          children: <Widget>[
+                                            Text(
+                                              '',
                                               style: TextStyle(
-                                                  fontSize: SizeConfig
-                                                      .yMargin(
-                                                          context, 2)),
-                                            )),
-                                            SizedBox(width: 20.0),
-                                            Column(
-                                              children: <Widget>[
-                                                Text(
-                                                  '',
-                                                  style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
-                                                    color: Color(
-                                                        0xFF333CC1),
-                                                  ),
-                                                ),
-                                                SizedBox(height: 8.0),
-                                                Text(DateFormat('MMM dd yyyy').format(DateTime.parse(item.duedate)),
-                                                    style: TextStyle(
-                                                      color:
-                                                          Colors.grey,
-                                                      fontWeight:
-                                                          FontWeight
-                                                              .bold,
-                                                    )),
-                                              ],
+                                                fontWeight:
+                                                    FontWeight.bold,
+                                                color: Color(
+                                                    0xFF333CC1),
+                                              ),
                                             ),
-                                          ])
-                                        ],
-                                      ),
+                                            SizedBox(height: 8.0),
+                                            Text(DateFormat('MMM dd yyyy').format(DateTime.parse(item.duedate)),
+                                                style: TextStyle(
+                                                  color:
+                                                      Colors.grey,
+                                                  fontWeight:
+                                                      FontWeight
+                                                          .bold,
+                                                )),
+                                          ],
+                                        ),
+                                      ]),
                                     ),
                                 ],
                               ),
@@ -163,7 +165,12 @@ class NotificationsView extends StatelessWidget {
                                                   //         color: Colors.white)),
                                                   ),
                                             ),
-                                            child: Padding(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                border: Border(
+                                                  bottom: BorderSide(color: Color(0xFFC4C4C4))
+                                                )
+                                              ),
                                               padding:
                                                   const EdgeInsets.all(20.0),
                                               child: Column(
