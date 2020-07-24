@@ -147,6 +147,7 @@ class MarketingHomePageView extends StatelessWidget {
                               horizontal: 15.0, vertical: 5),
                           child: Container(
                             child: TextField(
+                              textCapitalization: TextCapitalization.sentences,
                               controller: model.searchController,
                               onChanged: model.search,
                               textInputAction: TextInputAction.search,

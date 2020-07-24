@@ -271,7 +271,7 @@ class _Pages extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(30.0),
+          padding: EdgeInsets.all(35),
           child: ClipRect(
             child: Image(
               height: SizeConfig.yMargin(context, 45),

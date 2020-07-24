@@ -42,19 +42,16 @@ class AddDebtCreditView extends StatelessWidget {
               brightness: Brightness.dark,
               elevation: 1,
               title: Text(
-                newCus
-                    ? action == 'debit'
-                        ? AppLocalizations.of(context).addNewDebtor
-                        : AppLocalizations.of(context).addNewCreditor
-                    : action == 'debit'
-                        ? model.amount != null
-                            ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
-                                model.amount.round().toString()
-                            : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
-                        : model.amount != null
-                            ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
-                                model.amount.round().toString()
-                            : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
+                newCus ? action == 'debit'
+                    ? AppLocalizations.of(context).addNewDebtor : AppLocalizations.of(context).addNewCreditor :  
+                    action == 'debit' ? model.amount != null
+                        ? '${model.contact.name} ${AppLocalizations.of(context).owesYou} ₦' +
+                            model.amount.round().toString()
+                        : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
+                    : model.amount != null
+                        ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
+                            model.amount.round().toString()
+                        : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -114,15 +111,13 @@ class AddDebtCreditView extends StatelessWidget {
                                 children: <Widget>[
                                   Container(
                                     margin: EdgeInsets.only(
-                                        bottom: ScreenUtil().setHeight(15),
-                                        top: 25),
+                                        bottom: ScreenUtil().setHeight(15), top: 25),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Container(
-                                          margin: EdgeInsets.only(
-                                              bottom: 5, left: 2),
+                                          margin: EdgeInsets.only(bottom: 5, left: 2),
                                           child: Text(
                                             AppLocalizations.of(context).amount,
                                             style: TextStyle(
@@ -175,9 +170,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                   color: Colors.red,
                                                   width: 2.0),
                                             ),
-                                            hintText:
-                                                AppLocalizations.of(context)
-                                                    .enterAmount,
+                                            hintText: AppLocalizations.of(
+                                                    context)
+                                                .enterAmount, 
                                             //action == 'credit'
                                             //     ? 'Enter Amount you owe ${model.contact.name}'
                                             //     : 'Enter Amount ${model.contact.name} Owes You',
@@ -333,7 +328,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         //     ],
                                         //   ),
                                         // ),
-                                        action == 'xx' //'Credit'
+                                        action == 'xx'//'Credit'
                                             ? SizedBox()
                                             : Container(
                                                 child: Column(
@@ -499,8 +494,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Container(
-                                                  margin: EdgeInsets.only(
-                                                      bottom: 5, left: 2),
+                                                  margin: EdgeInsets.only(bottom: 5, left: 2),
                                                   child: Text(
                                                     AppLocalizations.of(context)
                                                         .description,
@@ -529,8 +523,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                   child: Column(
                                                     children: <Widget>[
                                                       Focus(
-                                                        onFocusChange:
-                                                            (hasFocus) {
+                                                        onFocusChange: (hasFocus) {
                                                           if (hasFocus) {
                                                             model.controller.animateTo(
                                                                 model
@@ -557,20 +550,16 @@ class AddDebtCreditView extends StatelessWidget {
                                                                   .multiline,
                                                           decoration:
                                                               new InputDecoration(
-                                                            border: InputBorder
-                                                                .none,
+                                                            border:
+                                                                InputBorder.none,
                                                             focusedBorder:
-                                                                InputBorder
-                                                                    .none,
+                                                                InputBorder.none,
                                                             enabledBorder:
-                                                                InputBorder
-                                                                    .none,
+                                                                InputBorder.none,
                                                             errorBorder:
-                                                                InputBorder
-                                                                    .none,
+                                                                InputBorder.none,
                                                             disabledBorder:
-                                                                InputBorder
-                                                                    .none,
+                                                                InputBorder.none,
                                                             hintText: AppLocalizations
                                                                     .of(context)
                                                                 .enterDescription,
@@ -622,8 +611,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
-                                            margin: EdgeInsets.only(
-                                                bottom: 5, left: 2),
+                                            margin: EdgeInsets.only(bottom: 5, left: 2),
                                             child: Text(
                                               AppLocalizations.of(context)
                                                   .customerName,

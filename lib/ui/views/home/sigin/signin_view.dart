@@ -61,14 +61,14 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
       decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(SizeConfig.xMargin(context, 8)),
-              topRight: Radius.circular(SizeConfig.xMargin(context, 8)))),
+              topLeft: Radius.circular(SizeConfig.xMargin(context, 7)),
+              topRight: Radius.circular(SizeConfig.xMargin(context, 7)))),
       child: Form(
         key: _signinFormPageKey,
         child: Column(
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
-            Text( 
+            Text(
               AppLocalizations.of(context).signIn.toUpperCase(),
               style: TextStyle(
                 fontWeight: FontWeight.w900,
@@ -80,7 +80,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
               padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 5)),
               child: Align(
                 alignment: Alignment.bottomLeft,
-                child: Text( 
+                child: Text(
                   AppLocalizations.of(context).signUpEnterPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -90,7 +90,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                 ),
               ),
             ),
-            SizedBox(height: SizeConfig.yMargin(context, 1)),
+            SizedBox(height: SizeConfig.yMargin(context, 0.2)),
             Padding(
               padding: EdgeInsets.only(
                 left: SizeConfig.xMargin(context, 5),
@@ -159,25 +159,27 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                 //   viewModel.activeBtn();
                 // },
                 decoration: InputDecoration(
-                  // suffixIcon: _CustomPartialBuildWidget<SignUpViewModel>(
-                  //   builder: (BuildContext context, SignUpViewModel viewModel) =>
-                  //       IconButton(
-                  //     icon: Icon(
-                  //       // Based on obscureText state choose the icon
-                  //       viewModel.obscureText
-                  //           ? Icons.visibility
-                  //           : Icons.visibility_off,
-                  //       color: Theme.of(context).primaryColorDark,
-                  //     ),
-                  //     onPressed: () {
-                  //       // Update the state i.e. toogle the state of obscureText variable
-                  //       viewModel.togglePassword();
-                  //     },
-                  //   ),
-                  // ),
-                  labelText: AppLocalizations.of(context).password,
-                  // border: OutlineInputBorder(),
-                ),
+                    // suffixIcon: _CustomPartialBuildWidget<SignUpViewModel>(
+                    //   builder: (BuildContext context, SignUpViewModel viewModel) =>
+                    //       IconButton(
+                    //     icon: Icon(
+                    //       // Based on obscureText state choose the icon
+                    //       viewModel.obscureText
+                    //           ? Icons.visibility
+                    //           : Icons.visibility_off,
+                    //       color: Theme.of(context).primaryColorDark,
+                    //     ),
+                    //     onPressed: () {
+                    //       // Update the state i.e. toogle the state of obscureText variable
+                    //       viewModel.togglePassword();
+                    //     },
+                    //   ),
+                    // ),
+                    hintText: AppLocalizations.of(context).password,
+                    hintStyle:
+                        TextStyle(fontSize: SizeConfig.textSize(context, 3.5))
+                    // border: OutlineInputBorder(),
+                    ),
               ),
             ),
             SizedBox(height: SizeConfig.yMargin(context, 3)),
@@ -196,8 +198,9 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                 //Call Function to Signin
                 viewModel.signIn(
                   viewModel.number.dialCode +
-                      int.parse(_inputSigninNumberController.text
-                          .splitMapJoin(RegExp(r'[^0-9]'), onMatch: (_) => '')).toString(),
+                      int.parse(_inputSigninNumberController.text.splitMapJoin(
+                          RegExp(r'[^0-9]'),
+                          onMatch: (_) => '')).toString(),
                   _userPasswordController.text.trim(),
                 );
               },
