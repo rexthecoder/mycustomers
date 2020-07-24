@@ -92,7 +92,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 Icon(
                   Icons.notifications_none,
                   color: Colors.white,
-                  size: SizeConfig.yMargin(context, 3),
+                  size: SizeConfig.yMargin(context, 3.5),
                 ),
                 model.showdot
                     ? Positioned(
@@ -100,7 +100,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                         top: 0.0,
                         right: 0.0,
                         child: new Icon(Icons.brightness_1,
-                            size: SizeConfig.yMargin(context, 1.2),
+                            size: SizeConfig.yMargin(context, 1.5),
                             color: Colors.redAccent),
                       )
                     : SizedBox()

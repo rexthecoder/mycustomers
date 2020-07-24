@@ -49,17 +49,18 @@ class SavedDialog extends StatelessWidget {
         ),
         contentPadding: EdgeInsets.all(0.0),
         content: Container(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-          width: ScreenUtil.screenWidth,
-          height: SizeConfig.yMargin(context, 35),
+          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5), horizontal: SizeConfig.xMargin(context, 6)),
+          width: SizeConfig.xMargin(context, 100),
+          height: SizeConfig.yMargin(context, 100)*0.46,
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Container(
                   width: ScreenUtil.screenWidth,
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  margin: EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5)),
+                  margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.5)),
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(color: Color(0xFF575A65), width: 0.35)
@@ -74,7 +75,7 @@ class SavedDialog extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 10),
+                  margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.5)),
                   child: Text(
                     'From',
                     style: TextStyle(
@@ -85,7 +86,7 @@ class SavedDialog extends StatelessWidget {
                 InkWell(
                   onTap: (){},
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 5)),
                     decoration: BoxDecoration(
                       border: Border.all(color: Color(0xFF575A65)),
                       borderRadius: BorderRadius.circular(4)
@@ -103,7 +104,7 @@ class SavedDialog extends StatelessWidget {
                 ),
                 SizedBox(height: 15,),
                 Container(
-                  margin: EdgeInsets.only(bottom: 10),
+                  margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.5)),
                   child: Text(
                     'To',
                     style: TextStyle(
@@ -114,7 +115,7 @@ class SavedDialog extends StatelessWidget {
                 InkWell(
                   onTap: (){},
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 5)),
                     decoration: BoxDecoration(
                       border: Border.all(color: Color(0xFF575A65)),
                       borderRadius: BorderRadius.circular(4)
@@ -130,14 +131,15 @@ class SavedDialog extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
-                InkWell(
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                SizedBox(height: SizeConfig.yMargin(context, 2.4),),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: (){},
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Color(0xFFA7A6A6)
@@ -152,27 +154,27 @@ class SavedDialog extends StatelessWidget {
                             ),
                           ),
                         ),
-                        InkWell(
-                          onTap: (){},
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: BrandColors.primary
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Export',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white
-                                ),
+                      ),
+                      InkWell(
+                        onTap: (){},
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: BrandColors.primary
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Export',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white
                               ),
                             ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],
