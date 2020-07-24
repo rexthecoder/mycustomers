@@ -104,7 +104,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   // }
 
   void navigateToHome(){
-    _navigationService.replaceWith(Routes.mainViewRoute);
+    _navigationService.clearStackAndShow(Routes.mainViewRoute);
   }
 
 void navigateToSchedule(){

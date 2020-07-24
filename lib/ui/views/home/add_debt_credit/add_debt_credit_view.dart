@@ -743,7 +743,7 @@ class AddDebtCreditView extends StatelessWidget {
                                       height: model.name != null
                                           ? 0
                                           : SizeConfig.yMargin(context, 100) *
-                                              0.33,
+                                              0.3,
                                     ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames
