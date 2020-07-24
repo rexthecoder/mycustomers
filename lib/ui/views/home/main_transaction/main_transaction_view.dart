@@ -8,6 +8,7 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -274,11 +275,13 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                      ReceiptReport().buildPdf(context);
-                                      await ReceiptReport()
-                                          .generateReport(context);
+                                      SavedDialog().showPdfDialog(context);
+                                      // ReceiptReport().buildPdf(context);
+                                      // await ReceiptReport()
+                                      //     .generateReport(context);
                                     },
                                     child: Container(
+                                      width: SizeConfig.xMargin(context, 100) * 0.3,
                                       child: Column(
                                         children: <Widget>[
                                           Container(
@@ -313,6 +316,7 @@ class MainTransaction extends StatelessWidget {
                                   InkWell(
                                     onTap: () {}, //Todo: Call Functionality
                                     child: Container(
+                                      width: SizeConfig.xMargin(context, 100) * 0.3,
                                       child: Column(
                                         children: <Widget>[
                                           Container(
@@ -348,6 +352,7 @@ class MainTransaction extends StatelessWidget {
                                       model.navigateToSchedule();
                                     },
                                     child: Container(
+                                      width: SizeConfig.xMargin(context, 100) * 0.3,
                                       child: Column(
                                         children: <Widget>[
                                           Container(
