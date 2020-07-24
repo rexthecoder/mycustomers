@@ -18,7 +18,7 @@ class AddDebtViewModel extends BaseViewModel{
   double get amount => _amount;
 
   String _error;
-  String get error => _error;
+ // String get error => _error;
 
   String _item;
   String get item => _item;

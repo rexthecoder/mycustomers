@@ -7,6 +7,7 @@ import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/hive/log/log_h.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive/hive.dart';
@@ -79,6 +80,7 @@ void main() {
     final currencymockBox = MockBox<CountryCurrency>();
     final storemockBox = MockBox<StoreH>();
     final contactmockBox = MockBox<CustomerContact>();
+    final profilemockBox = MockBox<Profile>();
 
     final mockhive = MockHive();
 
@@ -87,6 +89,7 @@ void main() {
     when(mockhive.isBoxOpen(HiveBox.currency)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.businessCardBoxName)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.contact)).thenAnswer((_) => false);
+    when(mockhive.isBoxOpen(HiveBox.profile)).thenAnswer((_) => false);
 
     when(mockhive.openBox<TransactionModel>(HiveBox.transaction))
         .thenAnswer((_) async => Future.value(transactionmockBox));
@@ -100,6 +103,8 @@ void main() {
         .thenAnswer((_) async => Future.value(storemockBox));
     when(mockhive.openBox<CustomerContact>(HiveBox.contact))
         .thenAnswer((_) async => Future.value(contactmockBox));
+    when(mockhive.openBox<Profile>(HiveBox.profile))
+        .thenAnswer((_) async => Future.value(profilemockBox));
 
     locator.registerSingleton<TransactionDataSource>(mockTransactionAdapters);
     locator.registerSingleton<HiveInterface>(mockhive);

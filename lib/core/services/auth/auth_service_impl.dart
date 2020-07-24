@@ -3,6 +3,7 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/api_routes.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/exceptions/network_exception.dart';
@@ -10,6 +11,7 @@ import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'auth_service.dart';
@@ -31,6 +33,7 @@ class AuthServiceImpl implements AuthService {
   // The service for directing user to the home screen
  NavigationService _navigationService = locator<NavigationService>();
  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+ final _profileService = locator<ProfileService>();
 
 
   Future authUser(String url, Map<String, dynamic> params) async {
@@ -79,6 +82,8 @@ class AuthServiceImpl implements AuthService {
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
+      Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
+      _profileService.addProfile(profile);
 
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
@@ -112,11 +117,13 @@ class AuthServiceImpl implements AuthService {
         ApiRoutes.authentication_login,
         {'phone_number': int.parse(phoneNumber), 'password': password},
       );
-
+      print(response);
       // Build the user object from the API response
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
+      Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
+      _profileService.addProfile(profile);
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
       throw AuthException(e.message);
