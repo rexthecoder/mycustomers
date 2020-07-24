@@ -30,10 +30,12 @@ class CustomerCircleAvatar extends StatelessWidget {
     return CircleAvatar(
       child: this.child != null ? this.child : this.contact != null && this.contact.avatar.isNotEmpty ? Image.memory(this.contact.avatar, fit: BoxFit.cover,) :
           Text(
-            '${customer?.name?.substring(0, 1) ?? contact?.initial ?? '(*)'}${customer.lastName ==''?'': customer?.lastName?.substring(0, 1) ?? ''}'.toUpperCase(),
+            '${customer.displayName.split(" ").length > 2 ? customer.displayName.split(" ")[0][0]+""+customer.displayName.split(" ")[1][0] ?? "" : customer.displayName[0]}',
+            //'${customer?.name[0]?? contact?.initial ?? '(*)'}${customer.lastName ==''?'': customer?.lastName[0] ?? ''}'.toUpperCase(),
             style: TextStyle(
               color: action == 'debtor' ? BrandColors.primary : BrandColors.secondary,
               fontSize: SizeConfig.yMargin(context, 2),
+              fontFamily: 'Roboto'
             ),
           ),
       radius: SizeConfig.xMargin(context, 6),

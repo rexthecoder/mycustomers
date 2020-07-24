@@ -11,6 +11,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 
 class TransactionDetails extends StatelessWidget {
   final Color color = BrandColors.primary;
@@ -27,10 +28,30 @@ class TransactionDetails extends StatelessWidget {
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(70),
-            child: customizeAppBar(context, 0,
-                title: AppLocalizations.of(context).transactionDetails,
-                arrowColor: ThemeColors.background,
-                backgroundColor: BrandColors.primary),
+            child: AppBar(
+              brightness: Brightness.dark,
+              backgroundColor: BrandColors.primary,
+              elevation: 0,
+              centerTitle: true,
+              title: Text(
+                AppLocalizations.of(context).transactionDetails,
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontSize: SizeConfig.textSize(context, 5),
+                  color: Theme.of(context).backgroundColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              leading: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                  child: SvgPicture.asset(
+                    'assets/icons/backarrow.svg',
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+              ),
+            )
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

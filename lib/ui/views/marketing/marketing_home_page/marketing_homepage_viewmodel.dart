@@ -123,7 +123,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
      Navigator.of(context).pushNamed(Routes.addCustomerMarketing, arguments: _allFrequentCustomers).then((_){
        final arguments = ModalRoute.of(context).settings.arguments as Map;
        final result = arguments['result'];
-     allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
+     allCustomers = result != null ?[...allCustomers,...result]:allCustomers;
      _allFrequentCustomers = allCustomers;
       notifyListeners();
      
