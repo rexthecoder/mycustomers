@@ -34,10 +34,10 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
           model.updateMenu();
         },
         child: Container(
-          height: SizeConfig.yMargin(context, 12),
-          //color: model.currStore.id == business.id
-            //  ? Color(0xFF2F80ED).withOpacity(0.2)
-              //: Colors.transparent,
+          height: SizeConfig.yMargin(context, 10),
+          color: model.currStore.id == business.id
+              ? Color(0xFF2F80ED).withOpacity(0.2)
+              : Colors.transparent,
           child: Center(
             child: ListTile(
               leading: Container(
@@ -77,7 +77,11 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                 ),
               ),
               subtitle: Text(
-                model.getCustomerCount(business.id) > 1 ? model.getCustomerCount(business.id).toString()+' customers' : model.getCustomerCount(business.id).toString()+' customer',
+                model.getCustomerCount(business.id) > 1
+                    ? model.getCustomerCount(business.id).toString() +
+                        ' customers'
+                    : model.getCustomerCount(business.id).toString() +
+                        ' customer',
                 style: TextStyle(
                   color: Theme.of(context).cursorColor,
                   fontSize: SizeConfig.textSize(context, 4),

@@ -8,29 +8,33 @@ class BusinessMenu extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return Container(
-      padding: EdgeInsets.only(
-        bottom: SizeConfig.yMargin(context, 2),
-      ),
-      decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
+    return Card(
+      margin: EdgeInsets.zero,
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.only(
+          bottom: SizeConfig.yMargin(context, 2),
         ),
-      ),
-      height: SizeConfig.yMargin(context, 45),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: BusinessMenuOptions(),
+        decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
           ),
-          SizedBox(
-            height: SizeConfig.yMargin(context, 2),
-          ),
-          _AddBusinessButton(),
-        ],
+        ),
+        height: SizeConfig.yMargin(context, 45),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: BusinessMenuOptions(),
+            ),
+            SizedBox(
+              height: SizeConfig.yMargin(context, 2),
+            ),
+            _AddBusinessButton(),
+          ],
+        ),
       ),
     );
   }

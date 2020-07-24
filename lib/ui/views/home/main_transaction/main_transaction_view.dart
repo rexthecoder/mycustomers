@@ -198,8 +198,8 @@ class MainTransaction extends StatelessWidget {
                                             Text(
                                               model.currency.symbol +
                                                   currency
-                                                      .format(model.bought() -
-                                                          model.paid())
+                                                      .format(model.getamount((model.bought() -
+                                                          model.paid()).toDouble()))
                                                       .toString(),
                                               style: Theme.of(context)
                                                   .textTheme
@@ -241,8 +241,7 @@ class MainTransaction extends StatelessWidget {
                                             Text(
                                               model.currency.symbol +
                                                   currency
-                                                      .format(model.paid() -
-                                                          model.bought())
+                                                      .format(model.getamount((model.paid() - model.bought()).toDouble()))
                                                       .toString(),
                                               style: Theme.of(context)
                                                   .textTheme
@@ -588,7 +587,7 @@ class MainTransaction extends StatelessWidget {
                                                                       model.currency
                                                                               .symbol +
                                                                           currency
-                                                                              .format(item.amount)
+                                                                              .format(model.getamount(item.amount))
                                                                               .toString(),
                                                                       style: TextStyle(
                                                                           fontWeight:
@@ -616,7 +615,7 @@ class MainTransaction extends StatelessWidget {
                                                                       model.currency
                                                                               .symbol +
                                                                           currency
-                                                                              .format(item.paid)
+                                                                              .format(model.getamount(item.paid))
                                                                               .toString(),
                                                                       style: TextStyle(
                                                                           fontWeight:
@@ -724,7 +723,7 @@ class MainTransaction extends StatelessWidget {
                                                                         child:
                                                                             Text(
                                                                           model.currency.symbol +
-                                                                              currency.format(item.amount).toString(),
+                                                                              currency.format(model.getamount(item.amount)).toString(),
                                                                           style: TextStyle(
                                                                               fontWeight: FontWeight
                                                                                   .bold,
@@ -840,7 +839,7 @@ class MainTransaction extends StatelessWidget {
                                                                             child:
                                                                                 Text(
                                                                               model.currency.symbol +
-                                                                                  currency.format(item.paid).toString(),
+                                                                                  currency.format(model.getamount(item.paid)).toString(),
                                                                               style: TextStyle(
                                                                                   fontWeight: FontWeight.bold,
                                                                                   color: BrandColors.primary,
