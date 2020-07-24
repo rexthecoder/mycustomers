@@ -114,7 +114,7 @@ class OnboardingView extends StatelessWidget {
                             style: TextStyle(
                               fontSize: SizeConfig.textSize(context, 4),
                               fontWeight: FontWeight.normal,
-                              color: ThemeColors.black,
+                              color: Theme.of(context).cursorColor,
                             ),
                             children: <TextSpan>[
                               TextSpan(
@@ -122,7 +122,7 @@ class OnboardingView extends StatelessWidget {
                                     ' - ${AppLocalizations.of(context).changeLanguage}',
                                 style: TextStyle(
                                   fontSize: SizeConfig.textSize(context, 4),
-                                  color: ThemeColors.black,
+                                  color: Theme.of(context).cursorColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
