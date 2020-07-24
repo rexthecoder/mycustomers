@@ -95,6 +95,7 @@ class AddAssistantView extends StatelessWidget {
                             ),
                             Expanded(
                               child: TextFormField(
+                                textCapitalization: TextCapitalization.sentences,
                                 validator: (value) =>
                                     model.validateFields(value),
                                 controller: _assistantNameController,
@@ -115,6 +116,7 @@ class AddAssistantView extends StatelessWidget {
                             ),
                             Expanded(
                               child: TextFormField(
+                                textCapitalization: TextCapitalization.sentences,
                                 validator: (value) =>
                                     model.validateFields(value),
                                 controller: _assistantRoleController,

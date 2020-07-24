@@ -125,6 +125,7 @@ class ContactList extends StatelessWidget {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
                 child: TextField(
+                  textCapitalization: TextCapitalization.sentences,
                   //controller: model.allCustomersController,
                   //onChanged: model.searchAllCustomers,
                   style: TextStyle(

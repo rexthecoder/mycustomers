@@ -82,10 +82,10 @@ class SignInViewModel extends BaseViewModel with Validators {
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(
-        message: 'Welcome Back',
-        success: true,
-      );
+      // showToastCustom(
+      //   message: 'Welcome Back',
+      //   success: true,
+      // );
       busy = false;
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();

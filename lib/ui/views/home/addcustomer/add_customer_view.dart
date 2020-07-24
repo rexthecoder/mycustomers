@@ -22,7 +22,8 @@ class AddCustomerView extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
               appBar: customizeAppBar(context, 1.0,
                   title: kaddCustomerHeadingText,
-                  arrowColor: BrandColors.primary),
+                  arrowColor: BrandColors.primary,
+                  backgroundColor: Theme.of(context).backgroundColor),
               //  AppBar(
               //   title: Text(kaddCustomerHeadingText),
               //   backgroundColor: Colors.transparent,
