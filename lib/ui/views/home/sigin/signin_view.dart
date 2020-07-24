@@ -176,7 +176,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                     // ),
                     hintText: AppLocalizations.of(context).password,
                     hintStyle:
-                        TextStyle(fontSize: SizeConfig.textSize(context, 5))
+                        TextStyle(fontSize: SizeConfig.textSize(context, 3.5))
                     // border: OutlineInputBorder(),
                     ),
               ),

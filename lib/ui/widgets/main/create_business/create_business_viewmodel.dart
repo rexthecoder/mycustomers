@@ -45,7 +45,7 @@ class CreateBusinessViewModel extends BaseViewModel {
 
       _dialogService.completeDialog(DialogResponse());
       showToastCustom(
-        message: 'Your store has been created successfully',
+        message: 'Welcome Back!',
         success: true,
       );
       _logService.getValues(

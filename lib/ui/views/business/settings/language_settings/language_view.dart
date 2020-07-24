@@ -15,14 +15,8 @@ class LanguageSelectionPageView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: customizeAppBar(context, 1.0,
-<<<<<<< HEAD
-            title: 'Language Settings',
-            arrowColor: Theme.of(context).textSelectionColor,
-            backgroundColor: Theme.of(context).backgroundColor),
-=======
             title: AppLocalizations.of(context).languageSettings,
             arrowColor: Theme.of(context).textSelectionColor),
->>>>>>> 6961b99094f01f377fd129ffee61f9ea9b07f372
         body: Container(
           margin:
               EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 8)),
