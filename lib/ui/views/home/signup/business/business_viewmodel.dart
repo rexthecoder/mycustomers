@@ -42,7 +42,7 @@ class BusinessViewModel extends BaseViewModel with Validators {
       // await _navigationService.clearStackAndShow(Routes.startupViewRoute);
       _dialogService.completeDialog(DialogResponse());
       showToastCustom(
-        message: 'Your store has been created successfully',
+        message: 'Account created successfully! Welcome.',
         success: true,
       );
 

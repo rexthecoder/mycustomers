@@ -22,7 +22,8 @@ class EditProfileView extends HookWidget {
           appBar: customizeAppBar(context, 1.0,
               children: [],
               title: AppLocalizations.of(context).editProfile,
-              arrowColor: BrandColors.primary),
+              arrowColor: BrandColors.primary,
+              backgroundColor: Theme.of(context).backgroundColor),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
@@ -114,6 +115,7 @@ class EditProfileView extends HookWidget {
                             horizontal: SizeConfig.xMargin(context, 4),
                           ),
                           child: TextFormField(
+                            textCapitalization: TextCapitalization.sentences,
                             onChanged: (value) =>
                                 model.updateBusinessName(value),
                             initialValue: model.businessName,
@@ -170,6 +172,7 @@ class _StringForm extends HookViewModelWidget<EditProfileViewModel>{
   @override
   Widget buildViewModelWidget(BuildContext context, EditProfileViewModel model) {
     return TextFormField(
+      textCapitalization: TextCapitalization.sentences,
       initialValue: model.userP.name,
       keyboardType: TextInputType.text,
       onChanged: (value) => model.updateUserName(value),

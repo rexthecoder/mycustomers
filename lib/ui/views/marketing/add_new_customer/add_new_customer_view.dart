@@ -14,9 +14,13 @@ class AddNewCustomerView extends StatelessWidget {
     return ViewModelBuilder<AddNewCustomerViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
-            appBar: customizeAppBar(context, 1.0,
-                title: AppLocalizations.of(context).sendMessage,
-                arrowColor: BrandColors.secondary),
+            appBar: customizeAppBar(
+              context,
+              1.0,
+              title: AppLocalizations.of(context).sendMessage,
+              arrowColor: BrandColors.secondary,
+              backgroundColor: Theme.of(context).backgroundColor,
+            ),
             body: SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(20.w),
@@ -42,6 +46,7 @@ class AddNewCustomerView extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             child: TextField(
+                              textCapitalization: TextCapitalization.sentences,
                               textAlign: TextAlign.left,
                               decoration: InputDecoration(
                                 hintText: AppLocalizations.of(context)
@@ -99,7 +104,7 @@ class AddNewCustomerView extends StatelessWidget {
                             ),
                             Expanded(
                               child: TextField(
-                                keyboardType: TextInputType.numberWithOptions(),
+                                keyboardType: TextInputType.number,
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   hintText:

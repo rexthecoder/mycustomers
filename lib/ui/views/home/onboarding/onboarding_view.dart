@@ -58,7 +58,7 @@ class OnboardingView extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                  bottom: SizeConfig.yMargin(context, 26),
+                  bottom: SizeConfig.yMargin(context, 24),
                   left: 0,
                   right: 0,
                   child: WormIndicator(
@@ -74,7 +74,7 @@ class OnboardingView extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: SizeConfig.yMargin(context, 16),
+                  bottom: SizeConfig.yMargin(context, 15),
                   child: CustomRaisedButton(
                     txtColor: ThemeColors.background,
                     btnColor: BrandColors.primary,
@@ -130,7 +130,8 @@ class OnboardingView extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ), viewModelBuilder: () => LanguageViewModel(),
+                    ),
+                    viewModelBuilder: () => LanguageViewModel(),
                   ),
                 ),
               ],
@@ -149,7 +150,6 @@ class OnboardingView extends StatelessWidget {
     LanguageViewModel model,
   ) {
     showModalBottomSheet(
-
       enableDrag: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -218,8 +218,8 @@ class OnboardingView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Padding(
-                              padding:
-                                  EdgeInsets.all(SizeConfig.yMargin(context, 1)),
+                              padding: EdgeInsets.all(
+                                  SizeConfig.yMargin(context, 1)),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(
                                     SizeConfig.yMargin(context, 5)),
@@ -271,7 +271,7 @@ class _Pages extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(30.0),
+          padding: EdgeInsets.all(35),
           child: ClipRect(
             child: Image(
               height: SizeConfig.yMargin(context, 45),
@@ -289,13 +289,18 @@ class _Pages extends StatelessWidget {
           ),
         ),
         SizedBox(height: SizeConfig.yMargin(context, 1.2)),
-        Text(
-          txt2,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: SizeConfig.textSize(context, 4),
+        Padding(
+          padding: EdgeInsets.only(
+              left: SizeConfig.xMargin(context, 4),
+              right: SizeConfig.xMargin(context, 4)),
+          child: Text(
+            txt2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: SizeConfig.textSize(context, 4),
+            ),
+            softWrap: true,
           ),
-          softWrap: true,
         ),
       ],
     );

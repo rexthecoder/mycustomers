@@ -144,6 +144,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 Expanded(
                   child: Center(
                     child: TextField(
+                      textCapitalization: TextCapitalization.sentences,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context).enterName,
