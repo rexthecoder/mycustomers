@@ -19,7 +19,7 @@ class EditProfileView extends HookWidget {
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: customizeAppBar(context, 1.0,
+          appBar: customizeAppBar(context, 0,
               children: [],
               title: AppLocalizations.of(context).editProfile,
               arrowColor: BrandColors.primary,
@@ -83,28 +83,31 @@ class EditProfileView extends HookWidget {
                       onPressed: model.getImagefromGallery,
                     ),
                   ),
-                   SizedBox(height: SizeConfig.yMargin(context, 1.4)),
+                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Divider(color: ThemeColors.gray.shade600),
                   SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Column(
                     children: <Widget>[
                       Container(
-                        height: SizeConfig.yMargin(context, 8),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.yMargin(context, 0.7)),
+                        //height: SizeConfig.yMargin(context, 8),
                         width: SizeConfig.xMargin(context, 90),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.sp),
                             border:
                                 Border.all(color: ThemeColors.gray.shade600)),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.xMargin(context, 4),
-                          ),
-                          child: _StringForm()
-                        ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.xMargin(context, 4),
+                            ),
+                            child: _StringForm()),
                       ),
                       SizedBox(height: SizeConfig.yMargin(context, 2)),
                       Container(
-                        height: SizeConfig.yMargin(context, 8),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.yMargin(context, 0.7)),
+                        //height: SizeConfig.yMargin(context, 8),
                         width: SizeConfig.xMargin(context, 90),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.sp),
@@ -124,6 +127,7 @@ class EditProfileView extends HookWidget {
                                 border: InputBorder.none,
                                 hintText:
                                     AppLocalizations.of(context).businessName),
+                            textAlign: TextAlign.start,
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
                             ),
@@ -166,11 +170,12 @@ class EditProfileView extends HookWidget {
   }
 }
 
-class _StringForm extends HookViewModelWidget<EditProfileViewModel>{
+class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
   const _StringForm({Key key}) : super(key: key, reactive: false);
 
   @override
-  Widget buildViewModelWidget(BuildContext context, EditProfileViewModel model) {
+  Widget buildViewModelWidget(
+      BuildContext context, EditProfileViewModel model) {
     return TextFormField(
       textCapitalization: TextCapitalization.sentences,
       initialValue: model.userP.name,
@@ -205,11 +210,13 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
               fontWeight: FontWeight.bold,
             ),
           )
-        : model.sImage == null ?ClipOval(
-            child: model.imageFromBaseString(model.userP.image, context),
-          ) : ClipOval(
-            child: model.imageFromBaseString(model.sImage, context),
-          ),
+        : model.sImage == null
+            ? ClipOval(
+                child: model.imageFromBaseString(model.userP.image, context),
+              )
+            : ClipOval(
+                child: model.imageFromBaseString(model.sImage, context),
+              ),
     radius: 70,
   );
 }
