@@ -452,7 +452,50 @@ class MainTransaction extends StatelessWidget {
                                 )
                               ],
                             ),
+                        ),
+                    model.formattedate.length == 0 ? SizedBox() : 
+                      Container(
+                        width: SizeConfig.xMargin(context, 100),
+                        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.2)),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Color(0xFFC4C4C4))
                           ),
+                          color: BrandColors.primary.withOpacity(0.03),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Container(
+                              //color: Colors.red,
+                              width: SizeConfig.xMargin(context, 100)*0.48,
+                              child: Center(
+                                child: Text(
+                                  'Details'
+                                ),
+                              ),
+                            ),
+                            Container(
+                              //color: Colors.red,
+                              width: SizeConfig.xMargin(context, 100)*0.26,
+                              child: Center(
+                                child: Text(
+                                  'Owes you'
+                                ),
+                              ),
+                            ),
+                            Container(
+                              //color: Colors.red,
+                              width: SizeConfig.xMargin(context, 100)*0.26,
+                              child: Center(
+                                child: Text(
+                                  'Paid you'
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     model.formattedate.length == 0
                         ? Expanded(
                             child: Padding(
