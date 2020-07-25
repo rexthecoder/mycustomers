@@ -65,7 +65,7 @@ class DebtorsView extends StatelessWidget {
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.bought())
+                                              .format(model.getamount(model.bought()))
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -311,8 +311,8 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format((cont.amount -
-                                                            cont.paid)
+                                                    .format(model.getamount((cont.amount -
+                                                            cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(
@@ -466,8 +466,8 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format((cont.amount -
-                                                            cont.paid)
+                                                    .format(model.getamount((cont.amount -
+                                                            cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(

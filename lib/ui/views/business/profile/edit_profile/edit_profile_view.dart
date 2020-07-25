@@ -15,7 +15,7 @@ import 'package:async/async.dart';
 class EditProfileView extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<EditProfileViewModel>.nonReactive(
+    return ViewModelBuilder<EditProfileViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,

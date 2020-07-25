@@ -255,4 +255,11 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     getAllTransactions(transaction.sId);
   }
 
+  void deleteTransaction()async {
+    await _transactionBox.deleteAt(_transactionBox.values.toList().indexOf(stransaction));
+    getAllTransactions(stransaction.sId);
+    getTransactions(stransaction.cId, stransaction.sId);
+    //_stransaction.value = null;
+  }
+
 }

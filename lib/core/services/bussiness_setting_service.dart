@@ -17,7 +17,9 @@ class BussinessSettingService with ReactiveServiceMixin{
   RxValue<int> _templanguage = RxValue<int>(initial: 0);
 
   RxValue<CountryCurrency> _curren = RxValue<CountryCurrency>(initial: null);
+  RxValue<CountryCurrency> _oldcurren = RxValue<CountryCurrency>(initial: null);
   CountryCurrency get curren => _curren.value;
+  CountryCurrency get oldcurren => _oldcurren.value;
 
   List langs = [
     { 'name': 'English', 'selected': true, 'code': 'en' },
@@ -58,6 +60,7 @@ class BussinessSettingService with ReactiveServiceMixin{
       _currency.value = 0;
     } else {
       _curren.value = _currencyBox.values.toList()[0];
+      _oldcurren.value = _currencyBox.values.toList().length > 1 ? _currencyBox.values.toList()[1] : CountryCurrency(country: 'Nigeria', symbol:'₦');
       for(var item in currencies) {
       if(_curren.value.country == item['country']){
         _currency.value = currencies.indexOf(item);

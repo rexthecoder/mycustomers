@@ -245,7 +245,9 @@ class TransactionDetails extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () {}, // TODO: implement delete button
+                      onTap: (){
+                        model.delete();
+                      }, // TODO: implement delete button
                       child: Container(
                         height: 90.sp,
                         width: 280.sp,

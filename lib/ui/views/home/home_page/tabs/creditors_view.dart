@@ -63,7 +63,7 @@ class CreditorsView extends StatelessWidget {
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.whatyouowe)
+                                              .format(model.getamount(model.whatyouowe))
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -265,7 +265,7 @@ class ContactList extends StatelessWidget {
                                         model.currency.symbol +
                                             currency
                                                 .format(
-                                                    (cont.paid - cont.amount)
+                                                    model.getamount((cont.paid - cont.amount))
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
@@ -337,7 +337,7 @@ class ContactList extends StatelessWidget {
                                         model.currency.symbol +
                                             currency
                                                 .format(
-                                                    (cont.paid - cont.amount)
+                                                    model.getamount((cont.paid - cont.amount))
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
