@@ -37,7 +37,8 @@ class BusinessHomePageViewModel extends BaseViewModel {
   }
 
   Future navigateToProfilePage() async {
-    await _navigationService.navigateTo(Routes.profileViewRoute);
+    // TODO fix profile page
+    await _navigationService.navigateTo(Routes.editProfileViewRoute);
   }
 
   Future navigateToBusinessCardPage() async {
