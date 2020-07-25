@@ -34,6 +34,7 @@ class OnboardingView extends StatelessWidget {
                 PageView(
                   physics: ClampingScrollPhysics(),
                   controller: model.pageController,
+                  onPageChanged: model.restartTimer,
                   children: [
                     _Pages(
                       'assets/images/onboarding/onboarding1.png',

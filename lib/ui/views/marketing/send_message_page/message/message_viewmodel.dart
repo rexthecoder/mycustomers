@@ -114,10 +114,10 @@ class MessageViewModel extends StreamViewModel {
     notifyListeners();
   }
 
-  Future initSelected(List<Customer> customers){
+  void initSelected(List<Customer> customers){
     _selectedCustomers = _selectedCustomers.length == 0?[..._selectedCustomers,...customers]
         :_selectedCustomers;
-    notifyListeners();
+//    notifyListeners();
 
   }
 

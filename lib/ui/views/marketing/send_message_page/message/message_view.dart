@@ -228,7 +228,8 @@ class MessageView extends StatelessWidget {
         );
       },
       onModelReady: (model) {
-        model.init();
+        Future.microtask(model.init);
+//        model.init();
       },
     );
   }

@@ -54,10 +54,12 @@ class MarketingHomePageView extends StatelessWidget {
                     final bool isPermitted = await model.checkPermission();
                     if (isPermitted) {
                       model.navigateToAddCustomers(context);
+                      return;
                     } else {
                       permissionDialog(context, model);
                     }
                     model.navigateToAddCustomer();
+//                    return;
                   },
                   child: Center(
                     child: Column(
