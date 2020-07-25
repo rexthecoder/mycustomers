@@ -1,12 +1,18 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -19,6 +25,9 @@ class MainViewModel extends ReactiveViewModel {
   final ICustomerService _customerService = locator<ICustomerService>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
   final _customerContactService = locator<CustomerContactService>();
+  final _profileService = locator<ProfileService>();
+
+  Profile get userP => _profileService.getProfile();
 
   final Duration duration = const Duration(milliseconds: 300);
   List<Store> _stores = StoreRepository.stores;
@@ -38,6 +47,14 @@ class MainViewModel extends ReactiveViewModel {
   Store get currStore => StoreRepository.currentStore;
 
   bool get showdot =>_logService.shouldnotify;
+
+  Image imageFromBaseString(String base64String, BuildContext context){
+     return Image.memory(base64Decode(base64String),
+     width: SizeConfig.xMargin(context, 50),
+      height: SizeConfig.xMargin(context, 50),
+      fit: BoxFit.cover,
+    );
+  }
 
   void gettransactions(){
     _transactionService.getAllTransactions(currStore.id);
