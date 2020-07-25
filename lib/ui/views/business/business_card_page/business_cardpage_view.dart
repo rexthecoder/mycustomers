@@ -73,33 +73,33 @@ class BusinessCardPageView extends StatelessWidget {
                         color: ThemeColors.background,
                       ),
                       onPressed: () {
-                        if (formKey.currentState.validate()) {
-                          screenshotController
-                              .capture(
-                            pixelRatio: ScreenUtil.pixelRatio,
-                            delay: Duration(milliseconds: 10),
-                          )
-                              .then(
-                            (File image) async {
-                              //Capture Done
-                              model.imageFile = image;
-                              await model.saveBusinessCard();
-                              FlushbarHelper.createSuccess(
-                                      duration: const Duration(seconds: 5),
-                                      message: AppLocalizations.of(context)
-                                          .saveSuccessful)
-                                  .show(context);
-                              model.shareImageAndText();
-                            },
-                          ).catchError(
-                            (onError) {
-                              FlushbarHelper.createError(
-                                duration: const Duration(seconds: 5),
-                                message: onError.toString(),
-                              ).show(context);
-                            },
-                          );
-                        }
+//                        if (formKey.currentState.validate()) {
+                        screenshotController
+                            .capture(
+                          pixelRatio: ScreenUtil.pixelRatio,
+                          delay: Duration(milliseconds: 10),
+                        )
+                            .then(
+                          (File image) async {
+                            //Capture Done
+                            model.imageFile = image;
+                            await model.saveBusinessCard();
+                            FlushbarHelper.createSuccess(
+                              duration: const Duration(seconds: 5),
+                              message: 'Successful',
+//                                  AppLocalizations.of(context).saveSuccessful,
+                            ).show(context);
+                            model.shareImageAndText();
+                          },
+                        ).catchError(
+                          (onError) {
+                            FlushbarHelper.createError(
+                              duration: const Duration(seconds: 5),
+                              message: onError.toString(),
+                            ).show(context);
+                          },
+                        );
+//                        }
                         return;
                       },
                     ),
