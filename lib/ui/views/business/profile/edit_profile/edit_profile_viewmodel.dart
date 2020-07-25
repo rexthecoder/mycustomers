@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
@@ -102,8 +100,9 @@ class EditProfileViewModel extends BaseViewModel {
     }
     if (response.file != null) {
       _imgFile = File(response.file.path);
-      return sImage = base64String(_imgFile.readAsBytesSync());
-
+      sImage = base64String(_imgFile.readAsBytesSync());
+      notifyListeners();
+      return sImage;
     } else {
       _retrieveDataError = response.exception.code;
       return _retrieveDataError;

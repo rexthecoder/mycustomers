@@ -77,7 +77,11 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                 ),
               ),
               subtitle: Text(
-                model.getCustomerCount(business.id) > 1 ? model.getCustomerCount(business.id).toString()+' customers' : model.getCustomerCount(business.id).toString()+' customer',
+                model.getCustomerCount(business.id) > 1
+                    ? model.getCustomerCount(business.id).toString() +
+                        ' customers'
+                    : model.getCustomerCount(business.id).toString() +
+                        ' customer',
                 style: TextStyle(
                   color: Theme.of(context).cursorColor,
                   fontSize: SizeConfig.textSize(context, 4),

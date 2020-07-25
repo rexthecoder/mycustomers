@@ -7,10 +7,16 @@ import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class BusinessHomePageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final AuthService _auth = locator<AuthService>();
+  final _profileService = locator<ProfileService>();
 
   String get pNum => _auth.currentUser.phoneNumber;
 
@@ -19,6 +25,16 @@ class BusinessHomePageViewModel extends BaseViewModel {
 
   String get profileCardSubtitle =>
       StoreRepository?.currentStore?.address ?? '---';
+
+  Profile get userP => _profileService.getProfile();
+
+  Image imageFromBaseString(String base64String, BuildContext context){
+     return Image.memory(base64Decode(base64String),
+     width: SizeConfig.xMargin(context, 50),
+      height: SizeConfig.xMargin(context, 50),
+      fit: BoxFit.cover,
+    );
+  }
 
   Future navigateToProfilePage() async {
     await _navigationService.navigateTo(Routes.profileViewRoute);

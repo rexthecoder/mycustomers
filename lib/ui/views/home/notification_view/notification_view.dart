@@ -111,9 +111,7 @@ class NotificationsView extends StatelessWidget {
                                                                 context)
                                                             .isDueToday,
                                                 style: TextStyle(
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 2)),
+                                                    fontSize:SizeConfig.yMargin(context, 2)),
                                               )),
                                               SizedBox(width: 20.0),
                                               Column(
@@ -136,6 +134,7 @@ class NotificationsView extends StatelessWidget {
                                                         color: Colors.grey,
                                                         fontWeight:
                                                             FontWeight.bold,
+                                                        fontSize:SizeConfig.yMargin(context, 2),
                                                       )),
                                                 ],
                                               ),
@@ -236,6 +235,7 @@ class NotificationsView extends StatelessWidget {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
+                                                              fontSize:SizeConfig.yMargin(context, 2),
                                                             )),
                                                       ],
                                                     ),

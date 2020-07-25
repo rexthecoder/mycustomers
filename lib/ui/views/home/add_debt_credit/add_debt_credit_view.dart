@@ -533,10 +533,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             (hasFocus) {
                                                           if (hasFocus) {
                                                             model.controller.animateTo(
-                                                                model
-                                                                    .controller
-                                                                    .position
-                                                                    .maxScrollExtent - 90,
+                                                                model.controller.position.maxScrollExtent-250,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:
@@ -742,8 +739,9 @@ class AddDebtCreditView extends StatelessWidget {
                                     SizedBox(
                                       height: model.name != null
                                           ? 0
-                                          : SizeConfig.yMargin(context, 100) *
-                                              0.3,
+                                          : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
+                                              0.3 : SizeConfig.yMargin(context, 100) *
+                                              0.8,
                                     ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames

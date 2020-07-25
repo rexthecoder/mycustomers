@@ -62,31 +62,32 @@ class SettingsPage extends StatelessWidget {
                               model.setNotification,
                               AppLocalizations.of(context)
                                   .receiveNotifications),
-                          // switchTile(
-                          //     context,
-                          //     model.newsletter,
-                          //     model.setNewsletter,
-                          //     AppLocalizations.of(context).receiveNewsletters),
-                          // switchTile(
-                          //     context,
-                          //     model.special,
-                          //     model.setSpecial,
-                          //     AppLocalizations.of(context)
-                          //         .receiveSpecialOffers),
-                          // switchTile(context, model.update, model.setUpdate,
-                          //     AppLocalizations.of(context).receiveUpdates),
+                          switchTile(
+                              context,
+                              model.newsletter,
+                               model.setNewsletter,
+                              AppLocalizations.of(context).receiveNewsletters),
+                           switchTile(
+                               context,
+                               model.special,
+                               model.setSpecial,
+                               AppLocalizations.of(context)
+                                   .receiveSpecialOffers),
+                           switchTile(context, model.update, model.setUpdate,
+                               AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(
-                    //       horizontal: ScreenUtil().setWidth(20)),
-                    //   child: crb.CustomRaisedButton(
-                    //       label: 'Save',
-                    //       onPressed: () {
-                    //         Navigator.pop(context);
-                    //       }),
-                    // ),
+                   /*  Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(20)),
+                      // ignore: missing_required_param
+                      child: CustomRaisedButton(
+                          btnText: 'Save',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ), */
                   ],
                 ),
               ),
