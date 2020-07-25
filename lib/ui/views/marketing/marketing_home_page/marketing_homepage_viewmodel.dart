@@ -140,6 +140,9 @@ class MarketingHomePageViewModel extends BaseViewModel {
      });
     notifyListeners();
   }
+  Future navigateToMessageHistory(index) async{
+    _navigationService.navigateTo(Routes.messageHistoryView,arguments: allCustomers[index]);
+  }
 
   Future navigateToSendMessage(context) async{
     // Navigator.of(context).pushNamed(Routes.sendMessageViewRoute,arguments: _selectedCustomers).then((_){

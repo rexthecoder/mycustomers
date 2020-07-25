@@ -23,40 +23,110 @@ class MarketingHomePageView extends StatelessWidget {
         color: Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
           Container(
-            width: width,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      AppLocalizations.of(context).marketing,
-                      style: TextStyle(
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).cursorColor),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)
-                          .showYourCustomersThatYouReallyCare,
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          color: Theme.of(context).cursorColor),
-                    ),
-                  ]),
+            height: 80,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(child: FlatButton(
+                  padding: EdgeInsets.all(10),
+                  onPressed:() async {
+                    flushbar();
+                    // final bool isPermitted =
+                    // await model.checkPermission();
+                    // if (isPermitted) {
+                    //   model.navigateToAddCustomers(context);
+                    // } else {
+                    //   permissionDialog(context, model);
+                    // }
+                    //  model.navigateToAddCustomer();
+                  },
+                  child:Center(
+                    child: Column(
+                      mainAxisAlignment:MainAxisAlignment.center,
+                      children: <Widget>[
+                      Icon(
+                        Icons.person_add,
+                      ),
+
+                      SizedBox(height:5.h,),
+
+                      //todo: translate
+                      Text('Add New Customer'),
+                    ]),
+                  ),
+                )),
+                Expanded(child: FlatButton(
+                  padding: EdgeInsets.all(10),
+                  onPressed:(){
+                    
+                     flushbar();
+                    // model.selectedCustomers.length != 0
+                    //     ? model.navigateToSendMessageView()
+                    //     : Flushbar(
+                    //   backgroundColor: BrandColors.primary,
+                    //   duration: const Duration(seconds: 3),
+                    //   message: AppLocalizations.of(context)
+                    //       .selectACustomerFromTheList,
+                    //   icon: Icon(
+                    //     Icons.info_outline,
+                    //     size: 28.0,
+                    //     color: ThemeColors.background,
+                    //   ),
+                    //   leftBarIndicatorColor: Colors.blue[300],
+                    // ).show(context);
+                  },
+                  child:Center(
+                    child: Column(
+                       mainAxisAlignment:MainAxisAlignment.center,
+                      children: <Widget>[
+                      Icon(
+                        Icons.message,
+                      ),
+                      SizedBox(height:5.h,),
+
+                      //todo: translate
+                      Text('Send  Message'),
+                    ]),
+                  ),
+                )),
+              ],
             ),
           ),
-          model.allCustomers.length != 0
-              ? Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.grey[500],
-                )
-              : Container(),
+  //          Container(
+  //            width: width,
+  //            child: Padding(
+  //              padding:
+  //                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
+  //              child: Column(
+  //                  crossAxisAlignment: CrossAxisAlignment.start,
+  //                  children: <Widget>[
+  //                    Text(
+  //                      AppLocalizations.of(context).marketing,
+  //                      style: TextStyle(
+  //                          fontSize: 24.sp,
+  //                          fontWeight: FontWeight.bold,
+  //                          color: Theme.of(context).cursorColor),
+  //                    ),
+  //                    SizedBox(
+  //                      height: 10.h,
+  //                    ),
+  //                    Text(
+  //                      AppLocalizations.of(context)
+  //                          .showYourCustomersThatYouReallyCare,
+  //                      style: TextStyle(
+  //                          fontSize: 14.sp,
+  //                          color: Theme.of(context).cursorColor),
+  //                    ),
+  //                  ]),
+  //            ),
+  //          ),
+  //          model.allCustomers.length != 0
+  //              ? Container(
+  //                  width: double.infinity,
+  //                  height: 1,
+  //                  color: Colors.grey[500],
+  //                )
+  //              : Container(),
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
@@ -126,9 +196,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
-                                      AppLocalizations.of(context)
-                                          .sendMessage, // AppLocalizations.of(context)
-                                      // .sendMessageAll,
+                                       AppLocalizations.of(context)
+                                       .sendMessageAll,
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           color: BrandColors.secondary),
@@ -353,41 +422,44 @@ class MarketingHomePageView extends StatelessWidget {
                                                     action: 'debtor',
                                                   ),
                                                   Expanded(
-                                                    child: Container(
-                                                      margin:
-                                                          EdgeInsets.symmetric(
-                                                              horizontal: 10.w),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            '${customer.name} '
-                                                            '${customer.lastName}',
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
+                                                    child: InkWell(
+                                                      onTap:()=>model.navigateToMessageHistory(index),
+                                                      child: Container(
+                                                        margin:
+                                                            EdgeInsets.symmetric(
+                                                                horizontal: 10.w),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              '${customer.name} '
+                                                              '${customer.lastName}',
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 3.sp,
-                                                          ),
-                                                          Text(
-                                                            '${customer.phone}',
-                                                            style: TextStyle(
-                                                              color: ThemeColors
-                                                                  .gray
-                                                                  .shade800,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
+                                                            SizedBox(
+                                                              height: 3.sp,
                                                             ),
-                                                          )
-                                                        ],
+                                                            Text(
+                                                              '${customer.phone}',
+                                                              style: TextStyle(
+                                                                color: ThemeColors
+                                                                    .gray
+                                                                    .shade800,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -418,98 +490,99 @@ class MarketingHomePageView extends StatelessWidget {
                     ),
                   ),
                 ),
-          model.allCustomers.length != 0
-              ? Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                      bottom: 10,
-                    ),
-                    child: Container(
-                      height: 50.h,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              model.selectedCustomers.length != 0
-                                  ? model.navigateToSendMessageView()
-                                  : Flushbar(
-                                      backgroundColor: BrandColors.primary,
-                                      duration: const Duration(seconds: 3),
-                                      message: AppLocalizations.of(context)
-                                          .selectACustomerFromTheList,
-                                      icon: Icon(
-                                        Icons.info_outline,
-                                        size: 28.0,
-                                        color: ThemeColors.background,
-                                      ),
-                                      leftBarIndicatorColor: Colors.blue[300],
-                                    ).show(context);
-                            },
-                            color: BrandColors.secondary,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: Container(
-                              width: width / 3,
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context).sendMessage,
-                                  style: TextStyle(
-                                      fontSize: 14.sp, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              : Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                      bottom: 10,
-                    ),
-                    child: Container(
-                      height: 50.h,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () async {
-                              final bool isPermitted =
-                                  await model.checkPermission();
-                              if (isPermitted) {
-                                model.navigateToAddCustomers(context);
-                              } else {
-                                permissionDialog(context, model);
-                              }
-                              //  model.navigateToAddCustomer();
-                            },
-                            color: BrandColors.secondary,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: Container(
-                              width: width / 3,
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context).sendMessage,
-                                  style: TextStyle(
-                                      fontSize: 14.sp, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-        ]),
+//          model.allCustomers.length != 0
+//              ? Container(
+//                  child: Padding(
+//                    padding: const EdgeInsets.only(
+//                      left: 10,
+//                      right: 10,
+//                      bottom: 10,
+//                    ),
+//                    child: Container(
+//                      height: 50.h,
+//                      child: Row(
+//                        mainAxisAlignment: MainAxisAlignment.end,
+//                        children: <Widget>[
+//                          FlatButton(
+//                            onPressed: () {
+//                              model.selectedCustomers.length != 0
+//                                  ? model.navigateToSendMessageView()
+//                                  : Flushbar(
+//                                      backgroundColor: BrandColors.primary,
+//                                      duration: const Duration(seconds: 3),
+//                                      message: AppLocalizations.of(context)
+//                                          .selectACustomerFromTheList,
+//                                      icon: Icon(
+//                                        Icons.info_outline,
+//                                        size: 28.0,
+//                                        color: ThemeColors.background,
+//                                      ),
+//                                      leftBarIndicatorColor: Colors.blue[300],
+//                                    ).show(context);
+//                            },
+//                            color: BrandColors.secondary,
+//                            shape: RoundedRectangleBorder(
+//                                borderRadius: BorderRadius.circular(5.0)),
+//                            child: Container(
+//                              width: width / 3,
+//                              child: Center(
+//                                child: Text(
+//                                  AppLocalizations.of(context).sendMessage,
+//                                  style: TextStyle(
+//                                      fontSize: 14.sp, color: Colors.white),
+//                                ),
+//                              ),
+//                            ),
+//                          ),
+//                        ],
+//                      ),
+//                    ),
+//                  ),
+//                )
+//              : Container(
+//                  child: Padding(
+//                    padding: const EdgeInsets.only(
+//                      left: 10,
+//                      right: 10,
+//                      bottom: 10,
+//                    ),
+//                    child: Container(
+//                      height: 50.h,
+//                      child: Row(
+//                        mainAxisAlignment: MainAxisAlignment.end,
+//                        children: <Widget>[
+//                          FlatButton(
+//                            onPressed: () async {
+//                              final bool isPermitted =
+//                                  await model.checkPermission();
+//                              if (isPermitted) {
+//                                model.navigateToAddCustomers(context);
+//                              } else {
+//                                permissionDialog(context, model);
+//                              }
+//                              //  model.navigateToAddCustomer();
+//                            },
+//                            color: BrandColors.secondary,
+//                            shape: RoundedRectangleBorder(
+//                                borderRadius: BorderRadius.circular(5.0)),
+//                            child: Container(
+//                              width: width / 3,
+//                              child: Center(
+//                                child: Text(
+//                                  AppLocalizations.of(context).sendMessage,
+//                                  style: TextStyle(
+//                                      fontSize: 14.sp, color: Colors.white),
+//                                ),
+//                              ),
+//                            ),
+//                          ),
+//                        ],
+//                      ),
+//                    ),
+//                  ),
+//                ),
+        ]
+        ),
       ),
       viewModelBuilder: () => MarketingHomePageViewModel(),
     );
@@ -618,5 +691,16 @@ class MarketingHomePageView extends StatelessWidget {
             ),
           );
         });
+  }
+  void flushbar(){
+    Flushbar(
+      backgroundColor: BrandColors.primary,
+      duration: const Duration(seconds: 3),
+      message: 'Feature Under Construction',
+      icon: Icon(
+        Icons.info_outline,
+        size: 28.0,
+        color: ThemeColors.background,
+      ));
   }
 }
