@@ -23,9 +23,27 @@ class MarketingHomePageView extends StatelessWidget {
       builder: (context, model, child) => Container(
         color: Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
+          // SizedBox(
+          //   width: SizeConfig.xMargin(context, 110),
+          //   child: 
+            Container(
+              width: SizeConfig.xMargin(context, 110),
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.xMargin(context, 3),
+                  vertical: SizeConfig.xMargin(context, 3)),
+              decoration: BoxDecoration(
+                color: BrandColors.primary,
+              ),
+              child: Text(AppLocalizations.of(context).marketing,
+                  style: TextStyle(
+                      fontSize: SizeConfig.textSize(context, 8),
+                      color: Theme.of(context).backgroundColor)),
+            ),
+          //),
           Card(
             margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 2)),
             elevation: 4,
+            color: Theme.of(context).backgroundColor,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -133,6 +151,7 @@ class MarketingHomePageView extends StatelessWidget {
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
+                    color: Theme.of(context).backgroundColor,
                     width: width,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -333,9 +352,11 @@ class MarketingHomePageView extends StatelessWidget {
                                                     ),
                                                   ),
                                                 ),
-                                                Checkbox( 
-                                                  checkColor: BrandColors.primary,
-                                                    activeColor:Color(0xffE1E1E1),
+                                                Checkbox(
+                                                    checkColor:
+                                                        BrandColors.primary,
+                                                    activeColor:
+                                                        Color(0xffE1E1E1),
                                                     value: _isSelected,
                                                     onChanged: (value) {
                                                       _isSelected
@@ -392,16 +413,20 @@ class MarketingHomePageView extends StatelessWidget {
                                     padding: const EdgeInsets.all(0.0),
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
-                                    itemCount:
-                                    (model?.searchController?.text?.isNotEmpty ?? false)
-                                            ? model.searchedCustomer.length
-                                            : model.allCustomers.length,
+                                    itemCount: (model?.searchController?.text
+                                                ?.isNotEmpty ??
+                                            false)
+                                        ? model.searchedCustomer.length
+                                        : model.allCustomers.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      Customer customer =
-                                          (model?.searchController?.text?.isNotEmpty ?? false)
-                                              ? model.searchedCustomer[index]
-                                              : model.allCustomers[index];
+                                      Customer customer = (model
+                                                  ?.searchController
+                                                  ?.text
+                                                  ?.isNotEmpty ??
+                                              false)
+                                          ? model.searchedCustomer[index]
+                                          : model.allCustomers[index];
                                       bool _isSelected =
                                           model.isSelected(customer);
                                       return Dismissible(
@@ -433,7 +458,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                     customer: customer,
                                                     action: 'debtor',
                                                     bgColor: Color.fromRGBO(
-                                                      51, 60, 193, 0.2),
+                                                        51, 60, 193, 0.2),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -465,7 +490,8 @@ class MarketingHomePageView extends StatelessWidget {
                                                               height: 3.sp,
                                                             ),
                                                             Text(
-                                                              model.dummyQuickTextMessages[0],
+                                                              model.dummyQuickTextMessages[
+                                                                  0],
                                                               style: TextStyle(
                                                                 color: ThemeColors
                                                                     .gray
@@ -485,8 +511,10 @@ class MarketingHomePageView extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Checkbox(
-                                                      checkColor: BrandColors.primary,
-                                                    activeColor:Color(0xffE1E1E1),
+                                                      checkColor:
+                                                          BrandColors.primary,
+                                                      activeColor:
+                                                          Color(0xffE1E1E1),
                                                       value: _isSelected,
                                                       onChanged: (value) {
                                                         _isSelected
