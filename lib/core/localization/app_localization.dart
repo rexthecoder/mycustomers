@@ -362,6 +362,7 @@ class AppLocalizations {
   String get enterMessage => translate(LocalKeys.enter_message);
   String get done => translate(LocalKeys.done);
   String get seeAll => translate(LocalKeys.see_all);
+  String get addPayment => translate(LocalKeys.add_payment);
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

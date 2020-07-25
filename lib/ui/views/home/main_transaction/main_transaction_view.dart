@@ -1176,7 +1176,7 @@ class AddTransaction extends StatelessWidget {
               width: width / 2.5,
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context).paidYou,
+                  AppLocalizations.of(context).addPayment,
                   //AppLocalizations.of(context).youAreOwingThem,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: SizeConfig.yMargin(context, 2),

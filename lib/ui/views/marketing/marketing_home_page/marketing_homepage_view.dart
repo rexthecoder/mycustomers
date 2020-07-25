@@ -49,13 +49,10 @@ class MarketingHomePageView extends StatelessWidget {
                             Icons.person_add,
                             color: BrandColors.primary,
                           ),
-
                           SizedBox(
                             height: 5.h,
                           ),
-
-                          //todo: translate
-                          Text('Add New Customer',
+                          Text(AppLocalizations.of(context).addNewCustomer,
                               style: TextStyle(color: BrandColors.primary)),
                         ]),
                   ),
@@ -90,9 +87,7 @@ class MarketingHomePageView extends StatelessWidget {
                           SizedBox(
                             height: 5.h,
                           ),
-
-                          //todo: translate
-                          Text('Send  Message',
+                          Text(AppLocalizations.of(context).sendMessage,
                               style: TextStyle(color: BrandColors.primary)),
                         ]),
                   ),
@@ -317,7 +312,6 @@ class MarketingHomePageView extends StatelessWidget {
                                                           SizedBox(
                                                             height: 3.sp,
                                                           ),
-                                                          //todo:translate
                                                           Text(
                                                             model.dummyQuickTextMessages[
                                                                 index],
@@ -399,13 +393,13 @@ class MarketingHomePageView extends StatelessWidget {
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount:
-                                        model.searchController.text != null
+                                    (model?.searchController?.text?.isNotEmpty ?? false)
                                             ? model.searchedCustomer.length
                                             : model.allCustomers.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       Customer customer =
-                                          model.searchController.text != null
+                                          (model?.searchController?.text?.isNotEmpty ?? false)
                                               ? model.searchedCustomer[index]
                                               : model.allCustomers[index];
                                       bool _isSelected =
@@ -471,8 +465,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                               height: 3.sp,
                                                             ),
                                                             Text(
-                                                              model.dummyQuickTextMessages[
-                                                                  index],
+                                                              model.dummyQuickTextMessages[0],
                                                               style: TextStyle(
                                                                 color: ThemeColors
                                                                     .gray
