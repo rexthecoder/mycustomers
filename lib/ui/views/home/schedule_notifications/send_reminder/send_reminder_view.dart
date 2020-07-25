@@ -1,6 +1,5 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
