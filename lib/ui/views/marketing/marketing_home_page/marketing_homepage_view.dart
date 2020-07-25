@@ -462,12 +462,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                               height: 3.sp,
                                                             ),
                                                             Text(
-<<<<<<< HEAD
-                                                              model.dummyQuickTextMessages[
-                                                                  index],
-=======
                                                               model.dummyQuickTextMessages[0],
->>>>>>> e26bf39a7af6659efe1c50396fa65a9cfa857cd8
                                                               style: TextStyle(
                                                                 color: ThemeColors
                                                                     .gray
