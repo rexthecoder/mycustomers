@@ -109,7 +109,8 @@ class AddCustomerMessageView extends StatelessWidget {
 //                                  : 10.w
                                 ),
                             child: Text(
-                              AppLocalizations.of(context).addCustomer,
+                              'Add customer Manually',
+//                              AppLocalizations.of(context).add,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: BrandColors.secondary,
@@ -387,7 +388,7 @@ class AddCustomerMessageView extends StatelessWidget {
                 child: FlatButton(
                   onPressed: () {
                     model.selectedCustomers.length != 0
-                        ? model.sendMessage()
+                        ? model.returnHome()
                         : Flushbar(
                             backgroundColor: BrandColors.primary,
                             duration: const Duration(seconds: 3),
@@ -410,7 +411,7 @@ class AddCustomerMessageView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context).continueButton,
+                        AppLocalizations.of(context).add,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

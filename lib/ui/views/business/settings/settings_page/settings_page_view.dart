@@ -62,19 +62,19 @@ class SettingsPage extends StatelessWidget {
                               model.setNotification,
                               AppLocalizations.of(context)
                                   .receiveNotifications),
-                          switchTile(
-                              context,
-                              model.newsletter,
-                               model.setNewsletter,
-                              AppLocalizations.of(context).receiveNewsletters),
-                           switchTile(
-                               context,
-                               model.special,
-                               model.setSpecial,
-                               AppLocalizations.of(context)
-                                   .receiveSpecialOffers),
-                           switchTile(context, model.update, model.setUpdate,
-                               AppLocalizations.of(context).receiveUpdates),
+                          // switchTile(
+                          //     context,
+                          //     model.newsletter,
+                          //      model.setNewsletter,
+                          //     AppLocalizations.of(context).receiveNewsletters),
+                          //  switchTile(
+                          //      context,
+                          //      model.special,
+                          //      model.setSpecial,
+                          //      AppLocalizations.of(context)
+                          //          .receiveSpecialOffers),
+                          //  switchTile(context, model.update, model.setUpdate,
+                          //      AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),

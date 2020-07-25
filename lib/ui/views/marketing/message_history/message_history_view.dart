@@ -9,6 +9,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/message_history/message_history_viewmodel.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flushbar/flushbar.dart';
 
 class MessageHistoryView extends StatelessWidget {
   final Customer customer;
@@ -23,6 +24,7 @@ class MessageHistoryView extends StatelessWidget {
         builder: (context, model, child) {
           model.init(customer);
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(140.0),
               child: AppBar(
@@ -124,44 +126,119 @@ class MessageHistoryView extends StatelessWidget {
                     )),
               ),
             ),
-            body: Container(
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child:Container(child:Center(child:Text('Under Construction')),),
-                  ),
-                  Container(
-//                    ListView.builder(builder: (BuildContext context, int index)=>Container()),
-                  )
+            body: Stack(
+              children: <Widget>[
 
-                ],
-              ),
-            ),
-            bottomNavigationBar:
-            Container(
-              color: Theme.of(context).backgroundColor,
-              child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+                Container(child: Expanded(
+                  child: ListView.builder(
+                      itemCount: model.dummyQuickText.length,
+                      itemBuilder: (BuildContext context, int index)=>Container(
+                        child:Padding(
+//                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          padding: const EdgeInsets.only(top: 5,bottom: 5,left: 60,right: 20),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.grey[300],
+                              ),
+                              child: Center(child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(model.dummyQuickTextMessages[index],textAlign: TextAlign.end,),
+                              ))),
+                        ),
+                      )),
+                ),),
+                Positioned(
+                  bottom:MediaQuery.of(context).viewInsets.bottom,
+                  left:0,right:0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.symmetric(vertical: BorderSide(color: ThemeColors.gray[700])),
+                      color: Theme.of(context).backgroundColor
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 100.h,
+                        color: Theme.of(context).backgroundColor,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Expanded(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: model.dummyQuickText.length,
+                                  itemBuilder: (BuildContext context, int index)=>Container(
+                                    child:Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                                      child: FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(20),
 
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      controller: model.messageController,
-                      decoration: InputDecoration(
+                                        ),
+                                        color: BrandColors.primary.withOpacity(0.3),
+                                        onPressed: ()=>model.setText(model.dummyQuickText[index]),
+                                          child: Container( height: 30,child: Center(child: Text(model.dummyQuickText[index])))),
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(height:10),
+                            Container(
+                              height: 50,
+                              child: Row(
+
+                                children: <Widget>[
+                                  Expanded(
+                                    child: TextField(
+                                      controller: model.messageController,
+                                      decoration: InputDecoration(border: OutlineInputBorder(
+
+                                        borderSide: BorderSide(color: Theme.of(context).backgroundColor),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
 //                        hintText: AppLocalizations
 
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10.w,),
+                                  InkWell(
+                                    onTap: (){
+                                      Flushbar(
+                                          backgroundColor: BrandColors.primary,
+                                          duration: const Duration(seconds: 3),
+                                          message: 'Feature Under Construction',
+                                          icon: Icon(
+                                            Icons.info_outline,
+                                            size: 28.0,
+                                            color: ThemeColors.background,
+                                          )).show(context);
+                                    },
+                                    child: Container(
+                                      width: 50.w,
+                                      height: 50.h,
+                                      decoration: BoxDecoration(
+                                        color: BrandColors.primary,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: Center(child: Icon(Icons.send, color: Colors.white,)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  IconButton(
-                    color: BrandColors.primary,
-                    onPressed: (){},
-                    icon: Icon(Icons.send),
-                  )
-                ],
-              ),
-            ), height: 50,),
+                ),
+
+
+
+
+              ],
+            ),
         );},
         viewModelBuilder: () => MessageHistoryViewModel());
   }
