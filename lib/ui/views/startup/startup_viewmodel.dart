@@ -26,18 +26,18 @@ class StartupViewModel extends BaseViewModel {
 //    await  Future.delayed(Duration(seconds: 1));
     if (await checkLoggedIn()) {
       if (confirmHasStore()) {
-        _navigationService.replaceWith(Routes.mainViewRoute);
+        _navigationService.replaceWith(Routes.scheduleNotifications);
         _logService.getValues(null, DateTime.now(), 'sign-in', '', false);
       }
     }
     else
-      _navigationService.replaceWith(Routes.onboardingViewRoute);
+      _navigationService.replaceWith(Routes.scheduleNotifications);
   }
 
   bool confirmHasStore() {
     print('Current store is $currentStore');
     if (currentStore == null) {
-      _navigationService.replaceWith(Routes.createBusinessView);
+      _navigationService.replaceWith(Routes.scheduleNotifications);
       return false;
     }
     return true;

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'dart:math';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
 
 class ScheduleNotificationsViewModel extends BaseViewModel {
@@ -16,6 +19,8 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
   dynamic _selectedTime;
   DateTime _today = DateTime.now();
   NotificationRemindersService reminders = NotificationRemindersService();
+  final NavigationService _navigationService = locator<NavigationService>();
+
   // This is temporary to give each notification a unique id
   int id = Random().nextInt(100);
 
@@ -56,5 +61,10 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
   DateTime getDateTime() {
     return DateTime.parse(
         '${_today.year}-0${scheduledDate.month}-${scheduledDate.day} ${_selectedTime.substring(0, 2)}:${selectedTime.substring(3, 5)}');
+  }
+
+  Future<void> navigateToMainView() async{
+    await _navigationService.clearStackAndShow(Routes.mainViewRoute);
+
   }
 }
