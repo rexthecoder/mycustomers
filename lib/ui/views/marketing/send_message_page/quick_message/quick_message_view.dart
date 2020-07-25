@@ -29,7 +29,7 @@ class QuickMessageView extends StatelessWidget {
           appBar: customizeAppBar(context, 1.0,
 //              title: 'Quick messages',
               title: AppLocalizations.of(context).sendMessage,
-              arrowColor: BrandColors.secondary,
+              arrowColor: BrandColors.primary,
               backgroundColor: Theme.of(context).backgroundColor),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -105,7 +105,7 @@ class QuickMessageView extends StatelessWidget {
                     AppLocalizations.of(context).seeAll,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: BrandColors.secondary,
+                      color: BrandColors.primary,
                       fontWeight: FontWeight.bold,
                       fontSize: 18.sp,
                     ),
@@ -113,7 +113,7 @@ class QuickMessageView extends StatelessWidget {
                 ),
                 SizedBox(height: 50.h),
                 FlatButton(
-                  color: BrandColors.secondary,
+                  color: BrandColors.primary,
                   onPressed: () {
                     model.navigateToMessage(
                       selectedCustomers,

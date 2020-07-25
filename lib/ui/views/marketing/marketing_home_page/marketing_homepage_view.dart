@@ -10,6 +10,7 @@ import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flushbar/flushbar.dart';
 import 'marketing_homepage_viewmodel.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MarketingHomePageView extends StatelessWidget {
   @override
@@ -30,62 +31,59 @@ class MarketingHomePageView extends StatelessWidget {
                 Expanded(child: FlatButton(
                   padding: EdgeInsets.all(10),
                   onPressed:() async {
-                    flushbar();
-                    // final bool isPermitted =
-                    // await model.checkPermission();
-                    // if (isPermitted) {
-                    //   model.navigateToAddCustomers(context);
-                    // } else {
-                    //   permissionDialog(context, model);
-                    // }
-                    //  model.navigateToAddCustomer();
+                     final bool isPermitted =
+                     await model.checkPermission();
+                     if (isPermitted) {
+                       model.navigateToAddCustomers(context);
+                     } else {
+                       permissionDialog(context, model);
+                     }
+                      model.navigateToAddCustomer();
                   },
                   child:Center(
                     child: Column(
                       mainAxisAlignment:MainAxisAlignment.center,
                       children: <Widget>[
                       Icon(
-                        Icons.person_add,
+                        Icons.person_add, color:BrandColors.primary,
                       ),
 
                       SizedBox(height:5.h,),
 
                       //todo: translate
-                      Text('Add New Customer'),
+                      Text('Add New Customer', style:TextStyle(color: BrandColors.primary)),
                     ]),
                   ),
                 )),
                 Expanded(child: FlatButton(
                   padding: EdgeInsets.all(10),
                   onPressed:(){
-                    
-                     flushbar();
-                    // model.selectedCustomers.length != 0
-                    //     ? model.navigateToSendMessageView()
-                    //     : Flushbar(
-                    //   backgroundColor: BrandColors.primary,
-                    //   duration: const Duration(seconds: 3),
-                    //   message: AppLocalizations.of(context)
-                    //       .selectACustomerFromTheList,
-                    //   icon: Icon(
-                    //     Icons.info_outline,
-                    //     size: 28.0,
-                    //     color: ThemeColors.background,
-                    //   ),
-                    //   leftBarIndicatorColor: Colors.blue[300],
-                    // ).show(context);
+                     model.selectedCustomers.length != 0
+                         ? model.navigateToSendMessageView()
+                         : Flushbar(
+                       backgroundColor: BrandColors.primary,
+                       duration: const Duration(seconds: 3),
+                       message: AppLocalizations.of(context)
+                           .selectACustomerFromTheList,
+                       icon: Icon(
+                         Icons.info_outline,
+                         size: 28.0,
+                         color: ThemeColors.background,
+                       ),
+                       leftBarIndicatorColor: Colors.blue[300],
+                     ).show(context);
                   },
                   child:Center(
                     child: Column(
                        mainAxisAlignment:MainAxisAlignment.center,
                       children: <Widget>[
                       Icon(
-                        Icons.message,
+                        Icons.message, color:BrandColors.primary,
                       ),
                       SizedBox(height:5.h,),
 
                       //todo: translate
-                      Text('Send  Message'),
+                      Text('Send  Message', style:TextStyle(color: BrandColors.primary)),
                     ]),
                   ),
                 )),
@@ -139,13 +137,9 @@ class MarketingHomePageView extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              ClipRect(
-                                child: Image(
-                                  height: height / 6,
-                                  image:
-                                      AssetImage('assets/images/megaphone.png'),
-                                  fit: BoxFit.contain,
-                                ),
+                              SvgPicture.asset(
+                                'assets/icons/svg/marketing_home.svg',
+//                                color: Colors.white,
                               ),
                               SizedBox(
                                 height: SizeConfig.yMargin(context, 3),
@@ -286,38 +280,44 @@ class MarketingHomePageView extends StatelessWidget {
                                                   action: 'debtor',
                                                 ),
                                                 Expanded(
-                                                  child: Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 10.w),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          '${customer.name} '
-                                                          '${customer.lastName}',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w600,
+                                                  child: InkWell(
+                                                    onTap:()=>model.navigateToMessageHistory(index),
+                                                    child: Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 10.w),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: <Widget>[
+                                                          Text(
+                                                            '${customer.name} '
+                                                            '${customer.lastName}',
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 3.sp,
-                                                        ),
-                                                        Text(
-                                                          '${customer.phone}',
-                                                          style: TextStyle(
-                                                            color: ThemeColors
-                                                                .gray.shade800,
-                                                            fontWeight:
-                                                                FontWeight.w600,
+                                                          SizedBox(
+                                                            height: 3.sp,
                                                           ),
-                                                        )
-                                                      ],
+                                                          //todo:translate
+                                                          Text(model.dummyQuickTextMessages[index],
+                                                            style: TextStyle(
+                                                              color: ThemeColors
+                                                                  .gray.shade800,
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+
+                                                            ),
+                                                            maxLines: 1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -447,16 +447,16 @@ class MarketingHomePageView extends StatelessWidget {
                                                             SizedBox(
                                                               height: 3.sp,
                                                             ),
-                                                            Text(
-                                                              '${customer.phone}',
+                                                            Text(model.dummyQuickTextMessages[index],
                                                               style: TextStyle(
                                                                 color: ThemeColors
-                                                                    .gray
-                                                                    .shade800,
+                                                                    .gray.shade800,
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                FontWeight.w600,
+
                                                               ),
+                                                              maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
                                                             )
                                                           ],
                                                         ),

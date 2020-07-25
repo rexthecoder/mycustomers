@@ -44,7 +44,7 @@ class MessageView extends StatelessWidget {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
               title: AppLocalizations.of(context).sendAMessage,
-              arrowColor: BrandColors.secondary,
+              arrowColor: BrandColors.primary,
               backgroundColor: Theme.of(context).backgroundColor),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -202,7 +202,7 @@ class MessageView extends StatelessWidget {
 //                        model.navigateToSendMessage();
                         successDialog(context, model);
                       },
-                      color: BrandColors.secondary,
+                      color: BrandColors.primary,
                       padding: EdgeInsets.symmetric(vertical: 15.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -366,7 +366,7 @@ class MessageView extends StatelessWidget {
                   Container(
                     child: Icon(
                       Icons.check_circle,
-                      color: Color(0xFF27AE60),
+                      color: Colors.white,
                       size: 70,
                     ),
                   ),
