@@ -8,7 +8,7 @@ class MessageHistoryViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   Customer currentCustomer;
   TextEditingController messageController =TextEditingController();
-  List<String> dummyQuickText= ['Don\'t leave me', 'Happy New Year', ' Season\'s greeting', 'Happy weekend']
+  List<String> dummyQuickText= ['Don\'t leave me', 'Happy New Year', ' Season\'s greeting', 'Happy weekend'];
 
   popView() {
     _navigationService.back();
