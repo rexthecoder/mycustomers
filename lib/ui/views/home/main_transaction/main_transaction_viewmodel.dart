@@ -45,36 +45,37 @@ class MainTransactionViewModel extends ReactiveViewModel{
   List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
   double getamount(double amt){
-    if(oldcurrency != null) {
-      if(oldcurrency.symbol == '₦') {
-        if(currency.symbol == '₦'){
-          return amt;
-        }else if(currency.symbol == '\$'){
-          return amt * 385.505;
-        }else{
-          return amt * 0.192873;
-        }
-        //(currency.symbol == '₹')
-      }else if(oldcurrency.symbol == '\$') {
-        if(currency.symbol == '₦'){
-          return amt / 385.505;
-        }else if(currency.symbol == '\$'){
-          return amt;
-        }else{
-          return amt * 74.7272456;
-        }
-      } else if(oldcurrency.symbol == '₹') {
-        if(currency.symbol == '₦'){
-          return amt / 0.192873;
-        }else if(currency.symbol == '\$'){
-          return amt / 74.7272456;
-        }else{
-          return amt;
-        }
-      }
-    } else {
-      return amt;
-    }
+    return amt;
+    // if(oldcurrency != null) {
+    //   if(oldcurrency.symbol == '₦') {
+    //     if(currency.symbol == '₦'){
+    //       return amt;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt * 385.505;
+    //     }else{
+    //       return amt * 0.192873;
+    //     }
+    //     //(currency.symbol == '₹')
+    //   }else if(oldcurrency.symbol == '\$') {
+    //     if(currency.symbol == '₦'){
+    //       return amt / 385.505;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt;
+    //     }else{
+    //       return amt * 74.7272456;
+    //     }
+    //   } else if(oldcurrency.symbol == '₹') {
+    //     if(currency.symbol == '₦'){
+    //       return amt / 0.192873;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt / 74.7272456;
+    //     }else{
+    //       return amt;
+    //     }
+    //   }
+    // } else {
+    //   return amt;
+    // }
   }
 
   int bought(){
