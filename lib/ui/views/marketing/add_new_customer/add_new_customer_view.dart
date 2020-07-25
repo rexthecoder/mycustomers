@@ -150,7 +150,7 @@ class AddNewCustomerView extends StatelessWidget {
                                       ),
                                       leftBarIndicatorColor: Colors.blue[300],
                                     ).show(context)
-                                  : model.sendMessage();
+                                  : model.returnHome();
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),

@@ -74,4 +74,16 @@ class AddNewCustomerViewModel extends BaseViewModel {
 //    searchedCustomer.clear();
 
   }
+  Future returnHome() async {
+    Customer _customer = Customer(name: name.text, phone: phoneNumber.text);
+    List<Customer> _newCustomer = [_customer];
+    _navigationService.popUntil((route){
+      if(route.settings.name == '/main'){
+        (route.settings.arguments as Map)['result'] = _newCustomer;
+        return true;
+      }else{
+        return false;
+      }
+    });
+  }
 }

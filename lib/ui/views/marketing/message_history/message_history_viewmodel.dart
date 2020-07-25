@@ -9,6 +9,16 @@ class MessageHistoryViewModel extends BaseViewModel {
   Customer currentCustomer;
   TextEditingController messageController =TextEditingController();
   List<String> dummyQuickText= ['Don\'t leave me', 'Happy New Year', ' Season\'s greeting', 'Happy weekend'];
+  List<String> dummyQuickTextMessages = [
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend'
+        'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
+  ];
 
   popView() {
     _navigationService.back();
@@ -16,6 +26,11 @@ class MessageHistoryViewModel extends BaseViewModel {
 
   init(customer){
     currentCustomer =customer;
+    notifyListeners();
+  }
+
+  setText(value){
+    messageController.text= value;
     notifyListeners();
   }
 
