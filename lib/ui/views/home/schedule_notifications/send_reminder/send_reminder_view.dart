@@ -9,6 +9,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 
 class SendMessage extends StatelessWidget {
   final headingController = new TextEditingController();
+  final messageHeadingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +86,17 @@ class SendMessage extends StatelessWidget {
                                 SizedBox(
                                     height: SizeConfig.yMargin(context, 6),
                                     child:
-                                        messageSnippetHolder(context, model, headingController)),
+                                        messageSnippetHolder(
+                                          context, 
+                                          model, 
+                                          headingController)
+                                          ),
                                 SizedBox(
-                                    height: SizeConfig.yMargin(context, 5)),
+                                    height: SizeConfig.yMargin(context, 5)
+                                    ),
                                 Container(
                                   child: TextFormField(
+                                    controller: messageHeadingController,
                                     textCapitalization: TextCapitalization.sentences,
                                     validator: (value) {
                                       if (value.isEmpty) {
@@ -166,7 +173,7 @@ class SendMessage extends StatelessWidget {
                           btnText: AppLocalizations.of(context).sendCapital,
                           borderColor: BrandColors.primary,
                           child: Container(),
-                          onPressed: () {
+                          onPressed: () {  
                             if (_formKey.currentState.validate()) {
                               Flushbar(
                                 backgroundColor: BrandColors.primary,
@@ -180,6 +187,11 @@ class SendMessage extends StatelessWidget {
                                 ),
                                 leftBarIndicatorColor: Colors.blue[300],
                               ).show(context);
+
+                            model.clearMessageFields();
+                            headingController.text=model.controllerValue;
+                            messageHeadingController.text=model.messageControllerValue;
+                              
                             }
                           },
                         ),
