@@ -23,108 +23,118 @@ class MarketingHomePageView extends StatelessWidget {
       builder: (context, model, child) => Container(
         color: Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
-          Container(
-            height: 80,
+          Card(
+            margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 2)),
+            elevation: 4,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Expanded(child: FlatButton(
+                Expanded(
+                    child: FlatButton(
                   padding: EdgeInsets.all(10),
-                  onPressed:() async {
-                     final bool isPermitted =
-                     await model.checkPermission();
-                     if (isPermitted) {
-                       model.navigateToAddCustomers(context);
-                     } else {
-                       permissionDialog(context, model);
-                     }
-                      model.navigateToAddCustomer();
+                  onPressed: () async {
+                    final bool isPermitted = await model.checkPermission();
+                    if (isPermitted) {
+                      model.navigateToAddCustomers(context);
+                    } else {
+                      permissionDialog(context, model);
+                    }
+                    model.navigateToAddCustomer();
                   },
-                  child:Center(
+                  child: Center(
                     child: Column(
-                      mainAxisAlignment:MainAxisAlignment.center,
-                      children: <Widget>[
-                      Icon(
-                        Icons.person_add, color:BrandColors.primary,
-                      ),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.person_add,
+                            color: BrandColors.primary,
+                          ),
 
-                      SizedBox(height:5.h,),
+                          SizedBox(
+                            height: 5.h,
+                          ),
 
-                      //todo: translate
-                      Text('Add New Customer', style:TextStyle(color: BrandColors.primary)),
-                    ]),
+                          //todo: translate
+                          Text('Add New Customer',
+                              style: TextStyle(color: BrandColors.primary)),
+                        ]),
                   ),
                 )),
-                Expanded(child: FlatButton(
+                Expanded(
+                    child: FlatButton(
                   padding: EdgeInsets.all(10),
-                  onPressed:(){
-                     model.selectedCustomers.length != 0
-                         ? model.navigateToSendMessageView()
-                         : Flushbar(
-                       backgroundColor: BrandColors.primary,
-                       duration: const Duration(seconds: 3),
-                       message: AppLocalizations.of(context)
-                           .selectACustomerFromTheList,
-                       icon: Icon(
-                         Icons.info_outline,
-                         size: 28.0,
-                         color: ThemeColors.background,
-                       ),
-                       leftBarIndicatorColor: Colors.blue[300],
-                     ).show(context);
+                  onPressed: () {
+                    model.selectedCustomers.length != 0
+                        ? model.navigateToSendMessageView()
+                        : Flushbar(
+                            backgroundColor: BrandColors.primary,
+                            duration: const Duration(seconds: 3),
+                            message: AppLocalizations.of(context)
+                                .selectACustomerFromTheList,
+                            icon: Icon(
+                              Icons.info_outline,
+                              size: 28.0,
+                              color: ThemeColors.background,
+                            ),
+                            leftBarIndicatorColor: Colors.blue[300],
+                          ).show(context);
                   },
-                  child:Center(
+                  child: Center(
                     child: Column(
-                       mainAxisAlignment:MainAxisAlignment.center,
-                      children: <Widget>[
-                      Icon(
-                        Icons.message, color:BrandColors.primary,
-                      ),
-                      SizedBox(height:5.h,),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.message,
+                            color: BrandColors.primary,
+                          ),
+                          SizedBox(
+                            height: 5.h,
+                          ),
 
-                      //todo: translate
-                      Text('Send  Message', style:TextStyle(color: BrandColors.primary)),
-                    ]),
+                          //todo: translate
+                          Text('Send  Message',
+                              style: TextStyle(color: BrandColors.primary)),
+                        ]),
                   ),
                 )),
               ],
             ),
           ),
-  //          Container(
-  //            width: width,
-  //            child: Padding(
-  //              padding:
-  //                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
-  //              child: Column(
-  //                  crossAxisAlignment: CrossAxisAlignment.start,
-  //                  children: <Widget>[
-  //                    Text(
-  //                      AppLocalizations.of(context).marketing,
-  //                      style: TextStyle(
-  //                          fontSize: 24.sp,
-  //                          fontWeight: FontWeight.bold,
-  //                          color: Theme.of(context).cursorColor),
-  //                    ),
-  //                    SizedBox(
-  //                      height: 10.h,
-  //                    ),
-  //                    Text(
-  //                      AppLocalizations.of(context)
-  //                          .showYourCustomersThatYouReallyCare,
-  //                      style: TextStyle(
-  //                          fontSize: 14.sp,
-  //                          color: Theme.of(context).cursorColor),
-  //                    ),
-  //                  ]),
-  //            ),
-  //          ),
-  //          model.allCustomers.length != 0
-  //              ? Container(
-  //                  width: double.infinity,
-  //                  height: 1,
-  //                  color: Colors.grey[500],
-  //                )
-  //              : Container(),
+          //          Container(
+          //            width: width,
+          //            child: Padding(
+          //              padding:
+          //                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
+          //              child: Column(
+          //                  crossAxisAlignment: CrossAxisAlignment.start,
+          //                  children: <Widget>[
+          //                    Text(
+          //                      AppLocalizations.of(context).marketing,
+          //                      style: TextStyle(
+          //                          fontSize: 24.sp,
+          //                          fontWeight: FontWeight.bold,
+          //                          color: Theme.of(context).cursorColor),
+          //                    ),
+          //                    SizedBox(
+          //                      height: 10.h,
+          //                    ),
+          //                    Text(
+          //                      AppLocalizations.of(context)
+          //                          .showYourCustomersThatYouReallyCare,
+          //                      style: TextStyle(
+          //                          fontSize: 14.sp,
+          //                          color: Theme.of(context).cursorColor),
+          //                    ),
+          //                  ]),
+          //            ),
+          //          ),
+          //          model.allCustomers.length != 0
+          //              ? Container(
+          //                  width: double.infinity,
+          //                  height: 1,
+          //                  color: Colors.grey[500],
+          //                )
+          //              : Container(),
           model.allCustomers.length == 0
               ? Expanded(
                   child: Container(
@@ -167,9 +177,9 @@ class MarketingHomePageView extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        SizedBox(
-                          height: 10.h,
-                        ),
+                        // SizedBox(
+                        //   height: 10.h,
+                        // ),
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 20.0,
@@ -190,8 +200,8 @@ class MarketingHomePageView extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Text(
-                                       AppLocalizations.of(context)
-                                       .sendMessageAll,
+                                      AppLocalizations.of(context)
+                                          .sendMessageAll,
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           color: BrandColors.secondary),
@@ -203,24 +213,24 @@ class MarketingHomePageView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 10.h,
+                          height: 5.h,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 5),
-                          child: Container(
-                            child: TextField(
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: model.searchController,
-                              onChanged: model.search,
-                              textInputAction: TextInputAction.search,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.search),
-                                hintText: AppLocalizations.of(context)
-                                    .typeCustomerName,
-                                border: InputBorder.none,
-                                focusColor: BrandColors.primary,
-                              ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15.0,
+                          ),
+                          child: TextField(
+                            textCapitalization: TextCapitalization.sentences,
+                            controller: model.searchController,
+                            onChanged: model.search,
+                            textInputAction: TextInputAction.search,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.search,
+                                  size: SizeConfig.xMargin(context, 4)),
+                              hintText:
+                                  AppLocalizations.of(context).typeCustomerName,
+                              border: InputBorder.none,
+                              focusColor: BrandColors.primary,
                             ),
                           ),
                         ),
@@ -228,24 +238,22 @@ class MarketingHomePageView extends StatelessWidget {
                           color: Colors.grey[500],
                         ),
                         SizedBox(
-                          height: 10.h,
+                          height: 12.h,
                         ),
                         model.allFrequentCustomers.length == 0
                             ? Container()
                             : Container(
                                 width: double.infinity,
-                                height: 15.h,
                                 alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .frequentlyContacted,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: BrandColors.primary),
-                                  ),
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .frequentlyContacted,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: BrandColors.primary,
+                                      fontSize:
+                                          SizeConfig.textSize(context, 4)),
                                 ),
                               ),
                         SizedBox(
@@ -278,10 +286,14 @@ class MarketingHomePageView extends StatelessWidget {
                                                 CustomerCircleAvatar(
                                                   customer: customer,
                                                   action: 'debtor',
+                                                  bgColor: Color.fromRGBO(
+                                                      51, 60, 193, 0.2),
                                                 ),
                                                 Expanded(
                                                   child: InkWell(
-                                                    onTap:()=>model.navigateToMessageHistory(index),
+                                                    onTap: () => model
+                                                        .navigateToMessageHistory(
+                                                            index),
                                                     child: Container(
                                                       margin:
                                                           EdgeInsets.symmetric(
@@ -298,32 +310,38 @@ class MarketingHomePageView extends StatelessWidget {
                                                             '${customer.lastName}',
                                                             style: TextStyle(
                                                               fontWeight:
-                                                                  FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
                                                           ),
                                                           SizedBox(
                                                             height: 3.sp,
                                                           ),
                                                           //todo:translate
-                                                          Text(model.dummyQuickTextMessages[index],
+                                                          Text(
+                                                            model.dummyQuickTextMessages[
+                                                                index],
                                                             style: TextStyle(
                                                               color: ThemeColors
-                                                                  .gray.shade800,
+                                                                  .gray
+                                                                  .shade800,
                                                               fontWeight:
-                                                                  FontWeight.w600,
-
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
                                                             maxLines: 1,
-                                                            overflow: TextOverflow.ellipsis,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
                                                           )
                                                         ],
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                                Checkbox(
-                                                    activeColor:
-                                                        BrandColors.primary,
+                                                Checkbox( 
+                                                  checkColor: BrandColors.primary,
+                                                    activeColor:Color(0xffE1E1E1),
                                                     value: _isSelected,
                                                     onChanged: (value) {
                                                       _isSelected
@@ -420,14 +438,19 @@ class MarketingHomePageView extends StatelessWidget {
                                                   CustomerCircleAvatar(
                                                     customer: customer,
                                                     action: 'debtor',
+                                                    bgColor: Color.fromRGBO(
+                                                      51, 60, 193, 0.2),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
-                                                      onTap:()=>model.navigateToMessageHistory(index),
+                                                      onTap: () => model
+                                                          .navigateToMessageHistory(
+                                                              index),
                                                       child: Container(
-                                                        margin:
-                                                            EdgeInsets.symmetric(
-                                                                horizontal: 10.w),
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    10.w),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
@@ -447,16 +470,21 @@ class MarketingHomePageView extends StatelessWidget {
                                                             SizedBox(
                                                               height: 3.sp,
                                                             ),
-                                                            Text(model.dummyQuickTextMessages[index],
+                                                            Text(
+                                                              model.dummyQuickTextMessages[
+                                                                  index],
                                                               style: TextStyle(
                                                                 color: ThemeColors
-                                                                    .gray.shade800,
+                                                                    .gray
+                                                                    .shade800,
                                                                 fontWeight:
-                                                                FontWeight.w600,
-
+                                                                    FontWeight
+                                                                        .w600,
                                                               ),
                                                               maxLines: 1,
-                                                              overflow: TextOverflow.ellipsis,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                             )
                                                           ],
                                                         ),
@@ -464,8 +492,8 @@ class MarketingHomePageView extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Checkbox(
-                                                      activeColor:
-                                                          BrandColors.primary,
+                                                      checkColor: BrandColors.primary,
+                                                    activeColor:Color(0xffE1E1E1),
                                                       value: _isSelected,
                                                       onChanged: (value) {
                                                         _isSelected
@@ -581,8 +609,7 @@ class MarketingHomePageView extends StatelessWidget {
 //                    ),
 //                  ),
 //                ),
-        ]
-        ),
+        ]),
       ),
       viewModelBuilder: () => MarketingHomePageViewModel(),
     );
@@ -692,15 +719,16 @@ class MarketingHomePageView extends StatelessWidget {
           );
         });
   }
-  void flushbar(){
+
+  void flushbar() {
     Flushbar(
-      backgroundColor: BrandColors.primary,
-      duration: const Duration(seconds: 3),
-      message: 'Feature Under Construction',
-      icon: Icon(
-        Icons.info_outline,
-        size: 28.0,
-        color: ThemeColors.background,
-      ));
+        backgroundColor: BrandColors.primary,
+        duration: const Duration(seconds: 3),
+        message: 'Feature Under Construction',
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: ThemeColors.background,
+        ));
   }
 }
