@@ -1,15 +1,10 @@
 import 'dart:io';
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/country_picker_dropdown.dart';
-import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/core/extensions/string_extension.dart';
 import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:screenshot/screenshot.dart';
@@ -43,7 +38,7 @@ class BusinessCardPageView extends StatelessWidget {
             0,
             title: AppLocalizations.of(context).buisnessCard,
             arrowColor: Theme.of(context).textSelectionColor,
-            backgroundColor: Theme.of(context).backgroundColor
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
@@ -127,136 +122,6 @@ class BusinessCardPageView extends StatelessWidget {
   }
 }
 
-class BusinessCardModal extends StatelessWidget {
-  const BusinessCardModal({
-    Key key,
-    @required this.screenshotController,
-  }) : super(key: key);
-
-  final ScreenshotController screenshotController;
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
-      builder: (context, model, child) {
-        return BusinessCardWidget(
-          showArrow: false,
-          screenshotController: screenshotController,
-        );
-      },
-      viewModelBuilder: () => BusinessCardPageViewModel(),
-      onModelReady: (model) => model.init(),
-    );
-  }
-}
-
-class BottomSheetButtons extends StatelessWidget {
-  final ScreenshotController screenshotController;
-
-  const BottomSheetButtons({
-    Key key,
-    @required this.screenshotController,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final String share = 'assets/icons/svg/share.svg';
-
-    return ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
-      builder: (context, model, child) => Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: CustomShareRaisedButton(
-              txtColor: ThemeColors.background,
-              btnColor: BrandColors.primary,
-              btnText: AppLocalizations.of(context).share,
-              borderColor: BrandColors.primary,
-              child: SvgPicture.asset(
-                share,
-                height: SizeConfig.xMargin(context, 4),
-                color: ThemeColors.background,
-              ),
-              onPressed: () async {
-                screenshotController
-                    .capture(
-                  pixelRatio: ScreenUtil.pixelRatio,
-                  delay: Duration(milliseconds: 10),
-                )
-                    .then(
-                  (File image) async {
-                    model.imageFile = image;
-                    FlushbarHelper.createSuccess(
-                      duration: const Duration(seconds: 5),
-                      message: AppLocalizations.of(context).sharing,
-                    ).show(context);
-                    model.shareImageAndText();
-                    FlushbarHelper.createSuccess(
-                      duration: const Duration(seconds: 5),
-                      message: AppLocalizations.of(context).successful,
-                    ).show(context);
-                  },
-                ).catchError(
-                  (onError) {
-                    FlushbarHelper.createError(
-                      duration: const Duration(seconds: 5),
-                      message: onError.toString(),
-                    ).show(context);
-                  },
-                );
-                return;
-              },
-            ),
-          ),
-          SizedBox(
-            width: SizeConfig.xMargin(context, 3.0),
-          ),
-          Expanded(
-            flex: 1,
-            child: CustomShareRaisedButton(
-              txtColor: BrandColors.primary,
-              btnColor: ThemeColors.background,
-              btnText: AppLocalizations.of(context).download,
-              borderColor: BrandColors.primary,
-              child: SvgPicture.asset(
-                share,
-                color: ThemeColors.background,
-              ),
-              onPressed: () async {
-                screenshotController
-                    .capture(
-                  pixelRatio: ScreenUtil.pixelRatio,
-                  delay: Duration(milliseconds: 10),
-                )
-                    .then((File image) async {
-                  model.imageFile = image;
-                  FlushbarHelper.createSuccess(
-                    duration: const Duration(seconds: 5),
-                    message: AppLocalizations.of(context).downloading,
-                  ).show(context);
-                  model.downloadImage();
-                  FlushbarHelper.createSuccess(
-                    duration: const Duration(seconds: 5),
-                    message: AppLocalizations.of(context)
-                        .downloadCompletedToInternalStorage,
-                  ).show(context);
-                }).catchError((onError) {
-                  FlushbarHelper.createError(
-                    duration: const Duration(seconds: 5),
-                    message: onError.toString(),
-                  ).show(context);
-                });
-                return;
-              },
-            ),
-          )
-        ],
-      ),
-      viewModelBuilder: () => BusinessCardPageViewModel(),
-    );
-  }
-}
-
 class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCardForm({Key key, @required this.formKey})
       : super(key: key, reactive: false);
@@ -272,7 +137,6 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
       key: formKey,
       child: Column(
         children: <Widget>[
-          // TODO VALIDATE STORE NAME FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
@@ -283,7 +147,6 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
             label: AppLocalizations.of(context).storeName,
             onChange: (value) => model.updateBusinessCard(storeName: value),
           ),
-          // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
@@ -294,7 +157,6 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
             label: AppLocalizations.of(context).personalName,
             onChange: (value) => model.updateBusinessCard(personalName: value),
           ),
-          // TODO VALIDATE PERSONAL NAME FORM FIELD
           _DefaultPhoneFormField(
             validate: (value) {
               if (value.isEmpty) {
@@ -306,7 +168,6 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
             onChange: (PhoneNumber value) =>
                 model.updateBusinessCard(phoneNumber: value.phoneNumber),
           ),
-          // TODO VALIDATE EMAIL ADDRESS FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
@@ -317,7 +178,6 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
             label: AppLocalizations.of(context).emailAddress,
             onChange: (value) => model.updateBusinessCard(emailAddress: value),
           ),
-          // TODO VALIDATE SHOP/OFFICE ADDRESS FORM FIELD
           _DefaultFormField(
             validate: (value) {
               if (value.isEmpty) {
@@ -338,8 +198,8 @@ class _BusinessCardForm extends HookViewModelWidget<BusinessCardPageViewModel> {
 
 class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
   final String label;
-  final onChange;
-  final validate;
+  final Function onChange;
+  final Function validate;
 
   _DefaultFormField({this.validate, this.onChange, this.label, Key key})
       : super(key: key, reactive: false);
@@ -365,7 +225,8 @@ class _DefaultFormField extends HookViewModelWidget<BusinessCardPageViewModel> {
         child: TextFormField(
           textCapitalization: TextCapitalization.sentences,
           onChanged: onChange,
-          validator: validate,
+// TODO fix text fields
+//          validator: validate,
           cursorColor: ThemeColors.gray[800],
           style: TextStyle(
             color: Theme.of(context).cursorColor,

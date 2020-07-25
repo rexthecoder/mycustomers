@@ -35,9 +35,9 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
         },
         child: Container(
           height: SizeConfig.yMargin(context, 12),
-          //color: model.currStore.id == business.id
-            //  ? Color(0xFF2F80ED).withOpacity(0.2)
-              //: Colors.transparent,
+          color: model.currStore.id == business.id
+              ? Color(0xFF2F80ED).withOpacity(0.2)
+              : Colors.transparent,
           child: Center(
             child: ListTile(
               leading: Container(
