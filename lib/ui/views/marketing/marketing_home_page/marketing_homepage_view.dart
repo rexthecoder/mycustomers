@@ -392,13 +392,13 @@ class MarketingHomePageView extends StatelessWidget {
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount:
-                                        model.searchController.text != null
+                                    (model?.searchController?.text?.isNotEmpty ?? false)
                                             ? model.searchedCustomer.length
                                             : model.allCustomers.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       Customer customer =
-                                          model.searchController.text != null
+                                          (model?.searchController?.text?.isNotEmpty ?? false)
                                               ? model.searchedCustomer[index]
                                               : model.allCustomers[index];
                                       bool _isSelected =
@@ -462,8 +462,12 @@ class MarketingHomePageView extends StatelessWidget {
                                                               height: 3.sp,
                                                             ),
                                                             Text(
+<<<<<<< HEAD
                                                               model.dummyQuickTextMessages[
                                                                   index],
+=======
+                                                              model.dummyQuickTextMessages[0],
+>>>>>>> e26bf39a7af6659efe1c50396fa65a9cfa857cd8
                                                               style: TextStyle(
                                                                 color: ThemeColors
                                                                     .gray

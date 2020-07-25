@@ -115,7 +115,9 @@ class MessageHistoryView extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)
                             ),
-                            onPressed: (){},
+                            onPressed: (){
+                              model.setContact();
+                            },
                             child: Center(child: Text('View Transactions',
                               style: TextStyle(color: BrandColors.primary, fontWeight: FontWeight.bold),)),
                           ),
