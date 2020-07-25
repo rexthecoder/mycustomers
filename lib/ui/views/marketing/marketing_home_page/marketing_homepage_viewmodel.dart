@@ -20,6 +20,9 @@ class MarketingHomePageViewModel extends BaseViewModel {
     {'name': 'Mark Essien', 'number': '09088355273'},
     {'name': 'Ufe Atabo', 'number': '09088355273'}
   ];
+  List<String> dummyQuickTextMessages = [
+    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend'
+  ];
 
   // TODO: implement service to get notification status
   bool _notification = true;
@@ -139,6 +142,9 @@ class MarketingHomePageViewModel extends BaseViewModel {
      
      });
     notifyListeners();
+  }
+  Future navigateToMessageHistory(index) async{
+    _navigationService.navigateTo(Routes.messageHistoryView,arguments: allCustomers[index]);
   }
 
   Future navigateToSendMessage(context) async{

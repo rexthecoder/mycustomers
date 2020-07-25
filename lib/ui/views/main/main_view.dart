@@ -11,7 +11,6 @@ import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'package:mycustomers/ui/views/business/business_home_page/business_homepage_view.dart';
 import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
-import 'package:mycustomers/ui/widgets/animation/fade_in.dart';
 import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
 import 'package:mycustomers/ui/widgets/stateful/lazy_index_stacked.dart';
 import 'package:stacked/stacked.dart';
@@ -82,14 +81,14 @@ class MainView extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).backgroundColor,
           selectedItemColor: Theme.of(context).textSelectionColor,
-          unselectedItemColor: ThemeColors.unselect,
+          unselectedItemColor: ThemeColors.inactive,
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               title: Text(AppLocalizations.of(context).home),
               icon: SvgPicture.asset(
                 home,
-                color: ThemeColors.unselect,
+                color: ThemeColors.inactive,
                 semanticsLabel: 'Home',
               ),
               activeIcon: SvgPicture.asset(
@@ -102,7 +101,7 @@ class MainView extends StatelessWidget {
               title: Text(AppLocalizations.of(context).marketing),
               icon: SvgPicture.asset(
                 marketing,
-                color: ThemeColors.unselect,
+                color: ThemeColors.inactive,
                 semanticsLabel: 'Marketing',
               ),
               activeIcon: SvgPicture.asset(
@@ -115,7 +114,7 @@ class MainView extends StatelessWidget {
               title: Text(AppLocalizations.of(context).business),
               icon: SvgPicture.asset(
                 business,
-                color: ThemeColors.unselect,
+                color: ThemeColors.inactive,
                 semanticsLabel: AppLocalizations.of(context).business,
               ),
               activeIcon: SvgPicture.asset(

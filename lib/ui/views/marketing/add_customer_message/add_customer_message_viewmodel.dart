@@ -87,6 +87,16 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     _navigationService.back(result: _selectedCustomers);
 
   }
+  Future returnHome() async {
+    _navigationService.popUntil((route){
+      if(route.settings.name == '/main'){
+        (route.settings.arguments as Map)['result'] = _selectedCustomers;
+        return true;
+      }else{
+        return false;
+      }
+    });
+  }
 
 
 
