@@ -27,7 +27,7 @@ class AddCustomerMessageViewModel extends StreamViewModel {
   bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
-  init({String query}) async {
+  Future<void> init({String query}) async {
     _allCustomers.clear();
     for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
       print('Iterate');
@@ -51,7 +51,7 @@ class AddCustomerMessageViewModel extends StreamViewModel {
   void getFrequentCustomers(value) {
     //todo: get frequent customers
     _allFrequentCustomers = value !=null? value:[];
-    notifyListeners();
+//    notifyListeners();
   }
 
   void deselectCustomer(Customer customer) {

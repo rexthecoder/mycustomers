@@ -52,13 +52,22 @@ class MainView extends StatelessWidget {
           statusBarColor: BrandColors.primary,
           statusBarIconBrightness: Brightness.light,
         ),
-        child: Scaffold(
-          body: Stack(
-            children: <Widget>[
-              mainView(context, model),
-              MainMenu(),
-              MainHeader(),
-            ],
+        child: WillPopScope(
+          onWillPop: () async {
+            if (model.index != 0) {
+              model.changeTab(0);
+              return false;
+            }
+            return true;
+          },
+          child: Scaffold(
+            body: Stack(
+              children: <Widget>[
+                mainView(context, model),
+                MainMenu(),
+                MainHeader(),
+              ],
+            ),
           ),
         ),
       ),

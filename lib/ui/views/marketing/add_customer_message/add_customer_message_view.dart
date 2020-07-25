@@ -427,7 +427,8 @@ class AddCustomerMessageView extends StatelessWidget {
       },
       viewModelBuilder: () => AddCustomerMessageViewModel(),
       onModelReady: (model) {
-        model.init();
+        Future.microtask(model.init);
+//        model.init();
       },
     );
 //    return ViewModelBuilder<AddCustomerMessageViewModel>.reactive(
