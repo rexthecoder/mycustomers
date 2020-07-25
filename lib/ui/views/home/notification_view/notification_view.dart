@@ -98,7 +98,7 @@ class NotificationsView extends StatelessWidget {
                                                         AppLocalizations.of(
                                                                 context)
                                                             .debtOf +
-                                                        '${item.amount}' +
+                                                        ' ${item.amount} ' +
                                                         AppLocalizations.of(
                                                                 context)
                                                             .isDueToday
@@ -106,7 +106,7 @@ class NotificationsView extends StatelessWidget {
                                                         AppLocalizations.of(
                                                                 context)
                                                             .creditOf +
-                                                        '${item.paid}' +
+                                                        ' ${item.paid} ' +
                                                         AppLocalizations.of(
                                                                 context)
                                                             .isDueToday,
