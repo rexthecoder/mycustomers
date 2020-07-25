@@ -70,7 +70,7 @@ class HomePageViewModel extends ReactiveViewModel {
         if(currency.symbol == '₦'){
           return amt;
         }else if(currency.symbol == '\$'){
-          return amt * 385.505;
+          return amt / 385.505;
         }else{
           return amt * 0.192873;
         }
