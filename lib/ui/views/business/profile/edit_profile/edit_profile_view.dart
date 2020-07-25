@@ -178,7 +178,7 @@ class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
       BuildContext context, EditProfileViewModel model) {
     return TextFormField(
       textCapitalization: TextCapitalization.sentences,
-      initialValue: model.userP.name,
+      initialValue: model.getProfile().name,
       keyboardType: TextInputType.text,
       onChanged: (value) => model.updateUserName(value),
       decoration: InputDecoration(
@@ -201,7 +201,7 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
 
   return CircleAvatar(
     backgroundColor: ThemeColors.unselect,
-    child: model.userP.image.length == 0 && model.sImage == null
+    child: model.getProfile().image.length == 0 && model.sImage == null
         ? Text(
             model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
             style: TextStyle(
@@ -212,7 +212,7 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
           )
         : model.sImage == null
             ? ClipOval(
-                child: model.imageFromBaseString(model.userP.image, context),
+                child: model.imageFromBaseString(model.getProfile().image, context),
               )
             : ClipOval(
                 child: model.imageFromBaseString(model.sImage, context),

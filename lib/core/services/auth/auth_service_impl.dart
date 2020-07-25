@@ -82,8 +82,6 @@ class AuthServiceImpl implements AuthService {
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
-      Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
-      _profileService.addProfile(profile);
 
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
@@ -122,8 +120,8 @@ class AuthServiceImpl implements AuthService {
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
-      Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
-      _profileService.addProfile(profile);
+      // Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
+      // _profileService.addProfile(profile);
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
       throw AuthException(e.message);

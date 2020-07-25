@@ -45,7 +45,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                 height: SizeConfig.xMargin(context, 13),
                 width: SizeConfig.xMargin(context, 13),
                 padding: EdgeInsets.all(
-                  model.userP.image.length > 0 ? 0 : SizeConfig.yMargin(context, 0.7),
+                  model.getProfile().image.length > 0 ? 0 : SizeConfig.yMargin(context, 0.7),
                 ),
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -56,7 +56,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                     Radius.circular(5),
                   ),
                 ),
-                child: model.userP.image.length > 0 ? model.imageFromBaseString(model.userP.image, context) : Center(
+                child: model.getProfile().image.length > 0 ? model.imageFromBaseString(model.getProfile().image, context) : Center(
                   child: Text(
                     business.name.substring(0, 1).capitalize,
                     textAlign: TextAlign.center,
