@@ -33,12 +33,12 @@ class MessageView extends StatelessWidget {
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
-        model.initSelected(arguments.selectedCustomers);
+        //model.initSelected(arguments.selectedCustomers);
         model.setQuickText(arguments.title, arguments.message);
-        final int length = model.selectedCustomers.length != 0
-            ? model.selectedCustomers.length
-            : arguments.selectedCustomers.length;
-        print(arguments.selectedCustomers.length);
+        // final int length = model.selectedCustomers.length != 0
+        //     ? model.selectedCustomers.length
+        //     : arguments.selectedCustomers.length;
+        // print(arguments.selectedCustomers.length);
 
 //        arguments.selectedCustomers.length;
         return Scaffold(
@@ -74,6 +74,7 @@ class MessageView extends StatelessWidget {
                           horizontal: 20, vertical: 10),
                     ),
 //                      maxLines: 2,
+                    onChanged: model.setTitle,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -96,6 +97,7 @@ class MessageView extends StatelessWidget {
                           horizontal: 20, vertical: 10),
                     ),
                     maxLines: 3,
+                    onChanged: model.setBody,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -114,11 +116,11 @@ class MessageView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              length == 1
-                                  ? '$length ' +
+                              model.selectedCustomers.length == 1
+                                  ? '${model.selectedCustomers.length} ' +
                                       AppLocalizations.of(context)
                                           .selectedCustomer
-                                  : '$length ' +
+                                  : '${model.selectedCustomers.length} ' +
                                       AppLocalizations.of(context)
                                           .selectedCustomer +
                                       's',
@@ -142,7 +144,7 @@ class MessageView extends StatelessWidget {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return BottomSheetView(
-                                          model.selectedCustomers,
+                                          //model.selectedCustomers,
                                           height,
                                           model);
                                     },
@@ -180,12 +182,10 @@ class MessageView extends StatelessWidget {
                         Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: length,
+                            itemCount: model.selectedCustomers.length,
                             itemBuilder: (BuildContext context, int index) =>
                                 CustomerCircleAvatar(
-                              customer: model.selectedCustomers.length != 0
-                                  ? model.selectedCustomers[index]
-                                  : arguments.selectedCustomers[index],
+                              ccustomer: model.selectedCustomers[index],
                               action: 'debtor',
                             ),
                           ),
@@ -200,6 +200,7 @@ class MessageView extends StatelessWidget {
                     child: FlatButton(
                       onPressed: () {
 //                        model.navigateToSendMessage();
+                        model.send();
                         successDialog(context, model);
                       },
                       color: BrandColors.primary,
@@ -489,10 +490,10 @@ class MessageView extends StatelessWidget {
 }
 
 class BottomSheetView extends StatelessWidget {
-  final List<Customer> selectedCustomers;
+  //final List<Customer> selectedCustomers;
   final double height;
   final MessageViewModel parentModel;
-  BottomSheetView(this.selectedCustomers, this.height, this.parentModel);
+  BottomSheetView(this.height, this.parentModel);
 
   @override
   Widget build(BuildContext context) {
@@ -520,8 +521,7 @@ class BottomSheetView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       onPressed: () {
-                        parentModel
-                            .mergeSelectCustomer(model.selectedCustomers);
+                        //parentModel.mergeSelectCustomer(model.selectedCustomers);
                         Navigator.pop(context);
                       },
                       child: Text(
@@ -606,9 +606,8 @@ class BottomSheetView extends StatelessWidget {
                                     sliver: SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (BuildContext context, int index) {
-                                          Customer customer = model.data[index];
-                                          bool _isSelected =
-                                              model.isSelected(customer);
+                                          Customer customer = model.allCustomers[index];
+                                          bool _isSelected = model.checkselected(customer.displayName, customer.phone);
                                           return Container(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 15.h,
@@ -661,18 +660,14 @@ class BottomSheetView extends StatelessWidget {
                                                     value: _isSelected,
                                                     onChanged: (value) {
                                                       _isSelected
-                                                          ? model
-                                                              .deselectCustomer(
-                                                                  customer)
-                                                          : model
-                                                              .selectCustomer(
-                                                                  customer);
+                                                          ? model.deselect(customer)
+                                                          : model.select(customer);
                                                     })
                                               ],
                                             ),
                                           );
                                         },
-                                        childCount: model.data.length,
+                                        childCount: model.allCustomers.length,
                                       ),
                                     ),
                                   ),

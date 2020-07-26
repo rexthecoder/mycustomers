@@ -83,9 +83,9 @@ class MarketingHomePageView extends StatelessWidget {
                     child: FlatButton(
                   padding: EdgeInsets.all(10),
                   onPressed: () {
-                    // model.selectedCustomers.length != 0
-                    //     ? model.navigateToSendMessageView()
-                    //     : 
+                    model.selectedCustomers.length != 0
+                        ? model.navigateToSendMessageView()
+                        : 
                         Flushbar(
                             backgroundColor: BrandColors.primary,
                             duration: const Duration(seconds: 3),
