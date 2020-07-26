@@ -281,7 +281,7 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                      flusher('PDF Feature in develope', context);
+                                      flusher('Still in development', context);
                                       // SavedDialog().showPdfDialog(context);
 
                                       // // ReceiptReport().buildPdf(context);
