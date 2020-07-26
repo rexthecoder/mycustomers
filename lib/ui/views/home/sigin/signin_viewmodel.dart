@@ -52,7 +52,7 @@ class SignInViewModel extends BaseViewModel with Validators {
   Future navigateToNextScreen() async {
     if (confirmHasStore())
       await _navigationService.replaceWithTransition(MainView(),
-          opaque: true,
+          opaque: false,
           transition: 'rotate',
           duration: Duration(milliseconds: 400));
   }
@@ -68,7 +68,7 @@ class SignInViewModel extends BaseViewModel with Validators {
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
-        opaque: true,
+        opaque: false,
         transition: 'fade',
         duration: Duration(milliseconds: 400));
   }
@@ -79,7 +79,9 @@ class SignInViewModel extends BaseViewModel with Validators {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
     _dialogService.showCustomDialog(
-        title: 'Please hold on while we try to sign you in');
+        title: ""
+        // 'Please hold on while we try to sign you in'
+        );
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());

@@ -92,32 +92,9 @@ Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   );
 }
 
-///Button for the Onboarding Screen
-Widget btnHome(String btnText, Color colorBtn, Color colorText, context) {
-  return Container(
-    height: SizeConfig.yMargin(context, 5),
-    width: SizeConfig.xMargin(context, 90),
-    decoration: BoxDecoration(
-      border: Border.all(color: colorText),
-      borderRadius: BorderRadius.circular(6),
-      color: colorBtn,
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          btnText,
-          style: TextStyle(
-            color: colorText,
-            fontSize: SizeConfig.textSize(context, 4),
-          ),
-        ),
-      ],
-    ),
-  );
-}
 
-/// Authentication Button with variable for
+
+/// Customized Raised Button with variable for
 /// - String
 /// - Button Color
 /// - Function

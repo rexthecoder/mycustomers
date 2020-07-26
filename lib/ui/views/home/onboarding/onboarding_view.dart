@@ -22,8 +22,8 @@ class OnboardingView extends StatelessWidget {
     return ViewModelBuilder<OnboardingViewModel>.reactive(
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.light,
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
         ),
         child: SafeArea(
           bottom: false,

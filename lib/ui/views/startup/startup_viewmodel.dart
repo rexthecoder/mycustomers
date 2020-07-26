@@ -22,8 +22,8 @@ class StartupViewModel extends BaseViewModel {
   get currentStore => StoreRepository.currentStore;
 
   Future setup() async {
+  //  Future.delayed(Duration(seconds: 30));
     await locator.allReady();
-//    await  Future.delayed(Duration(seconds: 1));
     if (await checkLoggedIn()) {
       if (confirmHasStore()) {
         _navigationService.replaceWith(Routes.mainViewRoute);
