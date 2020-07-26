@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/core/models/customer.dart';
 
 class SendAMessage extends StatelessWidget {
-  final List<Customer> selectedCustomers;
+  final List<CustomerContact> selectedCustomers;
   SendAMessage(this.selectedCustomers);
 
   final bgColor = Colors.white;

@@ -194,14 +194,15 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
   }
 
   Future navigateToSendMessage(context) async{
-    // Navigator.of(context).pushNamed(Routes.sendMessageViewRoute,arguments: _selectedCustomers).then((_){
+    // Navigator.of(context).pushNamed(Routes.sendMessageViewRoute,arguments: selectedCustomers).then((_){
     //    final arguments = ModalRoute.of(context).settings.arguments as Map;
     //    final result = arguments['result'];
     //  allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
     //   notifyListeners();
      
     //  });
-    // notifyListeners();
+    _navigationService.navigateTo(Routes.sendMessageViewRoute);
+    notifyListeners();
   }
 
 

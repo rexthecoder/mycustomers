@@ -41,7 +41,7 @@ class MessageService with ReactiveServiceMixin{
 
   void getAllMessages() {
     _allmessages.value = _messageBox.values.toList();
-    print(_allmessages.value);
+    //print(_allmessages.value);
   }
 
   void getFrequents(List<CustomerContact> customers) {
