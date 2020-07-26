@@ -2,6 +2,8 @@ import 'package:stacked/stacked.dart';
 
 class SendMessageViewModel extends BaseViewModel {
   String _controllerValue;
+  String _messageControllerValue;
+  String get messageControllerValue=> _messageControllerValue;
   get controllerValue=>_controllerValue;
 
   final List<String> _messageEntries = <String>[
@@ -18,6 +20,13 @@ class SendMessageViewModel extends BaseViewModel {
     _controllerValue = buttonValue;
     print(_controllerValue);
     notifyListeners();
+
+  }
+
+  void clearMessageFields(){
+    _controllerValue="";
+    _messageControllerValue="";
+     notifyListeners();
 
   }
 
