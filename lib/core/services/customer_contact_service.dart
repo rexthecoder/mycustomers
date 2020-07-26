@@ -25,6 +25,14 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   
   RxValue<List<CustomerContact>> _contacts = RxValue<List<CustomerContact>>(initial: []);
   List<CustomerContact> get contacts => _contacts.value;
+
+  RxValue<List<CustomerContact>> _contactsm = RxValue<List<CustomerContact>>(initial: []);
+  List<CustomerContact> get contactsm => _contactsm.value;
+
+  RxValue<List<CustomerContact>> _selectedC = RxValue<List<CustomerContact>>(initial: []);
+  List<CustomerContact> get selectedC => _selectedC.value;
+
+  List<CustomerContact> temp = [];
   bool success, error;
 
   NavigationService _navigationService = locator<NavigationService>();
@@ -38,7 +46,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   var uuid = Uuid();
 
   CustomerContactService(){
-    listenToReactiveValues([_contacts, _contact]);
+    listenToReactiveValues([_contacts, _contact, _contactsm, _selectedC]);
   }
 
   @override
@@ -67,22 +75,42 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     return sum;
   }
 
-  List<CustomerContact> getCustomermarket(String stid) {
-    List<CustomerContact> temp = [];
+  void getCustomermarket(String stid) {
+    //List<CustomerContact> temp = [];
+    _contactsm.value = [];
     if(_contactBox.values.toList().length > 0) {
       for(var item in _contactBox.values.toList()) {
         if(item.storeid == stid && item.market) {
-          temp.add(item);
+          _contactsm.value.add(item);
         }
       }
     }
-    return temp;
   }
 
   void setContact(CustomerContact cont){
     _contact.value = cont;
     print(cont.id);
     //_navigationService.navigateTo(Routes.mainTransaction);
+  }
+
+  void addSelected(CustomerContact cus) {
+    temp.add(cus);
+    _selectedC.value = [...temp];
+  }
+
+  void removeSelected(CustomerContact cus) {
+    temp.removeAt(temp.indexOf(cus));
+    _selectedC.value = [...temp];
+  }
+
+  void selectAll(List<CustomerContact> custt) {
+    _selectedC.value = [];
+    _selectedC.value = custt;
+  }
+
+  void deselectAll() {
+    temp = [];
+    _selectedC.value = [];
   }
 
   void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String action, TransactionModel transaction, String stid)async {
@@ -187,6 +215,10 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
 
   void updateContact(CustomerContact cnt)async{
     await _contactBox.putAt(_contactBox.values.toList().indexOf(_contact.value), cnt);
+  }
+
+  void deleteContactMarket(CustomerContact cus, CustomerContact cust) async {
+    await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), cust);
   }
 
 }
