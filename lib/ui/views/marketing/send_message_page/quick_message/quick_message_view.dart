@@ -12,8 +12,8 @@ import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_vi
 
 class QuickMessageView extends StatelessWidget {
 //  final MessageArgument arguments;
-  final List<CustomerContact> selectedCustomers;
-  QuickMessageView(this.selectedCustomers);
+  final List<Customer> selectedCustomers = [];
+  //QuickMessageView(this.selectedCustomers);
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -48,7 +48,7 @@ class QuickMessageView extends StatelessWidget {
                       ),
                       FlatButton(
                         onPressed: () => model.navigateToMessageView(
-                            selectedCustomers,
+                            //selectedCustomers,
                             quickMessageTitle[index],
                             quickMessageText[index]),
                         shape: RoundedRectangleBorder(
@@ -117,7 +117,7 @@ class QuickMessageView extends StatelessWidget {
                   color: BrandColors.primary,
                   onPressed: () {
                     model.navigateToMessage(
-                      selectedCustomers,
+                      //selectedCustomers,
                     );
                   },
                   shape: RoundedRectangleBorder(

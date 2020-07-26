@@ -262,31 +262,30 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
         if(currency.symbol == '₦'){
           return amt;
         }else if(currency.symbol == '\$'){
-          return amt * 385.505;
+          return amt / 385.505;
         }else{
-          return amt * 0.192873;
+          return amt / 0.192873;
         }
         //(currency.symbol == '₹')
       }else if(oldcurrency.symbol == '\$') {
         if(currency.symbol == '₦'){
-          return amt / 385.505;
+          return amt * 385.505;
         }else if(currency.symbol == '\$'){
           return amt;
         }else{
-          return amt * 74.7272456;
+          return amt / 74.7272456;
         }
       } else if(oldcurrency.symbol == '₹') {
         if(currency.symbol == '₦'){
-          return amt / 0.192873;
+          return amt * 0.192873;
         }else if(currency.symbol == '\$'){
-          return amt / 74.7272456;
+          return amt * 74.7272456;
         }else{
           return amt;
         }
       }
-    } else {
-      return amt;
     }
+    return amt;
   }
 
   void updateamount(CountryCurrency oldcurrency, CountryCurrency currency, String stid) async{

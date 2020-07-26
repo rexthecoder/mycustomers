@@ -358,7 +358,7 @@ class Router {
       case Routes.quickMessages:
         final customerList = settings.arguments;
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => QuickMessageView(customerList),
+          builder: (context) => QuickMessageView(),
           settings: settings,
         );
       case Routes.messageView:

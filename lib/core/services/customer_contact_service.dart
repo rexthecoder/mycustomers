@@ -103,6 +103,12 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     _selectedC.value = [...temp];
   }
 
+  void removeSelectedS(CustomerContact cus) {
+    CustomerContact ccus = temp.where((element) => element.name == cus.name && element.phoneNumber == cus.phoneNumber).toList()[0];
+    temp.removeAt(temp.indexOf(ccus));
+    _selectedC.value = [...temp];
+  }
+
   void selectAll(List<CustomerContact> custt) {
     _selectedC.value = [];
     _selectedC.value = custt;
@@ -175,7 +181,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     }
   }
 
-  void addContactmarket(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String stid)async {
+  Future<void> addContactmarket(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String stid)async {
     print(customerPhoneNumber);
     print(customerName);
     print(dropDownValue);
@@ -190,15 +196,19 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
         }
       }
       if(isStored){
+        print('stored');
         CustomerContact cnt = new CustomerContact(name: _contact.value.name, phoneNumber: _contact.value.phoneNumber, id: _contact.value.id, initials: _contact.value.initials, storeid: _contact.value.storeid, market: true);
         updateContact(cnt);
+        _contact.value = cnt;
+        print('service'+_contact.value.name);
 
       } else {
         CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid, market: true);
-        _contactBox.add(contact).then((value){
+        await _contactBox.add(contact).then((value){
           success = true;
           print(success);
           _contact.value = contact;
+          print('service'+_contact.value.name);
           print('set ${contact.id}');
           //_contacts.value = _contactBox.values.toList();
         }).catchError((err){
@@ -207,14 +217,15 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           print('Failed To save Contact');
           success = false;
         });
-        print(_contactBox.values.toList());
+        //print(_contactBox.values.toList());
       }
       
     }
   }
 
   void updateContact(CustomerContact cnt)async{
-    await _contactBox.putAt(_contactBox.values.toList().indexOf(_contact.value), cnt);
+    CustomerContact temp = _contactBox.values.toList().where((element) => element.id == _contact.value.id).toList()[0];
+    await _contactBox.putAt(_contactBox.values.toList().indexOf(temp), cnt);
   }
 
   void deleteContactMarket(CustomerContact cus, CustomerContact cust) async {
