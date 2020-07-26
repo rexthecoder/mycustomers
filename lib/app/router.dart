@@ -54,7 +54,8 @@ abstract class Routes {
   static const signinViewRoute = '/signin';
   static const signupViewRoute = '/signup';
   static const verificationViewRoute = '/verify';
-  static const businessViewRoute = '/business';
+  static const businessViewSignIn = '/businesssignin';
+  static const businessViewSignUp = '/businesssignup';
   static const mainViewRoute = '/main';
   static const addcustomerRoute = '/addcustomer';
   static const addCustomerManuallyDebtor = '/addcusmandeb';
@@ -233,7 +234,14 @@ class Router {
           builder: (context) => TransactionDetails(),
           settings: settings,
         );
-      case Routes.businessViewRoute:
+        case Routes.businessViewSignUp:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => BusinessView(
+            process: 'signup',
+          ),
+          settings: settings,
+        );
+      case Routes.businessViewSignIn:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessView(
             process: 'signin',
