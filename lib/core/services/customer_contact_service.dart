@@ -67,10 +67,22 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     return sum;
   }
 
+  List<CustomerContact> getCustomermarket(String stid) {
+    List<CustomerContact> temp = [];
+    if(_contactBox.values.toList().length > 0) {
+      for(var item in _contactBox.values.toList()) {
+        if(item.storeid == stid && item.market) {
+          temp.add(item);
+        }
+      }
+    }
+    return temp;
+  }
+
   void setContact(CustomerContact cont){
     _contact.value = cont;
     print(cont.id);
-    _navigationService.navigateTo(Routes.mainTransaction);
+    //_navigationService.navigateTo(Routes.mainTransaction);
   }
 
   void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String action, TransactionModel transaction, String stid)async {
@@ -82,8 +94,8 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       //final bbox = await box;
       bool isStored = false;
       for(var item in _contactBox.values.toList()){
-        if(item.name == customerName && item.phoneNumber == customerPhoneNumber){
-          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid);
+        if(item.name == customerName && item.phoneNumber == customerPhoneNumber && item.storeid == stid){
+          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid, market: item.market);
           isStored = true;
         }
       }
@@ -102,11 +114,11 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           _navigationService.clearStackAndShow(Routes.mainViewRoute);
         //_navigationService.navigateTo(Routes.mainTransaction);
       } else {
-        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid);
+        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid, market: false);
         _contactBox.add(contact).then((value){
           success = true;
           print(success);
-          _contact.value = CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid);
+          _contact.value = contact;
           print('set ${contact.id}');
           _contacts.value = _contactBox.values.toList();
           TransactionModel ntransaction = new TransactionModel(
@@ -133,6 +145,48 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       }
       
     }
+  }
+
+  void addContactmarket(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String stid)async {
+    print(customerPhoneNumber);
+    print(customerName);
+    print(dropDownValue);
+    if(customerName != null && customerPhoneNumber != null) {
+      print('sent');
+      //final bbox = await box;
+      bool isStored = false;
+      for(var item in _contactBox.values.toList()){
+        if(item.name == customerName && item.phoneNumber == customerPhoneNumber && item.storeid == stid){
+          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid, market: item.market);
+          isStored = true;
+        }
+      }
+      if(isStored){
+        CustomerContact cnt = new CustomerContact(name: _contact.value.name, phoneNumber: _contact.value.phoneNumber, id: _contact.value.id, initials: _contact.value.initials, storeid: _contact.value.storeid, market: true);
+        updateContact(cnt);
+
+      } else {
+        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid, market: true);
+        _contactBox.add(contact).then((value){
+          success = true;
+          print(success);
+          _contact.value = contact;
+          print('set ${contact.id}');
+          //_contacts.value = _contactBox.values.toList();
+        }).catchError((err){
+          error = err;
+          print(error);
+          print('Failed To save Contact');
+          success = false;
+        });
+        print(_contactBox.values.toList());
+      }
+      
+    }
+  }
+
+  void updateContact(CustomerContact cnt)async{
+    await _contactBox.putAt(_contactBox.values.toList().indexOf(_contact.value), cnt);
   }
 
 }

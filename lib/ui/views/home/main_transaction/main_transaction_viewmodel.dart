@@ -139,7 +139,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   // }
 
   void navigateToHome(){
-    _navigationService.clearStackAndShow(Routes.mainViewRoute);
+    _navigationService.popUntil((route) => route.settings.name == Routes.mainViewRoute);
   }
 
 void navigateToSchedule(){

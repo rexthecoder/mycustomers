@@ -22,13 +22,14 @@ class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
       id: fields[2] as String,
       initials: fields[3] as String,
       storeid: fields[4] as String,
+      market: fields[5] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, CustomerContact obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -38,6 +39,8 @@ class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
       ..writeByte(3)
       ..write(obj.initials)
       ..writeByte(4)
-      ..write(obj.storeid);
+      ..write(obj.storeid)
+      ..writeByte(5)
+      ..write(obj.market);
   }
 }

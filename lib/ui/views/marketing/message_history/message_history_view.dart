@@ -36,7 +36,7 @@ class MessageHistoryView extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                     CustomerCircleAvatar(
-                    customer: model.currentCustomer,
+                    ccustomer: model.customer,
                     ),
                       SizedBox(width: 5.w,),
                       Expanded(
@@ -46,7 +46,7 @@ class MessageHistoryView extends StatelessWidget {
                           children: <Widget>[
                             Container(
                               child: Text(
-                                model.currentCustomer.name ?? '',
+                                model.customer.name ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -59,7 +59,7 @@ class MessageHistoryView extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                model.currentCustomer.phone ?? '',
+                                model.customer.phoneNumber ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline6
@@ -133,7 +133,7 @@ class MessageHistoryView extends StatelessWidget {
 
                 Container(child: Expanded(
                   child: ListView.builder(
-                      itemCount: model.dummyQuickText.length,
+                      itemCount: model.messages.length,
                       itemBuilder: (BuildContext context, int index)=>Container(
                         child:Padding(
 //                          padding: const EdgeInsets.symmetric(vertical: 20),
@@ -145,7 +145,7 @@ class MessageHistoryView extends StatelessWidget {
                               ),
                               child: Center(child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(model.dummyQuickTextMessages[index],textAlign: TextAlign.end,),
+                                child: Text(model.messages[index].message,textAlign: TextAlign.end,),
                               ))),
                         ),
                       )),
@@ -199,22 +199,23 @@ class MessageHistoryView extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
 //                        hintText: AppLocalizations
-
                                       ),
+                                      onChanged: model.updatetext,
                                     ),
                                   ),
                                   SizedBox(width: 10.w,),
                                   InkWell(
                                     onTap: (){
-                                      Flushbar(
-                                          backgroundColor: BrandColors.primary,
-                                          duration: const Duration(seconds: 3),
-                                          message: 'Feature Under Construction',
-                                          icon: Icon(
-                                            Icons.info_outline,
-                                            size: 28.0,
-                                            color: ThemeColors.background,
-                                          )).show(context);
+                                      model.send();
+                                      // Flushbar(
+                                      //     backgroundColor: BrandColors.primary,
+                                      //     duration: const Duration(seconds: 3),
+                                      //     message: 'Feature Under Construction',
+                                      //     icon: Icon(
+                                      //       Icons.info_outline,
+                                      //       size: 28.0,
+                                      //       color: ThemeColors.background,
+                                      //     )).show(context);
                                     },
                                     child: Container(
                                       width: 50.w,

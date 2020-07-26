@@ -182,6 +182,7 @@ class HomePageViewModel extends ReactiveViewModel {
     print(id);
     CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone, initials: initials);
     _customerContactService.setContact(cus);
+    _navigationService.navigateTo(Routes.mainTransaction);
   }
 
   TextEditingController debtorsController = TextEditingController();
