@@ -47,10 +47,10 @@ class BusinessHomePageView extends StatelessWidget {
                     leading: CircleAvatar(
                       backgroundColor: BrandColors.primary,
                       minRadius: SizeConfig.xMargin(context, 7),
-                      maxRadius: SizeConfig.xMargin(context, 8),
-                      child: model.userP.image.length != 0 ? ClipRRect(
+                      maxRadius: SizeConfig.xMargin(context, 7.3),
+                      child: model.getProfile().image.length != 0 ? ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: model.imageFromBaseString(model.userP.image, context),
+                        child: model.imageFromBaseString(model.getProfile().image, context),
                       ) : Text(
                         model.profileCardTitle.substring(0, 1),
                         style: TextStyle(

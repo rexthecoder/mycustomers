@@ -26,7 +26,11 @@ class BusinessHomePageViewModel extends BaseViewModel {
   String get profileCardSubtitle =>
       StoreRepository?.currentStore?.address ?? '---';
 
-  Profile get userP => _profileService.getProfile();
+  //Profile get userP => _profileService.getProfile();
+
+  Profile getProfile() {
+    return _profileService.getProfile(StoreRepository?.currentStore?.id);
+  }
 
   Image imageFromBaseString(String base64String, BuildContext context){
      return Image.memory(base64Decode(base64String),

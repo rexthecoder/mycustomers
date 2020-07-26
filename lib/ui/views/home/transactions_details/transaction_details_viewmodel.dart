@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
@@ -29,7 +30,7 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
   int amountOwing = 30000;
 
   void delete(){
-    _navigationService.back();
+    _navigationService.replaceWith(Routes.mainTransaction);
     _transactionService.deleteTransaction();
   }
 

@@ -37,7 +37,11 @@ class EditProfileViewModel extends BaseViewModel {
 
   
 
-  Profile get userP => _profileService.getProfile();
+  //Profile get userP => _profileService.getProfile();
+
+  Profile getProfile() {
+    return _profileService.getProfile(StoreRepository?.currentStore?.id);
+  }
 
   String sImage;
   final AsyncMemoizer memoizer = AsyncMemoizer();
@@ -111,7 +115,7 @@ class EditProfileViewModel extends BaseViewModel {
 
   void save() {
     if(_userName != null || sImage != null) {
-      Profile profile = new Profile(name: _userName != null ? _userName : userP.name, image: sImage != null ? sImage : userP.image);
+      Profile profile = new Profile(name: _userName != null ? _userName : getProfile().name, image: sImage != null ? sImage : getProfile().image);
       _profileService.updateProfile(profile);
       _navigationService.back();
     } else {
