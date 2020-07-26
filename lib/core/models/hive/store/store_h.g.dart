@@ -25,13 +25,14 @@ class StoreHAdapter extends TypeAdapter<StoreH> {
       fields[5] as String,
       fields[6] as String,
       fields[7] as String,
+      fields[8] as Uint8List,
     );
   }
 
   @override
   void write(BinaryWriter writer, StoreH obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,6 +48,8 @@ class StoreHAdapter extends TypeAdapter<StoreH> {
       ..writeByte(6)
       ..write(obj.ownerId)
       ..writeByte(7)
-      ..write(obj.email);
+      ..write(obj.email)
+      ..writeByte(8)
+      ..write(obj.storePic);
   }
 }

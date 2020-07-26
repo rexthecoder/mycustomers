@@ -167,18 +167,17 @@ class MainTransaction extends StatelessWidget {
                                 //   bottom: ScreenUtil().setHeight(5),
                                 // ),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        SizeConfig.yMargin(context, 1.8)),
+                                    borderRadius: BorderRadius.circular(8),
                                     color: Theme.of(context).backgroundColor),
                                 width: width,
                                 child: model.bought() > model.paid()
                                     ? Center(
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceAround,
                                           children: <Widget>[
-                                            Text(
-                                              '${model.contact.name}' +
+                                            Text(//${model.contact.name}
+                                              'This customer' +
                                                   ' ' +
                                                   AppLocalizations.of(context)
                                                       .owesYou +
@@ -211,7 +210,7 @@ class MainTransaction extends StatelessWidget {
                                                   .copyWith(
                                                     fontSize:
                                                         SizeConfig.yMargin(
-                                                            context, 4.5),
+                                                            context, 2.8),
                                                     color: Color(0xFFEB5757),
                                                     fontFamily: 'Roboto',
                                                     fontWeight: FontWeight.w900,
@@ -228,7 +227,7 @@ class MainTransaction extends StatelessWidget {
                                             Text(
                                               AppLocalizations.of(context)
                                                       .youOwe +
-                                                  ' ${model.contact.name} ',
+                                                  ' this customer ',//${model.contact.name}
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline5
@@ -258,7 +257,7 @@ class MainTransaction extends StatelessWidget {
                                                   .copyWith(
                                                     fontSize:
                                                         SizeConfig.yMargin(
-                                                            context, 4.5),
+                                                            context, 2.8),
                                                     color: Color(0xFFEB5757),
                                                     fontFamily: 'Roboto',
                                                     fontWeight: FontWeight.w900,
@@ -427,15 +426,14 @@ class MainTransaction extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-                                SizedBox(
-                                    width: SizeConfig.xMargin(context, 15)),
+                                //SizedBox(width: SizeConfig.xMargin(context, 15)),
                                 Container(
                                   //color: Colors.red,
-                                  // padding: EdgeInsets.symmetric(
-                                  //     horizontal:
-                                  //         SizeConfig.xMargin(context, 5)),
-                                  // width:
-                                  //     SizeConfig.xMargin(context, 100) * 0.48,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.xMargin(context, 5)),
+                                  width:
+                                      SizeConfig.xMargin(context, 100) * 0.48,
                                   child: Text(
                                     AppLocalizations.of(context).details,
                                     style: TextStyle(
@@ -443,12 +441,11 @@ class MainTransaction extends StatelessWidget {
                                             SizeConfig.yMargin(context, 2)),
                                   ),
                                 ),
-                                SizedBox(
-                                    width: SizeConfig.xMargin(context, 15)),
+                                //SizedBox(width: SizeConfig.xMargin(context, 15)),
                                 Container(
                                   //color: Colors.red,
-                                  // width:
-                                  //     SizeConfig.xMargin(context, 100) * 0.26,
+                                   width:
+                                      SizeConfig.xMargin(context, 100) * 0.26,
                                   child: Center(
                                     child: Text(
                                       AppLocalizations.of(context).owesYou,
@@ -458,11 +455,11 @@ class MainTransaction extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: SizeConfig.xMargin(context, 3)),
+                                //SizedBox(width: SizeConfig.xMargin(context, 3)),
                                 Container(
                                   //color: Colors.red,
-                                  // width:
-                                  //     SizeConfig.xMargin(context, 100) * 0.26,
+                                  width:
+                                      SizeConfig.xMargin(context, 100) * 0.26,
                                   child: Center(
                                     child: Text(
                                       AppLocalizations.of(context).paidYou,
@@ -472,7 +469,7 @@ class MainTransaction extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(width: SizeConfig.xMargin(context, 2)),
+                                //SizedBox(width: SizeConfig.xMargin(context, 2)),
                               ],
                             ),
                           ),
@@ -524,9 +521,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                       ? InkWell(
                                                           onTap: () {
-                                                            model
-                                                                .navigateDetails(
-                                                                    item);
+                                                            //model.navigateDetails(item);
                                                           },
                                                           child: Container(
                                                             // margin: EdgeInsets.symmetric(
@@ -674,9 +669,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                           ? InkWell(
                                                               onTap: () {
-                                                                model
-                                                                    .navigateDetails(
-                                                                        item);
+                                                                //model.navigateDetails(item);
                                                               },
                                                               child: Container(
                                                                 width: SizeConfig
@@ -786,8 +779,7 @@ class MainTransaction extends StatelessWidget {
                                                                       .formattedate[index]
                                                               ? InkWell(
                                                                   onTap: () {
-                                                                    model.navigateDetails(
-                                                                        item);
+                                                                    //model.navigateDetails(item);
                                                                   },
                                                                   child:
                                                                       Container(

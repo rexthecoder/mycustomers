@@ -73,7 +73,7 @@ class StartupViewModel extends BaseViewModel {
     try {
       Map deets = await getDecryptedDetails(key);
       if (deets == null) throw AuthException('Incorrect password');
-      _auth.updateCurrentUser(User(
+      await _auth.updateCurrentUser(User(
         id: deets['id'] ?? 'dvdykdsd9784-mkl-8hnf',
         phoneNumber: deets['phone_number'],
         firstName: deets['first_name'],
@@ -86,7 +86,7 @@ class StartupViewModel extends BaseViewModel {
     } on AuthException catch (e, s) {
       Logger.e(e.message, e: e, s: s);
     } catch (e, s) {
-      Logger.e('Unknown error', e: e, s: s);
+      Logger.e('Unknown error\nException: $e\nStacktrace: $s', e: e, s: s);
     }
 
     return false;

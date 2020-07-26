@@ -12,8 +12,8 @@ class Profile extends HiveObject{
   @HiveField(1)
   final String name;
 
-  // @HiveField(2)
-  // final double phone;
+  @HiveField(2)
+  final String sId;
 
-  Profile({this.image, this.name});
+  Profile({this.image, this.name, this.sId});
 }

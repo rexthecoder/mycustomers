@@ -21,8 +21,20 @@ class AuthServiceImpl implements AuthService {
   @override
   User get currentUser => _currentUser;
 
-  void updateCurrentUser(User newUser) {
-    _currentUser = newUser;
+  Future<void> updateCurrentUser(User newUser) async {
+    await _storage.saveString(AppPreferenceKey.USER_ID, currentUser?.id ?? newUser.id);
+    await _storage.saveString(AppPreferenceKey.USER_PHONE, newUser.phoneNumber ?? currentUser?.phoneNumber);
+    var fullname = '${newUser.firstName ?? currentUser?.firstName ?? ''} ${newUser.lastName ?? currentUser?.lastName ?? ''}'.trim();
+    await _storage.saveString(AppPreferenceKey.USER_FULL_NAME, fullname.isNotEmpty ? fullname : null);
+    await _storage.saveString(AppPreferenceKey.USER_EMAIL, newUser.email ?? currentUser?.email);
+    var v = {
+      'phone_number': _storage.getString(AppPreferenceKey.USER_PHONE),
+      'password': _storage.getString(AppPreferenceKey.USER_PASS),
+      'id': _storage.getString(AppPreferenceKey.USER_ID),
+      'first_name': _storage.getString(AppPreferenceKey.USER_FULL_NAME),
+      'email': _storage.getString(AppPreferenceKey.USER_EMAIL),
+    };
+    _currentUser = User.fromJson(v)..id = v['id'];
   }
 
 
@@ -82,8 +94,6 @@ class AuthServiceImpl implements AuthService {
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
-      Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
-      _profileService.addProfile(profile);
 
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
@@ -122,8 +132,8 @@ class AuthServiceImpl implements AuthService {
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
-      Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
-      _profileService.addProfile(profile);
+      // Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
+      // _profileService.addProfile(profile);
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
       throw AuthException(e.message);

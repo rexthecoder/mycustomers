@@ -19,20 +19,30 @@ class OnboardingViewModel extends BaseViewModel {
   int get animeSecs => _animeTimerSecs;
   int get pageAnimeSecs => _pageAnimeSecs;
 
+  void changePage() {
+    currentIndex < 4 ? currentIndex++ : currentIndex = 0;
+
+    pageController.animateToPage(
+      currentIndex,
+      duration: Duration(milliseconds: pageAnimeSecs),
+      curve: Curves.easeIn,
+    );
+  }
+
   //Init State
   void initState() {
-    _animationTimer =
-        Timer.periodic(Duration(seconds: animeSecs), (Timer timer) {
-      currentIndex < 4 ? currentIndex++ : currentIndex = 0;
-
-      pageController.animateToPage(
-        currentIndex,
-        duration: Duration(milliseconds: pageAnimeSecs),
-        curve: Curves.easeIn,
-      );
-    });
+    restartTimer(0);
     notifyListeners();
   }
+
+  void restartTimer(int index) {
+    currentIndex = index;
+    _animationTimer?.cancel();
+//    _animationTimer =
+//        Timer.periodic(Duration(seconds: animeSecs), changePage);
+    _animationTimer = Timer(Duration(seconds: animeSecs), changePage);
+  }
+
 
   // Navigation
   final NavigationService _navigationService = locator<NavigationService>();
@@ -60,7 +70,7 @@ class OnboardingViewModel extends BaseViewModel {
   @override
   void dispose() {
     pageController.dispose();
-    super.dispose();
     _animationTimer.cancel();
+    super.dispose();
   }
 }

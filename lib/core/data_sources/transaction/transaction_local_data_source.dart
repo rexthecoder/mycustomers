@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/constants/hive_boxes.dart';
+import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
@@ -253,6 +254,59 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
       }
     }
     getAllTransactions(transaction.sId);
+  }
+
+  double getamount(double amt, CountryCurrency oldcurrency, CountryCurrency currency){
+    if(oldcurrency != null) {
+      if(oldcurrency.symbol == '₦') {
+        if(currency.symbol == '₦'){
+          return amt;
+        }else if(currency.symbol == '\$'){
+          return amt * 385.505;
+        }else{
+          return amt * 0.192873;
+        }
+        //(currency.symbol == '₹')
+      }else if(oldcurrency.symbol == '\$') {
+        if(currency.symbol == '₦'){
+          return amt / 385.505;
+        }else if(currency.symbol == '\$'){
+          return amt;
+        }else{
+          return amt * 74.7272456;
+        }
+      } else if(oldcurrency.symbol == '₹') {
+        if(currency.symbol == '₦'){
+          return amt / 0.192873;
+        }else if(currency.symbol == '\$'){
+          return amt / 74.7272456;
+        }else{
+          return amt;
+        }
+      }
+    } else {
+      return amt;
+    }
+  }
+
+  void updateamount(CountryCurrency oldcurrency, CountryCurrency currency, String stid) async{
+    for(var item in _transactionBox.values.toList()) {
+      print(oldcurrency.symbol);
+      print(currency.symbol);
+      print(getamount(item.amount, oldcurrency, currency));
+      TransactionModel trns = new TransactionModel(
+        cId: item.cId,
+        sId: item.sId,
+        amount: getamount(item.amount, oldcurrency, currency),
+        paid: getamount(item.paid, oldcurrency, currency),
+        duedate: item.duedate,
+        boughtdate: item.boughtdate,
+        paiddate: item.paiddate,
+        description: item.description
+      );
+      await _transactionBox.putAt(_transactionBox.values.toList().indexOf(item), trns);
+      getAllTransactions(stid);
+    }
   }
 
   void deleteTransaction()async {
