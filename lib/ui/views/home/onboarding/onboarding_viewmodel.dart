@@ -20,7 +20,7 @@ class OnboardingViewModel extends BaseViewModel {
   int get pageAnimeSecs => _pageAnimeSecs;
 
   void changePage() {
-    currentIndex < 4 ? currentIndex++ : currentIndex = 0;
+    currentIndex < 3 ? currentIndex++ : currentIndex = 0;
 
     pageController.animateToPage(
       currentIndex,
