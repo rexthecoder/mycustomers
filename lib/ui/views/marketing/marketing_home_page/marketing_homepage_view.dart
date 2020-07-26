@@ -113,41 +113,6 @@ class MarketingHomePageView extends StatelessWidget {
               ],
             ),
           ),
-          //          Container(
-          //            width: width,
-          //            child: Padding(
-          //              padding:
-          //                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
-          //              child: Column(
-          //                  crossAxisAlignment: CrossAxisAlignment.start,
-          //                  children: <Widget>[
-          //                    Text(
-          //                      AppLocalizations.of(context).marketing,
-          //                      style: TextStyle(
-          //                          fontSize: 24.sp,
-          //                          fontWeight: FontWeight.bold,
-          //                          color: Theme.of(context).cursorColor),
-          //                    ),
-          //                    SizedBox(
-          //                      height: 10.h,
-          //                    ),
-          //                    Text(
-          //                      AppLocalizations.of(context)
-          //                          .showYourCustomersThatYouReallyCare,
-          //                      style: TextStyle(
-          //                          fontSize: 14.sp,
-          //                          color: Theme.of(context).cursorColor),
-          //                    ),
-          //                  ]),
-          //            ),
-          //          ),
-          //          model.allCustomers.length != 0
-          //              ? Container(
-          //                  width: double.infinity,
-          //                  height: 1,
-          //                  color: Colors.grey[500],
-          //                )
-          //              : Container(),
           model.customers.length == 0
               ? Expanded(
                   child: Container(
@@ -163,7 +128,6 @@ class MarketingHomePageView extends StatelessWidget {
                             children: <Widget>[
                               SvgPicture.asset(
                                 'assets/icons/svg/marketing_home.svg',
-//                                color: Colors.white,
                               ),
                               SizedBox(
                                 height: SizeConfig.yMargin(context, 3),
@@ -191,9 +155,6 @@ class MarketingHomePageView extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        // SizedBox(
-                        //   height: 10.h,
-                        // ),
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 20.0,
@@ -386,7 +347,6 @@ class MarketingHomePageView extends StatelessWidget {
                                       horizontal: 20),
                                   child: Text(
                                     AppLocalizations.of(context).all,
-//                                'Frequently contacted',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         color: BrandColors.primary),
@@ -438,8 +398,6 @@ class MarketingHomePageView extends StatelessWidget {
                                             (DismissDirection direction) {
                                           model.deleteCustomer(customer);
                                         },
-                                        // onDismissed: (direction) =>
-                                        //     model.removeCustomers(index),
                                         child: Column(
                                           children: <Widget>[
                                             Container(
@@ -531,97 +489,6 @@ class MarketingHomePageView extends StatelessWidget {
                     ),
                   ),
                 ),
-//          model.allCustomers.length != 0
-//              ? Container(
-//                  child: Padding(
-//                    padding: const EdgeInsets.only(
-//                      left: 10,
-//                      right: 10,
-//                      bottom: 10,
-//                    ),
-//                    child: Container(
-//                      height: 50.h,
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.end,
-//                        children: <Widget>[
-//                          FlatButton(
-//                            onPressed: () {
-//                              model.selectedCustomers.length != 0
-//                                  ? model.navigateToSendMessageView()
-//                                  : Flushbar(
-//                                      backgroundColor: BrandColors.primary,
-//                                      duration: const Duration(seconds: 3),
-//                                      message: AppLocalizations.of(context)
-//                                          .selectACustomerFromTheList,
-//                                      icon: Icon(
-//                                        Icons.info_outline,
-//                                        size: 28.0,
-//                                        color: ThemeColors.background,
-//                                      ),
-//                                      leftBarIndicatorColor: Colors.blue[300],
-//                                    ).show(context);
-//                            },
-//                            color: BrandColors.secondary,
-//                            shape: RoundedRectangleBorder(
-//                                borderRadius: BorderRadius.circular(5.0)),
-//                            child: Container(
-//                              width: width / 3,
-//                              child: Center(
-//                                child: Text(
-//                                  AppLocalizations.of(context).sendMessage,
-//                                  style: TextStyle(
-//                                      fontSize: 14.sp, color: Colors.white),
-//                                ),
-//                              ),
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
-//                )
-//              : Container(
-//                  child: Padding(
-//                    padding: const EdgeInsets.only(
-//                      left: 10,
-//                      right: 10,
-//                      bottom: 10,
-//                    ),
-//                    child: Container(
-//                      height: 50.h,
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.end,
-//                        children: <Widget>[
-//                          FlatButton(
-//                            onPressed: () async {
-//                              final bool isPermitted =
-//                                  await model.checkPermission();
-//                              if (isPermitted) {
-//                                model.navigateToAddCustomers(context);
-//                              } else {
-//                                permissionDialog(context, model);
-//                              }
-//                              //  model.navigateToAddCustomer();
-//                            },
-//                            color: BrandColors.secondary,
-//                            shape: RoundedRectangleBorder(
-//                                borderRadius: BorderRadius.circular(5.0)),
-//                            child: Container(
-//                              width: width / 3,
-//                              child: Center(
-//                                child: Text(
-//                                  AppLocalizations.of(context).sendMessage,
-//                                  style: TextStyle(
-//                                      fontSize: 14.sp, color: Colors.white),
-//                                ),
-//                              ),
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
-//                ),
         ]),
       ),
       viewModelBuilder: () => MarketingHomePageViewModel(),
