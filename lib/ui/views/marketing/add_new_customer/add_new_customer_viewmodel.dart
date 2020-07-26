@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/app/router.dart';
@@ -20,6 +22,7 @@ class AddNewCustomerViewModel extends BaseViewModel {
 
 
   NavigationService _navigationService = locator<NavigationService>();
+  final _customerService = locator<CustomerContactService>();
   
 
   String _dropDownValue='+234';
@@ -75,11 +78,12 @@ class AddNewCustomerViewModel extends BaseViewModel {
 
   }
   Future returnHome() async {
-    Customer _customer = Customer(name: name.text, phone: phoneNumber.text);
-    List<Customer> _newCustomer = [_customer];
+    //Customer _customer = Customer(name: name.text, phone: phoneNumber.text);
+    //List<Customer> _newCustomer = [_customer];
+    _customerService.addContactmarket(phoneNumber.text, name.text, dropDownValue, name.text[0], StoreRepository.currentStore.id);
     _navigationService.popUntil((route){
       if(route.settings.name == '/main'){
-        (route.settings.arguments as Map)['result'] = _newCustomer;
+        //(route.settings.arguments as Map)['result'] = _newCustomer;
         return true;
       }else{
         return false;

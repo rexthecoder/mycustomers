@@ -20,5 +20,8 @@ class CustomerContact{
   @HiveField(4)
   final String storeid;
 
-  CustomerContact({this.name, this.phoneNumber, this.id, this.initials, this.storeid});
+  @HiveField(5)
+  final bool market;
+
+  CustomerContact({this.name, this.phoneNumber, this.id, this.initials, this.storeid, this.market});
 }
