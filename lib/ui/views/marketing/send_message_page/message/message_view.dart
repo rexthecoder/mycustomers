@@ -183,7 +183,6 @@ class MessageView extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: length,
                             itemBuilder: (BuildContext context, int index) =>
-
                                 CustomerCircleAvatar(
                               customer: model.newSelectedCustomers.length != 0
                                   ? model.selectedCustomers[index]
@@ -201,8 +200,8 @@ class MessageView extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 30.0, horizontal: 10),
                     child: FlatButton(
                       onPressed: () {
-                        flushBar(context);
-//                        model.navigateToSendMessage();
+                        flusher('Still in development', context);
+                      //  model.navigateToSendMessage();
 //                        successDialog(context, model);
                       },
                       color: BrandColors.primary,
@@ -480,17 +479,6 @@ class MessageView extends StatelessWidget {
             ),
           );
         });
-  }
-   flushBar(context) {
-    Flushbar(
-        backgroundColor: BrandColors.primary,
-        duration: const Duration(seconds: 3),
-        message: 'Still in development',
-        icon: Icon(
-          Icons.info_outline,
-          size: 28.0,
-          color: ThemeColors.background,
-        )).show(context);
   }
 }
 
