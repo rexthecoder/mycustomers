@@ -25,9 +25,6 @@ class MarketingHomePageView extends StatelessWidget {
       builder: (context, model, child) => Container(
         color: Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
-          // SizedBox(
-          //   width: SizeConfig.xMargin(context, 110),
-          //   child: 
             Container(
               width: SizeConfig.xMargin(context, 110),
               padding: EdgeInsets.symmetric(
@@ -41,7 +38,6 @@ class MarketingHomePageView extends StatelessWidget {
                       fontSize: SizeConfig.textSize(context, 8),
                       color: Theme.of(context).backgroundColor)),
             ),
-          //),
           Card(
             margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 2)),
             elevation: 4,
@@ -61,7 +57,6 @@ class MarketingHomePageView extends StatelessWidget {
                       permissionDialog(context, model);
                     }
                     model.navigateToAddCustomer();
-//                    return;
                   },
                   child: Center(
                     child: Column(
@@ -83,9 +78,9 @@ class MarketingHomePageView extends StatelessWidget {
                     child: FlatButton(
                   padding: EdgeInsets.all(10),
                   onPressed: () {
-                    // model.selectedCustomers.length != 0
-                    //     ? model.navigateToSendMessageView()
-                    //     : 
+                    model.selectedCustomers.length != 0
+                        ? model.navigateToSendMessageView()
+                        : 
                         Flushbar(
                             backgroundColor: BrandColors.primary,
                             duration: const Duration(seconds: 3),
