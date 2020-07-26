@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -280,18 +279,10 @@ class MessageView extends StatelessWidget {
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
-                              Flushbar(
-                                backgroundColor: BrandColors.primary,
-                                duration: const Duration(seconds: 3),
-                                message: AppLocalizations.of(context)
-                                    .youDeniedPermissionToYourContacts,
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  size: 28.0,
-                                  color: ThemeColors.background,
-                                ),
-                                leftBarIndicatorColor: Colors.blue[300],
-                              ).show(context);
+                              flusher(
+                                  AppLocalizations.of(context)
+                                      .youDeniedPermissionToYourContacts,
+                                  context);
                             },
                             child: Container(
                               height: 50.h,
