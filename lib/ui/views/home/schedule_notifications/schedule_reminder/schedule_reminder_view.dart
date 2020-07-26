@@ -162,7 +162,7 @@ class _ReminderForm
         },
         child: Container(
           padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.yMargin(context, 2),
+              vertical: SizeConfig.yMargin(context, 2 ),
               horizontal: SizeConfig.xMargin(context, 5)
               ),
           decoration: BoxDecoration(

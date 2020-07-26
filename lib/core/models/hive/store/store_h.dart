@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:hive/hive.dart';
 
 part 'store_h.g.dart';
@@ -31,6 +33,9 @@ class StoreH {
   @HiveField(7)
   final String email;
 
+  @HiveField(8)
+  final Uint8List storePic;
+
   StoreH(this.id, this.address, this.name, this.pNum, this.ctyCode,
-      this.tagline, this.ownerId, this.email);
+      this.tagline, this.ownerId, this.email, this.storePic);
 }

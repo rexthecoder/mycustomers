@@ -60,12 +60,12 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
   @override
   Iterable<Store> getStores() {
-    return storeBox.values.where((element) => element.ownerId == _auth.currentUser.id).map((e) => Store.fromStoreH(e));
+    return storeBox.values.where((element) => element.ownerId == _auth.currentUser?.id).map((e) => Store.fromStoreH(e));
   }
 
   @override
   Iterable<Store> getStoresWhere(Function(StoreH p1) test) {
-    return storeBox.values.where((element) => element.id == _auth.currentUser.id).where(test).map((e) => Store.fromStoreH(e));
+    return storeBox.values.where((element) => element.id == _auth.currentUser?.id).where(test).map((e) => Store.fromStoreH(e));
   }
 
   List<int> splitPhone(String phone) {
@@ -94,7 +94,9 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         splitP[1],
         newStore.tagline,
         _auth.currentUser.id,
-        newStore.email);
+        newStore.email,
+      newStore.storePic,
+    );
     await storeBox.put(newStoreH.id, newStoreH);
     await StoreRepository.updateStores();
     StoreRepository.changeSelectedStore(newStoreH.id);
@@ -119,7 +121,9 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         splitP[1] ?? sToUpdate.ctyCode,
         update.tagline ?? sToUpdate.tagline,
         sToUpdate.ownerId,
-        sToUpdate.email);
+        sToUpdate.email,
+        update.storePic ?? sToUpdate.storePic,
+    );
     await storeBox.put(updatedStore.id, updatedStore);
     return Store.fromStoreH(updatedStore);
   }

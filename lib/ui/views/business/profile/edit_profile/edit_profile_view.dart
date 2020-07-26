@@ -31,38 +31,7 @@ class EditProfileView extends HookWidget {
                   SizedBox(height: SizeConfig.yMargin(context, 4)),
                   Align(
                     alignment: Alignment.topCenter,
-                    child: !kIsWeb &&
-                            defaultTargetPlatform == TargetPlatform.android
-                        ? FutureBuilder<void>(
-                            future: model.retrieveLostData(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<void> snapshot) {
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.none:
-                                case ConnectionState.waiting:
-                                  return CircleAvatar(
-                                    radius: 70,
-                                    child: Text(
-                                      AppLocalizations.of(context)
-                                          .notPickedImage,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  );
-                                case ConnectionState.done:
-                                  return _previewImage(context, model);
-                                default:
-                                  if (snapshot.hasError) {
-                                    return Text(
-                                      AppLocalizations.of(context).pickImage +
-                                          ':' +
-                                          '${snapshot.error}}',
-                                      textAlign: TextAlign.center,
-                                    );
-                                  }
-                              }
-                            },
-                          )
-                        : _previewImage(context, model),
+                    child: _previewImage(context, model),
                   ),
                   SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Container(
@@ -75,7 +44,7 @@ class EditProfileView extends HookWidget {
                     child: CustomRaisedButton(
                       txtColor: ThemeColors.background,
                       btnColor: BrandColors.primary,
-                      btnText: model.image == null
+                      btnText: model.currentStore.storePic == null
                           ? AppLocalizations.of(context).addProfilePicture
                           : AppLocalizations.of(context).changePic,
                       borderColor: BrandColors.primary,
@@ -178,7 +147,7 @@ class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
       BuildContext context, EditProfileViewModel model) {
     return TextFormField(
       textCapitalization: TextCapitalization.sentences,
-      initialValue: model.getProfile().name,
+      initialValue: model.currentUser.firstName,
       keyboardType: TextInputType.text,
       onChanged: (value) => model.updateUserName(value),
       decoration: InputDecoration(
@@ -193,15 +162,16 @@ class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
 }
 
 Widget _previewImage(BuildContext context, EditProfileViewModel model) {
-  final Text retrieveError = _getRetrieveErrorWidget(model);
-  if (retrieveError != null) {
-    return retrieveError;
-  }
-  print('her');
+//  final Text retrieveError = _getRetrieveErrorWidget(model);
+//  if (retrieveError != null) {
+//    return retrieveError;
+//  }
+//  print('here');
 
   return CircleAvatar(
     backgroundColor: ThemeColors.unselect,
-    child: model.getProfile().image.length == 0 && model.sImage == null
+    backgroundImage: model.currentStore.storePic == null ? null : MemoryImage(model.currentStore.storePic),
+    child: model.currentStore.storePic == null
         ? Text(
             model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
             style: TextStyle(
@@ -210,22 +180,16 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
               fontWeight: FontWeight.bold,
             ),
           )
-        : model.sImage == null
-            ? ClipOval(
-                child: model.imageFromBaseString(model.getProfile().image, context),
-              )
-            : ClipOval(
-                child: model.imageFromBaseString(model.sImage, context),
-              ),
+        : Container(), // SizedBox.expand(child: Image.memory(model.currentStore.storePic, fit: BoxFit.cover)),
     radius: 70,
   );
 }
 
-Text _getRetrieveErrorWidget(EditProfileViewModel model) {
-  if (model.retrieveDataError != null) {
-    final Text result = Text(model.retrieveDataError);
-    model.retrieveDataError = null;
-    return result;
-  }
-  return null;
-}
+//Text _getRetrieveErrorWidget(EditProfileViewModel model) {
+//  if (model.retrieveDataError != null) {
+//    final Text result = Text(model.retrieveDataError);
+//    model.retrieveDataError = null;
+//    return result;
+//  }
+//  return null;
+//}
