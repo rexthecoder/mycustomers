@@ -1,127 +1,80 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
+import 'package:stacked_hooks/stacked_hooks.dart';
 import 'edit_profile_viewmodel.dart';
-import 'package:flushbar/flushbar_helper.dart';
 
-class EditProfileView extends StatelessWidget {
+class EditProfileView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<EditProfileViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            title: Text(
-              'Edit Profile',
-              style: TextStyle(
-                color: Theme.of(context).cursorColor,
-                fontWeight: FontWeight.bold,
-                fontSize: SizeConfig.textSize(context, 6),
-              ),
-            ),
-            centerTitle: true,
-            elevation: 0.0,
-            iconTheme: IconThemeData(color: BrandColors.primary),
-          ),
+          appBar: customizeAppBar(context, 0,
+              children: [],
+              title: AppLocalizations.of(context).editProfile,
+              arrowColor: BrandColors.primary,
+              backgroundColor: Theme.of(context).backgroundColor),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: SizeConfig.yMargin(context, 4)),
                   Align(
                     alignment: Alignment.topCenter,
-                    child: !kIsWeb &&
-                            defaultTargetPlatform == TargetPlatform.android
-                        ? FutureBuilder<void>(
-                            future: model.retrieveLostData(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<void> snapshot) {
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.none:
-                                case ConnectionState.waiting:
-                                  return CircleAvatar(
-                                    child: const Text(
-                                      'You have not yet picked an image.',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  );
-                                case ConnectionState.done:
-                                  return _previewImage(context, model);
-                                default:
-                                  if (snapshot.hasError) {
-                                    return Text(
-                                      'Pick image: ${snapshot.error}}',
-                                      textAlign: TextAlign.center,
-                                    );
-                                  } else {
-                                    return const Text(
-                                      'You have not yet picked an image.',
-                                      textAlign: TextAlign.center,
-                                    );
-                                  }
-                              }
-                            },
-                          )
-                        : _previewImage(context, model),
+                    child: _previewImage(context, model),
                   ),
                   SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Container(
-                    height: SizeConfig.yMargin(context, 8),
-                    width: SizeConfig.xMargin(context, 70),
+                    height: SizeConfig.yMargin(context, 6),
+                    width: SizeConfig.xMargin(context, 60),
                     decoration: BoxDecoration(
                       color: BrandColors.primary,
                       borderRadius: BorderRadius.circular(8.sp),
                     ),
-                    child: FlatButton(
+                    child: CustomRaisedButton(
+                      txtColor: ThemeColors.background,
+                      btnColor: BrandColors.primary,
+                      btnText: model.currentStore.storePic == null
+                          ? AppLocalizations.of(context).addProfilePicture
+                          : AppLocalizations.of(context).changePic,
+                      borderColor: BrandColors.primary,
+                      child: Container(),
                       onPressed: model.getImagefromGallery,
-                      child: Text(
-                        model.image == null
-                            ? 'Add a Profile Picture'
-                            : 'Change Profile Picture',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 4),
-                          color: ThemeColors.background,
-                        ),
-                      ),
                     ),
                   ),
+                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Divider(color: ThemeColors.gray.shade600),
-                  SizedBox(height: SizeConfig.yMargin(context, 2.5)),
+                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Column(
                     children: <Widget>[
                       Container(
-                        height: SizeConfig.yMargin(context, 8),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.yMargin(context, 0.7)),
+                        //height: SizeConfig.yMargin(context, 8),
                         width: SizeConfig.xMargin(context, 90),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.sp),
                             border:
                                 Border.all(color: ThemeColors.gray.shade600)),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.xMargin(context, 4),
-                          ),
-                          child: TextFormField(
-                            initialValue: model.userName,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) => model.updateUserName(value),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'User Name',
+                            padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.xMargin(context, 4),
                             ),
-                            style: TextStyle(
-                              color: Theme.of(context).textSelectionColor,
-                            ),
-                          ),
-                        ),
+                            child: _StringForm()),
                       ),
                       SizedBox(height: SizeConfig.yMargin(context, 2)),
                       Container(
-                        height: SizeConfig.yMargin(context, 8),
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.yMargin(context, 0.7)),
+                        //height: SizeConfig.yMargin(context, 8),
                         width: SizeConfig.xMargin(context, 90),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.sp),
@@ -132,14 +85,16 @@ class EditProfileView extends StatelessWidget {
                             horizontal: SizeConfig.xMargin(context, 4),
                           ),
                           child: TextFormField(
+                            textCapitalization: TextCapitalization.sentences,
                             onChanged: (value) =>
                                 model.updateBusinessName(value),
                             initialValue: model.businessName,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Business Name',
-                            ),
+                                border: InputBorder.none,
+                                hintText:
+                                    AppLocalizations.of(context).businessName),
+                            textAlign: TextAlign.start,
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
                             ),
@@ -149,34 +104,18 @@ class EditProfileView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: SizeConfig.yMargin(context, 18),
+                    height: SizeConfig.yMargin(context, 15),
                   ),
-                  FlatButton(
-                    color: BrandColors.primary,
+                  CustomRaisedButton(
+                    txtColor: ThemeColors.background,
+                    btnColor: BrandColors.primary,
+                    borderColor: BrandColors.primary,
+                    btnText: AppLocalizations.of(context).save,
+                    child: Container(),
                     onPressed: () {
-                      model.updateProfile();
-                      FlushbarHelper.createInformation(
-                        duration: const Duration(seconds: 5),
-                        message: 'Coming soon..',
-                      ).show(context);
+                      model.save();
+                      flusher(AppLocalizations.of(context).save, context);
                     },
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.xMargin(context, 41),
-                      vertical: SizeConfig.yMargin(context, 2.6),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context).save,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: ThemeColors.background,
-                        fontStyle: FontStyle.normal,
-                        fontWeight: FontWeight.bold,
-                        fontSize: SizeConfig.yMargin(context, 2),
-                      ),
-                    ),
                   ),
                   SizedBox(
                     height: SizeConfig.yMargin(context, 2),
@@ -188,20 +127,48 @@ class EditProfileView extends StatelessWidget {
         );
       },
       viewModelBuilder: () => EditProfileViewModel(),
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) {
+        model.initt();
+      },
+    );
+  }
+}
+
+class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
+  const _StringForm({Key key}) : super(key: key, reactive: false);
+
+  @override
+  Widget buildViewModelWidget(
+      BuildContext context, EditProfileViewModel model) {
+    return TextFormField(
+      textCapitalization: TextCapitalization.sentences,
+      initialValue: model.currentUser.firstName,
+      keyboardType: TextInputType.text,
+      onChanged: (value) => model.updateUserName(value),
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: AppLocalizations.of(context).userName,
+      ),
+      style: TextStyle(
+        color: Theme.of(context).textSelectionColor,
+      ),
     );
   }
 }
 
 Widget _previewImage(BuildContext context, EditProfileViewModel model) {
-  final Text retrieveError = _getRetrieveErrorWidget(model);
-  if (retrieveError != null) {
-    return retrieveError;
-  }
+//  final Text retrieveError = _getRetrieveErrorWidget(model);
+//  if (retrieveError != null) {
+//    return retrieveError;
+//  }
+//  print('here');
 
   return CircleAvatar(
     backgroundColor: ThemeColors.unselect,
-    child: model.image == null
+    backgroundImage: model.currentStore.storePic == null
+        ? null
+        : MemoryImage(model.currentStore.storePic),
+    child: model.currentStore.storePic == null
         ? Text(
             model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
             style: TextStyle(
@@ -210,23 +177,16 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
               fontWeight: FontWeight.bold,
             ),
           )
-        : ClipOval(
-            child: Image.file(
-              model.image,
-              width: SizeConfig.xMargin(context, 50),
-              height: SizeConfig.xMargin(context, 50),
-              fit: BoxFit.cover,
-            ),
-          ),
+        : Container(), // SizedBox.expand(child: Image.memory(model.currentStore.storePic, fit: BoxFit.cover)),
     radius: 70,
   );
 }
 
-Text _getRetrieveErrorWidget(EditProfileViewModel model) {
-  if (model.retrieveDataError != null) {
-    final Text result = Text(model.retrieveDataError);
-    model.retrieveDataError = null;
-    return result;
-  }
-  return null;
-}
+//Text _getRetrieveErrorWidget(EditProfileViewModel model) {
+//  if (model.retrieveDataError != null) {
+//    final Text result = Text(model.retrieveDataError);
+//    model.retrieveDataError = null;
+//    return result;
+//  }
+//  return null;
+//}

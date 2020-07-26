@@ -22,8 +22,8 @@ class StartupViewModel extends BaseViewModel {
   get currentStore => StoreRepository.currentStore;
 
   Future setup() async {
+  //  Future.delayed(Duration(seconds: 30));
     await locator.allReady();
-//    await  Future.delayed(Duration(seconds: 1));
     if (await checkLoggedIn()) {
       if (confirmHasStore()) {
         _navigationService.replaceWith(Routes.mainViewRoute);
@@ -37,7 +37,7 @@ class StartupViewModel extends BaseViewModel {
   bool confirmHasStore() {
     print('Current store is $currentStore');
     if (currentStore == null) {
-      _navigationService.replaceWith(Routes.createBusinessView);
+      _navigationService.replaceWith(Routes.businessViewSignIn);
       return false;
     }
     return true;
@@ -66,26 +66,27 @@ class StartupViewModel extends BaseViewModel {
   Future<bool> checkLoggedIn() async {
     bool hasLoggedIn =
         _storage.getString(AppPreferenceKey.USER_SIGNED_IN) != null;
-    Logger.d('User has ${hasLoggedIn ? '' : 'not'} logged in');
+    Logger.d('User has${hasLoggedIn ? '' : 'not '} logged in');
     if (!hasLoggedIn) return false;
     var key = await getEncryptionKey();
     if (key == null) return false;
     try {
       Map deets = await getDecryptedDetails(key);
       if (deets == null) throw AuthException('Incorrect password');
-      _auth.updateCurrentUser(User(
+      await _auth.updateCurrentUser(User(
         id: deets['id'] ?? 'dvdykdsd9784-mkl-8hnf',
         phoneNumber: deets['phone_number'],
         firstName: deets['first_name'],
         email: deets['email'],
       ));
+      print(_auth.currentUser.phoneNumber);
       await StoreRepository.updateStores();
       // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
       return true;
     } on AuthException catch (e, s) {
       Logger.e(e.message, e: e, s: s);
     } catch (e, s) {
-      Logger.e('Unknown error', e: e, s: s);
+      Logger.e('Unknown error\nException: $e\nStacktrace: $s', e: e, s: s);
     }
 
     return false;

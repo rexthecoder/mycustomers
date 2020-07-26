@@ -22,7 +22,7 @@ class HomePageView extends StatelessWidget {
         model.getTransactions();
       },
       builder: (context, model, child) => DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           body: Container(
             child: Column(
@@ -50,7 +50,7 @@ class HomePageView extends StatelessWidget {
                               AppLocalizations.of(context).customersOwingYou,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: SizeConfig.yMargin(context, 1.5),
+                                fontSize: SizeConfig.yMargin(context, 2),
                               ),
                               //maxLines: 1,
                             ),
@@ -64,27 +64,27 @@ class HomePageView extends StatelessWidget {
                             child: Text(
                               AppLocalizations.of(context).peopleYouOwe,
                               textAlign: TextAlign.center,
-                               style: TextStyle(
-                                fontSize: SizeConfig.yMargin(context, 1.5),
+                              style: TextStyle(
+                                fontSize: SizeConfig.yMargin(context, 2),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "All Customers",
-                              textAlign: TextAlign.center,
-                               style: TextStyle(
-                                fontSize: SizeConfig.yMargin(context, 1.5),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Tab(
+                      //   child: Container(
+                      //     child: Align(
+                      //       alignment: Alignment.center,
+                      //       child: Text(
+                      //         "All Customers",
+                      //         textAlign: TextAlign.center,
+                      //          style: TextStyle(
+                      //           fontSize: SizeConfig.yMargin(context, 1.5),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -94,11 +94,11 @@ class HomePageView extends StatelessWidget {
                       children: <Widget>[
                         DebtorsView(),
                         CreditorsView(),
-                        model.contacts.length == 0
-                            ? Center(
-                              child: Text('No Customer Added'),
-                            )
-                            : ContactList()
+                        // model.contacts.length == 0
+                        //     ? Center(
+                        //       child: Text('No Customer Added'),
+                        //     )
+                        //     : ContactList()
                       ],
                     ),
                   ),
@@ -125,6 +125,7 @@ class ContactList extends StatelessWidget {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
                 child: TextField(
+                  textCapitalization: TextCapitalization.sentences,
                   //controller: model.allCustomersController,
                   //onChanged: model.searchAllCustomers,
                   style: TextStyle(
@@ -148,7 +149,7 @@ class ContactList extends StatelessWidget {
                 ),
               ),
               model.sName != null && !model.contains
-                  ? Text('No Customer Found')
+                  ? Text(AppLocalizations.of(context).noCustomerFound)
                   : SizedBox(),
               for (var item in model.contacts)
                 model.sName != null && model.contains
@@ -222,10 +223,11 @@ class ContactList extends StatelessWidget {
                                                 ),
                                                 fit: BoxFit.cover)),
                                       ),
-                                title: Text(
-                                  item.name,
-                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                                ),
+                                title: Text(item.name,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize:
+                                            SizeConfig.yMargin(context, 2))),
                               ),
                             ),
                           )

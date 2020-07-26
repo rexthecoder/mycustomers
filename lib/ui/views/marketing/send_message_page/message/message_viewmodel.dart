@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:mycustomers/core/services/permission_service.dart';
@@ -55,7 +56,7 @@ class MessageViewModel extends StreamViewModel {
     return await [Permission.contacts].request();
   }
 
-  Future returnHome(bool quick) async {
+  Future returnHome() async {
      _navigationService.popUntil((route){
        if(route.settings.name == '/main'){
         (route.settings.arguments as Map)['result'] = _selectedCustomers;
@@ -73,9 +74,13 @@ class MessageViewModel extends StreamViewModel {
   bool get isLoadBusy => _busy;
   MessageViewModel();
   Iterable<Contact> contacts;
-  List<Customer> _selectedCustomers = [];
-  List<Customer> get selectedCustomers => _selectedCustomers;
-  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
+  List<CustomerContact> _selectedCustomers = [];
+  List<Customer> _newSelectedCustomers = [];
+  List<Customer> _oldSelectedCustomers = [];
+  List<Customer> get oldSelectedCustomers => _oldSelectedCustomers;
+  List<Customer> get newSelectedCustomers => _newSelectedCustomers;
+  List<CustomerContact> get selectedCustomers => _selectedCustomers;
+  bool isSelected(Customer customer) => _newSelectedCustomers.contains(customer);
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   init({String query}) async {
@@ -90,17 +95,27 @@ class MessageViewModel extends StreamViewModel {
       _contactStream.add(_allCustomers);
     }
   }
+  void oldSelected() {
+    for (var item in _selectedCustomers) {
+      _oldSelectedCustomers.add(Customer(name: item.name,
+          phone: item.phoneNumber,
+          lastName: '',
+          initials: item.initials));
+    }
+//    notifyListeners();
+  }
 
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
   void selectCustomer(Customer customer) {
-    _selectedCustomers.add(customer);
+    _newSelectedCustomers.add(customer);
     print(_selectedCustomers.length);
     notifyListeners();
   }
   void mergeSelectCustomer(List<Customer> customers) {
 
-    final merge = [..._selectedCustomers,...customers];
+    final merge = [...oldSelectedCustomers,...customers];
+//    final merge = [..._selectedCustomers,...customers];
 
 
 //    if(_selectedCustomers.)
@@ -108,16 +123,17 @@ class MessageViewModel extends StreamViewModel {
 
 //    final merge = [..._selectedCustomers,...customers];
 //    _selectedCustomers =unique;
-    _selectedCustomers = merge.toSet().toList();
+    _oldSelectedCustomers =merge.toSet().toList();
+//    _selectedCustomers = merge.toSet().toList();
 //    _selectedCustomers = [..._selectedCustomers,...customers];
-    print(_selectedCustomers.length);
+//    print(_selectedCustomers.length);
     notifyListeners();
   }
 
-  Future initSelected(List<Customer> customers){
+  void initSelected(List<CustomerContact> customers){
     _selectedCustomers = _selectedCustomers.length == 0?[..._selectedCustomers,...customers]
         :_selectedCustomers;
-    notifyListeners();
+//    notifyListeners();
 
   }
 
@@ -135,7 +151,7 @@ class MessageViewModel extends StreamViewModel {
 
   void deselectCustomer(Customer customer) {
     print(customer.id);
-    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+    _oldSelectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
 //  //todo: implement add new customer

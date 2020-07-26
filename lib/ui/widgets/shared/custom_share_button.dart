@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
 class CustomShareRaisedButton extends StatelessWidget {
@@ -26,7 +24,7 @@ class CustomShareRaisedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ButtonTheme(
       minWidth: SizeConfig.xMargin(context, 90),
-      height: SizeConfig.yMargin(context, 5.5),
+      height: SizeConfig.yMargin(context, 7),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
@@ -37,16 +35,14 @@ class CustomShareRaisedButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             child,
-
-            SizedBox(width: SizeConfig.xMargin(context, 2)),
-            // SizedBox(
-            //   width: 10.0,
-            // ),
+            SizedBox(
+              width: SizeConfig.xMargin(context, 2),
+            ),
             Text(
               btnText,
               style: TextStyle(
                 color: txtColor,
-                fontSize: SizeConfig.yMargin(context, 1.8),
+                fontSize: SizeConfig.textSize(context, 5),
                 fontWeight: FontWeight.w900,
               ),
             ),

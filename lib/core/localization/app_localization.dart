@@ -71,8 +71,7 @@ class AppLocalizations {
   String get peopleYouOwe => translate(LocalKeys.people_you_owe);
   String get customersAreOwingYou =>
       translate(LocalKeys.customers_are_owing_you);
-  String get customersOwingYouDesc =>
-      translate(LocalKeys.customers_owing_you_desc);
+
   String get addCustomersOwingYou =>
       translate(LocalKeys.add_customers_owing_you);
   String get home => translate(LocalKeys.home);
@@ -81,7 +80,7 @@ class AppLocalizations {
   String get searchByName => translate(LocalKeys.search_by_name);
   String get youAreOwing => translate(LocalKeys.you_are_owing);
   String get addPeopleYouOwe => translate(LocalKeys.add_people_you_owe);
-  String get peopleYouOweDesc => translate(LocalKeys.people_you_owe_desc);
+
   String get notifications => translate(LocalKeys.notifications);
   String get view => translate(LocalKeys.view);
   String get yourCompany => translate(LocalKeys.your_company);
@@ -102,7 +101,6 @@ class AppLocalizations {
   String get enterNameOfDebtor => translate(LocalKeys.enter_name_of_debtor);
   String get continueButton => translate(LocalKeys.continue_button);
   String get addTransaction => translate(LocalKeys.add_transaction);
-  String get transactionDesc => translate(LocalKeys.transaction_desc);
   String get downloadReport => translate(LocalKeys.download_report);
   String get sendReminder => translate(LocalKeys.send_reminder);
   String get addDebit => translate(LocalKeys.add_debit);
@@ -129,7 +127,6 @@ class AppLocalizations {
   String get schedule => translate(LocalKeys.schedule);
   String get sendCapital => translate(LocalKeys.send_capital);
   String get scheduleReminder => translate(LocalKeys.schedule_reminder);
-  String get reminderDate => translate(LocalKeys.reminder_date);
   String get transactionHistory => translate(LocalKeys.transaction_history);
   String get selectDate => translate(LocalKeys.select_date);
   String get payedYou => translate(LocalKeys.payed_you);
@@ -148,8 +145,6 @@ class AppLocalizations {
   String get monthlyReport => translate(LocalKeys.monthly_report);
   String get date => translate(LocalKeys.date);
   String get remark => translate(LocalKeys.remark);
-  String get marketingSpeech => translate(LocalKeys.marketing_speech);
-  String get marketingDesc => translate(LocalKeys.marketing_desc);
   String get sendMessage => translate(LocalKeys.send_message);
   String get addCustomerFromContacts =>
       translate(LocalKeys.add_customer_from_contacts);
@@ -159,9 +154,7 @@ class AppLocalizations {
   String get customerList => translate(LocalKeys.customer_list);
   String get sendMessageAll => translate(LocalKeys.send_message_all);
   String get quickMessage => translate(LocalKeys.quick_message);
-  String get quickMessageDesc => translate(LocalKeys.quick_message_desc);
   String get composeMessage => translate(LocalKeys.compose_message);
-  String get composeMessageDesc => translate(LocalKeys.compose_message_desc);
   String get title => translate(LocalKeys.title);
   String get message => translate(LocalKeys.message);
   String get selectedCustomer => translate(LocalKeys.selected_customer);
@@ -220,6 +213,7 @@ class AppLocalizations {
   String get position => translate(LocalKeys.position);
   String get phoneNumber => translate(LocalKeys.phone_number);
   String get emailAddress => translate(LocalKeys.email_address);
+  String get shopAddress => translate(LocalKeys.shop_address);
   String get saveSuccessful => translate(LocalKeys.save_successful);
   String get sharing => translate(LocalKeys.sharing);
   String get successful => translate(LocalKeys.successful);
@@ -235,7 +229,7 @@ class AppLocalizations {
   String get notPickedImage => translate(LocalKeys.not_picked_image);
   String get addProfilePicture => translate(LocalKeys.add_profile_picture);
   String get darkMode => translate(LocalKeys.dark_mode);
-  String get setApplock_Pin => translate(LocalKeys.set_applock_pin);
+  String get setApplockPin => translate(LocalKeys.set_applock_pin);
   String get enterOldPin => translate(LocalKeys.enter_old_pin);
   String get currency => translate(LocalKeys.currency);
   String get language => translate(LocalKeys.language);
@@ -246,6 +240,129 @@ class AppLocalizations {
   String get addNewDebit => translate(LocalKeys.add_new_debit);
   String get existingCredits => translate(LocalKeys.existing_credits);
   String get existingDebits => translate(LocalKeys.existing_debits);
+  String get youAreOwingCustomers =>
+      translate(LocalKeys.you_are_owing_customers);
+  String get youDoNotHaveAnyCustomerOwingYou =>
+      translate(LocalKeys.you_do_not_have_any_customer_owing_you);
+  String get youCurrentlyDoNotOweAnyPerson =>
+      translate(LocalKeys.you_currently_do_not_owe_any_person);
+  String get selectDateOfPurchase =>
+      translate(LocalKeys.select_date_of_purchase);
+  String get selectDateOfPayment => translate(LocalKeys.select_date_of_payment);
+  String get add => translate(LocalKeys.add);
+  String get youOwe => translate(LocalKeys.you_owe);
+  String get addFromContacts => translate(LocalKeys.add_from_contacts);
+  String get addManually => translate(LocalKeys.add_manually);
+  String get transactionsGoHere => translate(LocalKeys.transactions_go_here);
+  String get collecting => translate(LocalKeys.collecting);
+  String get giving => translate(LocalKeys.giving);
+  String get addCreditorFromContacts =>
+      translate(LocalKeys.add_creditor_from_contacts);
+  String get search => translate(LocalKeys.search);
+  String get report => translate(LocalKeys.report);
+  String get reminder => translate(LocalKeys.reminder);
+  String get isSafeAndSecure => translate(LocalKeys.is_safe_and_secure);
+  String get canViewThisTransaction =>
+      translate(LocalKeys.can_view_this_transaction);
+  String get costOfGoodsPurchased =>
+      translate(LocalKeys.cost_of_goods_purchased);
+  String get paid => translate(LocalKeys.paid);
+  String get addDebt => translate(LocalKeys.add_debt);
+  String get reminders => translate(LocalKeys.reminders);
+  String get activities => translate(LocalKeys.activities);
+  String get noRemindersYet => translate(LocalKeys.no_reminders_yet);
+  String get noActivitiesYet => translate(LocalKeys.no_activities_yet);
+  String get fieldShouldNotBeEmpty =>
+      translate(LocalKeys.field_should_not_be_empty);
+  String get youHaveAPendingMessageToSend =>
+      translate(LocalKeys.you_have_a_pending_message_to_send);
+  String get password => translate(LocalKeys.password);
+  String get pleaseEnterYourFullName =>
+      translate(LocalKeys.please_enter_your_full_name);
+  String get pleaseEnterYourPhoneNumber =>
+      translate(LocalKeys.please_enter_your_phone_number);
+  String get pleaseEnterYourEmailAddress =>
+      translate(LocalKeys.please_enter_your_email_address);
+  String get selectADate => translate(LocalKeys.select_a_date);
+  String get showYourCustomersThatYouReallyCare =>
+      translate(LocalKeys.show_your_customers_that_you_really_care);
+  String get itsAllAboutSendingMessagesToCustomers =>
+      translate(LocalKeys.its_all_about_sending_messages_to_customers);
+  String get selectContacts => translate(LocalKeys.select_contacts);
+  String get phoneContacts => translate(LocalKeys.phone_contacts);
+  String get weHaveAlreadyMadeMessagesForYou =>
+      translate(LocalKeys.we_have_already_made_messages_for_you);
+  String get createUniqueMessagesForCustomers =>
+      translate(LocalKeys.create_unique_messages_for_customers);
+  String get happyNewYear => translate(LocalKeys.happy_new_year);
+  String get bestWishesFromMe => translate(LocalKeys.best_wishes_from_me);
+  String get seasonGreetings => translate(LocalKeys.season_greetings);
+  String get wishingYouAHappyNewYear =>
+      translate(LocalKeys.wishing_you_a_happy_new_year);
+  String get sendAMessage => translate(LocalKeys.send_a_message);
+  String get zeroSelectedCustomers =>
+      translate(LocalKeys.zero_selected_customers);
+  String get accessDenied => translate(LocalKeys.access_denied);
+  String get myCustomerNeedsAccessToYourContacts =>
+      translate(LocalKeys.my_customer_needs_access_to__your_contacts);
+  String get deny => translate(LocalKeys.deny);
+  String get allow => translate(LocalKeys.allow);
+  String get debtor => translate(LocalKeys.debtor);
+  String get noNumber => translate(LocalKeys.no_number);
+  String get credit => translate(LocalKeys.credit);
+  String get pickADateAndTypeInYourMessage =>
+      translate(LocalKeys.pick_a_date_and_type_in_your_message);
+  String get theyAreOwingYou => translate(LocalKeys.they_are_owing_you);
+  String get youAreOwingThem => translate(LocalKeys.you_are_owing_them);
+  String get facebook => translate(LocalKeys.facebook);
+  String get whatsapp => translate(LocalKeys.whatsapp);
+  String get gmail => translate(LocalKeys.gmail);
+  String get pickImage => translate(LocalKeys.pick_image);
+  String get userName => translate(LocalKeys.user_name);
+  String get comingSoon => translate(LocalKeys.coming_soon);
+  String get amount => translate(LocalKeys.amount);
+  String get dueDate => translate(LocalKeys.due_date);
+  String get description => translate(LocalKeys.description);
+  String get enterDescription => translate(LocalKeys.enter_description);
+  String get enterCustomerName => translate(LocalKeys.enter_customer_name);
+  String get noResultFoundFor => translate(LocalKeys.no_result_found_for);
+  String get paymentDate => translate(LocalKeys.payment_date);
+  String get addNewDebtor => translate(LocalKeys.add_new_debtor);
+  String get addNewCreditor => translate(LocalKeys.add_new_creditor);
+  String get debtOf => translate(LocalKeys.debt_of);
+  String get creditOf => translate(LocalKeys.credit_of);
+  String get isDueToday => translate(LocalKeys.is_due_today);
+  String get downloading => translate(LocalKeys.downloading);
+  String get downloadCompletedToInternalStorage =>
+      translate(LocalKeys.download_completed_to_internal_storage);
+  String get languageSettings => translate(LocalKeys.language_settings);
+  String get expected => translate(LocalKeys.expected);
+  String get expectedIn => translate(LocalKeys.expected_in);
+  String get days => translate(LocalKeys.days);
+  String get daysAgo => translate(LocalKeys.days_ago);
+  String get weeks => translate(LocalKeys.weeks);
+  String get weeksAgo => translate(LocalKeys.weeks_ago);
+  String get overdue => translate(LocalKeys.overdue);
+  String get notPaid => translate(LocalKeys.not_paid);
+  String get paidYou => translate(LocalKeys.paid_you);
+  String get heading => translate(LocalKeys.heading);
+  String get youHaveThisMessagePendingToSend =>
+      translate(LocalKeys.you_have_this_message_pending_to_send);
+  String get yourReminderHasBeenSetSuccessfully =>
+      translate(LocalKeys.your_reminder_has_been_set_successfully);
+  String get frequentCustomers => translate(LocalKeys.frequent_customers);
+  String get selectACustomerFromTheList =>
+      translate(LocalKeys.select_a_customer_from_the_list);
+  String get enterAValidNumber => translate(LocalKeys.enter_a_valid_number);
+  String get retry => translate(LocalKeys.retry);
+  String get failedToSend => translate(LocalKeys.failed_to_send);
+  String get enterTitleOfMessage => translate(LocalKeys.enter_title_of_message);
+  String get youDeniedPermissionToYourContacts =>
+      translate(LocalKeys.you_denied_permission_to_your_contacts);
+  String get enterMessage => translate(LocalKeys.enter_message);
+  String get done => translate(LocalKeys.done);
+  String get seeAll => translate(LocalKeys.see_all);
+  String get addPayment => translate(LocalKeys.add_payment);
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

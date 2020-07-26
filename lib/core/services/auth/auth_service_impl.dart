@@ -3,6 +3,7 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/api_routes.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/exceptions/network_exception.dart';
@@ -10,6 +11,7 @@ import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'auth_service.dart';
@@ -19,8 +21,20 @@ class AuthServiceImpl implements AuthService {
   @override
   User get currentUser => _currentUser;
 
-  void updateCurrentUser(User newUser) {
-    _currentUser = newUser;
+  Future<void> updateCurrentUser(User newUser) async {
+    await _storage.saveString(AppPreferenceKey.USER_ID, currentUser?.id ?? newUser.id);
+    await _storage.saveString(AppPreferenceKey.USER_PHONE, newUser.phoneNumber ?? currentUser?.phoneNumber);
+    var fullname = '${newUser.firstName ?? currentUser?.firstName ?? ''} ${newUser.lastName ?? currentUser?.lastName ?? ''}'.trim();
+    await _storage.saveString(AppPreferenceKey.USER_FULL_NAME, fullname.isNotEmpty ? fullname : null);
+    await _storage.saveString(AppPreferenceKey.USER_EMAIL, newUser.email ?? currentUser?.email);
+    var v = {
+      'phone_number': _storage.getString(AppPreferenceKey.USER_PHONE),
+      'password': _storage.getString(AppPreferenceKey.USER_PASS),
+      'id': _storage.getString(AppPreferenceKey.USER_ID),
+      'first_name': _storage.getString(AppPreferenceKey.USER_FULL_NAME),
+      'email': _storage.getString(AppPreferenceKey.USER_EMAIL),
+    };
+    _currentUser = User.fromJson(v)..id = v['id'];
   }
 
 
@@ -31,6 +45,7 @@ class AuthServiceImpl implements AuthService {
   // The service for directing user to the home screen
  NavigationService _navigationService = locator<NavigationService>();
  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+ final _profileService = locator<ProfileService>();
 
 
   Future authUser(String url, Map<String, dynamic> params) async {
@@ -112,11 +127,13 @@ class AuthServiceImpl implements AuthService {
         ApiRoutes.authentication_login,
         {'phone_number': int.parse(phoneNumber), 'password': password},
       );
-
+      print(response);
       // Build the user object from the API response
       _currentUser = User.fromJson(response['data']['user']['local'])
         ..id = response['data']['user']['_id']
       ;
+      // Profile profile = new Profile(name: _currentUser?.firstName ?? 'None', image: '');
+      // _profileService.addProfile(profile);
     } on NetworkException catch(e, s) {
       Logger.e('Error authenticating user: ${e.message}', e: e, s: s);
       throw AuthException(e.message);

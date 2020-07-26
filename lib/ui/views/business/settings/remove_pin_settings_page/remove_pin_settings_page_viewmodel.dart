@@ -54,13 +54,13 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
    
     }
 
-  Future<void> showAlertDilaog(BuildContext context) async {
+   Future<void> showAlertDilaog(BuildContext context) async {
     // set up the button
     Widget continueButton = Center(
       child: Container(
-        height: SizeConfig.yMargin(context, 5),
+        height: SizeConfig.yMargin(context, 8),
         width: SizeConfig.xMargin(context, 50),
-        // margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 6)),
+        padding: EdgeInsets.only(right: SizeConfig.xMargin(context, 10)),
         decoration: BoxDecoration(color: BrandColors.primary),
         child: FlatButton(
           child: Text("Continue",
@@ -77,15 +77,13 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
     AlertDialog alert = AlertDialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      title: Center(
-        child: CircleAvatar(
-            radius: SizeConfig.yMargin(context, 5),
-            backgroundColor: ThemeColors.success,
-            child: Icon(
-              Icons.check,
-              color: BrandColors.primary,
-            )),
-      ),
+      title: CircleAvatar(
+          radius: SizeConfig.yMargin(context, 5),
+          backgroundColor: ThemeColors.success,
+          child: Icon(
+            Icons.check,
+            color: BrandColors.primary,
+          )),
       content: Text(
         "Pin Removed",
         textAlign: TextAlign.center,
@@ -94,7 +92,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
             color: BrandColors.primary),
       ),
       actions: [
-        Center(child: continueButton),
+        continueButton,
       ],
     );
 

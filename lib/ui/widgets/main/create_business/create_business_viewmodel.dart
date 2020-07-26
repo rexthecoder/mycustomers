@@ -3,8 +3,6 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
-import 'package:mycustomers/ui/views/main/main_view.dart';
-import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:pedantic/pedantic.dart';
@@ -18,31 +16,40 @@ class CreateBusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final StoresLocalDataSource _storeService = locator<StoresLocalDataSource>();
   final DialogService _dialogService = locator<DialogService>();
-  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+  final LogsLocalDataSourceImpl _logService =
+      locator<LogsLocalDataSourceImpl>();
+
+  String storeAddress = '';
+  String storeName = '';
 
   Future<void> navigateToNext() async {
-    await _navigationService.replaceWithTransition(MainView(),
-        opaque: true,
-        transition: 'cupertino',
-        duration: Duration(milliseconds: 600));
+    await _navigationService.clearStackAndShow(Routes.mainViewRoute);
+//      MainView(),
+//      opaque: true,
+//      transition: 'cupertino',
+//      duration: Duration(milliseconds: 300),
+//    );
   }
 
-  Future<void> updateUser(String storeName, String shopAddress) async {
+  Future<void> updateUser() async {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
     _dialogService.showCustomDialog(
         title: 'Please hold on while we create your new store account');
     try {
-      // await _userService.createAssistant(name);
-      await _storeService.createStore(Store.fromJson({'store_name': storeName, 'shop_address': '$shopAddress'}));
-      // Logger.e('message', e: CreateException('Completed store create'));
-      // await _navigationService.clearStackAndShow(Routes.startupViewRoute);
-      _dialogService.completeDialog(DialogResponse());
-      showToastCustom(
-        message: 'Your store has been created successfully',
-        success: true,
+      await _storeService.createStore(
+        Store.fromJson(
+          {'store_name': storeName, 'shop_address': storeAddress},
+        ),
       );
-      _logService.getValues(null, DateTime.now(), 'create-store', storeName, false);
+
+      _dialogService.completeDialog(DialogResponse());
+      // showToastCustom(
+      //   message: 'Welcome Back!',
+      //   success: true,
+      // );
+      _logService.getValues(
+          null, DateTime.now(), 'create-store', storeName, false);
 
       await Future.delayed(Duration(milliseconds: 200));
       busy = false;
@@ -66,10 +73,11 @@ class CreateBusinessViewModel extends BaseViewModel {
     if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
-  bool btnColor = true;
+  void updateStoreAddress(String value) {
+    storeAddress = value;
+  }
 
-  void activeBtn() {
-    btnColor = !btnColor;
-    notifyListeners();
+  void updateStoreName(String value) {
+    storeName = value;
   }
 }

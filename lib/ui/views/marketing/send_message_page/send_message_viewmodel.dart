@@ -12,6 +12,7 @@
 //import 'package:contacts_service/contacts_service.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 //import 'package:mycustomers/core/services/customer_services.dart';
 //import 'package:mycustomers/core/services/owner_services.dart';
 //
@@ -157,10 +158,9 @@ import 'package:mycustomers/core/models/customer.dart';
 
 class MessageArgument{
   String title,message;
-  List<Customer> selectedCustomers;
-  bool isQuick;
+  List<CustomerContact> selectedCustomers;
 
 
-  MessageArgument({this.title, this.message, this.selectedCustomers, this.isQuick});
+  MessageArgument({this.title, this.message, this.selectedCustomers});
 
 }

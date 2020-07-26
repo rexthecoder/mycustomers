@@ -27,6 +27,9 @@ class DebtorsView extends StatelessWidget {
             Expanded(
               child: Container(
                 child: SingleChildScrollView(
+                  physics: model.owingcustomers.length == 0
+                      ? NeverScrollableScrollPhysics()
+                      : BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -37,16 +40,16 @@ class DebtorsView extends StatelessWidget {
                             left: 20.0, right: 20.0, top: 20.0),
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                              vertical: SizeConfig.yMargin(context, 4.0)),
+                              vertical: SizeConfig.yMargin(context, 2.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: BrandColors.primary,
+                              color: BrandColors.secondary,
                               image: DecorationImage(
                                   image: ExactAssetImage(
-                                    'assets/images/Mask Group.png',
+                                    'assets/images/orange_banner.png',
                                   ),
                                   fit: BoxFit.fill),
-                              borderRadius: BorderRadius.circular(5)),
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,12 +61,11 @@ class DebtorsView extends StatelessWidget {
                                     color: Colors.white,
                                     fontSize: SizeConfig.yMargin(context, 2)),
                               ),
-                              model.bought() - model.paid() > 0
+                              model.bought() > 0
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(
-                                                  model.bought() - model.paid())
+                                              .format(model.getamount(model.bought()))
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -74,7 +76,7 @@ class DebtorsView extends StatelessWidget {
                                     )
                                   : RichText(
                                       text: TextSpan(
-                                          text: '₦ 0.',
+                                          text: model.currency.symbol + '0.',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: SizeConfig.yMargin(
@@ -83,7 +85,7 @@ class DebtorsView extends StatelessWidget {
                                               fontWeight: FontWeight.bold),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: '00.',
+                                              text: '00',
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: SizeConfig.yMargin(
@@ -108,20 +110,27 @@ class DebtorsView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     SvgPicture.asset(
-                                      'assets/images/no-transaction.svg',
+                                      'assets/images/no-transaction-debt.svg',
                                       height: SizeConfig.yMargin(context, 18),
                                     ),
-                                    SizedBox(
-                                      height: 20.h,
+                                    // SizedBox(
+                                    //   height: 20.h,
+                                    // ),
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                          vertical:
+                                              SizeConfig.yMargin(context, 3),
+                                          horizontal:
+                                              SizeConfig.xMargin(context, 8)),
+                                      child: Text(
+                                          AppLocalizations.of(context)
+                                              .youDoNotHaveAnyCustomerOwingYou,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFF7276A9),
+                                              fontSize: SizeConfig.yMargin(
+                                                  context, 2))),
                                     ),
-                                    Text(
-                                        'You do not have any customer owing you money yet. Tap the big blue button at the bottom of the screen to add one',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .textSelectionColor,
-                                            fontSize: SizeConfig.yMargin(
-                                                context, 2))),
                                   ],
                                 ),
                               ),
@@ -136,21 +145,19 @@ class DebtorsView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
-//                onTap: ()=> Navigator.pushNamed(context, '/sendReminder'),
-                onTap: () =>
-                    Navigator.pushNamed(context, '/importcustomerdebtor'),
+                onTap: () => model.navigateToDebt(),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      color: BrandColors.primary,
+                      color: BrandColors.secondary,
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
                       AppLocalizations.of(context).addCustomersOwingYou,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontSize: SizeConfig.yMargin(context, 2.2),
                       ),
                     ),
                   ),
@@ -176,14 +183,15 @@ class ContactList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
               child: TextField(
+                textCapitalization: TextCapitalization.sentences,
                 //controller: model.allCustomersController,
                 //onChanged: model.searchAllCustomers,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Theme.of(context).cursorColor,
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Search by name',
+                  hintText: AppLocalizations.of(context).searchByName,
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
@@ -191,7 +199,7 @@ class ContactList extends StatelessWidget {
                   contentPadding: const EdgeInsets.only(top: 18.0),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: BrandColors.primary,
+                    color: BrandColors.secondary,
                   ),
                   border: InputBorder.none,
                 ),
@@ -200,7 +208,7 @@ class ContactList extends StatelessWidget {
             ),
             model.sDName != null && !model.containsD
                 ? Text(
-                    'No Customer Found',
+                    AppLocalizations.of(context).noCustomerFound,
                     style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
                   )
                 : SizedBox(),
@@ -256,32 +264,40 @@ class ContactList extends StatelessWidget {
                                       cont.duedate != null
                                           ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0
                                               ? (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
+                                                  ? AppLocalizations.of(context)
+                                                          .expected +
+                                                      ' ' +
                                                       (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7)
                                                           .toString() +
-                                                      ' weeks ago'
-                                                  : 'Expected in ' +
-                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7.abs())
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .weeksAgo
+                                                  : AppLocalizations.of(context).expectedIn +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
+                                                              7.abs())
                                                           .toString() +
-                                                      ' weeks'
+                                                      '' +
+                                                      AppLocalizations.of(context)
+                                                          .weeks
                                               : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
-                                                      (DateTime.now()
-                                                              .difference(DateTime.parse(
-                                                                  cont.duedate))
-                                                              .inDays)
+                                                  ? AppLocalizations.of(context)
+                                                          .expected +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                           .toString() +
-                                                      ' days ago'
-                                                  : 'Expected in ' +
-                                                              (DateTime.now()
-                                                                      .difference(DateTime.parse(cont.duedate))
-                                                                      .inDays
-                                                                      .abs())
-                                                                  .toString() +
-                                                              cont.duedate ==
-                                                          '1'
-                                                      ? ' day'
-                                                      : 'days'
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .daysAgo
+                                                  : AppLocalizations.of(context).expectedIn +
+                                                      ' ' +
+                                                      (DateTime.now()
+                                                              .difference(DateTime.parse(cont.duedate))
+                                                              .inDays
+                                                              .abs())
+                                                          .toString() +
+                                                      '' +
+                                                      AppLocalizations.of(context).days
                                           : '',
                                       style: TextStyle(
                                           fontSize:
@@ -295,8 +311,8 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format((cont.amount -
-                                                            cont.paid)
+                                                    .format(model.getamount((cont.amount -
+                                                            cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(
@@ -335,8 +351,10 @@ class ContactList extends StatelessWidget {
                                                                 cont.duedate))
                                                         .inDays) >
                                                     0
-                                                ? 'Overdue'
-                                                : 'Not Paid',
+                                                ? AppLocalizations.of(context)
+                                                    .overdue
+                                                : AppLocalizations.of(context)
+                                                    .notPaid,
                                             style: TextStyle(
                                                 color: (DateTime.now()
                                                             .difference(DateTime
@@ -399,35 +417,42 @@ class ContactList extends StatelessWidget {
                                                 context, 2))),
                                     subtitle: Text(
                                       cont.duedate != null
-                                          ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
-                                                      7 ==
-                                                  0
+                                          ? DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 && DateTime.now().difference(DateTime.parse(cont.duedate)).inDays / 7 != 0
                                               ? (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
-                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7)
+                                                  ? AppLocalizations.of(context).expected +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/ 7)
                                                           .toString() +
-                                                      ' weeks ago'
-                                                  : 'Expected in ' +
-                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays %
-                                                              7.abs())
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .weeksAgo
+                                                  : AppLocalizations.of(context).expectedIn +
+                                                      ' ' +
+                                                      ((DateTime.now().difference(DateTime.parse(cont.duedate)).inDays ~/ 7).abs())
                                                           .toString() +
-                                                      ' weeks'
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .weeks
                                               : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays) > 0
-                                                  ? 'Expected ' +
-                                                              (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
-                                                                  .toString() +
-                                                              cont.duedate ==
-                                                          '1'
-                                                      ? ' day ago'
-                                                      : 'days ago'
-                                                  : 'Expected in ' +
-                                                      (DateTime.now()
-                                                              .difference(
-                                                                  DateTime.parse(cont.duedate))
-                                                              .inDays
-                                                              .abs())
+                                                  ? AppLocalizations.of(context).expected +
+                                                      ' ' +
+                                                      (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays)
                                                           .toString() +
-                                                      ' days'
+                                                      ' ' +
+                                                      AppLocalizations.of(context)
+                                                          .daysAgo
+                                                  : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0 && model.checkToday(cont.duedate)
+                                                      ? 'Expected Today'
+                                                      : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0
+                                                          ? 'Expected Tomorrow'
+                                                          : 'Expected in ' +
+                                                              (DateTime.now()
+                                                                      .difference(DateTime.parse(cont.duedate))
+                                                                      .inDays
+                                                                      .abs())
+                                                                  .toString() +
+                                                              ' ' +
+                                                              AppLocalizations.of(context).days
                                           : '',
                                       style: TextStyle(
                                           fontSize:
@@ -441,8 +466,8 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format((cont.amount -
-                                                            cont.paid)
+                                                    .format(model.getamount((cont.amount -
+                                                            cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(
@@ -481,8 +506,10 @@ class ContactList extends StatelessWidget {
                                                                 cont.duedate))
                                                         .inDays) >
                                                     0
-                                                ? 'Overdue'
-                                                : 'Not Paid',
+                                                ? AppLocalizations.of(context)
+                                                    .overdue
+                                                : AppLocalizations.of(context)
+                                                    .notPaid,
                                             style: TextStyle(
                                                 color: (DateTime.now()
                                                             .difference(DateTime

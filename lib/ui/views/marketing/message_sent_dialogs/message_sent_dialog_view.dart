@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/size_extension.dart';
@@ -43,7 +44,7 @@ class MessageDialogView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Send',
+                              AppLocalizations.of(context).send,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16.sp,
@@ -89,7 +90,7 @@ Future<void> successDialog(BuildContext context) async {
                 ),
                 Container(
                   child: Text(
-                    'Message sent!',
+                    AppLocalizations.of(context).messageSent,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.sp,
@@ -114,7 +115,7 @@ Future<void> successDialog(BuildContext context) async {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Continue',
+                            AppLocalizations.of(context).continueButton,
                             style: TextStyle(
                               color: Color(0xFF333CC1),
                               fontSize: 16.sp,
@@ -156,7 +157,7 @@ Future<void> failureDialog(BuildContext context) async {
                 ),
                 Container(
                   child: Text(
-                    'Failed to send!',
+                    AppLocalizations.of(context).failedToSend,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.sp,
@@ -181,7 +182,7 @@ Future<void> failureDialog(BuildContext context) async {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Retry',
+                            AppLocalizations.of(context).retry,
                             style: TextStyle(
                               color: Color(0xFF333CC1),
                               fontSize: 16.sp,

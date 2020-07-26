@@ -1,3 +1,4 @@
+import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/business_card/business_card_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/store.dart';
@@ -10,14 +11,11 @@ import 'business_card_repository.dart';
 
 class BusinessCardRepositoryImpl implements BusinessCardRepository {
   final String key = 'business_card';
-  final AuthService authService;
+  final AuthService authService = locator<AuthService>();
   final BusinessCardLocalDataSource localDataSource;
-  final StoreRepository storeRepository;
 
   BusinessCardRepositoryImpl({
-    @required this.authService,
     @required this.localDataSource,
-    @required this.storeRepository,
   });
 
   @override
@@ -40,7 +38,7 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
       User user = authService.currentUser;
       BusinessCardH businessCard = BusinessCardH(
         storeName: store.name ?? BusinessCardH.empty().storeName,
-        personalName: '${user.firstName} ${user.lastName}' ??
+        personalName: '${user.firstName == null ? '' : user.firstName + ' '}${user.lastName ?? ''}' ??
             BusinessCardH.empty().personalName,
         phoneNumber: user.phoneNumber ?? BusinessCardH.empty().phoneNumber,
         emailAddress: user.email ?? BusinessCardH.empty().emailAddress,
@@ -51,7 +49,9 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
       );
       return Future.value(businessCard);
     } else {
-      return Future.value(businessCardH);
+      return Future.value(businessCardH.copyWith(
+          phoneNumber: authService.currentUser.phoneNumber ?? BusinessCardH.empty().phoneNumber,
+      ));
     }
   }
 }

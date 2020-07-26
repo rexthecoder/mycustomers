@@ -12,10 +12,16 @@ class CustomerContact{
   final String phoneNumber;
 
   @HiveField(2)
-  final int id;
+  final String id;
 
   @HiveField(3)
   final String initials;
 
-  CustomerContact({this.name, this.phoneNumber, this.id, this.initials});
+  @HiveField(4)
+  final String storeid;
+
+  @HiveField(5)
+  final bool market;
+
+  CustomerContact({this.name, this.phoneNumber, this.id, this.initials, this.storeid, this.market});
 }

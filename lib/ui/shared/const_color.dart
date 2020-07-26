@@ -11,6 +11,7 @@ class ThemeColors {
   static const primary = Color(0xFF62E6AC);
   static const background = Color(0xFFFAFAFA);
   static const unselect = Color(0xFFA1A7FF);
+  static const inactive = Color(0xFF979797);
 
   static const gray = MaterialColor(
     0xFFD1D1D1,

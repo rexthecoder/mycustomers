@@ -9,25 +9,27 @@ class MainMenu extends HookViewModelWidget<MainViewModel> {
     MainViewModel model,
   ) {
     return AnimatedPositioned(
-      right: model.isCollapsed ? SizeConfig.xMargin(context, 100) : 0,
-      top: 0,
-      bottom: 0,
-      left: model.isCollapsed ? SizeConfig.xMargin(context, -100) : 0,
+      width: SizeConfig.xMargin(context, 100),
+      top: model.isCollapsed
+          ? SizeConfig.yMargin(context, -88)
+          : SizeConfig.yMargin(context, 12),
+      bottom: model.isCollapsed
+          ? SizeConfig.yMargin(context, 88)
+          : 0,
       duration: model.duration,
       child: GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          if (details.delta.dx < 0) {
-            model.closeMenu();
+        onVerticalDragUpdate: (details) {
+          if (details.delta.dy < 0) {
+            model.updateMenu();
           }
         },
         onHorizontalDragEnd: (DragEndDetails details) {
           //  TODO ... MOVEMENT ANIMATION
         },
-        onTap: () => model.closeMenu(),
+        onTap: () => model.updateMenu(),
         child: Scaffold(
-          backgroundColor:
-              ThemeColors.black.withOpacity(model.isCollapsed ? 0 : 0.7),
-          body: GestureDetector(onTap: (){}, child: BusinessMenu()),
+          backgroundColor: Colors.transparent,
+          body: BusinessMenu(),
         ),
       ),
     );

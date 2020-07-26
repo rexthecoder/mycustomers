@@ -1,18 +1,13 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/widgets/shared/social_icon.dart';
-import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
-import 'package:flutter_screenutil/size_extension.dart';
 
 import 'signup_viewmodel.dart';
 
@@ -30,7 +25,7 @@ class SignUpView extends StatelessWidget {
         child: SafeArea(
           child: WillPopScope(
             onWillPop: () => model.navigateToOnboarding(),
-                      child: Scaffold(
+            child: Scaffold(
               key: _signupPageKey,
               resizeToAvoidBottomInset: false,
               backgroundColor: BrandColors.primary,
@@ -59,16 +54,15 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
       decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(SizeConfig.xMargin(context, 8)),
-              topRight: Radius.circular(SizeConfig.xMargin(context, 8)))),
+              topLeft: Radius.circular(SizeConfig.xMargin(context, 7)),
+              topRight: Radius.circular(SizeConfig.xMargin(context, 7)))),
       child: Form(
         key: _signupFormPageKey,
         child: Column(
           children: <Widget>[
             SizedBox(height: SizeConfig.yMargin(context, 3)),
             Text(
-          // AppLocalizations.of(context).signUp,
-          'SIGN UP',
+              AppLocalizations.of(context).signUp,
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: SizeConfig.textSize(context, 6),
@@ -80,7 +74,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your phone number',
+                  AppLocalizations.of(context).signUpEnterPhoneNumber,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -89,7 +83,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 ),
               ),
             ),
-            SizedBox(height: SizeConfig.yMargin(context, 1)),
+            SizedBox(height: SizeConfig.yMargin(context, 0.2)),
             Padding(
               padding: EdgeInsets.only(
                 left: SizeConfig.xMargin(context, 5),
@@ -107,10 +101,11 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                 //   viewModel.activeBtn();
                 //   print('Value is: $value');
                 // },
+                hintText: AppLocalizations.of(context).signUpEnterPhoneNumber,
                 ignoreBlank: false,
                 // autoValidate: true,
                 // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
-                errorMessage: 'Invalid Phone Number',
+                errorMessage: AppLocalizations.of(context).invalidPhoneNo,
                 selectorType: PhoneInputSelectorType.DIALOG,
                 selectorTextStyle:
                     TextStyle(color: Theme.of(context).cursorColor),
@@ -125,7 +120,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  'Please enter your password',
+                  AppLocalizations.of(context).pleaseEnterPassword,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -175,7 +170,8 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
                   //     },
                   //   ),
                   // ),
-                  labelText: "Password",
+                  hintText: AppLocalizations.of(context).password,
+                  hintStyle: TextStyle(fontSize: SizeConfig.textSize(context, 3.5,))
                   // border: OutlineInputBorder(),
                 ),
               ),
@@ -185,7 +181,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
               btnColor: BrandColors.primary,
               txtColor: ThemeColors.background,
               borderColor: BrandColors.primary,
-              btnText: 'Next',
+              btnText: AppLocalizations.of(context).nextButton,
               onPressed: () async {
                 // viewModel.signUpTest();
                 if (!_signupFormPageKey.currentState.validate()) return;
@@ -195,9 +191,10 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
 
                 //Call Function to Signup
                 viewModel.signUp(
-                  '0' +
-                      int.parse(_inputSignupNumberController.text
-                          .splitMapJoin(' ', onMatch: (_) => '')).toString(),
+                  viewModel.number.dialCode +
+                      int.parse(_inputSignupNumberController.text.splitMapJoin(
+                          RegExp(r'[^0-9]'),
+                          onMatch: (_) => '')).toString(),
                   _userPassword.text.trim(),
                 );
               },
@@ -222,33 +219,13 @@ class _PartialBuildForm extends HookViewModelWidget<SignUpViewModel> {
             //   children: <Widget>[
             //     SocialIconButton(
             //       onTap: () {
-            //         Flushbar(
-            //           backgroundColor: BrandColors.primary,
-            //           duration: const Duration(seconds: 3),
-            //           message: 'Google signin coming soon',
-            //           icon: Icon(
-            //             Icons.info_outline,
-            //             size: 28.0,
-            //             color: ThemeColors.background,
-            //           ),
-            //           leftBarIndicatorColor: Colors.blue[300],
-            //         ).show(context);
+            //    flusher('Google signin coming soon', context);
             //       },
             //       socialIconUrl: 'assets/icons/google_icon.png',
             //     ),
             //     SocialIconButton(
             //       onTap: () {
-            //         Flushbar(
-            //           backgroundColor: BrandColors.primary,
-            //           duration: const Duration(seconds: 3),
-            //           message: 'Facebook signin coming soon',
-            //           icon: Icon(
-            //             Icons.info_outline,
-            //             size: 28.0,
-            //             color: ThemeColors.background,
-            //           ),
-            //           leftBarIndicatorColor: Colors.blue[300],
-            //         ).show(context);
+                // flusher('Facebook signin coming soon', context);
             //       },
             //       socialIconUrl: 'assets/icons/facebook_icon.png',
             //     ),

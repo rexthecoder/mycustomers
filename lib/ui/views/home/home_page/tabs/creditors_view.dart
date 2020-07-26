@@ -25,6 +25,9 @@ class CreditorsView extends StatelessWidget {
             Expanded(
               child: Container(
                 child: SingleChildScrollView(
+                  physics: model.owedcustomers.length == 0
+                      ? NeverScrollableScrollPhysics()
+                      : BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -35,50 +38,56 @@ class CreditorsView extends StatelessWidget {
                             left: 20.0, right: 20.0, top: 20.0),
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                              vertical: SizeConfig.yMargin(context, 4.0)),
+                              vertical: SizeConfig.yMargin(context, 2.0)),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              color: BrandColors.secondary,
+                              color: BrandColors.primary,
                               image: DecorationImage(
                                   image: ExactAssetImage(
-                                    'assets/images/orange_banner.png',
+                                    'assets/images/Mask Group.png',
                                   ),
                                   fit: BoxFit.fill),
-                              borderRadius: BorderRadius.circular(5)),
+                              borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'You are owing customers',
+                                AppLocalizations.of(context)
+                                    .youAreOwingCustomers,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: SizeConfig.yMargin(context, 2),),
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.yMargin(context, 2),
+                                ),
                               ),
                               model.whatyouowe > 0
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.whatyouowe)
+                                              .format(model.getamount(model.whatyouowe))
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: SizeConfig.yMargin(context, 5),
+                                          fontSize:
+                                              SizeConfig.yMargin(context, 5),
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.bold),
                                     )
                                   : RichText(
                                       text: TextSpan(
-                                          text: '₦ 0.',
+                                          text: model.currency.symbol + '0.',
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: SizeConfig.yMargin(context, 5),
+                                              fontSize: SizeConfig.yMargin(
+                                                  context, 5),
                                               fontFamily: 'Roboto',
                                               fontWeight: FontWeight.bold),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: '00.',
+                                              text: '00',
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: SizeConfig.yMargin(context, 3),
+                                                  fontSize: SizeConfig.yMargin(
+                                                      context, 3),
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.bold),
                                             )
@@ -99,16 +108,27 @@ class CreditorsView extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     SvgPicture.asset(
-                                        'assets/images/no-transaction.svg', height: SizeConfig.yMargin(context, 18),),
+                                      'assets/images/no-transaction-cred.svg',
+                                      height: SizeConfig.yMargin(context, 18),
+                                    ),
                                     SizedBox(
                                       height: 20.h,
                                     ),
-                                    Text(
-                                      'You don\'t owe any customer. Tap the big orange button at the bottom of the screen to add one',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .textSelectionColor, fontSize: SizeConfig.yMargin(context, 2)),
+                                    Container(
+                                      margin: EdgeInsets.symmetric(
+                                          vertical:
+                                              SizeConfig.yMargin(context, 3),
+                                          horizontal:
+                                              SizeConfig.xMargin(context, 8)),
+                                      child: Text(
+                                        AppLocalizations.of(context)
+                                            .youCurrentlyDoNotOweAnyPerson,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Color(0xFF7276A9),
+                                            fontSize:
+                                                SizeConfig.yMargin(context, 2)),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -124,20 +144,19 @@ class CreditorsView extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
               child: InkWell(
-                onTap: () =>
-                    Navigator.pushNamed(context, '/importcustomercreditor'),
+                onTap: () => model.navigateToCredit(),
                 child: Container(
                   height: 50.h,
                   alignment: Alignment.bottomCenter,
                   decoration: BoxDecoration(
-                      color: BrandColors.secondary,
+                      color: BrandColors.primary,
                       borderRadius: BorderRadius.circular(5)),
                   child: Center(
                     child: Text(
                       AppLocalizations.of(context).addPeopleYouOwe,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: SizeConfig.yMargin(context, 2),
+                        fontSize: SizeConfig.yMargin(context, 2.2),
                       ),
                     ),
                   ),
@@ -163,6 +182,7 @@ class ContactList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
               child: TextField(
+                textCapitalization: TextCapitalization.sentences,
                 //controller: model.allCustomersController,
                 //onChanged: model.searchAllCustomers,
                 style: TextStyle(
@@ -170,7 +190,7 @@ class ContactList extends StatelessWidget {
                   fontSize: 14,
                 ),
                 decoration: InputDecoration(
-                  hintText: 'Search by name',
+                  hintText: AppLocalizations.of(context).searchByName,
                   hintStyle: TextStyle(
                     color: Color(0xFFACACAC),
                     fontSize: 14,
@@ -187,9 +207,9 @@ class ContactList extends StatelessWidget {
             ),
             model.sCName != null && !model.containsC
                 ? Text(
-                  'No Customer Found',
-                  style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
-                )
+                    AppLocalizations.of(context).noCustomerFound,
+                    style: TextStyle(fontSize: SizeConfig.yMargin(context, 2)),
+                  )
                 : SizedBox(),
             for (var cont in model.owedcustomers)
               for (var item in model.contacts)
@@ -233,8 +253,10 @@ class ContactList extends StatelessWidget {
                                                     fit: BoxFit.cover)),
                                           ),
                                     title: Text(item.name,
-                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                                    ),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2))),
                                     /*subtitle: Text(
                       DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
                     ),*/
@@ -243,19 +265,22 @@ class ContactList extends StatelessWidget {
                                         model.currency.symbol +
                                             currency
                                                 .format(
-                                                    (cont.paid - cont.amount)
+                                                    model.getamount((cont.paid - cont.amount))
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.paiddate == null ? BrandColors.secondary : (DateTime.now()
-                                                        .difference(
-                                                            DateTime.parse(
-                                                                cont.paiddate))
-                                                        .inDays) >
-                                                    0
-                                                ? Colors.red
-                                                : Colors.green,
-                                            fontSize: SizeConfig.yMargin(context, 1.8),
+                                            color: cont.paiddate == null
+                                                ? BrandColors.secondary
+                                                : (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .paiddate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 1.8),
                                             fontFamily: 'Roboto'),
                                       ),
                                     ),
@@ -300,8 +325,10 @@ class ContactList extends StatelessWidget {
                                                     fit: BoxFit.cover)),
                                           ),
                                     title: Text(item.name,
-                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: SizeConfig.yMargin(context, 2))
-                                    ),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 2))),
                                     /*subtitle: Text(
                     DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7 == 0 ?(DateTime.now().difference(DateTime.parse(cont.duedate)).inDays % 7).toString()+' weeks' : (DateTime.now().difference(DateTime.parse(cont.duedate)).inDays).toString()+' days'
                   ),*/
@@ -310,19 +337,22 @@ class ContactList extends StatelessWidget {
                                         model.currency.symbol +
                                             currency
                                                 .format(
-                                                    (cont.paid - cont.amount)
+                                                    model.getamount((cont.paid - cont.amount))
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.paiddate == null ? BrandColors.secondary : (DateTime.now()
-                                                        .difference(
-                                                            DateTime.parse(
-                                                                cont.paiddate))
-                                                        .inDays) >
-                                                    0
-                                                ? Colors.red
-                                                : Colors.green,
-                                            fontSize: SizeConfig.yMargin(context, 1.8),
+                                            color: cont.paiddate == null
+                                                ? BrandColors.secondary
+                                                : (DateTime.now()
+                                                            .difference(DateTime
+                                                                .parse(cont
+                                                                    .paiddate))
+                                                            .inDays) >
+                                                        0
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                            fontSize: SizeConfig.yMargin(
+                                                context, 1.8),
                                             fontFamily: 'Roboto'),
                                       ),
                                     ),

@@ -27,9 +27,9 @@ class CurrencySettingsPageView extends StatelessWidget {
                   brightness: Brightness.light,
                   elevation: 0,
                   title: Text(
-                    'Currency',
+                   AppLocalizations.of(context).currency,
                     style: Theme.of(context).textTheme.headline6.copyWith(
-                          fontSize: ScreenUtil().setSp(20),
+                          fontSize: SizeConfig.yMargin(context, 2.4),
                           fontWeight: FontWeight.w900,
                           color: Theme.of(context).cursorColor,
                         ),
@@ -76,7 +76,7 @@ class CurrencySettingsPageView extends StatelessWidget {
                                         .headline6
                                         .copyWith(
                                             fontSize:
-                                                SizeConfig.yMargin(context, 2.7),
+                                                SizeConfig.yMargin(context, 2.2),
                                             color: Theme.of(context).cursorColor),
                                   ),
                                 ),
@@ -143,7 +143,7 @@ class CurrencySettingsPageView extends StatelessWidget {
               margin: EdgeInsets.only(left: 30),
               child: Text(text,
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                  fontSize: SizeConfig.yMargin(context, 2.6),
+                  fontSize: SizeConfig.yMargin(context, 2),
                   color: Theme.of(context).cursorColor,
                 )
               ),

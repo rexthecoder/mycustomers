@@ -1,17 +1,37 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
+/// A Customize flushbar widget to be use across development for quick message.
+/// String [message]
+/// BuilContext [context]
+/// Position argurment for the duration, only use when you want longer message time.
+/// Duration [sec] 
+ flusher(String message, BuildContext context, {int sec = 3}) {
+    return Flushbar(
+      backgroundColor: BrandColors.primary,
+      duration: Duration(seconds: sec),
+      message: message,
+      icon: Icon(
+        Icons.info_outline,
+        size: 28.0,
+        color: ThemeColors.background,
+      ),
+      leftBarIndicatorColor: Colors.blue[300],
+    ).show(context);
+}
+
 /// Customize AppBar to be use across all POP screens
 /// - Title
 /// - Elevation
 Widget customizeAppBar(BuildContext context, double elevation,
-    {Color arrowColor, String title}) {
+    {Color arrowColor, String title, List<Widget> children, Color backgroundColor}) {
   return AppBar(
-    brightness: Brightness.light,
-    backgroundColor: Theme.of(context).backgroundColor,
+    brightness: Brightness.dark,
+    backgroundColor: backgroundColor,
     elevation: elevation,
     centerTitle: true,
     title: Text(
@@ -32,18 +52,7 @@ Widget customizeAppBar(BuildContext context, double elevation,
         ),
       ),
     ),
-    // actions: <Widget>[
-    //   FlatButton(
-    //     textColor: Colors.white,
-    //     onPressed: (){},
-    //     child: Text("View",
-    //       style: TextStyle(
-    //         color: Color(0xFF333CC1),
-    //       ),
-    //   ),
-    //     shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
-    //   )
-    // ],
+    actions: children,
   );
 }
 
@@ -103,32 +112,9 @@ Widget btnDesign(String btnText, Color textColor, Color bgColor) {
   );
 }
 
-///Button for the Onboarding Screen
-Widget btnHome(String btnText, Color colorBtn, Color colorText, context) {
-  return Container(
-    height: SizeConfig.yMargin(context, 5),
-    width: SizeConfig.xMargin(context, 90),
-    decoration: BoxDecoration(
-      border: Border.all(color: colorText),
-      borderRadius: BorderRadius.circular(6),
-      color: colorBtn,
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          btnText,
-          style: TextStyle(
-            color: colorText,
-            fontSize: SizeConfig.textSize(context, 4),
-          ),
-        ),
-      ],
-    ),
-  );
-}
 
-/// Authentication Button with variable for
+
+/// Customized Raised Button with variable for
 /// - String
 /// - Button Color
 /// - Function

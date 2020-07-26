@@ -4,7 +4,6 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:sentry/sentry.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -43,18 +42,18 @@ void main() async {
     await setupLocator();
     
    runApp(App());
-    //  runApp(
-    //    DevicePreview(
-    //      // onScreenshot: (screenshot) {
-    //      //   final bytes = screenshot.bytes;
-    //      //   //  Send the bytes to a drive, to the file system, to
-    //      //   // the device gallery for example. It may be useful for
-    //      //   // preparing your app release for example.
-    //      // },
-    //      enabled: !kReleaseMode,
-    //      builder: (context) => App(),
-    //    ),
-    //  );
+//      runApp(
+//        DevicePreview(
+////          onScreenshot: (screenshot) {
+////            final bytes = screenshot.bytes;
+//            //  Send the bytes to a drive, to the file system, to
+//            // the device gallery for example. It may be useful for
+//            // preparing your app release for example.
+////          },
+//          enabled: !kReleaseMode,
+//          builder: (context) => App(),
+//        ),
+//      );
   }, (error, stackTrace) {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
@@ -92,24 +91,9 @@ Future<void> _reportError(dynamic error, dynamic stackTrace) async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //    /*
-    //   1. Setup for screenutil, only needed once here
-    //   2. screen resolution (in px) according to phone screen
-    //   3. Import screen util to all views
-    //   4. use in this manner E.g Container(width: 50.w, height:200.h)
-    //   */
-    //   ScreenUtil.init(context, width: width, height: height, allowFontScaling: true);
-
-    // Status bar
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
 
     // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.portraitUp
+    // DeviceOrientation.portraitUp
     // ]); // Settting preferred Screen Orientation
     return CoreManager(
       child: ViewModelBuilder<SettingManagerModel>.reactive(
@@ -133,7 +117,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // builder: DevicePreview.appBuilder,
+    // builder: DevicePreview.appBuilder,
       theme: viewModel.theme,
       locale: viewModel.locale,
       debugShowCheckedModeBanner: false,

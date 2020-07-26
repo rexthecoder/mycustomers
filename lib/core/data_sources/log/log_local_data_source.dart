@@ -5,6 +5,9 @@ import 'package:mycustomers/core/models/hive/log/log_h.dart';
 import 'package:mycustomers/core/utils/file_helper.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:intl/intl.dart';
 
 abstract class LogsLocalDataSource {
   /// Initialize Hive DB
@@ -26,6 +29,9 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   final _fileHelper = locator<FileHelper>();
   final _hiveService = locator<HiveInterface>();
 
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  List<TransactionModel> get transactions => _transactionService.alltransactions;
+
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.logs);
   Box<LogH> get _logsBox => _hiveService.box<LogH>(HiveBox.logs);
 
@@ -33,6 +39,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   List<LogH> get loglist => _loglist.value;
 
   bool shouldnotify = false;
+  bool once = false;
 
   LogsLocalDataSourceImpl(){
     listenToReactiveValues([_loglist, shouldnotify]);
@@ -47,6 +54,21 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     if (!_isBoxOpen) {
       await _hiveService.openBox<LogH>(HiveBox.logs);
     }
+  }
+
+  void dot(){
+    final dformat = new DateFormat('dd/MM/yyyy');
+    for(var item in transactions){
+      if(item.duedate != 'null') {
+        if(DateTime.now().difference(DateTime.parse(item.duedate ?? item.paiddate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate ?? item.paiddate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
+          if(!once) {
+            shouldnotify = true;
+            once = true;
+          }
+        }
+      }
+    }
+    notifyListeners();
   }
 
   @override
@@ -88,11 +110,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
 
   @override
   Future<void> addLog(LogH log) async {
-    return _logsBox.put(log.id, log).then((value) {
-      if(!shouldnotify){
-        setnotify();
-      }
-    });
+    return _logsBox.put(log.id, log);
   }
 
   @override

@@ -1,9 +1,11 @@
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class StoresLocalDataSource {
@@ -31,6 +33,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
    final _hiveService = locator<HiveInterface>();
   final _auth = locator<AuthService>();
+  final _profileService = locator<ProfileService>();
 
   static Box<StoreH> storeBox;
 
@@ -57,12 +60,12 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
   @override
   Iterable<Store> getStores() {
-    return storeBox.values.where((element) => element.ownerId == _auth.currentUser.id).map((e) => Store.fromStoreH(e));
+    return storeBox.values.where((element) => element.ownerId == _auth.currentUser?.id).map((e) => Store.fromStoreH(e));
   }
 
   @override
   Iterable<Store> getStoresWhere(Function(StoreH p1) test) {
-    return storeBox.values.where((element) => element.id == _auth.currentUser.id).where(test).map((e) => Store.fromStoreH(e));
+    return storeBox.values.where((element) => element.id == _auth.currentUser?.id).where(test).map((e) => Store.fromStoreH(e));
   }
 
   List<int> splitPhone(String phone) {
@@ -91,9 +94,14 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         splitP[1],
         newStore.tagline,
         _auth.currentUser.id,
-        newStore.email);
+        newStore.email,
+      newStore.storePic,
+    );
     await storeBox.put(newStoreH.id, newStoreH);
     await StoreRepository.updateStores();
+    StoreRepository.changeSelectedStore(newStoreH.id);
+    Profile profile = new Profile(name: _auth.currentUser?.firstName ?? 'None', image: '', sId: newStoreH.id);
+    _profileService.addProfile(profile);
     return true;
   }
 
@@ -113,7 +121,9 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
         splitP[1] ?? sToUpdate.ctyCode,
         update.tagline ?? sToUpdate.tagline,
         sToUpdate.ownerId,
-        sToUpdate.email);
+        sToUpdate.email,
+        update.storePic ?? sToUpdate.storePic,
+    );
     await storeBox.put(updatedStore.id, updatedStore);
     return Store.fromStoreH(updatedStore);
   }
