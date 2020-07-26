@@ -18,8 +18,7 @@ class OwnerServices implements IOwnerServices {
   // method to get contacts from the user's device
   @override
   Future<Iterable<Customer>> getPhoneContacts({String query}) async {
-    final bool isPermitted =
-        await _permission.getContactsPermission();
+    final bool isPermitted = await _permission.getContactsPermission();
     if (isPermitted) {
       Iterable<Contact> rawContacts = await ContactsService.getContacts(query: query, withThumbnails: false, photoHighResolution: false,);
       return rawContacts.where((element) => element?.givenName != null || element?.displayName != null || (element?.givenName?.isNotEmpty ?? false) || (element?.displayName?.isNotEmpty ?? false) || (element?.phones?.isNotEmpty ?? false)).map((contact) => Customer.fromJson({

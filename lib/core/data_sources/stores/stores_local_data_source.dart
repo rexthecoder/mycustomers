@@ -1,9 +1,11 @@
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class StoresLocalDataSource {
@@ -31,6 +33,7 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
 
    final _hiveService = locator<HiveInterface>();
   final _auth = locator<AuthService>();
+  final _profileService = locator<ProfileService>();
 
   static Box<StoreH> storeBox;
 
@@ -95,6 +98,8 @@ class StoresLocalDataSourceImpl implements StoresLocalDataSource {
     await storeBox.put(newStoreH.id, newStoreH);
     await StoreRepository.updateStores();
     StoreRepository.changeSelectedStore(newStoreH.id);
+    Profile profile = new Profile(name: _auth.currentUser?.firstName ?? 'None', image: '', sId: newStoreH.id);
+    _profileService.addProfile(profile);
     return true;
   }
 
