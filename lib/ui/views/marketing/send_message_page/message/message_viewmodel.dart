@@ -138,6 +138,13 @@ class MessageViewModel extends ReactiveViewModel {
   List<Customer> _selectedCustomers = [];
   //List<Customer> get selectedCustomers => _selectedCustomers;
   bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
+  // List<CustomerContact> _selectedCustomers = [];
+  // List<Customer> _newSelectedCustomers = [];
+  // List<Customer> _oldSelectedCustomers = [];
+  // List<Customer> get oldSelectedCustomers => _oldSelectedCustomers;
+  // List<Customer> get newSelectedCustomers => _newSelectedCustomers;
+  // List<CustomerContact> get selectedCustomers => _selectedCustomers;
+  // bool isSelected(Customer customer) => _newSelectedCustomers.contains(customer);
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   init({String query}) async {
@@ -152,17 +159,27 @@ class MessageViewModel extends ReactiveViewModel {
       _contactStream.add(allCustomers);
     }
   }
+//   void oldSelected() {
+//     for (var item in _selectedCustomers) {
+//       _oldSelectedCustomers.add(Customer(name: item.name,
+//           phone: item.phoneNumber,
+//           lastName: '',
+//           initials: item.initials));
+//     }
+// //    notifyListeners();
+//   }
 
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
   void selectCustomer(Customer customer) {
-    _selectedCustomers.add(customer);
+    //_newSelectedCustomers.add(customer);
     print(_selectedCustomers.length);
     notifyListeners();
   }
   void mergeSelectCustomer(List<Customer> customers) {
 
-    final merge = [..._selectedCustomers,...customers];
+    //final merge = [...oldSelectedCustomers,...customers];
+//    final merge = [..._selectedCustomers,...customers];
 
 
 //    if(_selectedCustomers.)
@@ -170,15 +187,16 @@ class MessageViewModel extends ReactiveViewModel {
 
 //    final merge = [..._selectedCustomers,...customers];
 //    _selectedCustomers =unique;
-    _selectedCustomers = merge.toSet().toList();
+    //_oldSelectedCustomers =merge.toSet().toList();
+//    _selectedCustomers = merge.toSet().toList();
 //    _selectedCustomers = [..._selectedCustomers,...customers];
-    print(_selectedCustomers.length);
+//    print(_selectedCustomers.length);
     notifyListeners();
   }
 
-  void initSelected(List<Customer> customers){
-    _selectedCustomers = _selectedCustomers.length == 0?[..._selectedCustomers,...customers]
-        :_selectedCustomers;
+  void initSelected(List<CustomerContact> customers){
+    //_selectedCustomers = _selectedCustomers.length == 0?[..._selectedCustomers,...customers]
+        //:_selectedCustomers;
 //    notifyListeners();
 
   }
@@ -199,7 +217,7 @@ class MessageViewModel extends ReactiveViewModel {
 
   void deselectCustomer(Customer customer) {
     print(customer.id);
-    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+    //_oldSelectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
 //  //todo: implement add new customer

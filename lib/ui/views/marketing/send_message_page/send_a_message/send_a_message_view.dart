@@ -1,5 +1,4 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
@@ -49,17 +48,6 @@ class SendAMessage extends StatelessWidget {
                     FlatButton(
                       color: BrandColors.secondary.withOpacity(0.3),
                       onPressed: () {
-//                        Flushbar(
-//                          backgroundColor: BrandColors.primary,
-//                          duration: const Duration(seconds: 3),
-//                          message: 'Quick message feature coming soon',
-//                          icon: Icon(
-//                            Icons.info_outline,
-//                            size: 28.0,
-//                            color: ThemeColors.background,
-//                          ),
-//                          leftBarIndicatorColor: Colors.blue[300],
-//                        ).show(context);
                         model.navigateToQuickMessage(selectedCustomers);
                       },
                       shape: RoundedRectangleBorder(

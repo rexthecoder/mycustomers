@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -33,7 +32,8 @@ class MessageView extends StatelessWidget {
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
-        //model.initSelected(arguments.selectedCustomers);
+        //model.oldSelected();
+        model.initSelected(arguments.selectedCustomers);
         model.setQuickText(arguments.title, arguments.message);
         // final int length = model.selectedCustomers.length != 0
         //     ? model.selectedCustomers.length
@@ -202,6 +202,9 @@ class MessageView extends StatelessWidget {
 //                        model.navigateToSendMessage();
                         model.send();
                         successDialog(context, model);
+                        //flusher('Still in development', context);
+                      //  model.navigateToSendMessage();
+//                        successDialog(context, model);
                       },
                       color: BrandColors.primary,
                       padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -281,18 +284,10 @@ class MessageView extends StatelessWidget {
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
-                              Flushbar(
-                                backgroundColor: BrandColors.primary,
-                                duration: const Duration(seconds: 3),
-                                message: AppLocalizations.of(context)
-                                    .youDeniedPermissionToYourContacts,
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  size: 28.0,
-                                  color: ThemeColors.background,
-                                ),
-                                leftBarIndicatorColor: Colors.blue[300],
-                              ).show(context);
+                              flusher(
+                                  AppLocalizations.of(context)
+                                      .youDeniedPermissionToYourContacts,
+                                  context);
                             },
                             child: Container(
                               height: 50.h,
@@ -521,7 +516,7 @@ class BottomSheetView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       onPressed: () {
-                        //parentModel.mergeSelectCustomer(model.selectedCustomers);
+                        //parentModel.mergeSelectCustomer(model.newSelectedCustomers);
                         Navigator.pop(context);
                       },
                       child: Text(

@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flushbar/flushbar.dart';
 import 'marketing_homepage_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -25,23 +24,19 @@ class MarketingHomePageView extends StatelessWidget {
       builder: (context, model, child) => Container(
         color: Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
-          // SizedBox(
-          //   width: SizeConfig.xMargin(context, 110),
-          //   child: 
-            Container(
-              width: SizeConfig.xMargin(context, 110),
-              padding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.xMargin(context, 3),
-                  vertical: SizeConfig.xMargin(context, 3)),
-              decoration: BoxDecoration(
-                color: BrandColors.primary,
-              ),
-              child: Text(AppLocalizations.of(context).marketing,
-                  style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 8),
-                      color: Theme.of(context).backgroundColor)),
+          Container(
+            width: SizeConfig.xMargin(context, 110),
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.xMargin(context, 3),
+                vertical: SizeConfig.xMargin(context, 3)),
+            decoration: BoxDecoration(
+              color: BrandColors.primary,
             ),
-          //),
+            child: Text(AppLocalizations.of(context).marketing,
+                style: TextStyle(
+                    fontSize: SizeConfig.textSize(context, 8),
+                    color: Theme.of(context).backgroundColor)),
+          ),
           Card(
             margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 2)),
             elevation: 4,
@@ -61,7 +56,6 @@ class MarketingHomePageView extends StatelessWidget {
                       permissionDialog(context, model);
                     }
                     model.navigateToAddCustomer();
-//                    return;
                   },
                   child: Center(
                     child: Column(
@@ -85,19 +79,10 @@ class MarketingHomePageView extends StatelessWidget {
                   onPressed: () {
                     model.selectedCustomers.length != 0
                         ? model.navigateToSendMessageView()
-                        : 
-                        Flushbar(
-                            backgroundColor: BrandColors.primary,
-                            duration: const Duration(seconds: 3),
-                            message: AppLocalizations.of(context)
+                        : flusher(
+                            AppLocalizations.of(context)
                                 .selectACustomerFromTheList,
-                            icon: Icon(
-                              Icons.info_outline,
-                              size: 28.0,
-                              color: ThemeColors.background,
-                            ),
-                            leftBarIndicatorColor: Colors.blue[300],
-                          ).show(context);
+                            context);
                   },
                   child: Center(
                     child: Column(
@@ -118,41 +103,6 @@ class MarketingHomePageView extends StatelessWidget {
               ],
             ),
           ),
-          //          Container(
-          //            width: width,
-          //            child: Padding(
-          //              padding:
-          //                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
-          //              child: Column(
-          //                  crossAxisAlignment: CrossAxisAlignment.start,
-          //                  children: <Widget>[
-          //                    Text(
-          //                      AppLocalizations.of(context).marketing,
-          //                      style: TextStyle(
-          //                          fontSize: 24.sp,
-          //                          fontWeight: FontWeight.bold,
-          //                          color: Theme.of(context).cursorColor),
-          //                    ),
-          //                    SizedBox(
-          //                      height: 10.h,
-          //                    ),
-          //                    Text(
-          //                      AppLocalizations.of(context)
-          //                          .showYourCustomersThatYouReallyCare,
-          //                      style: TextStyle(
-          //                          fontSize: 14.sp,
-          //                          color: Theme.of(context).cursorColor),
-          //                    ),
-          //                  ]),
-          //            ),
-          //          ),
-          //          model.allCustomers.length != 0
-          //              ? Container(
-          //                  width: double.infinity,
-          //                  height: 1,
-          //                  color: Colors.grey[500],
-          //                )
-          //              : Container(),
           model.customers.length == 0
               ? Expanded(
                   child: Container(
@@ -168,7 +118,6 @@ class MarketingHomePageView extends StatelessWidget {
                             children: <Widget>[
                               SvgPicture.asset(
                                 'assets/icons/svg/marketing_home.svg',
-//                                color: Colors.white,
                               ),
                               SizedBox(
                                 height: SizeConfig.yMargin(context, 3),
@@ -196,9 +145,6 @@ class MarketingHomePageView extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        // SizedBox(
-                        //   height: 10.h,
-                        // ),
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 20.0,
@@ -259,7 +205,8 @@ class MarketingHomePageView extends StatelessWidget {
                         SizedBox(
                           height: 12.h,
                         ),
-                        model.frequents.length == 0 || model.searchTerm.length > 0
+                        model.frequents.length == 0 ||
+                                model.searchTerm.length > 0
                             ? Container()
                             : Container(
                                 width: double.infinity,
@@ -278,7 +225,8 @@ class MarketingHomePageView extends StatelessWidget {
                         SizedBox(
                           height: 5.h,
                         ),
-                        model.frequents.length == 0 || model.searchTerm.length > 0
+                        model.frequents.length == 0 ||
+                                model.searchTerm.length > 0
                             ? Container()
                             : Padding(
                                 padding:
@@ -292,7 +240,8 @@ class MarketingHomePageView extends StatelessWidget {
                                         (BuildContext context, int index) {
                                       CustomerContact customer =
                                           model.frequents[index];
-                                      bool _isSelected = model.selectedCustomers.contains(customer);
+                                      bool _isSelected = model.selectedCustomers
+                                          .contains(customer);
                                       return Column(
                                         children: <Widget>[
                                           Container(
@@ -309,7 +258,9 @@ class MarketingHomePageView extends StatelessWidget {
                                                 ),
                                                 Expanded(
                                                   child: InkWell(
-                                                    onTap: () => model.navigateToMessageHistory(customer),
+                                                    onTap: () => model
+                                                        .navigateToMessageHistory(
+                                                            customer),
                                                     child: Container(
                                                       margin:
                                                           EdgeInsets.symmetric(
@@ -333,7 +284,15 @@ class MarketingHomePageView extends StatelessWidget {
                                                             height: 3.sp,
                                                           ),
                                                           Text(
-                                                            model.getmsg(customer.id)!= null ? model.getmsg(customer.id).message : '',
+                                                            model.getmsg(customer
+                                                                        .id) !=
+                                                                    null
+                                                                ? model
+                                                                    .getmsg(
+                                                                        customer
+                                                                            .id)
+                                                                    .message
+                                                                : '',
                                                             style: TextStyle(
                                                               color: ThemeColors
                                                                   .gray
@@ -365,8 +324,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                                   customer)
                                                           : model.addCustomer(
                                                               customer);
-                                                    }
-                                                  )
+                                                    })
                                               ],
                                             ),
                                           ),
@@ -391,7 +349,6 @@ class MarketingHomePageView extends StatelessWidget {
                                       horizontal: 20),
                                   child: Text(
                                     AppLocalizations.of(context).all,
-//                                'Frequently contacted',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         color: BrandColors.primary),
@@ -426,7 +383,8 @@ class MarketingHomePageView extends StatelessWidget {
                                               false)
                                           ? model.scustomers[index]
                                           : model.customers[index];
-                                      bool _isSelected = model.selectedCustomers.contains(customer);
+                                      bool _isSelected = model.selectedCustomers
+                                          .contains(customer);
                                       return Dismissible(
                                         background: Container(
                                           padding: EdgeInsets.only(right: 15),
@@ -443,8 +401,6 @@ class MarketingHomePageView extends StatelessWidget {
                                             (DismissDirection direction) {
                                           model.deleteCustomer(customer);
                                         },
-                                        // onDismissed: (direction) =>
-                                        //     model.removeCustomers(index),
                                         child: Column(
                                           children: <Widget>[
                                             Container(
@@ -488,7 +444,15 @@ class MarketingHomePageView extends StatelessWidget {
                                                               height: 3.sp,
                                                             ),
                                                             Text(
-                                                              model.getmsg(customer.id)!= null ? model.getmsg(customer.id).message ?? '' : '',
+                                                              model.getmsg(customer
+                                                                          .id) !=
+                                                                      null
+                                                                  ? model
+                                                                          .getmsg(
+                                                                              customer.id)
+                                                                          .message ??
+                                                                      ''
+                                                                  : '',
                                                               style: TextStyle(
                                                                 color: ThemeColors
                                                                     .gray
@@ -536,97 +500,6 @@ class MarketingHomePageView extends StatelessWidget {
                     ),
                   ),
                 ),
-//          model.allCustomers.length != 0
-//              ? Container(
-//                  child: Padding(
-//                    padding: const EdgeInsets.only(
-//                      left: 10,
-//                      right: 10,
-//                      bottom: 10,
-//                    ),
-//                    child: Container(
-//                      height: 50.h,
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.end,
-//                        children: <Widget>[
-//                          FlatButton(
-//                            onPressed: () {
-//                              model.selectedCustomers.length != 0
-//                                  ? model.navigateToSendMessageView()
-//                                  : Flushbar(
-//                                      backgroundColor: BrandColors.primary,
-//                                      duration: const Duration(seconds: 3),
-//                                      message: AppLocalizations.of(context)
-//                                          .selectACustomerFromTheList,
-//                                      icon: Icon(
-//                                        Icons.info_outline,
-//                                        size: 28.0,
-//                                        color: ThemeColors.background,
-//                                      ),
-//                                      leftBarIndicatorColor: Colors.blue[300],
-//                                    ).show(context);
-//                            },
-//                            color: BrandColors.secondary,
-//                            shape: RoundedRectangleBorder(
-//                                borderRadius: BorderRadius.circular(5.0)),
-//                            child: Container(
-//                              width: width / 3,
-//                              child: Center(
-//                                child: Text(
-//                                  AppLocalizations.of(context).sendMessage,
-//                                  style: TextStyle(
-//                                      fontSize: 14.sp, color: Colors.white),
-//                                ),
-//                              ),
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
-//                )
-//              : Container(
-//                  child: Padding(
-//                    padding: const EdgeInsets.only(
-//                      left: 10,
-//                      right: 10,
-//                      bottom: 10,
-//                    ),
-//                    child: Container(
-//                      height: 50.h,
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.end,
-//                        children: <Widget>[
-//                          FlatButton(
-//                            onPressed: () async {
-//                              final bool isPermitted =
-//                                  await model.checkPermission();
-//                              if (isPermitted) {
-//                                model.navigateToAddCustomers(context);
-//                              } else {
-//                                permissionDialog(context, model);
-//                              }
-//                              //  model.navigateToAddCustomer();
-//                            },
-//                            color: BrandColors.secondary,
-//                            shape: RoundedRectangleBorder(
-//                                borderRadius: BorderRadius.circular(5.0)),
-//                            child: Container(
-//                              width: width / 3,
-//                              child: Center(
-//                                child: Text(
-//                                  AppLocalizations.of(context).sendMessage,
-//                                  style: TextStyle(
-//                                      fontSize: 14.sp, color: Colors.white),
-//                                ),
-//                              ),
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//                  ),
-//                ),
         ]),
       ),
       viewModelBuilder: () => MarketingHomePageViewModel(),
@@ -736,17 +609,5 @@ class MarketingHomePageView extends StatelessWidget {
             ),
           );
         });
-  }
-
-  void flushbar() {
-    Flushbar(
-        backgroundColor: BrandColors.primary,
-        duration: const Duration(seconds: 3),
-        message: 'Feature Under Construction',
-        icon: Icon(
-          Icons.info_outline,
-          size: 28.0,
-          color: ThemeColors.background,
-        ));
-  }
+      }
 }

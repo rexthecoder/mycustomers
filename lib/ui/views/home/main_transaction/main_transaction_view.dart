@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,11 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/pdf/receipt_report_view.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
-import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
 class MainTransaction extends StatelessWidget {
@@ -283,18 +281,7 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                      Flushbar(
-                                        backgroundColor: BrandColors.primary,
-                                        duration: const Duration(seconds: 3),
-                                        message: 'PDF Feature coming soon',
-                                        icon: Icon(
-                                          Icons.info_outline,
-                                          size: 28.0,
-                                          color: ThemeColors.background,
-                                        ),
-                                        leftBarIndicatorColor: Colors.blue[300],
-                                      ).show(context);
-
+                                      flusher('Still in development', context);
                                       // SavedDialog().showPdfDialog(context);
 
                                       // // ReceiptReport().buildPdf(context);
@@ -485,17 +472,17 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   SvgPicture.asset(
                                       'assets/images/no_transaction_check.svg'),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Text(
-                                      "${AppLocalizations.of(context).isSafeAndSecure} " +
-                                          " ${model.contact.name} " +
-                                          " ${AppLocalizations.of(context).canViewThisTransaction}"
-                                      // 'MyCustomer is 100% safe and secure, only you and \
-                                      // ${model.contact.name} can view this transaction',
-                                      // textAlign: TextAlign.center,
-                                      ),
+//                                  SizedBox(
+//                                    height: 20.h,
+//                                  ),
+//                                  Text(
+//                                      "${AppLocalizations.of(context).isSafeAndSecure} " +
+//                                          " ${model.contact.name} " +
+//                                          " ${AppLocalizations.of(context).canViewThisTransaction}"
+//                                      // 'MyCustomer is 100% safe and secure, only you and \
+//                                      // ${model.contact.name} can view this transaction',
+//                                      // textAlign: TextAlign.center,
+//                                      ),
                                 ],
                               ))),
                             ),
@@ -1044,6 +1031,8 @@ class MainTransaction extends StatelessWidget {
     }
   }
 }
+
+
 
 class AddTransaction extends StatelessWidget {
   final double width;

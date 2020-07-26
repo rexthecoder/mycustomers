@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
@@ -13,7 +12,6 @@ class SendMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     var _formKey = GlobalKey<FormState>();
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (context, model, child) {
@@ -41,7 +39,8 @@ class SendMessage extends StatelessWidget {
                                 Container(
                                   child: TextFormField(
                                     controller: headingController,
-                                    textCapitalization: TextCapitalization.sentences,
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
                                     validator: (value) {
                                       if (value.isEmpty) {
                                         return AppLocalizations.of(context)
@@ -85,19 +84,15 @@ class SendMessage extends StatelessWidget {
                                     height: SizeConfig.yMargin(context, 3)),
                                 SizedBox(
                                     height: SizeConfig.yMargin(context, 6),
-                                    child:
-                                        messageSnippetHolder(
-                                          context, 
-                                          model, 
-                                          headingController)
-                                          ),
+                                    child: messageSnippetHolder(
+                                        context, model, headingController)),
                                 SizedBox(
-                                    height: SizeConfig.yMargin(context, 5)
-                                    ),
+                                    height: SizeConfig.yMargin(context, 5)),
                                 Container(
                                   child: TextFormField(
                                     controller: messageHeadingController,
-                                    textCapitalization: TextCapitalization.sentences,
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
                                     validator: (value) {
                                       if (value.isEmpty) {
                                         return AppLocalizations.of(context)
@@ -165,7 +160,7 @@ class SendMessage extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: 20),
                       Expanded(
                         child: CustomRaisedButton(
                           txtColor: ThemeColors.background,
@@ -173,25 +168,14 @@ class SendMessage extends StatelessWidget {
                           btnText: AppLocalizations.of(context).sendCapital,
                           borderColor: BrandColors.primary,
                           child: Container(),
-                          onPressed: () {  
+                          onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              Flushbar(
-                                backgroundColor: BrandColors.primary,
-                                duration: const Duration(seconds: 3),
-                                message:
-                                    'Could not send message in development',
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  size: 28.0,
-                                  color: ThemeColors.background,
-                                ),
-                                leftBarIndicatorColor: Colors.blue[300],
-                              ).show(context);
-
-                            model.clearMessageFields();
-                            headingController.text=model.controllerValue;
-                            messageHeadingController.text=model.messageControllerValue;
-                              
+                              flusher(
+                                  'Send message still in development', context);
+                              model.clearMessageFields();
+                              headingController.text = model.controllerValue;
+                              messageHeadingController.text =
+                                  model.messageControllerValue;
                             }
                           },
                         ),
@@ -210,17 +194,17 @@ class SendMessage extends StatelessWidget {
   }
 }
 
-Widget messageSnippet(
-    String value, SendMessageViewModel model, BuildContext context, TextEditingController controllerValue) {
+Widget messageSnippet(String value, SendMessageViewModel model,
+    BuildContext context, TextEditingController controllerValue) {
   return Container(
       margin: EdgeInsets.only(left: SizeConfig.yMargin(context, 1.2)),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50), color: ThemeColors.unselect),
       child: FlatButton(
-          onPressed: (){
+          onPressed: () {
             model.updateFieldValue(value);
-            controllerValue.text=model.controllerValue;
-          } ,
+            controllerValue.text = model.controllerValue;
+          },
           child: Text(
             value,
             textAlign: TextAlign.center,
@@ -230,12 +214,14 @@ Widget messageSnippet(
           )));
 }
 
-Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model, TextEditingController controllerValue) {
+Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model,
+    TextEditingController controllerValue) {
   return ListView.builder(
       itemCount: model.messageEntries.length,
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
       itemBuilder: (context, int index) {
-        return messageSnippet(model.messageEntries[index], model, context,controllerValue);
+        return messageSnippet(
+            model.messageEntries[index], model, context, controllerValue);
       });
 }
