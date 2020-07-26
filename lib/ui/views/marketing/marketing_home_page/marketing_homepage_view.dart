@@ -21,6 +21,7 @@ class MarketingHomePageView extends StatelessWidget {
     ScreenUtil.init(context,
         width: width, height: height, allowFontScaling: true);
     return ViewModelBuilder<MarketingHomePageViewModel>.reactive(
+      onModelReady: (model) => model.getContacts(),
       builder: (context, model, child) => Container(
         color: Theme.of(context).backgroundColor,
         child: Column(children: <Widget>[
@@ -82,9 +83,10 @@ class MarketingHomePageView extends StatelessWidget {
                     child: FlatButton(
                   padding: EdgeInsets.all(10),
                   onPressed: () {
-                    model.selectedCustomers.length != 0
-                        ? model.navigateToSendMessageView()
-                        : Flushbar(
+                    // model.selectedCustomers.length != 0
+                    //     ? model.navigateToSendMessageView()
+                    //     : 
+                        Flushbar(
                             backgroundColor: BrandColors.primary,
                             duration: const Duration(seconds: 3),
                             message: AppLocalizations.of(context)
@@ -257,7 +259,7 @@ class MarketingHomePageView extends StatelessWidget {
                         SizedBox(
                           height: 12.h,
                         ),
-                        model.frequents().length == 0
+                        model.frequents.length == 0 || model.searchTerm.length > 0
                             ? Container()
                             : Container(
                                 width: double.infinity,
@@ -276,21 +278,21 @@ class MarketingHomePageView extends StatelessWidget {
                         SizedBox(
                           height: 5.h,
                         ),
-                        model.frequents().length == 0
+                        model.frequents.length == 0 || model.searchTerm.length > 0
                             ? Container()
                             : Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: ListView.builder(
                                     padding: const EdgeInsets.all(0.0),
-                                    itemCount: model.frequents().length,
+                                    itemCount: model.frequents.length,
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       CustomerContact customer =
-                                          model.frequents()[index];
-                                      bool _isSelected = model.isSelected(customer);
+                                          model.frequents[index];
+                                      bool _isSelected = model.selectedCustomers.contains(customer);
                                       return Column(
                                         children: <Widget>[
                                           Container(
@@ -355,7 +357,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                         BrandColors.primary,
                                                     activeColor:
                                                         Color(0xffE1E1E1),
-                                                    value: false,
+                                                    value: _isSelected,
                                                     onChanged: (value) {
                                                       _isSelected
                                                           ? model
@@ -424,7 +426,7 @@ class MarketingHomePageView extends StatelessWidget {
                                               false)
                                           ? model.scustomers[index]
                                           : model.customers[index];
-                                      bool _isSelected = model.isSelected(customer);
+                                      bool _isSelected = model.selectedCustomers.contains(customer);
                                       return Dismissible(
                                         background: Container(
                                           padding: EdgeInsets.only(right: 15),
@@ -436,9 +438,10 @@ class MarketingHomePageView extends StatelessWidget {
                                           ),
                                         ),
                                         key: UniqueKey(),
+                                        direction: DismissDirection.endToStart,
                                         onDismissed:
                                             (DismissDirection direction) {
-                                          //model.removeCustomers(customer);
+                                          model.deleteCustomer(customer);
                                         },
                                         // onDismissed: (direction) =>
                                         //     model.removeCustomers(index),

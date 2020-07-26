@@ -168,8 +168,7 @@ class NotificationsView extends StatelessWidget {
                                                 .toString()),
                                             onDismissed:
                                                 (DismissDirection direction) {},
-                                            direction:
-                                                DismissDirection.endToStart,
+                                            direction: DismissDirection.endToStart,
                                             background: Container(
                                               padding:
                                                   EdgeInsets.only(right: 15),

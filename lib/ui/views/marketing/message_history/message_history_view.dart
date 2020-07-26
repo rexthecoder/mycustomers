@@ -21,8 +21,9 @@ class MessageHistoryView extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<MessageHistoryViewModel>.reactive(
+      onModelReady: (model) => model.getMessages(),
         builder: (context, model, child) {
-          model.init(customer);
+          //model.init(customer);
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: PreferredSize(
@@ -116,7 +117,7 @@ class MessageHistoryView extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5)
                             ),
                             onPressed: (){
-                              model.setContact();
+                              model.navigateToTransaction();
                             },
                             child: Center(child: Text('View Transactions',
                               style: TextStyle(color: BrandColors.primary, fontWeight: FontWeight.bold),)),
@@ -131,25 +132,32 @@ class MessageHistoryView extends StatelessWidget {
             body: Stack(
               children: <Widget>[
 
-                Container(child: Expanded(
-                  child: ListView.builder(
-                      itemCount: model.messages.length,
-                      itemBuilder: (BuildContext context, int index)=>Container(
-                        child:Padding(
+                Container(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                      child: ListView.builder(
+                        //reverse: true,
+                          itemCount: model.messages.length,
+                          itemBuilder: (BuildContext context, int index)=>Container(
+                            //color: Colors.red,
+                            child:Padding(
 //                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          padding: const EdgeInsets.only(top: 5,bottom: 5,left: 60,right: 20),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.grey[300],
-                              ),
-                              child: Center(child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(model.messages[index].message ?? '',textAlign: TextAlign.end,),
-                              ))),
-                        ),
-                      )),
-                ),),
+                              padding: const EdgeInsets.only(top: 5,bottom: 5,left: 60,right: 20),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.grey[300],
+                                  ),
+                                  child: Center(child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(model.messages[index].message ?? '',textAlign: TextAlign.end,),
+                                  ))),
+                            ),
+                          )),
+                ),
+                    ],
+                  ),),
                 Positioned(
                   bottom:MediaQuery.of(context).viewInsets.bottom,
                   left:0,right:0,

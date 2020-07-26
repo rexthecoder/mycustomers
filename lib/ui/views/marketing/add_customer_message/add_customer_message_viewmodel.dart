@@ -100,6 +100,7 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     for(var item in _selectedCustomers) {
       _customerService.addContactmarket(item.phone, item.displayName, '', item.initials, StoreRepository.currentStore.id);
     }
+    _customerService.getCustomermarket(StoreRepository.currentStore.id);
     _navigationService.popUntil((route){
       if(route.settings.name == '/main'){
         //(route.settings.arguments as Map)['result'] = _selectedCustomers;
