@@ -1,37 +1,37 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'profile_h.dart';
+part of 'message_h.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ProfileAdapter extends TypeAdapter<Profile> {
+class MessageAdapter extends TypeAdapter<Message> {
   @override
-  final typeId = 16;
+  final typeId = 17;
 
   @override
-  Profile read(BinaryReader reader) {
+  Message read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Profile(
-      image: fields[0] as String,
-      name: fields[1] as String,
-      sId: fields[2] as String,
+    return Message(
+      mId: fields[0] as String,
+      cId: fields[1] as String,
+      message: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Profile obj) {
+  void write(BinaryWriter writer, Message obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.image)
+      ..write(obj.mId)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.cId)
       ..writeByte(2)
-      ..write(obj.sId);
+      ..write(obj.message);
   }
 }

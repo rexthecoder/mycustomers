@@ -1,3 +1,5 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,9 +13,13 @@ import 'package:mycustomers/core/localization/app_localization.dart';
 import 'business_viewmodel.dart';
 
 class BusinessView extends StatelessWidget {
-  final _businessPageKey = GlobalKey<ScaffoldState>();
+  final String process;
+  BusinessView({Key key, this.process}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final _businessPageKey = GlobalKey<ScaffoldState>();
+
     return ViewModelBuilder<BusinessViewModel>.reactive(
       builder: (context, model, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
@@ -21,11 +27,26 @@ class BusinessView extends StatelessWidget {
           statusBarIconBrightness: Brightness.light,
         ),
         child: SafeArea(
-          child: Scaffold(
-            key: _businessPageKey,
-            resizeToAvoidBottomInset: false,
-            backgroundColor: BrandColors.primary,
-            body: CustomBackground(child: _PartialBuildForm()),
+          child: WillPopScope(
+            onWillPop: () => Flushbar(
+              backgroundColor: BrandColors.primary,
+              duration: const Duration(seconds: 5),
+              message:
+                  'Sorry, you will need to register a business to access myCustomer',
+              icon: Icon(
+                Icons.info_outline,
+                size: 28.0,
+                color: ThemeColors.background,
+              ),
+              leftBarIndicatorColor: Colors.blue[300],
+            ).show(context),
+            child: Scaffold(
+              key: _businessPageKey,
+              resizeToAvoidBottomInset: false,
+              backgroundColor: BrandColors.primary,
+              body:
+                  CustomBackground(child: _PartialBuildForm(process: process)),
+            ),
           ),
         ),
       ),
@@ -36,8 +57,9 @@ class BusinessView extends StatelessWidget {
 
 class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
   static final _businessFormPageKey = GlobalKey<FormState>();
+  final String process;
 
-  _PartialBuildForm({Key key}) : super(key: key, reactive: false);
+  _PartialBuildForm({this.process, Key key}) : super(key: key, reactive: false);
 
   @override
   Widget buildViewModelWidget(
@@ -62,7 +84,9 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                 children: <Widget>[
                   SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Text(
-                    AppLocalizations.of(context).businessDetails,
+                    process != 'signin'
+                        ? AppLocalizations.of(context).businessDetails
+                        : 'Create a business'.toUpperCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: SizeConfig.yMargin(context, 4),
@@ -70,7 +94,9 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                   ),
                   SizedBox(height: SizeConfig.yMargin(context, 2)),
                   Text(
-                    AppLocalizations.of(context).oneLastStep,
+                    process != 'signin'
+                        ? AppLocalizations.of(context).oneLastStep
+                        : '',
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: SizeConfig.yMargin(context, 2),
@@ -83,7 +109,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         right: SizeConfig.xMargin(context, 4),
                         bottom: SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
-                      autofocus: true,
+                      // autofocus: true,
+                      keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.sentences,
                       key: Key("fullname"),
                       controller: _fullName,
@@ -97,6 +124,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
+                          hintStyle:
+                              TextStyle(color: Theme.of(context).cursorColor),
                           labelText:
                               AppLocalizations.of(context).enterYourFullName,
                           border: OutlineInputBorder()),
@@ -120,6 +149,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
+                          hintStyle:
+                              TextStyle(color: Theme.of(context).cursorColor),
                           labelText: AppLocalizations.of(context)
                               .pleaseEnterYourEmailAddress,
                           border: OutlineInputBorder()),
@@ -144,6 +175,8 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
+                          hintStyle:
+                              TextStyle(color: Theme.of(context).cursorColor),
                           labelText:
                               AppLocalizations.of(context).enterStoreName,
                           border: OutlineInputBorder()),
@@ -168,19 +201,22 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
+                          hintStyle:
+                              TextStyle(color: Theme.of(context).cursorColor),
                           labelText:
                               AppLocalizations.of(context).enterStoreAddress,
                           border: OutlineInputBorder()),
                     ),
                   ),
-                  // SizedBox(height: SizeConfig.yMargin(context, 2)),
                 ],
               ),
             ),
             CustomRaisedButton(
               btnColor: BrandColors.primary,
               txtColor: ThemeColors.background,
-              btnText: AppLocalizations.of(context).submitAndFinish,
+              btnText: process != 'signin'
+                  ? AppLocalizations.of(context).submitAndFinish
+                  : 'Submit',
               borderColor: BrandColors.primary,
               child: Container(),
               onPressed: () async {
@@ -199,8 +235,51 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
             ),
             SizedBox(height: SizeConfig.yMargin(context, 6)),
             Container(
-                width: SizeConfig.xMargin(context, 60),
-                child: CustomizeProgressIndicator(4, 4)),
+              width: SizeConfig.xMargin(context, 80),
+              child: process != 'signin'
+                  ? CustomizeProgressIndicator(4, 4)
+                  : Column(
+                      children: <Widget>[
+                        SizedBox(height: SizeConfig.yMargin(context, 5)),
+                        ColorizeAnimatedTextKit(
+                          speed: Duration(milliseconds: 500),
+                          repeatForever: true,
+                          text: ['Oops'],
+                          colors: [
+                            BrandColors.primary,
+                            BrandColors.secondary,
+                            BrandColors.yellow,
+                            BrandColors.orange,
+                          ],
+                          textStyle: TextStyle(
+                            // color: BrandColors.primary,
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeConfig.yMargin(context, 5),
+                          ),
+                        ),
+                        SizedBox(height: SizeConfig.yMargin(context, 2)),
+                        ColorizeAnimatedTextKit(
+                          // speed: Duration(milliseconds: 300),
+                          repeatForever: true,
+                          text: [
+                            "Seems you don't have a store yet",
+                            "Please create one"
+                          ],
+                          colors: [
+                            Colors.purple,
+                            Colors.blue,
+                            Colors.yellow,
+                            Colors.red,
+                          ],
+                          textStyle: TextStyle(
+                            // color: BrandColors.primary,
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeConfig.yMargin(context, 2.4),
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
             SizedBox(height: SizeConfig.yMargin(context, 4)),
           ],
         ),

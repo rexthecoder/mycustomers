@@ -1,6 +1,11 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/message_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
@@ -39,11 +44,21 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   // Get the services required
   ICustomerService _customerService = locator<ICustomerService>();
+  final _contactService = locator<CustomerContactService>();
+  final _messageService = locator<MessageService>();
+
+  List<CustomerContact> get customers => _contactService.getCustomermarket(StoreRepository.currentStore.id);
+  List<CustomerContact> get scustomers => _contactService.getCustomermarket(StoreRepository.currentStore.id);
+  Message getmsg(String id) => _messageService.getLast(id);
+
+  void setcontact(CustomerContact cont){
+    _contactService.setContact(cont);
+  }
 
   List<Customer> allCustomers = [];
 
-  List<Customer> _selectedCustomers = [];
-  List<Customer> get selectedCustomers => _selectedCustomers;
+  List<CustomerContact> _selectedCustomers = [];
+  List<CustomerContact> get selectedCustomers => _selectedCustomers;
 
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
@@ -69,11 +84,11 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   /// Data checking section
 
-  bool get hasData => _allSelectedCustomers.isNotEmpty;
+  bool get hasData => customers.isNotEmpty;
   bool get hasSelected => _selectedCustomers.isNotEmpty;
   int get numberOfSelected => _selectedCustomers.length;
-  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
-  bool get allSelected => _allSelectedCustomers.length == _selectedCustomers.length;
+  bool isSelected(CustomerContact customer) => _selectedCustomers.contains(customer);
+  bool get allSelected => customers.length == _selectedCustomers.length;
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) {
@@ -81,13 +96,13 @@ class MarketingHomePageViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void addCustomer(Customer customer) {
+  void addCustomer(CustomerContact customer) {
     _selectedCustomers.add(customer);
     notifyListeners();
   }
 
-  void deselectCustomer(Customer customer) {
-    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+  void deselectCustomer(CustomerContact customer) {
+    _selectedCustomers.removeWhere((element) => element.id == customer.id);
     notifyListeners();
   }
   void getFrequentCustomers() {
@@ -97,7 +112,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   void selectAllCustomers() {
     _selectedCustomers.clear();
-    _selectedCustomers.addAll(_allSelectedCustomers);
+    _selectedCustomers.addAll(customers);
     notifyListeners();
   }
 
@@ -105,11 +120,11 @@ class MarketingHomePageViewModel extends BaseViewModel {
     _selectedCustomers = [];
     notifyListeners();
   }
-  void removeCustomers(Customer customer) {
-    allCustomers.removeWhere((element) => element.phone == customer.phone);
-    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
-    notifyListeners();
-  }
+  // void removeCustomers(Customer customer) {
+  //   allCustomers.removeWhere((element) => element.phone == customer.phone);
+  //   _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+  //   notifyListeners();
+  // }
 //  void updateCustomers() async{
 //    fianl customerList = await _navigationService
 //  }
@@ -143,8 +158,9 @@ class MarketingHomePageViewModel extends BaseViewModel {
      });
     notifyListeners();
   }
-  Future navigateToMessageHistory(index) async{
-    _navigationService.navigateTo(Routes.messageHistoryView,arguments: allCustomers[index]);
+  Future navigateToMessageHistory(CustomerContact cus) async{
+    _contactService.setContact(cus);
+    _navigationService.navigateTo(Routes.messageHistoryView);
   }
 
   Future navigateToSendMessage(context) async{

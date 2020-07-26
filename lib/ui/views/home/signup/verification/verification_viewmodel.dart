@@ -9,7 +9,7 @@ class VerificationViewModel extends BaseViewModel {
   // TODO: 
   Future<void> navigateToNextScreen() async {
     await Future.delayed(Duration(seconds: 2));
- await _navigationService.replaceWith(Routes.businessViewRoute);
+ await _navigationService.replaceWith(Routes.businessViewSignUp);
   }
 
   bool btnColor = true;

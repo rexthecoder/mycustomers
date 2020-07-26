@@ -736,13 +736,6 @@ class AddDebtCreditView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: model.name != null
-                                          ? 0
-                                          : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
-                                              0.3 : SizeConfig.yMargin(context, 100) *
-                                              0.8,
-                                    ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames
                                           ? MyListTile(
@@ -884,10 +877,14 @@ class AddDebtCreditView extends StatelessWidget {
                                         child: Padding(
                                           padding: EdgeInsets.all(8),
                                           child: InternationalPhoneNumberInput(
-                                            onInputChanged:
-                                                (PhoneNumber number) {
-                                              model.updateNumber(
-                                                  number, action);
+                                            onInputChanged: (PhoneNumber number) {
+                                              model.number = number;
+                                              //model.updateNumber(action);
+                                            },
+                                            onInputValidated: (value) {
+                                              if(value) {
+                                                model.updateNumber(action);
+                                              }
                                             },
                                             ignoreBlank: false,
                                             errorMessage:
@@ -899,8 +896,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .cursorColor),
                                             initialValue: model.number,
-                                            textFieldController:
-                                                model.inputNumberController,
+                                            textFieldController: model.inputNumberController,
                                             inputBorder: InputBorder.none,
                                           ),
                                         ),
@@ -946,6 +942,13 @@ class AddDebtCreditView extends StatelessWidget {
                                         //   ],
                                         // ),
                                       ),
+                                    ),
+                                    SizedBox(
+                                      height: model.name != null
+                                          ? 0
+                                          : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
+                                              0.3 : SizeConfig.yMargin(context, 100) *
+                                              0.8,
                                     ),
                                   ],
                                 ),

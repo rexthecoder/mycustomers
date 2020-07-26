@@ -27,7 +27,7 @@ class MainViewModel extends ReactiveViewModel {
   final _customerContactService = locator<CustomerContactService>();
   final _profileService = locator<ProfileService>();
 
-  Profile get userP => _profileService.getProfile();
+  //Profile get userP => _profileService.getProfile();
 
   final Duration duration = const Duration(milliseconds: 300);
   List<Store> _stores = StoreRepository.stores;
@@ -47,6 +47,10 @@ class MainViewModel extends ReactiveViewModel {
   Store get currStore => StoreRepository.currentStore;
 
   bool get showdot =>_logService.shouldnotify;
+
+  Profile getProfile() {
+    return _profileService.getProfile(StoreRepository?.currentStore?.id);
+  }
 
   Image imageFromBaseString(String base64String, BuildContext context){
      return Image.memory(base64Decode(base64String),

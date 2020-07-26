@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:stacked/stacked.dart';
@@ -11,23 +13,30 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'dart:async';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:uuid/uuid.dart';
 
 class AddCustomerMessageViewModel extends StreamViewModel {
   // Get the services required
   NavigationService _navigationService = locator<NavigationService>();
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
+  final _customerService = locator<CustomerContactService>();
   List<Customer> _allCustomers = List<Customer>();
   bool _busy = true;
   bool get isLoadBusy => _busy;
   AddCustomerMessageViewModel();
   Iterable<Contact> contacts;
+
   List<Customer> _selectedCustomers = [];
   List<Customer> get selectedCustomers => _selectedCustomers;
   bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
+
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
-  init({String query}) async {
+
+  var uuid = Uuid();
+
+  Future<void> init({String query}) async {
     _allCustomers.clear();
     for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
       print('Iterate');
@@ -51,7 +60,7 @@ class AddCustomerMessageViewModel extends StreamViewModel {
   void getFrequentCustomers(value) {
     //todo: get frequent customers
     _allFrequentCustomers = value !=null? value:[];
-    notifyListeners();
+//    notifyListeners();
   }
 
   void deselectCustomer(Customer customer) {
@@ -88,9 +97,12 @@ class AddCustomerMessageViewModel extends StreamViewModel {
 
   }
   Future returnHome() async {
+    for(var item in _selectedCustomers) {
+      _customerService.addContactmarket(item.phone, item.displayName, '', item.initials, StoreRepository.currentStore.id);
+    }
     _navigationService.popUntil((route){
       if(route.settings.name == '/main'){
-        (route.settings.arguments as Map)['result'] = _selectedCustomers;
+        //(route.settings.arguments as Map)['result'] = _selectedCustomers;
         return true;
       }else{
         return false;

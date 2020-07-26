@@ -9,6 +9,8 @@ class ProfileService {
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.profile);
   Box<Profile> get _profileBox => _hiveService.box<Profile>(HiveBox.profile);
 
+  List<Profile> profiles = [];
+
   Future<void> init() async {
     _hiveService.registerAdapter(ProfileAdapter());
 
@@ -17,7 +19,13 @@ class ProfileService {
     }
   }
 
-  Profile getProfile(){
+  Profile getProfile(String id){
+    //Profile profile;
+    for(var item in _profileBox.values.toList()) {
+      if(item.sId == id) {
+        return item;
+      }
+    }
     return _profileBox.values.toList()[0];
   }
 
