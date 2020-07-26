@@ -80,7 +80,7 @@ class MessageViewModel extends StreamViewModel {
   List<Customer> get oldSelectedCustomers => _oldSelectedCustomers;
   List<Customer> get newSelectedCustomers => _newSelectedCustomers;
   List<CustomerContact> get selectedCustomers => _selectedCustomers;
-  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
+  bool isSelected(Customer customer) => _newSelectedCustomers.contains(customer);
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   init({String query}) async {
@@ -151,7 +151,7 @@ class MessageViewModel extends StreamViewModel {
 
   void deselectCustomer(Customer customer) {
     print(customer.id);
-    _selectedCustomers.removeWhere((element) => element.phoneNumber == customer.phone);
+    _oldSelectedCustomers.removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
 //  //todo: implement add new customer
