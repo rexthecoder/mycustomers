@@ -33,6 +33,7 @@ class MessageView extends StatelessWidget {
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
+        model.oldSelected();
         model.initSelected(arguments.selectedCustomers);
         model.setQuickText(arguments.title, arguments.message);
         final int length = model.selectedCustomers.length != 0
@@ -126,6 +127,7 @@ class MessageView extends StatelessWidget {
                             ),
                             FlatButton.icon(
                               onPressed: () async {
+                                //Todo: fix bottom sheet
                                 final bool isPermitted =
                                     await model.checkPermission();
                                 if (!isPermitted) {
@@ -142,7 +144,7 @@ class MessageView extends StatelessWidget {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return BottomSheetView(
-                                          model.selectedCustomers,
+                                          model.oldSelectedCustomers,
                                           height,
                                           model);
                                     },
@@ -182,10 +184,11 @@ class MessageView extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: length,
                             itemBuilder: (BuildContext context, int index) =>
+
                                 CustomerCircleAvatar(
-                              customer: model.selectedCustomers.length != 0
+                              customer: model.newSelectedCustomers.length != 0
                                   ? model.selectedCustomers[index]
-                                  : arguments.selectedCustomers[index],
+                                  : model.oldSelectedCustomers[index],
                               action: 'debtor',
                             ),
                           ),
@@ -199,8 +202,9 @@ class MessageView extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 30.0, horizontal: 10),
                     child: FlatButton(
                       onPressed: () {
+                        flushBar(context);
 //                        model.navigateToSendMessage();
-                        successDialog(context, model);
+//                        successDialog(context, model);
                       },
                       color: BrandColors.primary,
                       padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -486,6 +490,17 @@ class MessageView extends StatelessWidget {
           );
         });
   }
+   flushBar(context) {
+    Flushbar(
+        backgroundColor: BrandColors.primary,
+        duration: const Duration(seconds: 3),
+        message: 'Still in development',
+        icon: Icon(
+          Icons.info_outline,
+          size: 28.0,
+          color: ThemeColors.background,
+        )).show(context);
+  }
 }
 
 class BottomSheetView extends StatelessWidget {
@@ -521,7 +536,7 @@ class BottomSheetView extends StatelessWidget {
                       ),
                       onPressed: () {
                         parentModel
-                            .mergeSelectCustomer(model.selectedCustomers);
+                            .mergeSelectCustomer(model.newSelectedCustomers);
                         Navigator.pop(context);
                       },
                       child: Text(
