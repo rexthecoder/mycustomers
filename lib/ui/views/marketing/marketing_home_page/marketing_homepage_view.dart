@@ -25,20 +25,20 @@ class MarketingHomePageView extends StatelessWidget {
         child: Column(children: <Widget>[
           // SizedBox(
           //   width: SizeConfig.xMargin(context, 110),
-          //   child: 
-            Container(
-              width: SizeConfig.xMargin(context, 110),
-              padding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.xMargin(context, 3),
-                  vertical: SizeConfig.xMargin(context, 3)),
-              decoration: BoxDecoration(
-                color: BrandColors.primary,
-              ),
-              child: Text(AppLocalizations.of(context).marketing,
-                  style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 8),
-                      color: Theme.of(context).backgroundColor)),
+          //   child:
+          Container(
+            width: SizeConfig.xMargin(context, 110),
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.xMargin(context, 3),
+                vertical: SizeConfig.xMargin(context, 3)),
+            decoration: BoxDecoration(
+              color: BrandColors.primary,
             ),
+            child: Text(AppLocalizations.of(context).marketing,
+                style: TextStyle(
+                    fontSize: SizeConfig.textSize(context, 8),
+                    color: ThemeColors.background)),
+          ),
           //),
           Card(
             margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 2)),
@@ -65,13 +65,14 @@ class MarketingHomePageView extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             Icons.person_add,
-                            color: BrandColors.primary,
+                            color: Theme.of(context).textSelectionColor,
                           ),
                           SizedBox(
                             height: 5.h,
                           ),
                           Text(AppLocalizations.of(context).addNewCustomer,
-                              style: TextStyle(color: BrandColors.primary)),
+                              style: TextStyle(
+                                  color: Theme.of(context).textSelectionColor)),
                         ]),
                   ),
                 )),
@@ -89,7 +90,7 @@ class MarketingHomePageView extends StatelessWidget {
                             icon: Icon(
                               Icons.info_outline,
                               size: 28.0,
-                              color: ThemeColors.background,
+                              color: Theme.of(context).textSelectionColor,
                             ),
                             leftBarIndicatorColor: Colors.blue[300],
                           ).show(context);
@@ -100,13 +101,14 @@ class MarketingHomePageView extends StatelessWidget {
                         children: <Widget>[
                           Icon(
                             Icons.message,
-                            color: BrandColors.primary,
+                            color: Theme.of(context).textSelectionColor,
                           ),
                           SizedBox(
                             height: 5.h,
                           ),
                           Text(AppLocalizations.of(context).sendMessage,
-                              style: TextStyle(color: BrandColors.primary)),
+                              style: TextStyle(
+                                  color: Theme.of(context).textSelectionColor)),
                         ]),
                   ),
                 )),
