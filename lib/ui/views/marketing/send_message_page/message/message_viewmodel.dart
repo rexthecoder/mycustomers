@@ -95,14 +95,14 @@ class MessageViewModel extends StreamViewModel {
       _contactStream.add(_allCustomers);
     }
   }
-  Future oldSelected() async {
+  void oldSelected() {
     for (var item in _selectedCustomers) {
       _oldSelectedCustomers.add(Customer(name: item.name,
           phone: item.phoneNumber,
           lastName: '',
           initials: item.initials));
     }
-    notifyListeners();
+//    notifyListeners();
   }
 
   String _searchTerm = '';

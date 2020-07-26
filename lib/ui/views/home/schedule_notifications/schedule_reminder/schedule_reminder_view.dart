@@ -67,7 +67,7 @@ class ScheduleNotifications extends StatelessWidget {
                                     CustomRaisedButton(
                                     txtColor: ThemeColors.background,
                                     btnColor: BrandColors.primary,
-                                    btnText: 'NO EDIT',
+                                    btnText: 'Schedule',
                                     borderColor: BrandColors.primary,
                                     child: Container(
                                       height: SizeConfig.yMargin(context, 7)

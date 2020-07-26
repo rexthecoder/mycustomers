@@ -127,29 +127,31 @@ class MessageView extends StatelessWidget {
                             ),
                             FlatButton.icon(
                               onPressed: () async {
+                                model.returnHome();
+                                return;
                                 //Todo: fix bottom sheet
-                                final bool isPermitted =
-                                    await model.checkPermission();
-                                if (!isPermitted) {
-                                  permissionDialog(context, model);
-                                } else {
-                                  showModalBottomSheet(
-                                    enableDrag: true,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                      ),
-                                    ),
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return BottomSheetView(
-                                          model.oldSelectedCustomers,
-                                          height,
-                                          model);
-                                    },
-                                  );
-                                }
+//                                final bool isPermitted =
+//                                    await model.checkPermission();
+//                                if (!isPermitted) {
+//                                  permissionDialog(context, model);
+//                                } else {
+//                                  showModalBottomSheet(
+//                                    enableDrag: true,
+//                                    shape: RoundedRectangleBorder(
+//                                      borderRadius: BorderRadius.only(
+//                                        topLeft: Radius.circular(20),
+//                                        topRight: Radius.circular(20),
+//                                      ),
+//                                    ),
+//                                    context: context,
+//                                    builder: (BuildContext context) {
+//                                      return BottomSheetView(
+//                                          model.oldSelectedCustomers,
+//                                          height,
+//                                          model);
+//                                    },
+//                                  );
+//                                }
 //                                await model.initSelected(selectedCustomers);
                                 // showModalBottomSheet(
                                 //   enableDrag: true,

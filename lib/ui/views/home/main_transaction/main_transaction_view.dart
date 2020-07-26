@@ -485,17 +485,17 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   SvgPicture.asset(
                                       'assets/images/no_transaction_check.svg'),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Text(
-                                      "${AppLocalizations.of(context).isSafeAndSecure} " +
-                                          " ${model.contact.name} " +
-                                          " ${AppLocalizations.of(context).canViewThisTransaction}"
-                                      // 'MyCustomer is 100% safe and secure, only you and \
-                                      // ${model.contact.name} can view this transaction',
-                                      // textAlign: TextAlign.center,
-                                      ),
+//                                  SizedBox(
+//                                    height: 20.h,
+//                                  ),
+//                                  Text(
+//                                      "${AppLocalizations.of(context).isSafeAndSecure} " +
+//                                          " ${model.contact.name} " +
+//                                          " ${AppLocalizations.of(context).canViewThisTransaction}"
+//                                      // 'MyCustomer is 100% safe and secure, only you and \
+//                                      // ${model.contact.name} can view this transaction',
+//                                      // textAlign: TextAlign.center,
+//                                      ),
                                 ],
                               ))),
                             ),
