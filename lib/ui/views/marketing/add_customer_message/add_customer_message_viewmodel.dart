@@ -87,7 +87,7 @@ class AddCustomerMessageViewModel extends StreamViewModel {
 //        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
-  /// View initialize and close section
+  // View initialize and close section
 
   popView() {
     _navigationService.back();
@@ -101,17 +101,8 @@ class AddCustomerMessageViewModel extends StreamViewModel {
       _customerService.addContactmarket(item.phone, item.displayName, '', item.initials, StoreRepository.currentStore.id);
     }
     _customerService.getCustomermarket(StoreRepository.currentStore.id);
-    _navigationService.popUntil((route){
-      if(route.settings.name == '/main'){
-        //(route.settings.arguments as Map)['result'] = _selectedCustomers;
-        return true;
-      }else{
-        return false;
-      }
-    });
+    _navigationService.clearStackAndShow(Routes.marketingHomepageView);
   }
-
-
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) async {
