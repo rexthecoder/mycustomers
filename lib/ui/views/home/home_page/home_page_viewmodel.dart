@@ -10,7 +10,6 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
-import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:intl/intl.dart';
@@ -20,12 +19,8 @@ import 'package:intl/intl.dart';
 class HomePageViewModel extends ReactiveViewModel {
   String _title = 'Home View';
   String get title => _title;
-  String name = 'Seyi Onifade';
-  String expectedTime = 'Expected a week ago';
+
   int amountOwing= 500;
-//  String deadLineStatus = 'Not Paid';
-
-
 
   final double _amount = 100.86;
   double get amount => _amount;
@@ -40,6 +35,7 @@ class HomePageViewModel extends ReactiveViewModel {
   
 
   PermissionService _permission =  locator<IPermissionService>();
+  
   List<CustomerContact> get contacts => _customerContactService.contacts;
   List<TransactionModel> get transactions => _transactionService.alltransactions;
   double get whatyouowe  => _transactionService.whatyouowe;
@@ -208,7 +204,6 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   @override
-  // TODO: implement reactiveServices
   List<ReactiveServiceMixin> get reactiveServices => [_customerContactService, _transactionService, _bussinessService];
 }
 

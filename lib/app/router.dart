@@ -120,11 +120,6 @@ class Router {
           builder: (context) => OnboardingView(),
           settings: settings,
         );
-      // case Routes.languageViewRoute:
-      //   return CupertinoPageRoute<dynamic>(
-      //     builder: (context) => LanguageView(),
-      //     settings: settings,
-      //   );
       case Routes.verificationViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => VerificationView(),
@@ -240,7 +235,9 @@ class Router {
         );
       case Routes.businessViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => BusinessView(),
+          builder: (context) => BusinessView(
+            process: 'signin',
+          ),
           settings: settings,
         );
       case Routes.addCustomerMessageRoute:

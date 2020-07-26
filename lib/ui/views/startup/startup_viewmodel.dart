@@ -37,7 +37,7 @@ class StartupViewModel extends BaseViewModel {
   bool confirmHasStore() {
     print('Current store is $currentStore');
     if (currentStore == null) {
-      _navigationService.replaceWith(Routes.createBusinessView);
+      _navigationService.replaceWith(Routes.businessViewRoute);
       return false;
     }
     return true;
