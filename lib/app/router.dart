@@ -30,7 +30,7 @@ import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:mycustomers/ui/views/home/signup/verification/verification_view.dart';
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
-import 'package:mycustomers/ui/views/marketing/add_new_customer/add_new_customer_view.dart';
+import 'package:mycustomers/ui/views/marketing/add_customer_manually/add_new_customer_view.dart';
 import 'package:mycustomers/ui/views/marketing/message_sent_dialogs/message_sent_dialog_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/message/message_view.dart';

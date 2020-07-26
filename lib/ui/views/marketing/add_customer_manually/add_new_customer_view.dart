@@ -124,6 +124,9 @@ class AddNewCustomerView extends StatelessWidget {
                       child: FlatButton(
                         color: BrandColors.primary,
                         onPressed: () {
+                          //Dismiss keyboard during async call
+                          FocusScope.of(context).requestFocus(FocusNode());
+
                           !model.validateNumber()
                               ? Flushbar(
                                   backgroundColor: BrandColors.primary,
