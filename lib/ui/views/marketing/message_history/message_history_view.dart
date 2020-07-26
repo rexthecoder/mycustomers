@@ -145,7 +145,7 @@ class MessageHistoryView extends StatelessWidget {
                               ),
                               child: Center(child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(model.messages[index].message,textAlign: TextAlign.end,),
+                                child: Text(model.messages[index].message ?? '',textAlign: TextAlign.end,),
                               ))),
                         ),
                       )),

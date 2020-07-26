@@ -20,6 +20,10 @@ class MessageService {
     }
   }
 
+  List<Message> getAllMessages() {
+    return _messageBox.values.toList();
+  }
+
   List<Message> getMessage(String id) {
     List<Message> temp = [];
     if(_messageBox.values.toList().length > 0) {
@@ -44,13 +48,14 @@ class MessageService {
     return temp.length > 0 ? temp.last : null;
   }
 
-  bool hasmessage(String id) {
+  int isFrequent(String id) {
+    List<Message> temp = [];
     for(var item in _messageBox.values.toList()) {
       if(item.cId == id) {
-        return true;
+        temp.add(item);
       }
     }
-    return false;
+    return temp.length;
   }
 
   void addMessage(String msg, String id)async {

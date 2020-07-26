@@ -47,6 +47,7 @@ class MessageHistoryViewModel extends BaseViewModel {
 
   setText(value){
     messageController.text= value;
+    mesgg = value;
     notifyListeners();
   }
 

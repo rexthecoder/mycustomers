@@ -47,13 +47,7 @@ class MarketingHomePageViewModel extends BaseViewModel {
   final _contactService = locator<CustomerContactService>();
   final _messageService = locator<MessageService>();
 
-  List<CustomerContact> get customers => _contactService.getCustomermarket(StoreRepository.currentStore.id);
-  List<CustomerContact> get scustomers => _contactService.getCustomermarket(StoreRepository.currentStore.id);
-  Message getmsg(String id) => _messageService.getLast(id);
-
-  void setcontact(CustomerContact cont){
-    _contactService.setContact(cont);
-  }
+  
 
   List<Customer> allCustomers = [];
 
@@ -62,6 +56,33 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
+
+  List<CustomerContact> get scustomers => _contactService.getCustomermarket(StoreRepository.currentStore.id).where((element) => element.name.toUpperCase().contains(_searchTerm.toUpperCase()));
+
+  List<CustomerContact> get customers => _contactService.getCustomermarket(StoreRepository.currentStore.id);
+  Message getmsg(String id) => _messageService.getLast(id);
+
+  //bool isFrequent(String id) => _messageService.isFrequent(id) > 2;
+
+  void setcontact(CustomerContact cont){
+    _contactService.setContact(cont);
+  }
+
+  List<CustomerContact> frequents() {
+    List<Message> temp = [];
+    List<CustomerContact> tempc = [];
+    for (var item in customers) {
+      for(var msg in _messageService.getAllMessages()) {
+        if(item.id == msg.cId) {
+          temp.add(msg);
+          if(temp.length > 2) {
+            tempc.add(item);
+          }
+        }
+      }
+    }
+    return tempc;
+  }
 
   List<Customer> _allSelectedCustomers = [];
   List<Customer> _allFrequentCustomers = [];
@@ -138,14 +159,15 @@ class MarketingHomePageViewModel extends BaseViewModel {
     return await [Permission.contacts].request();
   }
    Future navigateToAddCustomers(context) async{
-     Navigator.of(context).pushNamed(Routes.addCustomerMarketing, arguments: _allFrequentCustomers).then((_){
-       final arguments = ModalRoute.of(context).settings.arguments as Map;
-       final result = arguments['result'];
-     allCustomers = result != null ?[...allCustomers,...result]:allCustomers;
-     _allFrequentCustomers = allCustomers;
-      notifyListeners();
+    //  Navigator.of(context).pushNamed(Routes.addCustomerMarketing, arguments: _allFrequentCustomers).then((_){
+    //    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    //    final result = arguments['result'];
+    //  allCustomers = result != null ?[...allCustomers,...result]:allCustomers;
+    //  _allFrequentCustomers = allCustomers;
+    //   notifyListeners();
      
-     });
+    //  });
+    _navigationService.navigateTo(Routes.addCustomerMarketing);
     notifyListeners();
   }
   Future navigateToAddNewCustomer(context) async{
