@@ -1,8 +1,28 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+
+/// A Customize flushbar widget to be use across development for quick message.
+/// String [message]
+/// BuilContext [context]
+/// Position argurment for the duration, only use when you want longer message time.
+/// Duration [sec] 
+ flusher(String message, BuildContext context, {int sec = 3}) {
+    return Flushbar(
+      backgroundColor: BrandColors.primary,
+      duration: Duration(seconds: sec),
+      message: message,
+      icon: Icon(
+        Icons.info_outline,
+        size: 28.0,
+        color: ThemeColors.background,
+      ),
+      leftBarIndicatorColor: Colors.blue[300],
+    ).show(context);
+}
 
 /// Customize AppBar to be use across all POP screens
 /// - Title

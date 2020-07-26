@@ -1,13 +1,9 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart' as appbar;
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
-import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
-import 'package:mycustomers/ui/widgets/shared/custom_raised_button.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,16 +11,7 @@ import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'add_customer_message_viewmodel.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
-import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
-import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
-import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mycustomers/core/models/customer.dart';
 
 class AddCustomerMessageView extends StatelessWidget {
   final String action;
@@ -396,23 +383,14 @@ class AddCustomerMessageView extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.all(30.w),
-//              padding: EdgeInsets.all(30.w),
                   child: FlatButton(
                     onPressed: () {
                       model.selectedCustomers.length != 0
                           ? model.returnHome()
-                          : Flushbar(
-                              backgroundColor: BrandColors.primary,
-                              duration: const Duration(seconds: 3),
-                              message: AppLocalizations.of(context)
+                          : flusher(
+                              AppLocalizations.of(context)
                                   .selectACustomerFromTheList,
-                              icon: Icon(
-                                Icons.info_outline,
-                                size: 28.0,
-                                color: ThemeColors.background,
-                              ),
-                              leftBarIndicatorColor: Colors.blue[300],
-                            ).show(context);
+                              context);
                     },
                     color: BrandColors.secondary,
                     padding: EdgeInsets.symmetric(vertical: 15.0),

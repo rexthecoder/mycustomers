@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -186,7 +185,6 @@ class MessageView extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemCount: length,
                             itemBuilder: (BuildContext context, int index) =>
-
                                 CustomerCircleAvatar(
                               customer: model.newSelectedCustomers.length != 0
                                   ? model.selectedCustomers[index]
@@ -204,8 +202,8 @@ class MessageView extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 30.0, horizontal: 10),
                     child: FlatButton(
                       onPressed: () {
-                        flushBar(context);
-//                        model.navigateToSendMessage();
+                        flusher('Still in development', context);
+                      //  model.navigateToSendMessage();
 //                        successDialog(context, model);
                       },
                       color: BrandColors.primary,
@@ -286,18 +284,10 @@ class MessageView extends StatelessWidget {
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
-                              Flushbar(
-                                backgroundColor: BrandColors.primary,
-                                duration: const Duration(seconds: 3),
-                                message: AppLocalizations.of(context)
-                                    .youDeniedPermissionToYourContacts,
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  size: 28.0,
-                                  color: ThemeColors.background,
-                                ),
-                                leftBarIndicatorColor: Colors.blue[300],
-                              ).show(context);
+                              flusher(
+                                  AppLocalizations.of(context)
+                                      .youDeniedPermissionToYourContacts,
+                                  context);
                             },
                             child: Container(
                               height: 50.h,
@@ -491,17 +481,6 @@ class MessageView extends StatelessWidget {
             ),
           );
         });
-  }
-   flushBar(context) {
-    Flushbar(
-        backgroundColor: BrandColors.primary,
-        duration: const Duration(seconds: 3),
-        message: 'Still in development',
-        icon: Icon(
-          Icons.info_outline,
-          size: 28.0,
-          color: ThemeColors.background,
-        )).show(context);
   }
 }
 
