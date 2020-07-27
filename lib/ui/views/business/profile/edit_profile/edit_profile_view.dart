@@ -54,7 +54,10 @@ class EditProfileView extends HookWidget {
                   Divider(color: ThemeColors.gray.shade600),
                   SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      Text(AppLocalizations.of(context).userName),
+                      SizedBox(height: SizeConfig.yMargin(context, 1.5)),
                       Container(
                         padding: EdgeInsets.symmetric(
                             vertical: SizeConfig.yMargin(context, 0.7)),
@@ -70,7 +73,9 @@ class EditProfileView extends HookWidget {
                             ),
                             child: _StringForm()),
                       ),
-                      SizedBox(height: SizeConfig.yMargin(context, 2)),
+                      SizedBox(height: SizeConfig.yMargin(context, 3)),
+                      Text(AppLocalizations.of(context).businessName),
+                      SizedBox(height: SizeConfig.yMargin(context, 1.5)),
                       Container(
                         padding: EdgeInsets.symmetric(
                             vertical: SizeConfig.yMargin(context, 0.7)),

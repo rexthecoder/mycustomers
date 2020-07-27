@@ -34,7 +34,7 @@ class MarketingHomePageView extends StatelessWidget {
             ),
             child: Text(AppLocalizations.of(context).marketing,
                 style: TextStyle(
-                    fontSize: SizeConfig.textSize(context, 8),
+                    fontSize: SizeConfig.textSize(context, 6),
                     color: ThemeColors.background)),
           ),
           Card(
