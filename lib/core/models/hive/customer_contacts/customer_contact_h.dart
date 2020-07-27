@@ -5,7 +5,7 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 part 'customer_contact_h.g.dart';
 
 @HiveType(typeId: 2, adapterName: 'CustomerContactAdapter')
-class CustomerContact{
+class CustomerContact extends HiveObject{
 
   @HiveField(0)
   final String name;

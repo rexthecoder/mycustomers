@@ -36,10 +36,10 @@ final _customerService = locator<CustomerContactService>();
     _navigationService.back();
   }
 
-  void setContact() {
-    CustomerContact cus = new CustomerContact(id: currentCustomer.id, name: currentCustomer.displayName, phoneNumber: currentCustomer.phone, initials: currentCustomer.initials);
-    _customerService.setContact(cus);
-  }
+  // void setContact() {
+  //   CustomerContact cus = new CustomerContact(id: currentCustomer.id, name: currentCustomer.displayName, phoneNumber: currentCustomer.phone, initials: currentCustomer.initials);
+  //   _customerService.setContact(cus);
+  // }
 
   void getMessages(){
     _messageService.getMessage(customer.id);

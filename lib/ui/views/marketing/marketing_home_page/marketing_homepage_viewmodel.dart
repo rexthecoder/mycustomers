@@ -87,16 +87,18 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
       phoneNumber: cus.phoneNumber,
       initials: cus.initials,
       storeid: cus.storeid,
-      market: false
+      market: false,
+      transactions: cus.transactions,
+      messages: cus.messages
     );
     for(var item in allmessages) {
       if(item.cId == cus.id) {
         _messageService.deleteMessage(item);
       }
     }
-    await _transactionService.getTransactions(cus.id, StoreRepository.currentStore.id);
-    print(_transactionService.transactions.length);
-    if(_transactionService.transactions.length > 0) {
+    //await _transactionService.getTransactions();
+    //print(_transactionService.transactions.length);
+    if(cus.transactions.length > 0) {
       print('hrr');
       _contactService.deleteContactMarket(cus, cust);
     } else {

@@ -31,7 +31,7 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
 
   void delete(){
     _navigationService.replaceWith(Routes.mainTransaction);
-    _transactionService.deleteTransaction();
+    _transactionService.deleteTransaction(contact);
   }
 
   @override

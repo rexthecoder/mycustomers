@@ -126,7 +126,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   void getTransactions(){
     print(contact.id);
-    _transactionService.getTransactions(contact.id, currentStore.id);
+    _transactionService.getTransactions(contact);
     notifyListeners();
   }
 

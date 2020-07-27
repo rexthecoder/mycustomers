@@ -23,6 +23,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.contact);
   Box<CustomerContact> get _contactBox => _hiveService.box<CustomerContact>(HiveBox.contact);
   
+  //Contacts
   RxValue<List<CustomerContact>> _contacts = RxValue<List<CustomerContact>>(initial: []);
   List<CustomerContact> get contacts => _contacts.value;
 
@@ -133,16 +134,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       bool isStored = false;
       for(var item in _contactBox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber && item.storeid == stid){
-          _contact.value = CustomerContact(
-            name: item.name,
-            phoneNumber:item.phoneNumber,
-            id: item.id,
-            initials: item.initials,
-            storeid: item.storeid,
-            market: item.market,
-            transactions: item.transactions,
-            messages: item.messages
-          );
+          _contact.value = item;
           isStored = true;
         }
       }
@@ -157,7 +149,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
             boughtdate: transaction.boughtdate,
             paiddate: transaction.paiddate
           );
-        _transactionService.addTransaction(ntransaction);
+        _transactionService.addTransaction(ntransaction, _contact.value);
           _navigationService.clearStackAndShow(Routes.mainViewRoute);
         //_navigationService.navigateTo(Routes.mainTransaction);
       } else {
@@ -187,7 +179,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
             boughtdate: transaction.boughtdate,
             paiddate: transaction.paiddate
           );
-          _transactionService.addTransaction(ntransaction);
+          _transactionService.addTransaction(ntransaction, _contact.value);
           _navigationService.clearStackAndShow(Routes.mainViewRoute);
           //_contacts.value.sort((a,b) => b.id.compareTo(a.id));
           //action == 'debtor' ? _navigationService.navigateTo(Routes.addDebt) : _navigationService.navigateTo(Routes.addCredit);

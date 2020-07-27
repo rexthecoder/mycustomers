@@ -333,7 +333,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   //   }
   // }
 
-  void addtransaction(String action, bool update, bool newCus) {
+  void addtransaction(String action, bool update, bool newCus)async {
     if (save) {
       date1err = false;
       date2err = false;
@@ -351,7 +351,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: _transactionService.stransaction.boughtdate,
               paiddate: otherDate.toString());
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
-          _transactionService.updateTransaction(transaction);
+          await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
           _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
@@ -367,7 +367,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: otherDate.toString(),
               paiddate: _transactionService.stransaction.paiddate);
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
-          _transactionService.updateTransaction(transaction);
+          await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
           _logService.getValues(
               amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           _navigationService.replaceWith(Routes.mainTransaction);
@@ -412,7 +412,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           }
           if (!newCus) {
             print('here');
-            _transactionService.addTransaction(transaction);
+            await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
             _navigationService.replaceWith(Routes.mainTransaction);
             _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           }
@@ -455,7 +455,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           }
           if (!newCus) {
             print('here');
-            _transactionService.addTransaction(transaction);
+            await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
             _navigationService.replaceWith(Routes.mainTransaction);
             _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           }
