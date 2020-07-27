@@ -1,29 +1,17 @@
 import 'dart:async';
-import 'dart:collection';
-import 'dart:io';
-
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/message_service.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:mycustomers/core/services/permission_service.dart';
-
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
-
-import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter/material.dart';
-//import 'package:url_launcher/url_launcher.dart';
-
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/core/models/customer.dart';
-import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 
 class MessageViewModel extends ReactiveViewModel {
@@ -32,26 +20,6 @@ class MessageViewModel extends ReactiveViewModel {
   final  _messageService = locator<MessageService>();
   TextEditingController titleController =TextEditingController();
   TextEditingController messageController =TextEditingController();
-
-
-  // Future navigateToSendMessage() async {
-//    await _navigationService.navigateTo(Routes.messageSntDialog,);
-//  const uri = 'sms: +60000000000?body=message';
-//  if(Platform.isAndroid){
-//    if(await canLaunch(uri)){
-//      await launch(uri);
-//
-//    }else{
-//      print('no');
-//    }
-//    url ='sms: +60000000000?body=message';
-//    await launch(uri);
-//  }
-//  else if(Platform.isIOS){
-//    const url ='sms: +60000000000?body=message';
-//    await launch(url);
-//  }
-  // }
 
   List<CustomerContact> get selectedCustomers => _contactService.selectedC;
   String tit = '';
@@ -117,15 +85,6 @@ class MessageViewModel extends ReactiveViewModel {
   Future returnHome() async {
     _contactService.deselectAll();
     _navigationService.clearStackAndShow('/main');
-    //  _navigationService.popUntil((route){
-    //    if(route.settings.name == '/main'){
-    //     //(route.settings.arguments as Map)['result'] = _selectedCustomers;
-    //      return true;
-    //    }else{
-    //      return false;
-    //    }
-    //  });
-    //_navigationService.clearStackAndShow(Routes.mainViewRoute);
   }
 
   StreamController _contactStream = StreamController<List<Customer>>();
@@ -136,15 +95,7 @@ class MessageViewModel extends ReactiveViewModel {
   MessageViewModel();
   Iterable<Contact> contacts;
   List<Customer> _selectedCustomers = [];
-  //List<Customer> get selectedCustomers => _selectedCustomers;
   bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
-  // List<CustomerContact> _selectedCustomers = [];
-  // List<Customer> _newSelectedCustomers = [];
-  // List<Customer> _oldSelectedCustomers = [];
-  // List<Customer> get oldSelectedCustomers => _oldSelectedCustomers;
-  // List<Customer> get newSelectedCustomers => _newSelectedCustomers;
-  // List<CustomerContact> get selectedCustomers => _selectedCustomers;
-  // bool isSelected(Customer customer) => _newSelectedCustomers.contains(customer);
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   init({String query}) async {
@@ -159,15 +110,6 @@ class MessageViewModel extends ReactiveViewModel {
       _contactStream.add(allCustomers);
     }
   }
-//   void oldSelected() {
-//     for (var item in _selectedCustomers) {
-//       _oldSelectedCustomers.add(Customer(name: item.name,
-//           phone: item.phoneNumber,
-//           lastName: '',
-//           initials: item.initials));
-//     }
-// //    notifyListeners();
-//   }
 
   String _searchTerm = '';
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
@@ -176,30 +118,8 @@ class MessageViewModel extends ReactiveViewModel {
     print(_selectedCustomers.length);
     notifyListeners();
   }
-  void mergeSelectCustomer(List<Customer> customers) {
-
-    //final merge = [...oldSelectedCustomers,...customers];
-//    final merge = [..._selectedCustomers,...customers];
 
 
-//    if(_selectedCustomers.)
-//    final unique =
-
-//    final merge = [..._selectedCustomers,...customers];
-//    _selectedCustomers =unique;
-    //_oldSelectedCustomers =merge.toSet().toList();
-//    _selectedCustomers = merge.toSet().toList();
-//    _selectedCustomers = [..._selectedCustomers,...customers];
-//    print(_selectedCustomers.length);
-    notifyListeners();
-  }
-
-  void initSelected(List<CustomerContact> customers){
-    //_selectedCustomers = _selectedCustomers.length == 0?[..._selectedCustomers,...customers]
-        //:_selectedCustomers;
-//    notifyListeners();
-
-  }
 
   void setQuickText(title, message){
     if(title.length !=0){
@@ -210,36 +130,11 @@ class MessageViewModel extends ReactiveViewModel {
     }
     
   }
-  void getFrequentCustomers() {
-    //todo: get frequent customers
-//    allFrequentCustomers
-  }
 
-  void deselectCustomer(Customer customer) {
-    print(customer.id);
-    //_oldSelectedCustomers.removeWhere((element) => element.phone == customer.phone);
-    notifyListeners();
-  }
-//  //todo: implement add new customer
-  Future navigateToAddNewCustomer() async {
-
-    final newContact= await _navigationService
-        .navigateTo(Routes.addNewCustomerMarketing);
-
-    await newContact!= null??
-        allCustomers.add(newContact);
-    selectedCustomers.add(newContact);
-    notifyListeners();
-    print(newContact.name);
-  }
   /// View initialize and close section
 
   popView() {
     _navigationService.back();
-  }
-  returnCustomers() {
-    _navigationService.back(result: _selectedCustomers);
-
   }
 
 
