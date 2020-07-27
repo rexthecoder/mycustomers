@@ -18,7 +18,6 @@ import 'package:mycustomers/ui/views/business/profile/addAssistant/addAssitant_v
 import 'package:mycustomers/ui/views/business/settings/app_lock_settings_page/app_lock_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/change_pin_settings_page/change_pin_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/saved_dialog_modal/saved_dialog_view.dart';
-import 'package:mycustomers/ui/views/home/home_page/home_page_view.dart';
 import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
@@ -31,14 +30,12 @@ import 'package:mycustomers/ui/views/home/signup/verification/verification_view.
 import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_message/add_customer_message_view.dart';
 import 'package:mycustomers/ui/views/marketing/add_customer_manually/add_new_customer_view.dart';
-import 'package:mycustomers/ui/views/marketing/message_sent_dialogs/message_sent_dialog_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_view.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/message/message_view.dart';
 import 'package:mycustomers/ui/views/marketing/marketing_home_page/marketing_homepage_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt_credit/add_debt_credit_view.dart';
 import 'package:mycustomers/ui/views/home/transactions_details/transaction_detail_view.dart';
 import 'package:mycustomers/ui/views/home/transaction_history/transaction_history_view.dart';
-import 'package:mycustomers/ui/views/marketing/send_message_page/send_a_message/send_a_message_view.dart';
 import 'package:mycustomers/ui/views/startup/startup_view.dart';
 import 'package:mycustomers/ui/views/home/notification_view/notification_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_notifications/send_reminder/send_reminder_view.dart';
@@ -300,11 +297,6 @@ class Router {
           builder: (context) => SavedDialogView(),
           settings: settings,
         );
-      case Routes.messageSntDialog:
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => MessageDialogView(),
-          settings: settings,
-        );
       case Routes.businessCardRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessCardPageView(),
@@ -343,16 +335,10 @@ class Router {
           builder: (context) => DetailsView(),
           settings: settings,
         );
-      case Routes.sendMessageViewRoute:
-        final customerList = settings.arguments;
-        return CupertinoPageRoute<dynamic>(
-          builder: (context) => SendAMessage(customerList),
-          settings: settings,
-        );
+
       case Routes.messageHistoryView:
-        final customer = settings.arguments;
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => MessageHistoryView(customer: customer),
+          builder: (context) => MessageHistoryView(),
           settings: settings,
         );
       case Routes.quickMessages:

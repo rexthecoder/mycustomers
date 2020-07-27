@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
-import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/message_history/message_history_viewmodel.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:stacked/stacked.dart';
 
 class MessageHistoryView extends StatelessWidget {
-  final Customer customer;
-  MessageHistoryView({this.customer});
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -21,7 +17,6 @@ class MessageHistoryView extends StatelessWidget {
     return ViewModelBuilder<MessageHistoryViewModel>.reactive(
         onModelReady: (model) => model.getMessages(),
         builder: (context, model, child) {
-          //model.init(customer);
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: PreferredSize(
@@ -101,11 +96,6 @@ class MessageHistoryView extends StatelessWidget {
                           vertical: ScreenUtil().setHeight(10)),
                       height: 70,
                       child: Container(
-//                        padding: EdgeInsets.all(2.0),
-//                        shape: RoundedRectangleBorder(
-//                          borderRadius: BorderRadius.circular(5)
-//                        ),
-//                        onPressed: (){},
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
@@ -134,34 +124,36 @@ class MessageHistoryView extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 Container(
+                  height:  SizeConfig.yMargin(context, 80),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Expanded(
                         child: ListView.builder(
-                            //reverse: true,
                             itemCount: model.messages.length,
                             itemBuilder: (BuildContext context, int index) =>
-                                Container(
-                                  //color: Colors.red,
-                                  child: Padding(
-//                          padding: const EdgeInsets.symmetric(vertical: 20),
-                                    padding: const EdgeInsets.only(
-                                        top: 5, bottom: 5, left: 60, right: 20),
-                                    child: Container(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Flexible(
+                                      child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: Colors.grey[300],
+                                          BorderRadius.circular(5),
+                                          color: ThemeColors.gray[800].withOpacity(0.5),
                                         ),
-                                        child: Center(
-                                            child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(5.0),
+                                        margin:  EdgeInsets.only(
+                                            top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+                                        child: Flexible(
                                           child: Text(
-                                            model.messages[index].message ?? '',
-                                            textAlign: TextAlign.end,
+                                          model.messages[index].message ?? '',
+                                          textAlign: TextAlign.end,
                                           ),
-                                        ))),
-                                  ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 )),
                       ),
                     ],
@@ -228,7 +220,7 @@ class MessageHistoryView extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-//                        hintText: AppLocalizations
+                                      hintText: AppLocalizations.of(context).startTypingYourmessage
                                       ),
                                       onChanged: model.updatetext,
                                     ),

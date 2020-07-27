@@ -3,9 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
-import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
-import 'package:mycustomers/core/services/customer_services.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -57,11 +55,6 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     notifyListeners();
   }
 
-  void getFrequentCustomers(value) {
-    //todo: get frequent customers
-    _allFrequentCustomers = value != null ? value : [];
-//    notifyListeners();
-  }
 
   void deselectCustomer(Customer customer) {
     print(customer.id);
@@ -70,22 +63,7 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     notifyListeners();
   }
 
-//  //todo: implement add new customer
-  Future navigateToAddNewCustomer() async {
-    final newContact =
-        await _navigationService.navigateTo(Routes.addNewCustomerMarketing);
 
-    await newContact != null ?? _allCustomers.add(newContact);
-    selectedCustomers.add(newContact);
-    notifyListeners();
-    print(newContact.name);
-  }
-
-  void sendMessage() {
-    _navigationService.navigateTo(Routes.quickMessages,
-        arguments: _selectedCustomers);
-//        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
-  }
 
   // View initialize and close section
 
@@ -93,9 +71,6 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     _navigationService.back();
   }
 
-  returnCustomers() {
-    _navigationService.back(result: _selectedCustomers);
-  }
 
   Future returnHome() async {
     for (var item in _selectedCustomers) {
