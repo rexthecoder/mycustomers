@@ -16,16 +16,7 @@ final _customerService = locator<CustomerContactService>();
   Customer currentCustomer;
   TextEditingController messageController =TextEditingController();
   List<String> dummyQuickText= ['Don\'t leave me', 'Happy New Year', ' Season\'s greeting', 'Happy weekend'];
-  List<String> dummyQuickTextMessages = [
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend'
-        'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-  ];
+
 
   CustomerContact get customer => _customerService.contact;
   List<Message> get messages => _messageService.messages;
