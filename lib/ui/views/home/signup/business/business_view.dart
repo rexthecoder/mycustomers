@@ -101,7 +101,6 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         right: SizeConfig.xMargin(context, 4),
                         bottom: SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
-                      // autofocus: true,
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.sentences,
                       key: Key("fullname"),
@@ -121,6 +120,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                           labelText:
                               AppLocalizations.of(context).enterYourFullName,
                           border: OutlineInputBorder()),
+                          textInputAction: TextInputAction.next,
                     ),
                   ),
                   Padding(
@@ -146,6 +146,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                           labelText: AppLocalizations.of(context)
                               .pleaseEnterYourEmailAddress,
                           border: OutlineInputBorder()),
+                          textInputAction: TextInputAction.next,
                     ),
                   ),
                   Padding(
@@ -172,6 +173,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                           labelText:
                               AppLocalizations.of(context).enterStoreName,
                           border: OutlineInputBorder()),
+                          textInputAction: TextInputAction.next,
                     ),
                   ),
                   Padding(
@@ -198,6 +200,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                           labelText:
                               AppLocalizations.of(context).enterStoreAddress,
                           border: OutlineInputBorder()),
+                          textInputAction: TextInputAction.done,
                     ),
                   ),
                 ],

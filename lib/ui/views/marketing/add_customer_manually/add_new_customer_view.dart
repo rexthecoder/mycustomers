@@ -55,6 +55,7 @@ class AddNewCustomerView extends StatelessWidget {
                                     borderSide: BorderSide.none),
                               ),
                               controller: model.name,
+                              textInputAction: TextInputAction.next,
                             ),
                           ),
                         )),
@@ -113,6 +114,7 @@ class AddNewCustomerView extends StatelessWidget {
                                 ),
                                 controller: model.phoneNumber,
                                 onChanged: model.updateContact,
+                                textInputAction: TextInputAction.done,
                               ),
                             )
                           ],

@@ -151,6 +151,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                       ),
                       controller: name,
                       onChanged: model.updateName,
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ),

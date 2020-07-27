@@ -101,6 +101,7 @@ class _StringForm extends HookViewModelWidget<PartialBuildsViewModel> {
                       ),
                       controller: name,
                       onChanged: model.updateName,
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ),
@@ -153,6 +154,7 @@ class _StringForm extends HookViewModelWidget<PartialBuildsViewModel> {
                     ),
                     controller: phoneNumber,
                     onChanged: model.updateContact,
+                    textInputAction: TextInputAction.done,
                   ),
                 )
               ],
