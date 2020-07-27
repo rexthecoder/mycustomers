@@ -1,6 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -46,6 +47,7 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
   ICustomerService _customerService = locator<ICustomerService>();
   final _contactService = locator<CustomerContactService>();
   final _messageService = locator<MessageService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   
 
@@ -78,7 +80,7 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
     //print(frequents);
   }
 
-  void deleteCustomer(CustomerContact cus) {
+  void deleteCustomer(CustomerContact cus) async {
     CustomerContact cust = new CustomerContact(
       id: cus.id,
       name: cus.name,
@@ -92,8 +94,19 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
         _messageService.deleteMessage(item);
       }
     }
-    _contactService.deleteContactMarket(cus, cust);
+    await _transactionService.getTransactions(cus.id, StoreRepository.currentStore.id);
+    print(_transactionService.transactions.length);
+    if(_transactionService.transactions.length > 0) {
+      print('hrr');
+      _contactService.deleteContactMarket(cus, cust);
+    } else {
+      _contactService.deleteContact(cus);
+    }
     getContacts();
+  }
+
+  void selectAll() {
+    _contactService.selectAll(customers);
   }
 
   List<Customer> _allSelectedCustomers = [];

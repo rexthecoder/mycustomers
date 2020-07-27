@@ -61,13 +61,15 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   void getContacts() async {
     //final bbox = await box;
     _contacts.value = _contactBox.values.toList();
-    _contacts.value.sort((a,b) => b.id.compareTo(a.id));
+    //_contacts.value.sort((a,b) => b.id.compareTo(a.id));
   }
 
   int getCustomerCount(String stid) {
     int sum = 0;
     for(var item in _contacts.value) {
-      if(item.storeid == stid) {
+      //print(item.market);
+      //print(item.name);
+      if(item.storeid == stid && !item.market) {
         sum+=1;
       }
     }
@@ -111,7 +113,9 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
 
   void selectAll(List<CustomerContact> custt) {
     _selectedC.value = [];
+    temp = [];
     _selectedC.value = custt;
+    temp = custt;
   }
 
   void deselectAll() {
@@ -230,6 +234,12 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
 
   void deleteContactMarket(CustomerContact cus, CustomerContact cust) async {
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), cust);
+  }
+
+  void deleteContact(CustomerContact cus) async {
+    print(_contactBox.values.toList().indexOf(cus));
+    await _contactBox.deleteAt(_contactBox.values.toList().indexOf(cus));
+    getContacts();
   }
 
 }

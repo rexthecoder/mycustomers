@@ -159,6 +159,7 @@ class MarketingHomePageView extends StatelessWidget {
                                     fontWeight: FontWeight.w600),
                               ),
                               InkWell(
+                                //onTap: () => model.selectAll(),
                                 child: Container(
                                   color:
                                       BrandColors.secondary.withOpacity(0.07),
