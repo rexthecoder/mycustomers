@@ -172,7 +172,7 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
         : MemoryImage(model.currentStore.storePic),
     child: model.currentStore.storePic == null
         ? Text(
-            model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
+            model.userName.isEmpty ? '' : model.userName.substring(0, 1),
             style: TextStyle(
               color: BrandColors.primary,
               fontSize: SizeConfig.textSize(context, 18),
