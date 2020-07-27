@@ -1,5 +1,4 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -28,18 +27,11 @@ class BusinessView extends StatelessWidget {
         ),
         child: SafeArea(
           child: WillPopScope(
-            onWillPop: () => Flushbar(
-              backgroundColor: BrandColors.primary,
-              duration: const Duration(seconds: 5),
-              message:
+            onWillPop: () {
+              return flusher(
                   'Sorry, you will need to register a business to access myCustomer',
-              icon: Icon(
-                Icons.info_outline,
-                size: 28.0,
-                color: ThemeColors.background,
-              ),
-              leftBarIndicatorColor: Colors.blue[300],
-            ).show(context),
+                  context);
+            },
             child: Scaffold(
               key: _businessPageKey,
               resizeToAvoidBottomInset: false,

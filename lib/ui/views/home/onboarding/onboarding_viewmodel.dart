@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
-import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -20,7 +19,7 @@ class OnboardingViewModel extends BaseViewModel {
   int get pageAnimeSecs => _pageAnimeSecs;
 
   void changePage() {
-    currentIndex < 4 ? currentIndex++ : currentIndex = 0;
+    currentIndex < 3 ? currentIndex++ : currentIndex = 0;
 
     pageController.animateToPage(
       currentIndex,
@@ -38,8 +37,6 @@ class OnboardingViewModel extends BaseViewModel {
   void restartTimer(int index) {
     currentIndex = index;
     _animationTimer?.cancel();
-//    _animationTimer =
-//        Timer.periodic(Duration(seconds: animeSecs), changePage);
     _animationTimer = Timer(Duration(seconds: animeSecs), changePage);
   }
 
@@ -50,7 +47,7 @@ class OnboardingViewModel extends BaseViewModel {
   Future navigateToSignIn() async {
     await _navigationService.replaceWithTransition(
       SignInView(),
-      opaque: true,
+      opaque: false,
       popGesture: true,
       transition: 'rightToLeftWithFade',
       duration: Duration(milliseconds: 100),
@@ -60,7 +57,7 @@ class OnboardingViewModel extends BaseViewModel {
   Future navigateToSignUp() async {
     await _navigationService.replaceWithTransition(
       SignUpView(),
-      opaque: true,
+      opaque: false,
       popGesture: true,
       transition: 'rightToLeftWithFade',
       duration: Duration(milliseconds: 100),

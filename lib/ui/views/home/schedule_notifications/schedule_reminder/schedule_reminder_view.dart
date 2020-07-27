@@ -1,20 +1,14 @@
-// import 'dart:math';
-
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'schedule_reminder_viewmodel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'package:mycustomers/ui/views/home/schedule_notifications/schedule_reminder/widgets/timeWheel.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 class ScheduleNotifications extends StatelessWidget {
   final _heading = TextEditingController();
@@ -50,7 +44,8 @@ class ScheduleNotifications extends StatelessWidget {
                                   .textTheme
                                   .headline6
                                   .copyWith(
-                                      fontSize:SizeConfig.textSize(context, 4.4),
+                                      fontSize:
+                                          SizeConfig.textSize(context, 4.4),
                                       fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -65,40 +60,24 @@ class ScheduleNotifications extends StatelessWidget {
                                       description: _description,
                                     ),
                                     CustomRaisedButton(
-                                    txtColor: ThemeColors.background,
-                                    btnColor: BrandColors.primary,
-                                    btnText: 'NO EDIT',
-                                    borderColor: BrandColors.primary,
-                                    child: Container(
-                                      height: SizeConfig.yMargin(context, 7)
+                                      txtColor: ThemeColors.background,
+                                      btnColor: BrandColors.primary,
+                                      btnText: 'Schedule',
+                                      borderColor: BrandColors.primary,
+                                      child: Container(
+                                          height:
+                                              SizeConfig.yMargin(context, 7)),
+                                      onPressed: () {
+                                        if (_schedule.currentState.validate()) {
+                                          model.scheduleReminder(_heading.text);
+                                          flusher(
+                                              'Your Reminder has been set successfully',
+                                              context);
+
+                                          model.navigateToMainView();
+                                        }
+                                      },
                                     ),
-                                    onPressed: ()  {
-                                      model.navigateToMainView();
-                                                      // if (_schedule.currentState
-                                                      //     .validate()) {
-                                                      //   model.scheduleReminder(
-                                                      //       _heading.text);
-                                                      //   Flushbar(
-                                                      //     backgroundColor:
-                                                      //         BrandColors.primary,
-                                                      //     duration:
-                                                      //         const Duration(seconds: 3),
-                                                      //     message:
-                                                      //         'Your Reminder have been set successfully',
-                                                      //     icon: Icon(
-                                                      //       Icons.info_outline,
-                                                      //       size: 28.0,
-                                                      //       color: ThemeColors.background,
-                                                      //     ),
-                                                      //     leftBarIndicatorColor:
-                                                      //         Colors.blue[300],
-                                                      //   ).show(context);
-                                                      //   await Navigator.pushNamed(
-                                                      //       context, '/mainView');
-                                                      // }
-                          },
-                        ),
-                                    
                                     SizedBox(
                                       height: 50,
                                     ),
@@ -162,13 +141,12 @@ class _ReminderForm
         },
         child: Container(
           padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.yMargin(context, 2 ),
-              horizontal: SizeConfig.xMargin(context, 5)
-              ),
+              vertical: SizeConfig.yMargin(context, 2),
+              horizontal: SizeConfig.xMargin(context, 5)),
           decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFD1D1D1), width: 2.0),
-              borderRadius: BorderRadius.circular(5),
-              ),
+            border: Border.all(color: Color(0xFFD1D1D1), width: 2.0),
+            borderRadius: BorderRadius.circular(5),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

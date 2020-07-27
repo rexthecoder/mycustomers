@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,8 +12,8 @@ import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_vi
 
 class QuickMessageView extends StatelessWidget {
 //  final MessageArgument arguments;
-  final List<Customer> selectedCustomers;
-  QuickMessageView(this.selectedCustomers);
+  final List<Customer> selectedCustomers = [];
+  //QuickMessageView(this.selectedCustomers);
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -47,7 +48,7 @@ class QuickMessageView extends StatelessWidget {
                       ),
                       FlatButton(
                         onPressed: () => model.navigateToMessageView(
-                            selectedCustomers,
+                            //selectedCustomers,
                             quickMessageTitle[index],
                             quickMessageText[index]),
                         shape: RoundedRectangleBorder(
@@ -116,7 +117,7 @@ class QuickMessageView extends StatelessWidget {
                   color: BrandColors.primary,
                   onPressed: () {
                     model.navigateToMessage(
-                      selectedCustomers,
+                      //selectedCustomers,
                     );
                   },
                   shape: RoundedRectangleBorder(

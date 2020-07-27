@@ -9,8 +9,6 @@ import 'package:flutter_screenutil/size_extension.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'edit_profile_viewmodel.dart';
-import 'package:flushbar/flushbar_helper.dart';
-import 'package:async/async.dart';
 
 class EditProfileView extends HookWidget {
   @override
@@ -116,10 +114,7 @@ class EditProfileView extends HookWidget {
                     child: Container(),
                     onPressed: () {
                       model.save();
-                      FlushbarHelper.createInformation(
-                        duration: const Duration(seconds: 5),
-                        message: AppLocalizations.of(context).save,
-                      ).show(context);
+                      flusher(AppLocalizations.of(context).save, context);
                     },
                   ),
                   SizedBox(
@@ -170,7 +165,9 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
 
   return CircleAvatar(
     backgroundColor: ThemeColors.unselect,
-    backgroundImage: model.currentStore.storePic == null ? null : MemoryImage(model.currentStore.storePic),
+    backgroundImage: model.currentStore.storePic == null
+        ? null
+        : MemoryImage(model.currentStore.storePic),
     child: model.currentStore.storePic == null
         ? Text(
             model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),

@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -124,32 +123,19 @@ class AddNewCustomerView extends StatelessWidget {
                       child: FlatButton(
                         color: BrandColors.primary,
                         onPressed: () {
+                          //Dismiss keyboard during async call
+                          FocusScope.of(context).requestFocus(FocusNode());
+
                           !model.validateNumber()
-                              ? Flushbar(
-                                  backgroundColor: BrandColors.primary,
-                                  duration: const Duration(seconds: 3),
-                                  message: AppLocalizations.of(context)
+                              ? flusher(
+                                  AppLocalizations.of(context)
                                       .enterAValidNumber,
-                                  icon: Icon(
-                                    Icons.info_outline,
-                                    size: 28.0,
-                                    color: ThemeColors.background,
-                                  ),
-                                  leftBarIndicatorColor: Colors.blue[300],
-                                ).show(context)
+                                  context)
                               : !model.validateName()
-                                  ? Flushbar(
-                                      backgroundColor: BrandColors.primary,
-                                      duration: const Duration(seconds: 3),
-                                      message: AppLocalizations.of(context)
+                                  ? flusher(
+                                      AppLocalizations.of(context)
                                           .enterCustomerName,
-                                      icon: Icon(
-                                        Icons.info_outline,
-                                        size: 28.0,
-                                        color: ThemeColors.background,
-                                      ),
-                                      leftBarIndicatorColor: Colors.blue[300],
-                                    ).show(context)
+                                      context)
                                   : model.returnHome();
                         },
                         shape: RoundedRectangleBorder(

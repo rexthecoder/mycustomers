@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
@@ -8,8 +9,8 @@ import 'package:mycustomers/core/services/message_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class MessageHistoryViewModel extends BaseViewModel {
-  final _customerService = locator<CustomerContactService>();
+class MessageHistoryViewModel extends ReactiveViewModel{
+final _customerService = locator<CustomerContactService>();
   final _messageService = locator<MessageService>();
   final NavigationService _navigationService = locator<NavigationService>();
   Customer currentCustomer;
@@ -27,7 +28,7 @@ class MessageHistoryViewModel extends BaseViewModel {
   ];
 
   CustomerContact get customer => _customerService.contact;
-  List<Message> get messages => _messageService.getMessage(customer.id);
+  List<Message> get messages => _messageService.messages;
 
   String mesgg;
 
@@ -40,6 +41,11 @@ class MessageHistoryViewModel extends BaseViewModel {
     _customerService.setContact(cus);
   }
 
+  void getMessages(){
+    _messageService.getMessage(customer.id);
+    notifyListeners();
+  }
+
   init(customer){
     currentCustomer =customer;
     notifyListeners();
@@ -47,6 +53,7 @@ class MessageHistoryViewModel extends BaseViewModel {
 
   setText(value){
     messageController.text= value;
+    mesgg = value;
     notifyListeners();
   }
 
@@ -55,10 +62,18 @@ class MessageHistoryViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void navigateToTransaction() {
+    _navigationService.navigateTo(Routes.mainTransaction);
+  }
+
   void send() {
     _messageService.addMessage(mesgg, customer.id);
+    getMessages();
     messageController.clear();
     notifyListeners();
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_messageService, _customerService];
 
 }

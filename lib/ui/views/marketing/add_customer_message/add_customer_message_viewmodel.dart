@@ -10,7 +10,6 @@ import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-
 import 'dart:async';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:uuid/uuid.dart';
@@ -38,7 +37,8 @@ class AddCustomerMessageViewModel extends StreamViewModel {
 
   Future<void> init({String query}) async {
     _allCustomers.clear();
-    for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+    for (Customer customer
+        in (await iOwnerServices.getPhoneContacts(query: query))) {
       print('Iterate');
       if (_busy) {
         _busy = false;
@@ -59,58 +59,56 @@ class AddCustomerMessageViewModel extends StreamViewModel {
 
   void getFrequentCustomers(value) {
     //todo: get frequent customers
-    _allFrequentCustomers = value !=null? value:[];
+    _allFrequentCustomers = value != null ? value : [];
 //    notifyListeners();
   }
 
   void deselectCustomer(Customer customer) {
     print(customer.id);
-    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+    _selectedCustomers
+        .removeWhere((element) => element.phone == customer.phone);
     notifyListeners();
   }
+
 //  //todo: implement add new customer
   Future navigateToAddNewCustomer() async {
+    final newContact =
+        await _navigationService.navigateTo(Routes.addNewCustomerMarketing);
 
-    final newContact= await _navigationService
-        .navigateTo(Routes.addNewCustomerMarketing);
-
-   await newContact!= null??
-       _allCustomers.add(newContact);
-   selectedCustomers.add(newContact);
+    await newContact != null ?? _allCustomers.add(newContact);
+    selectedCustomers.add(newContact);
     notifyListeners();
     print(newContact.name);
   }
-  void sendMessage(){
 
-    _navigationService
-        .navigateTo(Routes.quickMessages,arguments: _selectedCustomers);
+  void sendMessage() {
+    _navigationService.navigateTo(Routes.quickMessages,
+        arguments: _selectedCustomers);
 //        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
-  /// View initialize and close section
+  // View initialize and close section
 
   popView() {
     _navigationService.back();
   }
+
   returnCustomers() {
     _navigationService.back(result: _selectedCustomers);
-
   }
+
   Future returnHome() async {
-    for(var item in _selectedCustomers) {
-      _customerService.addContactmarket(item.phone, item.displayName, '', item.initials, StoreRepository.currentStore.id);
+    for (var item in _selectedCustomers) {
+    // Add Customer Service LocalDS
+      _customerService.addContactmarket(item.phone, item.displayName, '',
+          item.initials, StoreRepository.currentStore.id);
     }
-    _navigationService.popUntil((route){
-      if(route.settings.name == '/main'){
-        //(route.settings.arguments as Map)['result'] = _selectedCustomers;
-        return true;
-      }else{
-        return false;
-      }
-    });
+    // Get current store id
+    _customerService.getCustomermarket(StoreRepository.currentStore.id);
+
+    // Navigate back
+    _navigationService.back();
   }
-
-
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) async {
@@ -120,8 +118,6 @@ class AddCustomerMessageViewModel extends StreamViewModel {
     init(query: _searchTerm);
   }
 
-
   @override
   Stream get stream => _contactStream.stream;
-
 }
