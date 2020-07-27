@@ -75,6 +75,7 @@ class MessageView extends StatelessWidget {
                     ),
 //                      maxLines: 2,
                     onChanged: model.setTitle,
+                    textInputAction: TextInputAction.next,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -98,6 +99,7 @@ class MessageView extends StatelessWidget {
                     ),
                     maxLines: 3,
                     onChanged: model.setBody,
+                    textInputAction: TextInputAction.next,
                   ),
                   SizedBox(
                     height: 10.h,

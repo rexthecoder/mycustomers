@@ -208,7 +208,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                     vertical: ScreenUtil()
                                                         .setHeight(8)),
                                           ),
-                                          textInputAction: TextInputAction.go,
+                                          textInputAction: TextInputAction.next,
                                           onChanged: (value) =>
                                               model.updateAmount(value, update,
                                                   action, newCus),
@@ -581,7 +581,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                                         .setSp(
                                                                             15)),
                                                           ),
-                                                          //textInputAction: TextInputAction.go,
+                                                          textInputAction: TextInputAction.next,
                                                           // onSubmitted: (value) {
                                                           //   _controller.clear();
                                                           //   model.addItem(action, update);
@@ -728,7 +728,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             .setHeight(20)),
                                               ),
                                               textInputAction:
-                                                  TextInputAction.go,
+                                                  TextInputAction.next,
                                               onChanged: (value) => model
                                                   .updateName(value, action),
                                             ),

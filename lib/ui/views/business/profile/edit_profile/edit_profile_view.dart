@@ -98,6 +98,7 @@ class EditProfileView extends HookWidget {
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
                             ),
+                            textInputAction: TextInputAction.next,
                           ),
                         ),
                       )
@@ -152,6 +153,7 @@ class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
       style: TextStyle(
         color: Theme.of(context).textSelectionColor,
       ),
+      textInputAction: TextInputAction.done,
     );
   }
 }

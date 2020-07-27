@@ -231,6 +231,7 @@ class MessageHistoryView extends StatelessWidget {
 //                        hintText: AppLocalizations
                                       ),
                                       onChanged: model.updatetext,
+                                      textInputAction: TextInputAction.search,
                                     ),
                                   ),
                                   SizedBox(

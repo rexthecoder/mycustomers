@@ -106,6 +106,7 @@ class AddAssistantView extends StatelessWidget {
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide.none),
                                     contentPadding: EdgeInsets.all(14.sp)),
+                                    textInputAction: TextInputAction.next,
                               ),
                             ),
                             SizedBox(height: 20.h),
@@ -129,6 +130,7 @@ class AddAssistantView extends StatelessWidget {
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide.none),
                                     contentPadding: EdgeInsets.all(14.sp)),
+                                    textInputAction: TextInputAction.next,
                               ),
                             ),
                             SizedBox(height: 20.h),
@@ -149,6 +151,7 @@ class AddAssistantView extends StatelessWidget {
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide.none),
                                     contentPadding: EdgeInsets.all(14.sp)),
+                                    textInputAction: TextInputAction.done,
                               ),
                             )
                           ],
