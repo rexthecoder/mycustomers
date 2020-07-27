@@ -133,7 +133,16 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       bool isStored = false;
       for(var item in _contactBox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber && item.storeid == stid){
-          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid, market: item.market);
+          _contact.value = CustomerContact(
+            name: item.name,
+            phoneNumber:item.phoneNumber,
+            id: item.id,
+            initials: item.initials,
+            storeid: item.storeid,
+            market: item.market,
+            transactions: item.transactions,
+            messages: item.messages
+          );
           isStored = true;
         }
       }
@@ -152,7 +161,16 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           _navigationService.clearStackAndShow(Routes.mainViewRoute);
         //_navigationService.navigateTo(Routes.mainTransaction);
       } else {
-        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid, market: false);
+        CustomerContact contact = new CustomerContact(
+          name: customerName,
+          phoneNumber: dropDownValue + customerPhoneNumber,
+          id: uuid.v4(),
+          initials: initials,
+          storeid: stid,
+          market: false,
+          transactions: [],
+          messages: []
+        );
         _contactBox.add(contact).then((value){
           success = true;
           print(success);
@@ -195,25 +213,52 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       bool isStored = false;
       for(var item in _contactBox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber && item.storeid == stid){
-          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid, market: item.market);
+          _contact.value = CustomerContact(
+            name: item.name,
+            phoneNumber: item.phoneNumber,
+            id: item.id,
+            initials: item.initials,
+            storeid: item.storeid,
+            market: item.market,
+            transactions: item.transactions,
+            messages: item.messages
+          );
           isStored = true;
         }
       }
       if(isStored){
         print('stored');
-        CustomerContact cnt = new CustomerContact(name: _contact.value.name, phoneNumber: _contact.value.phoneNumber, id: _contact.value.id, initials: _contact.value.initials, storeid: _contact.value.storeid, market: true);
+        CustomerContact cnt = new CustomerContact(
+          name: _contact.value.name,
+          phoneNumber: _contact.value.phoneNumber,
+          id: _contact.value.id,
+          initials: _contact.value.initials,
+          storeid: _contact.value.storeid,
+          market: true,
+          transactions: _contact.value.transactions,
+          messages: _contact.value.messages
+        );
         updateContact(cnt);
         _contact.value = cnt;
-        print('service'+_contact.value.name);
+        //print('service'+_contact.value.name);
 
       } else {
-        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid, market: true);
+        CustomerContact contact = new CustomerContact(
+          name: customerName, 
+          phoneNumber: dropDownValue + customerPhoneNumber, 
+          id: uuid.v4(), 
+          initials: initials,
+          storeid: stid, 
+          market: true,
+          transactions: [],
+          messages: []
+        );
         await _contactBox.add(contact).then((value){
           success = true;
           print(success);
           _contact.value = contact;
-          print('service'+_contact.value.name);
-          print('set ${contact.id}');
+          //print('service'+_contact.value.name);
+          //print('set ${contact.id}');
           //_contacts.value = _contactBox.values.toList();
         }).catchError((err){
           error = err;
