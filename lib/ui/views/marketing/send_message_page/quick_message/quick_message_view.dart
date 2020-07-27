@@ -7,12 +7,9 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_text.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_viewmodel.dart';
 import 'package:mycustomers/core/models/customer.dart';
-import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_viewmodel.dart';
 
 class QuickMessageView extends StatelessWidget {
-//  final MessageArgument arguments;
-  final List<Customer> selectedCustomers;
-  QuickMessageView(this.selectedCustomers);
+  final List<Customer> selectedCustomers = [];
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -27,9 +24,9 @@ class QuickMessageView extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-//              title: 'Quick messages',
               title: AppLocalizations.of(context).sendMessage,
-              arrowColor: BrandColors.secondary),
+              arrowColor: BrandColors.primary,
+              backgroundColor: Theme.of(context).backgroundColor),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -46,7 +43,7 @@ class QuickMessageView extends StatelessWidget {
                       ),
                       FlatButton(
                         onPressed: () => model.navigateToMessageView(
-                            selectedCustomers,
+                            //selectedCustomers,
                             quickMessageTitle[index],
                             quickMessageText[index]),
                         shape: RoundedRectangleBorder(
@@ -104,7 +101,7 @@ class QuickMessageView extends StatelessWidget {
                     AppLocalizations.of(context).seeAll,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: BrandColors.secondary,
+                      color: BrandColors.primary,
                       fontWeight: FontWeight.bold,
                       fontSize: 18.sp,
                     ),
@@ -112,10 +109,10 @@ class QuickMessageView extends StatelessWidget {
                 ),
                 SizedBox(height: 50.h),
                 FlatButton(
-                  color: BrandColors.secondary,
+                  color: BrandColors.primary,
                   onPressed: () {
                     model.navigateToMessage(
-                      selectedCustomers,
+                      //selectedCustomers,
                     );
                   },
                   shape: RoundedRectangleBorder(
@@ -137,165 +134,6 @@ class QuickMessageView extends StatelessWidget {
               ],
             ),
           ),
-//          body: SingleChildScrollView(
-//            child: Padding(
-//              padding: const EdgeInsets.symmetric(horizontal: 20),
-//              child: Container(
-//                child: Column(
-//                  children: <Widget>[
-//                    ListView.builder(itemBuilder: (BuildContext context, int index)=>FlatButton(
-//                      onPressed: () =>
-//                          model.navigateToMessageView(selectedCustomers),
-//                      shape: RoundedRectangleBorder(
-//                          borderRadius: BorderRadius.circular(5),
-//                          side: BorderSide(color: BrandColors.secondary)),
-//                      child: Container(
-//                        height: 100.h,
-//                        child: Padding(
-//                          padding: const EdgeInsets.all(10.0),
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                            children: <Widget>[
-//                              Expanded(
-//                                child: Column(
-//                                  mainAxisAlignment: MainAxisAlignment.center,
-//                                  crossAxisAlignment: CrossAxisAlignment.start,
-//                                  children: <Widget>[
-//                                    Text(
-//                                      'Happy new year',
-//                                      style: TextStyle(
-//                                        color: BrandColors.secondary,
-//                                        fontSize: 16.sp,
-//                                      ),
-//                                    ),
-//                                    SizedBox(
-//                                      height: 5.h,
-//                                    ),
-//                                    Text(
-//                                      'Best Wishes from me',
-//                                      style: TextStyle(
-//                                        fontSize: 16.sp,
-//                                        color: BrandColors.secondary,
-//                                      ),
-//                                    ),
-//                                  ],
-//                                ),
-//                              ),
-//                              Icon(
-//                                Icons.navigate_next,
-//                                color: BrandColors.secondary,
-//                              ),
-//                            ],
-//                          ),
-//                        ),
-//                      ),
-//                    ),),
-//                    SizedBox(
-//                      height: 20.h,
-//                    ),
-//                    FlatButton(
-//                      onPressed: () =>
-//                          model.navigateToMessageView(selectedCustomers),
-//                      shape: RoundedRectangleBorder(
-//                          borderRadius: BorderRadius.circular(5),
-//                          side: BorderSide(color: BrandColors.secondary)),
-//                      child: Container(
-//                        height: 100.h,
-//                        child: Padding(
-//                          padding: const EdgeInsets.all(10.0),
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                            children: <Widget>[
-//                              Expanded(
-//                                child: Column(
-//                                  mainAxisAlignment: MainAxisAlignment.center,
-//                                  crossAxisAlignment: CrossAxisAlignment.start,
-//                                  children: <Widget>[
-//                                    Text(
-//                                      'Happy new year',
-//                                      style: TextStyle(
-//                                        color: BrandColors.secondary,
-//                                        fontSize: 16.sp,
-//                                      ),
-//                                    ),
-//                                    SizedBox(
-//                                      height: 5.h,
-//                                    ),
-//                                    Text(
-//                                      'Best Wishes from me',
-//                                      style: TextStyle(
-//                                        fontSize: 16.sp,
-//                                        color: BrandColors.secondary,
-//                                      ),
-//                                    ),
-//                                  ],
-//                                ),
-//                              ),
-//                              Icon(
-//                                Icons.navigate_next,
-//                                color: BrandColors.secondary,
-//                              ),
-//                            ],
-//                          ),
-//                        ),
-//                      ),
-//                    ),
-//                    SizedBox(
-//                      height: 20.h,
-//                    ),
-//                    FlatButton(
-//                      onPressed: () =>
-//                          model.navigateToMessageView(selectedCustomers),
-//                      shape: RoundedRectangleBorder(
-//                          borderRadius: BorderRadius.circular(5),
-//                          side: BorderSide(color: BrandColors.secondary)),
-//                      child: Container(
-////                        width: width,
-//                        height: 100.h,
-//                        child: Padding(
-//                          padding: const EdgeInsets.all(10.0),
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                            children: <Widget>[
-//                              Expanded(
-//                                child: Column(
-//                                  mainAxisAlignment: MainAxisAlignment.center,
-//                                  crossAxisAlignment: CrossAxisAlignment.start,
-//                                  children: <Widget>[
-//                                    Text(
-//                                      'Season\'s Greetings!',
-//                                      style: TextStyle(
-//                                        color: BrandColors.secondary,
-//                                        fontSize: 16.sp,
-//                                      ),
-//                                    ),
-//                                    SizedBox(
-//                                      height: 5.h,
-//                                    ),
-//                                    Text(
-//                                      'Wishing you a happy new year!',
-//                                      style: TextStyle(
-//                                        fontSize: 16.sp,
-//                                        color: BrandColors.secondary,
-//                                      ),
-//                                    ),
-//                                  ],
-//                                ),
-//                              ),
-//                              Icon(
-//                                Icons.navigate_next,
-//                                color: BrandColors.secondary,
-//                              ),
-//                            ],
-//                          ),
-//                        ),
-//                      ),
-//                    ),
-//                  ],
-//                ),
-//              ),
-//            ),
-//          ),
         );
       },
     );

@@ -16,8 +16,6 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
 
 class SignInViewModel extends BaseViewModel with Validators {
-
-  
   void init() async {}
 
   SignInViewModel() {
@@ -52,14 +50,17 @@ class SignInViewModel extends BaseViewModel with Validators {
 
   // Navigate
   Future navigateToNextScreen() async {
-    if (confirmHasStore()) await _navigationService.replaceWithTransition(MainView(),
-        opaque: true, transition: 'rotate', duration: Duration(milliseconds: 400));
+    if (confirmHasStore())
+      await _navigationService.replaceWithTransition(MainView(),
+          opaque: false,
+          transition: 'rotate',
+          duration: Duration(milliseconds: 400));
   }
 
-    bool confirmHasStore() {
+  bool confirmHasStore() {
     print('Current store is $currentStore');
     if (currentStore == null) {
-      _navigationService.replaceWith(Routes.createBusinessView);
+      _navigationService.replaceWith(Routes.businessViewSignIn);
       return false;
     }
     return true;
@@ -67,7 +68,7 @@ class SignInViewModel extends BaseViewModel with Validators {
 
   Future navigateToSignup() async {
     await _navigationService.replaceWithTransition(SignUpView(),
-        opaque: true,
+        opaque: false,
         transition: 'fade',
         duration: Duration(milliseconds: 400));
   }
@@ -78,14 +79,16 @@ class SignInViewModel extends BaseViewModel with Validators {
     bool busy = true;
     _dialogService.registerCustomDialogUi(buildLoaderDialog);
     _dialogService.showCustomDialog(
-        title: 'Please hold on while we try to sign you in');
+        title: ""
+        // 'Please hold on while we try to sign you in'
+        );
     try {
       await _authService.signInWithPhoneNumber(phoneNumber, password);
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(
-        message: 'Welcome Back',
-        success: true,
-      );
+      // showToastCustom(
+      //   message: 'Welcome Back',
+      //   success: true,
+      // );
       busy = false;
       unawaited(navigateToNextScreen());
       // navigateToNextScreen();
@@ -103,7 +106,7 @@ class SignInViewModel extends BaseViewModel with Validators {
     if (busy) _dialogService.completeDialog(DialogResponse());
   }
 
-   Future navigateToOnboarding() async {
+  Future navigateToOnboarding() async {
     await _navigationService.replaceWithTransition(
       OnboardingView(),
       opaque: true,
@@ -112,5 +115,4 @@ class SignInViewModel extends BaseViewModel with Validators {
       duration: Duration(milliseconds: 100),
     );
   }
-
 }

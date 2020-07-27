@@ -63,7 +63,7 @@ class CreditorsView extends StatelessWidget {
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.whatyouowe)
+                                              .format(model.getamount(model.whatyouowe))
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -182,6 +182,7 @@ class ContactList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
               child: TextField(
+                textCapitalization: TextCapitalization.sentences,
                 //controller: model.allCustomersController,
                 //onChanged: model.searchAllCustomers,
                 style: TextStyle(
@@ -264,7 +265,7 @@ class ContactList extends StatelessWidget {
                                         model.currency.symbol +
                                             currency
                                                 .format(
-                                                    (cont.paid - cont.amount)
+                                                    model.getamount((cont.paid - cont.amount))
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
@@ -336,7 +337,7 @@ class ContactList extends StatelessWidget {
                                         model.currency.symbol +
                                             currency
                                                 .format(
-                                                    (cont.paid - cont.amount)
+                                                    model.getamount((cont.paid - cont.amount))
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(

@@ -20,7 +20,8 @@ class NotificationsView extends StatelessWidget {
               child: Scaffold(
                   appBar: customizeAppBar(context, 0.0,
                       title: AppLocalizations.of(context).notifications,
-                      arrowColor: BrandColors.primary),
+                      arrowColor: BrandColors.primary,
+                      backgroundColor: Theme.of(context).backgroundColor),
                   body: Column(
                     children: <Widget>[
                       Container(
@@ -97,7 +98,7 @@ class NotificationsView extends StatelessWidget {
                                                         AppLocalizations.of(
                                                                 context)
                                                             .debtOf +
-                                                        '${item.amount}' +
+                                                        ' ${item.amount} ' +
                                                         AppLocalizations.of(
                                                                 context)
                                                             .isDueToday
@@ -105,14 +106,12 @@ class NotificationsView extends StatelessWidget {
                                                         AppLocalizations.of(
                                                                 context)
                                                             .creditOf +
-                                                        '${item.paid}' +
+                                                        ' ${item.paid} ' +
                                                         AppLocalizations.of(
                                                                 context)
                                                             .isDueToday,
                                                 style: TextStyle(
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 2)),
+                                                    fontSize:SizeConfig.yMargin(context, 2)),
                                               )),
                                               SizedBox(width: 20.0),
                                               Column(
@@ -135,6 +134,7 @@ class NotificationsView extends StatelessWidget {
                                                         color: Colors.grey,
                                                         fontWeight:
                                                             FontWeight.bold,
+                                                        fontSize:SizeConfig.yMargin(context, 2),
                                                       )),
                                                 ],
                                               ),
@@ -168,8 +168,7 @@ class NotificationsView extends StatelessWidget {
                                                 .toString()),
                                             onDismissed:
                                                 (DismissDirection direction) {},
-                                            direction:
-                                                DismissDirection.endToStart,
+                                            direction: DismissDirection.endToStart,
                                             background: Container(
                                               padding:
                                                   EdgeInsets.only(right: 15),
@@ -235,6 +234,7 @@ class NotificationsView extends StatelessWidget {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
+                                                              fontSize:SizeConfig.yMargin(context, 2),
                                                             )),
                                                       ],
                                                     ),

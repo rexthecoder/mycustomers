@@ -208,7 +208,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                     vertical: ScreenUtil()
                                                         .setHeight(8)),
                                           ),
-                                          textInputAction: TextInputAction.go,
+                                          textInputAction: TextInputAction.next,
                                           onChanged: (value) =>
                                               model.updateAmount(value, update,
                                                   action, newCus),
@@ -533,10 +533,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             (hasFocus) {
                                                           if (hasFocus) {
                                                             model.controller.animateTo(
-                                                                model
-                                                                    .controller
-                                                                    .position
-                                                                    .maxScrollExtent,
+                                                                model.controller.position.maxScrollExtent-250,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:
@@ -545,7 +542,11 @@ class AddDebtCreditView extends StatelessWidget {
                                                                     .easeOut);
                                                           }
                                                         },
-                                                        child: TextField(
+                                                        child: TextFormField(
+                                                          textCapitalization:
+                                                              TextCapitalization
+                                                                  .sentences,
+
                                                           focusNode:
                                                               model.descFocus,
                                                           //controller: _controller,
@@ -580,7 +581,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                                         .setSp(
                                                                             15)),
                                                           ),
-                                                          //textInputAction: TextInputAction.go,
+                                                          textInputAction: TextInputAction.next,
                                                           // onSubmitted: (value) {
                                                           //   _controller.clear();
                                                           //   model.addItem(action, update);
@@ -650,7 +651,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                 //controller.animateTo(100,duration: Duration(milliseconds: 500), curve: Curves.ease);
                                               }
                                             },
-                                            child: TextField(
+                                            child: TextFormField(
+                                              textCapitalization:
+                                                  TextCapitalization.sentences,
                                               controller:
                                                   model.searchController,
                                               maxLines: null,
@@ -725,19 +728,13 @@ class AddDebtCreditView extends StatelessWidget {
                                                             .setHeight(20)),
                                               ),
                                               textInputAction:
-                                                  TextInputAction.go,
+                                                  TextInputAction.next,
                                               onChanged: (value) => model
                                                   .updateName(value, action),
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: model.name != null
-                                          ? 0
-                                          : SizeConfig.yMargin(context, 100) *
-                                              0.48,
                                     ),
                                     for (var item in model.contactsList)
                                       model.name != null && model.shownames
@@ -880,10 +877,14 @@ class AddDebtCreditView extends StatelessWidget {
                                         child: Padding(
                                           padding: EdgeInsets.all(8),
                                           child: InternationalPhoneNumberInput(
-                                            onInputChanged:
-                                                (PhoneNumber number) {
-                                              model.updateNumber(
-                                                  number, action);
+                                            onInputChanged: (PhoneNumber number) {
+                                              model.number = number;
+                                              //model.updateNumber(action);
+                                            },
+                                            onInputValidated: (value) {
+                                              if(value) {
+                                                model.updateNumber(action);
+                                              }
                                             },
                                             ignoreBlank: false,
                                             errorMessage:
@@ -895,8 +896,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .cursorColor),
                                             initialValue: model.number,
-                                            textFieldController:
-                                                model.inputNumberController,
+                                            textFieldController: model.inputNumberController,
                                             inputBorder: InputBorder.none,
                                           ),
                                         ),
@@ -943,6 +943,13 @@ class AddDebtCreditView extends StatelessWidget {
                                         // ),
                                       ),
                                     ),
+                                    SizedBox(
+                                      height: model.name != null
+                                          ? 0
+                                          : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
+                                              0.3 : SizeConfig.yMargin(context, 100) *
+                                              0.8,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -957,17 +964,17 @@ class AddDebtCreditView extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         model.addtransaction(action, update, newCus);
-                        reminders.sendNotificationOnce(
-                            0,
-                            'Reminder: ',
-                            action == 'credit'
-                                ? AppLocalizations.of(context).youOwe +
-                                    '${model.contact.name}' +
-                                    model.amount.round().toString()
-                                : '${model.contact.name}' +
-                                    AppLocalizations.of(context).owesYou +
-                                    model.amount.round().toString(),
-                            action == 'debit' ? model.dueDate : model.dueDate);
+                        // reminders.sendNotificationOnce(
+                        //     0,
+                        //     'Reminder: ',
+                        //     action == 'credit'
+                        //         ? AppLocalizations.of(context).youOwe +
+                        //             '${model.contact.name}' +
+                        //             model.amount.round().toString()
+                        //         : '${model.contact.name}' +
+                        //             AppLocalizations.of(context).owesYou +
+                        //             model.amount.round().toString(),
+                        //     action == 'debit' ? model.dueDate : model.dueDate);
                       }, //Todo: Save User Input
                       child: Container(
                         padding: EdgeInsets.symmetric(

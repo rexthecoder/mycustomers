@@ -10,7 +10,7 @@
     "engaged-with-your-people": "انخرط مع شعبك",
     "engaged-with-your-people-desc": "تفاعل مع عملائك من خلال دفع رسائل مبيعات فريدة",
     "signup-signup": "سجل",
-    "sign-up-enter-phone-number": "يرجى إدخال رقم الهاتف الخاص بك",
+    "signup-enter-phone-number": "يرجى إدخال رقم الهاتف الخاص بك",
     "continue-with-social-account": "أو تابع حسابك الاجتماعي",
     "already-a-member-sign-in": "عضوا فعلا؟ تسجيل الدخول",
     "not-a-member-sign-up": "ليس عضوا؟ سجل",
@@ -284,5 +284,6 @@
     "enter-message": "أدخل رسالة",
     "enter-title-of-message": "أدخل عنوان الرسالة",
     "you-denied-permission-to-your-contacts": "لقد رفضت الإذن لجهات الاتصال الخاصة بك",
-    "see-all": "اظهار الكل"
+    "see-all": "اظهار الكل",
+    "add-payment": "أضف الدفع"
 }

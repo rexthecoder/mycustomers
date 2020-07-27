@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -32,7 +33,8 @@ class ProfilePageView extends StatelessWidget {
                   )
                 ],
                 title: AppLocalizations.of(context).profile,
-                arrowColor: BrandColors.primary),
+                arrowColor: BrandColors.primary,
+                backgroundColor: Theme.of(context).backgroundColor),
             body: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,14 +45,20 @@ class ProfilePageView extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: ThemeColors.unselect,
                       radius: SizeConfig.yMargin(context, 10),
-                      child: Text(
-                        _userName.text.substring(0, 1),
-                        style: TextStyle(
-                          color: BrandColors.primary,
-                          fontSize: SizeConfig.textSize(context, 15),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child:
+                          (model?.currentStore?.storePic?.isNotEmpty ?? false)
+                              ? Image.memory(
+                                  model.currentStore.storePic,
+                                  fit: BoxFit.cover,
+                                )
+                              : Text(
+                                  model.currentStore?.name?.substring(0, 1) ?? '',
+                                  style: TextStyle(
+                                    color: BrandColors.primary,
+                                    fontSize: SizeConfig.textSize(context, 15),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                     ),
                   ),
                   SizedBox(height: SizeConfig.yMargin(context, 4)),
@@ -77,8 +85,10 @@ class ProfilePageView extends StatelessWidget {
                                 SizedBox(width: 30),
                                 Expanded(
                                   child: TextField(
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
                                     autofocus: false,
-                                    controller: _userName,
+                                    controller: TextEditingController(text: model.currentStore.name),
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
                                       enabled: false,
@@ -93,17 +103,22 @@ class ProfilePageView extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: Row(
                               children: <Widget>[
-                                Text(AppLocalizations.of(context).businessName + ":",
+                                Text(
+                                  AppLocalizations.of(context).businessName +
+                                      ":",
                                   style: TextStyle(
                                     color: BrandColors.primary,
                                     fontSize: SizeConfig.textSize(context, 5),
                                     fontWeight: FontWeight.bold,
-                                  ),),
+                                  ),
+                                ),
                                 SizedBox(width: 18),
                                 Expanded(
                                   child: TextField(
+                                    textCapitalization:
+                                        TextCapitalization.sentences,
                                     autofocus: false,
-                                    controller: _businessName,
+                                    controller: TextEditingController(text: model.currentStore.name),
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
                                       enabled: false,

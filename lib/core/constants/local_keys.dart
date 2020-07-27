@@ -303,4 +303,5 @@ class LocalKeys {
   static const enter_message = 'enter-message';
   static const done = 'done';
   static const see_all = 'see-all';
+  static const add_payment ='add-payment';
 }

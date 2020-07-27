@@ -21,7 +21,8 @@ class SettingsPage extends StatelessWidget {
               backgroundColor: Theme.of(context).backgroundColor,
               appBar: customizeAppBar(context, 1.0,
                   title: AppLocalizations.of(context).settings,
-                  arrowColor: BrandColors.primary),
+                  arrowColor: BrandColors.primary,
+                  backgroundColor: Theme.of(context).backgroundColor),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -64,28 +65,29 @@ class SettingsPage extends StatelessWidget {
                           // switchTile(
                           //     context,
                           //     model.newsletter,
-                          //     model.setNewsletter,
+                          //      model.setNewsletter,
                           //     AppLocalizations.of(context).receiveNewsletters),
-                          // switchTile(
-                          //     context,
-                          //     model.special,
-                          //     model.setSpecial,
-                          //     AppLocalizations.of(context)
-                          //         .receiveSpecialOffers),
-                          // switchTile(context, model.update, model.setUpdate,
-                          //     AppLocalizations.of(context).receiveUpdates),
+                          //  switchTile(
+                          //      context,
+                          //      model.special,
+                          //      model.setSpecial,
+                          //      AppLocalizations.of(context)
+                          //          .receiveSpecialOffers),
+                          //  switchTile(context, model.update, model.setUpdate,
+                          //      AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(
-                    //       horizontal: ScreenUtil().setWidth(20)),
-                    //   child: crb.CustomRaisedButton(
-                    //       label: 'Save',
-                    //       onPressed: () {
-                    //         Navigator.pop(context);
-                    //       }),
-                    // ),
+                   /*  Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(20)),
+                      // ignore: missing_required_param
+                      child: CustomRaisedButton(
+                          btnText: 'Save',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ), */
                   ],
                 ),
               ),

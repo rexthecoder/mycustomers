@@ -46,9 +46,10 @@ class BusinessHomePageView extends StatelessWidget {
                     ),
                     leading: CircleAvatar(
                       backgroundColor: BrandColors.primary,
+                      backgroundImage: model.currentStore.storePic != null ? MemoryImage(model.currentStore.storePic) : null,
                       minRadius: SizeConfig.xMargin(context, 7),
-                      maxRadius: SizeConfig.xMargin(context, 8),
-                      child: Text(
+                      maxRadius: SizeConfig.xMargin(context, 7.3),
+                      child: model.currentStore.storePic != null ? Container() : Text(
                         model.profileCardTitle.substring(0, 1),
                         style: TextStyle(
                           color: ThemeColors.background,
@@ -104,33 +105,6 @@ class BusinessHomePageView extends StatelessWidget {
                     onModelReady: (model) => model.init(),
                   ),
                 ),
-//                optionButton(
-//                  context: context,
-//                  icon: settings,
-//                  label: AppLocalizations.of(context).settings,
-//                  onTap: model.navigateToSettingsPage,
-//                ),
-//                optionButton(
-//                  context: context,
-//                  icon: support,
-//                  label: AppLocalizations.of(context).support,
-//                  onTap: model.navigateToSupportPage,
-//                ),
-//                Padding(
-//                  padding: EdgeInsets.symmetric(
-//                    vertical: SizeConfig.yMargin(context, 5),
-//                    horizontal: SizeConfig.xMargin(context, 5),
-//                  ),
-//                  child:
-//                      ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
-//                    builder: (_, __, ___) => BusinessCardWidget(
-//                      screenshotController: screenshotController,
-//                      showArrow: false,
-//                    ),
-//                    viewModelBuilder: () => BusinessCardPageViewModel(),
-//                    onModelReady: (model) => model.init(),
-//                  ),
-//                ),
               ],
             ),
           ),

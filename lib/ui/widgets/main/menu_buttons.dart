@@ -45,7 +45,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                 height: SizeConfig.xMargin(context, 13),
                 width: SizeConfig.xMargin(context, 13),
                 padding: EdgeInsets.all(
-                  SizeConfig.yMargin(context, 0.7),
+                  model.getProfile().image.length > 0 ? 0 : SizeConfig.yMargin(context, 0.7),
                 ),
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -56,7 +56,7 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                     Radius.circular(5),
                   ),
                 ),
-                child: Center(
+                child: model.getProfile().image.length > 0 ? model.imageFromBaseString(model.getProfile().image, context) : Center(
                   child: Text(
                     business.name.substring(0, 1).capitalize,
                     textAlign: TextAlign.center,
@@ -77,7 +77,11 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
                 ),
               ),
               subtitle: Text(
-                model.getCustomerCount(business.id) > 1 ? model.getCustomerCount(business.id).toString()+' customers' : model.getCustomerCount(business.id).toString()+' customer',
+                model.getCustomerCount(business.id) > 1
+                    ? model.getCustomerCount(business.id).toString() +
+                        ' customers'
+                    : model.getCustomerCount(business.id).toString() +
+                        ' customer',
                 style: TextStyle(
                   color: Theme.of(context).cursorColor,
                   fontSize: SizeConfig.textSize(context, 4),

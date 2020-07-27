@@ -12,19 +12,34 @@ class OnboardingViewModel extends BaseViewModel {
   final pageController = new PageController(initialPage: 0);
   Timer _animationTimer;
 
+  int _animeTimerSecs = 5;
+  int _pageAnimeSecs = 350;
+
+  int get animeSecs => _animeTimerSecs;
+  int get pageAnimeSecs => _pageAnimeSecs;
+
+  void changePage() {
+    currentIndex < 3 ? currentIndex++ : currentIndex = 0;
+
+    pageController.animateToPage(
+      currentIndex,
+      duration: Duration(milliseconds: pageAnimeSecs),
+      curve: Curves.easeIn,
+    );
+  }
+
   //Init State
   void initState() {
-    _animationTimer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
-      currentIndex < 4 ? currentIndex++ : currentIndex = 0;
-
-      pageController.animateToPage(
-        currentIndex,
-        duration: Duration(milliseconds: 350),
-        curve: Curves.easeIn,
-      );
-    });
+    restartTimer(0);
     notifyListeners();
   }
+
+  void restartTimer(int index) {
+    currentIndex = index;
+    _animationTimer?.cancel();
+    _animationTimer = Timer(Duration(seconds: animeSecs), changePage);
+  }
+
 
   // Navigation
   final NavigationService _navigationService = locator<NavigationService>();
@@ -32,7 +47,7 @@ class OnboardingViewModel extends BaseViewModel {
   Future navigateToSignIn() async {
     await _navigationService.replaceWithTransition(
       SignInView(),
-      opaque: true,
+      opaque: false,
       popGesture: true,
       transition: 'rightToLeftWithFade',
       duration: Duration(milliseconds: 100),
@@ -42,7 +57,7 @@ class OnboardingViewModel extends BaseViewModel {
   Future navigateToSignUp() async {
     await _navigationService.replaceWithTransition(
       SignUpView(),
-      opaque: true,
+      opaque: false,
       popGesture: true,
       transition: 'rightToLeftWithFade',
       duration: Duration(milliseconds: 100),
@@ -52,7 +67,7 @@ class OnboardingViewModel extends BaseViewModel {
   @override
   void dispose() {
     pageController.dispose();
-    super.dispose();
     _animationTimer.cancel();
+    super.dispose();
   }
 }

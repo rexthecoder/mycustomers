@@ -1,17 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/app/router.dart';
 
 class AddNewCustomerViewModel extends BaseViewModel {
-  String _title='Add Customer';
-  String _subTitle='Customer Details';
-
-  String get title => _title;
-  String get subTitle =>_subTitle;
   TextEditingController name = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   String _customerName;
@@ -20,6 +16,7 @@ class AddNewCustomerViewModel extends BaseViewModel {
 
 
   NavigationService _navigationService = locator<NavigationService>();
+  final _customerService = locator<CustomerContactService>();
   
 
   String _dropDownValue='+234';
@@ -58,7 +55,6 @@ class AddNewCustomerViewModel extends BaseViewModel {
 
     _navigationService
         .navigateTo(Routes.quickMessages,arguments: _newCustomer);
-//        .navigateTo(Routes.sendMessageViewRoute,arguments: _newCustomer);
   }
 
 
@@ -66,12 +62,14 @@ class AddNewCustomerViewModel extends BaseViewModel {
     _dropDownValue=value;
     notifyListeners();
   }
-  returnCustomers() {
-    Customer _customer = Customer(name: name.text, phone: phoneNumber.text);
-    List<Customer> _newCustomer = [_customer];
-    _navigationService.back(result: _newCustomer);
-
-//    searchedCustomer.clear();
-
+  Future returnHome() async {
+    _customerService.addContactmarket(phoneNumber.text, name.text, dropDownValue, name.text[0], StoreRepository.currentStore.id);
+    _navigationService.popUntil((route){
+      if(route.settings.name == '/main'){
+        return true;
+      }else{
+        return false;
+      }
+    });
   }
 }

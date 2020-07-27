@@ -120,7 +120,7 @@ class AddDebtView extends StatelessWidget {
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: ScreenUtil().setHeight(8)),
                                 ),
-                                textInputAction: TextInputAction.go,
+                                textInputAction: TextInputAction.next,
                                 onChanged: model.updateAmount,
                               ),
                             ),
@@ -194,6 +194,7 @@ class AddDebtView extends StatelessWidget {
                                     child: Column(
                                       children: <Widget>[
                                         TextField(
+                                          textCapitalization: TextCapitalization.sentences,
                                           controller: _controller,
                                           maxLines: null,
                                           maxLengthEnforced: false,
@@ -258,7 +259,7 @@ class AddDebtView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          textInputAction: TextInputAction.go,
+                                          textInputAction: TextInputAction.done,
                                           onSubmitted: (value) {
                                             _controller.clear();
                                             model.addItem();

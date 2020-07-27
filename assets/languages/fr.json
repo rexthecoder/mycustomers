@@ -10,7 +10,7 @@
     "engaged-with-your-people": "Engagez-vous avec votre peuple",
     "engaged-with-your-people-desc": "Interagissez avec vos clients en poussant des messages de vente uniques",
     "signup-signup": "S'INSCRIRE",
-    "sign-up-enter-phone-number": "Veuillez entrer votre numéro de téléphone",
+    "signup-enter-phone-number": "Veuillez entrer votre numéro de téléphone",
     "continue-with-social-account": "Ou continuez avec votre compte social",
     "already-a-member-sign-in": "Déjà membre? Se connecter",
     "not-a-member-sign-up": "Pas un membre? S'inscrire",
@@ -284,5 +284,6 @@
     "enter-message": "Entrez un message",
     "enter-title-of-message": "Entrez le titre du message",
     "you-denied-permission-to-your-contacts": "Vous avez refusé l'autorisation à vos contacts",
-    "see-all": "Voir tout"
+    "see-all": "Voir tout",
+    "add-payment": "Ajouter un paiement"
 }

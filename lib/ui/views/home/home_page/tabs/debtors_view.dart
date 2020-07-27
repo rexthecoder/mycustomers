@@ -65,7 +65,7 @@ class DebtorsView extends StatelessWidget {
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.bought())
+                                              .format(model.getamount(model.bought()))
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -183,6 +183,7 @@ class ContactList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
               child: TextField(
+                textCapitalization: TextCapitalization.sentences,
                 //controller: model.allCustomersController,
                 //onChanged: model.searchAllCustomers,
                 style: TextStyle(
@@ -310,8 +311,8 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format((cont.amount -
-                                                            cont.paid)
+                                                    .format(model.getamount((cont.amount -
+                                                            cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(
@@ -465,8 +466,8 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format((cont.amount -
-                                                            cont.paid)
+                                                    .format(model.getamount((cont.amount -
+                                                            cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(

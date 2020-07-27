@@ -1,8 +1,8 @@
 import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:mycustomers/ui/shared/dialog_loader.dart';
-import 'package:mycustomers/ui/views/main/main_view.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:pedantic/pedantic.dart';
@@ -23,12 +23,12 @@ class CreateBusinessViewModel extends BaseViewModel {
   String storeName = '';
 
   Future<void> navigateToNext() async {
-    await _navigationService.replaceWithTransition(
-      MainView(),
-      opaque: true,
-      transition: 'cupertino',
-      duration: Duration(milliseconds: 300),
-    );
+    await _navigationService.clearStackAndShow(Routes.mainViewRoute);
+//      MainView(),
+//      opaque: true,
+//      transition: 'cupertino',
+//      duration: Duration(milliseconds: 300),
+//    );
   }
 
   Future<void> updateUser() async {
@@ -44,10 +44,10 @@ class CreateBusinessViewModel extends BaseViewModel {
       );
 
       _dialogService.completeDialog(DialogResponse());
-      showToastCustom(
-        message: 'Your store has been created successfully',
-        success: true,
-      );
+      // showToastCustom(
+      //   message: 'Welcome Back!',
+      //   success: true,
+      // );
       _logService.getValues(
           null, DateTime.now(), 'create-store', storeName, false);
 

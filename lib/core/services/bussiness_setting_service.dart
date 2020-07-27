@@ -17,7 +17,9 @@ class BussinessSettingService with ReactiveServiceMixin{
   RxValue<int> _templanguage = RxValue<int>(initial: 0);
 
   RxValue<CountryCurrency> _curren = RxValue<CountryCurrency>(initial: null);
+  RxValue<CountryCurrency> _oldcurren = RxValue<CountryCurrency>(initial: null);
   CountryCurrency get curren => _curren.value;
+  CountryCurrency get oldcurren => _oldcurren.value;
 
   List langs = [
     { 'name': 'English', 'selected': true, 'code': 'en' },
@@ -57,7 +59,9 @@ class BussinessSettingService with ReactiveServiceMixin{
       _curren.value = CountryCurrency(country: 'Nigeria', symbol:'₦');
       _currency.value = 0;
     } else {
-      _curren.value = _currencyBox.values.toList()[0];
+      _curren.value = _currencyBox.values.toList()[_currencyBox.values.toList().length -1];
+      _oldcurren.value = _currencyBox.values.toList().length > 1 ? _currencyBox.values.toList()[_currencyBox.values.toList().length - 2] : CountryCurrency(country: 'Nigeria', symbol:'₦');
+      print(_oldcurren.value.symbol+'ndknd');
       for(var item in currencies) {
       if(_curren.value.country == item['country']){
         _currency.value = currencies.indexOf(item);
@@ -69,14 +73,15 @@ class BussinessSettingService with ReactiveServiceMixin{
     }
   }
 
-  void addCurrency(String country)async {
+  Future<void> addCurrency(String country)async {
     for(var item in CountryCurrency.getCurrencySymbol()) {
       if(item.country == country) {
-        if(_currencyBox.values.toList().length == 0){
-          await _currencyBox.add(item);
-        } else {
-          await _currencyBox.putAt(0, item);
-        }
+        await _currencyBox.add(item);
+        // if(_currencyBox.values.toList().length == 0){
+        //   await _currencyBox.add(item);
+        // } else {
+        //   await _currencyBox.putAt(0, item);
+        // }
       }
     }
     getCurrency();

@@ -19,11 +19,17 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        businessCardController.animateToPage(
-          int.parse(model.businessCard.cardDesign),
-          duration: new Duration(milliseconds: 300),
-          curve: Curves.easeIn,
-        );
+        if (showArrow) {
+          businessCardController.animateToPage(
+            int.parse(model.businessCard.cardDesign),
+            duration: new Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+          );
+        } else {
+          businessCardController.jumpToPage(
+            int.parse(model.businessCard.cardDesign),
+          );
+        }
         await Future.delayed(new Duration(milliseconds: 500));
         canChange = true;
       },
@@ -48,8 +54,8 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
               allowImplicitScrolling: true,
               controller: businessCardController,
               children: <Widget>[
-                _BusinessCard1(),
                 _BusinessCard2(),
+                _BusinessCard1(),
                 _BusinessCard3(),
                 _BusinessCard4(),
               ],
@@ -182,16 +188,16 @@ class _BusinessCard1 extends ViewModelWidget<BusinessCardPageViewModel> {
                   fontWeight: FontWeight.bold,
                   color: ThemeColors.black,
                 ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: '\n${model.businessCard.tagLine.capitalize}',
-                    style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 3),
-                      color: ThemeColors.black,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
+//                children: <TextSpan>[
+//                  TextSpan(
+//                    text: '\n${model.businessCard.tagLine.capitalize}',
+//                    style: TextStyle(
+//                      fontSize: SizeConfig.textSize(context, 3),
+//                      color: ThemeColors.black,
+//                      fontWeight: FontWeight.normal,
+//                    ),
+//                  ),
+//                ],
               ),
             ),
           ),
@@ -339,16 +345,16 @@ class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
                   color: ThemeColors.black,
                   fontStyle: FontStyle.italic,
                 ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: '\n${model.businessCard.tagLine.capitalize}',
-                    style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 3),
-                      color: ThemeColors.black,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
+//                children: <TextSpan>[
+//                  TextSpan(
+//                    text: '\n${model.businessCard.tagLine.capitalize}',
+//                    style: TextStyle(
+//                      fontSize: SizeConfig.textSize(context, 3),
+//                      color: ThemeColors.black,
+//                      fontWeight: FontWeight.normal,
+//                    ),
+//                  ),
+//                ],
               ),
             ),
           ),
@@ -459,16 +465,16 @@ class _BusinessCard3 extends ViewModelWidget<BusinessCardPageViewModel> {
                       fontWeight: FontWeight.bold,
                       color: ThemeColors.black,
                     ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '\n${model.businessCard.tagLine.capitalize}',
-                        style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 3),
-                          color: ThemeColors.black,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
+//                    children: <TextSpan>[
+//                      TextSpan(
+//                        text: '\n${model.businessCard.tagLine.capitalize}',
+//                        style: TextStyle(
+//                          fontSize: SizeConfig.textSize(context, 3),
+//                          color: ThemeColors.black,
+//                          fontWeight: FontWeight.normal,
+//                        ),
+//                      ),
+//                    ],
                   ),
                 ),
                 SizedBox(
@@ -595,16 +601,16 @@ class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
                   fontWeight: FontWeight.bold,
                   color: ThemeColors.black,
                 ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: '\n${model.businessCard.tagLine.capitalize}',
-                    style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 3),
-                      color: ThemeColors.black,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
+//                children: <TextSpan>[
+//                  TextSpan(
+//                    text: '\n${model.businessCard.tagLine.capitalize}',
+//                    style: TextStyle(
+//                      fontSize: SizeConfig.textSize(context, 3),
+//                      color: ThemeColors.black,
+//                      fontWeight: FontWeight.normal,
+//                    ),
+//                  ),
+//                ],
               ),
             ),
           ),
@@ -632,14 +638,14 @@ class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
                           color: ThemeColors.background,
                         ),
                         children: <TextSpan>[
-                      //     TextSpan(
-                      //       text: '\n   ${model.businessCard.position}',
-                      //       style: TextStyle(
-                      //         fontSize: SizeConfig.textSize(context, 2),
-                      //         color: ThemeColors.background,
-                      //         fontWeight: FontWeight.normal,
-                      //       ),
-                      //     ),
+                          //     TextSpan(
+                          //       text: '\n   ${model.businessCard.position}',
+                          //       style: TextStyle(
+                          //         fontSize: SizeConfig.textSize(context, 2),
+                          //         color: ThemeColors.background,
+                          //         fontWeight: FontWeight.normal,
+                          //       ),
+                          //     ),
                         ],
                       ),
                     ),

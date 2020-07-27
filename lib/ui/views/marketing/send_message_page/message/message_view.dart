@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
@@ -8,17 +7,15 @@ import 'message_viewmodel.dart';
 
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_viewmodel.dart';
 
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
-import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_viewmodel.dart';
-
 import 'package:mycustomers/ui/shared/size_config.dart';
 
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 
 class MessageView extends StatelessWidget {
   final MessageArgument arguments;
-//  final List<Customer> selectedCustomers;
   MessageView(this.arguments);
   @override
   Widget build(BuildContext context) {
@@ -33,18 +30,12 @@ class MessageView extends StatelessWidget {
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
-        model.initSelected(arguments.selectedCustomers);
         model.setQuickText(arguments.title, arguments.message);
-        final int length = model.selectedCustomers.length != 0
-            ? model.selectedCustomers.length
-            : arguments.selectedCustomers.length;
-        print(arguments.selectedCustomers.length);
-
-//        arguments.selectedCustomers.length;
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
               title: AppLocalizations.of(context).sendAMessage,
-              arrowColor: BrandColors.secondary),
+              arrowColor: BrandColors.primary,
+              backgroundColor: Theme.of(context).backgroundColor),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
@@ -59,6 +50,7 @@ class MessageView extends StatelessWidget {
                     height: 10.h,
                   ),
                   TextField(
+                    textCapitalization: TextCapitalization.sentences,
                     controller: model.titleController,
                     decoration: InputDecoration(
                       hintText:
@@ -72,6 +64,8 @@ class MessageView extends StatelessWidget {
                           horizontal: 20, vertical: 10),
                     ),
 //                      maxLines: 2,
+                    onChanged: model.setTitle,
+                    textInputAction: TextInputAction.next,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -81,6 +75,7 @@ class MessageView extends StatelessWidget {
                     height: 10.h,
                   ),
                   TextField(
+                    textCapitalization: TextCapitalization.sentences,
                     controller: model.messageController,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context).enterMessage,
@@ -93,6 +88,8 @@ class MessageView extends StatelessWidget {
                           horizontal: 20, vertical: 10),
                     ),
                     maxLines: 3,
+                    onChanged: model.setBody,
+                    textInputAction: TextInputAction.next,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -111,11 +108,11 @@ class MessageView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              length == 1
-                                  ? '$length ' +
+                              model.selectedCustomers.length == 1
+                                  ? '${model.selectedCustomers.length} ' +
                                       AppLocalizations.of(context)
                                           .selectedCustomer
-                                  : '$length ' +
+                                  : '${model.selectedCustomers.length} ' +
                                       AppLocalizations.of(context)
                                           .selectedCustomer +
                                       's',
@@ -139,7 +136,7 @@ class MessageView extends StatelessWidget {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return BottomSheetView(
-                                          model.selectedCustomers,
+                                          //model.selectedCustomers,
                                           height,
                                           model);
                                     },
@@ -177,12 +174,10 @@ class MessageView extends StatelessWidget {
                         Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: length,
+                            itemCount: model.selectedCustomers.length,
                             itemBuilder: (BuildContext context, int index) =>
                                 CustomerCircleAvatar(
-                              customer: model.selectedCustomers.length != 0
-                                  ? model.selectedCustomers[index]
-                                  : arguments.selectedCustomers[index],
+                              ccustomer: model.selectedCustomers[index],
                               action: 'debtor',
                             ),
                           ),
@@ -196,10 +191,10 @@ class MessageView extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 30.0, horizontal: 10),
                     child: FlatButton(
                       onPressed: () {
-//                        model.navigateToSendMessage();
+                        model.send();
                         successDialog(context, model);
                       },
-                      color: BrandColors.secondary,
+                      color: BrandColors.primary,
                       padding: EdgeInsets.symmetric(vertical: 15.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -225,7 +220,8 @@ class MessageView extends StatelessWidget {
         );
       },
       onModelReady: (model) {
-        model.init();
+        Future.microtask(model.init);
+//        model.init();
       },
     );
   }
@@ -276,18 +272,10 @@ class MessageView extends StatelessWidget {
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
-                              Flushbar(
-                                backgroundColor: BrandColors.primary,
-                                duration: const Duration(seconds: 3),
-                                message: AppLocalizations.of(context)
-                                    .youDeniedPermissionToYourContacts,
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  size: 28.0,
-                                  color: ThemeColors.background,
-                                ),
-                                leftBarIndicatorColor: Colors.blue[300],
-                              ).show(context);
+                              flusher(
+                                  AppLocalizations.of(context)
+                                      .youDeniedPermissionToYourContacts,
+                                  context);
                             },
                             child: Container(
                               height: 50.h,
@@ -363,7 +351,7 @@ class MessageView extends StatelessWidget {
                   Container(
                     child: Icon(
                       Icons.check_circle,
-                      color: Color(0xFF27AE60),
+                      color: Colors.white,
                       size: 70,
                     ),
                   ),
@@ -386,7 +374,6 @@ class MessageView extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         model.returnHome();
-                        //TODO: route to screen
                       },
                       child: Container(
                         height: 50.h,
@@ -485,10 +472,9 @@ class MessageView extends StatelessWidget {
 }
 
 class BottomSheetView extends StatelessWidget {
-  final List<Customer> selectedCustomers;
   final double height;
   final MessageViewModel parentModel;
-  BottomSheetView(this.selectedCustomers, this.height, this.parentModel);
+  BottomSheetView(this.height, this.parentModel);
 
   @override
   Widget build(BuildContext context) {
@@ -504,7 +490,6 @@ class BottomSheetView extends StatelessWidget {
           child: Container(
             height: height,
             child: Column(
-//              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -516,8 +501,6 @@ class BottomSheetView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       onPressed: () {
-                        parentModel
-                            .mergeSelectCustomer(model.selectedCustomers);
                         Navigator.pop(context);
                       },
                       child: Text(
@@ -546,6 +529,7 @@ class BottomSheetView extends StatelessWidget {
                         ),
                         clipBehavior: Clip.hardEdge,
                         child: TextField(
+                          textCapitalization: TextCapitalization.sentences,
                           controller: model.searchController,
                           decoration: InputDecoration(
                             hintText:
@@ -594,16 +578,14 @@ class BottomSheetView extends StatelessWidget {
                                     ),
                                   )
                                 :
-//
                                 SliverPadding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: 8.w),
                                     sliver: SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (BuildContext context, int index) {
-                                          Customer customer = model.data[index];
-                                          bool _isSelected =
-                                              model.isSelected(customer);
+                                          Customer customer = model.allCustomers[index];
+                                          bool _isSelected = model.checkselected(customer.displayName, customer.phone);
                                           return Container(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 15.h,
@@ -656,18 +638,14 @@ class BottomSheetView extends StatelessWidget {
                                                     value: _isSelected,
                                                     onChanged: (value) {
                                                       _isSelected
-                                                          ? model
-                                                              .deselectCustomer(
-                                                                  customer)
-                                                          : model
-                                                              .selectCustomer(
-                                                                  customer);
+                                                          ? model.deselect(customer)
+                                                          : model.select(customer);
                                                     })
                                               ],
                                             ),
                                           );
                                         },
-                                        childCount: model.data.length,
+                                        childCount: model.allCustomers.length,
                                       ),
                                     ),
                                   ),

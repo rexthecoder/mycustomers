@@ -19,6 +19,7 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
@@ -90,21 +91,26 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   String get dropDownValue => _dropDownValue;
 
   var inputNumberController = TextEditingController();
-  var descFocus = FocusNode();
+  final descFocus = FocusNode();
 
   bool manual = false;
+  PermissionService _permission = new PermissionService();
 
   init({String query}) async {
+    final bool isPermitted = await _permission.getContactsPermission();
     contactsList.clear();
-    for (Customer customer
-        in (await iOwnerServices.getPhoneContacts(query: query))) {
-      print('Iterate');
-      if (_busy) {
-        _busy = false;
-        notifyListeners();
+    if(isPermitted) {
+      for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+        print('Iterate');
+        if (_busy) {
+          _busy = false;
+          notifyListeners();
+        }
+        contactsList.add(customer);
+        _contactStream.add(contactsList);
       }
-      contactsList.add(customer);
-      _contactStream.add(contactsList);
+    } else {
+      manual = true;
     }
     notifyListeners();
   }
@@ -274,16 +280,15 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  void updateNumber(PhoneNumber phoneNumber, String action) {
-    number = phoneNumber;
+  void updateNumber(String action) {
     action == 'debit'
         ? amount != null &&
                 newDate != null &&
-                newODate.length > 0 &&
-                name != null //&& number != null
+                newODate.length != null &&
+                name != null && number != null
             ? save = true
             : save = false
-        : amount != null && newODate != null && name != null //&& number != null
+        : amount != null && newODate != null && name != null && number != null
             ? save = true
             : save = false;
     notifyListeners();

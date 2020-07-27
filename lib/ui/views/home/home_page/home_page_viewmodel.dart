@@ -10,7 +10,6 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
-import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:intl/intl.dart';
@@ -20,12 +19,8 @@ import 'package:intl/intl.dart';
 class HomePageViewModel extends ReactiveViewModel {
   String _title = 'Home View';
   String get title => _title;
-  String name = 'Seyi Onifade';
-  String expectedTime = 'Expected a week ago';
+
   int amountOwing= 500;
-//  String deadLineStatus = 'Not Paid';
-
-
 
   final double _amount = 100.86;
   double get amount => _amount;
@@ -40,6 +35,7 @@ class HomePageViewModel extends ReactiveViewModel {
   
 
   PermissionService _permission =  locator<IPermissionService>();
+  
   List<CustomerContact> get contacts => _customerContactService.contacts;
   List<TransactionModel> get transactions => _transactionService.alltransactions;
   double get whatyouowe  => _transactionService.whatyouowe;
@@ -48,6 +44,7 @@ class HomePageViewModel extends ReactiveViewModel {
   List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
+  CountryCurrency get oldcurrency => _bussinessService.oldcurren;
   String sName;
   String sDName;
   String sCName;
@@ -62,6 +59,40 @@ class HomePageViewModel extends ReactiveViewModel {
   //   if (isPermitted) _navigationService.navigateTo(Routes.importCustomerViewRoute);
   //   else _navigationService.navigateTo(Routes.addCustomerManually);
   // }
+
+  double getamount(double amt){
+    return amt;
+    // if(oldcurrency != null) {
+    //   if(oldcurrency.symbol == '₦') {
+    //     if(currency.symbol == '₦'){
+    //       return amt;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt * 385.505;
+    //     }else{
+    //       return amt * 0.192873;
+    //     }
+    //     //(currency.symbol == '₹')
+    //   }else if(oldcurrency.symbol == '\$') {
+    //     if(currency.symbol == '₦'){
+    //       return amt / 385.505;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt;
+    //     }else{
+    //       return amt * 74.7272456;
+    //     }
+    //   } else if(oldcurrency.symbol == '₹') {
+    //     if(currency.symbol == '₦'){
+    //       return amt / 0.192873;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt / 74.7272456;
+    //     }else{
+    //       return amt;
+    //     }
+    //   }
+    // } else {
+    //   return amt;
+    // }
+  }
 
   void getTransactions() {
     _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
@@ -147,6 +178,7 @@ class HomePageViewModel extends ReactiveViewModel {
     print(id);
     CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone, initials: initials);
     _customerContactService.setContact(cus);
+    _navigationService.navigateTo(Routes.mainTransaction);
   }
 
   TextEditingController debtorsController = TextEditingController();
@@ -174,7 +206,6 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   @override
-  // TODO: implement reactiveServices
   List<ReactiveServiceMixin> get reactiveServices => [_customerContactService, _transactionService, _bussinessService];
 }
 

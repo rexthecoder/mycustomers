@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -144,6 +143,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 Expanded(
                   child: Center(
                     child: TextField(
+                      textCapitalization: TextCapitalization.sentences,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context).enterName,
@@ -151,6 +151,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                       ),
                       controller: name,
                       onChanged: model.updateName,
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ),
