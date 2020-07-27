@@ -101,7 +101,6 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         right: SizeConfig.xMargin(context, 4),
                         bottom: SizeConfig.yMargin(context, 2)),
                     child: TextFormField(
-                      // autofocus: true,
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.sentences,
                       key: Key("fullname"),
