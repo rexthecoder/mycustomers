@@ -13,6 +13,7 @@ class SendMessage extends StatelessWidget {
   final String action;
   SendMessage({this.action});
   String _description;
+  var _descKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SendMessageViewModel>.reactive(
@@ -174,7 +175,11 @@ class SendMessage extends StatelessWidget {
                             )
                           : SizedBox(),
                       action == AppLocalizations.of(context).schedule
-                          ? Container(
+                          ?
+                          // Form(
+                          //     key: _descKey,
+                          //     child:
+                          Container(
                               height: SizeConfig.xMargin(context, 45),
                               width: SizeConfig.xMargin(context, 90),
                               padding: EdgeInsets.symmetric(
@@ -192,15 +197,21 @@ class SendMessage extends StatelessWidget {
                                 textInputAction: TextInputAction.done,
                                 maxLines: null,
                                 maxLengthEnforced: false,
-                                onChanged: (value) {
-                                  _description = value;
-                                },
+                                onChanged: model.updateString,
+
+                                // validator: (value) {
+                                //   if (value.isEmpty) {
+                                //     return '';
+                                //   }
+                                //   return null;
+                                // },
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)
                                       .startTypingYourmessage,
                                 ),
                               ),
+                              // ),
                             )
                           : Container(),
                       SizedBox(
@@ -209,17 +220,17 @@ class SendMessage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if (action == AppLocalizations.of(context).schedule) {
-                            if (_description == null) {
-                              model.reminders.scheduleReminder();
-                              flusher('Your Reminder has been set successfully',
-                                  context);
-                              model.reminders.navigateToMainView();
-                            } else {
+                             if (model.description == null) {
                               flusher(
                                   AppLocalizations.of(context)
                                       .fieldShouldNotBeEmpty,
                                   context);
-                            }
+                            } else if (model.description.isNotEmpty) {
+                              model.reminders.scheduleReminder();
+                              flusher('Your Reminder has been set successfully',
+                                  context);
+                              model.reminders.navigateToMainView();
+                            } 
                           } else if (action ==
                               AppLocalizations.of(context).send) {
                             model.sendMessage();

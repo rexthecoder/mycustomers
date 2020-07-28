@@ -29,15 +29,13 @@ class SendMessageViewModel extends BaseViewModel {
 
   String number = "0786067005";
   String value = 'Dear Sir/Ma, you have an outstanding payment of N20,000.';
+  String _description;
+  String get description => _description;
 
   List<String> get messageEntries => _messageEntries;
-  // final _customerContactService = locator<CustomerContactService>();
-  // CustomerContact get contact => _customerContactService.contact;
 
   final MainTransactionViewModel transactions = MainTransactionViewModel();
   final RemindersViewModel reminders = RemindersViewModel();
-  // NotificationRemindersService reminders = NotificationRemindersService();
-  // final NavigationService _navigationService = locator<NavigationService>();
 
   void updateFieldValue(String buttonValue) {
     _controllerValue = buttonValue;
@@ -54,30 +52,17 @@ class SendMessageViewModel extends BaseViewModel {
   void sendMessage() async {
     var regText = Uri.encodeFull(value);
     var uri =
-        'sms:+${transactions.contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20using%20this%20link:www.google.com';
+        'sms:+${transactions.contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20using%20this%20link:https://www.google.com/';
     if (Platform.isAndroid) {
       if (await canLaunch(uri)) {
         await launch(uri);
       }
     }
-    // else if (Platform.isIOS) {
-    //   const uri = 'sms:0081-040-34818?body=Hello%20there';
-    //   if (await canLaunch(uri)) {
-    //     await launch(uri);
-    //   } else {
-    //     throw 'Could not launch $uri';
-    //   }
-    // }
   }
 
-  // // Notification function
-  // void scheduleReminder(String heading) {
-  //   reminders.sendNotificationOnce(id, 'You have this pending message to send',
-  //       'Heading: ' + heading, getDateTime());
-  // }
+  void updateString(String value) {
+    _description = value;
+    notifyListeners();
+  }
 
-  // //Navigations
-  // Future<void> navigateToMainView() async {
-  //   await _navigationService.clearStackAndShow(Routes.mainViewRoute);
-  // }
 }
