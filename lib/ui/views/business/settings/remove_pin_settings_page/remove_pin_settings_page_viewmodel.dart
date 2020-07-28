@@ -1,6 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
-import 'package:mycustomers/core/services/localStorage_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
@@ -10,33 +9,26 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 
 class RemovePinSettingsPageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  final PasswordManagerService _passwordManagerService = locator<PasswordManagerService>();
+  final PasswordManagerService _passwordManagerService =
+      locator<PasswordManagerService>();
 
-  static final _localStorageServices = locator<LocalStorageService>();
-  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
-   
-   String userPin = _localStorageServices.userPin;
+  final LogsLocalDataSourceImpl _logService =
+      locator<LogsLocalDataSourceImpl>();
 
-  
+  void onEnterPinCompleted(String value, BuildContext context,
+      TextEditingController editingControllerText) async {
+    String passFrmDb = await _passwordManagerService
+        .getPassword(); // get the password stored in the db
+    int check = passFrmDb.compareTo(value); // compare they are equal
 
-
-  void onEnterPinCompleted(String value, BuildContext context, TextEditingController editingControllerText) async{
-    String passFrmDb= await _passwordManagerService.getPassword(); // get the password stored in the db
-    int newPassFrmDb =int.parse(passFrmDb); // cast it into an integer
-    int confirmPin = int.parse(value);  // cast the password entered
-    int check = newPassFrmDb.compareTo(confirmPin); // compare they are equal
-   
-    if(check == 0){
+    if (check == 0) {
       await _passwordManagerService.deleteSetPin();
       setPin(false);
       showAlertDilaog(context);
-    }
-    else if(check < 0 || check > 0){
+    } else if (check < 0 || check > 0) {
       _passwordManagerService.showUnmatchedPinErrorMessage();
       clearValueIfPinsDoNotMatch(editingControllerText);
-
-    }
-    else{
+    } else {
       _passwordManagerService.showRemoveErrorMessage();
     }
   }
@@ -44,24 +36,24 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
   void setPin(bool value) {
     _passwordManagerService.setPin(value);
     _logService.getValues(null, DateTime.now(), 'remove-pin', '', false);
-     notifyListeners();
-   }
- 
-  void clearValueIfPinsDoNotMatch(TextEditingController textEditingController){
-   for(int i =0; i < 4; i++){
-      textEditingController.text = textEditingController.text.substring(0,textEditingController.text.length-1);
-   }
-   
-    }
+    notifyListeners();
+  }
 
-   Future<void> showAlertDilaog(BuildContext context) async {
+  void clearValueIfPinsDoNotMatch(TextEditingController textEditingController) {
+    textEditingController.clear();
+  }
+
+  Future<void> showAlertDilaog(BuildContext context) async {
     // set up the button
     Widget continueButton = Center(
       child: Container(
-        height: SizeConfig.yMargin(context, 8),
-        width: SizeConfig.xMargin(context, 50),
-        padding: EdgeInsets.only(right: SizeConfig.xMargin(context, 10)),
-        decoration: BoxDecoration(color: BrandColors.primary),
+        height: SizeConfig.yMargin(context, 7),
+        width: SizeConfig.xMargin(context, 100),
+//        padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 8)),
+        decoration: BoxDecoration(
+          color: BrandColors.primary,
+          borderRadius: BorderRadius.circular(4),
+        ),
         child: FlatButton(
           child: Text("Continue",
               textAlign: TextAlign.center,
@@ -83,6 +75,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
           child: Icon(
             Icons.check,
             color: BrandColors.primary,
+            size: SizeConfig.yMargin(context, 4),
           )),
       content: Text(
         "Pin Removed",
@@ -94,6 +87,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
       actions: [
         continueButton,
       ],
+      actionsPadding: EdgeInsets.all(10),
     );
 
     // show the dialog

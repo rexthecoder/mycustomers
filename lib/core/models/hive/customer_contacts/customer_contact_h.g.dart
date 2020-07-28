@@ -23,13 +23,15 @@ class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
       initials: fields[3] as String,
       storeid: fields[4] as String,
       market: fields[5] as bool,
+      transactions: (fields[6] as List)?.cast<TransactionModel>(),
+      messages: (fields[7] as List)?.cast<Message>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, CustomerContact obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -41,6 +43,10 @@ class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
       ..writeByte(4)
       ..write(obj.storeid)
       ..writeByte(5)
-      ..write(obj.market);
+      ..write(obj.market)
+      ..writeByte(6)
+      ..write(obj.transactions)
+      ..writeByte(7)
+      ..write(obj.messages);
   }
 }

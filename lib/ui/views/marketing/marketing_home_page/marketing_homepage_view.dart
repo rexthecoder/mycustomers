@@ -311,14 +311,13 @@ class MarketingHomePageView extends StatelessWidget {
                                                               height: 3.sp,
                                                             ),
                                                             Text(
-                                                              model.getmsg(customer
-                                                                          .id) !=
+                                                              model.getmsg(customer) !=
                                                                       null
                                                                   ? model
-                                                                      .getmsg(
-                                                                          customer
-                                                                              .id)
-                                                                      .message
+                                                                          .getmsg(
+                                                                              customer)
+                                                                          .message ??
+                                                                      ''
                                                                   : '',
                                                               style: TextStyle(
                                                                 color: ThemeColors
@@ -476,11 +475,10 @@ class MarketingHomePageView extends StatelessWidget {
                                                                 height: 3.sp,
                                                               ),
                                                               Text(
-                                                                model.getmsg(customer
-                                                                            .id) !=
+                                                                model.getmsg(customer) !=
                                                                         null
                                                                     ? model
-                                                                            .getmsg(customer.id)
+                                                                            .getmsg(customer)
                                                                             .message ??
                                                                         ''
                                                                     : '',
