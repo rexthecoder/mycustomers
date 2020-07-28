@@ -1,6 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -46,6 +47,7 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
   ICustomerService _customerService = locator<ICustomerService>();
   final _contactService = locator<CustomerContactService>();
   final _messageService = locator<MessageService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   
 
@@ -61,7 +63,7 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
   List<CustomerContact> get scustomers => _contactService.contactsm.where((element) => element.name.toUpperCase().contains(_searchTerm.toUpperCase())).toList();
 
   List<CustomerContact> get customers => _contactService.contactsm;
-  Message getmsg(String id) => _messageService.getLast(id);
+  Message getmsg(CustomerContact cus) => _messageService.getLast(cus);
   List<Message> get allmessages => _messageService.allmessages;
   List<CustomerContact> get frequents => _messageService.tempc;
 
@@ -78,22 +80,32 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
     //print(frequents);
   }
 
-  void deleteCustomer(CustomerContact cus) {
+  void deleteCustomer(CustomerContact cus) async {
     CustomerContact cust = new CustomerContact(
       id: cus.id,
       name: cus.name,
       phoneNumber: cus.phoneNumber,
       initials: cus.initials,
       storeid: cus.storeid,
-      market: false
+      market: false,
+      transactions: cus.transactions,
+      messages: cus.messages
     );
-    for(var item in allmessages) {
-      if(item.cId == cus.id) {
-        _messageService.deleteMessage(item);
-      }
+
+    _messageService.deleteAllMessage(cus);
+    //await _transactionService.getTransactions();
+    //print(_transactionService.transactions.length);
+    if(cus.transactions.length > 0) {
+      print('hrr');
+      _contactService.deleteContactMarket(cus, cust);
+    } else {
+      _contactService.deleteContact(cus);
     }
-    _contactService.deleteContactMarket(cus, cust);
     getContacts();
+  }
+
+  void selectAll() {
+    _contactService.selectAll(customers);
   }
 
   List<Customer> _allSelectedCustomers = [];

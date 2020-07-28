@@ -109,8 +109,8 @@ class MainTransaction extends StatelessWidget {
                       onTap: () => model.navigateToHome(),
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(18),
-                            vertical: ScreenUtil().setHeight(10)),
+                            horizontal: SizeConfig.xMargin(context, 4.3),
+                            vertical: SizeConfig.yMargin(context, 1.8)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
                           color: Colors.white,
@@ -158,7 +158,7 @@ class MainTransaction extends StatelessWidget {
                             ),
                             child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.xMargin(context, 1.5),
+                                  horizontal: SizeConfig.xMargin(context, 2.3),
                                   vertical: ScreenUtil().setHeight(13),
                                 ),
                                 // margin: EdgeInsets.only(
@@ -170,9 +170,9 @@ class MainTransaction extends StatelessWidget {
                                 width: width,
                                 child: model.bought() > model.paid()
                                     ? Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: <Widget>[
                                             Text(//${model.contact.name}
                                               'This customer' +
@@ -191,9 +191,9 @@ class MainTransaction extends StatelessWidget {
                                                         .cursorColor,
                                                   ),
                                             ),
-                                            SizedBox(
-                                                width: SizeConfig.xMargin(
-                                                    context, 14)),
+                                            // SizedBox(
+                                            //     width: SizeConfig.xMargin(
+                                            //         context, 14)),
                                             Text(
                                               model.currency.symbol +
                                                   currency
@@ -218,9 +218,9 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                       )
                                     : Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Text(
                                               AppLocalizations.of(context)
@@ -237,9 +237,9 @@ class MainTransaction extends StatelessWidget {
                                                         .cursorColor,
                                                   ),
                                             ),
-                                            SizedBox(
-                                                width: SizeConfig.xMargin(
-                                                    context, 14)),
+                                            // SizedBox(
+                                            //     width: SizeConfig.xMargin(
+                                            //         context, 14)),
                                             Text(
                                               model.currency.symbol +
                                                   currency
@@ -508,7 +508,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                       ? InkWell(
                                                           onTap: () {
-                                                            //model.navigateDetails(item);
+                                                            model.navigateDetails(item);
                                                           },
                                                           child: Container(
                                                             // margin: EdgeInsets.symmetric(
@@ -560,6 +560,14 @@ class MainTransaction extends StatelessWidget {
                                                                             .center,
                                                                     children: <
                                                                         Widget>[
+                                                                      Text(
+                                                                        item.tId,
+                                                                        style: TextStyle(
+                                                                            fontSize: SizeConfig.yMargin(context,
+                                                                                1.8),
+                                                                            color:
+                                                                                Color(0xFF828282)),
+                                                                      ),
                                                                       Text(
                                                                         model.getdDate(item.boughtdate) +
                                                                             ' - ' +
@@ -656,7 +664,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                           ? InkWell(
                                                               onTap: () {
-                                                                //model.navigateDetails(item);
+                                                                model.navigateDetails(item);
                                                               },
                                                               child: Container(
                                                                 width: SizeConfig
@@ -702,6 +710,14 @@ class MainTransaction extends StatelessWidget {
                                                                             CrossAxisAlignment.start,
                                                                         children: <
                                                                             Widget>[
+                                                                          Text(
+                                                                            item.tId,
+                                                                            style: TextStyle(
+                                                                                fontSize: SizeConfig.yMargin(context,
+                                                                                    1.3,),
+                                                                                color:
+                                                                                    Color(0xFF828282)), maxLines: 1,
+                                                                          ),
                                                                           Text(
                                                                             model.getdDate(item.boughtdate) +
                                                                                 ' - ' +
@@ -766,7 +782,7 @@ class MainTransaction extends StatelessWidget {
                                                                       .formattedate[index]
                                                               ? InkWell(
                                                                   onTap: () {
-                                                                    //model.navigateDetails(item);
+                                                                    model.navigateDetails(item);
                                                                   },
                                                                   child:
                                                                       Container(
@@ -805,6 +821,14 @@ class MainTransaction extends StatelessWidget {
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.start,
                                                                             children: <Widget>[
+                                                                              Text(
+                                                                                item.tId,
+                                                                                style: TextStyle(
+                                                                                    fontSize: SizeConfig.yMargin(context,
+                                                                                        1.8),
+                                                                                    color:
+                                                                                        Color(0xFF828282)),
+                                                                              ),
                                                                               Text(
                                                                                 model.getdDate(item.paiddate) + ' - ' + model.getTime(item.paiddate),
                                                                                 style: TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
@@ -1120,7 +1144,7 @@ class AddTransaction extends StatelessWidget {
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: ScreenUtil().setHeight(15),
+                vertical: SizeConfig.yMargin(context, 1.6),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
@@ -1148,11 +1172,11 @@ class AddTransaction extends StatelessWidget {
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: ScreenUtil().setHeight(15),
+                vertical: SizeConfig.yMargin(context, 1.6),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
-                color: Theme.of(context).textSelectionColor,
+                color: Colors.green,
               ),
               width: width / 2.5,
               child: Center(

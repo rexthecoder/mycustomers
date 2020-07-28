@@ -95,6 +95,7 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   void getTransactions() {
+    print('here');
     _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
     notifyListeners();
   }
@@ -120,7 +121,7 @@ class HomePageViewModel extends ReactiveViewModel {
     containsD = false;
     for(var cus in owingcustomers){
       for(var item in contacts){
-        if(cus.cId == item.id){
+        if(item.transactions.contains(cus)){
           if(item.name.toLowerCase().contains(sDName.toLowerCase())){
             containsD = true;
           }
@@ -135,7 +136,7 @@ class HomePageViewModel extends ReactiveViewModel {
     containsC = false;
     for(var cus in owedcustomers){
       for(var item in contacts){
-        if(cus.cId == item.id){
+        if(item.transactions.contains(cus)){
           if(item.name.toLowerCase().contains(sCName.toLowerCase())){
             containsC = true;
           }
@@ -174,9 +175,9 @@ class HomePageViewModel extends ReactiveViewModel {
     _customerContactService.getContacts();
   }
 
-  void setContact(String id, String name, String phone, String initials) {
-    print(id);
-    CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone, initials: initials);
+  void setContact(CustomerContact cus) {
+    //print(id);
+    //CustomerContact cus = new CustomerContact(id: id, name: name, phoneNumber: phone, initials: initials);
     _customerContactService.setContact(cus);
     _navigationService.navigateTo(Routes.mainTransaction);
   }
