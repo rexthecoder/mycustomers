@@ -158,7 +158,7 @@ class MainTransaction extends StatelessWidget {
                             ),
                             child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.xMargin(context, 1.5),
+                                  horizontal: SizeConfig.xMargin(context, 2.3),
                                   vertical: ScreenUtil().setHeight(13),
                                 ),
                                 // margin: EdgeInsets.only(
@@ -170,9 +170,9 @@ class MainTransaction extends StatelessWidget {
                                 width: width,
                                 child: model.bought() > model.paid()
                                     ? Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: <Widget>[
                                             Text(//${model.contact.name}
                                               'This customer' +
@@ -191,9 +191,9 @@ class MainTransaction extends StatelessWidget {
                                                         .cursorColor,
                                                   ),
                                             ),
-                                            SizedBox(
-                                                width: SizeConfig.xMargin(
-                                                    context, 14)),
+                                            // SizedBox(
+                                            //     width: SizeConfig.xMargin(
+                                            //         context, 14)),
                                             Text(
                                               model.currency.symbol +
                                                   currency
@@ -218,9 +218,9 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                       )
                                     : Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Text(
                                               AppLocalizations.of(context)
@@ -237,9 +237,9 @@ class MainTransaction extends StatelessWidget {
                                                         .cursorColor,
                                                   ),
                                             ),
-                                            SizedBox(
-                                                width: SizeConfig.xMargin(
-                                                    context, 14)),
+                                            // SizedBox(
+                                            //     width: SizeConfig.xMargin(
+                                            //         context, 14)),
                                             Text(
                                               model.currency.symbol +
                                                   currency
@@ -1152,7 +1152,7 @@ class AddTransaction extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
-                color: Theme.of(context).textSelectionColor,
+                color: Colors.green,
               ),
               width: width / 2.5,
               child: Center(

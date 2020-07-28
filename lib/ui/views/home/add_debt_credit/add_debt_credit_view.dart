@@ -52,9 +52,9 @@ class AddDebtCreditView extends StatelessWidget {
                                 model.amount.round().toString()
                             : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
                         : model.amount != null
-                            ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
+                            ? '${model.contact.name} paid you ₦' +
                                 model.amount.round().toString()
-                            : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
+                            : '${model.contact.name} paid you',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
