@@ -21,6 +21,7 @@ final _customerService = locator<CustomerContactService>();
 
   CustomerContact get customer => _customerService.contact;
   List<Message> get messages => _messageService.messages;
+  List<Message> get messagesReversed => messages.reversed.toList();
 
   String mesgg;
 
@@ -59,11 +60,14 @@ final _customerService = locator<CustomerContactService>();
   }
 
   void send() {
-    _messageService.addMessage(mesgg, customer);
-    getMessages();
-    _customerService.getCustomermarket(StoreRepository.currentStore.id);
-    messageController.clear();
-    notifyListeners();
+    if(messageController.text.isNotEmpty ) {
+      print(messageController.text.length);
+      _messageService.addMessage(mesgg, customer);
+      getMessages();
+      _customerService.getCustomermarket(StoreRepository.currentStore.id);
+      messageController.clear();
+      notifyListeners();
+    }
   }
 
   @override
