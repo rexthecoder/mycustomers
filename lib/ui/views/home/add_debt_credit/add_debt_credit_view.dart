@@ -645,7 +645,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                         milliseconds: 500),
                                                     curve: Curves.easeInOut);
                                                 }
-                                                model.setShowName();
+                                                //model.setShowName();
                                                 model.resetContact();
                                                 // print(controller.position
                                                 //     .viewportDimension);
@@ -949,9 +949,9 @@ class AddDebtCreditView extends StatelessWidget {
                                     ),
                                     SizedBox(
                                       height: model.name != null
-                                          ? 0
+                                          ? SizeConfig.yMargin(context, 100) * 0.2
                                           : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
-                                              0.25 : SizeConfig.yMargin(context, 100) *
+                                              0.28 : SizeConfig.yMargin(context, 100) *
                                               0.7,
                                     ),
                                   ],

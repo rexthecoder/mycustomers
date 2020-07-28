@@ -151,7 +151,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   }
 
   Future<CustomerContact> addTransaction(TransactionModel transaction, CustomerContact cus) async {
-    print(transaction.cId);
+    //print(transaction.cId);
     //final bbox = await box;
     //await _transactionBox.add(transaction);
     CustomerContact temp = cus;
@@ -304,7 +304,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
         print(currency.symbol);
         print(getamount(item.amount, oldcurrency, currency));
         TransactionModel trns = new TransactionModel(
-          cId: item.cId,
+          tId: item.tId,
           sId: item.sId,
           amount: getamount(item.amount, oldcurrency, currency),
           paid: getamount(item.paid, oldcurrency, currency),

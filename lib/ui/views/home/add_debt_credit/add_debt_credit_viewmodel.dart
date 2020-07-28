@@ -363,7 +363,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           print(dueDate);
           print('crediting');
           TransactionModel transaction = new TransactionModel(
-              cId: _transactionService.stransaction.cId,
+              tId: _transactionService.stransaction.tId,
               sId: _transactionService.stransaction.sId,
               amount: _transactionService.stransaction.amount,
               paid: amount,
@@ -379,7 +379,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         } else {
           print('debiting');
           TransactionModel transaction = new TransactionModel(
-              cId: _transactionService.stransaction.cId,
+              tId: _transactionService.stransaction.tId,
               sId: _transactionService.stransaction.sId,
               amount: amount,
               paid: _transactionService.stransaction.paid,
@@ -398,7 +398,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         if (action == 'debit') {
           print(dueDate);
           TransactionModel transaction = new TransactionModel(
-              cId: newCus ? '' : contact.id,
+              tId: uuid.v4(),
               sId: currentStore.id,
               amount: amount,
               paid: 0,
@@ -441,7 +441,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
-              cId: newCus ? '' : contact.id,
+              tId: uuid.v4(),
               sId: currentStore.id,
               amount: 0,
               paid: amount,

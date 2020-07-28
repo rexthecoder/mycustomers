@@ -38,9 +38,9 @@ class NotificationViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  String getName(String id) {
+  String getName(TransactionModel trns) {
     for(var item in contacts) {
-      if(item.id == id) {
+      if(item.transactions.contains(trns)){
         return item.name;
       }
     }

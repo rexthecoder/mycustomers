@@ -121,7 +121,7 @@ class HomePageViewModel extends ReactiveViewModel {
     containsD = false;
     for(var cus in owingcustomers){
       for(var item in contacts){
-        if(cus.cId == item.id){
+        if(item.transactions.contains(cus)){
           if(item.name.toLowerCase().contains(sDName.toLowerCase())){
             containsD = true;
           }
@@ -136,7 +136,7 @@ class HomePageViewModel extends ReactiveViewModel {
     containsC = false;
     for(var cus in owedcustomers){
       for(var item in contacts){
-        if(cus.cId == item.id){
+        if(item.transactions.contains(cus)){
           if(item.name.toLowerCase().contains(sCName.toLowerCase())){
             containsC = true;
           }

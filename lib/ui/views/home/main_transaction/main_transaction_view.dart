@@ -561,6 +561,14 @@ class MainTransaction extends StatelessWidget {
                                                                     children: <
                                                                         Widget>[
                                                                       Text(
+                                                                        item.tId,
+                                                                        style: TextStyle(
+                                                                            fontSize: SizeConfig.yMargin(context,
+                                                                                1.8),
+                                                                            color:
+                                                                                Color(0xFF828282)),
+                                                                      ),
+                                                                      Text(
                                                                         model.getdDate(item.boughtdate) +
                                                                             ' - ' +
                                                                             model.getTime(item.boughtdate),
@@ -703,6 +711,14 @@ class MainTransaction extends StatelessWidget {
                                                                         children: <
                                                                             Widget>[
                                                                           Text(
+                                                                            item.tId,
+                                                                            style: TextStyle(
+                                                                                fontSize: SizeConfig.yMargin(context,
+                                                                                    1.3,),
+                                                                                color:
+                                                                                    Color(0xFF828282)), maxLines: 1,
+                                                                          ),
+                                                                          Text(
                                                                             model.getdDate(item.boughtdate) +
                                                                                 ' - ' +
                                                                                 model.getTime(item.boughtdate),
@@ -805,6 +821,14 @@ class MainTransaction extends StatelessWidget {
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.start,
                                                                             children: <Widget>[
+                                                                              Text(
+                                                                                item.tId,
+                                                                                style: TextStyle(
+                                                                                    fontSize: SizeConfig.yMargin(context,
+                                                                                        1.8),
+                                                                                    color:
+                                                                                        Color(0xFF828282)),
+                                                                              ),
                                                                               Text(
                                                                                 model.getdDate(item.paiddate) + ' - ' + model.getTime(item.paiddate),
                                                                                 style: TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
@@ -1120,7 +1144,7 @@ class AddTransaction extends StatelessWidget {
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: ScreenUtil().setHeight(15),
+                vertical: SizeConfig.yMargin(context, 1.6),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
@@ -1148,7 +1172,7 @@ class AddTransaction extends StatelessWidget {
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: ScreenUtil().setHeight(15),
+                vertical: SizeConfig.yMargin(context, 1.6),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),

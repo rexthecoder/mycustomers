@@ -140,7 +140,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       }
       if(isStored){
         TransactionModel ntransaction = new TransactionModel(
-            cId: contact.id,
+            tId: transaction.tId,
             sId: transaction.sId,
             amount: transaction.amount,
             paid: transaction.paid,
@@ -170,7 +170,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           print('set ${contact.id}');
           _contacts.value = _contactBox.values.toList();
           TransactionModel ntransaction = new TransactionModel(
-            cId: contact.id,
+            tId: transaction.tId,
             sId: transaction.sId,
             amount: transaction.amount,
             paid: transaction.paid,
