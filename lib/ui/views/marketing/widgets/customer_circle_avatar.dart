@@ -50,7 +50,7 @@ class CustomerCircleAvatar extends StatelessWidget {
               : Text(
                   customer != null
                       ? '${customer.displayName.split(" ").length > 2 ? customer.displayName.split(" ")[0][0] + "" + customer.displayName.split(" ")[1][0] ?? "" : customer.displayName[0]}'
-                      : '${customer.initials}',
+                      : '${ccustomer.initials}',
                   //'${customer?.name[0]?? contact?.initial ?? '(*)'}${customer.lastName ==''?'': customer?.lastName[0] ?? ''}'.toUpperCase(),
                   style: TextStyle(
                       color: action == 'debtor'
@@ -58,7 +58,7 @@ class CustomerCircleAvatar extends StatelessWidget {
                           : BrandColors.secondary,
                       fontSize: SizeConfig.yMargin(context, 2),
                       fontFamily: 'Roboto'),
-                ),
+                ) ,
       radius: SizeConfig.xMargin(context, 6),
       backgroundColor: this.bgColor != null
           ? this.bgColor
