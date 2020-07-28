@@ -127,31 +127,74 @@ class MessageHistoryView extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 Container(
-                  margin:  EdgeInsets.only( bottom: SizeConfig.yMargin(context, 15),),
-                  child: ListView.builder(
-                      itemCount: model.messages.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Flexible(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(5),
-                                    color: ThemeColors.gray[800].withOpacity(0.5),
-                                  ),
-                                  padding: const EdgeInsets.all(5.0),
-                                  margin:  EdgeInsets.only(
-                                      top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
-                                  child: Text(
-                                  model.messages[index].message ?? '',
-                                  textAlign: TextAlign.end,
-                                  ),
-                                ),
+                  margin:  EdgeInsets.only( bottom: SizeConfig.yMargin(context, 15)+5,top: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+//                  child: ListView.builder(
+//                      itemCount: model.messages.length,
+//                      itemBuilder: (BuildContext context, int index) =>
+//                          Row(
+//                            mainAxisAlignment: MainAxisAlignment.end,
+//                            children: <Widget>[
+//                              Flexible(
+//                                child: Container(
+//                                  decoration: BoxDecoration(
+//                                    borderRadius:
+//                                    BorderRadius.circular(5),
+//                                    color: ThemeColors.gray[800].withOpacity(0.5),
+//                                  ),
+//                                  padding: const EdgeInsets.all(5.0),
+//                                  margin:  EdgeInsets.only(
+//                                      top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+//                                  child: Text(
+//                                  model.messages[index].message ?? '',
+//                                  textAlign: TextAlign.end,
+//                                  ),
+//                                ),
+//                              ),
+//                            ],
+//                          )),
+
+                child:ListView(
+                  reverse: true,
+
+                  children:  model.messagesReversed.map<Row>((e) =>
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Flexible(
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.only(
+                                  topLeft:  Radius.circular(10),
+                                  bottomRight:  Radius.circular(10),
+                                  bottomLeft:  Radius.circular(10)
                               ),
-                            ],
-                          )),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.only(
+                                  topLeft:  Radius.circular(10),
+                                  bottomRight:  Radius.circular(10),
+                                  bottomLeft:  Radius.circular(10)
+                                ),
+                                color: ThemeColors.gray[800].withOpacity(0.5),
+                              ),
+                              padding: const EdgeInsets.all(5.0),
+//                            margin:  EdgeInsets.only(
+//                                top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+                              child: Text(
+                                e.message ?? '',
+                                textAlign: TextAlign.end,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )).toList(),
+//                  children:  model.messages.map<Text>((e) => Text(e.message)).toList(),
+                ),
                 ),
                 Positioned(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
