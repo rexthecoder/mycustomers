@@ -52,9 +52,9 @@ class AddDebtCreditView extends StatelessWidget {
                                 model.amount.round().toString()
                             : '${model.contact.name} ${AppLocalizations.of(context).owesYou}'
                         : model.amount != null
-                            ? '${AppLocalizations.of(context).youOwe} ${model.contact.name} ₦' +
+                            ? '${model.contact.name} paid you ₦' +
                                 model.amount.round().toString()
-                            : '${AppLocalizations.of(context).youOwe} ${model.contact.name}',
+                            : '${model.contact.name} paid you',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                     fontSize: ScreenUtil().setSp(18),
                     fontWeight: FontWeight.bold,
@@ -206,7 +206,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     vertical: ScreenUtil()
-                                                        .setHeight(8)),
+                                                        .setHeight(6)),
                                           ),
                                           textInputAction: TextInputAction.next,
                                           onChanged: (value) =>
@@ -637,12 +637,16 @@ class AddDebtCreditView extends StatelessWidget {
                                           Focus(
                                             onFocusChange: (hasFocus) {
                                               if (hasFocus) {
-                                                model.controller.animateTo(
+                                                if(model.controller.position.pixels < model.controller.position.maxScrollExtent) {
+                                                  model.controller.animateTo(
                                                     model.controller.position
                                                         .maxScrollExtent,
                                                     duration: new Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.easeInOut);
+                                                }
+                                                //model.setShowName();
+                                                model.resetContact();
                                                 // print(controller.position
                                                 //     .viewportDimension);
                                                 // controller.jumpTo(controller
@@ -737,14 +741,14 @@ class AddDebtCreditView extends StatelessWidget {
                                       ),
                                     ),
                                     for (var item in model.contactsList)
-                                      model.name != null && model.shownames
+                                      model.shownames
                                           ? MyListTile(
                                               onTap: () => model.setName(item),
                                               action: action,
                                               leading: Center(
                                                   child: CircleAvatar(
                                                 child: Text(
-                                                  '${item.displayName[0].toUpperCase()}',
+                                                  'a',//'${item.ini.toUpperCase()}',
                                                   style: TextStyle(
                                                     color: action == 'debtor'
                                                         ? BrandColors.primary
@@ -786,84 +790,84 @@ class AddDebtCreditView extends StatelessWidget {
                                               ),
                                             )
                                           : SizedBox(),
-                                    model.contactsList.length == 0 &&
-                                            model.name != null
-                                        ? model.manual
-                                            ? SizedBox(
-                                                height: model.manual
-                                                    ? 0
-                                                    : MediaQuery.of(context)
-                                                        .viewInsets
-                                                        .bottom,
-                                              )
-                                            : Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 50),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: 20),
-                                                      child: Text(
-                                                        AppLocalizations.of(
-                                                                    context)
-                                                                .noResultFoundFor +
-                                                            '\'${model.name}\'',
-                                                        style: TextStyle(
-                                                            fontSize: SizeConfig
-                                                                .yMargin(
-                                                                    context,
-                                                                    2)),
-                                                      ),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () =>
-                                                          model.setManual(),
-                                                      child: Container(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 15,
-                                                                horizontal: 15),
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5),
-                                                            color: action ==
-                                                                    'debit'
-                                                                ? BrandColors
-                                                                    .secondary
-                                                                    .withOpacity(
-                                                                        0.2)
-                                                                : BrandColors
-                                                                    .primary
-                                                                    .withOpacity(
-                                                                        0.2)),
-                                                        child: Text(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .addNewCustomer,
-                                                          style: TextStyle(
-                                                              color: action ==
-                                                                      'debit'
-                                                                  ? BrandColors
-                                                                      .secondary
-                                                                  : BrandColors
-                                                                      .primary,
-                                                              fontSize: SizeConfig
-                                                                  .yMargin(
-                                                                      context,
-                                                                      2)),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              )
-                                        : SizedBox(),
+                                    // model.contactsList.length == 0 &&
+                                    //         model.name != null
+                                    //     ? model.manual
+                                    //         ? SizedBox(
+                                    //             height: model.manual
+                                    //                 ? 0
+                                    //                 : MediaQuery.of(context)
+                                    //                     .viewInsets
+                                    //                     .bottom,
+                                    //           )
+                                    //         : Container(
+                                    //             padding: EdgeInsets.symmetric(
+                                    //                 vertical: 50),
+                                    //             child: Column(
+                                    //               mainAxisAlignment:
+                                    //                   MainAxisAlignment
+                                    //                       .spaceBetween,
+                                    //               children: <Widget>[
+                                    //                 Container(
+                                    //                   margin: EdgeInsets.only(
+                                    //                       bottom: 20),
+                                    //                   child: Text(
+                                    //                     AppLocalizations.of(
+                                    //                                 context)
+                                    //                             .noResultFoundFor +
+                                    //                         '\'${model.name}\'',
+                                    //                     style: TextStyle(
+                                    //                         fontSize: SizeConfig
+                                    //                             .yMargin(
+                                    //                                 context,
+                                    //                                 2)),
+                                    //                   ),
+                                    //                 ),
+                                    //                 InkWell(
+                                    //                   onTap: () =>
+                                    //                       model.setManual(),
+                                    //                   child: Container(
+                                    //                     padding: EdgeInsets
+                                    //                         .symmetric(
+                                    //                             vertical: 15,
+                                    //                             horizontal: 15),
+                                    //                     decoration: BoxDecoration(
+                                    //                         borderRadius:
+                                    //                             BorderRadius
+                                    //                                 .circular(
+                                    //                                     5),
+                                    //                         color: action ==
+                                    //                                 'debit'
+                                    //                             ? BrandColors
+                                    //                                 .secondary
+                                    //                                 .withOpacity(
+                                    //                                     0.2)
+                                    //                             : BrandColors
+                                    //                                 .primary
+                                    //                                 .withOpacity(
+                                    //                                     0.2)),
+                                    //                     child: Text(
+                                    //                       AppLocalizations.of(
+                                    //                               context)
+                                    //                           .addNewCustomer,
+                                    //                       style: TextStyle(
+                                    //                           color: action ==
+                                    //                                   'debit'
+                                    //                               ? BrandColors
+                                    //                                   .secondary
+                                    //                               : BrandColors
+                                    //                                   .primary,
+                                    //                           fontSize: SizeConfig
+                                    //                               .yMargin(
+                                    //                                   context,
+                                    //                                   2)),
+                                    //                     ),
+                                    //                   ),
+                                    //                 )
+                                    //               ],
+                                    //             ),
+                                    //           )
+                                    //     : SizedBox(),
                                     Visibility(
                                       visible: model.manual,
                                       child: Container(
@@ -945,10 +949,10 @@ class AddDebtCreditView extends StatelessWidget {
                                     ),
                                     SizedBox(
                                       height: model.name != null
-                                          ? 0
+                                          ? SizeConfig.yMargin(context, 100) * 0.2
                                           : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
-                                              0.3 : SizeConfig.yMargin(context, 100) *
-                                              0.8,
+                                              0.28 : SizeConfig.yMargin(context, 100) *
+                                              0.7,
                                     ),
                                   ],
                                 ),
