@@ -21,7 +21,8 @@ class AddDebtView extends StatelessWidget {
               elevation: 1,
               title: Text(
                 model.amount != null
-                    ? 'Sheyi ${AppLocalizations.of(context).owesYou} \$' + model.amount.toString()
+                    ? 'Sheyi ${AppLocalizations.of(context).owesYou} \$' +
+                        model.amount.toString()
                     : 'Sheyi ${AppLocalizations.of(context).owesYou}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                       fontSize: ScreenUtil().setSp(18),
@@ -107,7 +108,7 @@ class AddDebtView extends StatelessWidget {
                                   ),
                                   hintText:
                                       AppLocalizations.of(context).enterAmount,
-                               //   errorText: model.error,
+                                  //   errorText: model.error,
                                   prefixIcon: Container(
                                     padding: EdgeInsets.symmetric(
                                         vertical: ScreenUtil().setHeight(15),
@@ -172,7 +173,7 @@ class AddDebtView extends StatelessWidget {
                                                   .headline6
                                                   .copyWith(
                                                     fontSize:
-                                                        ScreenUtil().setSp(16),
+                                                        ScreenUtil().setSp(12),
                                                     color: Color(0xFFFF8C5F),
                                                   ),
                                             ),
@@ -194,7 +195,8 @@ class AddDebtView extends StatelessWidget {
                                     child: Column(
                                       children: <Widget>[
                                         TextField(
-                                          textCapitalization: TextCapitalization.sentences,
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
                                           controller: _controller,
                                           maxLines: null,
                                           maxLengthEnforced: false,
