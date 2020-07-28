@@ -54,7 +54,10 @@ class EditProfileView extends HookWidget {
                   Divider(color: ThemeColors.gray.shade600),
                   SizedBox(height: SizeConfig.yMargin(context, 1.4)),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      Text(AppLocalizations.of(context).userName),
+                      SizedBox(height: SizeConfig.yMargin(context, 1.5)),
                       Container(
                         padding: EdgeInsets.symmetric(
                             vertical: SizeConfig.yMargin(context, 0.7)),
@@ -70,7 +73,9 @@ class EditProfileView extends HookWidget {
                             ),
                             child: _StringForm()),
                       ),
-                      SizedBox(height: SizeConfig.yMargin(context, 2)),
+                      SizedBox(height: SizeConfig.yMargin(context, 3)),
+                      Text(AppLocalizations.of(context).businessName),
+                      SizedBox(height: SizeConfig.yMargin(context, 1.5)),
                       Container(
                         padding: EdgeInsets.symmetric(
                             vertical: SizeConfig.yMargin(context, 0.7)),
@@ -98,6 +103,7 @@ class EditProfileView extends HookWidget {
                             style: TextStyle(
                               color: Theme.of(context).textSelectionColor,
                             ),
+                            textInputAction: TextInputAction.next,
                           ),
                         ),
                       )
@@ -152,6 +158,7 @@ class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
       style: TextStyle(
         color: Theme.of(context).textSelectionColor,
       ),
+      textInputAction: TextInputAction.done,
     );
   }
 }
@@ -170,7 +177,7 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
         : MemoryImage(model.currentStore.storePic),
     child: model.currentStore.storePic == null
         ? Text(
-            model.userName.isEmpty ? 'N' : model.userName.substring(0, 1),
+            model.userName.isEmpty ? '' : model.userName.substring(0, 1),
             style: TextStyle(
               color: BrandColors.primary,
               fontSize: SizeConfig.textSize(context, 18),

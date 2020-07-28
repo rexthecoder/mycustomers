@@ -7,17 +7,15 @@ import 'message_viewmodel.dart';
 
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/core/models/customer.dart';
+import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_viewmodel.dart';
 
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
-import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_viewmodel.dart';
-
 import 'package:mycustomers/ui/shared/size_config.dart';
 
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 
 class MessageView extends StatelessWidget {
   final MessageArgument arguments;
-//  final List<Customer> selectedCustomers;
   MessageView(this.arguments);
   @override
   Widget build(BuildContext context) {
@@ -32,15 +30,7 @@ class MessageView extends StatelessWidget {
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
-        //model.oldSelected();
-        model.initSelected(arguments.selectedCustomers);
         model.setQuickText(arguments.title, arguments.message);
-        // final int length = model.selectedCustomers.length != 0
-        //     ? model.selectedCustomers.length
-        //     : arguments.selectedCustomers.length;
-        // print(arguments.selectedCustomers.length);
-
-//        arguments.selectedCustomers.length;
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
               title: AppLocalizations.of(context).sendAMessage,
@@ -75,6 +65,7 @@ class MessageView extends StatelessWidget {
                     ),
 //                      maxLines: 2,
                     onChanged: model.setTitle,
+                    textInputAction: TextInputAction.next,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -98,6 +89,7 @@ class MessageView extends StatelessWidget {
                     ),
                     maxLines: 3,
                     onChanged: model.setBody,
+                    textInputAction: TextInputAction.next,
                   ),
                   SizedBox(
                     height: 10.h,
@@ -199,12 +191,8 @@ class MessageView extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: 30.0, horizontal: 10),
                     child: FlatButton(
                       onPressed: () {
-//                        model.navigateToSendMessage();
                         model.send();
                         successDialog(context, model);
-                        //flusher('Still in development', context);
-                      //  model.navigateToSendMessage();
-//                        successDialog(context, model);
                       },
                       color: BrandColors.primary,
                       padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -386,7 +374,6 @@ class MessageView extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         model.returnHome();
-                        //TODO: route to screen
                       },
                       child: Container(
                         height: 50.h,
@@ -485,7 +472,6 @@ class MessageView extends StatelessWidget {
 }
 
 class BottomSheetView extends StatelessWidget {
-  //final List<Customer> selectedCustomers;
   final double height;
   final MessageViewModel parentModel;
   BottomSheetView(this.height, this.parentModel);
@@ -504,7 +490,6 @@ class BottomSheetView extends StatelessWidget {
           child: Container(
             height: height,
             child: Column(
-//              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -516,7 +501,6 @@ class BottomSheetView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       onPressed: () {
-                        //parentModel.mergeSelectCustomer(model.newSelectedCustomers);
                         Navigator.pop(context);
                       },
                       child: Text(
@@ -594,7 +578,6 @@ class BottomSheetView extends StatelessWidget {
                                     ),
                                   )
                                 :
-//
                                 SliverPadding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: 8.w),

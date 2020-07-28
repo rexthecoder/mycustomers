@@ -78,6 +78,7 @@ class SendMessage extends StatelessWidget {
                                             width: 2.0),
                                       ),
                                     ),
+                                    textInputAction: TextInputAction.next,
                                   ),
                                 ),
                                 SizedBox(
@@ -130,6 +131,7 @@ class SendMessage extends StatelessWidget {
                                             width: 2.0),
                                       ),
                                     ),
+                                    textInputAction: TextInputAction.done,
                                   ),
                                 ),
                               ],
