@@ -72,7 +72,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   bool get isLoadBusy => _busy;
 
   String namehint;
-  bool shownames;
+  bool shownames = false;
   TextEditingController searchController = TextEditingController();
   Customer selectedCustomer;
   var uuid = Uuid();
@@ -131,7 +131,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         manual = false;
         inputNumberController.clear();
         number = null;
-        shownames = false;
+        //shownames = false;
       }
       if (contactsList.length != 0) {
         manual = false;
@@ -150,9 +150,30 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                   name != null //&& number != null
               ? save = true
               : save = false;
+      manual = contactsList.where((element) => element.displayName.toUpperCase().contains(value.toUpperCase())).toList().length == 0;
       notifyListeners();
       init(query: name);
     });
+    
+    print(manual);
+    resetContact();
+    notifyListeners();
+  }
+
+  void setShowName(){
+    shownames = true;
+    notifyListeners();
+  }
+
+  void resetContact() {
+    if(selectedCustomer != null && selectedCustomer.displayName != _name) {
+      shownames = true;
+      selectedCustomer = null;
+      if(controller.position.pixels < controller.position.maxScrollExtent) {
+        controller.animateTo(controller.position.maxScrollExtent, duration: new Duration(milliseconds: 500),
+          curve: Curves.easeInOut);
+      }
+    }
   }
 
   void setName(Customer cus) {

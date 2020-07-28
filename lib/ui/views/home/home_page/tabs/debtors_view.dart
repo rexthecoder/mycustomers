@@ -206,7 +206,6 @@ class ContactList extends StatelessWidget {
                 onChanged: model.searchDName,
               ),
             ),
-            Text(model.owingcustomers.length.toString()),
             model.sDName != null && !model.containsD
                 ? Text(
                     AppLocalizations.of(context).noCustomerFound,
