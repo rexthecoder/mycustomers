@@ -114,41 +114,45 @@ class BusinessHomePageView extends StatelessWidget {
                           screenshotController: screenshotController,
                         ),
                         SizedBox(height: SizeConfig.yMargin(context, 1)),
-                        CustomRaisedButton(
-                          txtColor: ThemeColors.background,
-                          btnColor: BrandColors.primary,
-                          btnText: 'Share Business Card',
-                          borderColor: BrandColors.primary,
-                          child: Container(),
-                          onPressed: () {
-                            screenshotController
-                                .capture(
-                              pixelRatio: ScreenUtil.pixelRatio,
-                              delay: Duration(milliseconds: 10),
-                            )
-                                .then(
-                              (File image) {
-                                businessCardModel.imageFile = image;
-                                FlushbarHelper.createSuccess(
-                                  duration: const Duration(seconds: 5),
-                                  message: 'Sharing...',
-                                ).show(context);
-                                businessCardModel.shareImageAndText();
-                                FlushbarHelper.createSuccess(
-                                  duration: const Duration(seconds: 5),
-                                  message: 'Successful',
-                                ).show(context);
-                              },
-                            ).catchError(
-                              (onError) {
-                                FlushbarHelper.createError(
-                                  duration: const Duration(seconds: 5),
-                                  message: onError.toString(),
-                                ).show(context);
-                              },
-                            );
-                            return;
-                          },
+                        Container(
+                          height: SizeConfig.yMargin(context, 6),
+                          width: SizeConfig.xMargin(context, 60),
+                          child: CustomRaisedButton(
+                            txtColor: ThemeColors.background,
+                            btnColor: BrandColors.primary,
+                            btnText: 'Share Business Card',
+                            borderColor: BrandColors.primary,
+                            child: Container(),
+                            onPressed: () {
+                              screenshotController
+                                  .capture(
+                                pixelRatio: ScreenUtil.pixelRatio,
+                                delay: Duration(milliseconds: 10),
+                              )
+                                  .then(
+                                (File image) {
+                                  businessCardModel.imageFile = image;
+                                  FlushbarHelper.createSuccess(
+                                    duration: const Duration(seconds: 5),
+                                    message: 'Sharing...',
+                                  ).show(context);
+                                  businessCardModel.shareImageAndText();
+                                  FlushbarHelper.createSuccess(
+                                    duration: const Duration(seconds: 5),
+                                    message: 'Successful',
+                                  ).show(context);
+                                },
+                              ).catchError(
+                                (onError) {
+                                  FlushbarHelper.createError(
+                                    duration: const Duration(seconds: 5),
+                                    message: onError.toString(),
+                                  ).show(context);
+                                },
+                              );
+                              return;
+                            },
+                          ),
                         )
                       ],
                     ),
