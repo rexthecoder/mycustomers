@@ -54,6 +54,7 @@ class MessageViewModel extends ReactiveViewModel {
   // }
 
   List<CustomerContact> get selectedCustomers => _contactService.selectedC;
+  //CustomerContact get customer => _contactService.contact;
   String tit = '';
   String body = '';
 
@@ -92,7 +93,7 @@ class MessageViewModel extends ReactiveViewModel {
     _contactService.selectAll(hold);
     for(var item in selectedCustomers) {
       //print(item.name);
-      _messageService.addMessage(tit+', '+body, item.id);
+      _messageService.addMessage(tit+', '+body, item);
     }
   }
 

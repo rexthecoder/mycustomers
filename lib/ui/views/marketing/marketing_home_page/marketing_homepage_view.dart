@@ -285,13 +285,11 @@ class MarketingHomePageView extends StatelessWidget {
                                                             height: 3.sp,
                                                           ),
                                                           Text(
-                                                            model.getmsg(customer
-                                                                        .id) !=
+                                                            model.getmsg(customer) !=
                                                                     null
                                                                 ? model
                                                                     .getmsg(
-                                                                        customer
-                                                                            .id)
+                                                                        customer)
                                                                     .message
                                                                 : '',
                                                             style: TextStyle(
@@ -445,12 +443,11 @@ class MarketingHomePageView extends StatelessWidget {
                                                               height: 3.sp,
                                                             ),
                                                             Text(
-                                                              model.getmsg(customer
-                                                                          .id) !=
+                                                              model.getmsg(customer) !=
                                                                       null
                                                                   ? model
                                                                           .getmsg(
-                                                                              customer.id)
+                                                                              customer)
                                                                           .message ??
                                                                       ''
                                                                   : '',

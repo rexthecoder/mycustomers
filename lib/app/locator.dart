@@ -7,6 +7,7 @@ import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
@@ -163,6 +164,7 @@ Future<void> setupLocator(
 
   print('Initializing boxes...');
   Hive.registerAdapter(TransactionAdapter());
+  Hive.registerAdapter(MessageAdapter());
 
   //Initialization for all boxes
   await BusinessCardLocalDataSourceImpl().init();
@@ -171,7 +173,7 @@ Future<void> setupLocator(
   await BussinessSettingService().init();
   await CustomerContactService().init();
   await ProfileService().init();
-  await MessageService().init();
+  //await MessageService().init();
 
 //  Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());

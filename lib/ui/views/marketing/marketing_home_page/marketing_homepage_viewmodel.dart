@@ -63,7 +63,7 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
   List<CustomerContact> get scustomers => _contactService.contactsm.where((element) => element.name.toUpperCase().contains(_searchTerm.toUpperCase())).toList();
 
   List<CustomerContact> get customers => _contactService.contactsm;
-  Message getmsg(String id) => _messageService.getLast(id);
+  Message getmsg(CustomerContact cus) => _messageService.getLast(cus);
   List<Message> get allmessages => _messageService.allmessages;
   List<CustomerContact> get frequents => _messageService.tempc;
 
@@ -91,11 +91,8 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
       transactions: cus.transactions,
       messages: cus.messages
     );
-    for(var item in allmessages) {
-      if(item.cId == cus.id) {
-        _messageService.deleteMessage(item);
-      }
-    }
+
+    _messageService.deleteAllMessage(cus);
     //await _transactionService.getTransactions();
     //print(_transactionService.transactions.length);
     if(cus.transactions.length > 0) {
