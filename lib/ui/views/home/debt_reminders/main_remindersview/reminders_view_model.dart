@@ -9,7 +9,7 @@ import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.da
 import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
 
-class ScheduleNotificationsViewModel extends BaseViewModel {
+class RemindersViewModel extends BaseViewModel {
   final dformat = new DateFormat('MMM dd, yyyy');
   DateTime selectedDate = DateTime.now();
   DateTime scheduledDate;
@@ -65,6 +65,13 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
 
   Future<void> navigateToMainView() async{
     await _navigationService.clearStackAndShow(Routes.mainViewRoute);
+  }
 
+  Future<void> navigateToSendMessage() async {
+    await _navigationService.navigateTo(Routes.sendNotificationMessage);
+  }
+
+  Future<void> navigateToSchedule() async {
+    await _navigationService.navigateTo(Routes.scheduleNotifications);
   }
 }
