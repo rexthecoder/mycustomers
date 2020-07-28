@@ -473,7 +473,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                                     .copyWith(
                                                                       fontSize:
                                                                           ScreenUtil()
-                                                                              .setSp(16),
+                                                                              .setSp(12),
                                                                       color: action ==
                                                                               'debit'
                                                                           ? BrandColors
@@ -533,7 +533,11 @@ class AddDebtCreditView extends StatelessWidget {
                                                             (hasFocus) {
                                                           if (hasFocus) {
                                                             model.controller.animateTo(
-                                                                model.controller.position.maxScrollExtent-250,
+                                                                model
+                                                                        .controller
+                                                                        .position
+                                                                        .maxScrollExtent -
+                                                                    250,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:
@@ -581,7 +585,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                                         .setSp(
                                                                             15)),
                                                           ),
-                                                          textInputAction: TextInputAction.next,
+                                                          textInputAction:
+                                                              TextInputAction
+                                                                  .next,
                                                           // onSubmitted: (value) {
                                                           //   _controller.clear();
                                                           //   model.addItem(action, update);
@@ -877,12 +883,13 @@ class AddDebtCreditView extends StatelessWidget {
                                         child: Padding(
                                           padding: EdgeInsets.all(8),
                                           child: InternationalPhoneNumberInput(
-                                            onInputChanged: (PhoneNumber number) {
+                                            onInputChanged:
+                                                (PhoneNumber number) {
                                               model.number = number;
                                               //model.updateNumber(action);
                                             },
                                             onInputValidated: (value) {
-                                              if(value) {
+                                              if (value) {
                                                 model.updateNumber(action);
                                               }
                                             },
@@ -896,7 +903,8 @@ class AddDebtCreditView extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .cursorColor),
                                             initialValue: model.number,
-                                            textFieldController: model.inputNumberController,
+                                            textFieldController:
+                                                model.inputNumberController,
                                             inputBorder: InputBorder.none,
                                           ),
                                         ),
@@ -946,9 +954,16 @@ class AddDebtCreditView extends StatelessWidget {
                                     SizedBox(
                                       height: model.name != null
                                           ? 0
-                                          : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
-                                              0.3 : SizeConfig.yMargin(context, 100) *
-                                              0.8,
+                                          : MediaQuery.of(context)
+                                                      .viewInsets
+                                                      .bottom >
+                                                  0
+                                              ? SizeConfig.yMargin(
+                                                      context, 100) *
+                                                  0.3
+                                              : SizeConfig.yMargin(
+                                                      context, 100) *
+                                                  0.8,
                                     ),
                                   ],
                                 ),
