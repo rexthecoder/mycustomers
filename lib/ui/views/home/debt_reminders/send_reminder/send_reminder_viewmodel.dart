@@ -19,6 +19,7 @@ class SendMessageViewModel extends BaseViewModel {
   ];
 
   String number = "0786067005";
+  String value = 'Dear Sir/Ma, you have an outstanding payment of N20,000.';
 
   List<String> get messageEntries => _messageEntries;
   final _customerContactService = locator<CustomerContactService>();
@@ -36,19 +37,22 @@ class SendMessageViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  sendMessage() async {
-    const uri = 'sms:+2348104034818?body=Hello%20there';
+  void sendMessage() async {
+    var regText = Uri.encodeFull(value);
+    var uri =
+        'sms:+${contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20using%20this%20link:www.google.com';
     if (Platform.isAndroid) {
       if (await canLaunch(uri)) {
         await launch(uri);
       }
-    } else if (Platform.isIOS) {
-      const uri = 'sms:0081-040-34818?body=Hello%20there';
-      if (await canLaunch(uri)) {
-        await launch(uri);
-      } else {
-        throw 'Could not launch $uri';
-      }
     }
+    // else if (Platform.isIOS) {
+    //   const uri = 'sms:0081-040-34818?body=Hello%20there';
+    //   if (await canLaunch(uri)) {
+    //     await launch(uri);
+    //   } else {
+    //     throw 'Could not launch $uri';
+    //   }
+    // }
   }
 }

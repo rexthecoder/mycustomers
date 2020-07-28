@@ -21,15 +21,79 @@ class SendMessage extends StatelessWidget {
               arrowColor: Theme.of(context).textSelectionColor,
               backgroundColor: Theme.of(context).backgroundColor),
           body: Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: SizeConfig.xMargin(context, 5),
+              vertical: SizeConfig.yMargin(context, 5),
+            ),
             child: Column(
               children: <Widget>[
                 SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      Center(
-                          child: Text(action == 'send'
-                              ? AppLocalizations.of(context).sendReminder
-                              : AppLocalizations.of(context).scheduleReminder))
+                      action == 'schedule'
+                          ? Text(
+                              AppLocalizations.of(context)
+                                  .pickADateAndTypeInYourMessage,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                      fontSize:
+                                          SizeConfig.textSize(context, 4.4),
+                                      fontWeight: FontWeight.bold),
+                            )
+                          : Container(),
+                      action == 'send'
+                          ? Container(
+                              height: SizeConfig.xMargin(context, 45),
+                              width: SizeConfig.xMargin(context, 90),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: SizeConfig.xMargin(context, 2),
+                                  vertical: SizeConfig.yMargin(context, 2)),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    SizeConfig.yMargin(context, 2)),
+                                border: Border.all(
+                                    color: ThemeColors.gray.shade600),
+                              ),
+                              child: TextFormField(
+                                maxLines: null,
+                                maxLengthEnforced: false,
+                                onChanged: (value) {
+                                  model.value = value;
+                                },
+                                initialValue: model.value,
+                                decoration:
+                                    InputDecoration(border: InputBorder.none),
+                              ),
+                            )
+                          : Container(),
+                      SizedBox(
+                        height: SizeConfig.yMargin(context, 10),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          model.sendMessage();
+                        },
+                        child: Container(
+                          height: SizeConfig.yMargin(context, 8),
+                          width: SizeConfig.xMargin(context, 80),
+                          decoration: BoxDecoration(
+                            color: BrandColors.primary,
+                            borderRadius: BorderRadius.circular(
+                                SizeConfig.yMargin(context, 2)),
+                          ),
+                          child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Center(
+                                child: Text(
+                                  AppLocalizations.of(context).send,
+                                  style:
+                                      TextStyle(color: ThemeColors.background),
+                                ),
+                              )),
+                        ),
+                      ),
                     ],
                   ),
                 )
