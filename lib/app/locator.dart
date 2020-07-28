@@ -16,6 +16,7 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:mycustomers/core/services/message_service.dart';
+import 'package:mycustomers/core/services/phone_contact_service.dart';
 import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
@@ -143,6 +144,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<MessageService>(
     () => MessageService(),
   );
+  locator.registerLazySingleton<PhoneContactService>(
+    () => PhoneContactService(),
+  );
   // locator.registerLazySingleton<LocalStorageService>(
   //   () => LocalStorageService(),
   // );
@@ -173,6 +177,9 @@ Future<void> setupLocator(
   await BussinessSettingService().init();
   await CustomerContactService().init();
   await ProfileService().init();
+  await PhoneContactService().init();
+  //await PhoneContactService().deleteAll();
+  //await PhoneContactService().init();
   //await MessageService().init();
 
 //  Hive.registerAdapter(BusinessCardAdapter());

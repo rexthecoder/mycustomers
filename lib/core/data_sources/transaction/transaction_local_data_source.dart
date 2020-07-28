@@ -39,11 +39,11 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   RxValue<List<TransactionModel>> _creditlist = RxValue<List<TransactionModel>>(initial: []);
   List<TransactionModel> get creditlist => _creditlist.value;
 
-  RxValue<List<TransactionModel>> _owingcustomers = RxValue<List<TransactionModel>>(initial: []);
-  List get owingcustomers => _owingcustomers.value;
+  RxValue<List<CustomerContact>> _owingcustomers = RxValue<List<CustomerContact>>(initial: []);
+  List<CustomerContact> get owingcustomers => _owingcustomers.value;
 
-  RxValue<List<TransactionModel>> _owedcustomers = RxValue<List<TransactionModel>>(initial: []);
-  List get owedcustomers => _owedcustomers.value;
+  RxValue<List<CustomerContact>> _owedcustomers = RxValue<List<CustomerContact>>(initial: []);
+  List<CustomerContact> get owedcustomers => _owedcustomers.value;
 
   List<String> formattedate = [];
   String date;
@@ -87,13 +87,19 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     _whatyouowe.value = 0;
     _owingcustomers.value = [];
     _owedcustomers.value = [];
-    for(var item in _alltransactions.value){
-      if(item.amount-item.paid > 0) {
-        _owingcustomers.value.add(item);
+    for(var cus in _contactBox.values.toList()) {
+      double tempd = 0;
+      double tempc = 0;
+      for(var item in cus.transactions){
+        tempd += item.amount;
+        tempc += item.paid;
       }
-      if(item.paid-item.amount > 0) {
-        _owedcustomers.value.add(item);
-        _whatyouowe.value += item.paid-item.amount;
+      if(tempd - tempc > 0) {
+        _owingcustomers.value.add(cus);
+      }
+      if(tempc - tempc > 0) {
+        _owedcustomers.value.add(cus);
+        //_whatyouowe.value += item.paid-item.amount;
       }
     }
   }

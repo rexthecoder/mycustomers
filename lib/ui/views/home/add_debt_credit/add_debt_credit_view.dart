@@ -12,6 +12,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 
@@ -533,7 +534,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             (hasFocus) {
                                                           if (hasFocus) {
                                                             model.controller.animateTo(
-                                                                model.controller.position.maxScrollExtent-250,
+                                                                model.controller.position.pixels+200,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:
@@ -640,12 +641,12 @@ class AddDebtCreditView extends StatelessWidget {
                                                 if(model.controller.position.pixels < model.controller.position.maxScrollExtent) {
                                                   model.controller.animateTo(
                                                     model.controller.position
-                                                        .maxScrollExtent,
+                                                        .pixels+200,
                                                     duration: new Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.easeInOut);
                                                 }
-                                                //model.setShowName();
+                                                model.setShowName();
                                                 model.resetContact();
                                                 // print(controller.position
                                                 //     .viewportDimension);
@@ -740,9 +741,13 @@ class AddDebtCreditView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    for (var item in model.contactsList)
-                                      model.shownames
-                                          ? MyListTile(
+                                    Visibility(
+                                      visible: model.shownames,
+                                      child: Column(
+                                        children: <Widget>[
+                                          model.isLoadBusy ? LoadingAnimation() : SizedBox(),
+                                          for (var item in model.isLoadBusy ? [] : model.contactsList)
+                                            MyListTile(
                                               onTap: () => model.setName(item),
                                               action: action,
                                               leading: Center(
@@ -789,7 +794,9 @@ class AddDebtCreditView extends StatelessWidget {
                                                             context, 2)),
                                               ),
                                             )
-                                          : SizedBox(),
+                                        ],
+                                      ),
+                                    ),
                                     // model.contactsList.length == 0 &&
                                     //         model.name != null
                                     //     ? model.manual

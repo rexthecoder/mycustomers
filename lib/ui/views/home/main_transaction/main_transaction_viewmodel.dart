@@ -81,7 +81,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   int bought(){
     int sum = 0;
     for (var item in transactions) {
-      if(item.amount > item.paid) {
+      if(item.amount != 0) {
         sum += item.amount.round();
       }
     }

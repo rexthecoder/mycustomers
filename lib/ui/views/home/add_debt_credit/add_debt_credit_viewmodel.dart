@@ -48,7 +48,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
 
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
-  List<Customer> contactsList = List<Customer>();
+  List<Customer> contactsList = [];
 
   ScrollController controller = new ScrollController();
 
@@ -98,16 +98,21 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
 
   init({String query}) async {
     final bool isPermitted = await _permission.getContactsPermission();
-    contactsList.clear();
+    
+    List<Customer> temp = [];
     if(isPermitted) {
+      _busy = true;
+      notifyListeners();
       for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
         print('Iterate');
-        if (_busy) {
-          _busy = false;
-          notifyListeners();
-        }
-        contactsList.add(customer);
-        _contactStream.add(contactsList);
+        
+        temp.add(customer);
+        contactsList = temp;
+        //_contactStream.add(contactsList);
+      }
+      if (_busy) {
+        _busy = false;
+        notifyListeners();
       }
     } else {
       manual = true;
@@ -169,7 +174,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     if(selectedCustomer != null && selectedCustomer.displayName != _name) {
       shownames = true;
       selectedCustomer = null;
-      if(controller.position.pixels < controller.position.maxScrollExtent) {
+      if(controller.position.pixels < controller.position.pixels+100) {
         controller.animateTo(controller.position.maxScrollExtent, duration: new Duration(milliseconds: 500),
           curve: Curves.easeInOut);
       }

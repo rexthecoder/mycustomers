@@ -40,8 +40,8 @@ class HomePageViewModel extends ReactiveViewModel {
   List<TransactionModel> get transactions => _transactionService.alltransactions;
   double get whatyouowe  => _transactionService.whatyouowe;
   int tabNo = 0;
-  List<TransactionModel> get owingcustomers => _transactionService.owingcustomers;
-  List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
+  List<CustomerContact> get owingcustomers => _transactionService.owingcustomers;
+  List<CustomerContact> get owedcustomers => _transactionService.owedcustomers;
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
   CountryCurrency get oldcurrency => _bussinessService.oldcurren;
@@ -146,6 +146,54 @@ class HomePageViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
+  double totaldebt() {
+    double sum = 0;
+    for(var cus in contacts) {
+      double tempd = 0;
+      double tempc = 0;
+      for(var trans in cus.transactions) {
+        tempd += trans.amount;
+        tempc += trans.paid;
+      }
+      sum += tempd - tempc > 0 ? tempd - tempc : 0;
+    }
+    return sum.abs();
+  }
+
+  double totalcredit() {
+    double sum = 0;
+    for(var cus in contacts) {
+      double tempd = 0;
+      double tempc = 0;
+      for(var trans in cus.transactions) {
+        tempd += trans.amount;
+        tempc += trans.paid;
+      }
+      sum += tempc - tempd > 0 ? tempc - tempd : 0;
+    }
+    return sum.abs();
+  }
+
+  double getdebt(CustomerContact cus) {
+    double tempd = 0;
+    double tempc = 0;
+    for(var trans in cus.transactions) {
+      tempd += trans.amount;
+      tempc += trans.paid;
+    }
+    return tempd - tempc;
+  }
+
+  double getcredit(CustomerContact cus) {
+    double tempd = 0;
+    double tempc = 0;
+    for(var trans in cus.transactions) {
+      tempd += trans.amount;
+      tempc += trans.paid;
+    }
+    return tempc - tempd;
+  }
+
   double bought(){
     double sum = 0;
     for (var item in transactions) {
@@ -154,6 +202,14 @@ class HomePageViewModel extends ReactiveViewModel {
       }
     }
     return sum;
+  }
+
+  String getdebtduedate(CustomerContact cus) {
+    return cus.transactions.where((element) => element.amount != 0).toList().last.duedate;
+  }
+
+  String getcreditduedate(CustomerContact cus) {
+    return cus.transactions.where((element) => element.paid != 0).toList().last.duedate;
   }
 
   double paid(){
