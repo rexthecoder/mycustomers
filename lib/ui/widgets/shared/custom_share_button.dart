@@ -42,7 +42,7 @@ class CustomShareRaisedButton extends StatelessWidget {
               btnText,
               style: TextStyle(
                 color: txtColor,
-                fontSize: SizeConfig.textSize(context, 5),
+                fontSize: SizeConfig.textSize(context, 4),
                 fontWeight: FontWeight.w900,
               ),
             ),
