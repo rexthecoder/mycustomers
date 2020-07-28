@@ -18,7 +18,7 @@ class RemindersViewModel extends BaseViewModel {
   int _selectedMonth;
   dynamic _selectedTime;
   DateTime _today = DateTime.now();
-  NotificationRemindersService reminders = NotificationRemindersService();
+  final NotificationRemindersService reminders = NotificationRemindersService();
   final NavigationService _navigationService = locator<NavigationService>();
 
   // This is temporary to give each notification a unique id
@@ -39,9 +39,9 @@ class RemindersViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void scheduleReminder(String heading) {
+  void scheduleReminder() {
     reminders.sendNotificationOnce(id, 'You have this pending message to send',
-        'Heading: ' + heading, getDateTime());
+         '', getDateTime());
   }
 
   // When time picker is added to the screen,

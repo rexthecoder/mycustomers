@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 import 'package:mycustomers/ui/views/business/digital_reciept/create_receipt_view.dart';
 import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
@@ -399,14 +400,14 @@ class Router {
       case Routes.sendNotificationMessage:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SendMessage(
-            action: 'send',
+            action: AppLocalizations.of(context).send,
           ),
           settings: settings,
         );
       case Routes.scheduleNotifications:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SendMessage(
-            action: 'schedule',
+            action: AppLocalizations.of(context).schedule,
           ),
           settings: settings,
         );
