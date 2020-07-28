@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/custom_share_button.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 
@@ -21,6 +21,7 @@ class BusinessHomePageView extends StatelessWidget {
   final String support = 'assets/icons/svg/support.svg';
   final String businessCard = 'assets/icons/svg/business_card.svg';
   final String phoneNumber = 'assets/icons/svg/phone.svg';
+  final String share = 'assets/icons/svg/share.svg';
   final ScreenshotController screenshotController = ScreenshotController();
 
   @override
@@ -117,12 +118,16 @@ class BusinessHomePageView extends StatelessWidget {
                         Container(
                           height: SizeConfig.yMargin(context, 6),
                           width: SizeConfig.xMargin(context, 60),
-                          child: CustomRaisedButton(
+                          child: CustomShareRaisedButton(
                             txtColor: ThemeColors.background,
                             btnColor: BrandColors.primary,
                             btnText: 'Share Business Card',
                             borderColor: BrandColors.primary,
-                            child: Container(),
+                            child: SvgPicture.asset(
+                              share,
+                              height: SizeConfig.xMargin(context, 6),
+                              color: ThemeColors.background,
+                            ),
                             onPressed: () {
                               screenshotController
                                   .capture(
