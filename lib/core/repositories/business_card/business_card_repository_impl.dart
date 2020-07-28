@@ -38,7 +38,7 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
       User user = authService.currentUser;
       BusinessCardH businessCard = BusinessCardH(
         storeName: store.name ?? BusinessCardH.empty().storeName,
-        personalName: '${user.firstName == null ? '' : user.firstName + ' '}${user.lastName ?? ''}' ??
+        personalName: '${user.firstName == null ? '' : user.firstName + ' '}' ??
             BusinessCardH.empty().personalName,
         phoneNumber: user.phoneNumber ?? BusinessCardH.empty().phoneNumber,
         emailAddress: user.email ?? BusinessCardH.empty().emailAddress,
@@ -50,7 +50,8 @@ class BusinessCardRepositoryImpl implements BusinessCardRepository {
       return Future.value(businessCard);
     } else {
       return Future.value(businessCardH.copyWith(
-          phoneNumber: authService.currentUser.phoneNumber ?? BusinessCardH.empty().phoneNumber,
+        phoneNumber: authService.currentUser.phoneNumber ??
+            BusinessCardH.empty().phoneNumber,
       ));
     }
   }
