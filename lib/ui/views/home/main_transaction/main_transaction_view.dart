@@ -109,8 +109,8 @@ class MainTransaction extends StatelessWidget {
                       onTap: () => model.navigateToHome(),
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(18),
-                            vertical: ScreenUtil().setHeight(10)),
+                            horizontal: SizeConfig.xMargin(context, 4.3),
+                            vertical: SizeConfig.yMargin(context, 1.8)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
                           color: Colors.white,
@@ -508,7 +508,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                       ? InkWell(
                                                           onTap: () {
-                                                            //model.navigateDetails(item);
+                                                            model.navigateDetails(item);
                                                           },
                                                           child: Container(
                                                             // margin: EdgeInsets.symmetric(
@@ -656,7 +656,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                           ? InkWell(
                                                               onTap: () {
-                                                                //model.navigateDetails(item);
+                                                                model.navigateDetails(item);
                                                               },
                                                               child: Container(
                                                                 width: SizeConfig
@@ -766,7 +766,7 @@ class MainTransaction extends StatelessWidget {
                                                                       .formattedate[index]
                                                               ? InkWell(
                                                                   onTap: () {
-                                                                    //model.navigateDetails(item);
+                                                                    model.navigateDetails(item);
                                                                   },
                                                                   child:
                                                                       Container(
