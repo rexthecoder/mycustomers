@@ -11,6 +11,8 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
+
 
 class MainTransaction extends StatelessWidget {
   @override
@@ -281,7 +283,9 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                      flusher('Still in development', context);
+                                    GeneralTransactionReport().buildPdf(context);
+
+                                      // flusher('Still in development', context);
                                       // SavedDialog().showPdfDialog(context);
 
                                       // // ReceiptReport().buildPdf(context);

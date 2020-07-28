@@ -13,6 +13,8 @@ import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 
+
+
 class TransactionDetails extends StatelessWidget {
   final Color color = BrandColors.primary;
   final Color bgColor = Colors.grey[200];

@@ -42,7 +42,10 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   Store get currentStore => StoreRepository.currentStore;
 
-  List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
+  List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed);
+  
+  String _path;
+ String get path => _path; //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
   double getamount(double amt){
     return amt;
@@ -153,4 +156,5 @@ void navigateToSchedule(){
 
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService];
+  
 }

@@ -177,7 +177,7 @@ class SendMessage extends StatelessWidget {
                               model.clearMessageFields();
                               headingController.text = model.controllerValue;
                               messageHeadingController.text =
-                                  model.messageControllerValue;
+                              model.messageControllerValue;
                             }
                           },
                         ),

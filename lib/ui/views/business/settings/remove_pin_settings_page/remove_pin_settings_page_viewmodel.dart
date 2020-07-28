@@ -58,9 +58,9 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
     // set up the button
     Widget continueButton = Center(
       child: Container(
-        height: SizeConfig.yMargin(context, 8),
+        height: SizeConfig.yMargin(context, 5),
         width: SizeConfig.xMargin(context, 50),
-        padding: EdgeInsets.only(right: SizeConfig.xMargin(context, 10)),
+        // padding: EdgeInsets.only(right: SizeConfig.xMargin(context, 10)),
         decoration: BoxDecoration(color: BrandColors.primary),
         child: FlatButton(
           child: Text("Continue",
@@ -75,6 +75,10 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
+      contentPadding: EdgeInsets.zero,
+      actionsPadding: EdgeInsets.all(0),
+      insetPadding: EdgeInsets.all(0.0),
+      buttonPadding: EdgeInsets.all(0.0),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       title: CircleAvatar(
