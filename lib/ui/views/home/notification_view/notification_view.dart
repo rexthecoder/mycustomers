@@ -94,7 +94,7 @@ class NotificationsView extends StatelessWidget {
                                               Expanded(
                                                   child: Text(
                                                 item.amount > item.paid
-                                                    ? model.getName(item.cId) +
+                                                    ? model.getName(item) +
                                                         AppLocalizations.of(
                                                                 context)
                                                             .debtOf +
@@ -102,7 +102,7 @@ class NotificationsView extends StatelessWidget {
                                                         AppLocalizations.of(
                                                                 context)
                                                             .isDueToday
-                                                    : model.getName(item.cId) +
+                                                    : model.getName(item) +
                                                         AppLocalizations.of(
                                                                 context)
                                                             .creditOf +

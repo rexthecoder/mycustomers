@@ -7,7 +7,7 @@ part 'transaction_model_h.g.dart';
 class TransactionModel extends HiveObject{
 
   @HiveField(0)
-  final String cId;
+  final String tId;
 
   @HiveField(1)
   final String sId;
@@ -30,5 +30,5 @@ class TransactionModel extends HiveObject{
   @HiveField(7)
   final String description;
 
-  TransactionModel({this.cId, this.sId, this.amount, this.paid, this.duedate, this.boughtdate, this.paiddate, this.description});
+  TransactionModel({this.tId, this.sId, this.amount, this.paid, this.duedate, this.boughtdate, this.paiddate, this.description});
 }

@@ -4,6 +4,7 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/message_service.dart';
 import 'package:stacked/stacked.dart';
@@ -27,13 +28,13 @@ final _customerService = locator<CustomerContactService>();
     _navigationService.back();
   }
 
-  void setContact() {
-    CustomerContact cus = new CustomerContact(id: currentCustomer.id, name: currentCustomer.displayName, phoneNumber: currentCustomer.phone, initials: currentCustomer.initials);
-    _customerService.setContact(cus);
-  }
+  // void setContact() {
+  //   CustomerContact cus = new CustomerContact(id: currentCustomer.id, name: currentCustomer.displayName, phoneNumber: currentCustomer.phone, initials: currentCustomer.initials);
+  //   _customerService.setContact(cus);
+  // }
 
   void getMessages(){
-    _messageService.getMessage(customer.id);
+    _messageService.getMessage(customer);
     notifyListeners();
   }
 
@@ -58,8 +59,9 @@ final _customerService = locator<CustomerContactService>();
   }
 
   void send() {
-    _messageService.addMessage(mesgg, customer.id);
+    _messageService.addMessage(mesgg, customer);
     getMessages();
+    _customerService.getCustomermarket(StoreRepository.currentStore.id);
     messageController.clear();
     notifyListeners();
   }

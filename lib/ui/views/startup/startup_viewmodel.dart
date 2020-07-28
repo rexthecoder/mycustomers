@@ -6,8 +6,10 @@ import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/services/password_manager_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/views/business/settings/enter_pin_page/enter_pin_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -16,6 +18,7 @@ class StartupViewModel extends BaseViewModel {
   final IStorageUtil _storage = locator<IStorageUtil>();
   final AuthService _auth = locator<AuthService>();
   final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+  final PasswordManagerService _passwordManagerService = locator<PasswordManagerService>();
 
   bool previewImport = false;
 
@@ -26,6 +29,9 @@ class StartupViewModel extends BaseViewModel {
     await locator.allReady();
     if (await checkLoggedIn()) {
       if (confirmHasStore()) {
+        if (_passwordManagerService.isPinSet) {
+          await _navigationService.navigateToView(EnterPinView());
+        }
         _navigationService.replaceWith(Routes.mainViewRoute);
         _logService.getValues(null, DateTime.now(), 'sign-in', '', false);
       }
