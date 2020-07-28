@@ -275,6 +275,7 @@ class MarketingHomePageView extends StatelessWidget {
                                               ),
                                               child: Row(
                                                 children: <Widget>[
+                                                  //TODO: Fix CustomerCircleAvatar
                                                   CustomerCircleAvatar(
                                                     ccustomer: customer,
                                                     action: 'debtor',
@@ -436,6 +437,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                 ),
                                                 child: Row(
                                                   children: <Widget>[
+                                                    //TODO: Fix CustomerCircleAvatar
                                                     CustomerCircleAvatar(
                                                       ccustomer: customer,
                                                       action: 'debtor',

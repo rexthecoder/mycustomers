@@ -58,7 +58,7 @@ class CustomerCircleAvatar extends StatelessWidget {
                           : BrandColors.secondary,
                       fontSize: SizeConfig.yMargin(context, 2),
                       fontFamily: 'Roboto'),
-                ),
+                ) ,
       radius: SizeConfig.xMargin(context, 6),
       backgroundColor: this.bgColor != null
           ? this.bgColor

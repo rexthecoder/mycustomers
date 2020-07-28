@@ -1,29 +1,32 @@
-
 import 'package:encrypt/encrypt.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mycustomers/core/utils/user_settings_prefs.dart';
+import 'package:mycustomers/core/services/storage_util_service.dart';
+import 'package:mycustomers/app/locator.dart';
 
-class PasswordManagerService{
+class PasswordManagerService {
+
+  IStorageUtil _storage = locator<IStorageUtil>();
   
     static final  key = Key.fromLength(32);
     final iv = IV.fromLength(16);
     final encrypter = Encrypter(AES(key));
     bool _isPinSet=false;
-    bool get isPinSet => _isPinSet;
+    bool get isPinSet => _storage.getString('userpin') != null;
     SharedPreferencesHelper object=new SharedPreferencesHelper();
 
 
 
-  Future<void>saveSetPin(String password) async{
+  Future<void>saveSetPin(String password) async {
     SharedPreferences prefs = await  SharedPreferences.getInstance();
     final encryptedPassword = encryptPassword(password);
     object.saveUserPin(encryptedPassword, prefs);
  }
    
    void setPin(bool value){
-     _isPinSet= value;
+     _isPinSet = value;
    }
 
 

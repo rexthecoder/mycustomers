@@ -19,22 +19,26 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        if (showArrow) {
-          businessCardController.animateToPage(
-            int.parse(model.businessCard.cardDesign),
-            duration: new Duration(milliseconds: 300),
-            curve: Curves.easeIn,
-          );
-        } else {
-          businessCardController.jumpToPage(
-            int.parse(model.businessCard.cardDesign),
-          );
-        }
+        businessCardController.animateToPage(
+          int.parse(model.businessCard.cardDesign),
+          duration: new Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
         await Future.delayed(new Duration(milliseconds: 500));
         canChange = true;
       },
     );
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).cursorColor.withOpacity(0.15),
+            offset: Offset(2, 4),
+            blurRadius: 6,
+          )
+        ]
+      ),
       height: SizeConfig.yMargin(context, 30),
       child: Stack(
         children: <Widget>[
@@ -48,9 +52,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
                   );
                 }
               },
-              physics: showArrow
-                  ? new BouncingScrollPhysics()
-                  : new NeverScrollableScrollPhysics(),
+              physics: new BouncingScrollPhysics(),
               allowImplicitScrolling: true,
               controller: businessCardController,
               children: <Widget>[
@@ -66,46 +68,9 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
               : Positioned(
                   bottom: SizeConfig.yMargin(context, 2),
                   right: SizeConfig.xMargin(context, 4),
-                  child: Column(
-                    children: <Widget>[
-                      RoundIconButton(
-                        icon: Icons.edit,
-                        onTap: model.navigateToBusinessCardPage,
-                      ),
-                      SizedBox(height: 10),
-                      RoundIconButton(
-                        icon: Icons.share,
-                        onTap: () {
-                          screenshotController
-                              .capture(
-                            pixelRatio: ScreenUtil.pixelRatio,
-                            delay: Duration(milliseconds: 10),
-                          )
-                              .then(
-                            (File image) {
-                              model.imageFile = image;
-                              FlushbarHelper.createSuccess(
-                                duration: const Duration(seconds: 5),
-                                message: 'Sharing...',
-                              ).show(context);
-                              model.shareImageAndText();
-                              FlushbarHelper.createSuccess(
-                                duration: const Duration(seconds: 5),
-                                message: 'Successful',
-                              ).show(context);
-                            },
-                          ).catchError(
-                            (onError) {
-                              FlushbarHelper.createError(
-                                duration: const Duration(seconds: 5),
-                                message: onError.toString(),
-                              ).show(context);
-                            },
-                          );
-                          return;
-                        },
-                      ),
-                    ],
+                  child: RoundIconButton(
+                    icon: Icons.edit,
+                    onTap: model.navigateToBusinessCardPage,
                   ),
                 ),
           showArrow
@@ -741,3 +706,38 @@ class RoundIconButton extends StatelessWidget {
     );
   }
 }
+
+
+//SizedBox(height: 10),
+//RoundIconButton(
+//icon: Icons.share,
+//onTap: () {
+//screenshotController
+//    .capture(
+//pixelRatio: ScreenUtil.pixelRatio,
+//delay: Duration(milliseconds: 10),
+//)
+//    .then(
+//(File image) {
+//model.imageFile = image;
+//FlushbarHelper.createSuccess(
+//duration: const Duration(seconds: 5),
+//message: 'Sharing...',
+//).show(context);
+//model.shareImageAndText();
+//FlushbarHelper.createSuccess(
+//duration: const Duration(seconds: 5),
+//message: 'Successful',
+//).show(context);
+//},
+//).catchError(
+//(onError) {
+//FlushbarHelper.createError(
+//duration: const Duration(seconds: 5),
+//message: onError.toString(),
+//).show(context);
+//},
+//);
+//return;
+//},
+//),
