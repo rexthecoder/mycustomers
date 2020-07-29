@@ -42,31 +42,31 @@ class MessageView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Text(AppLocalizations.of(context).title),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  TextField(
-                    textCapitalization: TextCapitalization.sentences,
-                    controller: model.titleController,
-                    decoration: InputDecoration(
-                      hintText:
-                          AppLocalizations.of(context).enterTitleOfMessage,
-                      hintStyle: TextStyle(fontSize: 16.sp),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: ThemeColors.gray)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: BrandColors.secondary)),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                    ),
-//                      maxLines: 2,
-                    onChanged: model.setTitle,
-                    textInputAction: TextInputAction.next,
-                  ),
+//                  SizedBox(
+//                    height: 20.h,
+//                  ),
+//                  Text(AppLocalizations.of(context).title),
+//                  SizedBox(
+//                    height: 10.h,
+//                  ),
+//                  TextField(
+//                    textCapitalization: TextCapitalization.sentences,
+//                    controller: model.titleController,
+//                    decoration: InputDecoration(
+//                      hintText:
+//                          AppLocalizations.of(context).enterTitleOfMessage,
+//                      hintStyle: TextStyle(fontSize: 16.sp),
+//                      border: OutlineInputBorder(
+//                          borderSide: BorderSide(color: ThemeColors.gray)),
+//                      focusedBorder: OutlineInputBorder(
+//                          borderSide: BorderSide(color: BrandColors.secondary)),
+//                      contentPadding: const EdgeInsets.symmetric(
+//                          horizontal: 20, vertical: 10),
+//                    ),
+////                      maxLines: 2,
+//                    onChanged: model.setTitle,
+//                    textInputAction: TextInputAction.next,
+//                  ),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -87,7 +87,7 @@ class MessageView extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 10),
                     ),
-                    maxLines: 3,
+                    maxLines: 8,
                     onChanged: model.setBody,
                     textInputAction: TextInputAction.next,
                   ),
