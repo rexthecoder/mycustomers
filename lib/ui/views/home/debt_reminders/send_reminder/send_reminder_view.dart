@@ -68,11 +68,7 @@ class SendMessage extends StatelessWidget {
                                 onChanged: (value) {
                                   model.value = value;
                                 },
-                                initialValue: '${model.value} ' + model.transactions.currency.symbol +
-                              currency
-                                  .format(model.transactions.getamount(
-                                      (model.transactions.bought()).toDouble()))
-                                  .toString(),
+                                initialValue: model.value
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)

@@ -10,9 +10,6 @@ class SendMessageViewModel extends BaseViewModel {
   String get messageControllerValue => _messageControllerValue;
   get controllerValue => _controllerValue;
 
-  // // This is temporary to give each notification a unique id
-  // int id = Random().nextInt(100);
-
   final List<String> _messageEntries = <String>[
     "Don't leave me",
     "Happy New year",
@@ -21,8 +18,7 @@ class SendMessageViewModel extends BaseViewModel {
 
   String number = "0786067005";
 
-  String value =
-      'Dear Sir/Ma, you have an outstanding payment of ';
+  String value = 'Dear Sir/Ma, you have an outstanding payment of ${debt}';
   String _description;
   String get description => _description;
 
@@ -31,6 +27,7 @@ class SendMessageViewModel extends BaseViewModel {
   final MainTransactionViewModel transactions = MainTransactionViewModel();
   final RemindersViewModel reminders = RemindersViewModel();
 
+  int get debt => transactions.bought();
 
   void updateFieldValue(String buttonValue) {
     _controllerValue = buttonValue;
