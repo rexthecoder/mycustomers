@@ -82,6 +82,7 @@ void main() {
     final storemockBox = MockBox<StoreH>();
     final contactmockBox = MockBox<CustomerContact>();
     final profilemockBox = MockBox<Profile>();
+    final phonecontactmockBox = MockBox<Customer>();
     //final messagemockBox = MockBox<Message>();
 
     final mockhive = MockHive();
@@ -92,6 +93,7 @@ void main() {
     when(mockhive.isBoxOpen(HiveBox.businessCardBoxName)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.contact)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.profile)).thenAnswer((_) => false);
+    when(mockhive.isBoxOpen(HiveBox.phoneContact)).thenAnswer((_) => false);
     //when(mockhive.isBoxOpen(HiveBox.message)).thenAnswer((_) => false);
 
     //when(mockhive.openBox<TransactionModel>(HiveBox.transaction))
@@ -108,6 +110,8 @@ void main() {
         .thenAnswer((_) async => Future.value(contactmockBox));
     when(mockhive.openBox<Profile>(HiveBox.profile))
         .thenAnswer((_) async => Future.value(profilemockBox));
+    when(mockhive.openBox<Customer>(HiveBox.phoneContact))
+        .thenAnswer((_) async => Future.value(phonecontactmockBox));
     // when(mockhive.openBox<Message>(HiveBox.message))
     //     .thenAnswer((_) async => Future.value(messagemockBox));
 
