@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/business/about_us/about_us_page/about_us_view.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
 import 'package:mycustomers/ui/views/business/digital_reciept/create_receipt_view.dart';
 import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_view.dart';
 import 'package:mycustomers/ui/views/business/settings/set_pin_settings_page/set_pin_settings_view.dart';
-import 'package:mycustomers/ui/views/business/settings/set_pin_settings_page/set_pin_settings_viewmodel.dart';
 import 'package:mycustomers/ui/views/home/add_customer_manually/add_customer_manually_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transaction_view.dart';
@@ -102,7 +102,11 @@ abstract class Routes {
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
   static const sendNotificationMessage = '/sendNotificationMessage';
   static const scheduleNotifications = '/scheduleNotifications';
-  static const createReceipt = 'createReceipt';
+  static const createReceipt = '/createReceipt';
+  static const about_us = '/about_us';
+  static const about_myCustomer = '/about_myCustomer';
+  static const privacy_policy = '/privacy_policy';
+  static const terms_and_conditions = '/terms_and_conditions';
 }
 
 class Router {
@@ -231,7 +235,7 @@ class Router {
           builder: (context) => TransactionDetails(),
           settings: settings,
         );
-        case Routes.businessViewSignUp:
+      case Routes.businessViewSignUp:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => BusinessView(
             process: 'signup',
@@ -248,7 +252,9 @@ class Router {
       case Routes.addCustomerMessageRoute:
         final frequentCustomerList = settings.arguments;
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => AddCustomerMessageView(frequent: frequentCustomerList,),
+          builder: (context) => AddCustomerMessageView(
+            frequent: frequentCustomerList,
+          ),
           settings: settings,
         );
       case Routes.signupViewRoute:
@@ -403,7 +409,27 @@ class Router {
           builder: (context) => ScheduleNotifications(),
           settings: settings,
         );
-        case Routes.createReceipt:
+      case Routes.createReceipt:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CreateReceiptView(),
+          settings: settings,
+        );
+      case Routes.about_us:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AboutUsView(),
+          settings: settings,
+        );
+      case Routes.about_myCustomer:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CreateReceiptView(),
+          settings: settings,
+        );
+      case Routes.privacy_policy:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => CreateReceiptView(),
+          settings: settings,
+        );
+      case Routes.terms_and_conditions:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => CreateReceiptView(),
           settings: settings,

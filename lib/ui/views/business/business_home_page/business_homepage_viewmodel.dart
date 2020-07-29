@@ -18,10 +18,9 @@ class BusinessHomePageViewModel extends BaseViewModel {
   final AuthService _auth = locator<AuthService>();
   final _profileService = locator<ProfileService>();
   final BusinessCardRepository _businessCardRepository =
-  locator<BusinessCardRepository>();
+      locator<BusinessCardRepository>();
 
   String get pNum => _auth.currentUser.phoneNumber;
-
 
   String get profileCardTitle => 'Profile';
 
@@ -36,9 +35,10 @@ class BusinessHomePageViewModel extends BaseViewModel {
     return _profileService.getProfile(StoreRepository?.currentStore?.id);
   }
 
-  Image imageFromBaseString(String base64String, BuildContext context){
-     return Image.memory(base64Decode(base64String),
-     width: SizeConfig.xMargin(context, 50),
+  Image imageFromBaseString(String base64String, BuildContext context) {
+    return Image.memory(
+      base64Decode(base64String),
+      width: SizeConfig.xMargin(context, 50),
       height: SizeConfig.xMargin(context, 50),
       fit: BoxFit.cover,
     );
@@ -62,10 +62,13 @@ class BusinessHomePageViewModel extends BaseViewModel {
     await _navigationService.navigateTo(Routes.bussinessSettingsPage);
   }
 
-   /// Fields
+  Future navigateToAboutUsPage() async {
+    await _navigationService.navigateTo(Routes.about_us);
+  }
+
+  /// Fields
   BusinessCardH _businessCard = BusinessCardH.empty();
 
   /// Getters
   BusinessCardH get businessCard => _businessCard;
-
 }
