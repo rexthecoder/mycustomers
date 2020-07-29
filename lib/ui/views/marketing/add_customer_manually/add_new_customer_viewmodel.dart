@@ -64,12 +64,13 @@ class AddNewCustomerViewModel extends BaseViewModel {
   }
   Future returnHome() async {
     _customerService.addContactmarket(phoneNumber.text, name.text, dropDownValue, name.text[0], StoreRepository.currentStore.id);
-    _navigationService.popUntil((route){
-      if(route.settings.name == '/main'){
-        return true;
-      }else{
-        return false;
-      }
-    });
+    _navigationService.clearStackAndShow('/main');
+//    _navigationService.popUntil((route){
+//      if(route.settings.name == '/main'){
+//        return true;
+//      }else{
+//        return false;
+//      }
+//    });
   }
 }

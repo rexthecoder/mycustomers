@@ -1,0 +1,149 @@
+ONBOARDING SCREEN
+
+Welcome to myCustomer   | Done
+Push a reminder         | Done
+Collect your money      | Done
+Engage with your people | Done
+Get Started             | Done
+Sign In                 | Done
+We help you to manage your business and keep track of records       | Done
+Send reminders to customers that are owing you                      | Done
+Easily manage customers owing you and increase your cash flow       | Done
+Interact with your customers through pushing of unique sales messaging  | Done
+
+SIGN UP SCREEN
+
+Please enter your phone number  | Done
+Please enter your password      | Done
+Phone number                    | Done
+Invalid phone number            | Done
+Password is required            | Not done
+Password                        | Done
+Next                            | Done
+Already a member? Sign in       | Done
+User already exists             | Not done
+
+BUSINESS DETAILS SCREEN
+
+Business details                | Done
+One last step                   | Done
+Enter your full name            | Done
+Please enter your full name     | Done
+Please enter your email address | Done
+Invalid email address           | Not done
+Enter your store name           | Done
+Please enter store name         | Done
+Enter your store address        | Done
+Please enter store address      | Done
+Submit and finish               | Done
+Sorry, you'll need to register a business to access myCustomer  | Not done
+Account created successfully! Welcome   | Not done
+
+SIGN IN SCREEN
+
+Please enter your phone number  | Done
+Please enter your password      | Done
+Phone number                    | Done
+Invalid phone number            | Done
+Password is required            | Not done
+Password                        | Done
+Next                            | Done
+Not a member? Sign Up           | Done
+Invalid credentials             | Not done
+
+VERIFICATION SCREEN
+
+Verify code                     | Done
+Verify and proceed              | Not Done
+Please enter 4 digit code we sent your number as SMS        | Done
+The code you have entered is incorrect, Please try again    | Not Done
+
+HOMEPAGE SCREEN
+
+Customers owing you     | Done
+People you owe          | Done
+Home                    | Done
+Marketing               | Done
+Business                | Done
+
+DEBTORS SCREEN
+
+Customers are owing you | Done
+Search by name          | Done
+No customer found       | Done
+Expected today          | Not done
+Expected in x days      | Done
+Expected Tomorrow       | Not Done
+Expected x days ago     | Done
+Not paid                | Done
+You do not have any customer owing you money yet. Tap the big orange button at the bottom of the screen to add one      | Done
+Add customer owing you  | Done
+
+CREDITORS SCREEN
+
+You are owing Customers | Done
+Search by name          | Done
+No customer found       | Done
+Add people you owe      | Done
+Due date                | Not done
+x days left             | Not done
+Overdue                 | Not done
+You currently do not owe money. Record all your debts to keep track and stay updated    | Done
+
+
+ADD_DEBT_CREDIT SCREEN 
+
+Add new debtor          | Done
+Add new creditor        | Done
+Amount                  | Done
+Enter amount            | Done
+Payment date            | Done
+Select due date         | Done
+Description             | Done
+Enter description       | Done
+Customer name           | Done
+Enter customer name     | Done
+Phone number            | Not done
+Save                    | Done
+
+MARKETING SCREEN
+
+Marketing                                          | Done
+Add new customer                                   | Done
+Send message                                       | Done
+It's all about sending messages to customers       | Done
+Select customer from the list                      | Done
+Customer list                                      | Done
+Send message to all                                | Done
+Frequently contacted                               | Done
+Type customer name                                 | Done
+All                                                | Done
+
+SEND MESSAGE SCREEN (Add customer message view)
+
+Send message            | Done
+Type customer name      | Done
+Add customer manually   | Not Done
+Phone contacts          | Done
+Add                     | Done
+Select a customer from the list     | Done
+
+ADD CUSTOMER MANUALLY SCREEN
+
+Send message            | Done
+Customer name           | Done
+Enter customer name     | Done
+Customer phone number   | Done
+Mobile number           | Done
+Continue                | Done
+Enter a valid number    | Done
+
+BUSINESS SCREEN
+
+Profile                     | Done
+Registered phone number     | Done
+Issue digital receipt       | Done
+Settings                    | Done
+Support                     | Done
+
+

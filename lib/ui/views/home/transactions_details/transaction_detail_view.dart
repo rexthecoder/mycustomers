@@ -39,7 +39,7 @@ class TransactionDetails extends StatelessWidget {
                 AppLocalizations.of(context).transactionDetails,
                 style: Theme.of(context).textTheme.headline6.copyWith(
                   fontSize: SizeConfig.textSize(context, 5),
-                  color: Theme.of(context).backgroundColor,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -49,7 +49,7 @@ class TransactionDetails extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                   child: SvgPicture.asset(
                     'assets/icons/backarrow.svg',
-                    color: Theme.of(context).backgroundColor,
+                    color: Colors.white
                   ),
                 ),
               ),
@@ -90,8 +90,7 @@ class TransactionDetails extends StatelessWidget {
                                             child: Text(
                                               model.contact.initials,
                                               style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .backgroundColor),
+                                                  color: Colors.white,)
                                             ),
                                           )
                                         : CircleAvatar(

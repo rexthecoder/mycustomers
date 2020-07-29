@@ -4,12 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/models/country_currency_model.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 
 abstract class TransactionDataSource{
-  Future<void> init();
+  //Future<void> init();
 }
 
 
@@ -18,8 +19,10 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 
-  bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
-  Box<TransactionModel> get _transactionBox => _hiveService.box<TransactionModel>(HiveBox.transaction);
+  //bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
+  //Box<TransactionModel> get _transactionBox => _hiveService.box<TransactionModel>(HiveBox.transaction);
+
+  Box<CustomerContact> get _contactBox => _hiveService.box<CustomerContact>(HiveBox.contact);
 
   RxValue<List<TransactionModel>> _alltransactions = RxValue<List<TransactionModel>>(initial: []);
   List<TransactionModel> get alltransactions => _alltransactions.value;
@@ -56,14 +59,14 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions]);
   }
 
-  @override
-  Future<void> init() async {
-    _hiveService.registerAdapter(TransactionAdapter());
+  // @override
+  // Future<void> init() async {
+  //   _hiveService.registerAdapter(TransactionAdapter());
 
-    if (!_isBoxOpen) {
-      await box;
-    }
-  }
+  //   if (!_isBoxOpen) {
+  //     await box;
+  //   }
+  // }
 
   void setTransaction(TransactionModel transaction){
     _stransaction.value = transaction;
@@ -72,12 +75,15 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   void getAllTransactions(String id) async{
     //final bbox = await box;
     _alltransactions.value = [];
-    for(var trans in _transactionBox.values.toList()) {
-      if (trans.sId == id){
-        _alltransactions.value.add(trans);
+    print(_contactBox.values.toList());
+    for(var cont in _contactBox.values.toList()) {
+      if (cont.storeid == id){
+        print(cont.transactions);
+        _alltransactions.value = [..._alltransactions.value, ...cont.transactions];
       }
     }
-    _alltransactions.value = new List<TransactionModel>.from(_alltransactions.value.reversed);
+    print(_alltransactions.value);
+    //_alltransactions.value = new List<TransactionModel>.from(_alltransactions.value.reversed);
     _whatyouowe.value = 0;
     _owingcustomers.value = [];
     _owedcustomers.value = [];
@@ -92,16 +98,16 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     }
   }
   
-  void getTransactions(String id, String stid) async{
-    print('get'+id.toString());
+  Future<void> getTransactions(CustomerContact cus) async{
+    //print('get'+id.toString());
     //final bbox = await box;
-    _transactions.value = [];
-    for (var transaction in _transactionBox.values.toList()) {
-      if (transaction.cId == id && transaction.sId == stid){
-        _transactions.value.add(transaction);
-        print(transaction.boughtdate);
-      }
-    }
+    _transactions.value = cus.transactions;
+    // for (var transaction in _contactBox.values.toList()) {
+    //   if (transaction.cId == id && transaction.sId == stid){
+    //     _transactions.value.add(transaction);
+    //     print(transaction.boughtdate);
+    //   }
+    // }
     _debitlist.value = [];
     _creditlist.value = [];
     for(var transactionb in _transactions.value){
@@ -116,47 +122,48 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     bool isInDate = false;
     for(int i=0; i<transactions.length; i++) {
       final dformat = new DateFormat('d MMM');
-      if(transactions[i].cId == id){
-        if(transactions[i].boughtdate != null){
-          for(int k = 0; k<formattedate.length; k++){
-            if(formattedate[k].toString() == dformat.format(DateTime.parse(transactions[i].boughtdate)).toString()) {
-              //date = dformat.format(DateTime.parse(transactions[i].boughtdate)).toString();
-              //formattedate.add(date);
-              isInDate = true;
-            }
+      if(transactions[i].boughtdate != null){
+        for(int k = 0; k<formattedate.length; k++){
+          if(formattedate[k].toString() == dformat.format(DateTime.parse(transactions[i].boughtdate)).toString()) {
+            //date = dformat.format(DateTime.parse(transactions[i].boughtdate)).toString();
+            //formattedate.add(date);
+            isInDate = true;
           }
-          if(!isInDate){
-            formattedate.add(dformat.format(DateTime.parse(transactions[i].boughtdate)).toString());
-          }
-          isInDate = false;
         }
+        if(!isInDate){
+          formattedate.add(dformat.format(DateTime.parse(transactions[i].boughtdate)).toString());
+        }
+        isInDate = false;
+      }
 
-        if(transactions[i].paiddate != null){
-          for(int j=0; j<formattedate.length; j++){
-            if(formattedate[j].toString() == dformat.format(DateTime.parse(transactions[i].paiddate)).toString()){
-              isInDate = true;
-            }
+      if(transactions[i].paiddate != null){
+        for(int j=0; j<formattedate.length; j++){
+          if(formattedate[j].toString() == dformat.format(DateTime.parse(transactions[i].paiddate)).toString()){
+            isInDate = true;
           }
-          if(!isInDate){
-            formattedate.add(dformat.format(DateTime.parse(transactions[i].paiddate)).toString());
-          }
-          isInDate = false;
         }
+        if(!isInDate){
+          formattedate.add(dformat.format(DateTime.parse(transactions[i].paiddate)).toString());
+        }
+        isInDate = false;
       }
     }
   }
   
 
-  void addTransaction(TransactionModel transaction) async {
-    print(transaction.cId);
+  Future<CustomerContact> addTransaction(TransactionModel transaction, CustomerContact cus) async {
+    //print(transaction.cId);
     //final bbox = await box;
-    await _transactionBox.add(transaction);
-    _transactions.value = [];
-    for (var transactionb in _transactionBox.values.toList()) {
-      if (transactionb.cId == transaction.cId){
-        _transactions.value.add(transactionb);
-      }
-    }
+    //await _transactionBox.add(transaction);
+    CustomerContact temp = cus;
+    temp.transactions.add(transaction);
+    await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
+    _transactions.value = temp.transactions;
+    // for (var transactionb in _transactionBox.values.toList()) {
+    //   if (transactionb.cId == transaction.cId){
+    //     _transactions.value.add(transactionb);
+    //   }
+    // }
     _debitlist.value = [];
     _creditlist.value = [];
     for(var transactionb in _transactions.value){
@@ -171,77 +178,77 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     bool isInDate = false;
     for(int i=0; i<transactions.length; i++) {
       final dformat = new DateFormat('d MMM');
-      if(transactions[i].cId == transaction.cId){
-        if(transactions[i].boughtdate != null){
-          for(int k = 0; k<formattedate.length; k++){
-            if(formattedate[k].toString() == dformat.format(DateTime.parse(transactions[i].boughtdate)).toString()) {
-              //date = dformat.format(DateTime.parse(transactions[i].boughtdate)).toString();
-              //formattedate.add(date);
-              isInDate = true;
-            }
+      if(transactions[i].boughtdate != null){
+        for(int k = 0; k<formattedate.length; k++){
+          if(formattedate[k].toString() == dformat.format(DateTime.parse(transactions[i].boughtdate)).toString()) {
+            //date = dformat.format(DateTime.parse(transactions[i].boughtdate)).toString();
+            //formattedate.add(date);
+            isInDate = true;
           }
-          if(!isInDate){
-            formattedate.add(dformat.format(DateTime.parse(transactions[i].boughtdate)).toString());
-          }
-          isInDate = false;
         }
+        if(!isInDate){
+          formattedate.add(dformat.format(DateTime.parse(transactions[i].boughtdate)).toString());
+        }
+        isInDate = false;
+      }
 
-        if(transactions[i].paiddate != null){
-          for(int j=0; j<formattedate.length; j++){
-            if(dformat.format(DateTime.parse(transactions[j].boughtdate)).toString() == dformat.format(DateTime.parse(transactions[i].paiddate)).toString()){
-              isInDate = true;
-            }
+      if(transactions[i].paiddate != null){
+        for(int j=0; j<formattedate.length; j++){
+          if(dformat.format(DateTime.parse(transactions[j].boughtdate)).toString() == dformat.format(DateTime.parse(transactions[i].paiddate)).toString()){
+            isInDate = true;
           }
-          if(!isInDate){
-            formattedate.add(dformat.format(DateTime.parse(transactions[i].paiddate)).toString());
-          }
-          isInDate = false;
         }
+        if(!isInDate){
+          formattedate.add(dformat.format(DateTime.parse(transactions[i].paiddate)).toString());
+        }
+        isInDate = false;
       }
     }
     getAllTransactions(transaction.sId);
     print('done');
+    return temp;
   }
 
-  void updateTransaction(TransactionModel transaction)async{
+  Future<CustomerContact> updateTransaction(TransactionModel transaction, CustomerContact cus)async{
     //final bbox = await box;
-    await _transactionBox.putAt(_transactionBox.values.toList().indexOf(_stransaction.value), transaction);
-    _transactions.value = [];
-    for (var ttransaction in _transactionBox.values.toList()) {
-      if (ttransaction.cId == transaction.cId){
-        _transactions.value.add(ttransaction);
-      }
-    }
+    CustomerContact temp = cus;
+    temp.transactions.insert(temp.transactions.indexOf(_stransaction.value), transaction);
+    await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
+
+    _transactions.value = temp.transactions;
+    // for (var ttransaction in _transactionBox.values.toList()) {
+    //   if (ttransaction.cId == transaction.cId){
+    //     _transactions.value.add(ttransaction);
+    //   }
+    // }
     formattedate = [];
     bool isInDate = false;
     for(int i=0; i<transactions.length; i++) {
       final dformat = new DateFormat('d MMM');
-      if(transactions[i].cId == transaction.cId){
-        if(transactions[i].boughtdate != null){
-          for(int k = 0; k<formattedate.length; k++){
-            if(formattedate[k].toString() == dformat.format(DateTime.parse(transactions[i].boughtdate)).toString()) {
-              //date = dformat.format(DateTime.parse(transactions[i].boughtdate)).toString();
-              //formattedate.add(date);
-              isInDate = true;
-            }
+      if(transactions[i].boughtdate != null){
+        for(int k = 0; k<formattedate.length; k++){
+          if(formattedate[k].toString() == dformat.format(DateTime.parse(transactions[i].boughtdate)).toString()) {
+            //date = dformat.format(DateTime.parse(transactions[i].boughtdate)).toString();
+            //formattedate.add(date);
+            isInDate = true;
           }
-          if(!isInDate){
-            formattedate.add(dformat.format(DateTime.parse(transactions[i].boughtdate)).toString());
-          }
-          isInDate = false;
         }
+        if(!isInDate){
+          formattedate.add(dformat.format(DateTime.parse(transactions[i].boughtdate)).toString());
+        }
+        isInDate = false;
+      }
 
-        if(transactions[i].paiddate != null){
-          for(int j=0; j<formattedate.length; j++){
-            if(dformat.format(DateTime.parse(transactions[j].boughtdate)).toString() == dformat.format(DateTime.parse(transactions[i].paiddate)).toString()){
-              isInDate = true;
-            }
+      if(transactions[i].paiddate != null){
+        for(int j=0; j<formattedate.length; j++){
+          if(dformat.format(DateTime.parse(transactions[j].boughtdate)).toString() == dformat.format(DateTime.parse(transactions[i].paiddate)).toString()){
+            isInDate = true;
           }
-          if(!isInDate){
-            formattedate.add(dformat.format(DateTime.parse(transactions[i].paiddate)).toString());
-          }
-          isInDate = false;
         }
+        if(!isInDate){
+          formattedate.add(dformat.format(DateTime.parse(transactions[i].paiddate)).toString());
+        }
+        isInDate = false;
       }
     }
     _debitlist.value = [];
@@ -255,6 +262,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
       }
     }
     getAllTransactions(transaction.sId);
+    return temp;
   }
 
   double getamount(double amt, CountryCurrency oldcurrency, CountryCurrency currency){
@@ -290,29 +298,47 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   }
 
   void updateamount(CountryCurrency oldcurrency, CountryCurrency currency, String stid) async{
-    for(var item in _transactionBox.values.toList()) {
-      print(oldcurrency.symbol);
-      print(currency.symbol);
-      print(getamount(item.amount, oldcurrency, currency));
-      TransactionModel trns = new TransactionModel(
-        cId: item.cId,
-        sId: item.sId,
-        amount: getamount(item.amount, oldcurrency, currency),
-        paid: getamount(item.paid, oldcurrency, currency),
-        duedate: item.duedate,
-        boughtdate: item.boughtdate,
-        paiddate: item.paiddate,
-        description: item.description
+    for(var cus in _contactBox.values.toList()) {
+      List<TransactionModel> hold = [];
+      for(var item in cus.transactions) {
+        print(oldcurrency.symbol);
+        print(currency.symbol);
+        print(getamount(item.amount, oldcurrency, currency));
+        TransactionModel trns = new TransactionModel(
+          tId: item.tId,
+          sId: item.sId,
+          amount: getamount(item.amount, oldcurrency, currency),
+          paid: getamount(item.paid, oldcurrency, currency),
+          duedate: item.duedate,
+          boughtdate: item.boughtdate,
+          paiddate: item.paiddate,
+          description: item.description
+        );
+        hold.add(trns);
+      }
+      CustomerContact temp = new CustomerContact(
+        name: cus.name,
+        phoneNumber: cus.phoneNumber,
+        id: cus.id,
+        initials: cus.initials,
+        storeid: cus.storeid,
+        market: cus.market,
+        transactions: hold,
+        messages: cus.messages
       );
-      await _transactionBox.putAt(_transactionBox.values.toList().indexOf(item), trns);
+      await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
       getAllTransactions(stid);
     }
+    getAllTransactions(stid);
   }
 
-  void deleteTransaction()async {
-    await _transactionBox.deleteAt(_transactionBox.values.toList().indexOf(stransaction));
+  Future<CustomerContact> deleteTransaction(CustomerContact cus)async {
+    CustomerContact tempc = cus;
+    tempc.transactions.removeAt(tempc.transactions.indexOf(_stransaction.value));
+    await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), tempc);
     getAllTransactions(stransaction.sId);
-    getTransactions(stransaction.cId, stransaction.sId);
+    getTransactions(tempc);
+    return tempc;
     //_stransaction.value = null;
   }
 

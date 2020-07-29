@@ -10,15 +10,13 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
   final bool showArrow;
 
   @override
-  Widget build(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
+  Widget build(BuildContext context,
+      BusinessCardPageViewModel model,) {
     PageController businessCardController = PageController(initialPage: 0);
     bool canChange = false;
 
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
+          (_) async {
         businessCardController.animateToPage(
           int.parse(model.businessCard.cardDesign),
           duration: new Duration(milliseconds: 300),
@@ -30,14 +28,17 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
     );
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).cursorColor.withOpacity(0.15),
-            offset: Offset(2, 4),
-            blurRadius: 6,
-          )
-        ]
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Theme
+                  .of(context)
+                  .cursorColor
+                  .withOpacity(0.15),
+              offset: Offset(2, 4),
+              blurRadius: 6,
+            )
+          ]
       ),
       height: SizeConfig.yMargin(context, 30),
       child: Stack(
@@ -66,48 +67,50 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
           showArrow
               ? Container()
               : Positioned(
-                  bottom: SizeConfig.yMargin(context, 2),
-                  right: SizeConfig.xMargin(context, 4),
-                  child: RoundIconButton(
-                    icon: Icons.edit,
-                    onTap: model.navigateToBusinessCardPage,
-                  ),
-                ),
+            bottom: SizeConfig.yMargin(context, 2),
+            right: SizeConfig.xMargin(context, 4),
+            child: RoundIconButton(
+              icon: Icons.edit,
+              onTap: model.navigateToBusinessCardPage,
+            ),
+          ),
           showArrow
               ? Positioned(
-                  left: SizeConfig.xMargin(context, 2),
-                  top: SizeConfig.yMargin(context, 10),
-                  bottom: SizeConfig.yMargin(context, 10),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.chevron_left,
-                      color: ThemeColors.error,
-                      size: SizeConfig.textSize(context, 10),
-                    ),
-                    onPressed: () => businessCardController.previousPage(
-                      duration: new Duration(milliseconds: 300),
-                      curve: Curves.easeIn,
-                    ),
+            left: SizeConfig.xMargin(context, 2),
+            top: SizeConfig.yMargin(context, 10),
+            bottom: SizeConfig.yMargin(context, 10),
+            child: IconButton(
+              icon: Icon(
+                Icons.chevron_left,
+                color: ThemeColors.error,
+                size: SizeConfig.textSize(context, 10),
+              ),
+              onPressed: () =>
+                  businessCardController.previousPage(
+                    duration: new Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
                   ),
-                )
+            ),
+          )
               : Container(),
           showArrow
               ? Positioned(
-                  right: SizeConfig.xMargin(context, 2),
-                  top: SizeConfig.yMargin(context, 10),
-                  bottom: SizeConfig.yMargin(context, 10),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.chevron_right,
-                      color: ThemeColors.error,
-                      size: SizeConfig.textSize(context, 10),
-                    ),
-                    onPressed: () => businessCardController.nextPage(
-                      duration: new Duration(milliseconds: 300),
-                      curve: Curves.easeIn,
-                    ),
+            right: SizeConfig.xMargin(context, 2),
+            top: SizeConfig.yMargin(context, 10),
+            bottom: SizeConfig.yMargin(context, 10),
+            child: IconButton(
+              icon: Icon(
+                Icons.chevron_right,
+                color: ThemeColors.error,
+                size: SizeConfig.textSize(context, 10),
+              ),
+              onPressed: () =>
+                  businessCardController.nextPage(
+                    duration: new Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
                   ),
-                )
+            ),
+          )
               : Container(),
         ],
       ),
@@ -119,10 +122,8 @@ class _BusinessCard1 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard1({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget build(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
+  Widget build(BuildContext context,
+      BusinessCardPageViewModel model,) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.xMargin(context, 1),
@@ -275,10 +276,8 @@ class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard2({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget build(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
+  Widget build(BuildContext context,
+      BusinessCardPageViewModel model,) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.xMargin(context, 1),
@@ -391,10 +390,8 @@ class _BusinessCard3 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard3({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget build(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
+  Widget build(BuildContext context,
+      BusinessCardPageViewModel model,) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.xMargin(context, 1),
@@ -505,16 +502,16 @@ class _BusinessCard3 extends ViewModelWidget<BusinessCardPageViewModel> {
                       fontWeight: FontWeight.bold,
                       color: ThemeColors.background,
                     ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '\n  ${model.businessCard.position}',
-                        style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 2),
-                          color: ThemeColors.background,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ],
+//                    children: <TextSpan>[
+//                      TextSpan(
+//                        text: '\n  ${model.businessCard.position}',
+//                        style: TextStyle(
+//                          fontSize: SizeConfig.textSize(context, 2),
+//                          color: ThemeColors.background,
+//                          fontWeight: FontWeight.normal,
+//                        ),
+//                      ),
+//                    ],
                   ),
                 ),
               ],
@@ -530,10 +527,8 @@ class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
   _BusinessCard4({Key key}) : super(key: key, reactive: true);
 
   @override
-  Widget build(
-    BuildContext context,
-    BusinessCardPageViewModel model,
-  ) {
+  Widget build(BuildContext context,
+      BusinessCardPageViewModel model,) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.xMargin(context, 1),
@@ -706,38 +701,3 @@ class RoundIconButton extends StatelessWidget {
     );
   }
 }
-
-
-//SizedBox(height: 10),
-//RoundIconButton(
-//icon: Icons.share,
-//onTap: () {
-//screenshotController
-//    .capture(
-//pixelRatio: ScreenUtil.pixelRatio,
-//delay: Duration(milliseconds: 10),
-//)
-//    .then(
-//(File image) {
-//model.imageFile = image;
-//FlushbarHelper.createSuccess(
-//duration: const Duration(seconds: 5),
-//message: 'Sharing...',
-//).show(context);
-//model.shareImageAndText();
-//FlushbarHelper.createSuccess(
-//duration: const Duration(seconds: 5),
-//message: 'Successful',
-//).show(context);
-//},
-//).catchError(
-//(onError) {
-//FlushbarHelper.createError(
-//duration: const Duration(seconds: 5),
-//message: onError.toString(),
-//).show(context);
-//},
-//);
-//return;
-//},
-//),

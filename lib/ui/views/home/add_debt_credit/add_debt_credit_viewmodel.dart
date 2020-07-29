@@ -72,7 +72,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   bool get isLoadBusy => _busy;
 
   String namehint;
-  bool shownames;
+  bool shownames = false;
   TextEditingController searchController = TextEditingController();
   Customer selectedCustomer;
   var uuid = Uuid();
@@ -131,7 +131,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         manual = false;
         inputNumberController.clear();
         number = null;
-        shownames = false;
+        //shownames = false;
       }
       if (contactsList.length != 0) {
         manual = false;
@@ -150,9 +150,30 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                   name != null //&& number != null
               ? save = true
               : save = false;
+      manual = contactsList.where((element) => element.displayName.toUpperCase().contains(value.toUpperCase())).toList().length == 0;
       notifyListeners();
       init(query: name);
     });
+    
+    print(manual);
+    resetContact();
+    notifyListeners();
+  }
+
+  void setShowName(){
+    shownames = true;
+    notifyListeners();
+  }
+
+  void resetContact() {
+    if(selectedCustomer != null && selectedCustomer.displayName != _name) {
+      shownames = true;
+      selectedCustomer = null;
+      if(controller.position.pixels < controller.position.maxScrollExtent) {
+        controller.animateTo(controller.position.maxScrollExtent, duration: new Duration(milliseconds: 500),
+          curve: Curves.easeInOut);
+      }
+    }
   }
 
   void setName(Customer cus) {
@@ -333,7 +354,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   //   }
   // }
 
-  void addtransaction(String action, bool update, bool newCus) {
+  void addtransaction(String action, bool update, bool newCus)async {
     if (save) {
       date1err = false;
       date2err = false;
@@ -342,7 +363,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           print(dueDate);
           print('crediting');
           TransactionModel transaction = new TransactionModel(
-              cId: _transactionService.stransaction.cId,
+              tId: _transactionService.stransaction.tId,
               sId: _transactionService.stransaction.sId,
               amount: _transactionService.stransaction.amount,
               paid: amount,
@@ -351,14 +372,14 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: _transactionService.stransaction.boughtdate,
               paiddate: otherDate.toString());
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
-          _transactionService.updateTransaction(transaction);
+          await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
           _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           print('debiting');
           TransactionModel transaction = new TransactionModel(
-              cId: _transactionService.stransaction.cId,
+              tId: _transactionService.stransaction.tId,
               sId: _transactionService.stransaction.sId,
               amount: amount,
               paid: _transactionService.stransaction.paid,
@@ -367,7 +388,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: otherDate.toString(),
               paiddate: _transactionService.stransaction.paiddate);
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
-          _transactionService.updateTransaction(transaction);
+          await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
           _logService.getValues(
               amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           _navigationService.replaceWith(Routes.mainTransaction);
@@ -377,7 +398,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         if (action == 'debit') {
           print(dueDate);
           TransactionModel transaction = new TransactionModel(
-              cId: newCus ? '' : contact.id,
+              tId: uuid.v4(),
               sId: currentStore.id,
               amount: amount,
               paid: 0,
@@ -412,7 +433,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           }
           if (!newCus) {
             print('here');
-            _transactionService.addTransaction(transaction);
+            await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
             _navigationService.replaceWith(Routes.mainTransaction);
             _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           }
@@ -420,7 +441,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
-              cId: newCus ? '' : contact.id,
+              tId: uuid.v4(),
               sId: currentStore.id,
               amount: 0,
               paid: amount,
@@ -455,7 +476,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           }
           if (!newCus) {
             print('here');
-            _transactionService.addTransaction(transaction);
+            await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
             _navigationService.replaceWith(Routes.mainTransaction);
             _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           }

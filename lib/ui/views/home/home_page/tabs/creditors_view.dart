@@ -213,7 +213,7 @@ class ContactList extends StatelessWidget {
                 : SizedBox(),
             for (var cont in model.owedcustomers)
               for (var item in model.contacts)
-                item.id == cont.cId
+                item.transactions.contains(cont)
                     ? model.sCName != null && model.containsC
                         ? item.name
                                 .toLowerCase()
@@ -227,11 +227,7 @@ class ContactList extends StatelessWidget {
                                     //bottom: BorderSide(color: Color(0xFFD1D1D1))
                                   )),
                                   child: ListTile(
-                                    onTap: () => model.setContact(
-                                        item.id,
-                                        item.name,
-                                        item.phoneNumber,
-                                        item.initials),
+                                    onTap: () => model.setContact(item),
                                     leading: item.initials != null
                                         ? CircleAvatar(
                                             radius: 25,
@@ -299,11 +295,7 @@ class ContactList extends StatelessWidget {
                                     //bottom: BorderSide(color: Color(0xFFD1D1D1))
                                   )),
                                   child: ListTile(
-                                    onTap: () => model.setContact(
-                                        item.id,
-                                        item.name,
-                                        item.phoneNumber,
-                                        item.initials),
+                                    onTap: () => model.setContact(item),
                                     leading: item.initials != null
                                         ? CircleAvatar(
                                             radius: 25,

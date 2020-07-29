@@ -65,7 +65,8 @@ class DebtorsView extends StatelessWidget {
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.getamount(model.bought()))
+                                              .format(model
+                                                  .getamount(model.bought()))
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -214,7 +215,7 @@ class ContactList extends StatelessWidget {
                 : SizedBox(),
             for (var cont in model.owingcustomers)
               for (var item in model.contacts)
-                item.id == cont.cId
+                item.transactions.contains(cont)
                     ?
                     //Implementation for Search
                     model.sDName != null && model.containsD
@@ -230,11 +231,7 @@ class ContactList extends StatelessWidget {
                                     //bottom: BorderSide(color: Color(0xFFD1D1D1))
                                   )),
                                   child: ListTile(
-                                    onTap: () => model.setContact(
-                                        item.id,
-                                        item.name,
-                                        item.phoneNumber,
-                                        item.initials),
+                                    onTap: () => model.setContact(item),
                                     leading: item.initials != null
                                         ? CircleAvatar(
                                             radius: 25,
@@ -311,8 +308,10 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format(model.getamount((cont.amount -
-                                                            cont.paid))
+                                                    .format(model
+                                                        .getamount(
+                                                            (cont.amount -
+                                                                cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(
@@ -385,11 +384,7 @@ class ContactList extends StatelessWidget {
                                     top: BorderSide(color: Color(0xFFD1D1D1)),
                                   )),
                                   child: ListTile(
-                                    onTap: () => model.setContact(
-                                        item.id,
-                                        item.name,
-                                        item.phoneNumber,
-                                        item.initials),
+                                    onTap: () => model.setContact(item),
                                     leading: item.initials != null
                                         ? CircleAvatar(
                                             radius: 25,
@@ -445,7 +440,8 @@ class ContactList extends StatelessWidget {
                                                       ? 'Expected Today'
                                                       : DateTime.now().difference(DateTime.parse(cont.duedate)).inDays == 0
                                                           ? 'Expected Tomorrow'
-                                                          : 'Expected in ' +
+                                                          : AppLocalizations.of(context).expectedIn +
+                                                              ' ' +
                                                               (DateTime.now()
                                                                       .difference(DateTime.parse(cont.duedate))
                                                                       .inDays
@@ -466,8 +462,10 @@ class ContactList extends StatelessWidget {
                                           child: Text(
                                             model.currency.symbol +
                                                 currency
-                                                    .format(model.getamount((cont.amount -
-                                                            cont.paid))
+                                                    .format(model
+                                                        .getamount(
+                                                            (cont.amount -
+                                                                cont.paid))
                                                         .round())
                                                     .toString(),
                                             style: TextStyle(

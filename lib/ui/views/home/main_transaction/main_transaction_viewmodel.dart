@@ -44,8 +44,6 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed);
   
-  String _path;
- String get path => _path; //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
 
   double getamount(double amt){
     return amt;
@@ -84,7 +82,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   int bought(){
     int sum = 0;
     for (var item in transactions) {
-      if(item.amount != 0) {
+      if(item.amount > item.paid) {
         sum += item.amount.round();
       }
     }
@@ -128,8 +126,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   }
 
   void getTransactions(){
-    print(contact.id);
-    _transactionService.getTransactions(contact.id, currentStore.id);
+    _transactionService.getTransactions(contact);
     notifyListeners();
   }
 

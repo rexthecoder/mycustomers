@@ -33,7 +33,6 @@ class GeneralTransactionReport {
   final document = pw.Document();
   // MainTransactionViewModel model;
 
-  GeneralTransactionReport();
 
 buildPdf(BuildContext context)async {
     await storagePermission();
@@ -78,6 +77,7 @@ pw.Widget _buildHeader(pw.Context context){
         )
         ),
         pw.Column(
+          mainAxisAlignment: pw.MainAxisAlignment.end,
           children:[
             pw.Text(
               'Jinet',
