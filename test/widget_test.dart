@@ -22,7 +22,7 @@ import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 
-class MockTransactionAdapter extends Mock implements TransactionDataSource {}
+class MockTransactionAdapter extends Mock implements TransactionLocalDataSource {}
 
 class MockHive extends Mock implements HiveInterface {}
 
@@ -82,6 +82,7 @@ void main() {
     final storemockBox = MockBox<StoreH>();
     final contactmockBox = MockBox<CustomerContact>();
     final profilemockBox = MockBox<Profile>();
+    final phonecontactmockBox = MockBox<Customer>();
     //final messagemockBox = MockBox<Message>();
 
     final mockhive = MockHive();
@@ -92,6 +93,7 @@ void main() {
     when(mockhive.isBoxOpen(HiveBox.businessCardBoxName)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.contact)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.profile)).thenAnswer((_) => false);
+    when(mockhive.isBoxOpen(HiveBox.phoneContact)).thenAnswer((_) => false);
     //when(mockhive.isBoxOpen(HiveBox.message)).thenAnswer((_) => false);
 
     //when(mockhive.openBox<TransactionModel>(HiveBox.transaction))
@@ -108,10 +110,12 @@ void main() {
         .thenAnswer((_) async => Future.value(contactmockBox));
     when(mockhive.openBox<Profile>(HiveBox.profile))
         .thenAnswer((_) async => Future.value(profilemockBox));
+    when(mockhive.openBox<Customer>(HiveBox.phoneContact))
+        .thenAnswer((_) async => Future.value(phonecontactmockBox));
     // when(mockhive.openBox<Message>(HiveBox.message))
     //     .thenAnswer((_) async => Future.value(messagemockBox));
 
-    locator.registerSingleton<TransactionDataSource>(mockTransactionAdapters);
+    locator.registerSingleton<TransactionLocalDataSource>(mockTransactionAdapters);
     locator.registerSingleton<HiveInterface>(mockhive);
 
     //DI && IC

@@ -8,4 +8,5 @@ class HiveBox {
   static const String contact = "contactBox";
   static const String profile = "profileBox";
   static const String message = "messageBox";
+  static const String phoneContact = "phoneConatctBox";
 }

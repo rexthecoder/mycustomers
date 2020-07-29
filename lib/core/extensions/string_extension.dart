@@ -1,3 +1,5 @@
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+
 ///Created by Demilade Oladugba on 6/19/2020
 
 extension StringExtension on String {

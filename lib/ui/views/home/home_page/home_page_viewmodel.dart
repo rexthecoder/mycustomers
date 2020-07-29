@@ -13,6 +13,7 @@ import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/extensions/transaction_extension.dart';
 
 
 
@@ -40,8 +41,8 @@ class HomePageViewModel extends ReactiveViewModel {
   List<TransactionModel> get transactions => _transactionService.alltransactions;
   double get whatyouowe  => _transactionService.whatyouowe;
   int tabNo = 0;
-  List<TransactionModel> get owingcustomers => _transactionService.owingcustomers;
-  List<TransactionModel> get owedcustomers => _transactionService.owedcustomers;
+  List<CustomerContact> get owingcustomers => _transactionService.owingcustomers;
+  List<CustomerContact> get owedcustomers => _transactionService.owedcustomers;
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
   CountryCurrency get oldcurrency => _bussinessService.oldcurren;
@@ -120,13 +121,13 @@ class HomePageViewModel extends ReactiveViewModel {
     sDName = value;
     containsD = false;
     for(var cus in owingcustomers){
-      for(var item in contacts){
-        if(item.transactions.contains(cus)){
-          if(item.name.toLowerCase().contains(sDName.toLowerCase())){
+      //for(var item in contacts){
+        //if(item.transactions.contains(cus)){
+          if(cus.name.toLowerCase().contains(sDName.toLowerCase())){
             containsD = true;
           }
-        }
-      }
+        //}
+      //}
     }
     notifyListeners();
   }
@@ -135,15 +136,63 @@ class HomePageViewModel extends ReactiveViewModel {
     sCName = value;
     containsC = false;
     for(var cus in owedcustomers){
-      for(var item in contacts){
-        if(item.transactions.contains(cus)){
-          if(item.name.toLowerCase().contains(sCName.toLowerCase())){
+      //for(var item in contacts){
+        //if(item.transactions.contains(cus)){
+          if(cus.name.toLowerCase().contains(sCName.toLowerCase())){
             containsC = true;
           }
-        }
-      }
+        //}
+      //}
     }
     notifyListeners();
+  }
+
+  double totaldebt() {
+    double sum = 0;
+    for(var cus in contacts) {
+      double tempd = 0;
+      double tempc = 0;
+      for(var trans in cus.transactions.helperToList()) {
+        tempd += trans.amount;
+        tempc += trans.paid;
+      }
+      sum += tempd - tempc > 0 ? tempd - tempc : 0;
+    }
+    return sum.abs();
+  }
+
+  double totalcredit() {
+    double sum = 0;
+    for(var cus in contacts) {
+      double tempd = 0;
+      double tempc = 0;
+      for(var trans in cus.transactions.helperToList()) {
+        tempd += trans.amount;
+        tempc += trans.paid;
+      }
+      sum += tempc - tempd > 0 ? tempc - tempd : 0;
+    }
+    return sum.abs();
+  }
+
+  double getdebt(CustomerContact cus) {
+    double tempd = 0;
+    double tempc = 0;
+    for(var trans in cus.transactions.helperToList()) {
+      tempd += trans.amount;
+      tempc += trans.paid;
+    }
+    return tempd - tempc;
+  }
+
+  double getcredit(CustomerContact cus) {
+    double tempd = 0;
+    double tempc = 0;
+    for(var trans in cus.transactions.helperToList()) {
+      tempd += trans.amount;
+      tempc += trans.paid;
+    }
+    return tempc - tempd;
   }
 
   double bought(){
@@ -154,6 +203,14 @@ class HomePageViewModel extends ReactiveViewModel {
       }
     }
     return sum;
+  }
+
+  String getdebtduedate(CustomerContact cus) {
+    return cus.transactions.helperToList().where((element) => element.amount != 0).toList().last.duedate;
+  }
+
+  String getcreditduedate(CustomerContact cus) {
+    return cus.transactions.helperToList().where((element) => element.paid != 0).toList().last.duedate;
   }
 
   double paid(){
