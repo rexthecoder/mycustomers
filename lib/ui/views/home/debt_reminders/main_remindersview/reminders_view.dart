@@ -24,7 +24,7 @@ class RemindersView extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     InkWell(
-                        onTap: model.navigateToSendMessage,
+                        onTap: model.navigateToSendReminderDebtList,
                         child: Container(
                           height: SizeConfig.yMargin(context, 7),
                           width: SizeConfig.xMargin(context, 60),
@@ -49,7 +49,7 @@ class RemindersView extends StatelessWidget {
                     ),
                     Expanded(child: Text('No Scheduled Reminder')),
                     InkWell(
-                      onTap: model.navigateToSchedule,
+                      onTap: model.navigateToScheduleReminderDebtList,
                       child: Container(
                         height: SizeConfig.yMargin(context, 7),
                         width: SizeConfig.xMargin(context, 60),

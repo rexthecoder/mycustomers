@@ -74,4 +74,12 @@ class RemindersViewModel extends BaseViewModel {
   Future<void> navigateToSchedule() async {
     await _navigationService.navigateTo(Routes.scheduleNotifications);
   }
+
+  Future<void> navigateToSendReminderDebtList() async {
+    await _navigationService.navigateTo(Routes.sendReminderDebtList);
+  }
+
+  Future<void> navigateToScheduleReminderDebtList() async {
+    await _navigationService.navigateTo(Routes.scheduleReminderDebtList);
+  }
 }

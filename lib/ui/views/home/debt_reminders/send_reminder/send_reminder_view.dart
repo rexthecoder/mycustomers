@@ -12,10 +12,9 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 class SendMessage extends StatelessWidget {
   final String action;
   SendMessage({this.action});
-  String _description;
-  var _descKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+     final currency = new NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (contxt, model, child) {
         return Scaffold(
@@ -61,14 +60,24 @@ class SendMessage extends StatelessWidget {
                                     color: ThemeColors.gray.shade600),
                               ),
                               child: TextFormField(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                textInputAction: TextInputAction.done,
                                 maxLines: null,
                                 maxLengthEnforced: false,
                                 onChanged: (value) {
                                   model.value = value;
                                 },
-                                initialValue: model.value,
-                                decoration:
-                                    InputDecoration(border: InputBorder.none),
+                                initialValue: '${model.value} ' + model.transactions.currency.symbol +
+                              currency
+                                  .format(model.transactions.getamount(
+                                      (model.transactions.bought()).toDouble()))
+                                  .toString(),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: AppLocalizations.of(context)
+                                      .startTypingYourmessage,
+                                ),
                               ),
                             ),
                       action == AppLocalizations.of(context).schedule
@@ -176,9 +185,6 @@ class SendMessage extends StatelessWidget {
                           : SizedBox(),
                       action == AppLocalizations.of(context).schedule
                           ?
-                          // Form(
-                          //     key: _descKey,
-                          //     child:
                           Container(
                               height: SizeConfig.xMargin(context, 45),
                               width: SizeConfig.xMargin(context, 90),
@@ -197,21 +203,16 @@ class SendMessage extends StatelessWidget {
                                 textInputAction: TextInputAction.done,
                                 maxLines: null,
                                 maxLengthEnforced: false,
-                                onChanged: model.updateString,
-
-                                // validator: (value) {
-                                //   if (value.isEmpty) {
-                                //     return '';
-                                //   }
-                                //   return null;
-                                // },
+                                onChanged: (value) {
+                                  model.value = value;
+                                },
+                                initialValue: model.value,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)
                                       .startTypingYourmessage,
                                 ),
                               ),
-                              // ),
                             )
                           : Container(),
                       SizedBox(
@@ -220,17 +221,17 @@ class SendMessage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if (action == AppLocalizations.of(context).schedule) {
-                             if (model.description == null) {
+                            if (model.description == null) {
                               flusher(
                                   AppLocalizations.of(context)
                                       .fieldShouldNotBeEmpty,
                                   context);
                             } else if (model.description.isNotEmpty) {
-                              model.reminders.scheduleReminder();
                               flusher('Your Reminder has been set successfully',
                                   context);
+                              model.reminders.scheduleReminder();
                               model.reminders.navigateToMainView();
-                            } 
+                            }
                           } else if (action ==
                               AppLocalizations.of(context).send) {
                             model.sendMessage();

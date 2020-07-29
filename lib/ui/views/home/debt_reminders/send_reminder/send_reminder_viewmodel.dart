@@ -1,15 +1,7 @@
 import 'dart:io';
-import 'dart:math';
-import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/reminders_view_model.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:mycustomers/core/services/customer_contact_service.dart';
-
-import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
-import 'package:mycustomers/app/locator.dart';
 import 'package:stacked/stacked.dart';
 
 class SendMessageViewModel extends BaseViewModel {
@@ -28,7 +20,9 @@ class SendMessageViewModel extends BaseViewModel {
   ];
 
   String number = "0786067005";
-  String value = 'Dear Sir/Ma, you have an outstanding payment of N20,000.';
+
+  String value =
+      'Dear Sir/Ma, you have an outstanding payment of ';
   String _description;
   String get description => _description;
 
@@ -36,6 +30,7 @@ class SendMessageViewModel extends BaseViewModel {
 
   final MainTransactionViewModel transactions = MainTransactionViewModel();
   final RemindersViewModel reminders = RemindersViewModel();
+
 
   void updateFieldValue(String buttonValue) {
     _controllerValue = buttonValue;
@@ -64,5 +59,4 @@ class SendMessageViewModel extends BaseViewModel {
     _description = value;
     notifyListeners();
   }
-
 }

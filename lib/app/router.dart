@@ -11,6 +11,7 @@ import 'package:mycustomers/ui/views/business/settings/set_pin_settings_page/set
 import 'package:mycustomers/ui/views/home/add_customer_manually/add_customer_manually_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transaction_view.dart';
+import 'package:mycustomers/ui/views/home/debt_reminders/debt_list/debt_listView.dart';
 import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/reminders_view.dart';
 import 'package:mycustomers/ui/views/home/debt_reminders/send_reminder/send_reminder_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
@@ -102,8 +103,10 @@ abstract class Routes {
   static const createBusinessView = '/createBusiness';
   static const setPinSettingsViewRoute = '/setPinSettingsPage';
   static const sendNotificationMessage = '/sendNotificationMessage';
-  static const scheduleNotifications = '/scheduleNotificationMessage';
+  static const scheduleNotifications = '/scheduleNotifications';
   static const remindersView = '/remindersView';
+  static const sendReminderDebtList = '/sendReminderDebtList';
+  static const scheduleReminderDebtList = '/scheduleReminderDebtList';
   static const createReceipt = 'createReceipt';
 }
 
@@ -407,13 +410,27 @@ class Router {
       case Routes.scheduleNotifications:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SendMessage(
-            action: AppLocalizations.of(context).schedule,
+            action: AppLocalizations.of(context).send,
           ),
           settings: settings,
         );
-      case Routes.remindersView:
+        case Routes.remindersView:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => RemindersView(),
+          settings: settings,
+        );
+        case Routes.sendReminderDebtList:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => DebtList(
+            action: AppLocalizations.of(context).send,
+          ),
+          settings: settings,
+        );
+         case Routes.scheduleReminderDebtList:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => DebtList(
+            action: AppLocalizations.of(context).schedule,
+          ),
           settings: settings,
         );
       case Routes.createReceipt:
