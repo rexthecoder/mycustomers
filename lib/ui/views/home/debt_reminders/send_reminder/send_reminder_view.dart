@@ -68,7 +68,7 @@ class SendMessage extends StatelessWidget {
                                 onChanged: (value) {
                                   model.value = value;
                                 },
-                                initialValue: model.value
+                                initialValue: model.value,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)
