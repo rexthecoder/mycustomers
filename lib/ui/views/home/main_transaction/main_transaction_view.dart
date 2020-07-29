@@ -174,6 +174,7 @@ class MainTransaction extends StatelessWidget {
                                 child: model.bought() > model.paid()
                                     ? Center(
                                         child: Wrap(
+                                          crossAxisAlignment: WrapCrossAlignment.center,
                                           alignment: WrapAlignment.spaceBetween,
                                           //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: <Widget>[

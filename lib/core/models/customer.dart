@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mycustomers/core/models/hive/customer/customer_h.dart';
 
@@ -23,13 +24,30 @@ const customerLastNames = [
 ];
 
 @JsonSerializable(nullable: true, includeIfNull: true)
-class Customer {
+
+@HiveType(typeId: 18, adapterName: 'ContactAdapter')
+
+class Customer extends HiveObject {
 
   String get displayName => '${this.name ?? ''} ${this.lastName ?? ''}';
 
-  String id, name, phone, email, initials;
+  @HiveField(0)
+  String id;
+
+  @HiveField(1)
+  String name;
+
+  @HiveField(2)
+  String phone;
+
+  @HiveField(3)
+  String email;
+
+  @HiveField(4)
+  String initials;
 
   @JsonKey(name: 'lastname')
+  @HiveField(5)
   String lastName;
 
   Customer({this.id, this.name, this.phone, this.email, this.lastName, this.initials});

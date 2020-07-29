@@ -112,11 +112,15 @@ class MainTransactionViewModel extends ReactiveViewModel{
   void getPdf(BuildContext context) {
     _transactionService.setReport(reportstart, reportstop, contact, context, currency.symbol);
   }
+  
+  void poptwice() {
+    _navigationService.popRepeated(2);
+  }
 
   int bought(){
     int sum = 0;
     for (var item in transactions) {
-      if(item.amount > item.paid) {
+      if(item.amount != 0) {
         sum += item.amount.round();
       }
     }
