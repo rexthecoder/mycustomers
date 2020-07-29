@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
@@ -9,6 +10,8 @@ import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -43,6 +46,19 @@ class MainTransactionViewModel extends ReactiveViewModel{
   Store get currentStore => StoreRepository.currentStore;
 
   List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed);
+
+  DateTime reportstart;
+  DateTime reportstop;
+
+  final dformat = new DateFormat('dd/MM/yy');
+
+  PermissionService _permission = new PermissionService();
+
+  //bool permitted = await _permission.getStoragePermission();
+
+  Future<bool> getPermission() async{
+    return await _permission.getStoragePermission();
+  }
   
 
   double getamount(double amt){
@@ -77,6 +93,24 @@ class MainTransactionViewModel extends ReactiveViewModel{
     // } else {
     //   return amt;
     // }
+  }
+
+  void setReportStart(DateTime date) {
+    reportstart = date;
+    notifyListeners();
+  }
+
+  void setReportStop(DateTime date) {
+    reportstop = date;
+    notifyListeners();
+  }
+
+  DateTime whichDate(TransactionModel trans) {
+    return trans.boughtdate == null ? DateTime.parse(trans.paiddate) : trans.paiddate == null ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.boughtdate).difference(DateTime.parse(trans.paiddate)).inDays >= 0 ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.paiddate);
+  }
+
+  void getPdf(BuildContext context) {
+    _transactionService.setReport(reportstart, reportstop, contact, context, currency.symbol);
   }
 
   int bought(){

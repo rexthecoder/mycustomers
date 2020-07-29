@@ -9,6 +9,7 @@ import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
@@ -283,7 +284,15 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                    GeneralTransactionReport().buildPdf(context);
+                                      model.getPermission().then((value) {
+                                        if(value) {
+                                          if(model.transactions.length == 0) {
+                                            flusher('No transaction Exists Between You and This Customer', context);
+                                          } else {
+                                            SavedDialog().showPdfDialog(context, model.whichDate(model.transactions[0]), model.whichDate(model.transactions[model.transactions.length - 1]));
+                                          }
+                                        }
+                                      });
 
                                       // flusher('Still in development', context);
                                       // SavedDialog().showPdfDialog(context);

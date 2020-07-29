@@ -1,6 +1,13 @@
+import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
+import 'dart:typed_data';
 // import 'package:stacked/stacked.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
+import 'package:intl/intl.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:mycustomers/core/pdf/storagepermission.dart';
@@ -30,34 +37,384 @@ class PdfViewerPage extends StatelessWidget {
 }
 
 class GeneralTransactionReport {
-  final document = pw.Document();
+  
+  final dformat = new DateFormat('dd/MM/yyyy');
+  final fformat = new DateFormat('hh:mm aa');
+  final currency = new NumberFormat("#,##0", "en_NG");
   // MainTransactionViewModel model;
 
+  Future<Uint8List> buildpdf(BuildContext context, {List<TransactionModel> transactions, String start, String stop, CustomerContact customer, double totaldebt, double totalcredit, String symbol})async{
+    final pdf = pw.Document();
+    print('here');
+    print(start+''+stop+''+customer.name+''+totaldebt.toString()+''+totalcredit.toString()+''+transactions.length.toString());
+    PdfImage image = PdfImage.file(
+      pdf.document,
+      bytes: (await rootBundle.load('assets/app-google-play.png')).buffer.asUint8List(),
+    );
 
-buildPdf(BuildContext context)async {
-    await storagePermission();
+    final font = await rootBundle.load('assets/fonts/Roboto-Regular.ttf');
+    final ttf = pw.Font.ttf(font);
 
-  document.addPage(
-    pw.MultiPage(
-      pageFormat: PdfPageFormat.a4,
-      header: _buildHeader,
-      footer: _buildFooter,
-      build:(context)=>[
-        _buildContentHeader(context),
-        pw.SizedBox(height: 25),
-        _buildContent(context),
-        pw.SizedBox(height: 20),
-        _contentTableHeader(context),
-        _contentTable(context),
-        _contentTableFooter(context)
+    final fontBold = await rootBundle.load('assets/fonts/Roboto-Bold.ttf');
+    final ttfBold = pw.Font.ttf(fontBold);
 
-      ]
+    pdf.addPage(
+      pw.MultiPage(
+        // margin: pw.EdgeInsets.symmetric(vertical: 20),
+        // pageFormat: PdfPageFormat.a4,
+        pageTheme: _buildTheme(PdfPageFormat.a4, ttf, ttfBold, ttf),
+        footer: (pw.Context context) {
+          return pw.Container(
+            padding: pw.EdgeInsets.symmetric(horizontal: 20),
+            child: pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: <pw.Widget>[
+                pw.Image(image),
+                pw.Text(
+                  'Page ${context.pageNumber} of ${context.pagesCount}'
+                )
+              ]
+            )
+          );
+        },
+        build: (pw.Context context) {
+          return <pw.Widget> [
+            pw.Column(
+              children: <pw.Widget>[
+                pw.Container(
+                  padding: pw.EdgeInsets.symmetric(horizontal: 20),
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: <pw.Widget> [
+                      pw.Container(
+                        margin: pw.EdgeInsets.only(bottom: 40),
+                        child: pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: <pw.Widget> [
+                            pw.RichText(
+                              text: pw.TextSpan(
+                                  style: pw.TextStyle(color: PdfColors.black, fontSize: 24),
+                                  children: <pw.TextSpan>[
+                                    pw.TextSpan(
+                                      text: 'myCustomer',
+                                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 24)
+                                    ),
+                                    pw.TextSpan(
+                                      text: '.',
+                                      style: pw.TextStyle(color: PdfColors.blue, fontWeight: pw.FontWeight.bold, fontSize: 24)
+                                    ),
+                                  ],
+                              ),
+                            ),
+                            pw.Column(
+                              children: <pw.Widget>[
+                                pw.Text(
+                                  customer.name,
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 18)
+                                ),
+                                pw.Text(
+                                  customer.phoneNumber,
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 18)
+                                )
+                              ],
+                            )
+                          ]
+                        ),
+                      ),
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: <pw.Widget>[
+                          pw.Container(
+                            margin: pw.EdgeInsets.only(bottom: 15),
+                            child: pw.Text(
+                              'Transations Report  ( '+start+' - ' +stop+' )',
+                              style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 15)
+                            ),
+                          ),
+                          pw.Text(
+                            'Report Generated at :           '+dformat.format(DateTime.now()).toString()+' '+fformat.format(DateTime.now()).toString(),
+                            style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 15)
+                          ),
+                          pw.Text(
+                            'Transaction ID :                     0001-0001',
+                            style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 15)
+                          ),
+                          pw.Text(
+                            'Number of Customers  :        1',
+                            style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 15)
+                          ),
+                          pw.Row(
+                            children: <pw.Widget> [
+                              pw.Text(
+                                'Total Received  :                    ',
+                                style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 15)
+                              ),
+                              pw.Text(
+                                symbol+'${currency.format(totaldebt)}',
+                                style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 15, color: PdfColor.fromHex('21D184'))
+                              ),
+                            ]
+                          ),
+                          pw.Row(
+                            children: <pw.Widget> [
+                              pw.Text(
+                                'Total Gave  :                          ',
+                                style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 15)
+                              ),
+                              pw.Text(
+                                symbol+'${currency.format(totalcredit)}',
+                                style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 15, color: PdfColor.fromHex('E52D27'))
+                              ),
+                            ]
+                          ),
+                        ],
+                      ),
+                      pw.Container(
+                        margin: pw.EdgeInsets.only(top: 20, bottom: 20),
+                        child: pw.Text(
+                          'Customer : '+customer.name,
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 18)
+                        ),
+                      )
+                    ]
+                  )
+                ),
+                pw.Container(
+                  width: 620,//420
+                  padding: pw.EdgeInsets.symmetric(vertical: 20),
+                  color: PdfColors.grey300,
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+                    children: <pw.Widget> [
+                      pw.Container(
+                        //color: PdfColors.red,
+                        width: 70,
+                        child: pw.Center(
+                          child: pw.Text(
+                            'S.No',
+                            style: pw.TextStyle(fontSize: 14, color: PdfColor.fromHex('333CC1')),
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        width: 150,
+                        //color: PdfColors.red,
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Date',
+                            style: pw.TextStyle(fontSize: 14, color: PdfColor.fromHex('333CC1')),
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        width: 150,
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Note',
+                            style: pw.TextStyle(fontSize: 14, color: PdfColor.fromHex('333CC1')),
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        //color: PdfColors.red,
+                        width: 100,
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Recieved',
+                            style: pw.TextStyle(fontSize: 14, color: PdfColor.fromHex('333CC1')),
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        width: 100,
+                        //color: PdfColors.red,
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Gave',
+                            style: pw.TextStyle(fontSize: 14, color: PdfColor.fromHex('333CC1')),
+                          ),
+                        ),
+                      ),
+                    ]
+                  )
+                ),
+                for(var item in transactions) pw.Container(
+                  width: 620,
+                  padding: pw.EdgeInsets.symmetric(vertical: 20),
+                  color: transactions.indexOf(item) % 2 == 0 ? PdfColors.grey100 : PdfColors.white,
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+                    children: <pw.Widget> [
+                      pw.Container(
+                        width: 70,
+                        //color: PdfColors.red,
+                        child: pw.Center(
+                          child: pw.Text(
+                            (transactions.indexOf(item)+1).toString(),
+                            style: pw.TextStyle(fontSize: 14)
+                          )
+                        )
+                      ),
+                      pw.Container(
+                        width: 150,
+                        //color: PdfColors.red,
+                        child: pw.Center(
+                          child: pw.Text(
+                            item.amount > item.paid ? dformat.format(DateTime.parse(item.boughtdate)).toString()+'\n'+fformat.format(DateTime.parse(item.boughtdate)).toString() : dformat.format(DateTime.parse(item.paiddate)).toString()+'\n'+fformat.format(DateTime.parse(item.paiddate)).toString(),
+                            style: pw.TextStyle(fontSize: 14),
+                            textAlign: pw.TextAlign.center
+                          ),
+                        )
+                      ),
+                      // pw.Container(
+                      //   width: 100,
+                      //   child: pw.Center(
+                      //     child: pw.Text(
+                      //       'Seyi Onifade'
+                      //     ),
+                      //   )
+                      // ),
+                      pw.Container(
+                        width: 150,
+                        child: pw.Center(
+                          child: pw.Text(
+                            item.description ?? '',
+                            style: pw.TextStyle(fontSize: 14)
+                          ),
+                        )
+                      ),
+                      pw.Container(
+                        width: 100,
+                        child: pw.Center(
+                          child: pw.Text(
+                            item.amount == 0 ? '' : symbol+'${currency.format(item.amount)}',
+                            style: pw.TextStyle(fontSize: 14,color: PdfColor.fromHex('21D184'))
+                          ),
+                        )
+                      ),
+                      pw.Container(
+                        width: 100,
+                        child: pw.Center(
+                          child: pw.Text(
+                            item.paid == 0 ? '' : symbol+'${currency.format(item.paid)}',
+                            style: pw.TextStyle(fontSize: 14,color: PdfColor.fromHex('E52D27'))
+                          ),
+                        )
+                      ),
+                    ]
+                  )
+                ),
+                pw.Container(
+                  width: 620,
+                  padding: pw.EdgeInsets.symmetric(vertical: 20),
+                  color: PdfColors.grey300,
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+                    children: <pw.Widget> [
+                      pw.Container(
+                        //color: PdfColors.red,
+                        width: 220,
+                        child: pw.SizedBox()
+                      ),
+                      pw.Container(
+                        width: 150,
+                        child: pw.Center(
+                          child: pw.Text(
+                            'Total',
+                            style: pw.TextStyle(fontSize: 14)
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        width: 100,
+                        child: pw.Center(
+                          child: pw.Text(
+                            symbol+'${currency.format(totaldebt)}',
+                            style: pw.TextStyle(fontSize: 14, color: PdfColor.fromHex('21D184')),
+                          ),
+                        ),
+                      ),
+                      pw.Container(
+                        width: 100,
+                        //color: PdfColors.red,
+                        child: pw.Center(
+                          child: pw.Text(
+                            symbol+'${currency.format(totalcredit)}',
+                            style: pw.TextStyle(fontSize: 14, color: PdfColor.fromHex('E52D27')),
+                          ),
+                        ),
+                      ),
+                    ]
+                  )
+                ),
+              ]
+            ),
+          ];
+        },
       )
-  );
+    );
 
- await generateReport(context);
+    return pdf.save();
+    //savepdf(context, pdf);
+  }
 
-}
+  pw.PageTheme _buildTheme(
+      PdfPageFormat pageFormat, pw.Font base, pw.Font bold, pw.Font italic) {
+    return pw.PageTheme(
+      pageFormat: pageFormat,
+      margin: pw.EdgeInsets.symmetric(vertical: 20),
+      theme: pw.ThemeData.withFont(
+        base: base,
+        bold: bold,
+        italic: italic,
+      ),
+    );
+  }
+
+  Future savepdf(BuildContext context, Uint8List pdf) async{
+    Directory doc = await getExternalStorageDirectory();
+    Directory dic = await DownloadsPathProvider.downloadsDirectory;
+    String docdir = doc.path;
+    String docdic = dic.path;
+    String time = DateTime.now().microsecondsSinceEpoch.toString();
+    print(docdir);
+    //String patth = "$docdic/report"+time+".pdf";
+    File file = File("$docdir/exampll.pdf");
+    File filet = new File("$docdic/report"+time+".pdf");
+    filet.writeAsBytes(pdf);
+    file.writeAsBytesSync(pdf);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => PdfViewerPage(path: filet.path),
+      ),
+    );
+  }
+
+
+// buildPdf(BuildContext context)async {
+//     await storagePermission();
+
+//   document.addPage(
+//     pw.MultiPage(
+//       pageFormat: PdfPageFormat.a4,
+//       header: _buildHeader,
+//       footer: _buildFooter,
+//       build:(context)=>[
+//         _buildContentHeader(context),
+//         pw.SizedBox(height: 25),
+//         _buildContent(context),
+//         pw.SizedBox(height: 20),
+//         _contentTableHeader(context),
+//         _contentTable(context),
+//         _contentTableFooter(context)
+
+//       ]
+//       )
+//   );
+
+//  await generateReport(context);
+
+// }
 
 final List<FooterData> footerBody = [
     FooterData(100.0, 100.0),
@@ -276,7 +633,7 @@ Future<void> generateReport(BuildContext context) async {
     final String path = '$appDocPath/report' +'.pdf';
     File file = File(path);
     print('Save as file ${file.path} ...');
-    file.writeAsBytesSync(document.save());
+    //file.writeAsBytesSync(pdf.save());
 
     Navigator.of(context).push(
       MaterialPageRoute(

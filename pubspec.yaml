@@ -145,7 +145,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    # - assets/
+    - assets/
     - assets/images/
     - assets/fonts/
     - assets/icons/
@@ -154,6 +154,8 @@ flutter:
     - assets/animations/
     - assets/languages/
     - assets/languages/icons/
+    - assets/fonts/Roboto-Bold.ttf
+    - assets/fonts/Roboto-Regular.ttf
 
 
   fonts:
