@@ -18,7 +18,8 @@ class SendMessageViewModel extends BaseViewModel {
 
   String number = "0786067005";
 
-  String value = 'Dear Sir/Ma, you have an outstanding payment of ${debt}';
+  String _value = 'Dear Sir/Ma, you have an outstanding payment of ${debt}';
+  String get value => _value;
   String _description;
   String get description => _description;
 
@@ -42,7 +43,7 @@ class SendMessageViewModel extends BaseViewModel {
   }
 
   void sendMessage() async {
-    var regText = Uri.encodeFull(value);
+    var regText = Uri.encodeFull(_value);
     var uri =
         'sms:+${transactions.contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20using%20this%20link:https://www.google.com/';
     if (Platform.isAndroid) {
