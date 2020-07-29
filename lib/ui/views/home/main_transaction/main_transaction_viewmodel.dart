@@ -78,6 +78,10 @@ class MainTransactionViewModel extends ReactiveViewModel{
     // }
   }
 
+  void poptwice() {
+    _navigationService.popRepeated(2);
+  }
+
   int bought(){
     int sum = 0;
     for (var item in transactions) {

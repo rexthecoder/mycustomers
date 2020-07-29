@@ -26,7 +26,7 @@ class CustomerContact extends HiveObject{
   final bool market;
 
   @HiveField(6)
-  final List<TransactionModel> transactions;
+  final Map<String,TransactionModel> transactions;
 
   @HiveField(7)
   final List<Message> messages;

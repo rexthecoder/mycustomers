@@ -23,7 +23,7 @@ class CustomerContactAdapter extends TypeAdapter<CustomerContact> {
       initials: fields[3] as String,
       storeid: fields[4] as String,
       market: fields[5] as bool,
-      transactions: (fields[6] as List)?.cast<TransactionModel>(),
+      transactions: (fields[6] as Map)?.cast<String, TransactionModel>(),
       messages: (fields[7] as List)?.cast<Message>(),
     );
   }

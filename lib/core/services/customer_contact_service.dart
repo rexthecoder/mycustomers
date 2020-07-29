@@ -160,7 +160,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           initials: initials,
           storeid: stid,
           market: false,
-          transactions: [],
+          transactions: {},
           messages: []
         );
         _contactBox.add(contact).then((value){
@@ -242,7 +242,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           initials: initials,
           storeid: stid, 
           market: true,
-          transactions: [],
+          transactions: {},
           messages: []
         );
         await _contactBox.add(contact).then((value){

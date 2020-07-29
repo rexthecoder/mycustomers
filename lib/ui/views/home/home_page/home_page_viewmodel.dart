@@ -13,6 +13,7 @@ import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/extensions/transaction_extension.dart';
 
 
 
@@ -120,13 +121,13 @@ class HomePageViewModel extends ReactiveViewModel {
     sDName = value;
     containsD = false;
     for(var cus in owingcustomers){
-      for(var item in contacts){
-        if(item.transactions.contains(cus)){
-          if(item.name.toLowerCase().contains(sDName.toLowerCase())){
+      //for(var item in contacts){
+        //if(item.transactions.contains(cus)){
+          if(cus.name.toLowerCase().contains(sDName.toLowerCase())){
             containsD = true;
           }
-        }
-      }
+        //}
+      //}
     }
     notifyListeners();
   }
@@ -135,13 +136,13 @@ class HomePageViewModel extends ReactiveViewModel {
     sCName = value;
     containsC = false;
     for(var cus in owedcustomers){
-      for(var item in contacts){
-        if(item.transactions.contains(cus)){
-          if(item.name.toLowerCase().contains(sCName.toLowerCase())){
+      //for(var item in contacts){
+        //if(item.transactions.contains(cus)){
+          if(cus.name.toLowerCase().contains(sCName.toLowerCase())){
             containsC = true;
           }
-        }
-      }
+        //}
+      //}
     }
     notifyListeners();
   }
@@ -151,7 +152,7 @@ class HomePageViewModel extends ReactiveViewModel {
     for(var cus in contacts) {
       double tempd = 0;
       double tempc = 0;
-      for(var trans in cus.transactions) {
+      for(var trans in cus.transactions.helperToList()) {
         tempd += trans.amount;
         tempc += trans.paid;
       }
@@ -165,7 +166,7 @@ class HomePageViewModel extends ReactiveViewModel {
     for(var cus in contacts) {
       double tempd = 0;
       double tempc = 0;
-      for(var trans in cus.transactions) {
+      for(var trans in cus.transactions.helperToList()) {
         tempd += trans.amount;
         tempc += trans.paid;
       }
@@ -177,7 +178,7 @@ class HomePageViewModel extends ReactiveViewModel {
   double getdebt(CustomerContact cus) {
     double tempd = 0;
     double tempc = 0;
-    for(var trans in cus.transactions) {
+    for(var trans in cus.transactions.helperToList()) {
       tempd += trans.amount;
       tempc += trans.paid;
     }
@@ -187,7 +188,7 @@ class HomePageViewModel extends ReactiveViewModel {
   double getcredit(CustomerContact cus) {
     double tempd = 0;
     double tempc = 0;
-    for(var trans in cus.transactions) {
+    for(var trans in cus.transactions.helperToList()) {
       tempd += trans.amount;
       tempc += trans.paid;
     }
@@ -205,11 +206,11 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   String getdebtduedate(CustomerContact cus) {
-    return cus.transactions.where((element) => element.amount != 0).toList().last.duedate;
+    return cus.transactions.helperToList().where((element) => element.amount != 0).toList().last.duedate;
   }
 
   String getcreditduedate(CustomerContact cus) {
-    return cus.transactions.where((element) => element.paid != 0).toList().last.duedate;
+    return cus.transactions.helperToList().where((element) => element.paid != 0).toList().last.duedate;
   }
 
   double paid(){

@@ -14,6 +14,12 @@ class PhoneContactService with ReactiveServiceMixin {
   RxValue<List<Customer>> _contact = RxValue<List<Customer>>(initial: []);
   List<Customer> get contact => _contact.value;
 
+  RxValue<bool> _busy = RxValue<bool>(initial: false);
+  bool get busy => _busy.value;
+
+  RxValue<bool> _permission = RxValue<bool>(initial: false);
+  bool get permission => _permission.value;
+
   PhoneContactService(){
     listenToReactiveValues([_contact]);
   }
@@ -24,19 +30,22 @@ class PhoneContactService with ReactiveServiceMixin {
     if (!_isBoxOpen) {
       await _hiveService.openBox<Customer>(HiveBox.phoneContact);
     }
-  }
+  } 
 
   int contactsCount() {
     return _phoneContactBox.values.toList().length;
   }
 
   void getContacts() {
+    _busy.value = true;
     _contact.value = _phoneContactBox.values.toList();
+    _busy.value = false;
     //print(_phoneContactBox.values.toList());
   }
 
-  void addCustomer(Customer cus) {
+  Future<void> addCustomer(Customer cus)async {
+    _busy.value = true;
     print(cus.displayName);
-    _phoneContactBox.add(cus);
+    await _phoneContactBox.add(cus);
   }
 }

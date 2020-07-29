@@ -8,15 +8,28 @@ import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
+import '../../extensions/transaction_extension.dart';
 
-abstract class TransactionDataSource{
+abstract class TransactionLocalDataSource{
   //Future<void> init();
+
+  void setTransaction(TransactionModel transaction);
+
+  void getAllTransactions(String id);
+
+  Future<void> getTransactions(CustomerContact cus);
+
+  Future<CustomerContact> addTransaction(TransactionModel transaction, CustomerContact cus);
+
+  Future<CustomerContact> updateTransaction(TransactionModel transaction, CustomerContact cus);
+
+  Future<CustomerContact> deleteTransaction(CustomerContact cus);
 }
 
 
 @lazySingleton
-class TransactionLocalDataSourceImpl extends TransactionDataSource with ReactiveServiceMixin {
-  static const String _boxname = "transactionBox";
+class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with ReactiveServiceMixin {
+  //static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 
   //bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
@@ -68,18 +81,20 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   //   }
   // }
 
+  @override
   void setTransaction(TransactionModel transaction){
     _stransaction.value = transaction;
   }
 
+  @override
   void getAllTransactions(String id) async{
     //final bbox = await box;
     _alltransactions.value = [];
     print(_contactBox.values.toList());
     for(var cont in _contactBox.values.toList()) {
       if (cont.storeid == id){
-        print(cont.transactions);
-        _alltransactions.value = [..._alltransactions.value, ...cont.transactions];
+        //print(cont.transactions);
+        _alltransactions.value = [..._alltransactions.value, ...cont.transactions.helperToList()];
       }
     }
     print(_alltransactions.value);
@@ -90,24 +105,28 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     for(var cus in _contactBox.values.toList()) {
       double tempd = 0;
       double tempc = 0;
-      for(var item in cus.transactions){
+      for(var item in cus.transactions.helperToList()){
         tempd += item.amount;
         tempc += item.paid;
       }
+      print(tempd);
+      print(tempc);
+      print(tempd - tempc);
       if(tempd - tempc > 0) {
         _owingcustomers.value.add(cus);
       }
-      if(tempc - tempc > 0) {
+      if(tempc - tempd > 0) {
         _owedcustomers.value.add(cus);
         //_whatyouowe.value += item.paid-item.amount;
       }
     }
   }
-  
+
+  @override  
   Future<void> getTransactions(CustomerContact cus) async{
     //print('get'+id.toString());
     //final bbox = await box;
-    _transactions.value = cus.transactions;
+    _transactions.value = cus.transactions.helperToList();
     // for (var transaction in _contactBox.values.toList()) {
     //   if (transaction.cId == id && transaction.sId == stid){
     //     _transactions.value.add(transaction);
@@ -156,14 +175,15 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     }
   }
 
+  @override
   Future<CustomerContact> addTransaction(TransactionModel transaction, CustomerContact cus) async {
     //print(transaction.cId);
     //final bbox = await box;
     //await _transactionBox.add(transaction);
     CustomerContact temp = cus;
-    temp.transactions.add(transaction);
+    temp.transactions.putIfAbsent(transaction.tId, () => transaction);
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
-    _transactions.value = temp.transactions;
+    _transactions.value = temp.transactions.helperToList();
     // for (var transactionb in _transactionBox.values.toList()) {
     //   if (transactionb.cId == transaction.cId){
     //     _transactions.value.add(transactionb);
@@ -214,13 +234,14 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     return temp;
   }
 
+  @override
   Future<CustomerContact> updateTransaction(TransactionModel transaction, CustomerContact cus)async{
     //final bbox = await box;
     CustomerContact temp = cus;
-    temp.transactions.insert(temp.transactions.indexOf(_stransaction.value), transaction);
+    temp.transactions.update(transaction.tId, (value) => transaction);
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
 
-    _transactions.value = temp.transactions;
+    _transactions.value = temp.transactions.helperToList();
     // for (var ttransaction in _transactionBox.values.toList()) {
     //   if (ttransaction.cId == transaction.cId){
     //     _transactions.value.add(ttransaction);
@@ -305,7 +326,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   void updateamount(CountryCurrency oldcurrency, CountryCurrency currency, String stid) async{
     for(var cus in _contactBox.values.toList()) {
       List<TransactionModel> hold = [];
-      for(var item in cus.transactions) {
+      for(var item in cus.transactions.helperToList()) {
         print(oldcurrency.symbol);
         print(currency.symbol);
         print(getamount(item.amount, oldcurrency, currency));
@@ -328,7 +349,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
         initials: cus.initials,
         storeid: cus.storeid,
         market: cus.market,
-        transactions: hold,
+        transactions: hold.helperToMap(),
         messages: cus.messages
       );
       await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
@@ -337,9 +358,10 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     getAllTransactions(stid);
   }
 
+  @override
   Future<CustomerContact> deleteTransaction(CustomerContact cus)async {
     CustomerContact tempc = cus;
-    tempc.transactions.removeAt(tempc.transactions.indexOf(_stransaction.value));
+    tempc.transactions.remove(_stransaction.value.tId);
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), tempc);
     getAllTransactions(stransaction.sId);
     getTransactions(tempc);

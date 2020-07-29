@@ -22,7 +22,7 @@ import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 
-class MockTransactionAdapter extends Mock implements TransactionDataSource {}
+class MockTransactionAdapter extends Mock implements TransactionLocalDataSource {}
 
 class MockHive extends Mock implements HiveInterface {}
 
@@ -111,7 +111,7 @@ void main() {
     // when(mockhive.openBox<Message>(HiveBox.message))
     //     .thenAnswer((_) async => Future.value(messagemockBox));
 
-    locator.registerSingleton<TransactionDataSource>(mockTransactionAdapters);
+    locator.registerSingleton<TransactionLocalDataSource>(mockTransactionAdapters);
     locator.registerSingleton<HiveInterface>(mockhive);
 
     //DI && IC
