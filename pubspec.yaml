@@ -20,6 +20,7 @@ dependencies:
   stacked_hooks: ^0.1.1+3
   flutter_hooks: ^0.9.0
   observable_ish: ^2.1.4
+  downloads_path_provider: ^0.1.0
 
   # For getting the ISO code based on the sim
   flutter_sim_country_code: ^0.0.3
