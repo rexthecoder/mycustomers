@@ -76,6 +76,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   String namehint;
   bool shownames = false;
   TextEditingController searchController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController descController = TextEditingController();
   Customer selectedCustomer;
   var uuid = Uuid();
 
@@ -94,6 +96,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
 
   var inputNumberController = TextEditingController();
   final descFocus = FocusNode();
+
+  TransactionModel get stransaction => _transactionService.stransaction;
 
   bool manual = false;
   bool numberr = false;
@@ -127,6 +131,15 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
       manual = true;
     }
     notifyListeners();
+  }
+
+  void setUpdate() {
+    amountController.text = stransaction.amount.toString();
+    _amount = stransaction.amount;
+    newDate = dformat.format(DateTime.parse(stransaction.duedate));
+    descController.text = stransaction.description;
+    _description = stransaction.description;
+    save = true;
   }
 
   void getContacts() async {

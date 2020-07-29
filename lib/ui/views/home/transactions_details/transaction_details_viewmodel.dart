@@ -35,6 +35,10 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
     _transactionService.deleteTransaction(contact);
   }
 
+  void edit() {
+    transaction.amount > transaction.paid ? _navigationService.navigateTo(Routes.selectRouteDebt) : _navigationService.navigateTo(Routes.selectRouteCredit);
+  }
+
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
 

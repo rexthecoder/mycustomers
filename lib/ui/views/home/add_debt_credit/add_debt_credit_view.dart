@@ -37,6 +37,9 @@ class AddDebtCreditView extends StatelessWidget {
           if (newCus) {
             model.init();
           }
+          if(update) {
+            model.setUpdate();
+          }
         },
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
@@ -57,7 +60,7 @@ class AddDebtCreditView extends StatelessWidget {
                                 model.amount.round().toString()
                             : '${model.contact.name} paid you',
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                    fontSize: ScreenUtil().setSp(18),
+                    fontSize: SizeConfig.yMargin(context, 2.2),
                     fontWeight: FontWeight.bold,
                     //color: Colors.black,
                     fontFamily: 'Roboto'),
@@ -66,8 +69,8 @@ class AddDebtCreditView extends StatelessWidget {
                 onTap: () => Navigator.pop(context),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(18),
-                      vertical: ScreenUtil().setHeight(10)),
+                      horizontal: SizeConfig.xMargin(context, 4),
+                      vertical: SizeConfig.yMargin(context, 1.5)),
                   child: SvgPicture.asset(
                     'assets/icons/backarrow.svg',
                     color: action == 'debit'
@@ -136,6 +139,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           maxLines: null,
                                           maxLengthEnforced: false,
                                           keyboardType: TextInputType.number,
+                                          controller: model.amountController,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6
@@ -422,15 +426,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                       child: Container(
                                                         margin: EdgeInsets.only(
                                                             bottom: 15),
-                                                        padding: EdgeInsets.symmetric(
-                                                            vertical:
-                                                                ScreenUtil()
-                                                                    .setHeight(
-                                                                        15),
-                                                            horizontal:
-                                                                ScreenUtil()
-                                                                    .setWidth(
-                                                                        15)),
+                                                        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 3.8)),
                                                         decoration: BoxDecoration(
                                                             border: Border.all(
                                                                 color: model
@@ -472,9 +468,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                                     .textTheme
                                                                     .headline6
                                                                     .copyWith(
-                                                                      fontSize:
-                                                                          ScreenUtil()
-                                                                              .setSp(12),
+                                                                      fontSize: SizeConfig.yMargin(context, 2),
                                                                       color: action ==
                                                                               'debit'
                                                                           ? BrandColors
@@ -492,7 +486,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 ),
                                               ),
                                         Visibility(
-                                          visible: update ? false : true,
+                                          visible: true,
                                           child: Container(
                                             margin: EdgeInsets.only(bottom: 15),
                                             child: Column(
@@ -525,8 +519,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                               Color(0xFFD1D1D1),
                                                           width: 2.0),
                                                       borderRadius: BorderRadius
-                                                          .circular(ScreenUtil()
-                                                              .setWidth(5))),
+                                                          .circular(5)),
                                                   child: Column(
                                                     children: <Widget>[
                                                       Focus(
@@ -552,7 +545,7 @@ class AddDebtCreditView extends StatelessWidget {
 
                                                           focusNode:
                                                               model.descFocus,
-                                                          //controller: _controller,
+                                                          controller: model.descController,
                                                           maxLines: null,
                                                           maxLengthEnforced:
                                                               false,
@@ -617,12 +610,12 @@ class AddDebtCreditView extends StatelessWidget {
                               child: Container(
                                 //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
+                                    horizontal: SizeConfig.xMargin(context, 3), vertical: SizeConfig.yMargin(context, 1.6)),
                                 child: Column(
                                   children: <Widget>[
                                     Container(
                                       margin: EdgeInsets.only(
-                                          bottom: ScreenUtil().setHeight(15)),
+                                          bottom: SizeConfig.yMargin(context, 1.6)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -997,7 +990,7 @@ class AddDebtCreditView extends StatelessWidget {
                       }, //Todo: Save User Input
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            vertical: ScreenUtil().setHeight(15)),
+                            vertical: SizeConfig.yMargin(context, 1.8)),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           color: model.save

@@ -114,7 +114,7 @@ class GeneralTransactionReport {
                                   style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 18)
                                 ),
                                 pw.Text(
-                                  customer.phoneNumber.trim(),
+                                  customer.phoneNumber.replaceAll(' ', ''),
                                   style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 18)
                                 )
                               ],
