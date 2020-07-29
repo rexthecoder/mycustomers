@@ -56,6 +56,9 @@ class SavedDialog extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5), horizontal: SizeConfig.xMargin(context, 6)),
           width: SizeConfig.xMargin(context, 100),
           height: SizeConfig.yMargin(context, 100)*0.46,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Theme.of(context).backgroundColor),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,8 +76,9 @@ class SavedDialog extends StatelessWidget {
                   child: Text(
                     'Export as PDF',
                     style: TextStyle(
-                      fontSize: SizeConfig.yMargin(context, 2.2),
-                      color: BrandColors.primary
+                      fontSize: SizeConfig.yMargin(context, 2.4),
+                      color: BrandColors.primary,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
                 ),
@@ -127,7 +131,7 @@ class SavedDialog extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 5)),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFF575A65)),
+                      border: Border.all(color: model.reportstarterr ? Colors.red : Color(0xFF575A65)),
                       borderRadius: BorderRadius.circular(4)
                     ),
                     child: Row(
@@ -191,7 +195,7 @@ class SavedDialog extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 5)),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFF575A65)),
+                      border: Border.all(color: model.reportstoperr ? Colors.red : Color(0xFF575A65)),
                       borderRadius: BorderRadius.circular(4)
                     ),
                     child: Row(
@@ -207,6 +211,7 @@ class SavedDialog extends StatelessWidget {
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 2.4),),
                 Container(
+                  padding: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.5)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -215,7 +220,7 @@ class SavedDialog extends StatelessWidget {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 10)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Color(0xFFA7A6A6)
@@ -233,11 +238,15 @@ class SavedDialog extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: (){
-                          model.getPdf(context);
-                          Navigator.pop(context);
+                          if(model.reportstart == null || model.reportstop ==null) {
+                            model.setreportdialogerror();
+                          }else {
+                            model.getPdf(context);
+                            Navigator.pop(context);
+                          }
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 10)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: BrandColors.primary

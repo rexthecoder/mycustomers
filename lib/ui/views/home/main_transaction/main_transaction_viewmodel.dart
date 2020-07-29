@@ -49,6 +49,8 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   DateTime reportstart;
   DateTime reportstop;
+  bool reportstarterr = false;
+  bool reportstoperr = false;
 
   final dformat = new DateFormat('dd/MM/yy');
 
@@ -96,23 +98,36 @@ class MainTransactionViewModel extends ReactiveViewModel{
   }
 
   void setReportStart(DateTime date) {
+    reportstarterr = false;
     reportstart = date;
     notifyListeners();
   }
 
   void setReportStop(DateTime date) {
+    reportstoperr = false;
     reportstop = date;
     notifyListeners();
   }
 
   DateTime whichDate(TransactionModel trans) {
+    print(trans.boughtdate == null ? DateTime.parse(trans.paiddate) : trans.paiddate == null ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.boughtdate).difference(DateTime.parse(trans.paiddate)).inDays >= 0 ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.paiddate));
     return trans.boughtdate == null ? DateTime.parse(trans.paiddate) : trans.paiddate == null ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.boughtdate).difference(DateTime.parse(trans.paiddate)).inDays >= 0 ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.paiddate);
+  }
+
+  void setreportdialogerror() {
+    if(reportstart == null) {
+      reportstarterr = true;
+    }
+    if(reportstop == null) {
+      reportstoperr = true;
+    }
+    notifyListeners();
   }
 
   void getPdf(BuildContext context) {
     _transactionService.setReport(reportstart, reportstop, contact, context, currency.symbol);
   }
-  
+
   void poptwice() {
     _navigationService.popRepeated(2);
   }

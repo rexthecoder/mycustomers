@@ -8,6 +8,7 @@ import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:mycustomers/core/pdf/storagepermission.dart';
@@ -101,7 +102,7 @@ class GeneralTransactionReport {
                                     ),
                                     pw.TextSpan(
                                       text: '.',
-                                      style: pw.TextStyle(color: PdfColors.blue, fontWeight: pw.FontWeight.bold, fontSize: 24)
+                                      style: pw.TextStyle(color: PdfColors.blue, fontWeight: pw.FontWeight.bold, fontSize: 30)
                                     ),
                                   ],
                               ),
@@ -113,7 +114,7 @@ class GeneralTransactionReport {
                                   style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 18)
                                 ),
                                 pw.Text(
-                                  customer.phoneNumber,
+                                  customer.phoneNumber.trim(),
                                   style: pw.TextStyle(fontWeight: pw.FontWeight.normal, fontSize: 18)
                                 )
                               ],
@@ -383,11 +384,12 @@ class GeneralTransactionReport {
     File filet = new File("$docdic/report"+time+".pdf");
     filet.writeAsBytes(pdf);
     file.writeAsBytesSync(pdf);
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => PdfViewerPage(path: filet.path),
-      ),
-    );
+    flusher('Report has been saved at '+filet.path, context);
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (_) => PdfViewerPage(path: filet.path),
+    //   ),
+    // );
   }
 
 

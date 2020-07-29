@@ -435,7 +435,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               paiddate: null);
           if (newCus) {
             numberr = false;
-            number.phoneNumber != null
+            number != null
                 ? number.phoneNumber.length == number.dialCode.length ? numberr = true : _customerContactService.addContact(
                     number.toString(),
                     name,
