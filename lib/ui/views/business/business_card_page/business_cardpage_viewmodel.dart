@@ -4,21 +4,22 @@ import 'dart:typed_data';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
-import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
+import 'package:mycustomers/core/services/business_card/business_card_service.dart';
+import 'package:mycustomers/core/services/business_card/business_card_service_impl.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
-class BusinessCardPageViewModel extends BaseViewModel {
+class BusinessCardPageViewModel extends ReactiveViewModel {
   /// Fields
-  final BusinessCardRepository _businessCardRepository =
-      locator<BusinessCardRepository>();
+  static final BusinessCardServiceImpl _businessCardService =
+      locator<BusinessCardService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   final PermissionService _permissionService = locator<IPermissionService>();
-  BusinessCardH _businessCard = BusinessCardH.empty();
+  BusinessCardH _businessCard = _businessCardService.businessCard;
   File imageFile;
 
   /// Getters
@@ -50,7 +51,7 @@ class BusinessCardPageViewModel extends BaseViewModel {
   }
 
   Future<void> saveBusinessCard() async {
-    await _businessCardRepository.saveBusinessCard(businessCard);
+    await _businessCardService.saveBusinessCard(businessCard);
     notifyListeners();
   }
 
@@ -96,11 +97,14 @@ class BusinessCardPageViewModel extends BaseViewModel {
   }
 
   Future<void> init() async {
-    _businessCard = await _businessCardRepository.getBusinessCard();
+    await _businessCardService.getBusinessCard();
     notifyListeners();
   }
 
   Future navigateToBusinessCardPage() async {
     await _navigationService.navigateTo(Routes.businessCardRoute);
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_businessCardService];
 }
