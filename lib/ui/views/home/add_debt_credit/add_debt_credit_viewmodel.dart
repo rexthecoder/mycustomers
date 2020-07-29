@@ -1,32 +1,39 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/country_currency_model.dart';
+import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/owner_services.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:uuid/uuid.dart';
 
 class AddDebtCreditViewModel extends ReactiveViewModel {
   final _debouncer = Debouncer(milliseconds: 100);
   final dformat = new DateFormat('dd/MM/yyyy');
-  bool show = false;
+  bool show = true;
   bool save = false;
   DateTime selectedDate = DateTime.now();
   DateTime dueDate;
-  DateTime otherDate;
+  DateTime otherDate = DateTime.now();
   String newDate;
-  String newODate;
+  String get newODate => dformat.format(DateTime.now());
   bool date1err = false;
   bool date2err = false;
   List<String> items = [];
@@ -39,14 +46,143 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   final _logService = locator<LogsLocalDataSourceImpl>();
   Store get currentStore => StoreRepository.currentStore;
 
+  StreamController _contactStream = StreamController<List<Customer>>();
+  IOwnerServices iOwnerServices = locator<IOwnerServices>();
+  List<Customer> contactsList = List<Customer>();
+
+  ScrollController controller = new ScrollController();
+
   double _amount;
   double get amount => _amount;
 
   String _error;
-  String get error => _error;
+  String get errormsg => _error;
 
-  String _item;
-  String get item => _item;
+  String _description;
+  String get description => _description;
+
+  String _name;
+  String get name => _name;
+
+  List<Contact> contacts = [];
+  bool contains = false;
+
+  bool _busy = true;
+
+  bool get isLoadBusy => _busy;
+
+  String namehint;
+  bool shownames = false;
+  TextEditingController searchController = TextEditingController();
+  Customer selectedCustomer;
+  var uuid = Uuid();
+
+  String _customerName;
+  String _customerPhoneNumber;
+
+  String _dropDownValue = '+234';
+  PhoneNumber number = PhoneNumber(isoCode: isoCode);
+  List<String> _countryCodes = ['+234', '+254', '+250', '+230'];
+
+  String get customerName => _customerName;
+  String get customerPhoneNumber => _customerPhoneNumber;
+
+  List<String> get countryCode => _countryCodes;
+  String get dropDownValue => _dropDownValue;
+
+  var inputNumberController = TextEditingController();
+  final descFocus = FocusNode();
+
+  bool manual = false;
+  PermissionService _permission = new PermissionService();
+
+  init({String query}) async {
+    final bool isPermitted = await _permission.getContactsPermission();
+    contactsList.clear();
+    if(isPermitted) {
+      for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+        print('Iterate');
+        if (_busy) {
+          _busy = false;
+          notifyListeners();
+        }
+        contactsList.add(customer);
+        _contactStream.add(contactsList);
+      }
+    } else {
+      manual = true;
+    }
+    notifyListeners();
+  }
+
+  void getContacts() async {
+    contacts =
+        (await ContactsService.getContacts(withThumbnails: false)).toList();
+    print(contacts);
+  }
+
+  void updateName(String value, String action) {
+    _debouncer.run(() {
+      _name = value;
+      _busy = true;
+      shownames = true;
+      if (value.length == 0) {
+        _name = null;
+        manual = false;
+        inputNumberController.clear();
+        number = null;
+        //shownames = false;
+      }
+      if (contactsList.length != 0) {
+        manual = false;
+        number = null;
+        inputNumberController.clear();
+      }
+      action == 'debit'
+          ? amount != null &&
+                  newDate != null &&
+                  newODate.length > 0 &&
+                  name != null //&& number != null
+              ? save = true
+              : save = false
+          : amount != null &&
+                  newODate != null &&
+                  name != null //&& number != null
+              ? save = true
+              : save = false;
+      manual = contactsList.where((element) => element.displayName.toUpperCase().contains(value.toUpperCase())).toList().length == 0;
+      notifyListeners();
+      init(query: name);
+    });
+    
+    print(manual);
+    resetContact();
+    notifyListeners();
+  }
+
+  void setShowName(){
+    shownames = true;
+    notifyListeners();
+  }
+
+  void resetContact() {
+    if(selectedCustomer != null && selectedCustomer.displayName != _name) {
+      shownames = true;
+      selectedCustomer = null;
+      if(controller.position.pixels < controller.position.maxScrollExtent) {
+        controller.animateTo(controller.position.maxScrollExtent, duration: new Duration(milliseconds: 500),
+          curve: Curves.easeInOut);
+      }
+    }
+  }
+
+  void setName(Customer cus) {
+    searchController.text = cus.displayName;
+    _name = cus.displayName;
+    selectedCustomer = cus;
+    shownames = false;
+    notifyListeners();
+  }
 
   bool isNumeric(String amt) {
     if (amt == null) {
@@ -55,7 +191,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     return num.tryParse(amt) != null;
   }
 
-  void updateAmount(String value, bool update, String action) {
+  void updateAmount(String value, bool update, String action, bool newCus) {
     _debouncer.run(() {
       if (value.length != 0) {
         String val = '';
@@ -70,13 +206,26 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           show = true;
           update
               ? amount != null && newODate != null ? save = true : save = false
-              : action == 'debit'
-                  ? amount != null && newDate != null && newODate.length > 0
-                      ? save = true
-                      : save = false
-                  : amount != null && newODate != null
-                      ? save = true
-                      : save = false;
+              : newCus
+                  ? action == 'debit'
+                      ? amount != null &&
+                              newDate != null &&
+                              newODate.length > 0 &&
+                              name != null //&& number != null
+                          ? save = true
+                          : save = false
+                      : amount != null &&
+                              newODate != null &&
+                              name != null //&& number != null
+                          ? save = true
+                          : save = false
+                  : action == 'debit'
+                      ? amount != null && newDate != null && newODate.length > 0
+                          ? save = true
+                          : save = false
+                      : amount != null && newODate != null
+                          ? save = true
+                          : save = false;
           notifyListeners();
         } else {
           _error = 'Enter a valid amount';
@@ -90,62 +239,122 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     });
   }
 
-  void setDate(DateTime date) {
+  void setDate(DateTime date, String action, bool newCus) {
+    print(date);
     dueDate = date;
     newDate = dformat.format(date);
     date1err = false;
-    amount != null && newDate.length > 0 && newODate.length != null
-        ? save = true
-        : save = false;
+    descFocus.requestFocus();
+    newCus
+        ? action == 'debit'
+            ? amount != null &&
+                    newDate != null &&
+                    newODate.length > 0 &&
+                    name != null //&& number != null
+                ? save = true
+                : save = false
+            : amount != null &&
+                    newODate != null &&
+                    name != null //&& number != null
+                ? save = true
+                : save = false
+        : action == 'debit'
+            ? amount != null && newDate != null && newODate.length > 0
+                ? save = true
+                : save = false
+            : amount != null && newODate != null ? save = true : save = false;
     notifyListeners();
   }
 
-  void setOtherDate(DateTime date, bool update, String action) {
+  void setOtherDate(DateTime date, bool update, String action, bool newCus) {
+    print(date);
     otherDate = date;
-    newODate = dformat.format(date);
+    //newODate = dformat.format(date);
     date2err = false;
     update
         ? amount != null && newODate != null ? save = true : save = false
-        : action == 'debit'
-            ? amount != null && newDate != null && newODate.length != null
-                ? save = true
-                : save = false
-            : amount != null && newODate.length != null
-                ? save = true
-                : save = false;
+        : newCus
+            ? action == 'debit'
+                ? amount != null &&
+                        newDate != null &&
+                        newODate.length > 0 &&
+                        name != null //&& number != null
+                    ? save = true
+                    : save = false
+                : amount != null &&
+                        newODate != null &&
+                        name != null //&& number != null
+                    ? save = true
+                    : save = false
+            : action == 'debit'
+                ? amount != null && newDate != null && newODate.length > 0
+                    ? save = true
+                    : save = false
+                : amount != null && newODate != null
+                    ? save = true
+                    : save = false;
     notifyListeners();
   }
 
   void updateItem(String value) {
-    _item = value;
+    _description = value;
     notifyListeners();
   }
 
-  void removeItem(int index) {
-    items.removeAt(index);
+  void updateNumber(String action) {
+    action == 'debit'
+        ? amount != null &&
+                newDate != null &&
+                newODate.length != null &&
+                name != null && number != null
+            ? save = true
+            : save = false
+        : amount != null && newODate != null && name != null && number != null
+            ? save = true
+            : save = false;
     notifyListeners();
   }
 
-  void addItem(String action, bool update) {
-    if (item != null) {
-      if (item.length > 0) {
-        items.insert(0, item);
-        _item = null;
-        !update && action == 'credit'
-            ? amount != null && newODate.length != null
-                ? save = true
-                : save = false
-            : amount != null &&
-                    newDate.length != null &&
-                    newODate.length != null
-                ? save = true
-                : save = false;
-        notifyListeners();
-      }
-    }
+  void updateContact(String phoneNumber) {
+    _customerPhoneNumber = phoneNumber;
+    notifyListeners();
   }
 
-  void addtransaction(String action, bool update) {
+  void updateCountryCode(String value) {
+    _dropDownValue = value;
+    notifyListeners();
+  }
+
+  void setManual() {
+    manual = true;
+    notifyListeners();
+  }
+
+  // void removeItem(int index) {
+  //   items.removeAt(index);
+  //   notifyListeners();
+  // }
+
+  // void addItem(String action, bool update) {
+  //   if (item != null) {
+  //     if (item.length > 0) {
+  //       items.insert(0, item);
+  //       _item = null;
+  //       !update && action == 'credit'
+  //           ? amount != null && newODate.length != null
+  //               ? save = true
+  //               : save = false
+  //           : amount != null &&
+  //                   newDate.length != null &&
+  //                   newODate.length != null
+  //               ? save = true
+  //               : save = false;
+  //       notifyListeners();
+  //     }
+  //   }
+  // }
+
+  void addtransaction(String action, bool update, bool newCus)async {
     if (save) {
       date1err = false;
       date2err = false;
@@ -154,64 +363,128 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           print(dueDate);
           print('crediting');
           TransactionModel transaction = new TransactionModel(
-            cId: _transactionService.stransaction.cId,
-            sId: _transactionService.stransaction.sId,
-            amount: _transactionService.stransaction.amount,
-            paid: amount,
-            goods: _transactionService.stransaction.goods,
-            duedate: _transactionService.stransaction.duedate,
-            boughtdate: _transactionService.stransaction.boughtdate,
-            paiddate: otherDate.toString()
-          );
-          _transactionService.updateTransaction(transaction);
+              tId: _transactionService.stransaction.tId,
+              sId: _transactionService.stransaction.sId,
+              amount: _transactionService.stransaction.amount,
+              paid: amount,
+              description: _transactionService.stransaction.description,
+              duedate: _transactionService.stransaction.duedate,
+              boughtdate: _transactionService.stransaction.boughtdate,
+              paiddate: otherDate.toString());
+          //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
           _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           print('debiting');
           TransactionModel transaction = new TransactionModel(
-              cId: _transactionService.stransaction.cId,
+              tId: _transactionService.stransaction.tId,
               sId: _transactionService.stransaction.sId,
               amount: amount,
               paid: _transactionService.stransaction.paid,
-              goods: _transactionService.stransaction.goods,
+              description: _transactionService.stransaction.description,
               duedate: _transactionService.stransaction.duedate,
               boughtdate: otherDate.toString(),
               paiddate: _transactionService.stransaction.paiddate);
-          _transactionService.updateTransaction(transaction);
-          _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
+          await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
+          _logService.getValues(
+              amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          _navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       } else {
         if (action == 'debit') {
           print(dueDate);
           TransactionModel transaction = new TransactionModel(
-              cId: contact.id,
+              tId: uuid.v4(),
               sId: currentStore.id,
               amount: amount,
               paid: 0,
-              goods: items,
+              description: description,
               duedate: dueDate.toString(),
               boughtdate: otherDate.toString(),
               paiddate: null);
-          _transactionService.addTransaction(transaction);
-          _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          if (newCus) {
+            number != null
+                ? _customerContactService.addContact(
+                    number.toString(),
+                    name,
+                    '',
+                    name.split(' ').length > 1
+                        ? (name.split(' ')[0][0] + name.split(' ')[1][0])
+                            .toUpperCase()
+                        : name.split(' ')[0][0].toUpperCase(),
+                    action,
+                    transaction,
+                    currentStore.id)
+                : _customerContactService.addContact(
+                    selectedCustomer.phone.isNotEmpty
+                        ? selectedCustomer.phone
+                        : 'No number',
+                    selectedCustomer.displayName,
+                    '',
+                    selectedCustomer.initials,
+                    action,
+                    transaction,
+                    currentStore.id);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'debit', name, update);
+          }
+          if (!newCus) {
+            print('here');
+            await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
+            _navigationService.replaceWith(Routes.mainTransaction);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
+          }
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
           TransactionModel transaction = new TransactionModel(
-              cId: contact.id,
+              tId: uuid.v4(),
               sId: currentStore.id,
               amount: 0,
               paid: amount,
-              goods: items,
+              description: description,
               duedate: dueDate.toString(),
               boughtdate: null,
               paiddate: otherDate.toString());
-          _transactionService.addTransaction(transaction);
-          _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
+          if (newCus) {
+            number != null
+                ? _customerContactService.addContact(
+                    number.toString(),
+                    name,
+                    '',
+                    name.split(' ').length > 1
+                        ? (name.split(' ')[0][0] + name.split(' ')[1][0])
+                            .toUpperCase()
+                        : name.split(' ')[0][0].toUpperCase(),
+                    action,
+                    transaction,
+                    currentStore.id)
+                : _customerContactService.addContact(
+                    selectedCustomer.phone.isNotEmpty
+                        ? selectedCustomer.phone
+                        : 'No number',
+                    selectedCustomer.displayName,
+                    '',
+                    selectedCustomer.initials,
+                    action,
+                    transaction,
+                    currentStore.id);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'credit', name, update);
+          }
+          if (!newCus) {
+            print('here');
+            await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
+            _navigationService.replaceWith(Routes.mainTransaction);
+            _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
+          }
+          //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         }
       }
-      _navigationService.replaceWith(Routes.mainTransaction);
+      //_navigationService.replaceWith(Routes.mainTransaction);
     } else {
       if (newDate == null) {
         date1err = true;
@@ -223,7 +496,12 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService, _logService];
+  List<ReactiveServiceMixin> get reactiveServices => [
+        _transactionService,
+        _customerContactService,
+        _bussinessService,
+        _logService
+      ];
 }
 
 class Debouncer {

@@ -28,7 +28,7 @@ class ChangePinSettingsPageView extends StatelessWidget {
         final _views = <Widget>[
           FadeIn(
             child: PinField(
-              title: 'Enter Old Pin',
+              title:  AppLocalizations.of(context).enterOldPin,
               textEditingController: enterOldPinCpontroller,
               onCompleted: (value) => model.onOldPinCompleted(value, 1),
             ),
@@ -63,7 +63,7 @@ class ChangePinSettingsPageView extends StatelessWidget {
                 child: Expanded(
                   child: SvgPicture.asset(
                     myCustomerLogo,
-                    color: Theme.of(context).appBarTheme.color,
+                    color: ThemeColors.background,
                     height: SizeConfig.yMargin(context, 16),
                   ),
                 ),

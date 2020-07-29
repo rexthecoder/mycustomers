@@ -37,12 +37,13 @@ class BusinessViewModel extends BaseViewModel with Validators {
         title: 'Please hold on while we create your new store account');
     try {
       // await _userService.createAssistant(name);
-      await _storeService.createStore(Store.fromJson({'store_name': storeName, 'shop_address': '$shopAddress'}));
+      await _storeService.createStore(Store.fromJson(
+          {'store_name': storeName, 'shop_address': '$shopAddress'}));
       // Logger.e('message', e: CreateException('Completed store create'));
       // await _navigationService.clearStackAndShow(Routes.startupViewRoute);
       _dialogService.completeDialog(DialogResponse());
       showToastCustom(
-        message: 'Your store has been created successfully',
+        message: 'Account created successfully! Welcome.',
         success: true,
       );
 
@@ -78,8 +79,7 @@ class BusinessViewModel extends BaseViewModel with Validators {
     await _storage.saveString(AppPreferenceKey.USER_FULL_NAME, fullname);
     await _storage.saveString(AppPreferenceKey.USER_EMAIL, email);
     _auth.updateCurrentUser(_auth.currentUser
-    ..email = email
-    ..firstName = fullname
-    );
+      ..email = email
+      ..firstName = fullname);
   }
 }

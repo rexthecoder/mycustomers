@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transactionViewmodel.dart';
+import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transaction_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 class SelectTransactionView extends StatelessWidget {
@@ -20,11 +21,11 @@ class SelectTransactionView extends StatelessWidget {
                 brightness: Brightness.light,
                 elevation: 1,
                 title: Text(
-                  'Select a Transaction',
+                  AppLocalizations.of(context).selectATransaction,
                   style: Theme.of(context).textTheme.headline6.copyWith(
                         fontSize: ScreenUtil().setSp(18),
                         fontWeight: FontWeight.bold,
-                        color: action == 'credit'
+                        color: action == AppLocalizations.of(context).credit
                             ? BrandColors.secondary
                             : Theme.of(context).textSelectionColor,
                       ),
@@ -37,7 +38,7 @@ class SelectTransactionView extends StatelessWidget {
                         vertical: ScreenUtil().setHeight(10)),
                     child: SvgPicture.asset(
                       'assets/icons/backarrow.svg',
-                      color: action == 'credit'
+                      color: action == AppLocalizations.of(context).credit
                           ? BrandColors.secondary
                           : Theme.of(context).textSelectionColor,
                     ),
@@ -68,16 +69,17 @@ class SelectTransactionView extends StatelessWidget {
                               child: Center(
                                 child: Icon(
                                   Icons.attach_money,
-                                  color: action == 'credit'
+                                  color: action ==
+                                          AppLocalizations.of(context).credit
                                       ? BrandColors.secondary
                                       : Theme.of(context).textSelectionColor,
                                 ),
                               ),
                             ),
                             title: Text(
-                              action == 'credit'
-                                  ? 'Add New Credit'
-                                  : 'Add New Debit',
+                              action == AppLocalizations.of(context).credit
+                                  ? AppLocalizations.of(context).addNewCredit
+                                  : AppLocalizations.of(context).addNewDebit,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -98,9 +100,10 @@ class SelectTransactionView extends StatelessWidget {
                                       color: Theme.of(context).cursorColor))),
                           child: Center(
                             child: Text(
-                              action == 'credit'
-                                  ? 'Existing Debits'
-                                  : 'Existing Credits',
+                              action == AppLocalizations.of(context).credit
+                                  ? AppLocalizations.of(context).existingDebits
+                                  : AppLocalizations.of(context)
+                                      .existingCredits,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
@@ -111,9 +114,10 @@ class SelectTransactionView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        for (var item in action == 'credit'
-                            ? model.debitList
-                            : model.creditList)
+                        for (var item
+                            in action == AppLocalizations.of(context).credit
+                                ? model.debitList
+                                : model.creditList)
                           InkWell(
                             onTap: () {
                               Navigator.pop(context);
@@ -138,7 +142,9 @@ class SelectTransactionView extends StatelessWidget {
                                         vertical: 5, horizontal: 8),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      color: action == 'credit'
+                                      color: action ==
+                                              AppLocalizations.of(context)
+                                                  .credit
                                           ? Theme.of(context)
                                               .textSelectionColor
                                               .withOpacity(0.2)
@@ -146,14 +152,19 @@ class SelectTransactionView extends StatelessWidget {
                                               .withOpacity(0.2),
                                     ),
                                     child: Text(
-                                      action == 'credit'
+                                      action ==
+                                              AppLocalizations.of(context)
+                                                  .credit
                                           ? '₦' + item.amount.round().toString()
                                           : 'N' + item.paid.round().toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline6
                                           .copyWith(
-                                              color: action == 'credit'
+                                              color: action ==
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .credit
                                                   ? Theme.of(context)
                                                       .textSelectionColor
                                                   : BrandColors.secondary,
@@ -173,14 +184,12 @@ class SelectTransactionView extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(5),
-                                            color:
-                                                Theme.of(context).backgroundColor),
+                                            color: Theme.of(context)
+                                                .backgroundColor),
                                         child: Row(
                                           children: <Widget>[
                                             Text(
-                                              item.goods.length > 1
-                                                  ? 'Items: '
-                                                  : 'Item: ',
+                                              item.description,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6
@@ -190,29 +199,31 @@ class SelectTransactionView extends StatelessWidget {
                                                             context, 2),
                                                   ),
                                             ),
-                                            for (var goods in item.goods)
-                                              Container(
-                                                child: Text(
-                                                  item.goods.indexOf(goods) !=
-                                                          item.goods.length - 1
-                                                      ? goods + ', '
-                                                      : goods,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6
-                                                      .copyWith(
-                                                        fontSize:
-                                                            SizeConfig.yMargin(
-                                                                context, 2),
-                                                      ),
-                                                ),
-                                              )
+                                            // for (var goods in item.goods)
+                                            //   Container(
+                                            //     child: Text(
+                                            //       item.goods.indexOf(goods) !=
+                                            //               item.goods.length - 1
+                                            //           ? goods + ', '
+                                            //           : goods,
+                                            //       style: Theme.of(context)
+                                            //           .textTheme
+                                            //           .headline6
+                                            //           .copyWith(
+                                            //             fontSize:
+                                            //                 SizeConfig.yMargin(
+                                            //                     context, 2),
+                                            //           ),
+                                            //     ),
+                                            //   )
                                           ],
                                         ),
                                       ),
                                       Container(
                                         child: Text(
-                                          action == 'credit'
+                                          action ==
+                                                  AppLocalizations.of(context)
+                                                      .credit
                                               ? DateFormat('dd/MM/yyyy').format(
                                                   DateTime.parse(
                                                       item.boughtdate))

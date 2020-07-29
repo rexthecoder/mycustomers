@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:stacked_services/stacked_services.dart';
+
 
 
 class PinField extends StatelessWidget {
@@ -37,9 +35,6 @@ class PinField extends StatelessWidget {
         textEditingController.text = textEditingController.text
             .substring(0, textEditingController.text.length - 1);
       } 
-      else if(value=='cancel'){
-        navigateToAppLockSettingsPage();
-      }
       else {
         textEditingController.text = textEditingController.text + value;
       }
@@ -175,7 +170,7 @@ class PinField extends StatelessWidget {
                     children: <Widget>[
                       numButton(
                         context: context,
-                        label: 'cancel',
+                        label: '',
                         setValue: setValue,
                       ),
                       numButton(
@@ -235,8 +230,8 @@ class DisabledFocusNode extends FocusNode {
   bool get hasFocus => false;
 }
 
-final NavigationService _navigationService = locator<NavigationService>();
+// final NavigationService _navigationService = locator<NavigationService>();
 
- Future navigateToAppLockSettingsPage() async {
-    await _navigationService.replaceWith(Routes.appLockSettingsViewRoute);
-  }
+//  Future navigateToAppLockSettingsPage() async {
+//     await _navigationService.replaceWith(Routes.appLockSettingsViewRoute);
+//   }

@@ -21,7 +21,7 @@ class MyListTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.5), horizontal: SizeConfig.xMargin(context, 8)),
+        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2), horizontal: SizeConfig.xMargin(context, 0)),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(color: Color(0xFFD1D1D1), width: action != null ? 1 : 0)

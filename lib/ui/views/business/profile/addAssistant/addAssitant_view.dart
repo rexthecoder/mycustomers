@@ -95,6 +95,7 @@ class AddAssistantView extends StatelessWidget {
                             ),
                             Expanded(
                               child: TextFormField(
+                                textCapitalization: TextCapitalization.sentences,
                                 validator: (value) =>
                                     model.validateFields(value),
                                 controller: _assistantNameController,
@@ -105,6 +106,7 @@ class AddAssistantView extends StatelessWidget {
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide.none),
                                     contentPadding: EdgeInsets.all(14.sp)),
+                                    textInputAction: TextInputAction.next,
                               ),
                             ),
                             SizedBox(height: 20.h),
@@ -115,6 +117,7 @@ class AddAssistantView extends StatelessWidget {
                             ),
                             Expanded(
                               child: TextFormField(
+                                textCapitalization: TextCapitalization.sentences,
                                 validator: (value) =>
                                     model.validateFields(value),
                                 controller: _assistantRoleController,
@@ -127,6 +130,7 @@ class AddAssistantView extends StatelessWidget {
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide.none),
                                     contentPadding: EdgeInsets.all(14.sp)),
+                                    textInputAction: TextInputAction.next,
                               ),
                             ),
                             SizedBox(height: 20.h),
@@ -147,6 +151,7 @@ class AddAssistantView extends StatelessWidget {
                                     border: OutlineInputBorder(
                                         borderSide: BorderSide.none),
                                     contentPadding: EdgeInsets.all(14.sp)),
+                                    textInputAction: TextInputAction.done,
                               ),
                             )
                           ],

@@ -1,6 +1,12 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/message_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
@@ -11,38 +17,93 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/services/customer_services.dart';
 
 
-class MarketingHomePageViewModel extends BaseViewModel {
+class MarketingHomePageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  // dummy data
-  // TODO: implement service to get frequently contacted
-  List _persons = [
-    {'name': 'Seyi Onifade', 'number': '09088355273'},
-    {'name': 'Mark Essien', 'number': '09088355273'},
-    {'name': 'Ufe Atabo', 'number': '09088355273'}
-  ];
 
   // TODO: implement service to get notification status
   bool _notification = true;
 
   bool get notification => _notification;
 
-  List get persons => _persons;
+
 
   // Function to serve as a helper for the navigation
   Future navigateToSendMessageView() async {
-    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
+    await _navigationService.navigateTo(Routes.quickMessages, arguments: selectedCustomers);
+//    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
   }
+
 
   // Get the services required
   ICustomerService _customerService = locator<ICustomerService>();
+  final _contactService = locator<CustomerContactService>();
+  final _messageService = locator<MessageService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+
+  
 
   List<Customer> allCustomers = [];
 
-  List<Customer> _selectedCustomers = [];
-  List<Customer> get selectedCustomers => _selectedCustomers;
+  //List<CustomerContact> get _selectedCustomers => _contactService.selectedC;
+  List<CustomerContact> get selectedCustomers => _contactService.selectedC;
 
   String _searchTerm = '';
+  String get searchTerm => _searchTerm;
   Pattern get searchPattern => RegExp('$_searchTerm', caseSensitive: false);
+
+  List<CustomerContact> get scustomers => _contactService.contactsm.where((element) => element.name.toUpperCase().contains(_searchTerm.toUpperCase())).toList();
+
+  List<CustomerContact> get customers => _contactService.contactsm;
+  Message getmsg(CustomerContact cus) => _messageService.getLast(cus);
+  List<Message> get allmessages => _messageService.allmessages;
+  List<CustomerContact> get frequents => _messageService.tempc;
+
+  //bool isFrequent(String id) => _messageService.isFrequent(id) > 2;
+
+  void setcontact(CustomerContact cont){
+    _contactService.setContact(cont);
+  }
+
+  void navigateToSendMessageAllView() async {
+//    print(customers);
+    _contactService.allCustomers(customers);
+    await _navigationService.navigateTo(Routes.quickMessages, arguments: customers);
+  }
+
+  void getContacts(){
+    _contactService.getCustomermarket(StoreRepository.currentStore.id);
+    _messageService.getAllMessages();
+    _messageService.getFrequents(customers);
+    //print(frequents);
+  }
+
+  void deleteCustomer(CustomerContact cus) async {
+    CustomerContact cust = new CustomerContact(
+      id: cus.id,
+      name: cus.name,
+      phoneNumber: cus.phoneNumber,
+      initials: cus.initials,
+      storeid: cus.storeid,
+      market: false,
+      transactions: cus.transactions,
+      messages: cus.messages
+    );
+
+    _messageService.deleteAllMessage(cus);
+    //await _transactionService.getTransactions();
+    //print(_transactionService.transactions.length);
+    if(cus.transactions.length > 0) {
+      print('hrr');
+      _contactService.deleteContactMarket(cus, cust);
+    } else {
+      _contactService.deleteContact(cus);
+    }
+    getContacts();
+  }
+
+  void selectAll() async {
+    _contactService.selectAll(customers);
+ }
 
   List<Customer> _allSelectedCustomers = [];
   List<Customer> _allFrequentCustomers = [];
@@ -65,11 +126,11 @@ class MarketingHomePageViewModel extends BaseViewModel {
 
   /// Data checking section
 
-  bool get hasData => _allSelectedCustomers.isNotEmpty;
-  bool get hasSelected => _selectedCustomers.isNotEmpty;
-  int get numberOfSelected => _selectedCustomers.length;
-  bool isSelected(Customer customer) => _selectedCustomers.contains(customer);
-  bool get allSelected => _allSelectedCustomers.length == _selectedCustomers.length;
+  bool get hasData => customers.isNotEmpty;
+  bool get hasSelected => selectedCustomers.isNotEmpty;
+  int get numberOfSelected => selectedCustomers.length;
+  bool isSelected(CustomerContact customer) => selectedCustomers.contains(customer);
+  bool get allSelected => customers.length == selectedCustomers.length;
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) {
@@ -77,14 +138,13 @@ class MarketingHomePageViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void addCustomer(Customer customer) {
-    _selectedCustomers.add(customer);
+  void addCustomer(CustomerContact customer) {
+    _contactService.addSelected(customer);
     notifyListeners();
   }
 
-  void deselectCustomer(Customer customer) {
-    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
-    notifyListeners();
+  void deselectCustomer(CustomerContact customer) {
+    _contactService.removeSelected(customer);
   }
   void getFrequentCustomers() {
     //todo: get frequent customers
@@ -92,20 +152,17 @@ class MarketingHomePageViewModel extends BaseViewModel {
   }
 
   void selectAllCustomers() {
-    _selectedCustomers.clear();
-    _selectedCustomers.addAll(_allSelectedCustomers);
-    notifyListeners();
+    _contactService.selectAll(customers);
   }
 
   void deselectAllCustomers() {
-    _selectedCustomers = [];
-    notifyListeners();
+    _contactService.deselectAll();
   }
-  void removeCustomers(Customer customer) {
-    allCustomers.removeWhere((element) => element.phone == customer.phone);
-    _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
-    notifyListeners();
-  }
+  // void removeCustomers(Customer customer) {
+  //   allCustomers.removeWhere((element) => element.phone == customer.phone);
+  //   _selectedCustomers.removeWhere((element) => element.phone == customer.phone);
+  //   notifyListeners();
+  // }
 //  void updateCustomers() async{
 //    fianl customerList = await _navigationService
 //  }
@@ -119,13 +176,15 @@ class MarketingHomePageViewModel extends BaseViewModel {
     return await [Permission.contacts].request();
   }
    Future navigateToAddCustomers(context) async{
-     Navigator.of(context).pushNamed(Routes.addCustomerMarketing).then((_){
-       final arguments = ModalRoute.of(context).settings.arguments as Map;
-       final result = arguments['result'];
-     allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
-      notifyListeners();
+    //  Navigator.of(context).pushNamed(Routes.addCustomerMarketing, arguments: _allFrequentCustomers).then((_){
+    //    final arguments = ModalRoute.of(context).settings.arguments as Map;
+    //    final result = arguments['result'];
+    //  allCustomers = result != null ?[...allCustomers,...result]:allCustomers;
+    //  _allFrequentCustomers = allCustomers;
+    //   notifyListeners();
      
-     });
+    //  });
+    _navigationService.navigateTo(Routes.addCustomerMarketing);
     notifyListeners();
   }
   Future navigateToAddNewCustomer(context) async{
@@ -138,16 +197,21 @@ class MarketingHomePageViewModel extends BaseViewModel {
      });
     notifyListeners();
   }
+  Future navigateToMessageHistory(CustomerContact cus) async{
+    _contactService.setContact(cus);
+    _navigationService.navigateTo(Routes.messageHistoryView);
+  }
 
   Future navigateToSendMessage(context) async{
-    // Navigator.of(context).pushNamed(Routes.sendMessageViewRoute,arguments: _selectedCustomers).then((_){
+    // Navigator.of(context).pushNamed(Routes.sendMessageViewRoute,arguments: selectedCustomers).then((_){
     //    final arguments = ModalRoute.of(context).settings.arguments as Map;
     //    final result = arguments['result'];
     //  allCustomers = result.length != 0?[...allCustomers,...result]:allCustomers;
     //   notifyListeners();
      
     //  });
-    // notifyListeners();
+    _navigationService.navigateTo(Routes.sendMessageViewRoute);
+    notifyListeners();
   }
 
 
@@ -206,7 +270,8 @@ class MarketingHomePageViewModel extends BaseViewModel {
     
 
     _navigationService
-        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
+        .navigateTo(Routes.quickMessages,arguments: selectedCustomers);
+//        .navigateTo(Routes.sendMessageViewRoute,arguments: _selectedCustomers);
   }
 
   /// View initialize and close section
@@ -216,11 +281,14 @@ class MarketingHomePageViewModel extends BaseViewModel {
   }
 
   returnCustomers() {
-    _navigationService.back(result: _selectedCustomers);
+    _navigationService.back(result: selectedCustomers);
   }
 
   @override
   Future futureToRun() async {
    _allSelectedCustomers = await _customerService.getCustomers('1');
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [_contactService, _messageService];
 }

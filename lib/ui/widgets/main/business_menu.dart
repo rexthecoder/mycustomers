@@ -8,44 +8,33 @@ class BusinessMenu extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return Container(
-      constraints: BoxConstraints(
-        minWidth: SizeConfig.xMargin(context, 25),
-        maxWidth: SizeConfig.xMargin(context, 25),
-      ),
-      color: Theme.of(context).backgroundColor,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BusinessMenuOptions(),
-          Divider(color: ThemeColors.gray[700]),
-          AddBusinessIcon(),
-          FlatButton(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.xMargin(context, 3),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.first_page,
-                  size: SizeConfig.textSize(context, 5),
-                ),
-                Expanded(
-                  child: Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      fontSize: SizeConfig.textSize(context, 3),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () => model.signOut,
+    return Card(
+      margin: EdgeInsets.zero,
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.only(
+          bottom: SizeConfig.yMargin(context, 2),
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
           ),
-        ],
+        ),
+        height: SizeConfig.yMargin(context, 45),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: BusinessMenuOptions(),
+            ),
+            SizedBox(
+              height: SizeConfig.yMargin(context, 2),
+            ),
+            _AddBusinessButton(),
+          ],
+        ),
       ),
     );
   }

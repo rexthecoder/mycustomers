@@ -8,128 +8,114 @@ class BusinessMenuOptions extends HookViewModelWidget<MainViewModel> {
     BuildContext context,
     MainViewModel model,
   ) {
-    return Container(
-      constraints: BoxConstraints(
-        maxHeight: SizeConfig.yMargin(context, 65),
+    return MediaQuery.removePadding(
+      removeTop: true,
+      context: context,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: model.stores.length,
+        itemBuilder: (BuildContext context, int index) {
+          return businessIcon(
+            context,
+            model.stores[index],
+            model,
+          );
+        },
       ),
-      child: model.stores == null
-          ? Container()
-          : ListView.separated(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              itemCount: model.stores.length,
-              itemBuilder: (context, index) => businessIcon(
-                context,
-                model.stores[index],
-                model,
-              ),
-              shrinkWrap: true,
-              separatorBuilder: (BuildContext context, int index) => SizedBox(
-                height: SizeConfig.yMargin(context, 2),
-              ),
-            ),
     );
   }
 
   Widget businessIcon(
       BuildContext context, Store business, MainViewModel model) {
     return CustomPartialBuild<SettingManagerModel>(
-          builder: (context, viewModel) => BoxButton(
-        label: business.name,
-        child: Text(
-          business.name.substring(0, 1),
-          style: TextStyle(
-            color: ThemeColors.black,
-            fontSize: SizeConfig.textSize(context, 12),
-            fontWeight: FontWeight.bold,
+      builder: (context, viewModel) => InkWell(
+        onTap: () async {
+          await viewModel.changeSelectedStore(business.id);
+          model.updateMenu();
+        },
+        child: Container(
+          height: SizeConfig.yMargin(context, 12),
+          color: model.currStore.id == business.id
+              ? Color(0xFF2F80ED).withOpacity(0.2)
+              : Colors.transparent,
+          child: Center(
+            child: ListTile(
+              leading: Container(
+                alignment: Alignment.center,
+                height: SizeConfig.xMargin(context, 13),
+                width: SizeConfig.xMargin(context, 13),
+                padding: EdgeInsets.all(
+                  model.getProfile().image.length > 0 ? 0 : SizeConfig.yMargin(context, 0.7),
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: BrandColors.primary,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
+                child: model.getProfile().image.length > 0 ? model.imageFromBaseString(model.getProfile().image, context) : Center(
+                  child: Text(
+                    business.name.substring(0, 1).capitalize,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).cursorColor,
+                      fontSize: SizeConfig.textSize(context, 8),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              title: Text(
+                business.name,
+                style: TextStyle(
+                  color: Theme.of(context).cursorColor,
+                  fontSize: SizeConfig.textSize(context, 6),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                model.getCustomerCount(business.id) > 1
+                    ? model.getCustomerCount(business.id).toString() +
+                        ' customers'
+                    : model.getCustomerCount(business.id).toString() +
+                        ' customer',
+                style: TextStyle(
+                  color: Theme.of(context).cursorColor,
+                  fontSize: SizeConfig.textSize(context, 4),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              trailing: Icon(
+                Icons.chevron_right,
+                color: ThemeColors.gray[700],
+                size: SizeConfig.textSize(context, 8),
+              ),
+            ),
           ),
         ),
-        highLight: model.currStore.id == business.id,
-        onTap: () {
-          // TODO: Add fetch store details
-          viewModel.changeSelectedStore(business.id);
-        },
       ),
     );
   }
 }
 
-class AddBusinessIcon extends HookViewModelWidget<MainViewModel> {
-  AddBusinessIcon({Key key}) : super(key: key, reactive: true);
+class _AddBusinessButton extends HookViewModelWidget<MainViewModel> {
+  _AddBusinessButton({Key key}) : super(key: key, reactive: true);
 
   @override
   Widget buildViewModelWidget(
     BuildContext context,
     MainViewModel model,
   ) {
-    return BoxButton(
-      label: 'Add Business',
-      onTap: model.navigateToAddBusiness,
-      highLight: false,
-      child: Icon(
-        Icons.add,
-        color: ThemeColors.black,
-        size: SizeConfig.textSize(context, 9),
-      ),
-    );
-  }
-}
-
-class BoxButton extends HookViewModelWidget<MainViewModel> {
-  final String label;
-  final Widget child;
-  final Function onTap;
-  final bool highLight;
-
-  BoxButton({this.label, this.child, this.onTap, this.highLight});
-
-  @override
-  Widget buildViewModelWidget(
-    BuildContext context,
-    MainViewModel model,
-  ) {
-//    bool isSelected = model.currStore.id == business.id;
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: SizeConfig.xMargin(context, 18),
-            width: SizeConfig.xMargin(context, 18),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: highLight ? BrandColors.primary : Colors.transparent,
-                  width: 2,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: ThemeColors.gray[600].withOpacity(0.2),
-                    blurRadius: 6,
-                    offset: Offset(0.3, 0.3),
-                  ),
-                ]),
-            padding: EdgeInsets.all(
-              SizeConfig.yMargin(context, 0.7),
-            ),
-            child: GFAvatar(
-              shape: GFAvatarShape.standard,
-              backgroundColor: ThemeColors.background,
-              child: child,
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          Text(
-            label,
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: SizeConfig.textSize(context, 3),
-            ),
-          )
-        ],
-      ),
+    return CustomRaisedButton(
+      txtColor: ThemeColors.background,
+      btnColor: BrandColors.primary,
+      btnText: 'Add another business',
+      borderColor: BrandColors.primary,
+      child: Container(),
+      onPressed: () => model.navigateToAddBusiness(),
     );
   }
 }

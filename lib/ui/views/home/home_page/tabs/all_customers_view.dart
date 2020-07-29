@@ -44,6 +44,7 @@ class AllCustomersView extends StatelessWidget {
                               height: 50.h,
                               width: MediaQuery.of(context).size.width,
                               child: TextField(
+                                textCapitalization: TextCapitalization.sentences,
                                 controller: model.allCustomersController,
                                 onChanged: model.searchAllCustomers,
                                 style: TextStyle(
@@ -89,14 +90,14 @@ class AllCustomersView extends StatelessWidget {
                           Row(
                             children: <Widget>[
                               Text(
-                                'Sorted by:',
+                                AppLocalizations.of(context).sortedBy,
                                 style: TextStyle(
                                   color: Color(0xFF31393C),
                                   fontSize: 14.sp,
                                 ),
                               ),
                               Text(
-                                'Date of issue',
+                                AppLocalizations.of(context).dateOfIssue,
                                 style: TextStyle(
                                   color: Color(0xFF2D74DA),
                                   fontSize: 14.sp,
@@ -112,7 +113,7 @@ class AllCustomersView extends StatelessWidget {
                                   Icons.filter_list,
                                 ),
                                 Text(
-                                  'Filter',
+                                  AppLocalizations.of(context).filter,
                                   style: TextStyle(
                                     color: Color(0xFF2D74DA),
                                     fontSize: 14.sp,
@@ -127,7 +128,7 @@ class AllCustomersView extends StatelessWidget {
                         height: 200.h,
                         child: Center(
                             child: Text(
-                          'No customer yet',
+                          AppLocalizations.of(context).noCustomerYet,
                           style: TextStyle(
                             color: Color(0xFFACACAC),
                             fontSize: 12.sp,

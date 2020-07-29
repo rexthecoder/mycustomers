@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -144,13 +143,15 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 Expanded(
                   child: Center(
                     child: TextField(
+                      textCapitalization: TextCapitalization.sentences,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
-                        hintText: 'Enter Name',
+                        hintText: AppLocalizations.of(context).enterName,
                         border: OutlineInputBorder(borderSide: BorderSide.none),
                       ),
                       controller: name,
                       onChanged: model.updateName,
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                 ),
@@ -174,7 +175,7 @@ class _StringForm extends HookViewModelWidget<AddCustomerManuallyViewModel> {
                 },
                
                 ignoreBlank: false,
-                errorMessage: 'Invalid Phone Number',
+                errorMessage: AppLocalizations.of(context).invalidPhoneNo,
                 selectorType: PhoneInputSelectorType.DIALOG,
                 selectorTextStyle:
                     TextStyle(color: Theme.of(context).cursorColor),

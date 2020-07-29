@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/business/settings/settings_page/settings_page_viewmodel.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
@@ -19,7 +20,9 @@ class SettingsPage extends StatelessWidget {
         builder: (context, model, child) => Scaffold(
               backgroundColor: Theme.of(context).backgroundColor,
               appBar: customizeAppBar(context, 1.0,
-                  title: 'Settings', arrowColor: BrandColors.primary),
+                  title: AppLocalizations.of(context).settings,
+                  arrowColor: BrandColors.primary,
+                  backgroundColor: Theme.of(context).backgroundColor),
               body: Container(
                 padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(30)),
                 child: Column(
@@ -28,12 +31,13 @@ class SettingsPage extends StatelessWidget {
                       child: SingleChildScrollView(
                           child: Column(
                         children: <Widget>[
-                          cardTile(
+                          CustomPartialBuild<SettingManagerModel>(
+                            builder: (context, viewModel) => cardTile(
                               AppLocalizations.of(context).changeLanguage,
-                              model.langs[model.langIndex]['name'],
+                              viewModel.selectedLanguage,
                               //Todo: Set Functionality to Change when Language is Changed,
                               model.navigateToLanguageSettings,
-                              context),
+                              context),),
                           cardTile(
                               AppLocalizations.of(context).changeCurrency,
                               model.currs[model.currIndex]['name'],
@@ -50,7 +54,7 @@ class SettingsPage extends StatelessWidget {
                                 context,
                                 viewModel.isDarkTheme,
                                 viewModel.setTheme,
-                                'Dark Mode'),
+                                AppLocalizations.of(context).darkMode),
                           ),
                           switchTile(
                               context,
@@ -61,28 +65,29 @@ class SettingsPage extends StatelessWidget {
                           // switchTile(
                           //     context,
                           //     model.newsletter,
-                          //     model.setNewsletter,
+                          //      model.setNewsletter,
                           //     AppLocalizations.of(context).receiveNewsletters),
-                          // switchTile(
-                          //     context,
-                          //     model.special,
-                          //     model.setSpecial,
-                          //     AppLocalizations.of(context)
-                          //         .receiveSpecialOffers),
-                          // switchTile(context, model.update, model.setUpdate,
-                          //     AppLocalizations.of(context).receiveUpdates),
+                          //  switchTile(
+                          //      context,
+                          //      model.special,
+                          //      model.setSpecial,
+                          //      AppLocalizations.of(context)
+                          //          .receiveSpecialOffers),
+                          //  switchTile(context, model.update, model.setUpdate,
+                          //      AppLocalizations.of(context).receiveUpdates),
                         ],
                       )),
                     ),
-                    // Container(
-                    //   padding: EdgeInsets.symmetric(
-                    //       horizontal: ScreenUtil().setWidth(20)),
-                    //   child: crb.CustomRaisedButton(
-                    //       label: 'Save',
-                    //       onPressed: () {
-                    //         Navigator.pop(context);
-                    //       }),
-                    // ),
+                   /*  Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: ScreenUtil().setWidth(20)),
+                      // ignore: missing_required_param
+                      child: CustomRaisedButton(
+                          btnText: 'Save',
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ), */
                   ],
                 ),
               ),
@@ -107,14 +112,14 @@ class SettingsPage extends StatelessWidget {
               Text(
                 text,
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: ScreenUtil().setSp(18),
+                      fontSize: SizeConfig.yMargin(context, 2),
                       color: Theme.of(context).cursorColor,
                     ),
               ),
               Text(
                 subtext ?? '',
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                    fontSize: ScreenUtil().setSp(12),
+                    fontSize: SizeConfig.yMargin(context, 1.6),
                     color: Theme.of(context).cursorColor),
               )
             ],
@@ -142,7 +147,7 @@ class SettingsPage extends StatelessWidget {
               Text(
                 text,
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: ScreenUtil().setSp(16),
+                      fontSize: SizeConfig.yMargin(context, 2),
                       color: Theme.of(context).cursorColor,
                     ),
               )

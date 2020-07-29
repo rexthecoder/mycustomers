@@ -17,14 +17,14 @@ class TransactionAdapter extends TypeAdapter<TransactionModel> {
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TransactionModel(
-      cId: fields[0] as int,
+      tId: fields[0] as String,
       sId: fields[1] as String,
       amount: fields[2] as double,
       paid: fields[3] as double,
       duedate: fields[4] as String,
       boughtdate: fields[5] as String,
       paiddate: fields[6] as String,
-      goods: (fields[7] as List)?.cast<String>(),
+      description: fields[7] as String,
     );
   }
 
@@ -33,7 +33,7 @@ class TransactionAdapter extends TypeAdapter<TransactionModel> {
     writer
       ..writeByte(8)
       ..writeByte(0)
-      ..write(obj.cId)
+      ..write(obj.tId)
       ..writeByte(1)
       ..write(obj.sId)
       ..writeByte(2)
@@ -47,6 +47,6 @@ class TransactionAdapter extends TypeAdapter<TransactionModel> {
       ..writeByte(6)
       ..write(obj.paiddate)
       ..writeByte(7)
-      ..write(obj.goods);
+      ..write(obj.description);
   }
 }

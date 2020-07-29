@@ -38,15 +38,51 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
+  CountryCurrency get oldcurrency => _bussinessService.oldcurren;
 
   Store get currentStore => StoreRepository.currentStore;
 
-  List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
+  List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed);
+  
+
+  double getamount(double amt){
+    return amt;
+    // if(oldcurrency != null) {
+    //   if(oldcurrency.symbol == '₦') {
+    //     if(currency.symbol == '₦'){
+    //       return amt;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt * 385.505;
+    //     }else{
+    //       return amt * 0.192873;
+    //     }
+    //     //(currency.symbol == '₹')
+    //   }else if(oldcurrency.symbol == '\$') {
+    //     if(currency.symbol == '₦'){
+    //       return amt / 385.505;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt;
+    //     }else{
+    //       return amt * 74.7272456;
+    //     }
+    //   } else if(oldcurrency.symbol == '₹') {
+    //     if(currency.symbol == '₦'){
+    //       return amt / 0.192873;
+    //     }else if(currency.symbol == '\$'){
+    //       return amt / 74.7272456;
+    //     }else{
+    //       return amt;
+    //     }
+    //   }
+    // } else {
+    //   return amt;
+    // }
+  }
 
   int bought(){
     int sum = 0;
     for (var item in transactions) {
-      if(item.amount != 0) {
+      if(item.amount > item.paid) {
         sum += item.amount.round();
       }
     }
@@ -76,14 +112,21 @@ class MainTransactionViewModel extends ReactiveViewModel{
     return dformat.format(DateTime.parse(gdate)).toString();
   }
 
+  String getdDate(String gdate) {
+    final dformat = new DateFormat('dd/MM/yyyy');
+    if(dformat.format(DateTime.parse(gdate)).toString() != date) {
+      date = dformat.format(DateTime.parse(gdate)).toString();
+    }
+    return dformat.format(DateTime.parse(gdate)).toString();
+  }
+
   String getTime(String gdate) {
     final dformat = new DateFormat('jm');
     return dformat.format(DateTime.parse(gdate)).toString();
   }
 
   void getTransactions(){
-    print(contact.id);
-    _transactionService.getTransactions(contact.id, currentStore.id);
+    _transactionService.getTransactions(contact);
     notifyListeners();
   }
 
@@ -96,9 +139,13 @@ class MainTransactionViewModel extends ReactiveViewModel{
   // }
 
   void navigateToHome(){
-    _navigationService.replaceWith(Routes.mainViewRoute);
+    //_navigationService.popUntil((route) => route.settings.name == Routes.mainViewRoute);
+    _navigationService.back();
   }
 
+void navigateToSchedule(){
+    _navigationService.navigateTo(Routes.sendNotificationMessage);
+  }
   void navigateDetails(TransactionModel item){
     _transactionService.setTransaction(item);
     _navigationService.navigateTo(Routes.transactionDetails);
@@ -106,4 +153,5 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   @override
   List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService];
+  
 }

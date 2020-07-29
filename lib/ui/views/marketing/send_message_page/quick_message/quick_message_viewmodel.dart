@@ -2,8 +2,7 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:mycustomers/ui/views/marketing/send_message_page/send_message_viewmodel.dart';
-
+import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 
 class QuickMessageViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
@@ -14,8 +13,21 @@ class QuickMessageViewModel extends BaseViewModel {
     // await _navigationService.navigateTo(Routes.sendAMessageView);
   }
 
-  Future navigateToMessageView(selected, title, message) async {
-    MessageArgument argument = MessageArgument(selectedCustomers: selected, title: title,message: message, isQuick: true);
+  Future navigateToMessageView(title, message) async {
+    MessageArgument argument = MessageArgument(title: title,message: message);
      await _navigationService.navigateTo(Routes.messageView,arguments: argument);
   }
+
+  Future navigateToMessage() async {
+    MessageArgument  argument = MessageArgument(title: '',message: '');
+    await _navigationService.navigateTo(Routes.messageView, arguments: argument);
+  }
+}
+
+class MessageArgument{
+  String title,message;
+  List<CustomerContact> selectedCustomers;
+
+  MessageArgument({this.title, this.message, this.selectedCustomers});
+
 }

@@ -1,67 +1,37 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
-// import 'package:mycustomers/app/router.dart';
-// import 'package:mycustomers/core/models/business_model.dart';
+import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/models/store.dart';
-import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
-import 'package:mycustomers/ui/widgets/main/create_business/create_business_view.dart';
+import 'package:mycustomers/core/services/customer_services.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/profile_service.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class MainViewModel extends ReactiveViewModel {
   /// Fields
   final NavigationService _navigationService = locator<NavigationService>();
-  static AuthService _auth = locator<AuthService>();
-  final Duration duration = const Duration(milliseconds: 300);
-  List<Store> _stores = StoreRepository.stores;
-
-  List<Store> get stores => _stores;
-  Store get currStore => StoreRepository.currentStore;
-
+//  static AuthService _auth = locator<AuthService>();
   final _logService = locator<LogsLocalDataSourceImpl>();
   final _bussinessService = locator<BussinessSettingService>();
+  final ICustomerService _customerService = locator<ICustomerService>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _customerContactService = locator<CustomerContactService>();
+  final _profileService = locator<ProfileService>();
 
-  bool get showdot => _logService.shouldnotify;
+  //Profile get userP => _profileService.getProfile();
 
-  void addlog(){
-    print('called1');
-    _logService.testfunc(DateTime.now());
-  }
-
-  final List<Menu> menus = [
-    Menu(
-      label: 'Home',
-      icon: 'assets/icons/svg/home.svg',
-      active: false,
-    ),
-    Menu(
-      label: 'Marketing',
-      icon: 'assets/icons/svg/marketing.svg',
-      active: false,
-    ),
-    Menu(
-      label: 'Business',
-      icon: 'assets/icons/svg/business.svg',
-      active: false,
-    ),
-  ];
-
-  final List<Menu> settings = [
-    Menu(label: 'Add Customer', icon: 'assets/icons/svg/profile.svg'),
-    Menu(label: 'Help', icon: 'assets/icons/svg/support.svg'),
-  ];
-
-  final List<Menu> signOut = [
-    Menu(
-        label: 'Sign Out',
-        icon: 'assets/icons/svg/profile.svg',
-        onTap: _auth.signOut)
-  ];
+  final Duration duration = const Duration(milliseconds: 300);
+  List<Store> _stores = StoreRepository.stores;
+  Map<String, int> _customers = {};
 
   int _index = 0;
 
@@ -70,24 +40,47 @@ class MainViewModel extends ReactiveViewModel {
   /// Getters
   int get index => _index;
 
+  List<Store> get stores => _stores;
+
+  Map<String, int> get customers => _customers;
+
+  Store get currStore => StoreRepository.currentStore;
+
+  bool get showdot =>_logService.shouldnotify;
+
+  Profile getProfile() {
+    return _profileService.getProfile(StoreRepository?.currentStore?.id);
+  }
+
+  Image imageFromBaseString(String base64String, BuildContext context){
+     return Image.memory(base64Decode(base64String),
+     width: SizeConfig.xMargin(context, 50),
+      height: SizeConfig.xMargin(context, 50),
+      fit: BoxFit.cover,
+    );
+  }
+
+  void gettransactions(){
+    _transactionService.getAllTransactions(currStore.id);
+    _logService.dot();
+    notifyListeners();
+  }
+
   /// Setters
 
   /// Methods/Functions
+  void addlog() {
+    print('called1');
+    _logService.testfunc(DateTime.now());
+  }
+
   void changeTab(int index) {
     _index = index;
-    if (!isCollapsed) {
-      isCollapsed = !isCollapsed;
-    }
     notifyListeners();
   }
 
-  void openMenu() {
-    isCollapsed = false;
-    notifyListeners();
-  }
-
-  void closeMenu() {
-    isCollapsed = true;
+  void updateMenu() {
+    isCollapsed = !isCollapsed;
     notifyListeners();
   }
 
@@ -95,34 +88,39 @@ class MainViewModel extends ReactiveViewModel {
     StoreRepository.changeSelectedStore(id);
     _transactionService.getAllTransactions(id);
     notifyListeners();
+//    updateMenu();
   }
 
-  void getcurr(){
+  void getcurr() {
     _bussinessService.getCurrency();
     //_storeService.updateStores();
   }
 
-  final DialogService _dialogService = locator<DialogService>();
-
   Future navigateToAddBusiness() async {
-    _dialogService.registerCustomDialogUi(createBusinessDialog);
-    _dialogService.showCustomDialog();
+    _navigationService.navigateTo(Routes.createBusinessView);
   }
 
+  Future<Map<String, int>> getCustomers() async {
+    Map<String, int> customerMap = {};
+    for (var store in _stores) {
+      final customers = await _customerService.getCustomers(store.id);
+      customerMap.putIfAbsent(store.id, () => customers.length);
+    }
+    _customers = customerMap;
+  }
+
+  int getCustomerCount(String id) {
+    //print(_customerContactService.getCustomerCount(id).then((value) => print(value)));
+    //int tot;
+   return _customerContactService.getCustomerCount(id);
+    //return tot;
+  }
 
   void navigateToNotifications() {
     _navigationService.navigateTo(Routes.notificationsViewRoute);
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_logService, _bussinessService];
-}
-
-class Menu {
-  final String label;
-  final Function onTap;
-  final bool active;
-  final String icon;
-
-  Menu({this.label, this.onTap, this.active, this.icon});
+  List<ReactiveServiceMixin> get reactiveServices =>
+      [_logService, _bussinessService];
 }

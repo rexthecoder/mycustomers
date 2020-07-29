@@ -21,8 +21,9 @@ class AddDebtView extends StatelessWidget {
               elevation: 1,
               title: Text(
                 model.amount != null
-                    ? 'Sheyi owes you \$' + model.amount.toString()
-                    : 'Sheyi owes you',
+                    ? 'Sheyi ${AppLocalizations.of(context).owesYou} \$' +
+                        model.amount.toString()
+                    : 'Sheyi ${AppLocalizations.of(context).owesYou}',
                 style: Theme.of(context).textTheme.headline6.copyWith(
                       fontSize: ScreenUtil().setSp(18),
                       fontWeight: FontWeight.bold,
@@ -107,7 +108,7 @@ class AddDebtView extends StatelessWidget {
                                   ),
                                   hintText:
                                       AppLocalizations.of(context).enterAmount,
-                                  errorText: model.error,
+                                  //   errorText: model.error,
                                   prefixIcon: Container(
                                     padding: EdgeInsets.symmetric(
                                         vertical: ScreenUtil().setHeight(15),
@@ -120,7 +121,7 @@ class AddDebtView extends StatelessWidget {
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: ScreenUtil().setHeight(8)),
                                 ),
-                                textInputAction: TextInputAction.go,
+                                textInputAction: TextInputAction.next,
                                 onChanged: model.updateAmount,
                               ),
                             ),
@@ -172,7 +173,7 @@ class AddDebtView extends StatelessWidget {
                                                   .headline6
                                                   .copyWith(
                                                     fontSize:
-                                                        ScreenUtil().setSp(16),
+                                                        ScreenUtil().setSp(12),
                                                     color: Color(0xFFFF8C5F),
                                                   ),
                                             ),
@@ -194,6 +195,8 @@ class AddDebtView extends StatelessWidget {
                                     child: Column(
                                       children: <Widget>[
                                         TextField(
+                                          textCapitalization:
+                                              TextCapitalization.sentences,
                                           controller: _controller,
                                           maxLines: null,
                                           maxLengthEnforced: false,
@@ -258,7 +261,7 @@ class AddDebtView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          textInputAction: TextInputAction.go,
+                                          textInputAction: TextInputAction.done,
                                           onSubmitted: (value) {
                                             _controller.clear();
                                             model.addItem();
