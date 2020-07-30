@@ -1,8 +1,13 @@
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'complaint_h.g.dart';
 
 @HiveType(typeId: 18)
-class Complaint {
+@JsonSerializable()
+class Complaint extends HiveObject {
   @HiveField(0)
+  @JsonKey(name: '_id')
   final String id;
 
   @HiveField(1)
@@ -18,7 +23,18 @@ class Complaint {
   final String status;
 
   @HiveField(5)
+  @JsonKey(name: 'storeOwner')
   final String sentFromId;
 
-  Complaint(this.id, this.subject, this.message, this.sentStatus, this.status, this.sentFromId);
+  @HiveField(6)
+  @JsonKey(fromJson: DateTime.parse)
+  final DateTime date;
+
+  @HiveField(7)
+  bool deleted;
+
+  Complaint(this.id, this.subject, this.message, this.sentStatus, this.status, this.sentFromId, this.date);
+
+  factory Complaint.fromJson(Map<String, dynamic> json) => _$ComplaintFromJson(json);
+  Map<String, dynamic> toJson() => _$ComplaintToJson(this);
 }
