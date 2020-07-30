@@ -213,7 +213,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                     vertical: ScreenUtil()
                                                         .setHeight(6)),
                                           ),
-                                          textInputAction: TextInputAction.next,
+                                          textInputAction: TextInputAction.done,
                                           onChanged: (value) =>
                                               model.updateAmount(value, update,
                                                   action, newCus),
@@ -730,7 +730,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             .setHeight(20)),
                                               ),
                                               textInputAction:
-                                                  TextInputAction.next,
+                                                  TextInputAction.done,
                                               onChanged: (value) => model
                                                   .updateName(value, action),
                                             ),

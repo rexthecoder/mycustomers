@@ -12,11 +12,6 @@ class ProfilePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainProfilePageViewModel>.reactive(
         builder: (context, model, child) {
-          TextEditingController _userName =
-              TextEditingController(text: model.userName);
-          TextEditingController _businessName =
-              TextEditingController(text: model.businessName);
-
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: customizeAppBar(context, 1.0,
