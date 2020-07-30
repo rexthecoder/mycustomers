@@ -10,33 +10,33 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
 class SendMessage extends StatelessWidget {
-  final String action;
-  SendMessage({this.action});
+  final String action, process;
+  SendMessage({this.action, this.process});
 
   @override
   Widget build(BuildContext context) {
-    DateTime picked;
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (contxt, model, child) {
         return Scaffold(
           appBar: customizeAppBar(context, 1.0,
-              title: action == AppLocalizations.of(context).send
+              title: action == 'send'
                   ? AppLocalizations.of(context).sendReminder
                   : AppLocalizations.of(context).scheduleReminder,
-              arrowColor: Theme.of(context).textSelectionColor,
+              arrowColor: action == 'send' ? BrandColors.secondary : Theme.of(context).textSelectionColor,
               backgroundColor: Theme.of(context).backgroundColor),
           body: Container(
             margin: EdgeInsets.symmetric(
               horizontal: SizeConfig.xMargin(context, 5),
               vertical: SizeConfig.yMargin(context, 5),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
+            child: 
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: <Widget>[
                 SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      action == AppLocalizations.of(context).schedule
+                      action == 'schedule'
                           ? Text(
                               AppLocalizations.of(context)
                                   .pickADateAndTypeInYourMessage,
@@ -67,9 +67,13 @@ class SendMessage extends StatelessWidget {
                                 maxLines: null,
                                 maxLengthEnforced: false,
                                 onChanged: (value) {
-                                  model.initialValue(newValue: value);
+                                  process == 'STrans'
+                                      ? model.sTransactionValue(newValue: value)
+                                      : model.initialValue(newValue: value);
                                 },
-                                initialValue: model.initialValue(),
+                                initialValue: process == 'STrans'
+                                    ? model.sTransactionValue()
+                                    : model.initialValue(),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)
@@ -77,15 +81,15 @@ class SendMessage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                      action == AppLocalizations.of(context).schedule
+                      action == 'schedule'
                           ? SizedBox(
                               height: SizeConfig.yMargin(context, 3),
                             )
                           : SizedBox(),
-                      action == AppLocalizations.of(context).schedule
+                      action == 'schedule'
                           ? InkWell(
                               onTap: () async {
-                                picked = await showDatePicker(
+                               final DateTime picked = await showDatePicker(
                                   context: context,
                                   initialDate: model.reminders.selectedDate,
                                   firstDate: DateTime(
@@ -161,12 +165,12 @@ class SendMessage extends StatelessWidget {
                               ),
                             )
                           : Container(),
-                      action == AppLocalizations.of(context).schedule
+                      action == 'schedule'
                           ? SizedBox(
                               height: SizeConfig.yMargin(context, 3),
                             )
                           : SizedBox(),
-                      action == AppLocalizations.of(context).schedule
+                      action == 'schedule'
                           ? Container(
                               alignment: Alignment.topCenter,
                               child: Container(
@@ -177,12 +181,12 @@ class SendMessage extends StatelessWidget {
                               ),
                             )
                           : Container(),
-                      action == AppLocalizations.of(context).schedule
+                      action == 'schedule'
                           ? SizedBox(
                               height: SizeConfig.yMargin(context, 3),
                             )
                           : SizedBox(),
-                      action == AppLocalizations.of(context).schedule
+                      action == 'schedule'
                           ? Container(
                               height: SizeConfig.xMargin(context, 40),
                               width: SizeConfig.xMargin(context, 80),
@@ -202,9 +206,13 @@ class SendMessage extends StatelessWidget {
                                 maxLines: null,
                                 maxLengthEnforced: false,
                                 onChanged: (value) {
-                                  model.initialValue(newValue: value);
+                                  process == 'STrans'
+                                      ? model.sTransactionValue(newValue: value)
+                                      : model.initialValue(newValue: value);
                                 },
-                                initialValue: model.initialValue(),
+                                initialValue: process == 'STrans'
+                                    ? model.sTransactionValue()
+                                    : model.initialValue(),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)
@@ -220,25 +228,24 @@ class SendMessage extends StatelessWidget {
                         width: SizeConfig.xMargin(context, 80),
                         child: CustomRaisedButton(
                           child: Container(),
-                          btnColor: BrandColors.primary,
+                          btnColor: action == 'send' ? BrandColors.secondary : BrandColors.primary,
                           txtColor: ThemeColors.background,
-                          borderColor: BrandColors.primary,
-                          btnText: action == AppLocalizations.of(context).send
+                          borderColor: action == 'send' ? BrandColors.secondary : BrandColors.primary,
+                          btnText: action == 'send'
                               ? AppLocalizations.of(context).send
                               : AppLocalizations.of(context).schedule,
                           onPressed: () {
-                            if (action ==
-                                AppLocalizations.of(context).schedule) {
-                              if (picked == null) {
+                            if (action == 'schedule') {
+                              if (model.reminders.newDate == null) {
                                 print(model.value);
-                                print(picked);
+                                print(model.reminders.newDate);
                                 flusher(
                                     AppLocalizations.of(context)
                                         .fieldShouldNotBeEmpty,
                                     context);
                               } else {
                                 print(model.value);
-                                print(picked);
+                                print(model.reminders.newDate);
                                 flusher(
                                     'Your Reminder has been set successfully',
                                     context);
@@ -253,10 +260,13 @@ class SendMessage extends StatelessWidget {
                                         .fieldShouldNotBeEmpty,
                                     context);
                               }
-                            } else if (action ==
-                                AppLocalizations.of(context).send) {
+                            } else if (action == 'send') {
                               print(model.value);
-                              model.sendMessage(model.initialValue());
+                              process == 'STrans'
+                                  ? model.singleSendMessage(
+                                      text: model.sTransactionValue(),
+                                      id: model.transaction.tId)
+                                  : model.sendMessage(model.initialValue());
                             }
                           },
                         ),
@@ -264,8 +274,8 @@ class SendMessage extends StatelessWidget {
                     ],
                   ),
                 )
-              ],
-            ),
+            //   ],
+            // ),
           ),
         );
       },

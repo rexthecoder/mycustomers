@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/views/home/debt_reminders/main_reminders_view/reminders_viewmodel.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,6 +11,9 @@ import 'package:intl/intl.dart';
 class SendMessageViewModel extends BaseViewModel {
   final MainTransactionViewModel transactions = MainTransactionViewModel();
   final RemindersViewModel reminders = RemindersViewModel();
+
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  TransactionModel get transaction => _transactionService.stransaction;
 
   String _controllerValue;
   String _messageControllerValue;
@@ -31,7 +37,8 @@ class SendMessageViewModel extends BaseViewModel {
   List<String> get messageEntries => _messageEntries;
 
   String initialValue({String newValue}) {
-    String text = 'Dear ${transactions.contact.name}, you have an outstanding payment of $debt, kindly make payment via www.customerpay.me/cE54-hnegs';
+    String text =
+        'Dear ${transactions.contact.name}, you have an outstanding payment of $debt. Kindly make payment via www.customerpay.me/cE54-hnegs.';
     if (value == null && newValue == null) {
       value = text;
     } else if (value != null && newValue != null) {
@@ -39,6 +46,21 @@ class SendMessageViewModel extends BaseViewModel {
     }
     return value;
   }
+
+  String sTransactionValue({String newValue}) {
+    String text =
+        'Dear ${transactions.contact.name}, you have an outstanding payment of $singleDebt. Kindly make payment via www.customerpay.me/$id.';
+    if (value == null && newValue == null) {
+      value = text;
+    } else if (value != null && newValue != null) {
+      value = newValue;
+    }
+    return value;
+  }
+
+  String get singleDebt =>
+      transactions.currency.symbol + currency.format(transaction.amount);
+  String get id => transaction.tId;
 
   String get debt =>
       transactions.currency.symbol +
@@ -60,7 +82,18 @@ class SendMessageViewModel extends BaseViewModel {
   void sendMessage(String text) async {
     var regText = Uri.encodeFull(text);
     var uri =
-        'sms:+${transactions.contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20via%20this%20link:https://www.customerpay.me/cE54-hnegs';
+        'sms:+${transactions.contact.phoneNumber}?body=$regText';
+    if (Platform.isAndroid) {
+      if (await canLaunch(uri)) {
+        await launch(uri);
+      }
+    }
+  }
+
+  void singleSendMessage({String text, String id}) async {
+    var regText = Uri.encodeFull(text);
+    var uri =
+        'sms:+${transactions.contact.phoneNumber}?body=$regText';
     if (Platform.isAndroid) {
       if (await canLaunch(uri)) {
         await launch(uri);

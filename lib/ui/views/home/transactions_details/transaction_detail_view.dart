@@ -146,7 +146,7 @@ class TransactionDetails extends StatelessWidget {
                                         Row(
                                           children: <Widget>[
                                             Text(
-                                              'Transaction Id   ',
+                                              'Transaction ID:  ',
                                               // textAlign: TextAlign.end,
                                               style: TextStyle(
                                                   color: Colors.grey[600],
