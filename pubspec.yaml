@@ -156,6 +156,7 @@ flutter:
     - assets/languages/icons/
     - assets/fonts/Roboto-Bold.ttf
     - assets/fonts/Roboto-Regular.ttf
+    - assets/files/
 
 
   fonts:

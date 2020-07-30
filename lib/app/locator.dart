@@ -6,7 +6,6 @@ import 'package:mycustomers/core/data_sources/business_card/business_card_local_
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
-import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
@@ -15,6 +14,8 @@ import 'package:mycustomers/core/repositories/business_card/business_card_reposi
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
+import 'package:mycustomers/core/services/business_card/business_card_service.dart';
+import 'package:mycustomers/core/services/business_card/business_card_service_impl.dart';
 import 'package:mycustomers/core/services/message_service.dart';
 import 'package:mycustomers/core/services/phone_contact_service.dart';
 import 'package:mycustomers/core/services/profile_service.dart';
@@ -31,7 +32,6 @@ import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/api_services.dart';
 import 'package:mycustomers/core/services/page_service.dart';
 import 'package:mycustomers/core/services/password_manager_services.dart';
-import 'package:mycustomers/core/services/sms_services.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/file_helper.dart';
 import 'package:path_provider/path_provider.dart';
@@ -68,7 +68,7 @@ Future<void> setupLocator(
       test ? Directory.current : await getApplicationDocumentsDirectory();
   test ? Hive.init(appDocDir.path) : Hive.initFlutter(appDocDir.path);
 
-  // Services
+  /// Services
   locator.registerLazySingleton(
     () => NavigationService(),
   );
@@ -109,12 +109,14 @@ Future<void> setupLocator(
   locator.registerLazySingleton<UserService>(
     () => UserService(),
   );
+  locator.registerLazySingleton<BusinessCardService>(
+    () => BusinessCardServiceImpl(businessCardRepository: locator()),
+  );
 //   locator.registerLazySingleton<MessageServices>(() => MessageServices());
 
   ///Repository
   locator.registerLazySingleton<BusinessCardRepository>(
-    () => BusinessCardRepositoryImpl(
-        localDataSource: locator()),
+    () => BusinessCardRepositoryImpl(localDataSource: locator()),
   );
   locator.registerLazySingleton<StoreRepository>(
     () => StoreRepository(),
@@ -126,9 +128,10 @@ Future<void> setupLocator(
     () => StoreDataSourceImpl(),
   );
 
-   if (test) locator.registerLazySingleton<StoresLocalDataSource>(
-     () => StoresLocalDataSourceImpl()..init(),
-   );
+  if (test)
+    locator.registerLazySingleton<StoresLocalDataSource>(
+      () => StoresLocalDataSourceImpl()..init(),
+    );
   locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
     () => TransactionLocalDataSourceImpl(),
   );
@@ -152,7 +155,7 @@ Future<void> setupLocator(
   // );
 
   var instance = await LocalStorageService.getInstance();
-  
+
   locator.registerSingleton<LocalStorageService>(instance);
 
   // Util
