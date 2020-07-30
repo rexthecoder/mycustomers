@@ -73,6 +73,7 @@ dependencies:
   open_file: ^3.0.1
   sticky_headers: ^0.1.8+1
   intl: ^0.16.1
+  url_launcher: ^5.5.0
 
   # ScreenShot
   screenshot: ^0.2.0
@@ -153,6 +154,7 @@ flutter:
     - assets/animations/
     - assets/languages/
     - assets/languages/icons/
+    - assets/files/
 
 
   fonts:

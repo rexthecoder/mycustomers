@@ -55,7 +55,7 @@ class BusinessHomePageViewModel extends BaseViewModel {
   }
 
   Future navigateToSupportPage() async {
-    await _navigationService.navigateTo(Routes.supportViewRoute);
+    await _navigationService.navigateTo(Routes.helpAndSupportViewRoute);
   }
 
   Future navigateToSettingsPage() async {
