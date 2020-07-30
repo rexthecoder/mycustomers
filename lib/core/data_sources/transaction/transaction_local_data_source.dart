@@ -148,6 +148,7 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
   }
 
   void getAllTransactions(String id) async{
+    print(id);
     //final bbox = await box;
     _alltransactions.value = [];
     print(_contactBox.values.toList());
@@ -163,21 +164,23 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     _owingcustomers.value = [];
     _owedcustomers.value = [];
     for(var cus in _contactBox.values.toList()) {
-      double tempd = 0;
-      double tempc = 0;
-      for(var item in cus.transactions.helperToList()){
-        tempd += item.amount;
-        tempc += item.paid;
-      }
-      print(tempd);
-      print(tempc);
-      print(tempd - tempc);
-      if(tempd - tempc > 0) {
-        _owingcustomers.value.add(cus);
-      }
-      if(tempc - tempd > 0) {
-        _owedcustomers.value.add(cus);
-        //_whatyouowe.value += item.paid-item.amount;
+      if(cus.storeid == id) {
+        double tempd = 0;
+        double tempc = 0;
+        for(var item in cus.transactions.helperToList()){
+          tempd += item.amount;
+          tempc += item.paid;
+        }
+        print(tempd);
+        print(tempc);
+        print(tempd - tempc);
+        if(tempd - tempc > 0) {
+          _owingcustomers.value.add(cus);
+        }
+        if(tempc - tempd > 0) {
+          _owedcustomers.value.add(cus);
+          //_whatyouowe.value += item.paid-item.amount;
+        }
       }
     }
   }

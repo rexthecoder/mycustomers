@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
+import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/themes.dart' as _theme;
@@ -14,6 +15,7 @@ class SettingManagerModel extends MultipleStreamViewModel {
   IStorageUtil _su = locator<IStorageUtil>();
   final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
   static final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  static final _customerService = locator<CustomerContactService>();
 
   // TODO: implement getter properly
   bool get isDarkTheme => _su.getBool('IS_DARK_THEME') ?? WidgetsBinding.instance.window.platformBrightness == Brightness.dark/*(MediaQuery.of(_context).platformBrightness == Brightness.dark) */ ?? false;
@@ -60,6 +62,7 @@ class SettingManagerModel extends MultipleStreamViewModel {
   Future<void> changeSelectedStore(String newStoreId) async {
     await  _su.saveString(AppPreferenceKey.SELECTED_STORE, newStoreId);
     _transactionService.getAllTransactions(newStoreId ?? 'ghjkl3-.dj');
+    _customerService.getContacts(newStoreId ?? 'ghjkl3-.dj');
     notifyListeners();
   }
 
