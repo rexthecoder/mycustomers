@@ -12,6 +12,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 
@@ -36,6 +37,9 @@ class AddDebtCreditView extends StatelessWidget {
           if (newCus) {
             model.init();
           }
+          if(update) {
+            model.setUpdate();
+          }
         },
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
@@ -56,7 +60,7 @@ class AddDebtCreditView extends StatelessWidget {
                                 model.amount.round().toString()
                             : '${model.contact.name} paid you',
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                    fontSize: ScreenUtil().setSp(18),
+                    fontSize: SizeConfig.yMargin(context, 2.2),
                     fontWeight: FontWeight.bold,
                     //color: Colors.black,
                     fontFamily: 'Roboto'),
@@ -65,8 +69,8 @@ class AddDebtCreditView extends StatelessWidget {
                 onTap: () => Navigator.pop(context),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(18),
-                      vertical: ScreenUtil().setHeight(10)),
+                      horizontal: SizeConfig.xMargin(context, 4),
+                      vertical: SizeConfig.yMargin(context, 1.5)),
                   child: SvgPicture.asset(
                     'assets/icons/backarrow.svg',
                     color: action == 'debit'
@@ -135,6 +139,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           maxLines: null,
                                           maxLengthEnforced: false,
                                           keyboardType: TextInputType.number,
+                                          controller: model.amountController,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6
@@ -208,7 +213,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                     vertical: ScreenUtil()
                                                         .setHeight(6)),
                                           ),
-                                          textInputAction: TextInputAction.next,
+                                          textInputAction: TextInputAction.done,
                                           onChanged: (value) =>
                                               model.updateAmount(value, update,
                                                   action, newCus),
@@ -421,15 +426,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                       child: Container(
                                                         margin: EdgeInsets.only(
                                                             bottom: 15),
-                                                        padding: EdgeInsets.symmetric(
-                                                            vertical:
-                                                                ScreenUtil()
-                                                                    .setHeight(
-                                                                        15),
-                                                            horizontal:
-                                                                ScreenUtil()
-                                                                    .setWidth(
-                                                                        15)),
+                                                        padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 3.8)),
                                                         decoration: BoxDecoration(
                                                             border: Border.all(
                                                                 color: model
@@ -471,9 +468,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                                     .textTheme
                                                                     .headline6
                                                                     .copyWith(
-                                                                      fontSize:
-                                                                          ScreenUtil()
-                                                                              .setSp(12),
+                                                                      fontSize: SizeConfig.yMargin(context, 2),
                                                                       color: action ==
                                                                               'debit'
                                                                           ? BrandColors
@@ -491,7 +486,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                 ),
                                               ),
                                         Visibility(
-                                          visible: update ? false : true,
+                                          visible: true,
                                           child: Container(
                                             margin: EdgeInsets.only(bottom: 15),
                                             child: Column(
@@ -524,26 +519,23 @@ class AddDebtCreditView extends StatelessWidget {
                                                               Color(0xFFD1D1D1),
                                                           width: 2.0),
                                                       borderRadius: BorderRadius
-                                                          .circular(ScreenUtil()
-                                                              .setWidth(5))),
+                                                          .circular(5)),
                                                   child: Column(
                                                     children: <Widget>[
                                                       Focus(
                                                         onFocusChange:
                                                             (hasFocus) {
                                                           if (hasFocus) {
-                                                            model.controller.animateTo(
-                                                                model
-                                                                        .controller
-                                                                        .position
-                                                                        .maxScrollExtent -
-                                                                    250,
+                                                            if(model.controller.position.pixels < model.controller.position.maxScrollExtent/2){
+                                                              model.controller.animateTo(
+                                                                model.controller.position.pixels + 100,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:
                                                                             500),
                                                                 curve: Curves
                                                                     .easeOut);
+                                                            }
                                                           }
                                                         },
                                                         child: TextFormField(
@@ -553,7 +545,7 @@ class AddDebtCreditView extends StatelessWidget {
 
                                                           focusNode:
                                                               model.descFocus,
-                                                          //controller: _controller,
+                                                          controller: model.descController,
                                                           maxLines: null,
                                                           maxLengthEnforced:
                                                               false,
@@ -618,12 +610,12 @@ class AddDebtCreditView extends StatelessWidget {
                               child: Container(
                                 //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
+                                    horizontal: SizeConfig.xMargin(context, 3), vertical: SizeConfig.yMargin(context, 1.6)),
                                 child: Column(
                                   children: <Widget>[
                                     Container(
                                       margin: EdgeInsets.only(
-                                          bottom: ScreenUtil().setHeight(15)),
+                                          bottom: SizeConfig.yMargin(context, 1.6)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -643,7 +635,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           Focus(
                                             onFocusChange: (hasFocus) {
                                               if (hasFocus) {
-                                                if(model.controller.position.pixels < model.controller.position.maxScrollExtent) {
+                                                if(model.controller.position.pixels < model.controller.position.pixels + SizeConfig.yMargin(context, 30)) {
                                                   model.controller.animateTo(
                                                     model.controller.position
                                                         .maxScrollExtent,
@@ -651,7 +643,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                         milliseconds: 500),
                                                     curve: Curves.easeInOut);
                                                 }
-                                                //model.setShowName();
+                                                model.setShowName();
                                                 model.resetContact();
                                                 // print(controller.position
                                                 //     .viewportDimension);
@@ -738,7 +730,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                             .setHeight(20)),
                                               ),
                                               textInputAction:
-                                                  TextInputAction.next,
+                                                  TextInputAction.done,
                                               onChanged: (value) => model
                                                   .updateName(value, action),
                                             ),
@@ -746,56 +738,67 @@ class AddDebtCreditView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    for (var item in model.contactsList)
-                                      model.shownames
-                                          ? MyListTile(
-                                              onTap: () => model.setName(item),
-                                              action: action,
-                                              leading: Center(
-                                                  child: CircleAvatar(
-                                                child: Text(
-                                                  'a',//'${item.ini.toUpperCase()}',
-                                                  style: TextStyle(
-                                                    color: action == 'debtor'
-                                                        ? BrandColors.primary
-                                                        : BrandColors.secondary,
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 2),
-                                                  ),
+                                    Visibility(
+                                      visible: model.shownames,
+                                      child: model.contactsList.length == 0 ? SizedBox(height: model.manual ? 0 : SizeConfig.yMargin(context, 30)) : Container(
+                                        height: SizeConfig.yMargin(context, 30),//( model.contactsList.length * 100).toDouble(),
+                                        child: ListView.builder(
+                                          //physics: NeverScrollableScrollPhysics(),
+                                          itemCount: model.searchController.text.isEmpty ? model.contactsList.length : model.filtered.length,
+                                          itemBuilder: (context, index) {
+                                            Customer item = model.searchController.text.isEmpty ? model.contactsList[index] : model.filtered[index];
+                                            return MyListTile(
+                                            onTap: () => model.setName(item),
+                                            action: action,
+                                            leading: Center(
+                                                child: CircleAvatar(
+                                              child: Text(
+                                                item.displayName[0],//item.displayName.trim().split(' ').length > 1 ? (item.displayName.split(' ')[0].replaceAll(' ', '').length == 0 ? '' : item.displayName.split(' ')[0][0])+''+ (item.displayName.split(' ')[1].replaceAll(' ', '').length == 0 ? '' : item.displayName.split(' ')[1][0]) : item.displayName[0].toUpperCase(),
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  color: action == 'debtor'
+                                                      ? BrandColors.primary
+                                                      : BrandColors.secondary,
+                                                  fontSize:
+                                                      SizeConfig.yMargin(
+                                                          context, 2),
                                                 ),
-                                                radius: SizeConfig.xMargin(
-                                                    context, 6),
-                                                backgroundColor:
-                                                    action == 'debt'
-                                                        ? BrandColors.primary
-                                                            .withOpacity(0.3)
-                                                        : BrandColors.secondary
-                                                            .withOpacity(0.3),
-                                              )),
-                                              title: Text(
-                                                '${item.displayName}',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 1.9)),
                                               ),
-                                              // child: Text(
-                                              // 'Add new customer',
-                                              // style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
-                                              subtitle: Text(
-                                                '${item.phone.isNotEmpty ? item.phone : 'No number'}',
-                                                style: TextStyle(
-                                                    color: ThemeColors
-                                                        .gray.shade600,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize:
-                                                        SizeConfig.yMargin(
-                                                            context, 2)),
-                                              ),
-                                            )
-                                          : SizedBox(),
+                                              radius: SizeConfig.xMargin(
+                                                  context, 6),
+                                              backgroundColor:
+                                                  action == 'debt'
+                                                      ? BrandColors.primary
+                                                          .withOpacity(0.3)
+                                                      : BrandColors.secondary
+                                                          .withOpacity(0.3),
+                                            )),
+                                            title: Text(
+                                              '${item.displayName}',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      SizeConfig.yMargin(
+                                                          context, 1.9)),
+                                            ),
+                                            // child: Text(
+                                            // 'Add new customer',
+                                            // style: TextStyle(color: action == 'debit' ? BrandColors.secondary : BrandColors.primary, fontSize: SizeConfig.yMargin(context, 2)),
+                                            subtitle: Text(
+                                              '${item.phone.isNotEmpty ? item.phone : 'No number'}',
+                                              style: TextStyle(
+                                                  color: ThemeColors
+                                                      .gray.shade600,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize:
+                                                      SizeConfig.yMargin(
+                                                          context, 2)),
+                                            ),
+                                          );
+                                          }
+                                        ),
+                                      ),
+                                    ),
                                     // model.contactsList.length == 0 &&
                                     //         model.name != null
                                     //     ? model.manual
@@ -879,7 +882,7 @@ class AddDebtCreditView extends StatelessWidget {
                                       child: Container(
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                              color: Color(0xff77869e),
+                                              color: model.numberr ? Colors.red : Color(0xff77869e),
                                               width: 1,
                                             ),
                                             borderRadius:
@@ -892,11 +895,11 @@ class AddDebtCreditView extends StatelessWidget {
                                               model.number = number;
                                               //model.updateNumber(action);
                                             },
-                                            onInputValidated: (value) {
-                                              if (value) {
-                                                model.updateNumber(action);
-                                              }
-                                            },
+                                            // onInputValidated: (value) {
+                                            //   if (value) {
+                                            //     model.updateNumber(action);
+                                            //   }
+                                            // },
                                             ignoreBlank: false,
                                             errorMessage:
                                                 AppLocalizations.of(context)
@@ -957,10 +960,8 @@ class AddDebtCreditView extends StatelessWidget {
                                     ),
                                     SizedBox(
                                       height: model.name != null
-                                          ? SizeConfig.yMargin(context, 100) * 0.2
-                                          : MediaQuery.of(context).viewInsets.bottom > 0 ? SizeConfig.yMargin(context, 100) *
-                                              0.28 : SizeConfig.yMargin(context, 100) *
-                                              0.7,
+                                          ? 0
+                                          : MediaQuery.of(context).viewInsets.bottom > 0 ? model.shownames ? 0 : SizeConfig.yMargin(context, 30) : SizeConfig.yMargin(context, 70),
                                     ),
                                   ],
                                 ),
@@ -990,7 +991,7 @@ class AddDebtCreditView extends StatelessWidget {
                       }, //Todo: Save User Input
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            vertical: ScreenUtil().setHeight(15)),
+                            vertical: SizeConfig.yMargin(context, 1.8)),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           color: model.save

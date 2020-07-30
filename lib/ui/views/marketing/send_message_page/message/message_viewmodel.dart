@@ -21,9 +21,9 @@ class MessageViewModel extends ReactiveViewModel {
   TextEditingController titleController =TextEditingController();
   TextEditingController messageController =TextEditingController();
 
-  List<CustomerContact> get selectedCustomers => _contactService.selectedC;
+  List<CustomerContact> get selectedCustomers => _contactService.selectedC.length!=0?_contactService.selectedC: _contactService.allC;
   //CustomerContact get customer => _contactService.contact;
-  String tit = '';
+//  String tit = '';
   String body = '';
 
   void select(Customer cust){
@@ -61,14 +61,14 @@ class MessageViewModel extends ReactiveViewModel {
     _contactService.selectAll(hold);
     for(var item in selectedCustomers) {
       //print(item.name);
-      _messageService.addMessage(tit+', '+body, item);
+      _messageService.addMessage(body, item);
     }
   }
 
-  void setTitle(String value) {
-    tit = value;
-    notifyListeners();
-  }
+//  void setTitle(String value) {
+//    tit = value;
+//    notifyListeners();
+//  }
 
   void setBody(String value) {
     body = value;
@@ -122,12 +122,14 @@ class MessageViewModel extends ReactiveViewModel {
 
 
 
-  void setQuickText(title, message){
-    if(title.length !=0){
-      titleController.text= title;
-      tit = title;
-      messageController.text = message;
-      body = message;
+  void setQuickText(String title, message){
+    if(message.length !=0){
+//      titleController.text= title;
+//      tit = title;
+    final separator = title.endsWith('!')?' ':', ';
+    print(separator);
+      messageController.text =title +separator+ message;
+      body = title +', ' + message;
     }
     
   }

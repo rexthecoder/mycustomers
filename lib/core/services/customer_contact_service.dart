@@ -31,7 +31,9 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   List<CustomerContact> get contactsm => _contactsm.value;
 
   RxValue<List<CustomerContact>> _selectedC = RxValue<List<CustomerContact>>(initial: []);
+  RxValue<List<CustomerContact>> _allC = RxValue<List<CustomerContact>>(initial: []);
   List<CustomerContact> get selectedC => _selectedC.value;
+  List<CustomerContact> get allC => _allC.value;
 
   List<CustomerContact> temp = [];
   bool success, error;
@@ -47,7 +49,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   var uuid = Uuid();
 
   CustomerContactService(){
-    listenToReactiveValues([_contacts, _contact, _contactsm, _selectedC]);
+    listenToReactiveValues([_contacts, _contact, _contactsm, _selectedC, _allC]);
   }
 
   @override
@@ -97,6 +99,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   }
 
   void addSelected(CustomerContact cus) {
+    _allC.value =[];
     temp.add(cus);
     _selectedC.value = [...temp];
   }
@@ -114,13 +117,22 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
 
   void selectAll(List<CustomerContact> custt) {
     _selectedC.value = [];
+    _allC.value =[];
     temp = [];
     _selectedC.value = custt;
     temp = custt;
   }
+  void allCustomers(List<CustomerContact> custt) {
+    _selectedC.value = [];
+    temp = [];
+    _allC.value =[];
+    _allC.value =  custt;
+//    temp = custt;
+  }
 
   void deselectAll() {
     temp = [];
+    _allC.value =[];
     _selectedC.value = [];
   }
 
@@ -160,7 +172,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           initials: initials,
           storeid: stid,
           market: false,
-          transactions: [],
+          transactions: {},
           messages: []
         );
         _contactBox.add(contact).then((value){
@@ -242,7 +254,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           initials: initials,
           storeid: stid, 
           market: true,
-          transactions: [],
+          transactions: {},
           messages: []
         );
         await _contactBox.add(contact).then((value){

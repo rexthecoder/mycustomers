@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -6,17 +7,31 @@ import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
+import '../../extensions/transaction_extension.dart';
 
-abstract class TransactionDataSource{
+abstract class TransactionLocalDataSource{
   //Future<void> init();
+
+  void setTransaction(TransactionModel transaction);
+
+  void getAllTransactions(String id);
+
+  Future<void> getTransactions(CustomerContact cus);
+
+  Future<CustomerContact> addTransaction(TransactionModel transaction, CustomerContact cus);
+
+  Future<CustomerContact> updateTransaction(TransactionModel transaction, CustomerContact cus);
+
+  Future<CustomerContact> deleteTransaction(CustomerContact cus);
 }
 
 
 @lazySingleton
-class TransactionLocalDataSourceImpl extends TransactionDataSource with ReactiveServiceMixin {
-  static const String _boxname = "transactionBox";
+class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with ReactiveServiceMixin {
+  //static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 
   //bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.transaction);
@@ -39,11 +54,20 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   RxValue<List<TransactionModel>> _creditlist = RxValue<List<TransactionModel>>(initial: []);
   List<TransactionModel> get creditlist => _creditlist.value;
 
-  RxValue<List<TransactionModel>> _owingcustomers = RxValue<List<TransactionModel>>(initial: []);
-  List get owingcustomers => _owingcustomers.value;
+  RxValue<List<CustomerContact>> _owingcustomers = RxValue<List<CustomerContact>>(initial: []);
+  List<CustomerContact> get owingcustomers => _owingcustomers.value;
 
-  RxValue<List<TransactionModel>> _owedcustomers = RxValue<List<TransactionModel>>(initial: []);
-  List get owedcustomers => _owedcustomers.value;
+  RxValue<List<CustomerContact>> _owedcustomers = RxValue<List<CustomerContact>>(initial: []);
+  List<CustomerContact> get owedcustomers => _owedcustomers.value;
+
+  RxValue<List<TransactionModel>> _report = RxValue<List<TransactionModel>>(initial: []);
+  List get report => _report.value;
+
+  RxValue<double> _reportdebt = RxValue<double>(initial: 0);
+  double get reportdebt => _reportdebt.value;
+  
+  RxValue<double> _reportcredit = RxValue<double>(initial: 0);
+  double get reportcredit => _reportcredit.value;
 
   List<String> formattedate = [];
   String date;
@@ -54,9 +78,11 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   RxValue<TransactionModel> _stransaction = RxValue<TransactionModel>(initial: null);
   TransactionModel get stransaction => _stransaction.value;
 
+  final dformat = new DateFormat('dd/MM/yyyy');
+
 
   TransactionLocalDataSourceImpl(){
-    listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions]);
+    listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions, _report, _reportdebt, _reportcredit]);
   }
 
   // @override
@@ -68,8 +94,40 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   //   }
   // }
 
+  @override
   void setTransaction(TransactionModel transaction){
     _stransaction.value = transaction;
+  }
+
+  void setReport(DateTime start, DateTime stop, CustomerContact cus, BuildContext context, String symbol)async {
+    print(start);
+    print(stop);
+    final dformat = new DateFormat('dd/MM/yyyy');
+    _report.value = [];
+    for(var item in _transactions.value) {
+      if(DateTime.parse(item.boughtdate).difference(start).inDays <= 0 || DateTime.parse(item.paiddate).difference(stop).inDays >= 0) {
+        _report.value.add(item);
+      }
+    }
+    _reportdebt.value = 0;
+    _reportcredit.value = 0;
+    for(var item in _report.value) {
+      _reportdebt.value += item.amount;
+      _reportcredit.value += item.paid;
+    }
+    //GeneralTransactionReport().buildPdf(context);
+    GeneralTransactionReport().buildpdf( context,
+      transactions: _transactions.value,
+      start: dformat.format(start),
+      stop: dformat.format(stop),
+      customer: cus,
+      totaldebt: _reportdebt.value,
+      totalcredit: _reportcredit.value,
+      symbol: symbol
+    ).then((value) async{
+      await GeneralTransactionReport().savepdf(context, value);
+    });
+    //await GeneralTransactionReport().savepdf(context);
   }
 
   void getAllTransactions(String id) async{
@@ -78,8 +136,8 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     print(_contactBox.values.toList());
     for(var cont in _contactBox.values.toList()) {
       if (cont.storeid == id){
-        print(cont.transactions);
-        _alltransactions.value = [..._alltransactions.value, ...cont.transactions];
+        //print(cont.transactions);
+        _alltransactions.value = [..._alltransactions.value, ...cont.transactions.helperToList()];
       }
     }
     print(_alltransactions.value);
@@ -87,21 +145,31 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     _whatyouowe.value = 0;
     _owingcustomers.value = [];
     _owedcustomers.value = [];
-    for(var item in _alltransactions.value){
-      if(item.amount-item.paid > 0) {
-        _owingcustomers.value.add(item);
+    for(var cus in _contactBox.values.toList()) {
+      double tempd = 0;
+      double tempc = 0;
+      for(var item in cus.transactions.helperToList()){
+        tempd += item.amount;
+        tempc += item.paid;
       }
-      if(item.paid-item.amount > 0) {
-        _owedcustomers.value.add(item);
-        _whatyouowe.value += item.paid-item.amount;
+      print(tempd);
+      print(tempc);
+      print(tempd - tempc);
+      if(tempd - tempc > 0) {
+        _owingcustomers.value.add(cus);
+      }
+      if(tempc - tempd > 0) {
+        _owedcustomers.value.add(cus);
+        //_whatyouowe.value += item.paid-item.amount;
       }
     }
   }
-  
+
+  @override  
   Future<void> getTransactions(CustomerContact cus) async{
     //print('get'+id.toString());
     //final bbox = await box;
-    _transactions.value = cus.transactions;
+    _transactions.value = cus.transactions.helperToList();
     // for (var transaction in _contactBox.values.toList()) {
     //   if (transaction.cId == id && transaction.sId == stid){
     //     _transactions.value.add(transaction);
@@ -149,15 +217,17 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
       }
     }
   }
+  
 
+  @override
   Future<CustomerContact> addTransaction(TransactionModel transaction, CustomerContact cus) async {
     //print(transaction.cId);
     //final bbox = await box;
     //await _transactionBox.add(transaction);
     CustomerContact temp = cus;
-    temp.transactions.add(transaction);
+    temp.transactions.putIfAbsent(transaction.tId, () => transaction);
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
-    _transactions.value = temp.transactions;
+    _transactions.value = temp.transactions.helperToList();
     // for (var transactionb in _transactionBox.values.toList()) {
     //   if (transactionb.cId == transaction.cId){
     //     _transactions.value.add(transactionb);
@@ -208,13 +278,14 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     return temp;
   }
 
+  @override
   Future<CustomerContact> updateTransaction(TransactionModel transaction, CustomerContact cus)async{
     //final bbox = await box;
     CustomerContact temp = cus;
-    temp.transactions.insert(temp.transactions.indexOf(_stransaction.value), transaction);
+    temp.transactions.update(transaction.tId, (value) => transaction);
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
 
-    _transactions.value = temp.transactions;
+    _transactions.value = temp.transactions.helperToList();
     // for (var ttransaction in _transactionBox.values.toList()) {
     //   if (ttransaction.cId == transaction.cId){
     //     _transactions.value.add(ttransaction);
@@ -299,7 +370,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
   void updateamount(CountryCurrency oldcurrency, CountryCurrency currency, String stid) async{
     for(var cus in _contactBox.values.toList()) {
       List<TransactionModel> hold = [];
-      for(var item in cus.transactions) {
+      for(var item in cus.transactions.helperToList()) {
         print(oldcurrency.symbol);
         print(currency.symbol);
         print(getamount(item.amount, oldcurrency, currency));
@@ -322,7 +393,7 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
         initials: cus.initials,
         storeid: cus.storeid,
         market: cus.market,
-        transactions: hold,
+        transactions: hold.helperToMap(),
         messages: cus.messages
       );
       await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), temp);
@@ -331,9 +402,10 @@ class TransactionLocalDataSourceImpl extends TransactionDataSource with Reactive
     getAllTransactions(stid);
   }
 
+  @override
   Future<CustomerContact> deleteTransaction(CustomerContact cus)async {
     CustomerContact tempc = cus;
-    tempc.transactions.removeAt(tempc.transactions.indexOf(_stransaction.value));
+    tempc.transactions.remove(_stransaction.value.tId);
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), tempc);
     getAllTransactions(stransaction.sId);
     getTransactions(tempc);

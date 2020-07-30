@@ -5,7 +5,6 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:flutter_screenutil/size_extension.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'edit_profile_viewmodel.dart';
@@ -13,12 +12,18 @@ import 'edit_profile_viewmodel.dart';
 class EditProfileView extends HookWidget {
   @override
   Widget build(BuildContext context) {
+
     return ViewModelBuilder<EditProfileViewModel>.reactive(
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: customizeAppBar(context, 0,
-              children: [],
+              children: [
+                FlatButton(
+                  child: Text('Save'),
+                  onPressed: model.save,
+                ),
+              ],
               title: AppLocalizations.of(context).editProfile,
               arrowColor: BrandColors.primary,
               backgroundColor: Theme.of(context).backgroundColor),
@@ -26,97 +31,25 @@ class EditProfileView extends HookWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: SizeConfig.yMargin(context, 4)),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: _previewImage(context, model),
-                  ),
-                  SizedBox(height: SizeConfig.yMargin(context, 2)),
-                  Container(
-                    height: SizeConfig.yMargin(context, 6),
-                    width: SizeConfig.xMargin(context, 60),
-                    decoration: BoxDecoration(
-                      color: BrandColors.primary,
-                      borderRadius: BorderRadius.circular(8.sp),
-                    ),
-                    child: CustomRaisedButton(
-                      txtColor: ThemeColors.background,
-                      btnColor: BrandColors.primary,
-                      btnText: model.currentStore.storePic == null
-                          ? AppLocalizations.of(context).addProfilePicture
-                          : AppLocalizations.of(context).changePic,
-                      borderColor: BrandColors.primary,
-                      child: Container(),
-                      onPressed: model.getImagefromGallery,
+                  Padding(
+                    padding: null,
+                    child: Row(
+                      children: <Widget>[
+                        _previewImage(context, model),
+                      ],
                     ),
                   ),
-                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
-                  Divider(color: ThemeColors.gray.shade600),
-                  SizedBox(height: SizeConfig.yMargin(context, 1.4)),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(AppLocalizations.of(context).userName),
-                      SizedBox(height: SizeConfig.yMargin(context, 1.5)),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: SizeConfig.yMargin(context, 0.7)),
-                        //height: SizeConfig.yMargin(context, 8),
-                        width: SizeConfig.xMargin(context, 90),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.sp),
-                            border:
-                                Border.all(color: ThemeColors.gray.shade600)),
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.xMargin(context, 4),
-                            ),
-                            child: _StringForm()),
-                      ),
-                      SizedBox(height: SizeConfig.yMargin(context, 3)),
-                      Text(AppLocalizations.of(context).businessName),
-                      SizedBox(height: SizeConfig.yMargin(context, 1.5)),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: SizeConfig.yMargin(context, 0.7)),
-                        //height: SizeConfig.yMargin(context, 8),
-                        width: SizeConfig.xMargin(context, 90),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.sp),
-                          border: Border.all(color: ThemeColors.gray.shade600),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.xMargin(context, 4),
-                          ),
-                          child: TextFormField(
-                            textCapitalization: TextCapitalization.sentences,
-                            onChanged: (value) =>
-                                model.updateBusinessName(value),
-                            initialValue: model.businessName,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText:
-                                    AppLocalizations.of(context).businessName),
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: Theme.of(context).textSelectionColor,
-                            ),
-                            textInputAction: TextInputAction.next,
-                          ),
-                        ),
-                      )
-                    ],
+                  EditField(
+                    fieldName: 'Store name',
                   ),
-                  SizedBox(
-                    height: SizeConfig.yMargin(context, 15),
+                  EditField(
+                    fieldName: 'Phone number',
                   ),
                   CustomRaisedButton(
                     txtColor: ThemeColors.background,
-                    btnColor: BrandColors.primary,
-                    borderColor: BrandColors.primary,
-                    btnText: AppLocalizations.of(context).save,
+                    btnColor: ThemeColors.error,
+                    borderColor: ThemeColors.error,
+                    btnText: AppLocalizations.of(context).signOut,
                     child: Container(),
                     onPressed: () {
                       model.save();
@@ -140,25 +73,55 @@ class EditProfileView extends HookWidget {
   }
 }
 
-class _StringForm extends HookViewModelWidget<EditProfileViewModel> {
-  const _StringForm({Key key}) : super(key: key, reactive: false);
+// ignore: must_be_immutable
+class EditField extends HookViewModelWidget<EditProfileViewModel> {
+  final String fieldName;
+  final String hintText;
+  final Function(String value,
+      {EditProfileViewModel model, TextEditingController controller}) onChanged;
+  TextEditingController controller;
+  final String initialValue;
 
+  EditField(
+      {Key key,
+      this.hintText: '',
+      this.initialValue,
+      @required this.fieldName,
+      this.onChanged,
+      this.controller})
+      : super(key: key, reactive: false) {
+    assert(controller == null || initialValue == null);
+    if (controller == null) {
+      controller = TextEditingController(text: initialValue);
+    }
+  }
   @override
   Widget buildViewModelWidget(
-      BuildContext context, EditProfileViewModel model) {
-    return TextFormField(
-      textCapitalization: TextCapitalization.sentences,
-      initialValue: model.currentUser.firstName,
-      keyboardType: TextInputType.text,
-      onChanged: (value) => model.updateUserName(value),
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: AppLocalizations.of(context).userName,
+      BuildContext context, EditProfileViewModel viewModel) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              '$fieldName:',
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: TextFormField(
+              decoration: InputDecoration.collapsed(hintText: hintText),
+              controller: controller,
+              onChanged: (val) {
+                if (onChanged != null) {
+                  onChanged(val,
+                      model: viewModel,
+                      controller: controller);
+                }
+              },
+            ),
+          ),
+        ],
       ),
-      style: TextStyle(
-        color: Theme.of(context).textSelectionColor,
-      ),
-      textInputAction: TextInputAction.done,
     );
   }
 }

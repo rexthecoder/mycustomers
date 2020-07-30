@@ -67,6 +67,7 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
+      
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       title: CircleAvatar(

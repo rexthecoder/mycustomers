@@ -19,29 +19,20 @@ import 'package:mycustomers/core/services/customer_services.dart';
 
 class MarketingHomePageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  // dummy data
-  // TODO: implement service to get frequently contacted
-  List _persons = [
-    {'name': 'Seyi Onifade', 'number': '09088355273'},
-    {'name': 'Mark Essien', 'number': '09088355273'},
-    {'name': 'Ufe Atabo', 'number': '09088355273'}
-  ];
-  List<String> dummyQuickTextMessages = [
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend'
-  ];
 
   // TODO: implement service to get notification status
   bool _notification = true;
 
   bool get notification => _notification;
 
-  List get persons => _persons;
+
 
   // Function to serve as a helper for the navigation
   Future navigateToSendMessageView() async {
     await _navigationService.navigateTo(Routes.quickMessages, arguments: selectedCustomers);
 //    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
   }
+
 
   // Get the services required
   ICustomerService _customerService = locator<ICustomerService>();
@@ -71,6 +62,12 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
 
   void setcontact(CustomerContact cont){
     _contactService.setContact(cont);
+  }
+
+  void navigateToSendMessageAllView() async {
+//    print(customers);
+    _contactService.allCustomers(customers);
+    await _navigationService.navigateTo(Routes.quickMessages, arguments: customers);
   }
 
   void getContacts(){
@@ -104,9 +101,9 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
     getContacts();
   }
 
-  void selectAll() {
+  void selectAll() async {
     _contactService.selectAll(customers);
-  }
+ }
 
   List<Customer> _allSelectedCustomers = [];
   List<Customer> _allFrequentCustomers = [];
