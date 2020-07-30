@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mycustomers/ui/views/business/about_us/about_my_customer_page/about_my_customer_view.dart';
 import 'package:mycustomers/ui/views/business/about_us/about_us_page/about_us_view.dart';
-import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
+import 'package:mycustomers/ui/views/business/about_us/privacy_policy_page/privacy_policy_view.dart';
+import 'package:mycustomers/ui/views/business/about_us/terms_and_condition_page/terms_and_condition_view.dart';
 import 'package:mycustomers/ui/views/business/digital_reciept/create_receipt_view.dart';
+import 'package:mycustomers/ui/views/business/help_support/add_complaint_page/add_complaint_view.dart';
+import 'package:mycustomers/ui/views/business/help_support/help_and_support_page/help_and_support_page.dart';
 import 'package:mycustomers/ui/views/business/profile/edit_profile/edit_profile_view.dart';
 import 'package:mycustomers/ui/views/business/settings/currency_settings_page/currency_settings_page_view.dart';
 import 'package:mycustomers/ui/views/business/settings/language_settings/language_view.dart';
@@ -60,7 +64,7 @@ abstract class Routes {
   static const detailsViewRoute = '/details';
   static const addCustomer = '/addcustomer';
   static const addCustomerMessageRoute = '/addcusmess'; // (^ = ^)
-  static const supportViewRoute = '/support';
+  static const helpAndSupportViewRoute = '/helpAndSupport';
   static const importCustomerDebtorViewRoute = '/importcustomerdebtor';
   static const importCustomerCreditorViewRoute = '/importcustomercreditor';
   static const addnewCredit = '/addnewCredit';
@@ -107,6 +111,7 @@ abstract class Routes {
   static const about_myCustomer = '/about_myCustomer';
   static const privacy_policy = '/privacy_policy';
   static const terms_and_conditions = '/terms_and_conditions';
+  static const add_complaint = '/add_complaint';
 }
 
 class Router {
@@ -282,9 +287,9 @@ class Router {
           builder: (context) => EditProfileView(),
           settings: settings,
         );
-      case Routes.supportViewRoute:
+      case Routes.helpAndSupportViewRoute:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => SupportPageView(),
+          builder: (context) => HelpAndSupportPageView(),
           settings: settings,
         );
       case Routes.mainViewRoute:
@@ -421,17 +426,22 @@ class Router {
         );
       case Routes.about_myCustomer:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => CreateReceiptView(),
+          builder: (context) => AboutMyCustomerView(),
           settings: settings,
         );
       case Routes.privacy_policy:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => CreateReceiptView(),
+          builder: (context) => PrivacyPolicyView(),
           settings: settings,
         );
       case Routes.terms_and_conditions:
         return CupertinoPageRoute<dynamic>(
-          builder: (context) => CreateReceiptView(),
+          builder: (context) => TermsAndConditionView(),
+          settings: settings,
+        );
+      case Routes.add_complaint:
+        return CupertinoPageRoute<dynamic>(
+          builder: (context) => AddComplaintView(),
           settings: settings,
         );
       default:
