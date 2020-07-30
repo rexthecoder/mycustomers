@@ -99,8 +99,15 @@ class BusinessHomePageView extends StatelessWidget {
                 optionButton(
                   context: context,
                   icon: support,
-                  label: AppLocalizations.of(context).support,
+                  //TODO Help and Support Localization
+                  label: 'Help and Support',
                   onTap: model.navigateToSupportPage,
+                ),
+                optionButton(
+                  context: context,
+                  icon: support,
+                  label: 'About us',
+                  onTap: model.navigateToAboutUsPage,
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 4)),
                 Padding(

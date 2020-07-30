@@ -105,8 +105,15 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     final dformat = new DateFormat('dd/MM/yyyy');
     _report.value = [];
     for(var item in _transactions.value) {
-      if(DateTime.parse(item.boughtdate).difference(start).inDays <= 0 || DateTime.parse(item.paiddate).difference(stop).inDays >= 0) {
-        _report.value.add(item);
+      if(item.boughtdate != null) {
+        if(DateTime.parse(item.boughtdate).difference(start).inDays <= 0 || DateTime.parse(item.boughtdate).difference(stop).inDays >= 0) {
+          _report.value.add(item);
+        }
+      }
+      if(item.paiddate != null) {
+        if(DateTime.parse(item.paiddate).difference(start).inDays <= 0 || DateTime.parse(item.paiddate).difference(stop).inDays >= 0) {
+          _report.value.add(item);
+        }
       }
     }
     _reportdebt.value = 0;
