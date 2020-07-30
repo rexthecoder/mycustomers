@@ -96,7 +96,7 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
       print('hrr');
       _contactService.deleteContactMarket(cus, cust);
     } else {
-      _contactService.deleteContact(cus);
+      _contactService.deleteContact(cus, StoreRepository.currentStore.id);
     }
     getContacts();
   }

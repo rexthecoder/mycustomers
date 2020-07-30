@@ -59,11 +59,11 @@ class CreditorsView extends StatelessWidget {
                                   fontSize: SizeConfig.yMargin(context, 2),
                                 ),
                               ),
-                              model.totalcredit() > 0
+                              model.totalcredit > 0
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.totalcredit())
+                                              .format(model.totalcredit)
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,

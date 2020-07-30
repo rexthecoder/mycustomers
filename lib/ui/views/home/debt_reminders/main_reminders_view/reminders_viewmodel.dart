@@ -51,7 +51,7 @@ class RemindersViewModel extends BaseViewModel {
   }
 
   Future<void> navigateToRemindersView() async{
-    await _navigationService.clearStackAndShow(Routes.remindersView);
+    await _navigationService.clearStackAndShow(Routes.mainViewRoute);
   }
 
   Future<void> navigateToSendMessage() async {

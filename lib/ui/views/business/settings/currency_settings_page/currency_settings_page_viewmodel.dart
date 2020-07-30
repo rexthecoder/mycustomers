@@ -29,7 +29,7 @@ class CurrencySettingPageViewModel extends ReactiveViewModel{
   void saveCurrencyIndex() async{
     await _bussinessSettingService.addCurrency(currencies[tempIndex]['country']);
     _transactionService.updateamount(oldcurrency, currency, currentStore.id);
-    _customerService.getContacts();
+    _customerService.getContacts(StoreRepository.currentStore.id);
     _logService.getValues(null, DateTime.now(), 'curr-change', currencies[tempIndex]['name'], false);
   }
 

@@ -10,6 +10,7 @@ import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
+import '../extensions/transaction_extension.dart';
 
 abstract class CustomerContactDataSource{
   Future<void> init();
@@ -44,12 +45,18 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   RxValue<CustomerContact> _contact = RxValue<CustomerContact> (initial: null);
   CustomerContact get contact => _contact.value;
 
+  RxValue<double> _totaldebt = RxValue<double> (initial: null);
+  double get totaldebt =>_totaldebt.value;
+
+  RxValue<double> _totalcredit = RxValue<double> (initial: null);
+  double get totalcredit =>_totalcredit.value;
+
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   var uuid = Uuid();
 
   CustomerContactService(){
-    listenToReactiveValues([_contacts, _contact, _contactsm, _selectedC, _allC]);
+    listenToReactiveValues([_contacts, _contact, _contactsm, _selectedC, _allC, _totalcredit, _totaldebt]);
   }
 
   @override
@@ -61,15 +68,47 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     }
   }
 
-  void getContacts() async {
+  void getContacts(String id) async {
     //final bbox = await box;
-    _contacts.value = _contactBox.values.toList();
+    _contacts.value = _contactBox.values.toList().where((element) => element.storeid == id).toList();
+    print(_contacts.value.length);
+    _totaldebt.value = tdebt();
+    _totalcredit.value = tcredit();
+    
     //_contacts.value.sort((a,b) => b.id.compareTo(a.id));
   }
 
+  double tdebt() {
+      double sum = 0;
+      for(var cus in _contacts.value) {
+        double tempd = 0;
+        double tempc = 0;
+        for(var trans in cus.transactions.helperToList()) {
+          tempd += trans.amount;
+          tempc += trans.paid;
+        }
+        sum += tempd - tempc > 0 ? tempd - tempc : 0;
+      }
+      return sum.abs();
+    }
+
+    double tcredit() {
+      double sum = 0;
+      for(var cus in _contacts.value) {
+        double tempd = 0;
+        double tempc = 0;
+        for(var trans in cus.transactions.helperToList()) {
+          tempd += trans.amount;
+          tempc += trans.paid;
+        }
+        sum += tempc - tempd > 0 ? tempc - tempd : 0;
+      }
+      return sum.abs();
+    }
+
   int getCustomerCount(String stid) {
     int sum = 0;
-    for(var item in _contacts.value) {
+    for(var item in _contactBox.values.toList()) {
       //print(item.market);
       //print(item.name);
       if(item.storeid == stid && !item.market) {
@@ -285,10 +324,10 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), cust);
   }
 
-  void deleteContact(CustomerContact cus) async {
+  void deleteContact(CustomerContact cus, String id) async {
     print(_contactBox.values.toList().indexOf(cus));
     await _contactBox.deleteAt(_contactBox.values.toList().indexOf(cus));
-    getContacts();
+    getContacts(id);
   }
 
 }

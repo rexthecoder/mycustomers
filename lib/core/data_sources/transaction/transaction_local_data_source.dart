@@ -105,10 +105,11 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     final dformat = new DateFormat('dd/MM/yyyy');
     _report.value = [];
     for(var item in _transactions.value) {
+      print('checking...');
       if(item.boughtdate != null) {
-        if((DateTime.parse(item.boughtdate).difference(start).inDays == 0 ? DateTime.parse(item.boughtdate).difference(start).inDays <= 0 && dformat.format((DateTime.parse(item.boughtdate))) == dformat.format(start) : DateTime.parse(item.boughtdate).difference(start).inDays <= 0) 
+        if((DateTime.parse(item.boughtdate).difference(start).inDays <= 0)
         && 
-        (DateTime.parse(item.boughtdate).difference(stop).inDays == 0 ? DateTime.parse(item.boughtdate).difference(stop).inDays >= 0 && dformat.format((DateTime.parse(item.boughtdate))) == dformat.format(stop) : DateTime.parse(item.boughtdate).difference(stop).inDays >= 0)) {
+        (DateTime.parse(item.boughtdate).difference(stop).inDays >= 0)) {
           print(DateTime.parse(item.boughtdate).difference(start).inDays);
           print(DateTime.parse(item.boughtdate).difference(stop).inDays);
           print(item.boughtdate);
@@ -116,9 +117,9 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
         }
       }
       if(item.paiddate != null) {
-        if((DateTime.parse(item.paiddate).difference(start).inDays == 0 ? DateTime.parse(item.paiddate).difference(start).inDays <= 0 && dformat.format((DateTime.parse(item.paiddate))) == dformat.format(start) : DateTime.parse(item.paiddate).difference(start).inDays <= 0) 
+        if((DateTime.parse(item.paiddate).difference(start).inDays <= 0) 
         && 
-        (DateTime.parse(item.paiddate).difference(stop).inDays == 0 ? DateTime.parse(item.paiddate).difference(stop).inDays >= 0 && dformat.format((DateTime.parse(item.paiddate))) == dformat.format(stop) : DateTime.parse(item.paiddate).difference(stop).inDays >= 0)) {
+        (DateTime.parse(item.paiddate).difference(stop).inDays >= 0)) {
           print(DateTime.parse(item.paiddate).difference(start).inDays);
           print(DateTime.parse(item.paiddate).difference(stop).inDays);
           print(item.paiddate);
@@ -148,6 +149,7 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
   }
 
   void getAllTransactions(String id) async{
+    print(id);
     //final bbox = await box;
     _alltransactions.value = [];
     print(_contactBox.values.toList());
@@ -163,21 +165,23 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     _owingcustomers.value = [];
     _owedcustomers.value = [];
     for(var cus in _contactBox.values.toList()) {
-      double tempd = 0;
-      double tempc = 0;
-      for(var item in cus.transactions.helperToList()){
-        tempd += item.amount;
-        tempc += item.paid;
-      }
-      print(tempd);
-      print(tempc);
-      print(tempd - tempc);
-      if(tempd - tempc > 0) {
-        _owingcustomers.value.add(cus);
-      }
-      if(tempc - tempd > 0) {
-        _owedcustomers.value.add(cus);
-        //_whatyouowe.value += item.paid-item.amount;
+      if(cus.storeid == id) {
+        double tempd = 0;
+        double tempc = 0;
+        for(var item in cus.transactions.helperToList()){
+          tempd += item.amount;
+          tempc += item.paid;
+        }
+        print(tempd);
+        print(tempc);
+        print(tempd - tempc);
+        if(tempd - tempc > 0) {
+          _owingcustomers.value.add(cus);
+        }
+        if(tempc - tempd > 0) {
+          _owedcustomers.value.add(cus);
+          //_whatyouowe.value += item.paid-item.amount;
+        }
       }
     }
   }

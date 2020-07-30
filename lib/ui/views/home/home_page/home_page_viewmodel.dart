@@ -43,6 +43,8 @@ class HomePageViewModel extends ReactiveViewModel {
   int tabNo = 0;
   List<CustomerContact> get owingcustomers => _transactionService.owingcustomers;
   List<CustomerContact> get owedcustomers => _transactionService.owedcustomers;
+  double get totaldebt => _customerContactService.totaldebt;
+  double get totalcredit => _customerContactService.totalcredit;
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
   CountryCurrency get oldcurrency => _bussinessService.oldcurren;
@@ -147,7 +149,7 @@ class HomePageViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  double totaldebt() {
+  double tdebt() {
     double sum = 0;
     for(var cus in contacts) {
       double tempd = 0;
@@ -161,7 +163,7 @@ class HomePageViewModel extends ReactiveViewModel {
     return sum.abs();
   }
 
-  double totalcredit() {
+  double tcredit() {
     double sum = 0;
     for(var cus in contacts) {
       double tempd = 0;
@@ -229,7 +231,7 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   void getContacts() {
-    _customerContactService.getContacts();
+    _customerContactService.getContacts(StoreRepository.currentStore.id);
   }
 
   void setContact(CustomerContact cus) {
