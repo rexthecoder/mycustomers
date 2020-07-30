@@ -29,37 +29,39 @@ class EditProfileView extends HookWidget {
               backgroundColor: Theme.of(context).backgroundColor),
           body: SafeArea(
             child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: null,
-                    child: Row(
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         _previewImage(context, model),
                       ],
                     ),
-                  ),
-                  EditField(
-                    fieldName: 'Store name',
-                  ),
-                  EditField(
-                    fieldName: 'Phone number',
-                  ),
-                  CustomRaisedButton(
-                    txtColor: ThemeColors.background,
-                    btnColor: ThemeColors.error,
-                    borderColor: ThemeColors.error,
-                    btnText: AppLocalizations.of(context).signOut,
-                    child: Container(),
-                    onPressed: () {
-                      model.save();
-                      flusher(AppLocalizations.of(context).save, context);
-                    },
-                  ),
-                  SizedBox(
-                    height: SizeConfig.yMargin(context, 2),
-                  )
-                ],
+                    EditField(
+                      fieldName: 'Store name',
+                    ),
+                    EditField(
+                      fieldName: 'Phone number',
+                    ),
+                    CustomRaisedButton(
+                      txtColor: ThemeColors.background,
+                      btnColor: ThemeColors.error,
+                      borderColor: ThemeColors.error,
+                      btnText: AppLocalizations.of(context).signOut,
+                      child: Container(),
+                      onPressed: () {
+                        model.save();
+                        flusher(AppLocalizations.of(context).save, context);
+                      },
+                    ),
+                    SizedBox(
+                      height: SizeConfig.yMargin(context, 2),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
