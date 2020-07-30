@@ -70,7 +70,7 @@ class MainTransactionViewModel extends ReactiveViewModel {
   List<String> items = ['SMS', 'Call', 'Set Reminders'];
   String date;
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
-  List<TransactionModel> get transactions => _transactionService.transactions;
+  List<TransactionModel> get transactions => _transactionService.transactions.reversed.toList();
   List<TransactionModel> get debitlist => _transactionService.debitlist;
   List<TransactionModel> get creditlist => _transactionService.creditlist;
 
