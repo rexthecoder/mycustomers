@@ -290,7 +290,7 @@ class MainTransaction extends StatelessWidget {
                                           if(model.transactions.length == 0) {
                                             flusher('No transaction Exists Between You and This Customer', context);
                                           } else {
-                                            SavedDialog().showPdfDialog(context, model.whichDate(model.transactions[0]), model.whichDate(model.transactions[model.transactions.length - 1]));
+                                            SavedDialog().showPdfDialog(context, model.whichDate(model.transactions[model.transactions.length - 1]), model.whichDate(model.transactions[0]));
                                           }
                                         }
                                       });
