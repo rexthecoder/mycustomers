@@ -14,9 +14,9 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 
-class TransactionDetailsViewModel extends ReactiveViewModel{
+class TransactionDetailsViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  
+
   final _customerContactService = locator<CustomerContactService>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
   CustomerContact get contact => _customerContactService.contact;
@@ -27,35 +27,30 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
 
   File imageFile;
 
-  String name = 'Seyi Onifade';
-  int phoneNumber = 09045678901;
-  String itemsPurchased = '2 Crates of 50CL Coke';
-  int costOfItems = 50000;
-  int amountPaid = 20000;
-  int amountOwing = 30000;
-
-  void delete(){
+  void delete() {
     _navigationService.back();
     _transactionService.deleteTransaction(contact);
   }
 
   void edit() {
-    transaction.amount > transaction.paid ? _navigationService.navigateTo(Routes.selectRouteDebt) : _navigationService.navigateTo(Routes.selectRouteCredit);
+    transaction.amount > transaction.paid
+        ? _navigationService.navigateTo(Routes.selectRouteDebt)
+        : _navigationService.navigateTo(Routes.selectRouteCredit);
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService];
+  List<ReactiveServiceMixin> get reactiveServices =>
+      [_transactionService, _customerContactService];
 
   Future<void> shareImageAndText() async {
     try {
       final Uint8List bytes = await imageFile.readAsBytes();
-      final String fileName =
-          '${contact.name}-Transactiondetail.png';
+      final String fileName = '${contact.name}-transaction-details.png';
 
       await WcFlutterShare.share(
-        sharePopupTitle: 'Share Your Business Card',
+        sharePopupTitle: 'Share your transaction details',
         subject: contact.name,
-        text: 'Transaction with ${contact.name}',
+        text: 'myCustomer transaction details with ${contact.name}',
         fileName: fileName,
         mimeType: 'image/png',
         bytesOfFile: bytes.buffer.asUint8List(),
@@ -66,7 +61,6 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
     }
   }
 
-
   Future<void> downloadImage() async {
     try {
       if (await _permissionService.getStoragePermission()) {
@@ -74,8 +68,7 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
 
         final String internalStorage = '/storage/emulated/0/myCustomer';
 
-        final String fileName =
-            '${contact.name}-Transactiondetail.png';
+        final String fileName = '${contact.name}-transaction-detail.png';
 
         bool isDirExist = await Directory(internalStorage).exists();
         if (!isDirExist) Directory(internalStorage).create();
@@ -87,8 +80,4 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
       throw Exception("Unable to download image");
     }
   }
-
- 
-
 }
-
