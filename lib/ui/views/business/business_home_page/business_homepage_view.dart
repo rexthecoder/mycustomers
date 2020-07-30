@@ -72,7 +72,8 @@ class BusinessHomePageView extends StatelessWidget {
                       Icons.chevron_right,
                       color: Theme.of(context).cursorColor,
                     ),
-                    onTap: model.navigateToProfilePage,
+                    onTap: () {},
+//                    model.navigateToProfilePage,
                   ),
                 ),
 

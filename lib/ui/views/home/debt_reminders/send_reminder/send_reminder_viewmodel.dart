@@ -31,7 +31,7 @@ class SendMessageViewModel extends BaseViewModel {
   List<String> get messageEntries => _messageEntries;
 
   String initialValue({String newValue}) {
-    String text = 'Dear ${transactions.contact.name}, you have an outstanding payment of $debt, kindly make payment via www.customerpay.me}';
+    String text = 'Dear ${transactions.contact.name}, you have an outstanding payment of $debt, kindly make payment via www.customerpay.me/cE54-hnegs';
     if (value == null && newValue == null) {
       value = text;
     } else if (value != null && newValue != null) {
@@ -60,7 +60,7 @@ class SendMessageViewModel extends BaseViewModel {
   void sendMessage(String text) async {
     var regText = Uri.encodeFull(text);
     var uri =
-        'sms:+${transactions.contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20via%20this%20link:https://www.customerpay.me/';
+        'sms:+${transactions.contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20via%20this%20link:https://www.customerpay.me/cE54-hnegs';
     if (Platform.isAndroid) {
       if (await canLaunch(uri)) {
         await launch(uri);
