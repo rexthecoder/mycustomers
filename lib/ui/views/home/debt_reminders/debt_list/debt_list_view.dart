@@ -5,8 +5,9 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
-import 'debt_listViewModel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
+
+import 'debt_list_viewmodel.dart';
 
 class DebtList extends StatelessWidget {
   String action;

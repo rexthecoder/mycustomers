@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
-import 'package:mycustomers/core/repositories/store/store_repository.dart';
 
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';

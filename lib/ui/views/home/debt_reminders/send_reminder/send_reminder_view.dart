@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
-import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/widgets/timeWheel.dart';
+import 'package:mycustomers/ui/views/home/debt_reminders/main_reminders_view/widgets/timeWheel.dart';
 import 'package:stacked/stacked.dart';
 import 'send_reminder_viewmodel.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';

@@ -15,8 +15,8 @@ import 'package:mycustomers/ui/views/business/settings/set_pin_settings_page/set
 import 'package:mycustomers/ui/views/home/add_customer_manually/add_customer_manually_view.dart';
 import 'package:mycustomers/ui/views/business/profile/profile_screen/profile_view.dart';
 import 'package:mycustomers/ui/views/home/add_debt_credit/select_transaction/select_transaction_view.dart';
-import 'package:mycustomers/ui/views/home/debt_reminders/debt_list/debt_listView.dart';
-import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/reminders_view.dart';
+import 'package:mycustomers/ui/views/home/debt_reminders/debt_list/debt_list_view.dart';
+import 'package:mycustomers/ui/views/home/debt_reminders/main_reminders_view/reminders_view.dart';
 import 'package:mycustomers/ui/views/home/debt_reminders/send_reminder/send_reminder_view.dart';
 import 'package:mycustomers/ui/views/home/details/details_view.dart';
 import 'package:mycustomers/ui/views/business/business_card_page/business_cardpage_view.dart';
@@ -30,7 +30,6 @@ import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.d
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
-import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
 import 'package:mycustomers/ui/views/home/signup/signup_view.dart';

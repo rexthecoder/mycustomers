@@ -1,20 +1,15 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:mycustomers/core/pdf/receipt_report_view.dart';
-import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stacked/stacked.dart';
 import 'transaction_details_viewmodel.dart';
 import '../../../shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:screenshot/screenshot.dart';
 
 
 
@@ -331,7 +326,7 @@ class TransactionDetails extends StatelessWidget {
                     GestureDetector(
                       onTap: (){
                         model.delete();
-                      }, // TODO: implement delete button
+                      },
                       child: Container(
                         height: SizeConfig.yMargin(context, 6),
                         width: SizeConfig.xMargin(context, 38),
@@ -385,10 +380,6 @@ class TransactionDetails extends StatelessWidget {
               Center(
                 child: GestureDetector(
                   onTap: () {
-//                    ReceiptReport().buildPdf(context).then((file) {
-//                      model.imageFile = file;
-//                      model.shareTextandImage();
-//                    });
                     screenshotController
                         .capture(
                       pixelRatio: ScreenUtil.pixelRatio,
@@ -397,14 +388,14 @@ class TransactionDetails extends StatelessWidget {
                         .then(
                           (File image) {
                             model.imageFile = image;
-                        FlushbarHelper.createSuccess(
-                          duration: const Duration(seconds: 5),
-                          message: 'Sharing...',
-                        ).show(context);
+//                        FlushbarHelper.createSuccess(
+//                          duration: const Duration(seconds: 5),
+//                          message: 'Sharing...',
+//                        ).show(context);
                             model.shareImageAndText();
                         FlushbarHelper.createSuccess(
                           duration: const Duration(seconds: 5),
-                          message: 'Successful',
+                          message: 'Preparing...',
                         ).show(context);
                       },
                     ).catchError(
@@ -416,8 +407,7 @@ class TransactionDetails extends StatelessWidget {
                       },
                     );
                     return;
-                    //   TODO: PDF
-                  }, // TODO: Implement shareTextandFile
+                  },
                   child: Container(
                     height: SizeConfig.yMargin(context, 6.5),
                     width: SizeConfig.xMargin(context, 50),
@@ -496,102 +486,3 @@ class BottomButton extends StatelessWidget {
     );
   }
 }
-
-// Navigator.of(context).push(new PageRouteBuilder(
-//                         opaque: false,
-//                         barrierColor: Colors.black.withOpacity(0.5),
-//                         barrierDismissible: true,
-//                         pageBuilder: (BuildContext context, __, _) {
-//                           return Center(
-//                             child: Column(
-//                               children: <Widget>[
-//                                 Expanded(
-//                                   flex: 1,
-//                                   child: SizedBox(),
-//                                 ),
-//                                 Align(
-//                                   alignment: Alignment.bottomCenter,
-//                                   child: Container(
-//                                     padding: EdgeInsets.only(
-//                                         top: 20,
-//                                         left: 10,
-//                                         right: 10,
-//                                         bottom: 80),
-//                                     decoration: BoxDecoration(
-//                                       color: Colors.white,
-//                                       //borderRadius: BorderRadius.only(topRight: Radius.circular(40.sp), topLeft: Radius.circular(40.sp))
-//                                     ),
-//                                     child: Column(
-//                                       mainAxisAlignment:
-//                                           MainAxisAlignment.spaceAround,
-//                                       crossAxisAlignment:
-//                                           CrossAxisAlignment.end,
-//                                       children: <Widget>[
-//                                         Row(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.end,
-//                                           children: <Widget>[
-//                                             Expanded(
-//                                               child: Center(
-//                                                 child: Container(
-//                                                   margin: EdgeInsets.only(
-//                                                       bottom: 10),
-//                                                   child: Text(
-//                                                     AppLocalizations.of(context)
-//                                                         .shareTo,
-//                                                     style: Theme.of(context)
-//                                                         .textTheme
-//                                                         .headline5
-//                                                         .copyWith(
-//                                                           fontSize: 40.sp,
-//                                                           fontWeight:
-//                                                               FontWeight.bold,
-//                                                           color: color,
-//                                                         ),
-//                                                   ),
-//                                                 ),
-//                                               ),
-//                                             ),
-//                                             GestureDetector(
-//                                               onTap: () =>
-//                                                   Navigator.pop(context),
-//                                               child: SvgPicture.asset(
-//                                                 'assets/icons/cancel.svg',
-//                                                 color: BrandColors.primary,
-//                                                 width: 35.w,
-//                                               ),
-//                                             ),
-//                                             SizedBox(
-//                                               width: 10.w,
-//                                             )
-//                                           ],
-//                                         ),
-//                                         Row(
-//                                           mainAxisAlignment:
-//                                               MainAxisAlignment.spaceAround,
-//                                           children: <Widget>[
-//                                             BottomButton(
-//                                               text: 'Facebook',
-//                                               imagePath:
-//                                                   'assets/images/Subtract.svg',
-//                                             ),
-//                                             BottomButton(
-//                                               text: 'Whatsapp',
-//                                               imagePath:
-//                                                   'assets/images/Page-1.svg',
-//                                             ),
-//                                             BottomButton(
-//                                               text: 'Gmail',
-//                                               imagePath:
-//                                                   'assets/images/super-g.svg',
-//                                             ),
-//                                           ],
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   ),
-//                                 )
-//                               ],
-//                             ),
-//                           );
-//                         }));

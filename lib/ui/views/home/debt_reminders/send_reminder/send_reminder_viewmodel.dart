@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/reminders_view_model.dart';
+import 'package:mycustomers/ui/views/home/debt_reminders/main_reminders_view/reminders_viewmodel.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:stacked/stacked.dart';

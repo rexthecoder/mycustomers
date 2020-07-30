@@ -2,8 +2,6 @@ import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 
-import './http/http_service_impl.dart';
-
 abstract class IApi {
   /* CUSTOMER SERVICES */
 

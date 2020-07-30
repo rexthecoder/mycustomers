@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
-import 'package:mycustomers/main.dart';
-import 'package:mycustomers/ui/views/home/debt_reminders/send_reminder/send_reminder_view.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:mycustomers/core/localization/app_localization.dart';
-import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/reminders_view.dart';
 
 class NotificationRemindersService {
   final NavigationService _navigationService = locator<NavigationService>();

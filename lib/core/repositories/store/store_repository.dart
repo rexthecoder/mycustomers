@@ -1,6 +1,5 @@
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
-import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';

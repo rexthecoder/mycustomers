@@ -1,4 +1,3 @@
-import 'package:stacked/stacked.dart';
 
 abstract class NotificationService {
   Future<String> getSmsMessage();
