@@ -108,6 +108,20 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   init({String query}) async {
     number = PhoneNumber(isoCode: isoCode);
     final bool isPermitted = await _permission.getContactsPermission();
+
+    if(_phoneContactService.contactsCount() != (await iOwnerServices.getPhoneContacts(query: query)).toList().length){
+      final bool isPermitted = await _permission.getContactsPermission();
+      if(isPermitted) {
+        notifyListeners();
+        for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+          print('Iterate');
+          await _phoneContactService.addCustomer(customer);
+        }
+        _phoneContactService.getContacts();
+      }
+    } else {
+      _phoneContactService.getContacts();
+    }
     
     //List<Customer> temp = [];
     if(isPermitted) {
