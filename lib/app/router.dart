@@ -111,6 +111,8 @@ abstract class Routes {
   static const remindersView = '/remindersView';
   static const sendReminderDebtList = '/sendReminderDebtList';
   static const scheduleReminderDebtList = '/scheduleReminderDebtList';
+  static const sendSingleDebt = '/singleDebtNotification';
+  static const scheduleSingleDebt = '/sscheduleDebtNotification';
   // static const pdfViewerScreen='pdfViewerScreen';
   static const createReceipt = '/createReceipt';
   static const about_us = '/about_us';
@@ -418,36 +420,50 @@ class Router {
       case Routes.sendNotificationMessage:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SendMessage(
-            action: AppLocalizations.of(context).send,
+            action: 'send',
           ),
           settings: settings,
         );
       case Routes.scheduleNotifications:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SendMessage(
-            action: AppLocalizations.of(context).schedule,
+            action: 'schedule',
           ),
           settings: settings,
         );
-        case Routes.remindersView:
+      case Routes.remindersView:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => RemindersView(),
           settings: settings,
         );
-        case Routes.sendReminderDebtList:
+      case Routes.sendReminderDebtList:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DebtList(
-            action: AppLocalizations.of(context).send,
+            action: 'send',
           ),
           settings: settings,
         );
-         case Routes.scheduleReminderDebtList:
+      case Routes.scheduleReminderDebtList:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => DebtList(
-            action: AppLocalizations.of(context).schedule,
+            action: 'schedule',
           ),
           settings: settings,
         );
+      case Routes.sendSingleDebt:
+        return CupertinoPageRoute(
+            builder: (context) => SendMessage(
+                  action: 'send',
+                  process: 'STrans',
+                ),
+            settings: settings);
+      case Routes.scheduleSingleDebt:
+        return CupertinoPageRoute(
+            builder: (context) => SendMessage(
+                  action: 'schedule',
+                  process: 'STrans',
+                ),
+            settings: settings);
       case Routes.createReceipt:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => CreateReceiptView(),
