@@ -109,7 +109,7 @@ class BusinessHomePageView extends StatelessWidget {
                   label: 'About us',
                   onTap: model.navigateToAboutUsPage,
                 ),
-                SizedBox(height: SizeConfig.yMargin(context, 4)),
+                SizedBox(height: SizeConfig.yMargin(context, 3)),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: 20, horizontal: SizeConfig.xMargin(context, 7)),
@@ -121,14 +121,14 @@ class BusinessHomePageView extends StatelessWidget {
                           showArrow: false,
                           screenshotController: screenshotController,
                         ),
-                        SizedBox(height: SizeConfig.yMargin(context, 1)),
+                        SizedBox(height: SizeConfig.yMargin(context, 2)),
                         Container(
-                          height: SizeConfig.yMargin(context, 6),
+                          height: SizeConfig.yMargin(context, 5),
                           width: SizeConfig.xMargin(context, 60),
                           child: CustomShareRaisedButton(
                             txtColor: ThemeColors.background,
                             btnColor: BrandColors.primary,
-                            btnText: 'Share Business Card',
+                            btnText: 'Share your business card',
                             borderColor: BrandColors.primary,
                             child: SvgPicture.asset(
                               share,

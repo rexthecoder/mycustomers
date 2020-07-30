@@ -60,7 +60,7 @@ Container cardTile(
       border: Border(
         bottom: BorderSide(
           width: 1,
-          color: Theme.of(context).cursorColor,
+          color: Theme.of(context).cursorColor.withOpacity(0.2),
         ),
       ),
     ),

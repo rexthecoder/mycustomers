@@ -22,7 +22,7 @@ class AddComplaintView extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: customizeAppBar(context, 1.0,
             children: [],
-            // TODO Localize
+            // TODO: Localize
             title: 'Add Complaint',
             arrowColor: BrandColors.primary,
             backgroundColor: Theme.of(context).backgroundColor),
@@ -40,7 +40,7 @@ class AddComplaintView extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   onChanged: (value) => model.onChangeSubject(value),
                   decoration: InputDecoration(
-                    // TODO Localize subject
+                    // TODO: Localize subject
                     hintText: 'Subject',
                     hintStyle: TextStyle(fontSize: 16.sp),
                     contentPadding: EdgeInsets.fromLTRB(16.h, 20, 0, 16.h),

@@ -19,7 +19,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
           (_) async {
         businessCardController.animateToPage(
           int.parse(model.businessCard.cardDesign),
-          duration: new Duration(milliseconds: 300),
+          duration: new Duration(milliseconds: 800),
           curve: Curves.easeIn,
         );
         await Future.delayed(new Duration(milliseconds: 500));
