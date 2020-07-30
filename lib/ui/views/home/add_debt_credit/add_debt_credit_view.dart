@@ -753,8 +753,9 @@ class AddDebtCreditView extends StatelessWidget {
                                             leading: Center(
                                                 child: CircleAvatar(
                                               child: Text(
-                                                'a',//'${item.ini.toUpperCase()}',
+                                                item.displayName[0],//item.displayName.trim().split(' ').length > 1 ? (item.displayName.split(' ')[0].replaceAll(' ', '').length == 0 ? '' : item.displayName.split(' ')[0][0])+''+ (item.displayName.split(' ')[1].replaceAll(' ', '').length == 0 ? '' : item.displayName.split(' ')[1][0]) : item.displayName[0].toUpperCase(),
                                                 style: TextStyle(
+                                                  fontFamily: 'Roboto',
                                                   color: action == 'debtor'
                                                       ? BrandColors.primary
                                                       : BrandColors.secondary,

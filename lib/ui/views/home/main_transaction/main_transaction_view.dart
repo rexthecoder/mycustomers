@@ -183,7 +183,7 @@ class MainTransaction extends StatelessWidget {
                                                   ' ' +
                                                   AppLocalizations.of(context)
                                                       .owesYou +
-                                                  ' ',
+                                                  '   ',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline5
@@ -229,7 +229,7 @@ class MainTransaction extends StatelessWidget {
                                             Text(
                                               AppLocalizations.of(context)
                                                       .youOwe +
-                                                  ' this customer ',//${model.contact.name}
+                                                  ' this customer    ',//${model.contact.name}
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline5
@@ -285,7 +285,7 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                      model.getPermission().then((value) {
+                                      await model.permission.getStoragePermission().then((value) {
                                         if(value) {
                                           if(model.transactions.length == 0) {
                                             flusher('No transaction Exists Between You and This Customer', context);
@@ -580,7 +580,7 @@ class MainTransaction extends StatelessWidget {
                                                                             fontSize: SizeConfig.yMargin(context,
                                                                                 1.8),
                                                                             color:
-                                                                                Color(0xFF828282)),
+                                                                                Color(0xFF828282)), maxLines: 1,
                                                                       ),
                                                                       Text(
                                                                         model.getdDate(item.boughtdate) +
@@ -592,16 +592,19 @@ class MainTransaction extends StatelessWidget {
                                                                             color:
                                                                                 Color(0xFF828282)),
                                                                       ),
-                                                                      Text(
-                                                                        item.description ??
-                                                                            '',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          fontSize: SizeConfig.yMargin(
-                                                                              context,
-                                                                              2.2),
+                                                                      Padding(
+                                                                        padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
+                                                                        child: Text(
+                                                                          item.description ??
+                                                                              '',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: SizeConfig.yMargin(
+                                                                                context,
+                                                                                2.2),
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ],
@@ -739,13 +742,16 @@ class MainTransaction extends StatelessWidget {
                                                                             style:
                                                                                 TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
                                                                           ),
-                                                                          Text(
-                                                                            item.description ??
-                                                                                '',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontWeight: FontWeight.bold,
-                                                                              fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                          Padding(
+                                                                            padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
+                                                                            child: Text(
+                                                                              item.description ??
+                                                                                  '',
+                                                                              style:
+                                                                                  TextStyle(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -841,17 +847,20 @@ class MainTransaction extends StatelessWidget {
                                                                                     fontSize: SizeConfig.yMargin(context,
                                                                                         1.8),
                                                                                     color:
-                                                                                        Color(0xFF828282)),
+                                                                                        Color(0xFF828282)), maxLines: 1,
                                                                               ),
                                                                               Text(
                                                                                 model.getdDate(item.paiddate) + ' - ' + model.getTime(item.paiddate),
                                                                                 style: TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
                                                                               ),
-                                                                              Text(
-                                                                                item.description ?? '',
-                                                                                style: TextStyle(
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                              Padding(
+                                                                                padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
+                                                                                child: Text(
+                                                                                  item.description ?? '',
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ],

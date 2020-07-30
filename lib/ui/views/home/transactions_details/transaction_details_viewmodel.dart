@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:intl/intl.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
@@ -20,6 +21,8 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
   CustomerContact get contact => _customerContactService.contact;
   TransactionModel get transaction => _transactionService.stransaction;
+
+  final dformat = new DateFormat('dd/MM/yyyy');
 
   File imageFile;
 

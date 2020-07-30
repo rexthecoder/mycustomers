@@ -64,7 +64,7 @@ class TransactionDetails extends StatelessWidget {
                   child: Center(
                     child: Container(
                       decoration: BoxDecoration(
-                          // color: containerColor,
+                          color: Theme.of(context).backgroundColor,
                           border: Border.all(
                               color: Theme.of(context).textSelectionColor),
                           borderRadius: BorderRadius.circular(8)),
@@ -140,95 +140,169 @@ class TransactionDetails extends StatelessWidget {
                                       left: SizeConfig.xMargin(context, 4.5),
                                       right: SizeConfig.xMargin(context, 4.5),
                                       bottom: SizeConfig.yMargin(context, 2.8)),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  child: Column(
                                     children: <Widget>[
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      Row(
                                         children: <Widget>[
                                           Text(
-                                            AppLocalizations.of(context)
-                                                .costOfItems,
+                                            'Transaction Id   ',
                                             // textAlign: TextAlign.end,
                                             style: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: SizeConfig.yMargin(context, 2)),
                                           ),
-                                          SizedBox(
-                                            height: SizeConfig.yMargin(context, 2),
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)
-                                                .amountPaid,
-                                            // textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: SizeConfig.yMargin(context, 2)),
-                                          ),
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)
-                                                .amountOwing,
-                                            // textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: SizeConfig.yMargin(context, 2)),
+                                          Expanded(
+                                            child: Text(
+                                              model.transaction.tId,
+                                              // textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.grey[600],
+                                                  fontSize: SizeConfig.yMargin(context, 2)), maxLines: 1,
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      SizedBox(
+                                        height: SizeConfig.yMargin(context, 0.3),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                'Due-Date',
+                                                // textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.yMargin(context, 2),
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .costOfItems,
+                                                // textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.yMargin(context, 2),
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .amountPaid,
+                                                // textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                              SizedBox(
+                                                height: 20.h,
+                                              ),
+                                              Text(
+                                                AppLocalizations.of(context)
+                                                    .amountOwing,
+                                                // textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: SizeConfig.yMargin(context, 2.3),
+                                              ),
+                                              Text(
+                                                model.dformat.format(DateTime.parse(model.transaction.duedate)),
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor,
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.yMargin(context, 2),
+                                              ),
+                                              Text(
+                                                model.transaction.amount != null
+                                                    ? '₦${currency.format(model.transaction.amount)}'
+                                                    : '₦0',
+                                                // textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .textSelectionColor,
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.yMargin(context, 2),
+                                              ),
+                                              Text(
+                                                model.transaction.paid != null
+                                                    ? '₦${currency.format(model.transaction.paid)}'
+                                                    : '₦0',
+                                                // textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                              SizedBox(
+                                                height: SizeConfig.yMargin(context, 2),
+                                              ),
+                                              Text(
+                                                model.transaction.amount != null &&
+                                                        model.transaction.paid !=
+                                                            null &&
+                                                        (model.transaction.amount -
+                                                                model.transaction
+                                                                    .paid) >
+                                                            0
+                                                    ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
+                                                    : '₦0',
+                                                // textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                    color: Colors.red[800],
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: SizeConfig.yMargin(context, 2)),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: SizeConfig.yMargin(context, 1.6),
+                                      ),
+                                      Row(
                                         children: <Widget>[
                                           Text(
-                                            model.transaction.amount != null
-                                                ? '₦${currency.format(model.transaction.amount)}'
-                                                : '₦0',
+                                            'Description:   ',
                                             // textAlign: TextAlign.end,
                                             style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .textSelectionColor,
-                                                fontFamily: 'Roboto',
+                                                color: Colors.grey[600],
                                                 fontSize: SizeConfig.yMargin(context, 2)),
                                           ),
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
-                                          Text(
-                                            model.transaction.paid != null
-                                                ? '₦${currency.format(model.transaction.paid)}'
-                                                : '₦0',
-                                            // textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                                color: Colors.green,
-                                                fontFamily: 'Roboto',
-                                                fontSize: SizeConfig.yMargin(context, 2)),
-                                          ),
-                                          SizedBox(
-                                            height: SizeConfig.yMargin(context, 2),
-                                          ),
-                                          Text(
-                                            model.transaction.amount != null &&
-                                                    model.transaction.paid !=
-                                                        null &&
-                                                    (model.transaction.amount -
-                                                            model.transaction
-                                                                .paid) >
-                                                        0
-                                                ? '₦${currency.format(model.transaction.amount - model.transaction.paid)}'
-                                                : '₦0',
-                                            // textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                                color: Colors.red[800],
-                                                fontFamily: 'Roboto',
-                                                fontSize: SizeConfig.yMargin(context, 2)),
+                                          Expanded(
+                                            child: Text(
+                                              model.transaction.description,
+                                              // textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  color: Colors.grey[600],
+                                                  fontSize: SizeConfig.yMargin(context, 2)), maxLines: 1,
+                                            ),
                                           ),
                                         ],
-                                      )
+                                      ),
                                     ],
                                   )),
                             ],

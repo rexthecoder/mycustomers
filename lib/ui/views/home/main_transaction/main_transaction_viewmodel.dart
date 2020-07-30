@@ -54,12 +54,12 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   final dformat = new DateFormat('dd/MM/yy');
 
-  PermissionService _permission = new PermissionService();
+  PermissionService permission = new PermissionService();
 
   //bool permitted = await _permission.getStoragePermission();
 
   Future<bool> getPermission() async{
-    return await _permission.getStoragePermission();
+    return await permission.getStoragePermission();
   }
   
 
