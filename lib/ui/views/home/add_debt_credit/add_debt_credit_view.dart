@@ -748,7 +748,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           itemBuilder: (context, index) {
                                             Customer item = model.searchController.text.isEmpty ? model.contactsList[index] : model.filtered[index];
                                             return MyListTile(
-                                            onTap: () => model.setName(item),
+                                            onTap: () => model.setName(item, action),
                                             action: action,
                                             leading: Center(
                                                 child: CircleAvatar(

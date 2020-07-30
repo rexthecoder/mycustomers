@@ -214,10 +214,22 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     }
   }
 
-  void setName(Customer cus) {
+  void setName(Customer cus, String action) {
     searchController.text = cus.displayName;
     _name = cus.displayName;
     selectedCustomer = cus;
+    action == 'debit'
+          ? amount != null &&
+                  newDate != null &&
+                  newODate.length > 0 &&
+                  name.length != 0 //&& number != null
+              ? save = true
+              : save = false
+          : amount != null &&
+                  newODate != null &&
+                  name.length != 0 //&& number != null
+              ? save = true
+              : save = false;
     shownames = false;
     notifyListeners();
   }
