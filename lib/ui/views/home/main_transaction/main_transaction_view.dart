@@ -12,7 +12,6 @@ import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_view
 import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -339,7 +338,7 @@ class MainTransaction extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      launch('tel:+${model.contact.phoneNumber}');
+                                      launch('tel:${model.contact.phoneNumber}');
                                     },
                                     child: Container(
                                       width: SizeConfig.xMargin(context, 100) *
