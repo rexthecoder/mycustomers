@@ -44,7 +44,7 @@ class SavedDialog extends StatelessWidget {
   showPdfDialog(BuildContext context, DateTime start, DateTime stop) {
     showDialog(
       context: context,
-      builder: (context) => ViewModelBuilder<MainTransactionViewModel>.reactive(
+      builder: (BuildContext dcontext) => ViewModelBuilder<MainTransactionViewModel>.reactive(
         builder: (context, model, child) => AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -217,7 +217,7 @@ class SavedDialog extends StatelessWidget {
                     children: <Widget>[
                       InkWell(
                         onTap: (){
-                          Navigator.pop(context);
+                          Navigator.pop(dcontext);
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 10)),
@@ -242,7 +242,7 @@ class SavedDialog extends StatelessWidget {
                             model.setreportdialogerror();
                           }else {
                             model.getPdf(context);
-                            Navigator.pop(context);
+                            Navigator.of(dcontext).pop();
                           }
                         },
                         child: Container(
