@@ -3,12 +3,24 @@ import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/remi
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:stacked/stacked.dart';
+import 'package:intl/intl.dart';
 
 class SendMessageViewModel extends BaseViewModel {
+  final MainTransactionViewModel transactions = MainTransactionViewModel();
+  final RemindersViewModel reminders = RemindersViewModel();
+
   String _controllerValue;
   String _messageControllerValue;
+  String number = "0786067005";
+
+  String value;
+
+  String description;
+
   String get messageControllerValue => _messageControllerValue;
   get controllerValue => _controllerValue;
+
+  final currency = new NumberFormat("#,##0", "en_NG");
 
   final List<String> _messageEntries = <String>[
     "Don't leave me",
@@ -16,18 +28,22 @@ class SendMessageViewModel extends BaseViewModel {
     "Debt reminder"
   ];
 
-  String number = "0786067005";
-
-  String value = 'Dear Sir/Ma, you have an outstanding payment of ${debt}';
-  String _description;
-  String get description => _description;
-
   List<String> get messageEntries => _messageEntries;
 
-  final MainTransactionViewModel transactions = MainTransactionViewModel();
-  final RemindersViewModel reminders = RemindersViewModel();
+  String initialValue({String newValue}) {
+    String text = 'Dear Sir/Ma, you have an outstanding payment of $debt.';
+    if (value == null && newValue == null) {
+      value = text;
+    } else if (value != null && newValue != null) {
+      value = newValue;
+    }
+    return value;
+  }
 
-  int get debt => transactions.bought();
+  String get debt =>
+      transactions.currency.symbol +
+      currency
+          .format(transactions.getamount((transactions.bought()).toDouble()));
 
   void updateFieldValue(String buttonValue) {
     _controllerValue = buttonValue;
@@ -41,8 +57,8 @@ class SendMessageViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void sendMessage() async {
-    var regText = Uri.encodeFull(value);
+  void sendMessage(String text) async {
+    var regText = Uri.encodeFull(text);
     var uri =
         'sms:+${transactions.contact.phoneNumber}?body=$regText%20\nPlease%20make%20payment%20using%20this%20link:https://www.google.com/';
     if (Platform.isAndroid) {
@@ -50,10 +66,5 @@ class SendMessageViewModel extends BaseViewModel {
         await launch(uri);
       }
     }
-  }
-
-  void updateString(String value) {
-    _description = value;
-    notifyListeners();
   }
 }

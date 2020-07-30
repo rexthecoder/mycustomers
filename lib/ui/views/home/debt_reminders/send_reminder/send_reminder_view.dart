@@ -14,7 +14,7 @@ class SendMessage extends StatelessWidget {
   SendMessage({this.action});
   @override
   Widget build(BuildContext context) {
-     final currency = new NumberFormat("#,##0", "en_NG");
+    final currency = new NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (contxt, model, child) {
         return Scaffold(
@@ -66,9 +66,9 @@ class SendMessage extends StatelessWidget {
                                 maxLines: null,
                                 maxLengthEnforced: false,
                                 onChanged: (value) {
-                                  model.value = value;
+                                  model.initialValue(newValue: value);
                                 },
-                                initialValue: model.value
+                                initialValue: model.initialValue(),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)
@@ -180,8 +180,7 @@ class SendMessage extends StatelessWidget {
                             )
                           : SizedBox(),
                       action == AppLocalizations.of(context).schedule
-                          ?
-                          Container(
+                          ? Container(
                               height: SizeConfig.xMargin(context, 45),
                               width: SizeConfig.xMargin(context, 90),
                               padding: EdgeInsets.symmetric(
@@ -200,9 +199,10 @@ class SendMessage extends StatelessWidget {
                                 maxLines: null,
                                 maxLengthEnforced: false,
                                 onChanged: (value) {
-                                  model.value = value;
+                                  model.description = value;
+                                  model.initialValue(newValue: value);
                                 },
-                                initialValue: model.value,
+                                initialValue: model.initialValue(),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: AppLocalizations.of(context)
@@ -217,20 +217,23 @@ class SendMessage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if (action == AppLocalizations.of(context).schedule) {
-                            if (model.description == null) {
-                              flusher(
-                                  AppLocalizations.of(context)
-                                      .fieldShouldNotBeEmpty,
-                                  context);
-                            } else if (model.description.isNotEmpty) {
+                            // if (model.description == null &&
+                            //     model.value != null) {
+                            //   print(model.value);
+                            //   flusher(
+                            //       AppLocalizations.of(context)
+                            //           .fieldShouldNotBeEmpty,
+                            //       context);
+                            //} else if (model.description.isNotEmpty) {
                               flusher('Your Reminder has been set successfully',
                                   context);
                               model.reminders.scheduleReminder();
-                              model.reminders.navigateToMainView();
-                            }
+                              model.reminders.navigateToRemindersView();
+                           // }
                           } else if (action ==
                               AppLocalizations.of(context).send) {
-                            model.sendMessage();
+                            print(model.value);
+                            model.sendMessage(model.initialValue());
                           }
                         },
                         child: Container(

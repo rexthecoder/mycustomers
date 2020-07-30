@@ -63,8 +63,8 @@ class RemindersViewModel extends BaseViewModel {
         '${_today.year}-0${scheduledDate.month}-${scheduledDate.day} ${_selectedTime.substring(0, 2)}:${selectedTime.substring(3, 5)}');
   }
 
-  Future<void> navigateToMainView() async{
-    await _navigationService.clearStackAndShow(Routes.mainViewRoute);
+  Future<void> navigateToRemindersView() async{
+    await _navigationService.clearStackAndShow(Routes.remindersView);
   }
 
   Future<void> navigateToSendMessage() async {

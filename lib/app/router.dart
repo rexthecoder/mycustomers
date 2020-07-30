@@ -410,7 +410,7 @@ class Router {
       case Routes.scheduleNotifications:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => SendMessage(
-            action: AppLocalizations.of(context).send,
+            action: AppLocalizations.of(context).schedule,
           ),
           settings: settings,
         );

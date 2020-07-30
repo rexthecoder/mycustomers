@@ -26,8 +26,8 @@ class RemindersView extends StatelessWidget {
                     InkWell(
                         onTap: model.navigateToSendReminderDebtList,
                         child: Container(
-                          height: SizeConfig.yMargin(context, 7),
-                          width: SizeConfig.xMargin(context, 60),
+                          height: SizeConfig.yMargin(context, 8),
+                          width: SizeConfig.xMargin(context, 80),
                           decoration: BoxDecoration(
                               color: BrandColors.primary,
                               borderRadius: BorderRadius.circular(
@@ -39,7 +39,8 @@ class RemindersView extends StatelessWidget {
                                 child: Text(
                                   AppLocalizations.of(context).sendReminder,
                                   style:
-                                      TextStyle(color: ThemeColors.background),
+                                      TextStyle(color: ThemeColors.background,
+                                      fontSize: SizeConfig.textSize(context, 4)),
                                 ),
                               )),
                         )),
@@ -51,8 +52,8 @@ class RemindersView extends StatelessWidget {
                     InkWell(
                       onTap: model.navigateToScheduleReminderDebtList,
                       child: Container(
-                        height: SizeConfig.yMargin(context, 7),
-                        width: SizeConfig.xMargin(context, 60),
+                        height: SizeConfig.yMargin(context, 8),
+                        width: SizeConfig.xMargin(context, 80),
                         decoration: BoxDecoration(
                           color: BrandColors.primary,
                           borderRadius: BorderRadius.circular(
@@ -63,7 +64,8 @@ class RemindersView extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 AppLocalizations.of(context).scheduleReminder,
-                                style: TextStyle(color: ThemeColors.background),
+                                style: TextStyle(color: ThemeColors.background,
+                                fontSize: SizeConfig.textSize(context, 4)),
                               ),
                             )),
                       ),
