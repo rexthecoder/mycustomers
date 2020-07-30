@@ -15,18 +15,58 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class MainTransactionViewModel extends ReactiveViewModel{
+class MainTransactionViewModel extends ReactiveViewModel {
   List purchases = [
-    { 'id': 1, 'status': 'bought', 'amount': 50000, 'date': '2020-06-10 09:00:00' },
-    { 'id': 2, 'status': 'paid', 'amount': 20000, 'date': '2020-06-10 11:00:00.00' },
-    { 'id': 3, 'status': 'paid', 'amount': 20000, 'date': '2020-06-15 12:00:00.00' },
-    { 'id': 4, 'status': 'paid', 'amount': 10000, 'date': '2020-06-15 10:00:00.00' },
-    { 'id': 5, 'status': 'bought', 'amount': 80000, 'date': '2020-06-15 09:00:00.00' },
-    { 'id': 6, 'status': 'paid', 'amount': 30000, 'date': '2020-06-20 11:00:00.00' },
-    { 'id': 7, 'status': 'bought', 'amount': 60000, 'date': '2020-06-20 09:00:00.00' },
-    { 'id': 8, 'status': 'paid', 'amount': 10000, 'date': '2020-06-25 13:00:00.00' },
+    {
+      'id': 1,
+      'status': 'bought',
+      'amount': 50000,
+      'date': '2020-06-10 09:00:00'
+    },
+    {
+      'id': 2,
+      'status': 'paid',
+      'amount': 20000,
+      'date': '2020-06-10 11:00:00.00'
+    },
+    {
+      'id': 3,
+      'status': 'paid',
+      'amount': 20000,
+      'date': '2020-06-15 12:00:00.00'
+    },
+    {
+      'id': 4,
+      'status': 'paid',
+      'amount': 10000,
+      'date': '2020-06-15 10:00:00.00'
+    },
+    {
+      'id': 5,
+      'status': 'bought',
+      'amount': 80000,
+      'date': '2020-06-15 09:00:00.00'
+    },
+    {
+      'id': 6,
+      'status': 'paid',
+      'amount': 30000,
+      'date': '2020-06-20 11:00:00.00'
+    },
+    {
+      'id': 7,
+      'status': 'bought',
+      'amount': 60000,
+      'date': '2020-06-20 09:00:00.00'
+    },
+    {
+      'id': 8,
+      'status': 'paid',
+      'amount': 10000,
+      'date': '2020-06-25 13:00:00.00'
+    },
   ];
-  
+
   List<String> items = ['SMS', 'Call', 'Set Reminders'];
   String date;
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
@@ -35,7 +75,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   List<TransactionModel> get creditlist => _transactionService.creditlist;
 
   final NavigationService _navigationService = locator<NavigationService>();
-  
+
   final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
 
@@ -63,7 +103,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
   }
   
 
-  double getamount(double amt){
+  double getamount(double amt) {
     return amt;
     // if(oldcurrency != null) {
     //   if(oldcurrency.symbol == '₦') {
@@ -135,17 +175,17 @@ class MainTransactionViewModel extends ReactiveViewModel{
   int bought(){
     int sum = 0;
     for (var item in transactions) {
-      if(item.amount != 0) {
+      if (item.amount != 0) {
         sum += item.amount.round();
       }
     }
     return sum;
   }
 
-  int paid(){
+  int paid() {
     int sum = 0;
     for (var item in transactions) {
-      if(item.paid != 0) {
+      if (item.paid != 0) {
         sum += item.paid.round();
       }
     }
@@ -159,7 +199,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   String getDate(String gdate) {
     final dformat = new DateFormat('d MMM');
-    if(dformat.format(DateTime.parse(gdate)).toString() != date) {
+    if (dformat.format(DateTime.parse(gdate)).toString() != date) {
       date = dformat.format(DateTime.parse(gdate)).toString();
     }
     return dformat.format(DateTime.parse(gdate)).toString();
@@ -167,7 +207,7 @@ class MainTransactionViewModel extends ReactiveViewModel{
 
   String getdDate(String gdate) {
     final dformat = new DateFormat('dd/MM/yyyy');
-    if(dformat.format(DateTime.parse(gdate)).toString() != date) {
+    if (dformat.format(DateTime.parse(gdate)).toString() != date) {
       date = dformat.format(DateTime.parse(gdate)).toString();
     }
     return dformat.format(DateTime.parse(gdate)).toString();
@@ -191,15 +231,16 @@ class MainTransactionViewModel extends ReactiveViewModel{
   //   }
   // }
 
-  void navigateToHome(){
+  void navigateToHome() {
     //_navigationService.popUntil((route) => route.settings.name == Routes.mainViewRoute);
     _navigationService.back();
   }
 
-void navigateToSchedule(){
-    _navigationService.navigateTo(Routes.sendNotificationMessage);
+  void navigateToSchedule() {
+    _navigationService.navigateTo(Routes.remindersView);
   }
-  void navigateDetails(TransactionModel item){
+
+  void navigateDetails(TransactionModel item) {
     _transactionService.setTransaction(item);
     _navigationService.navigateTo(Routes.transactionDetails);
   }
