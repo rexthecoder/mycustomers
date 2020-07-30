@@ -1,4 +1,3 @@
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
@@ -10,6 +9,7 @@ import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:mycustomers/core/pdf/storagepermission.dart';
@@ -17,7 +17,6 @@ import 'package:mycustomers/core/pdf/storagepermission.dart';
 
 import 'dart:async';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 
 
 
@@ -375,7 +374,7 @@ class GeneralTransactionReport {
 
   Future savepdf(BuildContext context, Uint8List pdf) async{
     Directory doc = await getExternalStorageDirectory();
-    Directory dic = await DownloadsPathProvider.downloadsDirectory;
+    Directory dic = await getExternalStorageDirectory();
     String docdir = doc.path;
     String docdic = dic.path;
     String time = DateTime.now().microsecondsSinceEpoch.toString();

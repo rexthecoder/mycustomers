@@ -106,9 +106,9 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     _report.value = [];
     for(var item in _transactions.value) {
       if(item.boughtdate != null) {
-        if((DateTime.parse(item.boughtdate).difference(start).inDays == 0 ? DateTime.parse(item.boughtdate).difference(start).inDays <= 0 && dformat.format((DateTime.parse(item.boughtdate))) == dformat.format(start) : DateTime.parse(item.boughtdate).difference(start).inDays <= 0) 
+        if((DateTime.parse(item.boughtdate).difference(start).inDays <= 0)
         && 
-        (DateTime.parse(item.boughtdate).difference(stop).inDays == 0 ? DateTime.parse(item.boughtdate).difference(stop).inDays >= 0 && dformat.format((DateTime.parse(item.boughtdate))) == dformat.format(stop) : DateTime.parse(item.boughtdate).difference(stop).inDays >= 0)) {
+        (DateTime.parse(item.boughtdate).difference(stop).inDays >= 0)) {
           print(DateTime.parse(item.boughtdate).difference(start).inDays);
           print(DateTime.parse(item.boughtdate).difference(stop).inDays);
           print(item.boughtdate);
@@ -116,9 +116,9 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
         }
       }
       if(item.paiddate != null) {
-        if((DateTime.parse(item.paiddate).difference(start).inDays == 0 ? DateTime.parse(item.paiddate).difference(start).inDays <= 0 && dformat.format((DateTime.parse(item.paiddate))) == dformat.format(start) : DateTime.parse(item.paiddate).difference(start).inDays <= 0) 
+        if((DateTime.parse(item.paiddate).difference(start).inDays <= 0) 
         && 
-        (DateTime.parse(item.paiddate).difference(stop).inDays == 0 ? DateTime.parse(item.paiddate).difference(stop).inDays >= 0 && dformat.format((DateTime.parse(item.paiddate))) == dformat.format(stop) : DateTime.parse(item.paiddate).difference(stop).inDays >= 0)) {
+        (DateTime.parse(item.paiddate).difference(stop).inDays >= 0)) {
           print(DateTime.parse(item.paiddate).difference(start).inDays);
           print(DateTime.parse(item.paiddate).difference(stop).inDays);
           print(item.paiddate);
