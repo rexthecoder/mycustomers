@@ -62,46 +62,50 @@ class BusinessCardPageView extends StatelessWidget {
                     SizedBox(
                       height: SizeConfig.yMargin(context, 5.5),
                     ),
-                    CustomShareRaisedButton(
-                      txtColor: ThemeColors.background,
-                      btnColor: BrandColors.primary,
-                      btnText: AppLocalizations.of(context).saveAndShare,
-                      borderColor: BrandColors.primary,
-                      child: SvgPicture.asset(
-                        share,
-                        height: SizeConfig.xMargin(context, 6),
-                        color: ThemeColors.background,
-                      ),
-                      onPressed: () {
+                    Container(
+                      height: SizeConfig.yMargin(context, 6),
+                      width: SizeConfig.xMargin(context, 90),
+                      child: CustomShareRaisedButton(
+                        txtColor: ThemeColors.background,
+                        btnColor: BrandColors.primary,
+                        btnText: AppLocalizations.of(context).saveAndShare,
+                        borderColor: BrandColors.primary,
+                        child: SvgPicture.asset(
+                          share,
+                          height: SizeConfig.xMargin(context, 6),
+                          color: ThemeColors.background,
+                        ),
+                        onPressed: () {
 //                        if (formKey.currentState.validate()) {
-                        screenshotController
-                            .capture(
-                          pixelRatio: ScreenUtil.pixelRatio,
-                          delay: Duration(milliseconds: 10),
-                        )
-                            .then(
-                          (File image) async {
-                            //Capture Done
-                            model.imageFile = image;
-                            await model.saveBusinessCard();
-                            FlushbarHelper.createSuccess(
-                              duration: const Duration(seconds: 5),
-                              message: 'Successful',
+                          screenshotController
+                              .capture(
+                            pixelRatio: ScreenUtil.pixelRatio,
+                            delay: Duration(milliseconds: 10),
+                          )
+                              .then(
+                            (File image) async {
+                              //Capture Done
+                              model.imageFile = image;
+                              await model.saveBusinessCard();
+                              FlushbarHelper.createSuccess(
+                                duration: const Duration(seconds: 5),
+                                message: 'Successful',
 //                                  AppLocalizations.of(context).saveSuccessful,
-                            ).show(context);
-                            model.shareImageAndText();
-                          },
-                        ).catchError(
-                          (onError) {
-                            FlushbarHelper.createError(
-                              duration: const Duration(seconds: 5),
-                              message: onError.toString(),
-                            ).show(context);
-                          },
-                        );
+                              ).show(context);
+                              model.shareImageAndText();
+                            },
+                          ).catchError(
+                            (onError) {
+                              FlushbarHelper.createError(
+                                duration: const Duration(seconds: 5),
+                                message: onError.toString(),
+                              ).show(context);
+                            },
+                          );
 //                        }
-                        return;
-                      },
+                          return;
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: SizeConfig.yMargin(context, 5),
