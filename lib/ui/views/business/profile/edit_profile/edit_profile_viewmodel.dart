@@ -23,6 +23,7 @@ class EditProfileViewModel extends BaseViewModel {
 
   final _imagePicker = ImagePicker();
   String _userName;
+  String email;
 
   Store get currentStore => StoreRepository.currentStore;
   User get currentUser => _authService.currentUser;
@@ -81,6 +82,11 @@ class EditProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void updateEmail(String value) {
+    email = value;
+    notifyListeners();
+  }
+
   Future<void> retrieveLostData() async {
     final LostData response = await _imagePicker.getLostData();
     if (response == null || (response?.isEmpty ?? true)) {
@@ -108,7 +114,9 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   initt() {
+    if (_userName == null)
     _userName = _authService?.currentUser?.firstName ?? 'None';
+    if (_businessName == null)
     _businessName = StoreRepository?.currentStore?.name ?? 'None';
     notifyListeners();
   }
