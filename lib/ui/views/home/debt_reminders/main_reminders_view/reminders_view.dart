@@ -12,7 +12,7 @@ class RemindersView extends StatelessWidget {
     return ViewModelBuilder<RemindersViewModel>.reactive(
         builder: (context, model, child) {
           return Scaffold(
-            appBar: customizeAppBar(context, 1,
+            appBar: customizeAppBar(context, 1.3,
                 title: 'Reminders',
                 backgroundColor: Theme.of(context).backgroundColor),
             body: Container(
@@ -23,51 +23,36 @@ class RemindersView extends StatelessWidget {
               child: Center(
                 child: Column(
                   children: <Widget>[
-                    InkWell(
-                        onTap: model.navigateToSendReminderDebtList,
-                        child: Container(
-                          height: SizeConfig.yMargin(context, 7),
-                          width: SizeConfig.xMargin(context, 80),
-                          decoration: BoxDecoration(
-                              color: BrandColors.primary,
-                              borderRadius: BorderRadius.circular(
-                                SizeConfig.yMargin(context, 2),
-                              )),
-                          child: Align(
-                              alignment: Alignment.topCenter,
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context).sendReminder,
-                                  style:
-                                      TextStyle(color: ThemeColors.background,
-                                      fontSize: SizeConfig.textSize(context, 4)),
-                                ),
-                              )),
-                        )),
-                    //),
+                    Container(
+                width: SizeConfig.xMargin(context, 60),
+                      child: CustomRaisedButton(
+                        child: Container(),
+                        btnColor: BrandColors.secondary,
+                        txtColor: ThemeColors.background,
+                        borderColor: BrandColors.secondary,
+                        btnText: 'Send a quick reminder',
+                        onPressed: () {
+                          // viewModel.signUpTest();
+                          model.navigateToSendReminderDebtList();
+                        },
+                      ),
+                    ),
                     SizedBox(
                       height: SizeConfig.yMargin(context, 7),
                     ),
-                    Expanded(child: Text('No Scheduled Reminder')),
-                    InkWell(
-                      onTap: model.navigateToScheduleReminderDebtList,
-                      child: Container(
-                        height: SizeConfig.yMargin(context, 7),
-                        width: SizeConfig.xMargin(context, 80),
-                        decoration: BoxDecoration(
-                          color: BrandColors.primary,
-                          borderRadius: BorderRadius.circular(
-                              SizeConfig.yMargin(context, 2)),
-                        ),
-                        child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Center(
-                              child: Text(
-                                AppLocalizations.of(context).scheduleReminder,
-                                style: TextStyle(color: ThemeColors.background,
-                                fontSize: SizeConfig.textSize(context, 4)),
-                              ),
-                            )),
+                    Expanded(child: Center(child: Text("There is no reminder scheduled yet"))),
+                    Container(
+                      width: SizeConfig.xMargin(context, 80),
+                      child: CustomRaisedButton(
+                        child: Container(),
+                        btnColor: BrandColors.primary,
+                        txtColor: ThemeColors.background,
+                        borderColor: BrandColors.primary,
+                        btnText: 'Schedule a new reminder',
+                        onPressed: () {
+                          // viewModel.signUpTest();
+                          model.navigateToScheduleReminderDebtList();
+                        },
                       ),
                     ),
                   ],

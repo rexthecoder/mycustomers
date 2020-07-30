@@ -14,6 +14,9 @@ class DebtList extends StatelessWidget {
   DebtList({this.action});
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = Theme.of(context).brightness == Brightness.dark
+        ? Theme.of(context).backgroundColor
+        : ThemeColors.gray.shade600;
     var currency = NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<DebtListViewModel>.reactive(
         builder: (context, model, child) {
@@ -21,7 +24,7 @@ class DebtList extends StatelessWidget {
               appBar: customizeAppBar(
                 context,
                 1,
-                title: '',
+                title: 'Debt List',
                 arrowColor: Theme.of(context).textSelectionColor,
                 backgroundColor: Theme.of(context).backgroundColor,
               ),
@@ -33,7 +36,19 @@ class DebtList extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: SizeConfig.yMargin(context, 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      width: double.infinity,
+                      height: 30,
+                      color: backgroundColor,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Total Amount ${model.transaction.contact.name} owes you',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    SizedBox(height: SizeConfig.yMargin(context, 1)),
+                    Container(
+                      height: SizeConfig.yMargin(context, 6),
                       decoration: BoxDecoration(
                           color: BrandColors.primary,
                           borderRadius: BorderRadius.circular(
@@ -46,13 +61,12 @@ class DebtList extends StatelessWidget {
                             ),
                             Expanded(
                               child: Text(
-                                  '${model.transaction.contact.name} owes you: ',
+                                  '${model.transaction.contact.name} owes you:  ',
                                   style: TextStyle(
                                     fontSize: SizeConfig.textSize(context, 5),
                                     color: ThemeColors.background,
                                   )),
                             ),
-                            // SizedBox(width: SizeConfig.xMargin(context, 4),),
                             Expanded(
                               child: Text(
                                 model.transaction.currency.symbol +
@@ -79,6 +93,18 @@ class DebtList extends StatelessWidget {
                     SizedBox(
                       height: SizeConfig.yMargin(context, 4),
                     ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      width: double.infinity,
+                      height: 30,
+                      color: backgroundColor,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Kindly select a debt from the list to send a reminder about it",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    SizedBox(height: SizeConfig.yMargin(context, 1)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -365,34 +391,23 @@ class DebtList extends StatelessWidget {
                             );
                           }),
                     ),
-                    InkWell(
-                      onTap: () {
-                        action == AppLocalizations.of(context).schedule
-                            ? model.reminders.navigateToSchedule()
-                            : model.reminders.navigateToSendMessage();
-                      },
-                      child: Container(
-                        height: SizeConfig.yMargin(context, 7),
-                        width: SizeConfig.xMargin(context, 80),
-                        decoration: BoxDecoration(
-                          color: BrandColors.primary,
-                          borderRadius: BorderRadius.circular(
-                              SizeConfig.yMargin(context, 2)),
-                        ),
-                        child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Center(
-                              child: Text(
-                                AppLocalizations.of(context).nextButton,
-                                style: TextStyle(
-                                    color: ThemeColors.background,
-                                    fontSize: SizeConfig.textSize(context, 4)),
-                              ),
-                            )),
+                    Container(
+                      width: SizeConfig.xMargin(context, 80),
+                      child: CustomRaisedButton(
+                        child: Container(),
+                        btnColor: BrandColors.primary,
+                        txtColor: ThemeColors.background,
+                        borderColor: BrandColors.primary,
+                        btnText: AppLocalizations.of(context).nextButton,
+                        onPressed: () {
+                          action == AppLocalizations.of(context).schedule
+                              ? model.reminders.navigateToSchedule()
+                              : model.reminders.navigateToSendMessage();
+                        },
                       ),
                     ),
                     SizedBox(
-                      height: SizeConfig.yMargin(context, 3),
+                      height: SizeConfig.yMargin(context, 2),
                     )
                   ],
                 ),

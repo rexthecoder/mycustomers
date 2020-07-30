@@ -16,56 +16,6 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class MainTransactionViewModel extends ReactiveViewModel {
-  List purchases = [
-    {
-      'id': 1,
-      'status': 'bought',
-      'amount': 50000,
-      'date': '2020-06-10 09:00:00'
-    },
-    {
-      'id': 2,
-      'status': 'paid',
-      'amount': 20000,
-      'date': '2020-06-10 11:00:00.00'
-    },
-    {
-      'id': 3,
-      'status': 'paid',
-      'amount': 20000,
-      'date': '2020-06-15 12:00:00.00'
-    },
-    {
-      'id': 4,
-      'status': 'paid',
-      'amount': 10000,
-      'date': '2020-06-15 10:00:00.00'
-    },
-    {
-      'id': 5,
-      'status': 'bought',
-      'amount': 80000,
-      'date': '2020-06-15 09:00:00.00'
-    },
-    {
-      'id': 6,
-      'status': 'paid',
-      'amount': 30000,
-      'date': '2020-06-20 11:00:00.00'
-    },
-    {
-      'id': 7,
-      'status': 'bought',
-      'amount': 60000,
-      'date': '2020-06-20 09:00:00.00'
-    },
-    {
-      'id': 8,
-      'status': 'paid',
-      'amount': 10000,
-      'date': '2020-06-25 13:00:00.00'
-    },
-  ];
 
   List<String> items = ['SMS', 'Call', 'Set Reminders'];
   String date;
@@ -101,7 +51,7 @@ class MainTransactionViewModel extends ReactiveViewModel {
   Future<bool> getPermission() async{
     return await permission.getStoragePermission();
   }
-  
+
 
   double getamount(double amt) {
     return amt;
