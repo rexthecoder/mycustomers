@@ -87,9 +87,7 @@ class AddDebtCreditView extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: model.isLoadBusy ? Center(
-                      child: LoadingAnimation(),
-                    ) : SingleChildScrollView(
+                    child: SingleChildScrollView(
                       controller: model.controller,
                       child: Container(
                         //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
