@@ -7,6 +7,8 @@ import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
+import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
+import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/core/models/hive/password_manager/password_manager_model_h.dart';
 import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
 import 'package:mycustomers/core/repositories/business_card/business_card_repository_impl.dart';
@@ -14,6 +16,7 @@ import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:mycustomers/core/services/message_service.dart';
+import 'package:mycustomers/core/services/phone_contact_service.dart';
 import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
@@ -141,6 +144,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<MessageService>(
     () => MessageService(),
   );
+  locator.registerLazySingleton<PhoneContactService>(
+    () => PhoneContactService(),
+  );
   // locator.registerLazySingleton<LocalStorageService>(
   //   () => LocalStorageService(),
   // );
@@ -161,20 +167,24 @@ Future<void> setupLocator(
   }
 
   print('Initializing boxes...');
+  Hive.registerAdapter(TransactionAdapter());
+  Hive.registerAdapter(MessageAdapter());
 
   //Initialization for all boxes
   await BusinessCardLocalDataSourceImpl().init();
   await LogsLocalDataSourceImpl().init();
-  await TransactionLocalDataSourceImpl().init();
+  //await TransactionLocalDataSourceImpl().init();
   await BussinessSettingService().init();
   await CustomerContactService().init();
   await ProfileService().init();
-  await MessageService().init();
+  await PhoneContactService().init();
+  //await PhoneContactService().deleteAll();
+  //await PhoneContactService().init();
+  //await MessageService().init();
 
 //  Hive.registerAdapter(BusinessCardAdapter());
   Hive.registerAdapter(PasswordManagerAdapter());
   //Hive.registerAdapter(CustomerContactAdapter());
-  //Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(StoreHAdapter());
 
   if (!test) {

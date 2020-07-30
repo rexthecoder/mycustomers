@@ -115,7 +115,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
-                          hintStyle:
+                          labelStyle:
                               TextStyle(color: Theme.of(context).cursorColor),
                           labelText:
                               AppLocalizations.of(context).enterYourFullName,
@@ -141,7 +141,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
-                          hintStyle:
+                          labelStyle:
                               TextStyle(color: Theme.of(context).cursorColor),
                           labelText: AppLocalizations.of(context)
                               .pleaseEnterYourEmailAddress,
@@ -168,7 +168,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
-                          hintStyle:
+                          labelStyle:
                               TextStyle(color: Theme.of(context).cursorColor),
                           labelText:
                               AppLocalizations.of(context).enterStoreName,
@@ -195,7 +195,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                         color: Theme.of(context).cursorColor,
                       ),
                       decoration: InputDecoration(
-                          hintStyle:
+                          labelStyle:
                               TextStyle(color: Theme.of(context).cursorColor),
                           labelText:
                               AppLocalizations.of(context).enterStoreAddress,

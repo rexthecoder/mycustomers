@@ -10,8 +10,8 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
 class SendMessage extends StatelessWidget {
-  final String action, payload;
-  SendMessage({this.action, this.payload});
+  final String action;
+  SendMessage({this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,8 @@ class SendMessage extends StatelessWidget {
                                   ),
                             )
                           : Container(
-                              height: SizeConfig.xMargin(context, 45),
-                              width: SizeConfig.xMargin(context, 90),
+                              height: SizeConfig.xMargin(context, 40),
+                              width: SizeConfig.xMargin(context, 80),
                               padding: EdgeInsets.symmetric(
                                   horizontal: SizeConfig.xMargin(context, 2),
                                   vertical: SizeConfig.yMargin(context, 2)),
@@ -118,6 +118,8 @@ class SendMessage extends StatelessWidget {
                                 print(model.reminders.scheduledDate);
                               },
                               child: Container(
+                              height: SizeConfig.xMargin(context, 15),
+                              width: SizeConfig.xMargin(context, 80),
                                 padding: EdgeInsets.symmetric(
                                     vertical: SizeConfig.yMargin(context, 2),
                                     horizontal: SizeConfig.xMargin(context, 5)),
@@ -182,8 +184,8 @@ class SendMessage extends StatelessWidget {
                           : SizedBox(),
                       action == AppLocalizations.of(context).schedule
                           ? Container(
-                              height: SizeConfig.xMargin(context, 45),
-                              width: SizeConfig.xMargin(context, 90),
+                              height: SizeConfig.xMargin(context, 40),
+                              width: SizeConfig.xMargin(context, 80),
                               padding: EdgeInsets.symmetric(
                                   horizontal: SizeConfig.xMargin(context, 2),
                                   vertical: SizeConfig.yMargin(context, 2)),
@@ -247,7 +249,7 @@ class SendMessage extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          height: SizeConfig.yMargin(context, 8),
+                          height: SizeConfig.yMargin(context, 7),
                           width: SizeConfig.xMargin(context, 80),
                           decoration: BoxDecoration(
                             color: BrandColors.primary,

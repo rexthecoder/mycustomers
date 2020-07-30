@@ -23,6 +23,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.contact);
   Box<CustomerContact> get _contactBox => _hiveService.box<CustomerContact>(HiveBox.contact);
   
+  //Contacts
   RxValue<List<CustomerContact>> _contacts = RxValue<List<CustomerContact>>(initial: []);
   List<CustomerContact> get contacts => _contacts.value;
 
@@ -30,7 +31,9 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   List<CustomerContact> get contactsm => _contactsm.value;
 
   RxValue<List<CustomerContact>> _selectedC = RxValue<List<CustomerContact>>(initial: []);
+  RxValue<List<CustomerContact>> _allC = RxValue<List<CustomerContact>>(initial: []);
   List<CustomerContact> get selectedC => _selectedC.value;
+  List<CustomerContact> get allC => _allC.value;
 
   List<CustomerContact> temp = [];
   bool success, error;
@@ -46,7 +49,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   var uuid = Uuid();
 
   CustomerContactService(){
-    listenToReactiveValues([_contacts, _contact, _contactsm, _selectedC]);
+    listenToReactiveValues([_contacts, _contact, _contactsm, _selectedC, _allC]);
   }
 
   @override
@@ -61,13 +64,15 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   void getContacts() async {
     //final bbox = await box;
     _contacts.value = _contactBox.values.toList();
-    _contacts.value.sort((a,b) => b.id.compareTo(a.id));
+    //_contacts.value.sort((a,b) => b.id.compareTo(a.id));
   }
 
   int getCustomerCount(String stid) {
     int sum = 0;
     for(var item in _contacts.value) {
-      if(item.storeid == stid) {
+      //print(item.market);
+      //print(item.name);
+      if(item.storeid == stid && !item.market) {
         sum+=1;
       }
     }
@@ -94,6 +99,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   }
 
   void addSelected(CustomerContact cus) {
+    _allC.value =[];
     temp.add(cus);
     _selectedC.value = [...temp];
   }
@@ -111,11 +117,22 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
 
   void selectAll(List<CustomerContact> custt) {
     _selectedC.value = [];
+    _allC.value =[];
+    temp = [];
     _selectedC.value = custt;
+    temp = custt;
+  }
+  void allCustomers(List<CustomerContact> custt) {
+    _selectedC.value = [];
+    temp = [];
+    _allC.value =[];
+    _allC.value =  custt;
+//    temp = custt;
   }
 
   void deselectAll() {
     temp = [];
+    _allC.value =[];
     _selectedC.value = [];
   }
 
@@ -129,13 +146,13 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       bool isStored = false;
       for(var item in _contactBox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber && item.storeid == stid){
-          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid, market: item.market);
+          _contact.value = item;
           isStored = true;
         }
       }
       if(isStored){
         TransactionModel ntransaction = new TransactionModel(
-            cId: contact.id,
+            tId: transaction.tId,
             sId: transaction.sId,
             amount: transaction.amount,
             paid: transaction.paid,
@@ -144,11 +161,20 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
             boughtdate: transaction.boughtdate,
             paiddate: transaction.paiddate
           );
-        _transactionService.addTransaction(ntransaction);
+        _transactionService.addTransaction(ntransaction, _contact.value);
           _navigationService.clearStackAndShow(Routes.mainViewRoute);
         //_navigationService.navigateTo(Routes.mainTransaction);
       } else {
-        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid, market: false);
+        CustomerContact contact = new CustomerContact(
+          name: customerName,
+          phoneNumber: dropDownValue + customerPhoneNumber,
+          id: uuid.v4(),
+          initials: initials,
+          storeid: stid,
+          market: false,
+          transactions: {},
+          messages: []
+        );
         _contactBox.add(contact).then((value){
           success = true;
           print(success);
@@ -156,7 +182,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
           print('set ${contact.id}');
           _contacts.value = _contactBox.values.toList();
           TransactionModel ntransaction = new TransactionModel(
-            cId: contact.id,
+            tId: transaction.tId,
             sId: transaction.sId,
             amount: transaction.amount,
             paid: transaction.paid,
@@ -165,7 +191,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
             boughtdate: transaction.boughtdate,
             paiddate: transaction.paiddate
           );
-          _transactionService.addTransaction(ntransaction);
+          _transactionService.addTransaction(ntransaction, _contact.value);
           _navigationService.clearStackAndShow(Routes.mainViewRoute);
           //_contacts.value.sort((a,b) => b.id.compareTo(a.id));
           //action == 'debtor' ? _navigationService.navigateTo(Routes.addDebt) : _navigationService.navigateTo(Routes.addCredit);
@@ -191,25 +217,52 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       bool isStored = false;
       for(var item in _contactBox.values.toList()){
         if(item.name == customerName && item.phoneNumber == customerPhoneNumber && item.storeid == stid){
-          _contact.value = CustomerContact(name: item.name, phoneNumber: item.phoneNumber, id: item.id, initials: item.initials, storeid: item.storeid, market: item.market);
+          _contact.value = CustomerContact(
+            name: item.name,
+            phoneNumber: item.phoneNumber,
+            id: item.id,
+            initials: item.initials,
+            storeid: item.storeid,
+            market: item.market,
+            transactions: item.transactions,
+            messages: item.messages
+          );
           isStored = true;
         }
       }
       if(isStored){
         print('stored');
-        CustomerContact cnt = new CustomerContact(name: _contact.value.name, phoneNumber: _contact.value.phoneNumber, id: _contact.value.id, initials: _contact.value.initials, storeid: _contact.value.storeid, market: true);
+        CustomerContact cnt = new CustomerContact(
+          name: _contact.value.name,
+          phoneNumber: _contact.value.phoneNumber,
+          id: _contact.value.id,
+          initials: _contact.value.initials,
+          storeid: _contact.value.storeid,
+          market: true,
+          transactions: _contact.value.transactions,
+          messages: _contact.value.messages
+        );
         updateContact(cnt);
         _contact.value = cnt;
-        print('service'+_contact.value.name);
+        //print('service'+_contact.value.name);
 
       } else {
-        CustomerContact contact = new CustomerContact(name: customerName, phoneNumber: dropDownValue + customerPhoneNumber, id: uuid.v4(), initials: initials, storeid: stid, market: true);
+        CustomerContact contact = new CustomerContact(
+          name: customerName, 
+          phoneNumber: dropDownValue + customerPhoneNumber, 
+          id: uuid.v4(), 
+          initials: initials,
+          storeid: stid, 
+          market: true,
+          transactions: {},
+          messages: []
+        );
         await _contactBox.add(contact).then((value){
           success = true;
           print(success);
           _contact.value = contact;
-          print('service'+_contact.value.name);
-          print('set ${contact.id}');
+          //print('service'+_contact.value.name);
+          //print('set ${contact.id}');
           //_contacts.value = _contactBox.values.toList();
         }).catchError((err){
           error = err;
@@ -230,6 +283,12 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
 
   void deleteContactMarket(CustomerContact cus, CustomerContact cust) async {
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), cust);
+  }
+
+  void deleteContact(CustomerContact cus) async {
+    print(_contactBox.values.toList().indexOf(cus));
+    await _contactBox.deleteAt(_contactBox.values.toList().indexOf(cus));
+    getContacts();
   }
 
 }

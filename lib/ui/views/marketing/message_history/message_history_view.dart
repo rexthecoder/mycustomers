@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+
+import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/marketing/message_history/message_history_viewmodel.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:stacked/stacked.dart';
@@ -29,6 +31,7 @@ class MessageHistoryView extends StatelessWidget {
                       EdgeInsets.only(right: ScreenUtil().setWidth(15), top: 6),
                   child: Row(
                     children: <Widget>[
+                      //TODO: Fix CustomerCircleAvatar
                       CustomerCircleAvatar(
                         ccustomer: model.customer,
                       ),
@@ -124,134 +127,166 @@ class MessageHistoryView extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 Container(
-                  height:  SizeConfig.yMargin(context, 80),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: model.messages.length,
-                            itemBuilder: (BuildContext context, int index) =>
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(5),
-                                          color: ThemeColors.gray[800].withOpacity(0.5),
-                                        ),
-                                        padding: const EdgeInsets.all(5.0),
-                                        margin:  EdgeInsets.only(
-                                            top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
-                                        child: Flexible(
-                                          child: Text(
-                                          model.messages[index].message ?? '',
-                                          textAlign: TextAlign.end,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                      ),
-                    ],
-                  ),
+                  margin:  EdgeInsets.only( bottom: SizeConfig.yMargin(context, 15)+5,top: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+//                  child: ListView.builder(
+//                      itemCount: model.messages.length,
+//                      itemBuilder: (BuildContext context, int index) =>
+//                          Row(
+//                            mainAxisAlignment: MainAxisAlignment.end,
+//                            children: <Widget>[
+//                              Flexible(
+//                                child: Container(
+//                                  decoration: BoxDecoration(
+//                                    borderRadius:
+//                                    BorderRadius.circular(5),
+//                                    color: ThemeColors.gray[800].withOpacity(0.5),
+//                                  ),
+//                                  padding: const EdgeInsets.all(5.0),
+//                                  margin:  EdgeInsets.only(
+//                                      top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+//                                  child: Text(
+//                                  model.messages[index].message ?? '',
+//                                  textAlign: TextAlign.end,
+//                                  ),
+//                                ),
+//                              ),
+//                            ],
+//                          )),
+
+                child:ListView(
+                  reverse: true,
+
+                  children:  model.messagesReversed.map<Row>((e) =>
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Flexible(
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.only(
+                                  topLeft:  Radius.circular(10),
+                                  bottomRight:  Radius.circular(10),
+                                  bottomLeft:  Radius.circular(10)
+                              ),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.only(
+                                  topLeft:  Radius.circular(10),
+                                  bottomRight:  Radius.circular(10),
+                                  bottomLeft:  Radius.circular(10)
+                                ),
+                                color: ThemeColors.gray[800].withOpacity(0.5),
+                              ),
+                              padding: const EdgeInsets.all(5.0),
+//                            margin:  EdgeInsets.only(
+//                                top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+                              child: Text(
+                                e.message ?? '',
+                                textAlign: TextAlign.end,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )).toList(),
+//                  children:  model.messages.map<Text>((e) => Text(e.message)).toList(),
+                ),
                 ),
                 Positioned(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                   left: 0,
                   right: 0,
                   child: Container(
+                    height:  SizeConfig.yMargin(context, 15),
                     decoration: BoxDecoration(
                         border: Border.symmetric(
                             vertical: BorderSide(color: ThemeColors.gray[700])),
                         color: Theme.of(context).backgroundColor),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 100.h,
-                        color: Theme.of(context).backgroundColor,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Expanded(
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: model.dummyQuickText.length,
-                                  itemBuilder: (BuildContext context,
-                                          int index) =>
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          child: FlatButton(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              color: BrandColors.primary
-                                                  .withOpacity(0.3),
-                                              onPressed: () => model.setText(
-                                                  model.dummyQuickText[index]),
-                                              child: Container(
-                                                  height: 30,
-                                                  child: Center(
-                                                      child: Text(
-                                                          model.dummyQuickText[
-                                                              index])))),
-                                        ),
-                                      )),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              height: 50,
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: TextField(
-                                      controller: model.messageController,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Theme.of(context)
-                                                  .backgroundColor),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                      hintText: AppLocalizations.of(context).startTypingYourmessage
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Expanded(
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: model.dummyQuickText.length,
+                                itemBuilder: (BuildContext context,
+                                        int index) =>
+                                    Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: FlatButton(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            color: BrandColors.primary
+                                                .withOpacity(0.3),
+                                            onPressed: () => model.setText(
+                                                model.dummyQuickText[index]),
+                                            child: Container(
+                                                height: 30,
+                                                child: Center(
+                                                    child: Text(
+                                                        model.dummyQuickText[
+                                                            index])))),
                                       ),
-                                      onChanged: model.updatetext,
-                                      textInputAction: TextInputAction.search,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      model.send();
-                                    },
-                                    child: Container(
-                                      width: 50.w,
-                                      height: 50.h,
-                                      decoration: BoxDecoration(
-                                        color: BrandColors.primary,
-                                        borderRadius: BorderRadius.circular(30),
+                                    )),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 50,
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: TextField(
+                                    controller: model.messageController,
+                                    textInputAction: TextInputAction.newline,
+                                    keyboardType: TextInputType.multiline,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context)
+                                                .backgroundColor),
+                                        borderRadius:
+                                            BorderRadius.circular(20),
                                       ),
-                                      child: Center(
-                                          child: Icon(
-                                        Icons.send,
-                                        color: Colors.white,
-                                      )),
+                                    hintText: AppLocalizations.of(context).startTypingYourmessage
                                     ),
+                                    onChanged: model.updatetext,
                                   ),
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    model.send();
+                                  },
+                                  child: Container(
+                                    width: 50.w,
+                                    height: 50.h,
+                                    decoration: BoxDecoration(
+                                      color: BrandColors.primary,
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child: Center(
+                                        child: Icon(
+                                      Icons.send,
+                                      color: Colors.white,
+                                    )),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

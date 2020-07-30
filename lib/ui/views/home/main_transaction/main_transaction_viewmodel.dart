@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
@@ -9,6 +10,8 @@ import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -82,8 +85,23 @@ class MainTransactionViewModel extends ReactiveViewModel {
 
   Store get currentStore => StoreRepository.currentStore;
 
-  List<String> get formattedate => List<String>.from(_transactionService
-      .formattedate.reversed); //'10 Jun', '15 Jun', '20 Jun', '25 Jun'
+  List<String> get formattedate =>  List<String>.from(_transactionService.formattedate.reversed);
+
+  DateTime reportstart;
+  DateTime reportstop;
+  bool reportstarterr = false;
+  bool reportstoperr = false;
+
+  final dformat = new DateFormat('dd/MM/yy');
+
+  PermissionService permission = new PermissionService();
+
+  //bool permitted = await _permission.getStoragePermission();
+
+  Future<bool> getPermission() async{
+    return await permission.getStoragePermission();
+  }
+  
 
   double getamount(double amt) {
     return amt;
@@ -119,7 +137,42 @@ class MainTransactionViewModel extends ReactiveViewModel {
     // }
   }
 
-  int bought() {
+  void setReportStart(DateTime date) {
+    reportstarterr = false;
+    reportstart = date;
+    notifyListeners();
+  }
+
+  void setReportStop(DateTime date) {
+    reportstoperr = false;
+    reportstop = date;
+    notifyListeners();
+  }
+
+  DateTime whichDate(TransactionModel trans) {
+    print(trans.boughtdate == null ? DateTime.parse(trans.paiddate) : trans.paiddate == null ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.boughtdate).difference(DateTime.parse(trans.paiddate)).inDays >= 0 ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.paiddate));
+    return trans.boughtdate == null ? DateTime.parse(trans.paiddate) : trans.paiddate == null ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.boughtdate).difference(DateTime.parse(trans.paiddate)).inDays >= 0 ? DateTime.parse(trans.boughtdate) : DateTime.parse(trans.paiddate);
+  }
+
+  void setreportdialogerror() {
+    if(reportstart == null) {
+      reportstarterr = true;
+    }
+    if(reportstop == null) {
+      reportstoperr = true;
+    }
+    notifyListeners();
+  }
+
+  void getPdf(BuildContext context) {
+    _transactionService.setReport(reportstart, reportstop, contact, context, currency.symbol);
+  }
+
+  void poptwice() {
+    _navigationService.popRepeated(2);
+  }
+
+  int bought(){
     int sum = 0;
     for (var item in transactions) {
       if (item.amount != 0) {
@@ -165,9 +218,8 @@ class MainTransactionViewModel extends ReactiveViewModel {
     return dformat.format(DateTime.parse(gdate)).toString();
   }
 
-  void getTransactions() {
-    print(contact.id);
-    _transactionService.getTransactions(contact.id, currentStore.id);
+  void getTransactions(){
+    _transactionService.getTransactions(contact);
     notifyListeners();
   }
 
@@ -194,6 +246,6 @@ class MainTransactionViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices =>
-      [_transactionService, _customerContactService, _bussinessService];
+  List<ReactiveServiceMixin> get reactiveServices => [_transactionService, _customerContactService, _bussinessService];
+  
 }

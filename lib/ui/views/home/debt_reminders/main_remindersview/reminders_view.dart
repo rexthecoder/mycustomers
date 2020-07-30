@@ -26,7 +26,7 @@ class RemindersView extends StatelessWidget {
                     InkWell(
                         onTap: model.navigateToSendReminderDebtList,
                         child: Container(
-                          height: SizeConfig.yMargin(context, 8),
+                          height: SizeConfig.yMargin(context, 7),
                           width: SizeConfig.xMargin(context, 80),
                           decoration: BoxDecoration(
                               color: BrandColors.primary,
@@ -52,7 +52,7 @@ class RemindersView extends StatelessWidget {
                     InkWell(
                       onTap: model.navigateToScheduleReminderDebtList,
                       child: Container(
-                        height: SizeConfig.yMargin(context, 8),
+                        height: SizeConfig.yMargin(context, 7),
                         width: SizeConfig.xMargin(context, 80),
                         decoration: BoxDecoration(
                           color: BrandColors.primary,

@@ -7,6 +7,7 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/extensions/transaction_extension.dart';
 
 class NotificationViewModel extends ReactiveViewModel {
 
@@ -38,9 +39,9 @@ class NotificationViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  String getName(String id) {
+  String getName(TransactionModel trns) {
     for(var item in contacts) {
-      if(item.id == id) {
+      if(item.transactions.helperToList().contains(trns)){
         return item.name;
       }
     }

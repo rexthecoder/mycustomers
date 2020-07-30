@@ -89,12 +89,12 @@ class NotificationRemindersService {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-     //await _navigationService.navigateTo(Routes.sendNotificationMessage, arguments: payload);
-     await Navigator.push(
-      MyApp.navigatorKey.currentState.context,
-      MaterialPageRoute(
-          builder: (context) => RemindersView()),
-    );
+     await _navigationService.navigateTo(Routes.remindersView);
+    //  await Navigator.push(
+    //   MyApp.navigatorKey.currentState.context,
+    //   MaterialPageRoute(
+    //       builder: (context) => RemindersView()),
+    // );
   }
 
 // Function to remove reminder, in the case where well, the data was deleted. So user won't receive notification still.

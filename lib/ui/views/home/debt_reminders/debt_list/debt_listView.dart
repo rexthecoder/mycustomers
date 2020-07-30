@@ -13,7 +13,7 @@ class DebtList extends StatelessWidget {
   DebtList({this.action});
   @override
   Widget build(BuildContext context) {
-   var currency = NumberFormat("#,##0", "en_NG");
+    var currency = NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<DebtListViewModel>.reactive(
         builder: (context, model, child) {
           return Scaffold(
@@ -32,40 +32,44 @@ class DebtList extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: SizeConfig.yMargin(context, 10),
-                      // margin: EdgeInsets.symmetric(
-                      //   vertical: SizeConfig.yMargin(context, 5),
-                      //   horizontal: SizeConfig.xMargin(context, 5),
-                      // ),
+                      height: SizeConfig.yMargin(context, 8),
                       decoration: BoxDecoration(
                           color: BrandColors.primary,
                           borderRadius: BorderRadius.circular(
                               SizeConfig.yMargin(context, 2))),
                       child: Center(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            Text('${model.transaction.contact.name} owes you: ',
-                                style: TextStyle(
-                                  fontSize: SizeConfig.textSize(context, 5),
-                                  color: ThemeColors.background,
-                                )),
-                            Text(
-                              model.transaction.currency.symbol +
-                                  currency
-                                      .format(model.transaction.getamount(
-                                          (model.transaction.bought())
-                                              .toDouble()))
-                                      .toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5
-                                  .copyWith(
-                                    fontSize: SizeConfig.yMargin(context, 3),
-                                    color: Color(0xFFEB5757),
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w900,
-                                  ),
+                            SizedBox(
+                              width: SizeConfig.xMargin(context, 7),
+                            ),
+                            Expanded(
+                              child: Text(
+                                  '${model.transaction.contact.name} owes you: ',
+                                  style: TextStyle(
+                                    fontSize: SizeConfig.textSize(context, 5),
+                                    color: ThemeColors.background,
+                                  )),
+                            ),
+                            // SizedBox(width: SizeConfig.xMargin(context, 4),),
+                            Expanded(
+                              child: Text(
+                                model.transaction.currency.symbol +
+                                    currency
+                                        .format(model.transaction.getamount(
+                                            (model.transaction.bought())
+                                                .toDouble()))
+                                        .toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    .copyWith(
+                                      fontSize: SizeConfig.yMargin(context, 3),
+                                      color: Color(0xFFEB5757),
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                              ),
                             )
                           ],
                         ),
@@ -77,7 +81,7 @@ class DebtList extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text('Items',
+                        Text('Item(s)',
                             style: TextStyle(
                               fontSize: SizeConfig.yMargin(context, 3),
                             )),
@@ -245,9 +249,6 @@ class DebtList extends StatelessWidget {
                                                                       0xFFC4C4C4))),
                                                         ),
                                                         child: Row(
-                                                          // mainAxisAlignment:
-                                                          //     MainAxisAlignment
-                                                          //         .spaceAround,
                                                           children: <Widget>[
                                                             Container(
                                                               color: Theme.of(
@@ -285,6 +286,10 @@ class DebtList extends StatelessWidget {
                                                                         color: Color(
                                                                             0xFF828282)),
                                                                   ),
+                                                                  SizedBox(
+                                                                      height: SizeConfig.yMargin(
+                                                                          context,
+                                                                          1.5)),
                                                                   Text(
                                                                     item.description ??
                                                                         '',
@@ -366,7 +371,7 @@ class DebtList extends StatelessWidget {
                             : model.reminders.navigateToSendMessage();
                       },
                       child: Container(
-                        height: SizeConfig.yMargin(context, 8),
+                        height: SizeConfig.yMargin(context, 7),
                         width: SizeConfig.xMargin(context, 80),
                         decoration: BoxDecoration(
                           color: BrandColors.primary,
