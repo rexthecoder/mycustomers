@@ -66,29 +66,9 @@ class EditProfileViewModel extends BaseViewModel {
     }
   }
 
-  Image  imageFromBaseString(String base64String, BuildContext context){
-     return Image.memory(base64Decode(base64String),
-     width: SizeConfig.xMargin(context, 50),
-      height: SizeConfig.xMargin(context, 50),
-      fit: BoxFit.cover,
-    );
-  }
-
- Uint8List dataFromBase64String(String base64String){
-   return base64Decode(base64String);
- }
-
-  String base64String(Uint8List data){
-    return base64Encode(data);
-    
-  }
-
   void handleLostData(PickedFile file) {
 
   }
- 
-
-
 
   void updateUserName(String value) {
     _userName = value;
