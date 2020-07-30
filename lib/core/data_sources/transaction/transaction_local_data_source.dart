@@ -107,22 +107,24 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     for(var item in _transactions.value) {
       print('checking...');
       if(item.boughtdate != null) {
+        print('bought');
+        print(DateTime.parse(item.boughtdate).difference(start).inDays);
+          print(DateTime.parse(item.boughtdate).difference(stop).inDays);
+          print(item.boughtdate);
         if((DateTime.parse(item.boughtdate).difference(start).inDays <= 0)
         && 
         (DateTime.parse(item.boughtdate).difference(stop).inDays >= 0)) {
-          print(DateTime.parse(item.boughtdate).difference(start).inDays);
-          print(DateTime.parse(item.boughtdate).difference(stop).inDays);
-          print(item.boughtdate);
           _report.value.add(item);
         }
       }
       if(item.paiddate != null) {
+        print('credit');
+        print(DateTime.parse(item.paiddate).difference(start).inDays);
+          print(DateTime.parse(item.paiddate).difference(stop).inDays);
+          print(item.paiddate);
         if((DateTime.parse(item.paiddate).difference(start).inDays <= 0) 
         && 
         (DateTime.parse(item.paiddate).difference(stop).inDays >= 0)) {
-          print(DateTime.parse(item.paiddate).difference(start).inDays);
-          print(DateTime.parse(item.paiddate).difference(stop).inDays);
-          print(item.paiddate);
           _report.value.add(item);
         }
       }

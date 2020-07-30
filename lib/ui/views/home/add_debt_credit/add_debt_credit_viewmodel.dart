@@ -108,6 +108,20 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   init({String query}) async {
     number = PhoneNumber(isoCode: isoCode);
     final bool isPermitted = await _permission.getContactsPermission();
+
+    if(_phoneContactService.contactsCount() != (await iOwnerServices.getPhoneContacts(query: query)).toList().length){
+      final bool isPermitted = await _permission.getContactsPermission();
+      if(isPermitted) {
+        notifyListeners();
+        for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+          print('Iterate');
+          await _phoneContactService.addCustomer(customer);
+        }
+        _phoneContactService.getContacts();
+      }
+    } else {
+      _phoneContactService.getContacts();
+    }
     
     //List<Customer> temp = [];
     if(isPermitted) {
@@ -214,10 +228,22 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     }
   }
 
-  void setName(Customer cus) {
+  void setName(Customer cus, String action) {
     searchController.text = cus.displayName;
     _name = cus.displayName;
     selectedCustomer = cus;
+    action == 'debit'
+          ? amount != null &&
+                  newDate != null &&
+                  newODate.length > 0 &&
+                  name.length != 0 //&& number != null
+              ? save = true
+              : save = false
+          : amount != null &&
+                  newODate != null &&
+                  name.length != 0 //&& number != null
+              ? save = true
+              : save = false;
     shownames = false;
     notifyListeners();
   }
@@ -543,7 +569,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         _transactionService,
         _customerContactService,
         _bussinessService,
-        _logService
+        _logService,
+        _phoneContactService
       ];
 }
 

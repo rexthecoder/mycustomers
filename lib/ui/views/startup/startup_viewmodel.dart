@@ -33,19 +33,7 @@ class StartupViewModel extends BaseViewModel {
   PermissionService _permission = new PermissionService();
 
   Future setup({String query}) async {
-    if(_phoneContactService.contactsCount() != (await iOwnerServices.getPhoneContacts(query: query)).toList().length){
-      final bool isPermitted = await _permission.getContactsPermission();
-      if(isPermitted) {
-        notifyListeners();
-        for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
-          print('Iterate');
-          await _phoneContactService.addCustomer(customer);
-        }
-        _phoneContactService.getContacts();
-      }
-    } else {
-      _phoneContactService.getContacts();
-    }
+    
   //  Future.delayed(Duration(seconds: 30));
     await locator.allReady();
     if (await checkLoggedIn()) {

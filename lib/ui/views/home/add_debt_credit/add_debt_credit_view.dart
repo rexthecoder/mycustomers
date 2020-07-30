@@ -87,7 +87,9 @@ class AddDebtCreditView extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: SingleChildScrollView(
+                    child: model.isLoadBusy ? Center(
+                      child: LoadingAnimation(),
+                    ) : SingleChildScrollView(
                       controller: model.controller,
                       child: Container(
                         //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -748,7 +750,7 @@ class AddDebtCreditView extends StatelessWidget {
                                           itemBuilder: (context, index) {
                                             Customer item = model.searchController.text.isEmpty ? model.contactsList[index] : model.filtered[index];
                                             return MyListTile(
-                                            onTap: () => model.setName(item),
+                                            onTap: () => model.setName(item, action),
                                             action: action,
                                             leading: Center(
                                                 child: CircleAvatar(
