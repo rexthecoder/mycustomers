@@ -569,7 +569,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         _transactionService,
         _customerContactService,
         _bussinessService,
-        _logService
+        _logService,
+        _phoneContactService
       ];
 }
 

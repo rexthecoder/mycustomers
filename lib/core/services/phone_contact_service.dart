@@ -21,7 +21,7 @@ class PhoneContactService with ReactiveServiceMixin {
   bool get permission => _permission.value;
 
   PhoneContactService(){
-    listenToReactiveValues([_contact]);
+    listenToReactiveValues([_contact, _busy]);
   }
 
   Future<void> init() async {
