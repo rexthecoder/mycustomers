@@ -13,7 +13,7 @@ class SettingManagerModel extends MultipleStreamViewModel {
 
   IStorageUtil _su = locator<IStorageUtil>();
   final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
-  static final _transactionService = locator<TransactionLocalDataSource>();
+  static final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   // TODO: implement getter properly
   bool get isDarkTheme => _su.getBool('IS_DARK_THEME') ?? WidgetsBinding.instance.window.platformBrightness == Brightness.dark/*(MediaQuery.of(_context).platformBrightness == Brightness.dark) */ ?? false;

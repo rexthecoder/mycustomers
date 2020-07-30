@@ -847,7 +847,7 @@ class MainTransaction extends StatelessWidget {
                                                                                 item.tId,
                                                                                 style: TextStyle(
                                                                                     fontSize: SizeConfig.yMargin(context,
-                                                                                        1.8),
+                                                                                        1.3),
                                                                                     color:
                                                                                         Color(0xFF828282)), maxLines: 1,
                                                                               ),
