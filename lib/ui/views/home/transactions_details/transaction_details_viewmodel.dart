@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:intl/intl.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
@@ -22,6 +23,8 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
   TransactionModel get transaction => _transactionService.stransaction;
   final PermissionService _permissionService = locator<IPermissionService>();
 
+  final dformat = new DateFormat('dd/MM/yyyy');
+
   File imageFile;
 
   String name = 'Seyi Onifade';
@@ -34,6 +37,10 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
   void delete(){
     _navigationService.back();
     _transactionService.deleteTransaction(contact);
+  }
+
+  void edit() {
+    transaction.amount > transaction.paid ? _navigationService.navigateTo(Routes.selectRouteDebt) : _navigationService.navigateTo(Routes.selectRouteCredit);
   }
 
   @override
@@ -81,4 +88,7 @@ class TransactionDetailsViewModel extends ReactiveViewModel{
     }
   }
 
+ 
+
 }
+

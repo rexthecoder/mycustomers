@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +7,7 @@ import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
+import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import '../../extensions/transaction_extension.dart';
@@ -58,6 +60,15 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
   RxValue<List<CustomerContact>> _owedcustomers = RxValue<List<CustomerContact>>(initial: []);
   List<CustomerContact> get owedcustomers => _owedcustomers.value;
 
+  RxValue<List<TransactionModel>> _report = RxValue<List<TransactionModel>>(initial: []);
+  List get report => _report.value;
+
+  RxValue<double> _reportdebt = RxValue<double>(initial: 0);
+  double get reportdebt => _reportdebt.value;
+  
+  RxValue<double> _reportcredit = RxValue<double>(initial: 0);
+  double get reportcredit => _reportcredit.value;
+
   List<String> formattedate = [];
   String date;
   
@@ -67,9 +78,11 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
   RxValue<TransactionModel> _stransaction = RxValue<TransactionModel>(initial: null);
   TransactionModel get stransaction => _stransaction.value;
 
+  final dformat = new DateFormat('dd/MM/yyyy');
+
 
   TransactionLocalDataSourceImpl(){
-    listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions]);
+    listenToReactiveValues([_transactions, _debitlist, _creditlist, _alltransactions, _report, _reportdebt, _reportcredit]);
   }
 
   // @override
@@ -86,7 +99,37 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     _stransaction.value = transaction;
   }
 
-  @override
+  void setReport(DateTime start, DateTime stop, CustomerContact cus, BuildContext context, String symbol)async {
+    print(start);
+    print(stop);
+    final dformat = new DateFormat('dd/MM/yyyy');
+    _report.value = [];
+    for(var item in _transactions.value) {
+      if(DateTime.parse(item.boughtdate).difference(start).inDays <= 0 || DateTime.parse(item.paiddate).difference(stop).inDays >= 0) {
+        _report.value.add(item);
+      }
+    }
+    _reportdebt.value = 0;
+    _reportcredit.value = 0;
+    for(var item in _report.value) {
+      _reportdebt.value += item.amount;
+      _reportcredit.value += item.paid;
+    }
+    //GeneralTransactionReport().buildPdf(context);
+    GeneralTransactionReport().buildpdf( context,
+      transactions: _transactions.value,
+      start: dformat.format(start),
+      stop: dformat.format(stop),
+      customer: cus,
+      totaldebt: _reportdebt.value,
+      totalcredit: _reportcredit.value,
+      symbol: symbol
+    ).then((value) async{
+      await GeneralTransactionReport().savepdf(context, value);
+    });
+    //await GeneralTransactionReport().savepdf(context);
+  }
+
   void getAllTransactions(String id) async{
     //final bbox = await box;
     _alltransactions.value = [];
@@ -174,6 +217,7 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
       }
     }
   }
+  
 
   @override
   Future<CustomerContact> addTransaction(TransactionModel transaction, CustomerContact cus) async {

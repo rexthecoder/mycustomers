@@ -1,3 +1,5 @@
+// import 'dart:js';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/views/business/business_support_page/support_page.dart';
@@ -22,6 +24,7 @@ import 'package:mycustomers/ui/views/home/import_customer/import_customer_view.d
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_view.dart';
 import 'package:mycustomers/ui/views/home/onboarding/onboarding_view.dart';
 import 'package:mycustomers/ui/views/home/addcustomer/add_customer_view.dart';
+import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
 import 'package:mycustomers/ui/views/home/schedule_notifications/schedule_reminder/schedule_reminder_view.dart';
 import 'package:mycustomers/ui/views/home/sigin/signin_view.dart';
 import 'package:mycustomers/ui/views/home/signup/business/business_view.dart';
@@ -103,6 +106,7 @@ abstract class Routes {
   static const sendNotificationMessage = '/sendNotificationMessage';
   static const scheduleNotifications = '/scheduleNotifications';
   static const createReceipt = 'createReceipt';
+  // static const pdfViewerScreen='pdfViewerScreen';
 }
 
 class Router {
@@ -123,6 +127,11 @@ class Router {
           builder: (context) => VerificationView(),
           settings: settings,
         );
+      // case Routes.pdfViewerScreen:
+      //   return CupertinoPageRoute<dynamic>(
+      //     builder: (context)=>PdfViewerScreen(),
+      //     settings: settings,
+      //     );
       case Routes.mainViewRoute:
         return CupertinoPageRoute<dynamic>(
           builder: (context) => MainView(),
