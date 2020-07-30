@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:open_file/open_file.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
 import 'package:mycustomers/core/pdf/storagepermission.dart';
@@ -384,7 +385,8 @@ class GeneralTransactionReport {
     File filet = new File("$docdic/report"+time+".pdf");
     filet.writeAsBytes(pdf);
     file.writeAsBytesSync(pdf);
-    flusher('Report has been saved at '+filet.path, context);
+    OpenFile.open(filet.path);
+    //flusher('Report has been saved at '+filet.path, context);
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (_) => PdfViewerPage(path: filet.path),
