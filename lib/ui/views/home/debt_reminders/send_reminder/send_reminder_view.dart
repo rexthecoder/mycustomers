@@ -118,8 +118,8 @@ class SendMessage extends StatelessWidget {
                                 print(model.reminders.scheduledDate);
                               },
                               child: Container(
-                              height: SizeConfig.xMargin(context, 15),
-                              width: SizeConfig.xMargin(context, 80),
+                                height: SizeConfig.xMargin(context, 15),
+                                width: SizeConfig.xMargin(context, 80),
                                 padding: EdgeInsets.symmetric(
                                     vertical: SizeConfig.yMargin(context, 2),
                                     horizontal: SizeConfig.xMargin(context, 5)),
@@ -216,57 +216,49 @@ class SendMessage extends StatelessWidget {
                       SizedBox(
                         height: SizeConfig.yMargin(context, 10),
                       ),
-                      InkWell(
-                        onTap: () {
-                          if (action == AppLocalizations.of(context).schedule) {
-                            if (picked == null) {
+                      Container(
+                        width: SizeConfig.xMargin(context, 80),
+                        child: CustomRaisedButton(
+                          child: Container(),
+                          btnColor: BrandColors.primary,
+                          txtColor: ThemeColors.background,
+                          borderColor: BrandColors.primary,
+                          btnText: action == AppLocalizations.of(context).send
+                              ? AppLocalizations.of(context).send
+                              : AppLocalizations.of(context).schedule,
+                          onPressed: () {
+                            if (action ==
+                                AppLocalizations.of(context).schedule) {
+                              if (picked == null) {
+                                print(model.value);
+                                print(picked);
+                                flusher(
+                                    AppLocalizations.of(context)
+                                        .fieldShouldNotBeEmpty,
+                                    context);
+                              } else {
+                                print(model.value);
+                                print(picked);
+                                flusher(
+                                    'Your Reminder has been set successfully',
+                                    context);
+                                Future.delayed(Duration(seconds: 1), () {
+                                  model.reminders.navigateToRemindersView();
+                                });
+                                model.reminders.scheduleReminder();
+                              }
+                              if (model.value.length < 1) {
+                                flusher(
+                                    AppLocalizations.of(context)
+                                        .fieldShouldNotBeEmpty,
+                                    context);
+                              }
+                            } else if (action ==
+                                AppLocalizations.of(context).send) {
                               print(model.value);
-                              print(picked);
-                              flusher(
-                                  AppLocalizations.of(context)
-                                      .fieldShouldNotBeEmpty,
-                                  context);
-                            } else {
-                              print(model.value);
-                              print(picked);
-                              flusher('Your Reminder has been set successfully',
-                                  context);
-                              Future.delayed(Duration(seconds: 1), () {
-                                model.reminders.navigateToRemindersView();
-                              });
-                              model.reminders.scheduleReminder();
+                              model.sendMessage(model.initialValue());
                             }
-                            if (model.value.length < 1) {
-                              flusher(
-                                  AppLocalizations.of(context)
-                                      .fieldShouldNotBeEmpty,
-                                  context);
-                            }
-                          } else if (action ==
-                              AppLocalizations.of(context).send) {
-                            print(model.value);
-                            model.sendMessage(model.initialValue());
-                          }
-                        },
-                        child: Container(
-                          height: SizeConfig.yMargin(context, 7),
-                          width: SizeConfig.xMargin(context, 80),
-                          decoration: BoxDecoration(
-                            color: BrandColors.primary,
-                            borderRadius: BorderRadius.circular(
-                                SizeConfig.yMargin(context, 2)),
-                          ),
-                          child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Center(
-                                child: Text(
-                                  action == AppLocalizations.of(context).send
-                                      ? AppLocalizations.of(context).send
-                                      : AppLocalizations.of(context).schedule,
-                                  style:
-                                      TextStyle(color: ThemeColors.background),
-                                ),
-                              )),
+                          },
                         ),
                       ),
                     ],
