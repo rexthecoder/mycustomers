@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'dart:math';
-import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:uuid/uuid.dart';
 
 class RemindersViewModel extends BaseViewModel {
   final dformat = new DateFormat('MMM dd, yyyy');
@@ -40,19 +37,9 @@ class RemindersViewModel extends BaseViewModel {
   }
 
   void scheduleReminder() {
-    reminders.sendNotificationOnce(id, 'You have this pending message to send',
-         '', getDateTime());
+    reminders.sendNotificationOnce(id, 'Reminder: ',
+         'You have a pending message to send', getDateTime());
   }
-
-  // When time picker is added to the screen,
-// this would be used to get the date and specific time to alert the user.
-  // getDate(TimeOfDay time) {
-  //   // final now = new DateTime.now();
-  //   return DateTime(scheduledDate.year, scheduledDate.month, scheduledDate.day,
-  //       time.hour, time.minute
-  //       //fromTimePicker.hour, fromTimePicker.minute
-  //       );
-  // }
 
   void updateSelectedTime(dynamic time) {
     _selectedTime = time;

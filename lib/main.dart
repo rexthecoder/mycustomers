@@ -109,6 +109,7 @@ class App extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
+  static final navigatorKey = new GlobalKey<NavigatorState>();
   const MyApp({
     Key key, this.viewModel,
   }) : super(key: key);

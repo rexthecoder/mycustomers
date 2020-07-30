@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:mycustomers/app/locator.dart';
-// import 'package:mycustomers/app/router.dart';
-// import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/app/locator.dart';
+import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/main.dart';
+import 'package:mycustomers/ui/views/home/debt_reminders/send_reminder/send_reminder_view.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:mycustomers/core/localization/app_localization.dart';
+import 'package:mycustomers/ui/views/home/debt_reminders/main_remindersview/reminders_view.dart';
 
 class NotificationRemindersService {
-  //final NavigationService _navigationService = locator<NavigationService>();
+  final NavigationService _navigationService = locator<NavigationService>();
   var flutterLocalNotificationsPlugin;
 
   NotificationRemindersService() {
@@ -85,7 +89,12 @@ class NotificationRemindersService {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-    // await _navigationService.navigateTo(Routes.sendNotificationMessage);
+     //await _navigationService.navigateTo(Routes.sendNotificationMessage, arguments: payload);
+     await Navigator.push(
+      MyApp.navigatorKey.currentState.context,
+      MaterialPageRoute(
+          builder: (context) => RemindersView()),
+    );
   }
 
 // Function to remove reminder, in the case where well, the data was deleted. So user won't receive notification still.

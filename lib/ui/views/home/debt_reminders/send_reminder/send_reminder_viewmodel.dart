@@ -31,7 +31,7 @@ class SendMessageViewModel extends BaseViewModel {
   List<String> get messageEntries => _messageEntries;
 
   String initialValue({String newValue}) {
-    String text = 'Dear Sir/Ma, you have an outstanding payment of $debt.';
+    String text = 'Dear ${transactions.contact.name}, you have an outstanding payment of $debt.';
     if (value == null && newValue == null) {
       value = text;
     } else if (value != null && newValue != null) {

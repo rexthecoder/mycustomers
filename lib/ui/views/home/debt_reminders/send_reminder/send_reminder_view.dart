@@ -10,11 +10,12 @@ import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 
 class SendMessage extends StatelessWidget {
-  final String action;
-  SendMessage({this.action});
+  final String action, payload;
+  SendMessage({this.action, this.payload});
+
   @override
   Widget build(BuildContext context) {
-    final currency = new NumberFormat("#,##0", "en_NG");
+    DateTime picked;
     return ViewModelBuilder<SendMessageViewModel>.reactive(
       builder: (contxt, model, child) {
         return Scaffold(
@@ -84,7 +85,7 @@ class SendMessage extends StatelessWidget {
                       action == AppLocalizations.of(context).schedule
                           ? InkWell(
                               onTap: () async {
-                                final DateTime picked = await showDatePicker(
+                                picked = await showDatePicker(
                                   context: context,
                                   initialDate: model.reminders.selectedDate,
                                   firstDate: DateTime(
@@ -199,7 +200,6 @@ class SendMessage extends StatelessWidget {
                                 maxLines: null,
                                 maxLengthEnforced: false,
                                 onChanged: (value) {
-                                  model.description = value;
                                   model.initialValue(newValue: value);
                                 },
                                 initialValue: model.initialValue(),
@@ -217,19 +217,29 @@ class SendMessage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if (action == AppLocalizations.of(context).schedule) {
-                            // if (model.description == null &&
-                            //     model.value != null) {
-                            //   print(model.value);
-                            //   flusher(
-                            //       AppLocalizations.of(context)
-                            //           .fieldShouldNotBeEmpty,
-                            //       context);
-                            //} else if (model.description.isNotEmpty) {
+                            if (picked == null) {
+                              print(model.value);
+                              print(picked);
+                              flusher(
+                                  AppLocalizations.of(context)
+                                      .fieldShouldNotBeEmpty,
+                                  context);
+                            } else {
+                              print(model.value);
+                              print(picked);
                               flusher('Your Reminder has been set successfully',
                                   context);
+                              Future.delayed(Duration(seconds: 1), () {
+                                model.reminders.navigateToRemindersView();
+                              });
                               model.reminders.scheduleReminder();
-                              model.reminders.navigateToRemindersView();
-                           // }
+                            }
+                            if (model.value.length < 1) {
+                              flusher(
+                                  AppLocalizations.of(context)
+                                      .fieldShouldNotBeEmpty,
+                                  context);
+                            }
                           } else if (action ==
                               AppLocalizations.of(context).send) {
                             print(model.value);

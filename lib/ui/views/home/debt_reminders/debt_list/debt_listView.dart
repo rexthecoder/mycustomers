@@ -13,7 +13,7 @@ class DebtList extends StatelessWidget {
   DebtList({this.action});
   @override
   Widget build(BuildContext context) {
-    final currency = NumberFormat("#,##0", "en_NG");
+   var currency = NumberFormat("#,##0", "en_NG");
     return ViewModelBuilder<DebtListViewModel>.reactive(
         builder: (context, model, child) {
           return Scaffold(
@@ -45,7 +45,7 @@ class DebtList extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            Text('Total money owed: ',
+                            Text('${model.transaction.contact.name} owes you: ',
                                 style: TextStyle(
                                   fontSize: SizeConfig.textSize(context, 5),
                                   color: ThemeColors.background,
