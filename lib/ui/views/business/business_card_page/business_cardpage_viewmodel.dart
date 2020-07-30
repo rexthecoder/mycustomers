@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
+import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
 import 'package:mycustomers/core/services/business_card/business_card_service.dart';
 import 'package:mycustomers/core/services/business_card/business_card_service_impl.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
@@ -14,12 +15,12 @@ import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class BusinessCardPageViewModel extends ReactiveViewModel {
   /// Fields
-  static final BusinessCardServiceImpl _businessCardService =
-      locator<BusinessCardService>();
+  final BusinessCardRepository _businessCardService =
+      locator<BusinessCardRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   final PermissionService _permissionService = locator<IPermissionService>();
-  BusinessCardH _businessCard = _businessCardService.businessCard;
+  BusinessCardH _businessCard = BusinessCardH.empty();
   File imageFile;
 
   /// Getters
@@ -106,5 +107,5 @@ class BusinessCardPageViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_businessCardService];
+  List<ReactiveServiceMixin> get reactiveServices => [];
 }
