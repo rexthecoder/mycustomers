@@ -86,7 +86,7 @@ class TermsAndConditionView extends StatelessWidget {
                                         text:
                                             '”) operates a web/mobile application, “'),
                                     TextSpan(
-                                        text: 'MyCustomer App',
+                                        text: 'CustomerPayMe App',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(text: '” (the “'),
@@ -113,7 +113,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           color: Theme.of(context).cursorColor),
                                       children: <TextSpan>[
                                     TextSpan(
-                                        text: 'MyCustomer App',
+                                        text: 'CustomerPayMe App',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(text: '” (the “'),
@@ -125,13 +125,13 @@ class TermsAndConditionView extends StatelessWidget {
                                         text:
                                             '”), you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing '),
                                     TextSpan(
-                                        text: 'MyCustomer',
+                                        text: 'CustomerPayMe',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
                                         text: '. The materials contained in '),
                                     TextSpan(
-                                        text: 'MyCustomer',
+                                        text: 'CustomerPayMe',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
@@ -162,7 +162,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           color: Theme.of(context).cursorColor),
                                       children: <TextSpan>[
                                     TextSpan(
-                                        text: 'MyCustomer App',
+                                        text: 'CustomerPayMe App',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
@@ -202,7 +202,7 @@ class TermsAndConditionView extends StatelessWidget {
                                         color: Theme.of(context).cursorColor),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(text: '.'),
@@ -275,7 +275,7 @@ class TermsAndConditionView extends StatelessWidget {
                                         color: Theme.of(context).cursorColor),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
@@ -307,7 +307,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           text:
                                               ' does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to '),
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                     ]),
@@ -345,7 +345,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           text:
                                               ' or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use '),
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(text: ', even if '),
@@ -389,7 +389,7 @@ class TermsAndConditionView extends StatelessWidget {
                                         color: Theme.of(context).cursorColor),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
@@ -403,7 +403,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           text:
                                               ' does not warrant that any of the materials on '),
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
@@ -417,7 +417,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           text:
                                               ' may make changes to the materials contained in '),
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
@@ -507,7 +507,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           style: TextStyle(
                                               fontWeight: FontWeight.normal)),
                                       TextSpan(
-                                          text: 'MyCustomer',
+                                          text: 'CustomerPayMe',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
