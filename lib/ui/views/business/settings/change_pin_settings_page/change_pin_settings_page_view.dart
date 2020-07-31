@@ -10,7 +10,7 @@ import 'package:stacked/stacked.dart';
 import 'change_pin_settings_page_viewmodel.dart';
 
 class ChangePinSettingsPageView extends StatelessWidget {
-  final String myCustomerLogo = 'assets/icons/svg/my_customer_logo.svg';
+  final String myCustomerLogo = 'assets/icons/svg/customerpaymelogo.svg';
 
   @override
   Widget build(BuildContext context) {

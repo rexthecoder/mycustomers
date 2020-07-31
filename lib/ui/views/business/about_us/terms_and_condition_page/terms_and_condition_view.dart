@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -8,6 +9,8 @@ import 'package:stacked/stacked.dart';
 import 'terms_and_condition_viewmodel.dart';
 
 class TermsAndConditionView extends StatelessWidget {
+  final String myCustomerLogo = 'assets/icons/svg/customerpaymelogo.svg';
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TermsAndConditionViewModel>.reactive(
@@ -24,7 +27,11 @@ class TermsAndConditionView extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                child: Image.asset('assets/icons/my_customer_logo.png'),
+                child: SvgPicture.asset(
+                  myCustomerLogo,
+                  color: ThemeColors.background,
+                  height: SizeConfig.yMargin(context, 16),
+                ),
               ),
               SizedBox(
                 height: SizeConfig.yMargin(context, 3),
