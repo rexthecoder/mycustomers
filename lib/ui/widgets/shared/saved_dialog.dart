@@ -55,7 +55,7 @@ class SavedDialog extends StatelessWidget {
         content: Container(
           padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5), horizontal: SizeConfig.xMargin(context, 6)),
           width: SizeConfig.xMargin(context, 100),
-          height: SizeConfig.yMargin(context, 100)*0.46,
+          height: SizeConfig.yMargin(context, 100)*0.48,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: Theme.of(context).backgroundColor),
@@ -220,7 +220,7 @@ class SavedDialog extends StatelessWidget {
                           Navigator.pop(dcontext);
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 10)),
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Color(0xFFA7A6A6)
@@ -246,7 +246,7 @@ class SavedDialog extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 10)),
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: BrandColors.primary
