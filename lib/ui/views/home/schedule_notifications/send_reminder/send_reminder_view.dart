@@ -83,10 +83,10 @@ class SendMessage extends StatelessWidget {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.yMargin(context, 3)),
-                                SizedBox(
-                                    height: SizeConfig.yMargin(context, 6),
-                                    child: messageSnippetHolder(
-                                        context, model, headingController)),
+                                // SizedBox(
+                                //     height: SizeConfig.yMargin(context, 6),
+                                //     child: messageSnippetHolder(
+                                //         context, model, headingController)),
                                 SizedBox(
                                     height: SizeConfig.yMargin(context, 5)),
                                 Container(
@@ -177,7 +177,7 @@ class SendMessage extends StatelessWidget {
                               model.clearMessageFields();
                               headingController.text = model.controllerValue;
                               messageHeadingController.text =
-                              model.messageControllerValue;
+                                  model.messageControllerValue;
                             }
                           },
                         ),
@@ -215,15 +215,23 @@ Widget messageSnippet(String value, SendMessageViewModel model,
                 fontSize: SizeConfig.textSize(context, 4)),
           )));
 }
+//   final List<String> _messageEntries = <String>[
+//     "Don't leave me",
+//     "Happy New year",
+//     "Debt reminder"
+//   ];
 
-Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model,
-    TextEditingController controllerValue) {
-  return ListView.builder(
-      itemCount: model.messageEntries.length,
-      scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
-      itemBuilder: (context, int index) {
-        return messageSnippet(
-            model.messageEntries[index], model, context, controllerValue);
-      });
-}
+//   List<String> get messageEntries => _messageEntries;
+
+// Widget messageSnippetHolder(BuildContext context, SendMessageViewModel model,
+//     TextEditingController controllerValue) {
+//   return ListView.builder(
+//       itemCount: messageEntries.length,
+//       scrollDirection: Axis.horizontal,
+//       shrinkWrap: true,
+//       itemBuilder: (context, int index) {
+//         return messageSnippet(
+//             messageEntries[index], model, context, controllerValue);
+//       });
+
+//}

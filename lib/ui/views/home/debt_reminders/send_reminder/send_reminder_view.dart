@@ -174,7 +174,7 @@ class SendMessage extends StatelessWidget {
                             child: Container(
                               child: TimeWheel(
                                 updateTimeChanged: (val) =>
-                                    model.reminders.updateSelectedTime(val),
+                                    model.updateSelectedTime(val),
                               ),
                             ),
                           )
@@ -267,15 +267,6 @@ class SendMessage extends StatelessWidget {
                                   AppLocalizations.of(context)
                                       .fieldShouldNotBeEmpty,
                                   context);
-                            } else {
-                              print(model.value);
-                              print(model.newDate);
-                              flusher('Your Reminder has been set successfully',
-                                  context);
-                              Future.delayed(Duration(seconds: 2), () {
-                                model.reminders.navigateToRemindersView();
-                              });
-                              model.reminders.scheduleReminder();
                             }
                             if (model.value.length < 1) {
                               flusher(
@@ -283,10 +274,20 @@ class SendMessage extends StatelessWidget {
                                       .fieldShouldNotBeEmpty,
                                   context);
                             }
+                             if(model.newDate != null && model.value.length > 1) {
+                              print(model.value);
+                              print(model.newDate);
+                              flusher('Your Reminder has been set successfully',
+                                  context);
+                              Future.delayed(Duration(seconds: 1), () {
+                                model.navigateToRemindersView();
+                              });
+                              model.scheduleReminder();
+                            }
                           } else if (action == 'send') {
                             print(model.value);
                             process == 'STrans'
-                                ? model.singleSendMessage(
+                                ? model.sendSingleMessage(
                                     text: model.sTransactionValue(),
                                     id: model.transaction.tId)
                                 : model.sendMessage(model.initialValue());
