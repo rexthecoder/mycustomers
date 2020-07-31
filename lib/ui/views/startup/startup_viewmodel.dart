@@ -94,7 +94,7 @@ class StartupViewModel extends BaseViewModel {
         firstName: deets['first_name'],
         email: deets['email'],
       ));
-      print(_auth.currentUser.phoneNumber);
+      print(_auth.currentUser.firstName);
       await StoreRepository.updateStores();
       // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
       return true;
