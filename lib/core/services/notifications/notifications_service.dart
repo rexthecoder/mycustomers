@@ -18,7 +18,7 @@ abstract class NotificationRemindersService {
   void sendNotificationOnce(int id, String title, String body, DateTime time);
 
   /// This as the function name states, sets given properties to the notification.
-  getPlatformChannelSpecfics(int id);
+  getPlatformChannelSpecifics(int id);
 
   /// Configuration for IOS
   Future onDidReceiveLocalNotification(

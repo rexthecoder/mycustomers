@@ -40,7 +40,7 @@ class NotificationRemindersServiceImpl extends NotificationRemindersService {
     var time = new Time(hour, minute, 0);
 
     await flutterLocalNotificationsPlugin.showDailyAtTime(
-        id, title, body, time, getPlatformChannelSpecfics(id));
+        id, title, body, time, getPlatformChannelSpecifics(id));
 
     print(
         'Notification Succesfully Scheduled for ${time.toString()} with id of $id');
@@ -49,13 +49,13 @@ class NotificationRemindersServiceImpl extends NotificationRemindersService {
   void sendNotificationOnce(
       int id, String title, String body, DateTime time) async {
     await flutterLocalNotificationsPlugin.schedule(
-        id, title, body, time, getPlatformChannelSpecfics(id));
+        id, title, body, time, getPlatformChannelSpecifics(id));
 
     print(
         'Notification Succesfully Scheduled for ${time.toString()} with id of $id');
   }
 
-  getPlatformChannelSpecfics(int id) {
+  getPlatformChannelSpecifics(int id) {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         '$id', 'your channel name', 'your channel description',
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
