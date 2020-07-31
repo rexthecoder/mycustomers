@@ -3,29 +3,44 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
+import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
+import 'package:mycustomers/core/services/owner_services.dart';
+import 'package:mycustomers/core/services/password_manager_services.dart';
+import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:mycustomers/core/services/phone_contact_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
+import 'package:mycustomers/ui/views/business/settings/enter_pin_page/enter_pin_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final IStorageUtil _storage = locator<IStorageUtil>();
+  final _phoneContactService = locator<PhoneContactService>();
   final AuthService _auth = locator<AuthService>();
   final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+  final PasswordManagerService _passwordManagerService = locator<PasswordManagerService>();
 
   bool previewImport = false;
 
   get currentStore => StoreRepository.currentStore;
 
-  Future setup() async {
+  IOwnerServices iOwnerServices = locator<IOwnerServices>();
+  PermissionService _permission = new PermissionService();
+
+  Future setup({String query}) async {
+    
   //  Future.delayed(Duration(seconds: 30));
     await locator.allReady();
     if (await checkLoggedIn()) {
       if (confirmHasStore()) {
+        if (_passwordManagerService.isPinSet) {
+          await _navigationService.navigateToView(EnterPinView());
+        }
         _navigationService.replaceWith(Routes.mainViewRoute);
         _logService.getValues(null, DateTime.now(), 'sign-in', '', false);
       }

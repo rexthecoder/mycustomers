@@ -1,15 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'dart:math';
-import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:uuid/uuid.dart';
 
-class ScheduleNotificationsViewModel extends BaseViewModel {
+class RemindersViewModel extends BaseViewModel {
   final dformat = new DateFormat('MMM dd, yyyy');
   DateTime selectedDate = DateTime.now();
   DateTime scheduledDate;
@@ -18,7 +15,7 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
   int _selectedMonth;
   dynamic _selectedTime;
   DateTime _today = DateTime.now();
-  NotificationRemindersService reminders = NotificationRemindersService();
+  final NotificationRemindersService reminders = NotificationRemindersService();
   final NavigationService _navigationService = locator<NavigationService>();
 
   // This is temporary to give each notification a unique id
@@ -39,20 +36,10 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void scheduleReminder(String heading) {
-    reminders.sendNotificationOnce(id, 'You have this pending message to send',
-        'Heading: ' + heading, getDateTime());
+  void scheduleReminder() {
+    reminders.sendNotificationOnce(id, 'Reminder: ',
+         'You have a pending message to send', getDateTime());
   }
-
-  // When time picker is added to the screen,
-// this would be used to get the date and specific time to alert the user.
-  // getDate(TimeOfDay time) {
-  //   // final now = new DateTime.now();
-  //   return DateTime(scheduledDate.year, scheduledDate.month, scheduledDate.day,
-  //       time.hour, time.minute
-  //       //fromTimePicker.hour, fromTimePicker.minute
-  //       );
-  // }
 
   void updateSelectedTime(dynamic time) {
     _selectedTime = time;
@@ -63,8 +50,23 @@ class ScheduleNotificationsViewModel extends BaseViewModel {
         '${_today.year}-0${scheduledDate.month}-${scheduledDate.day} ${_selectedTime.substring(0, 2)}:${selectedTime.substring(3, 5)}');
   }
 
-  Future<void> navigateToMainView() async{
+  Future<void> navigateToRemindersView() async{
     await _navigationService.clearStackAndShow(Routes.mainViewRoute);
+  }
 
+  Future<void> navigateToSendMessage() async {
+    await _navigationService.navigateTo(Routes.sendNotificationMessage);
+  }
+
+  Future<void> navigateToSchedule() async {
+    await _navigationService.navigateTo(Routes.scheduleNotifications);
+  }
+
+  Future<void> navigateToSendReminderDebtList() async {
+    await _navigationService.navigateTo(Routes.sendReminderDebtList);
+  }
+
+  Future<void> navigateToScheduleReminderDebtList() async {
+    await _navigationService.navigateTo(Routes.scheduleReminderDebtList);
   }
 }

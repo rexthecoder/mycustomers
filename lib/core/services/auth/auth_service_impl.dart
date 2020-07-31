@@ -3,7 +3,6 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/api_routes.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
-import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/exceptions/network_exception.dart';

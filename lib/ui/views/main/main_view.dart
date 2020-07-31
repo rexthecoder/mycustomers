@@ -64,8 +64,10 @@ class MainView extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 mainView(context, model),
-                MainMenu(),
-                MainHeader(),
+                model.index == 0 || model.index == 2 ? MainMenu() : Container(),
+                model.index == 0 || model.index == 2
+                    ? MainHeader()
+                    : Container()
               ],
             ),
           ),
@@ -77,7 +79,9 @@ class MainView extends StatelessWidget {
   Widget mainView(BuildContext context, MainViewModel model) {
     return AnimatedPositioned(
       duration: model.duration,
-      top: SizeConfig.yMargin(context, 12),
+      top: model.index == 1
+          ? SizeConfig.yMargin(context, 0)
+          : SizeConfig.yMargin(context, 12),
       bottom: 0,
       width: SizeConfig.xMargin(context, 100),
       child: Scaffold(

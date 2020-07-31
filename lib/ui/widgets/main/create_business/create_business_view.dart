@@ -76,7 +76,6 @@ class _PartialCreateBusinessBuildForm
                 height: SizeConfig.yMargin(context, 5),
               ),
               TextFormField(
-                autofocus: true,
                 textCapitalization: TextCapitalization.sentences,
                 key: Key('businessName'),
                 controller: _businessNameController,

@@ -9,8 +9,11 @@ import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
+import 'package:mycustomers/ui/widgets/shared/saved_dialog.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class MainTransaction extends StatelessWidget {
   @override
@@ -109,8 +112,8 @@ class MainTransaction extends StatelessWidget {
                       onTap: () => model.navigateToHome(),
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(18),
-                            vertical: ScreenUtil().setHeight(10)),
+                            horizontal: SizeConfig.xMargin(context, 4.3),
+                            vertical: SizeConfig.yMargin(context, 1.8)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
                           color: Colors.white,
@@ -158,7 +161,7 @@ class MainTransaction extends StatelessWidget {
                             ),
                             child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.xMargin(context, 1.5),
+                                  horizontal: SizeConfig.xMargin(context, 2.3),
                                   vertical: ScreenUtil().setHeight(13),
                                 ),
                                 // margin: EdgeInsets.only(
@@ -170,16 +173,17 @@ class MainTransaction extends StatelessWidget {
                                 width: width,
                                 child: model.bought() > model.paid()
                                     ? Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                        child: Wrap(
+                                          crossAxisAlignment: WrapCrossAlignment.center,
+                                          alignment: WrapAlignment.spaceBetween,
+                                          //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: <Widget>[
                                             Text(//${model.contact.name}
                                               'This customer' +
                                                   ' ' +
                                                   AppLocalizations.of(context)
                                                       .owesYou +
-                                                  ' ',
+                                                  '   ',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline5
@@ -191,9 +195,9 @@ class MainTransaction extends StatelessWidget {
                                                         .cursorColor,
                                                   ),
                                             ),
-                                            SizedBox(
-                                                width: SizeConfig.xMargin(
-                                                    context, 14)),
+                                            // SizedBox(
+                                            //     width: SizeConfig.xMargin(
+                                            //         context, 14)),
                                             Text(
                                               model.currency.symbol +
                                                   currency
@@ -218,14 +222,14 @@ class MainTransaction extends StatelessWidget {
                                         ),
                                       )
                                     : Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                        child: Wrap(
+                                          alignment: WrapAlignment.spaceBetween,
+                                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Text(
                                               AppLocalizations.of(context)
                                                       .youOwe +
-                                                  ' this customer ',//${model.contact.name}
+                                                  ' this customer    ',//${model.contact.name}
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline5
@@ -237,9 +241,9 @@ class MainTransaction extends StatelessWidget {
                                                         .cursorColor,
                                                   ),
                                             ),
-                                            SizedBox(
-                                                width: SizeConfig.xMargin(
-                                                    context, 14)),
+                                            // SizedBox(
+                                            //     width: SizeConfig.xMargin(
+                                            //         context, 14)),
                                             Text(
                                               model.currency.symbol +
                                                   currency
@@ -281,7 +285,17 @@ class MainTransaction extends StatelessWidget {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () async {
-                                      flusher('Still in development', context);
+                                      await model.permission.getStoragePermission().then((value) {
+                                        if(value) {
+                                          if(model.transactions.length == 0) {
+                                            flusher('No transaction Exists Between You and This Customer', context);
+                                          } else {
+                                            SavedDialog().showPdfDialog(context, model.whichDate(model.transactions[model.transactions.length - 1]), model.whichDate(model.transactions[0]));
+                                          }
+                                        }
+                                      });
+
+                                      // flusher('Still in development', context);
                                       // SavedDialog().showPdfDialog(context);
 
                                       // // ReceiptReport().buildPdf(context);
@@ -323,7 +337,9 @@ class MainTransaction extends StatelessWidget {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {}, //Todo: Call Functionality
+                                    onTap: () {
+                                      launch('tel:${model.contact.phoneNumber}');
+                                    },
                                     child: Container(
                                       width: SizeConfig.xMargin(context, 100) *
                                           0.3,
@@ -508,7 +524,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                       ? InkWell(
                                                           onTap: () {
-                                                            //model.navigateDetails(item);
+                                                            model.navigateDetails(item);
                                                           },
                                                           child: Container(
                                                             // margin: EdgeInsets.symmetric(
@@ -561,6 +577,14 @@ class MainTransaction extends StatelessWidget {
                                                                     children: <
                                                                         Widget>[
                                                                       Text(
+                                                                        item.tId,
+                                                                        style: TextStyle(
+                                                                            fontSize: SizeConfig.yMargin(context,
+                                                                                1.8),
+                                                                            color:
+                                                                                Color(0xFF828282)), maxLines: 1,
+                                                                      ),
+                                                                      Text(
                                                                         model.getdDate(item.boughtdate) +
                                                                             ' - ' +
                                                                             model.getTime(item.boughtdate),
@@ -570,16 +594,19 @@ class MainTransaction extends StatelessWidget {
                                                                             color:
                                                                                 Color(0xFF828282)),
                                                                       ),
-                                                                      Text(
-                                                                        item.description ??
-                                                                            '',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          fontSize: SizeConfig.yMargin(
-                                                                              context,
-                                                                              2.2),
+                                                                      Padding(
+                                                                        padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
+                                                                        child: Text(
+                                                                          item.description ??
+                                                                              '',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: SizeConfig.yMargin(
+                                                                                context,
+                                                                                2.2),
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ],
@@ -656,7 +683,7 @@ class MainTransaction extends StatelessWidget {
                                                                   index]
                                                           ? InkWell(
                                                               onTap: () {
-                                                                //model.navigateDetails(item);
+                                                                model.navigateDetails(item);
                                                               },
                                                               child: Container(
                                                                 width: SizeConfig
@@ -703,19 +730,30 @@ class MainTransaction extends StatelessWidget {
                                                                         children: <
                                                                             Widget>[
                                                                           Text(
+                                                                            item.tId,
+                                                                            style: TextStyle(
+                                                                                fontSize: SizeConfig.yMargin(context,
+                                                                                    1.3,),
+                                                                                color:
+                                                                                    Color(0xFF828282)), maxLines: 1,
+                                                                          ),
+                                                                          Text(
                                                                             model.getdDate(item.boughtdate) +
                                                                                 ' - ' +
                                                                                 model.getTime(item.boughtdate),
                                                                             style:
                                                                                 TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
                                                                           ),
-                                                                          Text(
-                                                                            item.description ??
-                                                                                '',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontWeight: FontWeight.bold,
-                                                                              fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                          Padding(
+                                                                            padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
+                                                                            child: Text(
+                                                                              item.description ??
+                                                                                  '',
+                                                                              style:
+                                                                                  TextStyle(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -766,7 +804,7 @@ class MainTransaction extends StatelessWidget {
                                                                       .formattedate[index]
                                                               ? InkWell(
                                                                   onTap: () {
-                                                                    //model.navigateDetails(item);
+                                                                    model.navigateDetails(item);
                                                                   },
                                                                   child:
                                                                       Container(
@@ -806,14 +844,25 @@ class MainTransaction extends StatelessWidget {
                                                                                 CrossAxisAlignment.start,
                                                                             children: <Widget>[
                                                                               Text(
+                                                                                item.tId,
+                                                                                style: TextStyle(
+                                                                                    fontSize: SizeConfig.yMargin(context,
+                                                                                        1.3),
+                                                                                    color:
+                                                                                        Color(0xFF828282)), maxLines: 1,
+                                                                              ),
+                                                                              Text(
                                                                                 model.getdDate(item.paiddate) + ' - ' + model.getTime(item.paiddate),
                                                                                 style: TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
                                                                               ),
-                                                                              Text(
-                                                                                item.description ?? '',
-                                                                                style: TextStyle(
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                              Padding(
+                                                                                padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
+                                                                                child: Text(
+                                                                                  item.description ?? '',
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontSize: SizeConfig.yMargin(context, 2.2),
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ],
@@ -1120,7 +1169,7 @@ class AddTransaction extends StatelessWidget {
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: ScreenUtil().setHeight(15),
+                vertical: SizeConfig.yMargin(context, 1.6),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
@@ -1148,11 +1197,11 @@ class AddTransaction extends StatelessWidget {
             },
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: ScreenUtil().setHeight(15),
+                vertical: SizeConfig.yMargin(context, 1.6),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
-                color: Theme.of(context).textSelectionColor,
+                color: Colors.green,
               ),
               width: width / 2.5,
               child: Center(

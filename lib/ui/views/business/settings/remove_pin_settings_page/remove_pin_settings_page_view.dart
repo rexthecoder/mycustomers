@@ -31,7 +31,7 @@ class RemovePinSettingsPageView extends StatelessWidget {
                 padding: EdgeInsets.only(top: SizeConfig.yMargin(context, 6)),
                 child: SvgPicture.asset(
                   myCustomerLogo,
-                  color: Theme.of(context).appBarTheme.color,
+                  color: ThemeColors.background,
                   height: SizeConfig.yMargin(context, 16),
                 ),
               ),

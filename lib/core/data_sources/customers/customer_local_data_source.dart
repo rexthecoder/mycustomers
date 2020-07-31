@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer/customer_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';

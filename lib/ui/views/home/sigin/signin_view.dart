@@ -105,7 +105,7 @@ class _PartialBuildForm extends HookViewModelWidget<SignInViewModel> {
                 //   print('Value is: $value');
                 // },
                 ignoreBlank: false,
-                hintText: AppLocalizations.of(context).signUpEnterPhoneNumber,
+                hintText: AppLocalizations.of(context).phoneNumber,
                 // autoValidate: true,
                 // countries: ['NG', 'GH', 'BJ' 'TG', 'CI'],
                 errorMessage: AppLocalizations.of(context).invalidPhoneNo,

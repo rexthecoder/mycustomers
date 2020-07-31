@@ -4,6 +4,7 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/message_service.dart';
 import 'package:stacked/stacked.dart';
@@ -16,19 +17,11 @@ final _customerService = locator<CustomerContactService>();
   Customer currentCustomer;
   TextEditingController messageController =TextEditingController();
   List<String> dummyQuickText= ['Don\'t leave me', 'Happy New Year', ' Season\'s greeting', 'Happy weekend'];
-  List<String> dummyQuickTextMessages = [
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend'
-        'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend',
-  ];
+
 
   CustomerContact get customer => _customerService.contact;
   List<Message> get messages => _messageService.messages;
+  List<Message> get messagesReversed => messages.reversed.toList();
 
   String mesgg;
 
@@ -36,13 +29,13 @@ final _customerService = locator<CustomerContactService>();
     _navigationService.back();
   }
 
-  void setContact() {
-    CustomerContact cus = new CustomerContact(id: currentCustomer.id, name: currentCustomer.displayName, phoneNumber: currentCustomer.phone, initials: currentCustomer.initials);
-    _customerService.setContact(cus);
-  }
+  // void setContact() {
+  //   CustomerContact cus = new CustomerContact(id: currentCustomer.id, name: currentCustomer.displayName, phoneNumber: currentCustomer.phone, initials: currentCustomer.initials);
+  //   _customerService.setContact(cus);
+  // }
 
   void getMessages(){
-    _messageService.getMessage(customer.id);
+    _messageService.getMessage(customer);
     notifyListeners();
   }
 
@@ -67,10 +60,14 @@ final _customerService = locator<CustomerContactService>();
   }
 
   void send() {
-    _messageService.addMessage(mesgg, customer.id);
-    getMessages();
-    messageController.clear();
-    notifyListeners();
+    if(messageController.text.isNotEmpty ) {
+      print(messageController.text.length);
+      _messageService.addMessage(mesgg, customer);
+      getMessages();
+      _customerService.getCustomermarket(StoreRepository.currentStore.id);
+      messageController.clear();
+      notifyListeners();
+    }
   }
 
   @override

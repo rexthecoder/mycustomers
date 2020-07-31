@@ -3,6 +3,9 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
+import 'package:mycustomers/ui/views/home/pdf/pdfViewerScreen_view.dart';
+import 'package:stacked/stacked.dart';
 
 class SavedDialog extends StatelessWidget {
 
@@ -38,10 +41,11 @@ class SavedDialog extends StatelessWidget {
     );
   }
 
-  showPdfDialog(BuildContext context) {
+  showPdfDialog(BuildContext context, DateTime start, DateTime stop) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext dcontext) => ViewModelBuilder<MainTransactionViewModel>.reactive(
+        builder: (context, model, child) => AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10.0)
@@ -52,6 +56,9 @@ class SavedDialog extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.5), horizontal: SizeConfig.xMargin(context, 6)),
           width: SizeConfig.xMargin(context, 100),
           height: SizeConfig.yMargin(context, 100)*0.46,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Theme.of(context).backgroundColor),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,8 +76,9 @@ class SavedDialog extends StatelessWidget {
                   child: Text(
                     'Export as PDF',
                     style: TextStyle(
-                      fontSize: SizeConfig.yMargin(context, 2.2),
-                      color: BrandColors.primary
+                      fontSize: SizeConfig.yMargin(context, 2.4),
+                      color: BrandColors.primary,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
                 ),
@@ -84,18 +92,53 @@ class SavedDialog extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    final DateTime picked =
+                        await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: start,
+                      lastDate: stop,
+                      builder: (BuildContext
+                              context,
+                          Widget child) {
+                        return Theme(
+                          data: Theme.of(
+                                  context)
+                              .copyWith(
+                            primaryColor: Theme.of(
+                                        context)
+                                    .textSelectionColor,
+                            accentColor: Theme.of(
+                                        context)
+                                    .textSelectionColor,
+                            colorScheme: Theme.of(
+                                    context)
+                                .colorScheme
+                                .copyWith(
+                                    primary: Theme.of(context).textSelectionColor),
+                            buttonTheme: ButtonThemeData(
+                                textTheme:
+                                    ButtonTextTheme
+                                        .primary),
+                          ),
+                          child: child,
+                        );
+                      },
+                    );
+                    if (picked != null)
+                      model.setReportStart(picked);},
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 5)),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFF575A65)),
+                      border: Border.all(color: model.reportstarterr ? Colors.red : Color(0xFF575A65)),
                       borderRadius: BorderRadius.circular(4)
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '18/09/2020'
+                          model.reportstart != null ? model.dformat.format(model.reportstart) : 'Select Start Date'
                         ),
                         SvgPicture.asset('assets/images/pdf_calendar.svg')
                       ],
@@ -113,18 +156,53 @@ class SavedDialog extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: (){},
+                  onTap: () async {
+                    final DateTime picked =
+                        await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: start,
+                      lastDate: stop,
+                      builder: (BuildContext
+                              context,
+                          Widget child) {
+                        return Theme(
+                          data: Theme.of(
+                                  context)
+                              .copyWith(
+                            primaryColor: Theme.of(
+                                        context)
+                                    .textSelectionColor,
+                            accentColor: Theme.of(
+                                        context)
+                                    .textSelectionColor,
+                            colorScheme: Theme.of(
+                                    context)
+                                .colorScheme
+                                .copyWith(
+                                    primary: Theme.of(context).textSelectionColor),
+                            buttonTheme: ButtonThemeData(
+                                textTheme:
+                                    ButtonTextTheme
+                                        .primary),
+                          ),
+                          child: child,
+                        );
+                      },
+                    );
+                    if (picked != null)
+                      model.setReportStop(picked);},
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 5)),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFF575A65)),
+                      border: Border.all(color: model.reportstoperr ? Colors.red : Color(0xFF575A65)),
                       borderRadius: BorderRadius.circular(4)
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '18/09/2020'
+                          model.reportstop != null ? model.dformat.format(model.reportstop)  : 'Select Stop Date'
                         ),
                         SvgPicture.asset('assets/images/pdf_calendar.svg')
                       ],
@@ -133,13 +211,16 @@ class SavedDialog extends StatelessWidget {
                 ),
                 SizedBox(height: SizeConfig.yMargin(context, 2.4),),
                 Container(
+                  padding: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 1.5)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.pop(dcontext);
+                        },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 10)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Color(0xFFA7A6A6)
@@ -156,9 +237,16 @@ class SavedDialog extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          if(model.reportstart == null || model.reportstop ==null) {
+                            model.setreportdialogerror();
+                          }else {
+                            model.getPdf(context);
+                            Navigator.of(dcontext).pop();
+                          }
+                        },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 8)),
+                          padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 10)),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: BrandColors.primary
@@ -181,6 +269,8 @@ class SavedDialog extends StatelessWidget {
             ),
           )
         )
+      ),
+      viewModelBuilder: () => MainTransactionViewModel(),
       )
     );
   }

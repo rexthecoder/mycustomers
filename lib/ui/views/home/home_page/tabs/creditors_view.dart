@@ -59,11 +59,11 @@ class CreditorsView extends StatelessWidget {
                                   fontSize: SizeConfig.yMargin(context, 2),
                                 ),
                               ),
-                              model.whatyouowe > 0
+                              model.totalcredit > 0
                                   ? Text(
                                       model.currency.symbol +
                                           currency
-                                              .format(model.getamount(model.whatyouowe))
+                                              .format(model.totalcredit)
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -212,10 +212,8 @@ class ContactList extends StatelessWidget {
                   )
                 : SizedBox(),
             for (var cont in model.owedcustomers)
-              for (var item in model.contacts)
-                item.id == cont.cId
-                    ? model.sCName != null && model.containsC
-                        ? item.name
+                    model.sCName != null && model.containsC
+                        ? cont.name
                                 .toLowerCase()
                                 .contains(model.sCName.toLowerCase())
                             ? Container(
@@ -227,17 +225,13 @@ class ContactList extends StatelessWidget {
                                     //bottom: BorderSide(color: Color(0xFFD1D1D1))
                                   )),
                                   child: ListTile(
-                                    onTap: () => model.setContact(
-                                        item.id,
-                                        item.name,
-                                        item.phoneNumber,
-                                        item.initials),
-                                    leading: item.initials != null
+                                    onTap: () => model.setContact(cont),
+                                    leading: cont.initials != null
                                         ? CircleAvatar(
                                             radius: 25,
                                             backgroundColor:
                                                 BrandColors.primary,
-                                            child: Text(item.initials),
+                                            child: Text(cont.initials),
                                           )
                                         : Container(
                                             width: 50,
@@ -252,7 +246,7 @@ class ContactList extends StatelessWidget {
                                                     ),
                                                     fit: BoxFit.cover)),
                                           ),
-                                    title: Text(item.name,
+                                    title: Text(cont.name,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: SizeConfig.yMargin(
@@ -264,17 +258,15 @@ class ContactList extends StatelessWidget {
                                       child: Text(
                                         model.currency.symbol +
                                             currency
-                                                .format(
-                                                    model.getamount((cont.paid - cont.amount))
+                                                .format(model.getcredit(cont)
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.paiddate == null
+                                            color: model.getcreditduedate(cont) == null
                                                 ? BrandColors.secondary
                                                 : (DateTime.now()
                                                             .difference(DateTime
-                                                                .parse(cont
-                                                                    .paiddate))
+                                                                .parse(model.getcreditduedate(cont)))
                                                             .inDays) >
                                                         0
                                                     ? Colors.red
@@ -299,17 +291,13 @@ class ContactList extends StatelessWidget {
                                     //bottom: BorderSide(color: Color(0xFFD1D1D1))
                                   )),
                                   child: ListTile(
-                                    onTap: () => model.setContact(
-                                        item.id,
-                                        item.name,
-                                        item.phoneNumber,
-                                        item.initials),
-                                    leading: item.initials != null
+                                    onTap: () => model.setContact(cont),
+                                    leading: cont.initials != null
                                         ? CircleAvatar(
                                             radius: 25,
                                             backgroundColor:
                                                 BrandColors.primary,
-                                            child: Text(item.initials),
+                                            child: Text(cont.initials),
                                           )
                                         : Container(
                                             width: 50,
@@ -324,7 +312,7 @@ class ContactList extends StatelessWidget {
                                                     ),
                                                     fit: BoxFit.cover)),
                                           ),
-                                    title: Text(item.name,
+                                    title: Text(cont.name,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: SizeConfig.yMargin(
@@ -336,17 +324,15 @@ class ContactList extends StatelessWidget {
                                       child: Text(
                                         model.currency.symbol +
                                             currency
-                                                .format(
-                                                    model.getamount((cont.paid - cont.amount))
+                                                .format(model.getcredit(cont)
                                                         .round())
                                                 .toString(),
                                         style: TextStyle(
-                                            color: cont.paiddate == null
+                                            color: model.getcreditduedate(cont) == null
                                                 ? BrandColors.secondary
                                                 : (DateTime.now()
                                                             .difference(DateTime
-                                                                .parse(cont
-                                                                    .paiddate))
+                                                                .parse(model.getcreditduedate(cont)))
                                                             .inDays) >
                                                         0
                                                     ? Colors.red
@@ -359,7 +345,6 @@ class ContactList extends StatelessWidget {
                                   ),
                                 ),
                               )
-                    : SizedBox()
           ],
         ),
       ),

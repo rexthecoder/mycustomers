@@ -23,6 +23,7 @@ class EditProfileViewModel extends BaseViewModel {
 
   final _imagePicker = ImagePicker();
   String _userName;
+  String email;
 
   Store get currentStore => StoreRepository.currentStore;
   User get currentUser => _authService.currentUser;
@@ -66,29 +67,9 @@ class EditProfileViewModel extends BaseViewModel {
     }
   }
 
-  Image  imageFromBaseString(String base64String, BuildContext context){
-     return Image.memory(base64Decode(base64String),
-     width: SizeConfig.xMargin(context, 50),
-      height: SizeConfig.xMargin(context, 50),
-      fit: BoxFit.cover,
-    );
-  }
-
- Uint8List dataFromBase64String(String base64String){
-   return base64Decode(base64String);
- }
-
-  String base64String(Uint8List data){
-    return base64Encode(data);
-    
-  }
-
   void handleLostData(PickedFile file) {
 
   }
- 
-
-
 
   void updateUserName(String value) {
     _userName = value;
@@ -98,6 +79,11 @@ class EditProfileViewModel extends BaseViewModel {
 
   void updateBusinessName(String value) {
     _businessName = value;
+    notifyListeners();
+  }
+
+  void updateEmail(String value) {
+    email = value;
     notifyListeners();
   }
 
@@ -128,7 +114,9 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   initt() {
+    if (_userName == null)
     _userName = _authService?.currentUser?.firstName ?? 'None';
+    if (_businessName == null)
     _businessName = StoreRepository?.currentStore?.name ?? 'None';
     notifyListeners();
   }

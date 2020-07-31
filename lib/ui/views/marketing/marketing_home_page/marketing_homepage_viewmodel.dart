@@ -1,6 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -18,23 +19,13 @@ import 'package:mycustomers/core/services/customer_services.dart';
 
 class MarketingHomePageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  // dummy data
-  // TODO: implement service to get frequently contacted
-  List _persons = [
-    {'name': 'Seyi Onifade', 'number': '09088355273'},
-    {'name': 'Mark Essien', 'number': '09088355273'},
-    {'name': 'Ufe Atabo', 'number': '09088355273'}
-  ];
-  List<String> dummyQuickTextMessages = [
-    'Don\'t leave meHappy New YearSeason\'s greeting Happy weekend'
-  ];
 
   // TODO: implement service to get notification status
   bool _notification = true;
 
   bool get notification => _notification;
 
-  List get persons => _persons;
+
 
   // Function to serve as a helper for the navigation
   Future navigateToSendMessageView() async {
@@ -42,10 +33,12 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
 //    await _navigationService.navigateTo(Routes.sendMessageViewRoute, arguments: _selectedCustomers);
   }
 
+
   // Get the services required
   ICustomerService _customerService = locator<ICustomerService>();
   final _contactService = locator<CustomerContactService>();
   final _messageService = locator<MessageService>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   
 
@@ -61,7 +54,7 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
   List<CustomerContact> get scustomers => _contactService.contactsm.where((element) => element.name.toUpperCase().contains(_searchTerm.toUpperCase())).toList();
 
   List<CustomerContact> get customers => _contactService.contactsm;
-  Message getmsg(String id) => _messageService.getLast(id);
+  Message getmsg(CustomerContact cus) => _messageService.getLast(cus);
   List<Message> get allmessages => _messageService.allmessages;
   List<CustomerContact> get frequents => _messageService.tempc;
 
@@ -71,6 +64,12 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
     _contactService.setContact(cont);
   }
 
+  void navigateToSendMessageAllView() async {
+//    print(customers);
+    _contactService.allCustomers(customers);
+    await _navigationService.navigateTo(Routes.quickMessages, arguments: customers);
+  }
+
   void getContacts(){
     _contactService.getCustomermarket(StoreRepository.currentStore.id);
     _messageService.getAllMessages();
@@ -78,23 +77,33 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
     //print(frequents);
   }
 
-  void deleteCustomer(CustomerContact cus) {
+  void deleteCustomer(CustomerContact cus) async {
     CustomerContact cust = new CustomerContact(
       id: cus.id,
       name: cus.name,
       phoneNumber: cus.phoneNumber,
       initials: cus.initials,
       storeid: cus.storeid,
-      market: false
+      market: false,
+      transactions: cus.transactions,
+      messages: cus.messages
     );
-    for(var item in allmessages) {
-      if(item.cId == cus.id) {
-        _messageService.deleteMessage(item);
-      }
+
+    _messageService.deleteAllMessage(cus);
+    //await _transactionService.getTransactions();
+    //print(_transactionService.transactions.length);
+    if(cus.transactions.length > 0) {
+      print('hrr');
+      _contactService.deleteContactMarket(cus, cust);
+    } else {
+      _contactService.deleteContact(cus, StoreRepository.currentStore.id);
     }
-    _contactService.deleteContactMarket(cus, cust);
     getContacts();
   }
+
+  void selectAll() async {
+    _contactService.selectAll(customers);
+ }
 
   List<Customer> _allSelectedCustomers = [];
   List<Customer> _allFrequentCustomers = [];

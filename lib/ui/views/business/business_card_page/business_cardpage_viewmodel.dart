@@ -11,9 +11,9 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
-class BusinessCardPageViewModel extends BaseViewModel {
+class BusinessCardPageViewModel extends ReactiveViewModel {
   /// Fields
-  final BusinessCardRepository _businessCardRepository =
+  final BusinessCardRepository _businessCardService =
       locator<BusinessCardRepository>();
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -50,7 +50,7 @@ class BusinessCardPageViewModel extends BaseViewModel {
   }
 
   Future<void> saveBusinessCard() async {
-    await _businessCardRepository.saveBusinessCard(businessCard);
+    await _businessCardService.saveBusinessCard(businessCard);
     notifyListeners();
   }
 
@@ -96,11 +96,14 @@ class BusinessCardPageViewModel extends BaseViewModel {
   }
 
   Future<void> init() async {
-    _businessCard = await _businessCardRepository.getBusinessCard();
+    await _businessCardService.getBusinessCard();
     notifyListeners();
   }
 
   Future navigateToBusinessCardPage() async {
     await _navigationService.navigateTo(Routes.businessCardRoute);
   }
+
+  @override
+  List<ReactiveServiceMixin> get reactiveServices => [];
 }

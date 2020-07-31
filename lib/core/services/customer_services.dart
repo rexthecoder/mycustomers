@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:mycustomers/core/models/customer.dart';
 
 abstract class ICustomerService {
