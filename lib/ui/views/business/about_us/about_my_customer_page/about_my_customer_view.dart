@@ -14,7 +14,7 @@ class AboutMyCustomerView extends StatelessWidget {
         appBar: customizeAppBar(
           context,
           1.0,
-          title: 'About myCustomer',
+          title: 'About CustomerPayMe',
           arrowColor: BrandColors.primary,
           backgroundColor: Theme.of(context).backgroundColor,
         ),

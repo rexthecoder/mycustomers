@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
-import 'package:mycustomers/core/pdf/receipt_report_view.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/main_transaction/main_transaction_viewmodel.dart';
@@ -221,7 +220,8 @@ class MainTransaction extends StatelessWidget {
                                           ],
                                         ),
                                       )
-                                    : Center(
+                                    : model.bought() < model.paid() ?
+                                    Center(
                                         child: Wrap(
                                           alignment: WrapAlignment.spaceBetween,
                                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -267,7 +267,20 @@ class MainTransaction extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                      )),
+                                      ) : Text(
+                                        'No Pending Transaction.',//${model.contact.name}
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5
+                                            .copyWith(
+                                              fontSize:
+                                                  SizeConfig.yMargin(
+                                                      context, 2.2),
+                                              color: Theme.of(context)
+                                                  .cursorColor,
+                                            ),
+                                      ),
+                                    ),
                           ),
                     model.formattedate.length == 0
                         ? SizedBox()

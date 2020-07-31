@@ -24,7 +24,7 @@ class AboutUsView extends StatelessWidget {
           child: Column(
             children: <Widget>[
               cardTile(
-                'About myCustomer',
+                'About CustomerPayMe',
                 model.navigateToAboutMyCustomer,
                 context,
               ),

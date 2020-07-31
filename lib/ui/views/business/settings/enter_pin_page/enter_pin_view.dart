@@ -9,8 +9,10 @@ import 'package:stacked/stacked.dart';
 import 'enter_pin_viewmodel.dart';
 
 class EnterPinView extends StatelessWidget {
-  final String myCustomerLogo = 'assets/icons/svg/my_customer_logo.svg';
-  final TextEditingController enterOldPinCpontroller =
+
+  final String myCustomerLogo = 'assets/icons/svg/customerpaymelogo.svg';
+
+  final TextEditingController enterOldPinController =
       new TextEditingController(text: "");
 
   @override
@@ -47,10 +49,10 @@ class EnterPinView extends StatelessWidget {
             backgroundColor: BrandColors.primary,
             body: PinField(
               title:  "Enter your pin to continue",
-              textEditingController: enterOldPinCpontroller,
+              textEditingController: enterOldPinController,
               onCompleted: (value) async {
                 bool correct = await model.onOldPinCompleted(value);
-                if (!correct) model.clearValueIfPinsDoNotMatch(enterOldPinCpontroller);
+                if (!correct) model.clearValueIfPinsDoNotMatch(enterOldPinController);
               },
             ),
           );

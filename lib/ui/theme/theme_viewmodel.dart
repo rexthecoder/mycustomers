@@ -1,10 +1,8 @@
-// import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
-import 'package:mycustomers/ui/shared/toast_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/themes.dart' as _theme;
 import 'package:mycustomers/app/locator.dart';

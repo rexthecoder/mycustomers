@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/home/home_page/tabs/debtors_view.dart';
-import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'home_page_viewmodel.dart';

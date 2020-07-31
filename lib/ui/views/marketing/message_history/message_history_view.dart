@@ -4,8 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-
-import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/views/marketing/message_history/message_history_viewmodel.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:stacked/stacked.dart';
