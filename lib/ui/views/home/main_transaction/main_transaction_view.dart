@@ -221,7 +221,8 @@ class MainTransaction extends StatelessWidget {
                                           ],
                                         ),
                                       )
-                                    : Center(
+                                    : model.bought() < model.paid() ?
+                                    Center(
                                         child: Wrap(
                                           alignment: WrapAlignment.spaceBetween,
                                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -267,7 +268,20 @@ class MainTransaction extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                      )),
+                                      ) : Text(
+                                        'No Pending Transaction.',//${model.contact.name}
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5
+                                            .copyWith(
+                                              fontSize:
+                                                  SizeConfig.yMargin(
+                                                      context, 2.2),
+                                              color: Theme.of(context)
+                                                  .cursorColor,
+                                            ),
+                                      ),
+                                    ),
                           ),
                     model.formattedate.length == 0
                         ? SizedBox()
