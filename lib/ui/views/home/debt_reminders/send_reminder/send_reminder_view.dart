@@ -91,7 +91,7 @@ class SendMessage extends StatelessWidget {
                               onTap: () async {
                                final DateTime picked = await showDatePicker(
                                   context: context,
-                                  initialDate: model.reminders.selectedDate,
+                                  initialDate: model.selectedDate,
                                   firstDate: DateTime(
                                       int.parse(DateFormat('yyyy')
                                           .format(DateTime.now())),
@@ -118,9 +118,8 @@ class SendMessage extends StatelessWidget {
                                   },
                                 );
                                 if (picked != null)
-                                  model.reminders.setDate(picked);
-                                print(model.reminders.scheduledDate);
-                              },
+                                  model.setDate(picked);
+                                },
                               child: Container(
                                 height: SizeConfig.xMargin(context, 15),
                                 width: SizeConfig.xMargin(context, 80),
@@ -139,7 +138,7 @@ class SendMessage extends StatelessWidget {
                                   children: <Widget>[
                                     Container(
                                       child: Text(
-                                        model.reminders.newDate ??
+                                        model.newDate ??
                                             AppLocalizations.of(context)
                                                 .selectDate,
                                         style: Theme.of(context)

@@ -12,6 +12,18 @@ class SendMessageViewModel extends BaseViewModel {
   final MainTransactionViewModel transactions = MainTransactionViewModel();
   final RemindersViewModel reminders = RemindersViewModel();
 
+  final dformat = new DateFormat('MMM dd, yyyy');
+  DateTime selectedDate = DateTime.now();
+  DateTime scheduledDate;
+  String newDate;
+
+  void setDate(DateTime date) {
+    scheduledDate = date;
+    newDate = dformat.format(date);
+    print(scheduledDate);
+    notifyListeners();
+  }
+
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
   TransactionModel get transaction => _transactionService.stransaction;
 

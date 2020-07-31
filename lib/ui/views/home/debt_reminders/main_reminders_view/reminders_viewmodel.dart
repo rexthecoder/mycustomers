@@ -33,6 +33,7 @@ class RemindersViewModel extends BaseViewModel {
   void setDate(DateTime date) {
     scheduledDate = date;
     newDate = dformat.format(date);
+    print(scheduledDate);
     notifyListeners();
   }
 
