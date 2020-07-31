@@ -137,7 +137,7 @@ class _BusinessCard1 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_card_1.png"),
+                image: AssetImage("assets/images/business_cards/business_card_1.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -291,7 +291,7 @@ class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_card_2.png"),
+                image: AssetImage("assets/images/business_cards/business_card_2.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -405,7 +405,7 @@ class _BusinessCard3 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_card_3.png"),
+                image: AssetImage("assets/images/business_cards/business_card_3.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -542,7 +542,7 @@ class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_card_4.png"),
+                image: AssetImage("assets/images/business_cards/business_card_4.png"),
                 fit: BoxFit.cover,
               ),
             ),
