@@ -22,6 +22,7 @@ class BusinessHomePageView extends StatelessWidget {
   final String businessCard = 'assets/icons/svg/business_card.svg';
   final String phoneNumber = 'assets/icons/svg/phone.svg';
   final String share = 'assets/icons/svg/share.svg';
+  final String info = 'assets/icons/svg/info.svg';
   final ScreenshotController screenshotController = ScreenshotController();
 
   @override
@@ -72,8 +73,8 @@ class BusinessHomePageView extends StatelessWidget {
                       Icons.chevron_right,
                       color: Theme.of(context).cursorColor,
                     ),
-                    onTap: () {},
-//                    model.navigateToProfilePage,
+                    onTap: () {
+                    model.navigateToProfilePage();},
                   ),
                 ),
 
@@ -106,7 +107,7 @@ class BusinessHomePageView extends StatelessWidget {
                 ),
                 optionButton(
                   context: context,
-                  icon: support,
+                  icon: info,
                   label: 'About us',
                   onTap: model.navigateToAboutUsPage,
                 ),
@@ -125,7 +126,7 @@ class BusinessHomePageView extends StatelessWidget {
                         SizedBox(height: SizeConfig.yMargin(context, 2)),
                         Container(
                           height: SizeConfig.yMargin(context, 5),
-                          width: SizeConfig.xMargin(context, 60),
+                          width: SizeConfig.xMargin(context, 70),
                           child: CustomShareRaisedButton(
                             txtColor: ThemeColors.background,
                             btnColor: BrandColors.primary,

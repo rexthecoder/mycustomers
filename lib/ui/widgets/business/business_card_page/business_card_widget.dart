@@ -53,7 +53,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
                   );
                 }
               },
-              physics: new BouncingScrollPhysics(),
+              physics: ClampingScrollPhysics(),
               allowImplicitScrolling: true,
               controller: businessCardController,
               children: <Widget>[
