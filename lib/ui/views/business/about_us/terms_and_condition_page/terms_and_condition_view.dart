@@ -29,8 +29,8 @@ class TermsAndConditionView extends StatelessWidget {
               Container(
                 child: SvgPicture.asset(
                   myCustomerLogo,
-                  color: ThemeColors.background,
-                  height: SizeConfig.yMargin(context, 16),
+//                  color: ThemeColors.background,
+                  height: SizeConfig.yMargin(context, 14),
                 ),
               ),
               SizedBox(
@@ -46,7 +46,7 @@ class TermsAndConditionView extends StatelessWidget {
               SizedBox(
                 height: SizeConfig.yMargin(context, 1),
               ),
-              Text('DATE OF LAST UPDATE: [9TH July, 2020]'),
+              Text('DATE OF LAST UPDATE: [21st July, 2020]'),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.only(
