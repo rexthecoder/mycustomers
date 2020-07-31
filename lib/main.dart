@@ -40,7 +40,6 @@ void main() async {
             dsn:
                 "https://96fa259faede4385a21bd53f3985f836@o417686.ingest.sentry.io/5318792"));
     await setupLocator();
-    
    runApp(App());
 //       runApp(
 //         DevicePreview(
@@ -91,17 +90,18 @@ Future<void> _reportError(dynamic error, dynamic stackTrace) async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     // SystemChrome.setPreferredOrientations([
     // DeviceOrientation.portraitUp
-    // ]); // Settting preferred Screen Orientation
+    // ]); // Setting preferred Screen Orientation
     return CoreManager(
       child: ViewModelBuilder<SettingManagerModel>.reactive(
-        builder: (_, viewModel, ___) => OKToast(
-          child: MyApp(
+        builder: (_, viewModel, ___) {
+          return OKToast(
+            child: MyApp(
               viewModel: viewModel,
             ),
-        ),
+          );
+        },
         viewModelBuilder: () => SettingManagerModel(),
       ),
     );
@@ -110,14 +110,16 @@ class App extends StatelessWidget {
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    Key key, this.viewModel,
+    Key key,
+    this.viewModel,
   }) : super(key: key);
   final SettingManagerModel viewModel;
 
   @override
   Widget build(BuildContext context) {
+    rebuildAllChildren(context);
     return MaterialApp(
-     //builder: DevicePreview.appBuilder,
+      builder: DevicePreview.appBuilder,
       theme: viewModel.theme,
       locale: viewModel.locale,
       debugShowCheckedModeBanner: false,
@@ -130,4 +132,12 @@ class MyApp extends StatelessWidget {
     );
   }
 
+  void rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
+  }
 }

@@ -28,7 +28,7 @@ import 'package:mycustomers/ui/shared/size_config.dart';
 /// - Title
 /// - Elevation
 Widget customizeAppBar(BuildContext context, double elevation,
-    {Color arrowColor, String title, List<Widget> children, Color backgroundColor}) {
+    {Color arrowColor, String title, List<Widget> children, Color backgroundColor, Function(BuildContext) prePop}) {
   return AppBar(
     brightness: Brightness.dark,
     backgroundColor: backgroundColor,
@@ -43,7 +43,10 @@ Widget customizeAppBar(BuildContext context, double elevation,
       ),
     ),
     leading: InkWell(
-      onTap: () => Navigator.pop(context),
+      onTap: () async {
+        if (prePop != null) await prePop(context);
+        Navigator.pop(context);
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         child: SvgPicture.asset(

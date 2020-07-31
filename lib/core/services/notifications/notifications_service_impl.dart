@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:mycustomers/app/locator.dart';
-import 'package:stacked_services/stacked_services.dart';
 
-class NotificationRemindersService {
-  final NavigationService _navigationService = locator<NavigationService>();
+import 'notifications_service.dart';
+
+class NotificationRemindersServiceImpl extends NotificationRemindersService {
   var flutterLocalNotificationsPlugin;
 
-  NotificationRemindersService() {
+  NotificationRemindersServiceImpl() {
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     initNotifications();
   }
@@ -16,7 +15,6 @@ class NotificationRemindersService {
     return flutterLocalNotificationsPlugin;
   }
 
-  // initialise the plugin.
   void initNotifications() {
     // Sets icon to be displayed with notification (android).
     var initializationSettingsAndroid =
@@ -36,30 +34,28 @@ class NotificationRemindersService {
   dynamic pendingNotificationRequests() async =>
       await flutterLocalNotificationsPlugin.pendingNotificationRequests();
 
-// Function to schedule a reminder at a specific time daily
+
   void sendNotificationDaily(
       {int id, String title, String body, int hour, int minute}) async {
     var time = new Time(hour, minute, 0);
 
     await flutterLocalNotificationsPlugin.showDailyAtTime(
-        id, title, body, time, getPlatformChannelSpecfics(id));
+        id, title, body, time, getPlatformChannelSpecifics(id));
 
     print(
         'Notification Succesfully Scheduled for ${time.toString()} with id of $id');
   }
 
-// Function to schedule reminder on a specific date but just once
   void sendNotificationOnce(
       int id, String title, String body, DateTime time) async {
     await flutterLocalNotificationsPlugin.schedule(
-        id, title, body, time, getPlatformChannelSpecfics(id));
+        id, title, body, time, getPlatformChannelSpecifics(id));
 
     print(
         'Notification Succesfully Scheduled for ${time.toString()} with id of $id');
   }
 
-// This as the function name states, sets given properties to the notification.
-  getPlatformChannelSpecfics(int id) {
+  getPlatformChannelSpecifics(int id) {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         '$id', 'your channel name', 'your channel description',
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
@@ -72,27 +68,21 @@ class NotificationRemindersService {
     return platformChannelSpecifics;
   }
 
-// IOS
-  Future onDidReceiveLocalNotification(
+Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) async {
     return Future.value(1);
   }
 
-// To navigate to a certain screen on click of notification for devices notification panel
   Future onSelectNotification(String payload) async {
     print('Notification clicked');
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-     //await _navigationService.navigateTo(Routes.remindersView);
-    //  await Navigator.push(
-    //   MyApp.navigatorKey.currentState.context,
-    //   MaterialPageRoute(
-    //       builder: (context) => RemindersView()),
+    // await Navigator.pushNamed(context,
+    // screen name goes here
     // );
   }
 
-// Function to remove reminder, in the case where well, the data was deleted. So user won't receive notification still.
   void removeReminder(int notificationId) {
     flutterLocalNotificationsPlugin.cancel(notificationId);
     print('Notfication with id: $notificationId been removed successfully');

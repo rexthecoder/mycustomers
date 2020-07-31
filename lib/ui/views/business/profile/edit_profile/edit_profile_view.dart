@@ -2,9 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
+import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 import 'edit_profile_viewmodel.dart';
@@ -12,7 +14,6 @@ import 'edit_profile_viewmodel.dart';
 class EditProfileView extends HookWidget {
   @override
   Widget build(BuildContext context) {
-
 //    return ViewModelBuilder<EditProfileViewModel>.reactive(
 //      builder: (context, model, child) {
 //        return Scaffold(
@@ -72,22 +73,27 @@ class EditProfileView extends HookWidget {
 //        model.initt();
 //      },
 //    );
-    return ViewModelBuilder<EditProfileViewModel>.reactive(
+    return ViewModelBuilder<EditProfileViewModel>.nonReactive(
       builder: (context, model, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: customizeAppBar(context, 0,
-              children: [
-                Center(
-                  child: FlatButton(
+          appBar: customizeAppBar(
+            context,
+            0,
+            children: [
+              Center(
+                child: CustomPartialBuild<SettingManagerModel>(
+                  builder: (_, __) => FlatButton(
                     child: Text('Save'),
-                    onPressed: model.save,
+                    onPressed: () async {await model.save(); __.reload();},
                   ),
                 ),
-              ],
-              title: AppLocalizations.of(context).profile,
-              arrowColor: BrandColors.primary,
-              backgroundColor: Theme.of(context).backgroundColor),
+              ),
+            ],
+            title: AppLocalizations.of(context).profile,
+            arrowColor: BrandColors.primary,
+            backgroundColor: Theme.of(context).backgroundColor,
+          ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Column(
@@ -97,41 +103,94 @@ class EditProfileView extends HookWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          _previewImage(context, model),
-                          SizedBox(width: SizeConfig.xMargin(context, 6),),
+                          Stack(
+                            overflow: Overflow.visible,
+                            children: <Widget>[
+                              CustomPartialBuild<EditProfileViewModel>(
+                                builder: (context, model) =>
+                                    _previewImage(context, model),
+                                reactive: true,
+                              ),
+                              Positioned(
+                                top: -SizeConfig.xMargin(context, 2),
+                                right: -SizeConfig.xMargin(context, 2),
+                                child: GestureDetector(
+                                  child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ThemeColors.gray,
+                                      border: Border.all(
+                                        color: ThemeColors.background,
+                                        width: 1.5,
+                                      ),
+                                    ),
+                                    child: Icon(
+                                      Icons.photo_camera,
+                                      size: SizeConfig.xMargin(context, 5),
+                                      color: ThemeColors.background,
+                                    ),
+                                  ),
+                                  onTap: model.getImagefromGallery,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            width: SizeConfig.xMargin(context, 6),
+                          ),
                           Text(
-                            model.userName.isEmpty ? '' : model.userName,
+                            (model.currentUser?.firstName?.isEmpty ?? true)
+                                ? ''
+                                : model.currentUser.firstName,
                             style: TextStyle(
                               color: BrandColors.primary,
                               fontSize: SizeConfig.textSize(context, 6),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(width: SizeConfig.xMargin(context, 5),),
-                          Icon(Icons.edit, color: Theme.of(context).brightness== Brightness.dark
-                            ?Colors.white:Colors.black,)
+                          SizedBox(
+                            width: SizeConfig.xMargin(context, 5),
+                          ),
+                          Icon(
+                            Icons.edit,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                          )
                         ],
                       ),
-                      SizedBox(height: SizeConfig.yMargin(context, 5),),
+                      SizedBox(
+                        height: SizeConfig.yMargin(context, 5),
+                      ),
                       EditField(
-                        fieldName:  AppLocalizations.of(context).storeName,
+                        fieldName: AppLocalizations.of(context).storeName,
                         hintText: AppLocalizations.of(context).storeName,
+                        initialValue: model.currentStore.name,
+                        onChanged: model.updateBusinessName,
                       ),
                       Divider(),
                       EditField(
                         fieldName: AppLocalizations.of(context).phoneNumber,
                         hintText: AppLocalizations.of(context).phoneNumber,
+                        initialValue: model.currentUser.phoneNumber,
+                        onChanged: model.updatePNum,
                       ),
                       Divider(),
                       EditField(
                         fieldName: AppLocalizations.of(context).emailAddress,
                         hintText: AppLocalizations.of(context).emailAddress,
+                        initialValue: model.currentUser.email,
+                        onChanged: model.updateEmail,
                       ),
                       Divider(),
                       EditField(
                         //TODO:  Localize Location
-                        fieldName:  'Address',
+                        fieldName: 'Address',
                         hintText: 'Address',
+                        initialValue: model.address ?? model.currentStore.address,
+                        onChanged: model.updateAddress,
                       ),
                       Divider(),
                       EditField(
@@ -140,10 +199,10 @@ class EditProfileView extends HookWidget {
 //                        hintText: AppLocalizations.of(context).companyTagLine,
                         fieldName: 'Tag Line',
                         hintText: 'Tag Line',
+                        initialValue: model.currentStore.tagline,
+                        onChanged: model.updateTagline,
                       ),
                       Divider(),
-
-
                     ],
                   ),
                 ),
@@ -154,11 +213,19 @@ class EditProfileView extends HookWidget {
                   btnText: '',
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.power_settings_new,color: ThemeColors.background,),
-                      SizedBox(width: SizeConfig.xMargin(context, 2),),
-                      Text(AppLocalizations.of(context).signOut,style: TextStyle(
+                      Icon(
+                        Icons.power_settings_new,
                         color: ThemeColors.background,
-                      ),)
+                      ),
+                      SizedBox(
+                        width: SizeConfig.xMargin(context, 2),
+                      ),
+                      Text(
+                        AppLocalizations.of(context).signOut,
+                        style: TextStyle(
+                          color: ThemeColors.background,
+                        ),
+                      )
                     ],
                   ),
                   onPressed: () {
@@ -173,18 +240,20 @@ class EditProfileView extends HookWidget {
       },
       viewModelBuilder: () => EditProfileViewModel(),
       onModelReady: (model) {
-        model.initt();
+        // TODO: Implement init
       },
     );
   }
 }
 
 // ignore: must_be_immutable
-class EditField extends HookViewModelWidget<EditProfileViewModel> {
+class EditField extends ViewModelWidget<EditProfileViewModel> {
   final String fieldName;
   final String hintText;
+  final Function(String value) onChanged;
   final Function(String value,
-      {EditProfileViewModel model, TextEditingController controller}) onChanged;
+      {EditProfileViewModel model,
+      TextEditingController controller}) onChangedWithExtra;
   TextEditingController controller;
   final String initialValue;
 
@@ -192,17 +261,19 @@ class EditField extends HookViewModelWidget<EditProfileViewModel> {
       {Key key,
       this.hintText: '',
       this.initialValue,
+      this.onChangedWithExtra,
       @required this.fieldName,
       this.onChanged,
       this.controller})
       : super(key: key, reactive: false) {
     assert(controller == null || initialValue == null);
+    assert(onChanged == null || onChangedWithExtra == null);
     if (controller == null) {
-      controller = TextEditingController(text: initialValue);
+      controller = TextEditingController.fromValue(TextEditingValue(text: initialValue ?? ''));
     }
   }
   @override
-  Widget buildViewModelWidget(
+  Widget build(
       BuildContext context, EditProfileViewModel viewModel) {
     return Container(
       child: Row(
@@ -212,6 +283,7 @@ class EditField extends HookViewModelWidget<EditProfileViewModel> {
               '$fieldName:',
             ),
           ),
+          SizedBox(width: 3),
           Expanded(
             flex: 2,
             child: TextFormField(
@@ -219,9 +291,10 @@ class EditField extends HookViewModelWidget<EditProfileViewModel> {
               controller: controller,
               onChanged: (val) {
                 if (onChanged != null) {
-                  onChanged(val,
-                      model: viewModel,
-                      controller: controller);
+                  onChanged(val);
+                } else if (onChangedWithExtra != null) {
+                  onChangedWithExtra(val,
+                      model: viewModel, controller: controller);
                 }
               },
             ),
@@ -233,7 +306,6 @@ class EditField extends HookViewModelWidget<EditProfileViewModel> {
 }
 
 Widget _previewImage(BuildContext context, EditProfileViewModel model) {
-
   return CircleAvatar(
     backgroundColor: ThemeColors.unselect,
     backgroundImage: model.currentStore.storePic == null
@@ -241,7 +313,9 @@ Widget _previewImage(BuildContext context, EditProfileViewModel model) {
         : MemoryImage(model.currentStore.storePic),
     child: model.currentStore.storePic == null
         ? Text(
-            model.userName.isEmpty ? '' : model.userName.substring(0, 1),
+            (model.currentUser.firstName?.isEmpty ?? true)
+                ? ''
+                : model.currentUser.firstName.substring(0, 1),
             style: TextStyle(
               color: BrandColors.primary,
               fontSize: SizeConfig.textSize(context, 8),

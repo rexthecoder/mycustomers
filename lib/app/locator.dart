@@ -17,6 +17,8 @@ import 'package:mycustomers/core/services/auth/auth_service_impl.dart';
 import 'package:mycustomers/core/services/business_card/business_card_service.dart';
 import 'package:mycustomers/core/services/business_card/business_card_service_impl.dart';
 import 'package:mycustomers/core/services/message_service.dart';
+import 'package:mycustomers/core/services/notifications/notifications_service.dart';
+import 'package:mycustomers/core/services/notifications/notifications_service_impl.dart';
 import 'package:mycustomers/core/services/phone_contact_service.dart';
 import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:hive/hive.dart';
@@ -56,6 +58,7 @@ Future<void> setIso() async {
 }
 
 /// Setup function that is run before the App is run.
+/// Arrange in order of most wanted service on start
 ///   - Sets up singletons that can be called from anywhere
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
@@ -112,9 +115,13 @@ Future<void> setupLocator(
   locator.registerLazySingleton<BusinessCardService>(
     () => BusinessCardServiceImpl(businessCardRepository: locator()),
   );
-//   locator.registerLazySingleton<MessageServices>(() => MessageServices());
 
-  ///Repository
+  // Local notification service
+  locator.registerLazySingleton<NotificationRemindersService>(
+        () => NotificationRemindersServiceImpl(),
+  );
+
+  // Repository
   locator.registerLazySingleton<BusinessCardRepository>(
     () => BusinessCardRepositoryImpl(localDataSource: locator()),
   );
@@ -122,8 +129,7 @@ Future<void> setupLocator(
     () => StoreRepository(),
   );
 
-  /// Data sources
-
+  // Data sources
   locator.registerLazySingleton<StoreDataSourceImpl>(
     () => StoreDataSourceImpl(),
   );

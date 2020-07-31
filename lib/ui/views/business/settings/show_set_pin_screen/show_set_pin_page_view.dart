@@ -9,7 +9,7 @@ import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShowSetPinPageView extends StatelessWidget {
-  final String myCustomerLogo = 'assets/icons/svg/my_customer_logo.svg';
+  final String myCustomerLogo = 'assets/icons/svg/customerpaymelogo.svg';
 
   @override
   Widget build(BuildContext context) {

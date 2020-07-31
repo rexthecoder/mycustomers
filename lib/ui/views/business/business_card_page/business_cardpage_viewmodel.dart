@@ -5,6 +5,8 @@ import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/repositories/business_card/business_card_repository.dart';
+import 'package:mycustomers/core/repositories/store/store_repository.dart';
+import 'package:mycustomers/core/services/auth/auth_service.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -18,6 +20,7 @@ class BusinessCardPageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   final PermissionService _permissionService = locator<IPermissionService>();
+  final AuthService _auth = locator<AuthService>();
   BusinessCardH _businessCard = BusinessCardH.empty();
   File imageFile;
 
@@ -95,9 +98,19 @@ class BusinessCardPageViewModel extends ReactiveViewModel {
     }
   }
 
-  Future<void> init() async {
-    await _businessCardService.getBusinessCard();
-    notifyListeners();
+  void init() {
+    _businessCard = _businessCard.copyWith(
+      storeName: StoreRepository.currentStore.name ?? '',
+      personalName: _auth.currentUser.firstName ?? '',
+      phoneNumber: _auth.currentUser.phoneNumber ?? '',
+      emailAddress: _auth.currentUser.email ?? '',
+      address: StoreRepository.currentStore.address ?? '',
+      tagLine: StoreRepository.currentStore.tagline ?? '',
+    );
+    print('Init card page');
+    print(StoreRepository.currentStore.name );
+    print(_businessCard.storeName);
+//    notifyListeners();
   }
 
   Future navigateToBusinessCardPage() async {

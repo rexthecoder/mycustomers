@@ -6,10 +6,8 @@ import 'package:mycustomers/core/data_sources/transaction/transaction_local_data
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
 import 'package:mycustomers/core/models/hive/log/log_h.dart';
-import 'package:mycustomers/core/models/hive/market_message/message_h.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
-import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive/hive.dart';
 import 'package:mycustomers/app/locator.dart';

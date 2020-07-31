@@ -17,6 +17,7 @@ abstract class ComplaintLocalDataSource {
 
   Future<void> deleteComplaint(String complaintId);
 }
+
 // TODO: Properly implement the error handling
 class ComplaintLocalDataSourceImpl implements ComplaintLocalDataSource {
   final _hiveService = locator<HiveInterface>();

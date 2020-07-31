@@ -46,18 +46,18 @@ class DebtList extends StatelessWidget {
                         children: <Widget>[
                           Expanded(
                             child: Text(
-                                'Total Amount ${model.transaction.contact.name} owes you is: ',
+                                'Total Amount ${model.contact.name} owes you is:  ',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize:
                                         SizeConfig.textSize(context, 3.5))),
                           ),
-                          SizedBox(width: SizeConfig.xMargin(context, 0.5)),
+//                          SizedBox(width: SizeConfig.xMargin(context, 0.2)),
                           Text(
-                            model.transaction.currency.symbol +
+                            model.currency.symbol +
                                 currency
-                                    .format(model.transaction.getamount(
-                                        (model.transaction.bought())
+                                    .format(model.getamount(
+                                        (model.bought())
                                             .toDouble()))
                                     .toString(),
                             style:
@@ -75,11 +75,8 @@ class DebtList extends StatelessWidget {
                       height: SizeConfig.yMargin(context, 4),
                     ),
                     Container(
-                      //padding: const EdgeInsets.symmetric(horizontal: 15),
                       width: double.infinity,
                       height: 30,
-                      //color: backgroundColor,
-                      //alignment: Alignment.centerLeft,
                       child: Text(
                         "Kindly click on a debt from the list to send a single reminder.",
                         style: TextStyle(fontWeight: FontWeight.w600),
@@ -103,34 +100,32 @@ class DebtList extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.builder(
-                          itemCount: model.transaction.formattedate.length,
+                          itemCount: model.formattedate.length,
                           itemBuilder: (context, index) {
                             return Container(
                               child: Column(
                                 children: <Widget>[
                                   for (var item
-                                      in model.transaction.transactions)
+                                      in model.transactions)
                                     Column(
                                       children: <Widget>[
                                         item.boughtdate != null &&
                                                 item.paiddate != null
-                                            ? model.transaction.getDate(
+                                            ? model.getDate(
                                                             item.boughtdate) ==
-                                                        model.transaction
-                                                                .formattedate[
+                                                        model.formattedate[
                                                             index] &&
-                                                    model.transaction.getDate(
+                                                    model.getDate(
                                                             item.paiddate) ==
-                                                        model.transaction
-                                                            .formattedate[index]
+                                                        model.formattedate[index]
                                                 ? InkWell(
                                                     onTap: () {
                                                       action == 'schedule'
                                                           ? model
-                                                              .navigateToSchedule(
+                                                              .navigateToScheduleSingleDebt(
                                                                   item)
                                                           : model
-                                                              .navigateToSendMessage(
+                                                              .navigateToSendSingleDebt(
                                                                   item);
                                                     },
                                                     child: Container(
@@ -167,12 +162,10 @@ class DebtList extends StatelessWidget {
                                                               children: <
                                                                   Widget>[
                                                                 Text(
-                                                                  model.transaction
-                                                                          .getdDate(item
+                                                                  model.getdDate(item
                                                                               .boughtdate) +
                                                                       ' - ' +
                                                                       model
-                                                                          .transaction
                                                                           .getTime(
                                                                               item.boughtdate),
                                                                   style: TextStyle(
@@ -225,12 +218,10 @@ class DebtList extends StatelessWidget {
                                                             child: Center(
                                                               child: Text(
                                                                 model
-                                                                        .transaction
                                                                         .currency
                                                                         .symbol +
                                                                     currency
                                                                         .format(model
-                                                                            .transaction
                                                                             .getamount(item.paid))
                                                                         .toString(),
                                                                 style: TextStyle(
@@ -254,18 +245,17 @@ class DebtList extends StatelessWidget {
                                                   )
                                                 : SizedBox()
                                             : item.boughtdate != null
-                                                ? model.transaction.getDate(
+                                                ? model.getDate(
                                                             item.boughtdate) ==
-                                                        model.transaction
-                                                            .formattedate[index]
+                                                        model.formattedate[index]
                                                     ? InkWell(
                                                         onTap: () {
                                                           action == 'schedule'
                                                               ? model
-                                                                  .navigateToSchedule(
+                                                                  .navigateToScheduleSingleDebt(
                                                                       item)
                                                               : model
-                                                                  .navigateToSendMessage(
+                                                                  .navigateToSendSingleDebt(
                                                                       item);
                                                         },
                                                         child: Container(
@@ -304,11 +294,10 @@ class DebtList extends StatelessWidget {
                                                                   children: <
                                                                       Widget>[
                                                                     Text(
-                                                                      model.transaction.getdDate(item
+                                                                      model.getdDate(item
                                                                               .boughtdate) +
                                                                           ' - ' +
                                                                           model
-                                                                              .transaction
                                                                               .getTime(item.boughtdate),
                                                                       style: TextStyle(
                                                                           fontSize: SizeConfig.yMargin(
@@ -360,11 +349,10 @@ class DebtList extends StatelessWidget {
                                                                 child: Center(
                                                                   child: Text(
                                                                     model
-                                                                            .transaction
                                                                             .currency
                                                                             .symbol +
                                                                         currency
-                                                                            .format(model.transaction.getamount(item.amount))
+                                                                            .format(model.getamount(item.amount))
                                                                             .toString(),
                                                                     style: TextStyle(
                                                                         fontWeight:
@@ -395,26 +383,26 @@ class DebtList extends StatelessWidget {
                     ),
                     Text(
                         action == 'send'
-                            ? 'Or Click the button below to send a reminder of the total'
-                            : 'Or Click the button below to schedule reminder of the total',
+                            ? 'Or Click the button below to send a reminder of the total debt Amount ${model.contact.name} owes you'
+                            : 'Or Click the button below to schedule reminder of the debt total ${model.contact.name} owes you',
                         style: TextStyle(fontWeight: FontWeight.w600)),
                     SizedBox(
-                      height: SizeConfig.yMargin(context, 2),
+                      height: SizeConfig.yMargin(context, 1),
                     ),
                     Container(
-                      width: SizeConfig.xMargin(context, 60),
+                      width: SizeConfig.xMargin(context, 70),
                       child: CustomRaisedButton(
                         child: Container(),
                         btnColor: action == 'send' ? BrandColors.secondary : BrandColors.primary,
                         txtColor: ThemeColors.background,
                         borderColor: action == 'send' ? BrandColors.secondary : BrandColors.primary,
                         btnText: action == 'send'
-                            ? AppLocalizations.of(context).sendReminder
-                            : AppLocalizations.of(context).scheduleReminder,
+                            ? "Send reminder for total amount"
+                            : "Schedule reminder for total amount",
                         onPressed: () {
                           action == 'schedule'
-                              ? model.reminders.navigateToSchedule()
-                              : model.reminders.navigateToSendMessage();
+                              ? model.navigateToSchedule()
+                              : model.navigateToSendMessage();
                         },
                       ),
                     ),

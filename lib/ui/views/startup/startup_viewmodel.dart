@@ -3,7 +3,6 @@ import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
-import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
@@ -94,7 +93,7 @@ class StartupViewModel extends BaseViewModel {
         firstName: deets['first_name'],
         email: deets['email'],
       ));
-      print(_auth.currentUser.phoneNumber);
+      print(_auth.currentUser.firstName);
       await StoreRepository.updateStores();
       // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
       return true;

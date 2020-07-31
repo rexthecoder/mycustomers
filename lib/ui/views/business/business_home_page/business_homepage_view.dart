@@ -28,157 +28,166 @@ class BusinessHomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BusinessHomePageViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: SizeConfig.yMargin(context, 11),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).backgroundColor.computeLuminance() >
-                                0.5
-                            ? Colors.white
-                            : ThemeColors.black,
-                  ),
-                  child: ListTile(
-                    title: Text(
-                      AppLocalizations.of(context).profile,
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 5),
-                        fontWeight: FontWeight.bold,
-                      ),
+      builder: (context, model, child) {
+        model.init();
+        print('Called init');
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: SizeConfig.yMargin(context, 11),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).backgroundColor.computeLuminance() >
+                                  0.5
+                              ? Colors.white
+                              : ThemeColors.black,
                     ),
-                    leading: CircleAvatar(
-                      backgroundColor: BrandColors.primary,
-                      backgroundImage: model.currentStore.storePic != null
-                          ? MemoryImage(model.currentStore.storePic)
-                          : null,
-                      minRadius: SizeConfig.xMargin(context, 7),
-                      maxRadius: SizeConfig.xMargin(context, 7.3),
-                      child: model.currentStore.storePic != null
-                          ? Container()
-                          : Text(
-                              model.profileCardTitle.substring(0, 1),
-                              style: TextStyle(
-                                color: ThemeColors.background,
-                                fontSize: SizeConfig.textSize(context, 6),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                    ),
-                    trailing: Icon(
-                      Icons.chevron_right,
-                      color: Theme.of(context).cursorColor,
-                    ),
-                    onTap: () {
-                    model.navigateToProfilePage();},
-                  ),
-                ),
-
-                optionButton(
-                  context: context,
-                  icon: phoneNumber,
-                  label: AppLocalizations.of(context).regPhoneNo,
-                  subtitle: '${model.pNum}',
-                  opens: false,
-                  // onTap: () => _displayBusinessCardModal(context, model)
-                ),
-                // optionButton(
-                //   context: context,
-                //   icon: businessCard,
-                //   label: 'Issue Digital Reciept',
-                //   // onTap: () => _displayBusinessCardModal(context, model),
-                // ),
-                optionButton(
-                  context: context,
-                  icon: settings,
-                  label: AppLocalizations.of(context).settings,
-                  onTap: model.navigateToSettingsPage,
-                ),
-                optionButton(
-                  context: context,
-                  icon: support,
-                  //TODO Help and Support Localization
-                  label: 'Help and Support',
-                  onTap: model.navigateToSupportPage,
-                ),
-                optionButton(
-                  context: context,
-                  icon: info,
-                  label: 'About us',
-                  onTap: model.navigateToAboutUsPage,
-                ),
-                SizedBox(height: SizeConfig.yMargin(context, 3)),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: 20, horizontal: SizeConfig.xMargin(context, 7)),
-                  child:
-                      ViewModelBuilder<BusinessCardPageViewModel>.nonReactive(
-                    builder: (_, businessCardModel, ___) => Column(
-                      children: <Widget>[
-                        BusinessCardWidget(
-                          showArrow: false,
-                          screenshotController: screenshotController,
+                    child: ListTile(
+                      title: Text(
+                        AppLocalizations.of(context).profile,
+                        style: TextStyle(
+                          fontSize: SizeConfig.textSize(context, 5),
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(height: SizeConfig.yMargin(context, 2)),
-                        Container(
-                          height: SizeConfig.yMargin(context, 5),
-                          width: SizeConfig.xMargin(context, 70),
-                          child: CustomShareRaisedButton(
-                            txtColor: ThemeColors.background,
-                            btnColor: BrandColors.primary,
-                            btnText: 'Share your business card',
-                            borderColor: BrandColors.primary,
-                            child: SvgPicture.asset(
-                              share,
-                              height: SizeConfig.xMargin(context, 6),
-                              color: ThemeColors.background,
-                            ),
-                            onPressed: () {
-                              screenshotController
-                                  .capture(
-                                pixelRatio: ScreenUtil.pixelRatio,
-                                delay: Duration(milliseconds: 10),
-                              )
-                                  .then(
-                                (File image) {
-                                  businessCardModel.imageFile = image;
-                                  FlushbarHelper.createSuccess(
-                                    duration: const Duration(seconds: 5),
-                                    message: 'Sharing...',
-                                  ).show(context);
-                                  businessCardModel.shareImageAndText();
-                                  FlushbarHelper.createSuccess(
-                                    duration: const Duration(seconds: 5),
-                                    message: 'Successful',
-                                  ).show(context);
-                                },
-                              ).catchError(
-                                (onError) {
-                                  FlushbarHelper.createError(
-                                    duration: const Duration(seconds: 5),
-                                    message: onError.toString(),
-                                  ).show(context);
-                                },
-                              );
-                              return;
-                            },
-                          ),
-                        )
-                      ],
+                      ),
+                      leading: CircleAvatar(
+                        backgroundColor: BrandColors.primary,
+                        backgroundImage: model.currentStore.storePic != null
+                            ? MemoryImage(model.currentStore.storePic)
+                            : null,
+                        minRadius: SizeConfig.xMargin(context, 7),
+                        maxRadius: SizeConfig.xMargin(context, 7.3),
+                        child: model.currentStore.storePic != null
+                            ? Container()
+                            : Text(
+                                model.profileCardTitle.substring(0, 1),
+                                style: TextStyle(
+                                  color: ThemeColors.background,
+                                  fontSize: SizeConfig.textSize(context, 6),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ),
+                      trailing: Icon(
+                        Icons.chevron_right,
+                        color: Theme.of(context).cursorColor,
+                      ),
+                      onTap: () {
+                        model.navigateToProfilePage();
+                      },
                     ),
-                    viewModelBuilder: () => BusinessCardPageViewModel(),
-                    onModelReady: (model) => model.init(),
                   ),
-                ),
-              ],
+
+                  optionButton(
+                    context: context,
+                    icon: phoneNumber,
+                    label: AppLocalizations.of(context).regPhoneNo,
+                    subtitle: '${model.pNum}',
+                    opens: false,
+                    // onTap: () => _displayBusinessCardModal(context, model)
+                  ),
+                  // optionButton(
+                  //   context: context,
+                  //   icon: businessCard,
+                  //   label: 'Issue Digital Reciept',
+                  //   // onTap: () => _displayBusinessCardModal(context, model),
+                  // ),
+                  optionButton(
+                    context: context,
+                    icon: settings,
+                    label: AppLocalizations.of(context).settings,
+                    onTap: model.navigateToSettingsPage,
+                  ),
+                  optionButton(
+                    context: context,
+                    icon: support,
+                    //TODO Help and Support Localization
+                    label: 'Help and Support',
+                    onTap: model.navigateToSupportPage,
+                  ),
+                  optionButton(
+                    context: context,
+                    icon: info,
+                    label: 'About us',
+                    onTap: model.navigateToAboutUsPage,
+                  ),
+                  SizedBox(height: SizeConfig.yMargin(context, 3)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                        horizontal: SizeConfig.xMargin(context, 7)),
+                    child: ViewModelBuilder<BusinessCardPageViewModel>.reactive(
+                      builder: (_, businessCardModel, ___) {
+                        print(businessCardModel.init);
+                        businessCardModel.init();
+                        return Column(
+                          children: <Widget>[
+                            BusinessCardWidget(
+                              showArrow: false,
+                              screenshotController: screenshotController,
+                            ),
+                            SizedBox(height: SizeConfig.yMargin(context, 2)),
+                            Container(
+                              height: SizeConfig.yMargin(context, 5),
+                              width: SizeConfig.xMargin(context, 70),
+                              child: CustomShareRaisedButton(
+                                txtColor: ThemeColors.background,
+                                btnColor: BrandColors.primary,
+                                btnText: 'Share your business card',
+                                borderColor: BrandColors.primary,
+                                child: SvgPicture.asset(
+                                  share,
+                                  height: SizeConfig.xMargin(context, 6),
+                                  color: ThemeColors.background,
+                                ),
+                                onPressed: () {
+                                  screenshotController
+                                      .capture(
+                                    pixelRatio: ScreenUtil.pixelRatio,
+                                    delay: Duration(milliseconds: 10),
+                                  )
+                                      .then(
+                                    (File image) {
+                                      businessCardModel.imageFile = image;
+                                      FlushbarHelper.createSuccess(
+                                        duration: const Duration(seconds: 5),
+                                        message: 'Sharing...',
+                                      ).show(context);
+                                      businessCardModel.shareImageAndText();
+                                      FlushbarHelper.createSuccess(
+                                        duration: const Duration(seconds: 5),
+                                        message: 'Successful',
+                                      ).show(context);
+                                    },
+                                  ).catchError(
+                                    (onError) {
+                                      FlushbarHelper.createError(
+                                        duration: const Duration(seconds: 5),
+                                        message: onError.toString(),
+                                      ).show(context);
+                                    },
+                                  );
+                                  return;
+                                },
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      viewModelBuilder: () => BusinessCardPageViewModel(),
+                      onModelReady: (model) => model.init(),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
       viewModelBuilder: () => BusinessHomePageViewModel(),
     );
   }

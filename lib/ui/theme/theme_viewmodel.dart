@@ -1,10 +1,8 @@
-// import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
-import 'package:mycustomers/ui/shared/toast_widget.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/ui/shared/themes.dart' as _theme;
 import 'package:mycustomers/app/locator.dart';
@@ -16,6 +14,11 @@ class SettingManagerModel extends MultipleStreamViewModel {
   final LogsLocalDataSource _logService = locator<LogsLocalDataSource>();
   static final _transactionService = locator<TransactionLocalDataSource>();
   static final _customerService = locator<CustomerContactDataSource>();
+
+  void reload() {
+    print('Reloading app');
+    notifyListeners();
+  }
 
   // TODO: implement getter properly
   bool get isDarkTheme => _su.getBool('IS_DARK_THEME') ?? WidgetsBinding.instance.window.platformBrightness == Brightness.dark/*(MediaQuery.of(_context).platformBrightness == Brightness.dark) */ ?? false;

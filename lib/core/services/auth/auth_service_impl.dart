@@ -23,7 +23,7 @@ class AuthServiceImpl implements AuthService {
   Future<void> updateCurrentUser(User newUser) async {
     await _storage.saveString(AppPreferenceKey.USER_ID, currentUser?.id ?? newUser.id);
     await _storage.saveString(AppPreferenceKey.USER_PHONE, newUser.phoneNumber ?? currentUser?.phoneNumber);
-    var fullname = '${newUser.firstName ?? currentUser?.firstName ?? ''} ${newUser.lastName ?? currentUser?.lastName ?? ''}'.trim();
+    var fullname = '${newUser.firstName ?? currentUser?.firstName ?? ''} ${newUser?.lastName?.toLowerCase() == 'not set' ? '' : newUser.lastName ?? currentUser?.lastName ?? ''}'.trim();
     await _storage.saveString(AppPreferenceKey.USER_FULL_NAME, fullname.isNotEmpty ? fullname : null);
     await _storage.saveString(AppPreferenceKey.USER_EMAIL, newUser.email ?? currentUser?.email);
     var v = {
