@@ -1,6 +1,6 @@
 /// An abstract class for local notification service
 /// 
-/// 
+/// Inspired by Abbie (-_-)
 abstract class NotificationRemindersService {
   /// Get the instance from the notification package
   getNotificationInstance();

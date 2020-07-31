@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:mycustomers/core/services/notifications/notifications_service.dart';
 import 'package:stacked/stacked.dart';
-import 'package:mycustomers/core/services/notifications/notifications_reminder.dart';
 import 'dart:math';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -15,7 +15,7 @@ class RemindersViewModel extends BaseViewModel {
   int _selectedMonth;
   dynamic _selectedTime;
   DateTime _today = DateTime.now();
-  final NotificationRemindersService reminders = NotificationRemindersService();
+  final  _reminder = locator<NotificationRemindersService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   // This is temporary to give each notification a unique id
@@ -38,7 +38,7 @@ class RemindersViewModel extends BaseViewModel {
   }
 
   void scheduleReminder() {
-    reminders.sendNotificationOnce(id, 'Reminder: ',
+    _reminder.sendNotificationOnce(id, 'Reminder: ',
          'You have a pending message to send', getDateTime());
   }
 
