@@ -4,7 +4,6 @@ import 'package:mycustomers/ui/views/business/about_us/about_my_customer_page/ab
 import 'package:mycustomers/ui/views/business/about_us/about_us_page/about_us_view.dart';
 import 'package:mycustomers/ui/views/business/about_us/privacy_policy_page/privacy_policy_view.dart';
 import 'package:mycustomers/ui/views/business/about_us/terms_and_condition_page/terms_and_condition_view.dart';
-import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/views/business/digital_reciept/create_receipt_view.dart';
 import 'package:mycustomers/ui/views/business/help_support/add_complaint_page/add_complaint_view.dart';
 import 'package:mycustomers/ui/views/business/help_support/help_and_support_page/help_and_support_page.dart';
