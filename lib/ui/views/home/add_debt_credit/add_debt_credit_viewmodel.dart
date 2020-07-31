@@ -21,6 +21,7 @@ import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/owner_services.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
+import 'package:mycustomers/ui/shared/dialog_loader.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
@@ -71,7 +72,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
 
   bool _busy = true;
 
-  bool get isLoadBusy => _phoneContactService.busy;
+  bool get isLoadBusy => _busy;
 
   String namehint;
   bool shownames = false;
@@ -103,6 +104,8 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   bool numberr = false;
   PermissionService _permission = new PermissionService();
 
+  final DialogService _dialogService = locator<DialogService>();
+
   List<Customer> filtered = [];
 
   init({String query}) async {
@@ -110,14 +113,22 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     final bool isPermitted = await _permission.getContactsPermission();
 
     if(_phoneContactService.contactsCount() != (await iOwnerServices.getPhoneContacts(query: query)).toList().length){
-      final bool isPermitted = await _permission.getContactsPermission();
+      //final bool isPermitted = await _permission.getContactsPermission();
       if(isPermitted) {
+        _dialogService.registerCustomDialogUi(buildLoaderDialog);
+        _dialogService.showCustomDialog(
+        title: 'Please hold on while we fetch your contacts...');
+        _busy = true;
         notifyListeners();
+        await _phoneContactService.deleteall();
         for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
           print('Iterate');
           await _phoneContactService.addCustomer(customer);
         }
         _phoneContactService.getContacts();
+        _busy = false;
+        _dialogService.completeDialog(DialogResponse());
+        notifyListeners();
       }
     } else {
       _phoneContactService.getContacts();
@@ -437,6 +448,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               paiddate: otherDate.toString());
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
+          _customerContactService.getContacts(StoreRepository.currentStore.id);
           _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);
           _navigationService.back();
           //_navigationService.replaceWith(Routes.mainTransaction);
@@ -454,6 +466,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               paiddate: _transactionService.stransaction.paiddate);
           //_customerContactService.addContact(selectedCustomer.phone.isNotEmpty ? selectedCustomer.phone : 'No number', selectedCustomer.displayName, '', selectedCustomer.initials, action, transaction);
           await _transactionService.updateTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
+          _customerContactService.getContacts(StoreRepository.currentStore.id);
           _logService.getValues(
               amount.toInt(), DateTime.now(), 'debit', contact.name, update);
           //_navigationService.replaceWith(Routes.mainTransaction);
@@ -474,7 +487,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               paiddate: null);
           if (newCus) {
             numberr = false;
-            number != null
+            number != null && number.phoneNumber != null
                 ? number.phoneNumber.length == number.dialCode.length ? numberr = true : _customerContactService.addContact(
                     number.toString(),
                     name,
@@ -501,6 +514,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           if (!newCus) {
             print('here');
             await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
+            _customerContactService.getContacts(StoreRepository.currentStore.id);
             //_navigationService.replaceWith(Routes.mainTransaction);
             _navigationService.back();
             _logService.getValues(amount.toInt(), DateTime.now(), 'debit', contact.name, update);
@@ -545,6 +559,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           if (!newCus) {
             print('here');
             await _transactionService.addTransaction(transaction, contact).then((value) => _customerContactService.setContact(value));
+            _customerContactService.getContacts(StoreRepository.currentStore.id);
             //_navigationService.replaceWith(Routes.mainTransaction);
             _navigationService.back();
             _logService.getValues(amount.toInt(), DateTime.now(), 'credit', contact.name, update);

@@ -87,9 +87,8 @@ class AddDebtCreditView extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: model.isLoadBusy ? Center(
-                      child: LoadingAnimation(),
-                    ) : SingleChildScrollView(
+                    child: SingleChildScrollView(
+                      physics: ClampingScrollPhysics(),
                       controller: model.controller,
                       child: Container(
                         //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -745,7 +744,7 @@ class AddDebtCreditView extends StatelessWidget {
                                       child: model.contactsList.length == 0 ? SizedBox(height: model.manual ? 0 : SizeConfig.yMargin(context, 30)) : Container(
                                         height: SizeConfig.yMargin(context, 30),//( model.contactsList.length * 100).toDouble(),
                                         child: ListView.builder(
-                                          //physics: NeverScrollableScrollPhysics(),
+                                          physics: ClampingScrollPhysics(),
                                           itemCount: model.searchController.text.isEmpty ? model.contactsList.length : model.filtered.length,
                                           itemBuilder: (context, index) {
                                             Customer item = model.searchController.text.isEmpty ? model.contactsList[index] : model.filtered[index];

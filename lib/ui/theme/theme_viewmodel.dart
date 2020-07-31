@@ -63,6 +63,7 @@ class SettingManagerModel extends MultipleStreamViewModel {
     await  _su.saveString(AppPreferenceKey.SELECTED_STORE, newStoreId);
     _transactionService.getAllTransactions(newStoreId ?? 'ghjkl3-.dj');
     _customerService.getContacts(newStoreId ?? 'ghjkl3-.dj');
+    _customerService.getCustomermarket(newStoreId ?? 'ghjkl3-.dj');
     notifyListeners();
   }
 

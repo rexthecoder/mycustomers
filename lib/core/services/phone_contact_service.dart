@@ -43,6 +43,10 @@ class PhoneContactService with ReactiveServiceMixin {
     //print(_phoneContactBox.values.toList());
   }
 
+  Future<void> deleteall()async {
+    await _phoneContactBox.clear();
+  }
+
   Future<void> addCustomer(Customer cus)async {
     _busy.value = true;
     print(cus.displayName);

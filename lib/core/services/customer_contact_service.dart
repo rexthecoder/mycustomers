@@ -111,7 +111,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     for(var item in _contactBox.values.toList()) {
       //print(item.market);
       //print(item.name);
-      if(item.storeid == stid && !item.market) {
+      if(item.storeid == stid && item.transactions.length != 0) {
         sum+=1;
       }
     }

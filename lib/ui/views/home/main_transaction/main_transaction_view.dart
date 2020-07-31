@@ -112,7 +112,7 @@ class MainTransaction extends StatelessWidget {
                       onTap: () => model.navigateToHome(),
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.xMargin(context, 4.3),
+                            horizontal: SizeConfig.xMargin(context, 4.5),
                             vertical: SizeConfig.yMargin(context, 1.8)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
@@ -221,7 +221,8 @@ class MainTransaction extends StatelessWidget {
                                           ],
                                         ),
                                       )
-                                    : Center(
+                                    : model.bought() < model.paid() ?
+                                    Center(
                                         child: Wrap(
                                           alignment: WrapAlignment.spaceBetween,
                                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -267,7 +268,20 @@ class MainTransaction extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                      )),
+                                      ) : Text(
+                                        'No Pending Transaction.',//${model.contact.name}
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5
+                                            .copyWith(
+                                              fontSize:
+                                                  SizeConfig.yMargin(
+                                                      context, 2.2),
+                                              color: Theme.of(context)
+                                                  .cursorColor,
+                                            ),
+                                      ),
+                                    ),
                           ),
                     model.formattedate.length == 0
                         ? SizedBox()
@@ -505,6 +519,7 @@ class MainTransaction extends StatelessWidget {
                           )
                         : Expanded(
                             child: ListView.builder(
+                              physics: ClampingScrollPhysics(),
                                 itemCount: model.formattedate.length,
                                 itemBuilder: (context, index) {
                                   return Container(
