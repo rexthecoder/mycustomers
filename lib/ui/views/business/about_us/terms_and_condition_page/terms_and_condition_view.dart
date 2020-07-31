@@ -46,7 +46,7 @@ class TermsAndConditionView extends StatelessWidget {
               SizedBox(
                 height: SizeConfig.yMargin(context, 1),
               ),
-              Text('DATE OF LAST UPDATE: [21st July, 2020]'),
+              Text('DATE OF LAST UPDATE: [31st July, 2020]'),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.only(

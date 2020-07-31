@@ -92,7 +92,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     // SystemChrome.setPreferredOrientations([
     // DeviceOrientation.portraitUp
-    // ]); // Settting preferred Screen Orientation
+    // ]); // Setting preferred Screen Orientation
     return CoreManager(
       child: ViewModelBuilder<SettingManagerModel>.reactive(
         builder: (_, viewModel, ___) {

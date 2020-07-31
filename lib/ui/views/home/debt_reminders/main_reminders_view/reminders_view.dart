@@ -12,7 +12,7 @@ class RemindersView extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: customizeAppBar(context, 1.3,
-                title: 'Reminders',
+                title: 'Debt Reminders',
                 backgroundColor: Theme.of(context).backgroundColor),
             body: Container(
               margin: EdgeInsets.symmetric(
@@ -29,7 +29,7 @@ class RemindersView extends StatelessWidget {
                         btnColor: BrandColors.secondary,
                         txtColor: ThemeColors.background,
                         borderColor: BrandColors.secondary,
-                        btnText: 'Send a quick reminder',
+                        btnText: 'Send a quick debt reminder',
                         onPressed: () {
                           // viewModel.signUpTest();
                           model.navigateToSendReminderDebtList();
@@ -39,7 +39,7 @@ class RemindersView extends StatelessWidget {
                     SizedBox(
                       height: SizeConfig.yMargin(context, 7),
                     ),
-                    Expanded(child: Center(child: Text("There is no reminder scheduled yet"))),
+                    Expanded(child: Center(child: Text("You have no debt reminder scheduled yet"))),
                     Container(
                       width: SizeConfig.xMargin(context, 80),
                       child: CustomRaisedButton(
@@ -47,7 +47,7 @@ class RemindersView extends StatelessWidget {
                         btnColor: BrandColors.primary,
                         txtColor: ThemeColors.background,
                         borderColor: BrandColors.primary,
-                        btnText: 'Schedule a new reminder',
+                        btnText: 'Schedule a new debt reminder',
                         onPressed: () {
                           // viewModel.signUpTest();
                           model.navigateToScheduleReminderDebtList();

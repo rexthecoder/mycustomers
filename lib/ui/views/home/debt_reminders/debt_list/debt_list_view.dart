@@ -46,13 +46,13 @@ class DebtList extends StatelessWidget {
                         children: <Widget>[
                           Expanded(
                             child: Text(
-                                'Total Amount ${model.contact.name} owes you is: ',
+                                'Total Amount ${model.contact.name} owes you is:  ',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize:
                                         SizeConfig.textSize(context, 3.5))),
                           ),
-                          SizedBox(width: SizeConfig.xMargin(context, 0.5)),
+//                          SizedBox(width: SizeConfig.xMargin(context, 0.2)),
                           Text(
                             model.currency.symbol +
                                 currency
@@ -383,22 +383,22 @@ class DebtList extends StatelessWidget {
                     ),
                     Text(
                         action == 'send'
-                            ? 'Or Click the button below to send a reminder of the total'
-                            : 'Or Click the button below to schedule reminder of the total',
+                            ? 'Or Click the button below to send a reminder of the total debt Amount ${model.contact.name} owes you'
+                            : 'Or Click the button below to schedule reminder of the debt total ${model.contact.name} owes you',
                         style: TextStyle(fontWeight: FontWeight.w600)),
                     SizedBox(
-                      height: SizeConfig.yMargin(context, 2),
+                      height: SizeConfig.yMargin(context, 1),
                     ),
                     Container(
-                      width: SizeConfig.xMargin(context, 60),
+                      width: SizeConfig.xMargin(context, 70),
                       child: CustomRaisedButton(
                         child: Container(),
                         btnColor: action == 'send' ? BrandColors.secondary : BrandColors.primary,
                         txtColor: ThemeColors.background,
                         borderColor: action == 'send' ? BrandColors.secondary : BrandColors.primary,
                         btnText: action == 'send'
-                            ? AppLocalizations.of(context).sendReminder
-                            : AppLocalizations.of(context).scheduleReminder,
+                            ? "Send reminder for total amount"
+                            : "Schedule reminder for total amount",
                         onPressed: () {
                           action == 'schedule'
                               ? model.navigateToSchedule()

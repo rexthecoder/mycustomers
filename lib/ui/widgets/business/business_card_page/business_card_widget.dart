@@ -64,17 +64,17 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
           showArrow
               ? Container()
               : Positioned(
-                  bottom: SizeConfig.yMargin(context, 2),
+                  top: SizeConfig.yMargin(context, 0.8),
                   right: SizeConfig.xMargin(context, 4),
                   child: RoundIconButton(
                     icon: Icons.edit,
                     onTap: () {
 //                      model.navigateToBusinessCardPage();
-                    Flushbar(
-                      message: 'Editing your profile updates this. Do that instead.',
-                      duration: Duration(seconds: 2),
-                      icon: Icon(Icons.info_outline),
-                    ).show(context);
+//                    Flushbar(
+//                      message: 'Editing your profile updates this. Do that instead.',
+//                      duration: Duration(seconds: 2),
+//                      icon: Icon(Icons.info_outline),
+//                    ).show(context);
                     },
                   ),
                 ),
