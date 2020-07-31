@@ -30,9 +30,9 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   final dformat = new DateFormat('dd/MM/yyyy');
   bool show = true;
   bool save = false;
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime.now(); // = DateTime.now()
   DateTime dueDate;
-  DateTime otherDate = DateTime.now();
+  DateTime otherDate;
   String newDate;
   String get newODate => dformat.format(DateTime.now());
   bool date1err = false;
@@ -482,7 +482,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               paid: 0,
               description: description,
               duedate: dueDate.toString(),
-              boughtdate: otherDate.toString(),
+              boughtdate: DateTime.now().toString(),//otherDate.toString()
               paiddate: null);
           if (newCus) {
             numberr = false;
@@ -521,6 +521,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
           //_navigationService.replaceWith(Routes.mainTransaction);
           notifyListeners();
         } else {
+          print('rrrr');
           TransactionModel transaction = new TransactionModel(
               tId: uuid.v4(),
               sId: currentStore.id,
@@ -531,8 +532,9 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
               boughtdate: null,
               paiddate: otherDate.toString());
           if (newCus) {
-            number != null
-                ? _customerContactService.addContact(
+            numberr = false;
+            number != null && number.phoneNumber != null
+                ? number.phoneNumber.length == number.dialCode.length ? numberr = true : _customerContactService.addContact(
                     number.toString(),
                     name,
                     '',

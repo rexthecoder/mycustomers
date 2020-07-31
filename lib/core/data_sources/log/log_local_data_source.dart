@@ -81,9 +81,11 @@ class LogsLocalDataSourceImpl extends LogsLocalDataSource {
   void dot(){
     final dformat = new DateFormat('dd/MM/yyyy');
     for(var item in transactions){
-      print(item.duedate);
-      if(item.duedate != null) {
-        if(DateTime.now().difference(DateTime.parse(item.duedate ?? item.paiddate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate ?? item.paiddate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
+      
+      if(item.duedate != null && item.paiddate != null) {
+        print(item.duedate);
+      print(item.paiddate);
+        if(DateTime.now().difference(DateTime.parse(item.duedate == null ? item.paiddate : item.duedate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate ?? item.paiddate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
           if(!once) {
             shouldnotify = true;
             once = true;
