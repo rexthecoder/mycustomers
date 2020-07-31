@@ -112,7 +112,7 @@ class MainTransaction extends StatelessWidget {
                       onTap: () => model.navigateToHome(),
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.xMargin(context, 4.3),
+                            horizontal: SizeConfig.xMargin(context, 4.5),
                             vertical: SizeConfig.yMargin(context, 1.8)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
@@ -505,6 +505,7 @@ class MainTransaction extends StatelessWidget {
                           )
                         : Expanded(
                             child: ListView.builder(
+                              physics: ClampingScrollPhysics(),
                                 itemCount: model.formattedate.length,
                                 itemBuilder: (context, index) {
                                   return Container(

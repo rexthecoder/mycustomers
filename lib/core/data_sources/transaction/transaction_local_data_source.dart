@@ -111,9 +111,9 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
         print(DateTime.parse(item.boughtdate).difference(start).inDays);
           print(DateTime.parse(item.boughtdate).difference(stop).inDays);
           print(item.boughtdate);
-        if((DateTime.parse(item.boughtdate).difference(start).inDays <= 0)
+        if((DateTime.parse(item.boughtdate).difference(start).inDays >= 0)
         && 
-        (DateTime.parse(item.boughtdate).difference(stop).inDays >= 0)) {
+        (DateTime.parse(item.boughtdate).difference(stop).inDays <= 0)) {
           _report.value.add(item);
         }
       }
@@ -122,9 +122,9 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
         print(DateTime.parse(item.paiddate).difference(start).inDays);
           print(DateTime.parse(item.paiddate).difference(stop).inDays);
           print(item.paiddate);
-        if((DateTime.parse(item.paiddate).difference(start).inDays <= 0) 
+        if((DateTime.parse(item.paiddate).difference(start).inDays >= 0) 
         && 
-        (DateTime.parse(item.paiddate).difference(stop).inDays >= 0)) {
+        (DateTime.parse(item.paiddate).difference(stop).inDays <= 0)) {
           _report.value.add(item);
         }
       }

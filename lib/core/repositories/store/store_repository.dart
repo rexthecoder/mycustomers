@@ -29,6 +29,7 @@ class StoreRepository {
     var newStore = _stores.firstWhere((elem) => elem.id == id, orElse: () => null);
     _currentStore = newStore ?? _currentStore;
     _customerService.getContacts(currentStore?.id ?? 'ghjkl3-.dj');
+    _customerService.getCustomermarket(currentStore?.id ?? 'ghjkl3-.dj');
     _transactionService.getAllTransactions(currentStore?.id ?? 'ghjkl3-.dj');
   }
 

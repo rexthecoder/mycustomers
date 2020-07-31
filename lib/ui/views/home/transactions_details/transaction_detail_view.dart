@@ -146,7 +146,7 @@ class TransactionDetails extends StatelessWidget {
                                         Row(
                                           children: <Widget>[
                                             Text(
-                                              'Transaction Id   ',
+                                              'Transaction ID:  ',
                                               // textAlign: TextAlign.end,
                                               style: TextStyle(
                                                   color: Colors.grey[600],
@@ -174,8 +174,21 @@ class TransactionDetails extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
+                                                SizedBox(
+                                                  height: SizeConfig.yMargin(context, 2.1),
+                                                ),
                                                 Text(
-                                                  'Due-Date',
+                                                  'Date Recorded',
+                                                  // textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                      color: Colors.grey[600],
+                                                      fontSize: SizeConfig.yMargin(context, 2)),
+                                                ),
+                                                SizedBox(
+                                                  height: SizeConfig.yMargin(context, 2),
+                                                ),
+                                                Text(
+                                                  'Due Date',
                                                   // textAlign: TextAlign.end,
                                                   style: TextStyle(
                                                       color: Colors.grey[600],
@@ -204,7 +217,7 @@ class TransactionDetails extends StatelessWidget {
                                                       fontSize: SizeConfig.yMargin(context, 2)),
                                                 ),
                                                 SizedBox(
-                                                  height: 20.h,
+                                                  height: SizeConfig.yMargin(context, 2),
                                                 ),
                                                 Text(
                                                   AppLocalizations.of(context)
@@ -221,7 +234,18 @@ class TransactionDetails extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 SizedBox(
-                                                  height: SizeConfig.yMargin(context, 2.3),
+                                                  height: SizeConfig.yMargin(context, 2.1),
+                                                ),
+                                                Text(
+                                                  model.dformat.format(DateTime.parse(model.transaction.boughtdate ?? model.transaction.paiddate)),
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .textSelectionColor,
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: SizeConfig.yMargin(context, 2)),
+                                                ),
+                                                SizedBox(
+                                                  height: SizeConfig.yMargin(context, 2),
                                                 ),
                                                 Text(
                                                   model.dformat.format(DateTime.parse(model.transaction.duedate)),
