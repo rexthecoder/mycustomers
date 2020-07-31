@@ -1,7 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mycustomers/app/locator.dart';
-import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/owner_services.dart';

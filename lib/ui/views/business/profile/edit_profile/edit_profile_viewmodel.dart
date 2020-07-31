@@ -1,20 +1,12 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/material.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
-import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/models/user.dart';
-import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/auth/auth_service.dart';
-import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:async/async.dart';
 
 class EditProfileViewModel extends BaseViewModel {
   final StoresLocalDataSource _ss = locator<StoresLocalDataSource>();

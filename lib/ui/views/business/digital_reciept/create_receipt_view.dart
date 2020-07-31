@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/theme/theme_viewmodel.dart';
-import 'package:mycustomers/ui/widgets/shared/partial_build.dart';
 import 'package:stacked/stacked.dart';
-import 'package:worm_indicator/shape.dart';
-import 'package:worm_indicator/worm_indicator.dart';
 
 import 'create_receipt_viewmodel.dart';
 

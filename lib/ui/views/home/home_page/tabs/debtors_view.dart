@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/ui/views/home/home_page/tabs/all_customers_view.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/size_extension.dart';

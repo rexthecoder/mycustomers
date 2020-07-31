@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +7,6 @@ import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/my_list_tile.dart';
 import 'package:stacked/stacked.dart';
 

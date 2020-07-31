@@ -26,7 +26,6 @@ abstract class LogsLocalDataSource {
 }
 
 class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalDataSource {
-  final _fileHelper = locator<FileHelper>();
   final _hiveService = locator<HiveInterface>();
 
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
