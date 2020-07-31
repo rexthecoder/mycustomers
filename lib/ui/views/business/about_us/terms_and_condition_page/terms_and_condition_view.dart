@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 
 import 'terms_and_condition_viewmodel.dart';
@@ -15,7 +14,7 @@ class TermsAndConditionView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: customizeAppBar(context, 1,
-            title: '', backgroundColor: Theme.of(context).backgroundColor),
+            title: 'TERMS & CONDITIONS', backgroundColor: Theme.of(context).backgroundColor),
         body: Container(
           margin: EdgeInsets.only(
               right: SizeConfig.xMargin(context, 5),
@@ -554,7 +553,6 @@ class TermsAndConditionView extends StatelessWidget {
         ),
       ),
       viewModelBuilder: () => TermsAndConditionViewModel(),
-      onModelReady: (model) => model.openDoc(),
     );
   }
 
