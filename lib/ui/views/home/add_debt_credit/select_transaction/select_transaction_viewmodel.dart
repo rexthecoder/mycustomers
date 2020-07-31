@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SelectTransactionViewModel extends ReactiveViewModel{
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _transactionService = locator<TransactionLocalDataSource>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   List<TransactionModel> get debitList => _transactionService.debitlist;

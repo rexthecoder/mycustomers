@@ -14,8 +14,8 @@ class StoreRepository {
   static IStorageUtil _su = locator<IStorageUtil>();
   static DialogService _dialog = locator<DialogService>();
   static Store _currentStore;
-  static final _transactionService = locator<TransactionLocalDataSourceImpl>();
-  static final _customerService = locator<CustomerContactService>();
+  static final _transactionService = locator<TransactionLocalDataSource>();
+  static final _customerService = locator<CustomerContactDataSource>();
 
   static List<Store> get stores => _stores;
   static Store get currentStore {

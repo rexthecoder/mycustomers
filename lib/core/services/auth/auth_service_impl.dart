@@ -43,7 +43,7 @@ class AuthServiceImpl implements AuthService {
   IStorageUtil _storage = locator<IStorageUtil>();
   // The service for directing user to the home screen
  NavigationService _navigationService = locator<NavigationService>();
- final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+ final _logService = locator<LogsLocalDataSource>();
  final _profileService = locator<ProfileService>();
 
 

@@ -39,18 +39,18 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   bool date1err = false;
   bool date2err = false;
   List<String> items = [];
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _transactionService = locator<TransactionLocalDataSource>();
   NavigationService _navigationService = locator<NavigationService>();
-  final _customerContactService = locator<CustomerContactService>();
+  final _customerContactService = locator<CustomerContactDataSource>();
   CustomerContact get contact => _customerContactService.contact;
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
-  final _logService = locator<LogsLocalDataSourceImpl>();
+  final _logService = locator<LogsLocalDataSource>();
   Store get currentStore => StoreRepository.currentStore;
 
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
-  final _phoneContactService = locator<PhoneContactService>();
+  final _phoneContactService = locator<PhoneContactDataSource>();
   List<Customer> get contactsList => _phoneContactService.contact;
 
   ScrollController controller = new ScrollController();

@@ -11,8 +11,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class MessageHistoryViewModel extends ReactiveViewModel{
-final _customerService = locator<CustomerContactService>();
-  final _messageService = locator<MessageService>();
+final _customerService = locator<CustomerContactDataSource>();
+  final _messageService = locator<MessasageDataSource>();
   final NavigationService _navigationService = locator<NavigationService>();
   Customer currentCustomer;
   TextEditingController messageController =TextEditingController();

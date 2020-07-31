@@ -15,7 +15,7 @@ class DebtListViewModel extends BaseViewModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
 
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _transactionService = locator<TransactionLocalDataSource>();
 
   void navigateToSchedule(TransactionModel item) {
     _transactionService.setTransaction(item);

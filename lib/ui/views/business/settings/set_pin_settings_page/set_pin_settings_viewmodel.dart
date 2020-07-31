@@ -8,8 +8,8 @@ import 'package:stacked_services/stacked_services.dart';
 class SetPinSettingsViewModel extends BaseViewModel {
   final PasswordManagerService _passwordManagerService =
       locator<PasswordManagerService>();
-  final LogsLocalDataSourceImpl _logService =
-      locator<LogsLocalDataSourceImpl>();
+  final _logService =
+      locator<LogsLocalDataSource>();
 
   String _pin = '';
   int _index = 0;

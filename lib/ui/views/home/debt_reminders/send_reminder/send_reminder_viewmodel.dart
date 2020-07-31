@@ -12,7 +12,7 @@ class SendMessageViewModel extends BaseViewModel {
   final MainTransactionViewModel transactions = MainTransactionViewModel();
   final RemindersViewModel reminders = RemindersViewModel();
 
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _transactionService = locator<TransactionLocalDataSource>();
   TransactionModel get transaction => _transactionService.stransaction;
 
   String _controllerValue;

@@ -17,8 +17,8 @@ import 'package:mycustomers/core/utils/logger.dart';
 class TransactionDetailsViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
-  final _customerContactService = locator<CustomerContactService>();
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _customerContactService = locator<CustomerContactDataSource>();
+  final _transactionService = locator<TransactionLocalDataSource>();
   CustomerContact get contact => _customerContactService.contact;
   TransactionModel get transaction => _transactionService.stransaction;
   final PermissionService _permissionService = locator<IPermissionService>();

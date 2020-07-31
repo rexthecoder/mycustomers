@@ -14,7 +14,7 @@ class ImportCustomerViewModel extends StreamViewModel {
 
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
-  final _customerContactService = locator<CustomerContactService>();
+  final _customerContactService = locator<CustomerContactDataSource>();
   List<Customer> _contactsList = List<Customer>();
   bool _busy = true;
 

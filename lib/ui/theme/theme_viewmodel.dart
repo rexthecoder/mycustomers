@@ -13,9 +13,9 @@ import 'package:mycustomers/core/services/storage_util_service.dart';
 class SettingManagerModel extends MultipleStreamViewModel {
 
   IStorageUtil _su = locator<IStorageUtil>();
-  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
-  static final _transactionService = locator<TransactionLocalDataSourceImpl>();
-  static final _customerService = locator<CustomerContactService>();
+  final LogsLocalDataSource _logService = locator<LogsLocalDataSource>();
+  static final _transactionService = locator<TransactionLocalDataSource>();
+  static final _customerService = locator<CustomerContactDataSource>();
 
   // TODO: implement getter properly
   bool get isDarkTheme => _su.getBool('IS_DARK_THEME') ?? WidgetsBinding.instance.window.platformBrightness == Brightness.dark/*(MediaQuery.of(_context).platformBrightness == Brightness.dark) */ ?? false;

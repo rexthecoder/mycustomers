@@ -12,8 +12,8 @@ class RemovePinSettingsPageViewModel extends BaseViewModel {
   final PasswordManagerService _passwordManagerService =
       locator<PasswordManagerService>();
 
-  final LogsLocalDataSourceImpl _logService =
-      locator<LogsLocalDataSourceImpl>();
+  final _logService =
+      locator<LogsLocalDataSource>();
 
   void onEnterPinCompleted(String value, BuildContext context,
       TextEditingController editingControllerText) async {

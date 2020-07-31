@@ -36,9 +36,9 @@ class MarketingHomePageViewModel extends ReactiveViewModel {
 
   // Get the services required
   ICustomerService _customerService = locator<ICustomerService>();
-  final _contactService = locator<CustomerContactService>();
-  final _messageService = locator<MessageService>();
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _contactService = locator<CustomerContactDataSource>();
+  final _messageService = locator<MessasageDataSource>();
+  final _transactionService = locator<TransactionLocalDataSource>();
 
   
 

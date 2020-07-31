@@ -17,7 +17,7 @@ class AddCustomerMessageViewModel extends StreamViewModel {
   NavigationService _navigationService = locator<NavigationService>();
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
-  final _customerService = locator<CustomerContactService>();
+  final _customerService = locator<CustomerContactDataSource>();
   List<Customer> _allCustomers = List<Customer>();
   bool _busy = true;
   bool get isLoadBusy => _busy;

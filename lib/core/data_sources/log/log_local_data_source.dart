@@ -9,36 +9,57 @@ import 'package:mycustomers/core/data_sources/transaction/transaction_local_data
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:intl/intl.dart';
 
-abstract class LogsLocalDataSource {
+abstract class LogsLocalDataSource with ReactiveServiceMixin {
+  List<LogH> get loglist;
+
+  /// Holds if Notification should be shown or not
+  bool shouldnotify = false;
+
+  bool once = false;
+
   /// Initialize Hive DB
   Future<void> init();
 
   /// Saves all the log [values] with auto-increment keys.
   Future<void> addLog(LogH log);
+
+  /// Get all log from database;
   void getLogs();
+
+  /// Handles Logic to determin if notification dot should be shown
+  void dot();
+
+  void testfunc(DateTime time);
+
+  /// Sets notify status
+  void setnotify();
 
   /// Deletes the n-th key from the box.
   ///
   /// If it does not exist, nothing happens.
   Future<void> deleteLog(int id);
 
+  /// Set Custom Log Model
   void getValues(int price, DateTime time, String action, String name, bool update);
 }
 
-class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalDataSource {
+class LogsLocalDataSourceImpl extends LogsLocalDataSource {
   final _fileHelper = locator<FileHelper>();
   final _hiveService = locator<HiveInterface>();
 
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _transactionService = locator<TransactionLocalDataSource>();
   List<TransactionModel> get transactions => _transactionService.alltransactions;
 
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.logs);
   Box<LogH> get _logsBox => _hiveService.box<LogH>(HiveBox.logs);
 
   RxValue<List<LogH>> _loglist = RxValue<List<LogH>>(initial: []);
+  @override
   List<LogH> get loglist => _loglist.value;
 
+  @override
   bool shouldnotify = false;
+  @override
   bool once = false;
 
   LogsLocalDataSourceImpl(){
@@ -56,6 +77,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     }
   }
 
+  @override
   void dot(){
     final dformat = new DateFormat('dd/MM/yyyy');
     for(var item in transactions){
@@ -97,6 +119,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     addLog(newlog);
   }
 
+  @override
   void testfunc(DateTime time){
     int totallogs = _logsBox.values.toList().length; 
     String msg = 'Welcome Login at'+time.toString();
@@ -105,6 +128,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     addLog(newlog);
   }
 
+  @override
   void setnotify(){
     shouldnotify = !shouldnotify;
   }

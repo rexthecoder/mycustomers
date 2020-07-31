@@ -132,13 +132,13 @@ Future<void> setupLocator(
     locator.registerLazySingleton<StoresLocalDataSource>(
       () => StoresLocalDataSourceImpl()..init(),
     );
-  locator.registerLazySingleton<TransactionLocalDataSourceImpl>(
+  locator.registerLazySingleton<TransactionLocalDataSource>(
     () => TransactionLocalDataSourceImpl(),
   );
-  locator.registerLazySingleton<CustomerContactService>(
+  locator.registerLazySingleton<CustomerContactDataSource>(
     () => CustomerContactService(),
   );
-  locator.registerLazySingleton<LogsLocalDataSourceImpl>(
+  locator.registerLazySingleton<LogsLocalDataSource>(
     () => LogsLocalDataSourceImpl(),
   );
   locator.registerLazySingleton<BusinessCardLocalDataSource>(
@@ -147,8 +147,12 @@ Future<void> setupLocator(
   locator.registerLazySingleton<MessageService>(
     () => MessageService(),
   );
-  locator.registerLazySingleton<PhoneContactService>(
+  locator.registerLazySingleton<PhoneContactDataSource>(
     () => PhoneContactService(),
+  );
+
+  locator.registerLazySingleton<MessasageDataSource>(
+    () => MessageService(),
   );
   // locator.registerLazySingleton<LocalStorageService>(
   //   () => LocalStorageService(),

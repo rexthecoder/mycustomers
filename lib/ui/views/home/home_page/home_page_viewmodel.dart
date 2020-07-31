@@ -31,8 +31,8 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   final NavigationService _navigationService = locator<NavigationService>();
-  final _customerContactService = locator<CustomerContactService>();
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _customerContactService = locator<CustomerContactDataSource>();
+  final _transactionService = locator<TransactionLocalDataSource>();
   
 
   PermissionService _permission =  locator<IPermissionService>();

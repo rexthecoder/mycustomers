@@ -20,11 +20,11 @@ class MainViewModel extends ReactiveViewModel {
   /// Fields
   final NavigationService _navigationService = locator<NavigationService>();
 //  static AuthService _auth = locator<AuthService>();
-  final _logService = locator<LogsLocalDataSourceImpl>();
+  final _logService = locator<LogsLocalDataSource>();
   final _bussinessService = locator<BussinessSettingService>();
   final ICustomerService _customerService = locator<ICustomerService>();
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
-  final _customerContactService = locator<CustomerContactService>();
+  final _transactionService = locator<TransactionLocalDataSource>();
+  final _customerContactService = locator<CustomerContactDataSource>();
   final _profileService = locator<ProfileService>();
 
   //Profile get userP => _profileService.getProfile();

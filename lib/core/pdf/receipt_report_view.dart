@@ -38,7 +38,7 @@ class ReceiptReport {
   // String _currentStore = StoreRepository.currentStore.name = "Demo";
   // String _currentStoreAddress = StoreRepository.currentStore.address;
 
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _transactionService = locator<TransactionLocalDataSource>();
   TransactionModel get transaction => _transactionService.stransaction;
 
   PdfImage _receiptLogo;
