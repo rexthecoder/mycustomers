@@ -22,22 +22,19 @@ class EditProfileViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   final _imagePicker = ImagePicker();
-  String _userName;
-  String email;
+  String pNum,
+      address,
+      tagline,
+      email,
+      _userName,
+      _businessName,
+      _retrieveDataError;
 
   Store get currentStore => StoreRepository.currentStore;
   User get currentUser => _authService.currentUser;
-
-  String _retrieveDataError;
-
   String get retrieveDataError => _retrieveDataError;
-
   String get userName => _userName;
-  String _businessName;
-
   String get businessName => _businessName;
-
-
 
   set retrieveDataError(value) {
     _retrieveDataError = value;
@@ -51,7 +48,8 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   void getImagefromGallery() async {
-    final pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
+    final pickedImage =
+        await _imagePicker.getImage(source: ImageSource.gallery);
     await updateImage(pickedImage);
 //    _imgFile = File(pickedImage.path);
 //    sImage = base64String(_imgFile.readAsBytesSync());
@@ -67,24 +65,30 @@ class EditProfileViewModel extends BaseViewModel {
     }
   }
 
-  void handleLostData(PickedFile file) {
-
-  }
+  void handleLostData(PickedFile file) {}
 
   void updateUserName(String value) {
     _userName = value;
-    print('ttty');
-    notifyListeners();
   }
 
   void updateBusinessName(String value) {
     _businessName = value;
-    notifyListeners();
   }
 
   void updateEmail(String value) {
     email = value;
-    notifyListeners();
+  }
+
+  void updateAddress(String value) {
+    address = value;
+  }
+
+  void updatePNum(String value) {
+    pNum = value;
+  }
+
+  void updateTagline(String value) {
+    tagline = value;
   }
 
   Future<void> retrieveLostData() async {
@@ -93,8 +97,7 @@ class EditProfileViewModel extends BaseViewModel {
       return;
     }
     if (response.file != null) {
-      if (response.type == RetrieveType.image)
-      await updateImage(response.file);
+      if (response.type == RetrieveType.image) await updateImage(response.file);
       notifyListeners();
     }
 //    } else {
@@ -103,22 +106,33 @@ class EditProfileViewModel extends BaseViewModel {
 //    }
   }
 
-  void save() {
-    if(_userName != null || _businessName != null) {
-      _ss.updateStore(currentStore.id, currentStore..name = (_businessName?.isNotEmpty ?? false) ? _businessName : currentStore.name);
-      _authService.updateCurrentUser(User(firstName: _userName));
+  Future<void> save() async {
+      await _ss.updateStore(
+        currentStore.id,
+        currentStore
+          ..name = (_businessName?.isNotEmpty ?? false)
+              ? _businessName
+              : currentStore.name
+          ..address = (address?.isNotEmpty ?? false)
+              ? address
+              : currentStore.address
+          ..tagline = (tagline?.isNotEmpty ?? false)
+              ? tagline
+              : currentStore.tagline,
+      );
+      await StoreRepository.updateStores();
+      print(currentStore.name);
+      await _authService.updateCurrentUser(User(
+        firstName: (_userName?.isNotEmpty ?? false)
+            ? _userName
+            : currentUser.firstName,
+        email: (email?.isNotEmpty ?? false)
+            ? email
+            : currentUser.email,
+        phoneNumber: (pNum?.isNotEmpty ?? false)
+            ? pNum
+            : currentUser.phoneNumber,
+      ));
       _navigationService.back();
-    } else {
-      _navigationService.back();
-    }
   }
-
-  initt() {
-    if (_userName == null)
-    _userName = _authService?.currentUser?.firstName ?? 'None';
-    if (_businessName == null)
-    _businessName = StoreRepository?.currentStore?.name ?? 'None';
-    notifyListeners();
-  }
-
 }

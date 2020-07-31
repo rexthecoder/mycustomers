@@ -17,6 +17,11 @@ class SettingManagerModel extends MultipleStreamViewModel {
   static final _transactionService = locator<TransactionLocalDataSourceImpl>();
   static final _customerService = locator<CustomerContactService>();
 
+  void reload() {
+    print('Reloading app');
+    notifyListeners();
+  }
+
   // TODO: implement getter properly
   bool get isDarkTheme => _su.getBool('IS_DARK_THEME') ?? WidgetsBinding.instance.window.platformBrightness == Brightness.dark/*(MediaQuery.of(_context).platformBrightness == Brightness.dark) */ ?? false;
 

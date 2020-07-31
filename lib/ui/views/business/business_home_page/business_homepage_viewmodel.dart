@@ -18,9 +18,9 @@ class BusinessHomePageViewModel extends BaseViewModel {
   final AuthService _auth = locator<AuthService>();
   final _profileService = locator<ProfileService>();
 
-  BusinessHomePageViewModel() {
-    init();
-  } //  final BusinessCardRepository _businessCardRepository =
+//  BusinessHomePageViewModel() {
+//    init();
+//  } //  final BusinessCardRepository _businessCardRepository =
 //      locator<BusinessCardRepository>();
 
   String get pNum => _auth.currentUser.phoneNumber;
@@ -44,6 +44,7 @@ class BusinessHomePageViewModel extends BaseViewModel {
       address: currentStore.address ?? '',
       tagLine: currentStore.tagline ?? '',
     );
+    print('Address is now ${currentStore.address}');
   }
   Profile getProfile() {
     return _profileService.getProfile(StoreRepository?.currentStore?.id);
@@ -61,6 +62,7 @@ class BusinessHomePageViewModel extends BaseViewModel {
   Future navigateToProfilePage() async {
     // TODO fix profile page
     await _navigationService.navigateTo(Routes.editProfileViewRoute);
+    notifyListeners();
 //    _businessCard = await _businessCardRepository.getBusinessCard();
   }
 

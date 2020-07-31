@@ -98,7 +98,7 @@ class BusinessCardPageViewModel extends ReactiveViewModel {
     }
   }
 
-  Future<void> init() async {
+  void init() {
     _businessCard = _businessCard.copyWith(
       storeName: StoreRepository.currentStore.name ?? '',
       personalName: _auth.currentUser.firstName ?? '',
@@ -107,7 +107,10 @@ class BusinessCardPageViewModel extends ReactiveViewModel {
       address: StoreRepository.currentStore.address ?? '',
       tagLine: StoreRepository.currentStore.tagline ?? '',
     );
-    notifyListeners();
+    print('Init card page');
+    print(StoreRepository.currentStore.name );
+    print(_businessCard.storeName);
+//    notifyListeners();
   }
 
   Future navigateToBusinessCardPage() async {
