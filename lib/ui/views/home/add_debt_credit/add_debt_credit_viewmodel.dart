@@ -116,10 +116,11 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
       //final bool isPermitted = await _permission.getContactsPermission();
       if(isPermitted) {
         _dialogService.registerCustomDialogUi(buildLoaderDialog);
-    _dialogService.showCustomDialog(
+        _dialogService.showCustomDialog(
         title: 'Please hold on while we fetch your contacts...');
         _busy = true;
         notifyListeners();
+        await _phoneContactService.deleteall();
         for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
           print('Iterate');
           await _phoneContactService.addCustomer(customer);
