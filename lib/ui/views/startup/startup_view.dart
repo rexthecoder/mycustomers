@@ -17,7 +17,7 @@ class StartupView extends StatelessWidget {
               width: SizeConfig.xMargin(context, 100),
               color: Color.fromRGBO(0, 0, 0, 0.8),
               child: Opacity(
-                opacity: 0.2,
+                opacity: 0.6,
                 child: Container(
                   child: Image.asset(
                     'assets/images/startupbackground.png',

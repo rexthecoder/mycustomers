@@ -32,8 +32,7 @@ class StartupViewModel extends BaseViewModel {
   PermissionService _permission = new PermissionService();
 
   Future setup({String query}) async {
-    
-  //  Future.delayed(Duration(seconds: 30));
+    Future.delayed(Duration(seconds: 10));
     await locator.allReady();
     if (await checkLoggedIn()) {
       if (confirmHasStore()) {
@@ -43,8 +42,7 @@ class StartupViewModel extends BaseViewModel {
         _navigationService.replaceWith(Routes.mainViewRoute);
         _logService.getValues(null, DateTime.now(), 'sign-in', '', false);
       }
-    }
-    else
+    } else
       _navigationService.replaceWith(Routes.onboardingViewRoute);
   }
 

@@ -5,6 +5,7 @@ import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/widgets/shared/under_construction.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 
 import 'privacy_policy_viewmodel.dart';
@@ -31,6 +32,9 @@ class PrivacyPolicyView extends StatelessWidget {
 ////      onModelReady: (model) => model.openDoc(),
 //    );
     return ViewModelBuilder<PrivacyPolicyViewModel>.reactive(
+      onModelReady: (model) {
+        model.delay();
+      },
       builder: (context, model, child) => Scaffold(
 //        appBar: customizeAppBar(
 //          context,
@@ -41,7 +45,9 @@ class PrivacyPolicyView extends StatelessWidget {
 //        ),
         backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
-          child: Container(
+          child:  model.checkbusy == true
+              ? Center(child: LoadingAnimation())
+              : Container(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Scrollbar(

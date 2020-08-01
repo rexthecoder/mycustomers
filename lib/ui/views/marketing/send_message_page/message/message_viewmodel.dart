@@ -3,6 +3,7 @@ import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:mycustomers/core/services/message_service.dart';
+import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/app/locator.dart';
@@ -16,17 +17,20 @@ import 'package:mycustomers/core/services/owner_services.dart';
 
 class MessageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  final  _contactService = locator<CustomerContactService>();
-  final  _messageService = locator<MessageService>();
-  TextEditingController titleController =TextEditingController();
-  TextEditingController messageController =TextEditingController();
+  final _contactService = locator<CustomerContactService>();
+  final _messageService = locator<MessageService>();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
 
-  List<CustomerContact> get selectedCustomers => _contactService.selectedC.length!=0?_contactService.selectedC: _contactService.allC;
+  List<CustomerContact> get selectedCustomers =>
+      _contactService.selectedC.length != 0
+          ? _contactService.selectedC
+          : _contactService.allC;
   //CustomerContact get customer => _contactService.contact;
 //  String tit = '';
   String body = '';
 
-  void select(Customer cust){
+  void select(Customer cust) {
     CustomerContact temp = new CustomerContact(
       name: cust.displayName,
       phoneNumber: cust.phone,
@@ -35,7 +39,7 @@ class MessageViewModel extends ReactiveViewModel {
     _contactService.addSelected(temp);
   }
 
-  void deselect(Customer cust){
+  void deselect(Customer cust) {
     CustomerContact temp = new CustomerContact(
       name: cust.displayName,
       phoneNumber: cust.phone,
@@ -45,21 +49,23 @@ class MessageViewModel extends ReactiveViewModel {
   }
 
   bool checkselected(String name, String phone) {
-    for(var item in selectedCustomers) {
-      if(item.name == name && item.phoneNumber == phone) return true;
+    for (var item in selectedCustomers) {
+      if (item.name == name && item.phoneNumber == phone) return true;
     }
     return false;
   }
 
-  void send()async{
+  void send() async {
+//    await delay();
     List<CustomerContact> hold = [];
-    for(var item in selectedCustomers){
-      await _contactService.addContactmarket(item.phoneNumber, item.name, '', item.initials, StoreRepository.currentStore.id);
+    for (var item in selectedCustomers) {
+      await _contactService.addContactmarket(item.phoneNumber, item.name, '',
+          item.initials, StoreRepository.currentStore.id);
       //print(_contactService.contact.name);
       hold.add(_contactService.contact);
     }
     _contactService.selectAll(hold);
-    for(var item in selectedCustomers) {
+    for (var item in selectedCustomers) {
       //print(item.name);
       _messageService.addMessage(body, item);
     }
@@ -75,11 +81,12 @@ class MessageViewModel extends ReactiveViewModel {
     notifyListeners();
   }
 
-  PermissionService _permission =  locator<IPermissionService>();
+  PermissionService _permission = locator<IPermissionService>();
   Future<bool> checkPermission() async {
-     return await _permission.getContactsPermission(); 
+    return await _permission.getContactsPermission();
   }
-  Future requestPermission() async{
+
+  Future requestPermission() async {
     return await [Permission.contacts].request();
   }
 
@@ -100,8 +107,9 @@ class MessageViewModel extends ReactiveViewModel {
   List<Customer> _allFrequentCustomers = [];
   List<Customer> get allFrequentCustomers => _allFrequentCustomers;
   init({String query}) async {
-   allCustomers.clear();
-    for (Customer customer in (await iOwnerServices.getPhoneContacts(query: query))) {
+    allCustomers.clear();
+    for (Customer customer
+        in (await iOwnerServices.getPhoneContacts(query: query))) {
       print('Iterate');
       if (_busy) {
         _busy = false;
@@ -121,17 +129,15 @@ class MessageViewModel extends ReactiveViewModel {
   }
 
 
-
-  void setQuickText(String title, message){
-    if(message.length !=0){
+  void setQuickText(String title, message) {
+    if (message.length != 0) {
 //      titleController.text= title;
 //      tit = title;
-    final separator = title.endsWith('!')?' ':', ';
-    print(separator);
-      messageController.text =title +separator+ message;
-      body = title +', ' + message;
+      final separator = title.endsWith('!') ? ' ' : ', ';
+      print(separator);
+      messageController.text = title + separator + message;
+      body = title + ', ' + message;
     }
-    
   }
 
   /// View initialize and close section
@@ -139,8 +145,6 @@ class MessageViewModel extends ReactiveViewModel {
   popView() {
     _navigationService.back();
   }
-
-
 
   TextEditingController searchController = TextEditingController();
   search(String keyword) async {
@@ -155,5 +159,6 @@ class MessageViewModel extends ReactiveViewModel {
 
   @override
   // TODO: implement reactiveServices
-  List<ReactiveServiceMixin> get reactiveServices => [_contactService, _messageService];
+  List<ReactiveServiceMixin> get reactiveServices =>
+      [_contactService, _messageService];
 }

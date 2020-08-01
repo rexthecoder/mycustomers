@@ -1,6 +1,17 @@
 import 'package:stacked/stacked.dart';
 
 class TermsAndConditionViewModel extends BaseViewModel {
+
+  bool checkbusy = true;
+
+  Future delay() async {
+    setBusy(true);
+    await Future.delayed(Duration(milliseconds: 7000));
+    setBusy(false);
+    checkbusy = false;
+    notifyListeners();
+  }
+
   bool _terms = false;
   bool get terms => _terms;
 
