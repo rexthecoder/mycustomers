@@ -6,7 +6,7 @@ import 'package:mycustomers/core/models/customer.dart';
 import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 
-abstract class PhoneContactDataSource with ReactiveServiceMixin {
+abstract class PhoneContactDataSource {
   Future<void> init();
   
   List<Customer> get contact;
@@ -25,7 +25,7 @@ abstract class PhoneContactDataSource with ReactiveServiceMixin {
 }
 
 @lazySingleton
-class PhoneContactService extends PhoneContactDataSource {
+class PhoneContactService with ReactiveServiceMixin implements PhoneContactDataSource {
   final _hiveService = locator<HiveInterface>();
 
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.phoneContact);

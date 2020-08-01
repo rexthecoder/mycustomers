@@ -18,14 +18,14 @@ class MainTransactionViewModel extends ReactiveViewModel {
 
   List<String> items = ['SMS', 'Call', 'Set Reminders'];
   String date;
-  final _transactionService = locator<TransactionLocalDataSource>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
   List<TransactionModel> get transactions => _transactionService.transactions.reversed.toList();
   List<TransactionModel> get debitlist => _transactionService.debitlist;
   List<TransactionModel> get creditlist => _transactionService.creditlist;
 
   final NavigationService _navigationService = locator<NavigationService>();
 
-  final _customerContactService = locator<CustomerContactDataSource>();
+  final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
 
   final _bussinessService = locator<BussinessSettingService>();

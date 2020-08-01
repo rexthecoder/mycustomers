@@ -16,8 +16,8 @@ import 'package:mycustomers/core/services/owner_services.dart';
 
 class MessageViewModel extends ReactiveViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
-  final  _contactService = locator<CustomerContactDataSource>();
-  final  _messageService = locator<MessasageDataSource>();
+  final  _contactService = locator<CustomerContactService>();
+  final  _messageService = locator<MessageService>();
   TextEditingController titleController =TextEditingController();
   TextEditingController messageController =TextEditingController();
 

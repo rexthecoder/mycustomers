@@ -11,9 +11,9 @@ import 'package:mycustomers/core/services/storage_util_service.dart';
 class SettingManagerModel extends MultipleStreamViewModel {
 
   IStorageUtil _su = locator<IStorageUtil>();
-  final LogsLocalDataSource _logService = locator<LogsLocalDataSource>();
-  static final _transactionService = locator<TransactionLocalDataSource>();
-  static final _customerService = locator<CustomerContactDataSource>();
+  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+  static final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  static final _customerService = locator<CustomerContactService>();
 
   void reload() {
     print('Reloading app');

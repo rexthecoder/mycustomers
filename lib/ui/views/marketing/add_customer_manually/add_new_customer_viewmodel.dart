@@ -16,7 +16,7 @@ class AddNewCustomerViewModel extends BaseViewModel {
 
 
   NavigationService _navigationService = locator<NavigationService>();
-  final _customerService = locator<CustomerContactDataSource>();
+  final _customerService = locator<CustomerContactService>();
   
 
   String _dropDownValue='+234';

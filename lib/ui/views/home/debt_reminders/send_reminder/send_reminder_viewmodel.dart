@@ -18,7 +18,7 @@ import 'package:intl/intl.dart';
 
 class SendMessageViewModel extends BaseViewModel {
 
-  final _transactionService = locator<TransactionLocalDataSource>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
   TransactionModel get transaction => _transactionService.stransaction;
 // Date field and other variables
   final dformat = new DateFormat('MMM dd, yyyy');

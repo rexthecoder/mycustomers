@@ -12,7 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
 import '../extensions/transaction_extension.dart';
 
-abstract class CustomerContactDataSource with ReactiveServiceMixin {
+abstract class CustomerContactDataSource {
   List<CustomerContact> get contacts;
 
   List<CustomerContact> get contactsm;
@@ -61,7 +61,7 @@ abstract class CustomerContactDataSource with ReactiveServiceMixin {
 }
 
 @lazySingleton
-class CustomerContactService extends CustomerContactDataSource {
+class CustomerContactService with ReactiveServiceMixin implements CustomerContactDataSource {
   //static const String _boxname = "contactBox";
   final _hiveService = locator<HiveInterface>();
 
@@ -102,7 +102,7 @@ class CustomerContactService extends CustomerContactDataSource {
   @override
   double get totalcredit =>_totalcredit.value;
 
-  final _transactionService = locator<TransactionLocalDataSource>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   var uuid = Uuid();
 

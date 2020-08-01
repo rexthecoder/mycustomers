@@ -12,7 +12,7 @@ import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import '../../extensions/transaction_extension.dart';
 
-abstract class TransactionLocalDataSource with ReactiveServiceMixin {
+abstract class TransactionLocalDataSource {
   //Future<void> init();
 
   List<TransactionModel> get alltransactions;
@@ -58,7 +58,7 @@ abstract class TransactionLocalDataSource with ReactiveServiceMixin {
 
 
 @lazySingleton
-class TransactionLocalDataSourceImpl extends TransactionLocalDataSource {
+class TransactionLocalDataSourceImpl with ReactiveServiceMixin implements TransactionLocalDataSource {
   //static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 

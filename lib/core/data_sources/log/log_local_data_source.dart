@@ -9,7 +9,7 @@ import 'package:mycustomers/core/data_sources/transaction/transaction_local_data
 import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dart';
 import 'package:intl/intl.dart';
 
-abstract class LogsLocalDataSource with ReactiveServiceMixin {
+abstract class LogsLocalDataSource {
   List<LogH> get loglist;
 
   /// Holds if Notification should be shown or not
@@ -43,11 +43,11 @@ abstract class LogsLocalDataSource with ReactiveServiceMixin {
   void getValues(int price, DateTime time, String action, String name, bool update);
 }
 
-class LogsLocalDataSourceImpl extends LogsLocalDataSource {
+class LogsLocalDataSourceImpl  with ReactiveServiceMixin implements LogsLocalDataSource {
   final _fileHelper = locator<FileHelper>();
   final _hiveService = locator<HiveInterface>();
 
-  final _transactionService = locator<TransactionLocalDataSource>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
   List<TransactionModel> get transactions => _transactionService.alltransactions;
 
   bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.logs);
@@ -81,11 +81,12 @@ class LogsLocalDataSourceImpl extends LogsLocalDataSource {
   void dot(){
     final dformat = new DateFormat('dd/MM/yyyy');
     for(var item in transactions){
-      
-      if(item.duedate != null && item.paiddate != null) {
+      print('o'+item.duedate.toString());
+      print('o'+(item.paiddate.toString() == 'null').toString());
+      if(item.duedate.toString() != 'null' || item.paiddate.toString() != 'null') {
         print(item.duedate);
       print(item.paiddate);
-        if(DateTime.now().difference(DateTime.parse(item.duedate == null ? item.paiddate : item.duedate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate ?? item.paiddate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
+        if(DateTime.now().difference(DateTime.parse(item.duedate == 'null' ? item.paiddate : item.duedate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate == 'null' ? item.paiddate : item.duedate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
           if(!once) {
             shouldnotify = true;
             once = true;

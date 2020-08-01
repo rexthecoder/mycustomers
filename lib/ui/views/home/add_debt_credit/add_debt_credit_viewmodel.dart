@@ -34,22 +34,23 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   DateTime dueDate;
   DateTime otherDate;
   String newDate;
+  //String newODate; //
   String get newODate => dformat.format(DateTime.now());
   bool date1err = false;
   bool date2err = false;
   List<String> items = [];
-  final _transactionService = locator<TransactionLocalDataSource>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
   NavigationService _navigationService = locator<NavigationService>();
-  final _customerContactService = locator<CustomerContactDataSource>();
+  final _customerContactService = locator<CustomerContactService>();
   CustomerContact get contact => _customerContactService.contact;
   final _bussinessService = locator<BussinessSettingService>();
   CountryCurrency get currency => _bussinessService.curren;
-  final _logService = locator<LogsLocalDataSource>();
+  final _logService = locator<LogsLocalDataSourceImpl>();
   Store get currentStore => StoreRepository.currentStore;
 
   StreamController _contactStream = StreamController<List<Customer>>();
   IOwnerServices iOwnerServices = locator<IOwnerServices>();
-  final _phoneContactService = locator<PhoneContactDataSource>();
+  final _phoneContactService = locator<PhoneContactService>();
   List<Customer> get contactsList => _phoneContactService.contact;
 
   ScrollController controller = new ScrollController();
@@ -192,7 +193,6 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
       action == 'debit'
           ? amount != null &&
                   newDate != null &&
-                  newODate.length > 0 &&
                   name.length != 0 //&& number != null
               ? save = true
               : save = false
@@ -245,7 +245,6 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     action == 'debit'
           ? amount != null &&
                   newDate != null &&
-                  newODate.length > 0 &&
                   name.length != 0 //&& number != null
               ? save = true
               : save = false
@@ -284,7 +283,6 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                   ? action == 'debit'
                       ? amount != null &&
                               newDate != null &&
-                              newODate.length > 0 &&
                               name != null //&& number != null
                           ? save = true
                           : save = false
@@ -294,7 +292,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                           ? save = true
                           : save = false
                   : action == 'debit'
-                      ? amount != null && newDate != null && newODate.length > 0
+                      ? amount != null && newDate != null
                           ? save = true
                           : save = false
                       : amount != null && newODate != null
@@ -323,7 +321,6 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         ? action == 'debit'
             ? amount != null &&
                     newDate != null &&
-                    newODate.length > 0 &&
                     name != null //&& number != null
                 ? save = true
                 : save = false
@@ -333,7 +330,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                 ? save = true
                 : save = false
         : action == 'debit'
-            ? amount != null && newDate != null && newODate.length > 0
+            ? amount != null && newDate != null
                 ? save = true
                 : save = false
             : amount != null && newODate != null ? save = true : save = false;
@@ -345,13 +342,13 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     otherDate = date;
     //newODate = dformat.format(date);
     date2err = false;
+    descFocus.requestFocus();
     update
         ? amount != null && newODate != null ? save = true : save = false
         : newCus
             ? action == 'debit'
                 ? amount != null &&
                         newDate != null &&
-                        newODate.length > 0 &&
                         name != null //&& number != null
                     ? save = true
                     : save = false
@@ -361,7 +358,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
                     ? save = true
                     : save = false
             : action == 'debit'
-                ? amount != null && newDate != null && newODate.length > 0
+                ? amount != null && newDate != null
                     ? save = true
                     : save = false
                 : amount != null && newODate != null
@@ -379,7 +376,6 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     action == 'debit'
         ? amount != null &&
                 newDate != null &&
-                newODate.length != null &&
                 name != null && number != null
             ? save = true
             : save = false

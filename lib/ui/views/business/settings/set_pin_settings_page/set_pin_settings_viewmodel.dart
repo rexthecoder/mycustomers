@@ -9,7 +9,7 @@ class SetPinSettingsViewModel extends BaseViewModel {
   final PasswordManagerService _passwordManagerService =
       locator<PasswordManagerService>();
   final _logService =
-      locator<LogsLocalDataSource>();
+      locator<LogsLocalDataSourceImpl>();
 
   String _pin = '';
   int _index = 0;

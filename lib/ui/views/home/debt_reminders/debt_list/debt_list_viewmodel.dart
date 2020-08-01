@@ -28,7 +28,7 @@ class DebtListViewModel extends BaseViewModel {
 
   final NavigationService _navigationService = locator<NavigationService>();
 
-  final _transactionService = locator<TransactionLocalDataSource>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
 
   Future<void> navigateToSendMessage() async {
     await _navigationService.navigateTo(Routes.sendNotificationMessage);

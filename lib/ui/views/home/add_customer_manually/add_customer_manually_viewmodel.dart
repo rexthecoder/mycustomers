@@ -31,7 +31,7 @@ PhoneNumber number = PhoneNumber(isoCode: isoCode);
   String get title => _title;
   String get subTitle =>_subTitle;
 
-  final _customerContactService = locator<CustomerContactDataSource>();
+  final _customerContactService = locator<CustomerContactService>();
 
   navigateToImport() {
     _nav.replaceWith(Routes.importCustomerCreditorViewRoute);

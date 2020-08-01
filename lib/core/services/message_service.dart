@@ -8,7 +8,7 @@ import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import 'package:uuid/uuid.dart';
 
-abstract class MessasageDataSource with ReactiveServiceMixin {
+abstract class MessasageDataSource {
   List<Message> get messages;
 
   List<Message> get allmessages;
@@ -33,7 +33,7 @@ abstract class MessasageDataSource with ReactiveServiceMixin {
 }
 
 @lazySingleton
-class MessageService extends MessasageDataSource {
+class MessageService with ReactiveServiceMixin implements MessasageDataSource {
   final _hiveService = locator<HiveInterface>();
 
   //bool get _isBoxOpen => _hiveService.isBoxOpen(HiveBox.message);

@@ -11,9 +11,9 @@ import '../../../../core/extensions/transaction_extension.dart';
 
 class NotificationViewModel extends ReactiveViewModel {
 
-  final _logService = locator<LogsLocalDataSource>();
-  final _transactionService = locator<TransactionLocalDataSource>();
-  final _contactService = locator<CustomerContactDataSource>();
+  final _logService = locator<LogsLocalDataSourceImpl>();
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  final _contactService = locator<CustomerContactService>();
   List<TransactionModel> get transactions => _transactionService.alltransactions;
   List<CustomerContact> get contacts => _contactService.contacts;
 
