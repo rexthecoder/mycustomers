@@ -22,7 +22,7 @@ class TermsAndConditionView extends StatelessWidget {
           margin: EdgeInsets.only(
               right: SizeConfig.xMargin(context, 5),
               left: SizeConfig.xMargin(context, 5),
-              top: SizeConfig.yMargin(context, 5),
+              top: SizeConfig.yMargin(context, 2),
               bottom: SizeConfig.yMargin(context, 2)),
           child: Column(
             children: <Widget>[
@@ -61,7 +61,7 @@ class TermsAndConditionView extends StatelessWidget {
                         ),
                         container(
                           height: !model.terms
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 40),
                           context: context,
                           title: 'TERMS',
@@ -86,7 +86,7 @@ class TermsAndConditionView extends StatelessWidget {
                                         text:
                                             '”) operates a web/mobile application, “'),
                                     TextSpan(
-                                        text: 'CustomerPayMe App',
+                                        text: 'CustomerPayMe ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(text: '” (the “'),
@@ -113,7 +113,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           color: Theme.of(context).cursorColor),
                                       children: <TextSpan>[
                                     TextSpan(
-                                        text: 'CustomerPayMe App',
+                                        text: 'CustomerPayMe ',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(text: '” (the “'),
@@ -162,7 +162,7 @@ class TermsAndConditionView extends StatelessWidget {
                                           color: Theme.of(context).cursorColor),
                                       children: <TextSpan>[
                                     TextSpan(
-                                        text: 'CustomerPayMe App',
+                                        text: 'CustomerPayMe',
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
@@ -252,7 +252,7 @@ class TermsAndConditionView extends StatelessWidget {
                             ],
                           ),
                           height: !model.license
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 62),
                         ),
                         SizedBox(
@@ -263,59 +263,60 @@ class TermsAndConditionView extends StatelessWidget {
                           title: 'DISCLAIMER',
                           function: model.setDisclaimer,
                           isSelected: model.disclaimer,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: SizeConfig.yMargin(context, 2),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'The materials within ',
-                                    style: TextStyle(
-                                        color: Theme.of(context).cursorColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'CustomerPayMe',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' are provided on an "as is" basis. '),
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.'),
-                                    ]),
-                              ),
-                              SizedBox(
-                                height: SizeConfig.yMargin(context, 2),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'Further, ',
-                                    style: TextStyle(
-                                        color: Theme.of(context).cursorColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to '),
-                                      TextSpan(
-                                          text: 'CustomerPayMe',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                    ]),
-                              ),
-                            ],
-                          ),
+                          child:  Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: SizeConfig.yMargin(context, 2),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                      text: 'The materials within ',
+                                      style: TextStyle(
+                                          color: Theme.of(context).cursorColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: 'CustomerPayMe',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' are provided on an "as is" basis. '),
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.'),
+                                      ]),
+                                ),
+                                SizedBox(
+                                  height: SizeConfig.yMargin(context, 2),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                      text: 'Further, ',
+                                      style: TextStyle(
+                                          color: Theme.of(context).cursorColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its website or otherwise relating to such materials or on any sites linked to '),
+                                        TextSpan(
+                                            text: 'CustomerPayMe',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                      ]),
+                                ),
+                              ],
+                            ),
+                          
                           height: !model.disclaimer
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 37),
                         ),
                         SizedBox(
@@ -327,46 +328,46 @@ class TermsAndConditionView extends StatelessWidget {
                           function: model.setLimitations,
                           isSelected: model.limitations,
                           child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: SizeConfig.yMargin(context, 2),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'In no event shall ',
-                                    style: TextStyle(
-                                        color: Theme.of(context).cursorColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use '),
-                                      TextSpan(
-                                          text: 'CustomerPayMe',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(text: ', even if '),
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(text: ' or a '),
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.'),
-                                    ]),
-                              ),
-                            ],
-                          ),
+                              children: <Widget>[
+                                SizedBox(
+                                  height: SizeConfig.yMargin(context, 2),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                      text: 'In no event shall ',
+                                      style: TextStyle(
+                                          color: Theme.of(context).cursorColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use '),
+                                        TextSpan(
+                                            text: 'CustomerPayMe',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(text: ', even if '),
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(text: ' or a '),
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.'),
+                                      ]),
+                                ),
+                              ],
+                            ),
                           height: !model.limitations
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 33),
                         ),
                         SizedBox(
@@ -377,65 +378,66 @@ class TermsAndConditionView extends StatelessWidget {
                           title: 'ACCURACY OF MATERIALS',
                           function: model.setAccuracy,
                           isSelected: model.accuracy,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: SizeConfig.yMargin(context, 2),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'The materials appearing in ',
-                                    style: TextStyle(
-                                        color: Theme.of(context).cursorColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'CustomerPayMe',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' could include technical, typographical, or photographic errors. '),
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' does not warrant that any of the materials on '),
-                                      TextSpan(
-                                          text: 'CustomerPayMe',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' are accurate, complete or current. '),
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' may make changes to the materials contained in '),
-                                      TextSpan(
-                                          text: 'CustomerPayMe',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' at any time without notice. However, '),
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' does not make any commitment to update the materials.'),
-                                    ]),
-                              ),
-                            ],
-                          ),
+                          child:  Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: SizeConfig.yMargin(context, 2),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                      text: 'The materials appearing in ',
+                                      style: TextStyle(
+                                          color: Theme.of(context).cursorColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: 'CustomerPayMe',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' could include technical, typographical, or photographic errors. '),
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' does not warrant that any of the materials on '),
+                                        TextSpan(
+                                            text: 'CustomerPayMe',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' are accurate, complete or current. '),
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' may make changes to the materials contained in '),
+                                        TextSpan(
+                                            text: 'CustomerPayMe',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' at any time without notice. However, '),
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' does not make any commitment to update the materials.'),
+                                      ]),
+                                ),
+                              ],
+                            ),
+                        
                           height: !model.accuracy
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 25.5),
                         ),
                         SizedBox(
@@ -446,39 +448,40 @@ class TermsAndConditionView extends StatelessWidget {
                           title: 'LINKS',
                           function: model.setLinks,
                           isSelected: model.links,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: SizeConfig.yMargin(context, 2),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'Hotels NG',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).cursorColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text:
-                                              ' has not reviewed all of the sites linked to its app and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal)),
-                                      TextSpan(
-                                          text: 'Hotels NG',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      TextSpan(
-                                          text:
-                                              ' of the site. Use of any such linked website is at the user\'s own risk.',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal)),
-                                    ]),
-                              ),
-                            ],
-                          ),
+                          child:  Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: SizeConfig.yMargin(context, 2),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                      text: 'Hotels NG',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).cursorColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text:
+                                                ' has not reviewed all of the sites linked to its app and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal)),
+                                        TextSpan(
+                                            text: 'Hotels NG',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                        TextSpan(
+                                            text:
+                                                ' of the site. Use of any such linked website is at the user\'s own risk.',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal)),
+                                      ]),
+                                ),
+                              ],
+                            ),
+                          
                           height: !model.links
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 22),
                         ),
                         SizedBox(
@@ -489,38 +492,39 @@ class TermsAndConditionView extends StatelessWidget {
                           title: 'MODIFICATIONS',
                           function: model.setModifications,
                           isSelected: model.modifications,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: SizeConfig.yMargin(context, 2),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'Hotels NG',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).cursorColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text:
-                                              ' may revise these terms of service for its app at any time without notice. By using ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal)),
-                                      TextSpan(
-                                          text: 'CustomerPayMe',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              ' you are agreeing to be bound by the then current version of these terms of service.',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal)),
-                                    ]),
-                              ),
-                            ],
-                          ),
+                          child:  Column(
+                              children: <Widget>[
+                                SizedBox(
+                                  height: SizeConfig.yMargin(context, 2),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                      text: 'Hotels NG',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).cursorColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text:
+                                                ' may revise these terms of service for its app at any time without notice. By using ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal)),
+                                        TextSpan(
+                                            text: 'CustomerPayMe',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                ' you are agreeing to be bound by the then current version of these terms of service.',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal)),
+                                      ]),
+                                ),
+                              ],
+                            ),
+                          
                           height: !model.modifications
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 18),
                         ),
                         SizedBox(
@@ -532,19 +536,20 @@ class TermsAndConditionView extends StatelessWidget {
                           function: model.setLaw,
                           isSelected: model.law,
                           child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                height: SizeConfig.yMargin(context, 2),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    text: 'These terms and conditions are governed by and construed in accordance with the laws of Nigeria and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.',
-                                    style: TextStyle(
-                                        color: Theme.of(context).cursorColor),))
-                            ],
-                          ),
+                              children: <Widget>[
+                                SizedBox(
+                                  height: SizeConfig.yMargin(context, 2),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                      text: 'These terms and conditions are governed by and construed in accordance with the laws of Nigeria and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.',
+                                      style: TextStyle(
+                                          color: Theme.of(context).cursorColor),))
+                              ],
+                            ),
+                          
                           height: !model.law
-                              ? SizeConfig.yMargin(context, 7)
+                              ? SizeConfig.yMargin(context, 8.5)
                               : SizeConfig.yMargin(context, 18),
                         ),
                         SizedBox(
@@ -606,11 +611,11 @@ class TermsAndConditionView extends StatelessWidget {
                     ),
                     isSelected
                         ? Icon(
-                            CupertinoIcons.clear,
+                            Icons.keyboard_arrow_up,
                             color: BrandColors.primary,
                           )
                         : Icon(
-                            CupertinoIcons.right_chevron,
+                            Icons.keyboard_arrow_down,
                             color: BrandColors.primary,
                           )
                   ],
