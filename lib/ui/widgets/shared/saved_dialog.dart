@@ -95,7 +95,7 @@ class SavedDialog extends StatelessWidget {
                     final DateTime picked =
                         await showDatePicker(
                       context: context,
-                      initialDate: DateTime.now(),
+                      initialDate: start,
                       firstDate: start,
                       lastDate: stop,
                       builder: (BuildContext
@@ -159,7 +159,7 @@ class SavedDialog extends StatelessWidget {
                     final DateTime picked =
                         await showDatePicker(
                       context: context,
-                      initialDate: DateTime.now(),
+                      initialDate: stop,
                       firstDate: start,
                       lastDate: stop,
                       builder: (BuildContext

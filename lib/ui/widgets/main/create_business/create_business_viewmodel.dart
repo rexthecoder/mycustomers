@@ -16,7 +16,7 @@ class CreateBusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final StoresLocalDataSource _storeService = locator<StoresLocalDataSource>();
   final DialogService _dialogService = locator<DialogService>();
-  final LogsLocalDataSourceImpl _logService =
+  final _logService =
       locator<LogsLocalDataSourceImpl>();
 
   String storeAddress = '';

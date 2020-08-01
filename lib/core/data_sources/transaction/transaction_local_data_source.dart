@@ -12,8 +12,34 @@ import 'package:observable_ish/observable_ish.dart';
 import 'package:stacked/stacked.dart';
 import '../../extensions/transaction_extension.dart';
 
-abstract class TransactionLocalDataSource{
+abstract class TransactionLocalDataSource {
   //Future<void> init();
+
+  List<TransactionModel> get alltransactions;
+
+  List<TransactionModel> get transactions;
+
+  List<TransactionModel> get debitlist;
+
+  List<TransactionModel> get creditlist;
+
+  List<CustomerContact> get owingcustomers;
+
+  List<CustomerContact> get owedcustomers;
+
+  List<TransactionModel> get report;
+
+  List<String> formattedate;
+
+  TransactionModel get stransaction;
+
+  double get whatyouowe;
+
+  double get reportdebt;
+
+  double get reportcredit;
+
+  void setReport(DateTime start, DateTime stop, CustomerContact cus, BuildContext context, String symbol);
 
   void setTransaction(TransactionModel transaction);
 
@@ -25,12 +51,14 @@ abstract class TransactionLocalDataSource{
 
   Future<CustomerContact> updateTransaction(TransactionModel transaction, CustomerContact cus);
 
+  void updateamount(CountryCurrency oldcurrency, CountryCurrency currency, String stid);
+
   Future<CustomerContact> deleteTransaction(CustomerContact cus);
 }
 
 
 @lazySingleton
-class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with ReactiveServiceMixin {
+class TransactionLocalDataSourceImpl with ReactiveServiceMixin implements TransactionLocalDataSource {
   //static const String _boxname = "transactionBox";
   final _hiveService = locator<HiveInterface>();
 
@@ -40,35 +68,46 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
   Box<CustomerContact> get _contactBox => _hiveService.box<CustomerContact>(HiveBox.contact);
 
   RxValue<List<TransactionModel>> _alltransactions = RxValue<List<TransactionModel>>(initial: []);
+  @override
   List<TransactionModel> get alltransactions => _alltransactions.value;
 
   RxValue<double> _whatyouowe = RxValue<double>(initial: 0);
+  @override
   double get whatyouowe => _whatyouowe.value;
 
   RxValue<List<TransactionModel>> _transactions = RxValue<List<TransactionModel>>(initial: []);
+  @override
   List<TransactionModel> get transactions => _transactions.value;
 
   RxValue<List<TransactionModel>> _debitlist = RxValue<List<TransactionModel>>(initial: []);
+  @override
   List<TransactionModel> get debitlist => _debitlist.value;
 
   RxValue<List<TransactionModel>> _creditlist = RxValue<List<TransactionModel>>(initial: []);
+  @override
   List<TransactionModel> get creditlist => _creditlist.value;
 
   RxValue<List<CustomerContact>> _owingcustomers = RxValue<List<CustomerContact>>(initial: []);
+  @override
   List<CustomerContact> get owingcustomers => _owingcustomers.value;
 
   RxValue<List<CustomerContact>> _owedcustomers = RxValue<List<CustomerContact>>(initial: []);
+  @override
   List<CustomerContact> get owedcustomers => _owedcustomers.value;
 
   RxValue<List<TransactionModel>> _report = RxValue<List<TransactionModel>>(initial: []);
-  List get report => _report.value;
+  @override
+  List<TransactionModel> get report => _report.value;
 
   RxValue<double> _reportdebt = RxValue<double>(initial: 0);
+  @override
   double get reportdebt => _reportdebt.value;
   
   RxValue<double> _reportcredit = RxValue<double>(initial: 0);
+  @override
   double get reportcredit => _reportcredit.value;
 
+  @override
   List<String> formattedate = [];
   String date;
   
@@ -76,6 +115,7 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
 //   var box = Hive.openBox<TransactionModel>(_boxname);
 
   RxValue<TransactionModel> _stransaction = RxValue<TransactionModel>(initial: null);
+  @override
   TransactionModel get stransaction => _stransaction.value;
 
   final dformat = new DateFormat('dd/MM/yyyy');
@@ -99,6 +139,7 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     _stransaction.value = transaction;
   }
 
+  @override
   void setReport(DateTime start, DateTime stop, CustomerContact cus, BuildContext context, String symbol)async {
     print(start);
     print(stop);
@@ -150,6 +191,7 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     //await GeneralTransactionReport().savepdf(context);
   }
 
+  @override
   void getAllTransactions(String id) async{
     print(id);
     //final bbox = await box;
@@ -390,6 +432,7 @@ class TransactionLocalDataSourceImpl extends TransactionLocalDataSource with Rea
     return amt;
   }
 
+  @override
   void updateamount(CountryCurrency oldcurrency, CountryCurrency currency, String stid) async{
     for(var cus in _contactBox.values.toList()) {
       List<TransactionModel> hold = [];

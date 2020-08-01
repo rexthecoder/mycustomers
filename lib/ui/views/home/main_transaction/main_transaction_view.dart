@@ -224,12 +224,13 @@ class MainTransaction extends StatelessWidget {
                                     Center(
                                         child: Wrap(
                                           alignment: WrapAlignment.spaceBetween,
+                                          crossAxisAlignment: WrapCrossAlignment.center,
                                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
                                             Text(
                                               AppLocalizations.of(context)
                                                       .youOwe +
-                                                  ' this customer    ',//${model.contact.name}
+                                                  ' this customer  ',//${model.contact.name}
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline5
@@ -267,18 +268,20 @@ class MainTransaction extends StatelessWidget {
                                             )
                                           ],
                                         ),
-                                      ) : Text(
-                                        'No Pending Transaction.',//${model.contact.name}
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5
-                                            .copyWith(
-                                              fontSize:
-                                                  SizeConfig.yMargin(
-                                                      context, 2.2),
-                                              color: Theme.of(context)
-                                                  .cursorColor,
-                                            ),
+                                      ) : Center(
+                                        child: Text(
+                                          'No Pending Transaction.',//${model.contact.name}
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5
+                                              .copyWith(
+                                                fontSize:
+                                                    SizeConfig.yMargin(
+                                                        context, 2.2),
+                                                color: Theme.of(context)
+                                                    .cursorColor,
+                                              ),
+                                        ),
                                       ),
                                     ),
                           ),
@@ -551,17 +554,15 @@ class MainTransaction extends StatelessWidget {
                                                                 .xMargin(
                                                                     context,
                                                                     100),
+                                                            height: SizeConfig.yMargin(context, 8),
                                                             //padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.2)),
                                                             decoration:
                                                                 BoxDecoration(
                                                               border: Border(
                                                                   bottom: BorderSide(
                                                                       color: Color(
-                                                                          0xFFC4C4C4))),
-                                                              color: BrandColors
-                                                                  .primary
-                                                                  .withOpacity(
-                                                                      0.03),
+                                                                          0xFFC4C4C4).withOpacity(0.5))),
+                                                              color:Theme.of(context).backgroundColor,
                                                             ),
                                                             child: Row(
                                                               mainAxisAlignment:
@@ -571,19 +572,11 @@ class MainTransaction extends StatelessWidget {
                                                                   Widget>[
                                                                 Container(
                                                                   //color: Colors.red,
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .backgroundColor,
                                                                   width: SizeConfig.xMargin(
                                                                           context,
                                                                           100) *
                                                                       0.48,
-                                                                  padding: EdgeInsets.symmetric(
-                                                                      vertical: SizeConfig.yMargin(
-                                                                          context,
-                                                                          2.2),
-                                                                      horizontal:
-                                                                          10),
+                                                                  padding: EdgeInsets.symmetric(horizontal: 10),
                                                                   child: Column(
                                                                     mainAxisAlignment:
                                                                         MainAxisAlignment
@@ -591,37 +584,30 @@ class MainTransaction extends StatelessWidget {
                                                                     children: <
                                                                         Widget>[
                                                                       Text(
-                                                                        item.tId,
-                                                                        style: TextStyle(
-                                                                            fontSize: SizeConfig.yMargin(context,
-                                                                                1.8),
-                                                                            color:
-                                                                                Color(0xFF828282)), maxLines: 1,
-                                                                      ),
-                                                                      Text(
                                                                         model.getdDate(item.boughtdate) +
                                                                             ' - ' +
                                                                             model.getTime(item.boughtdate),
                                                                         style: TextStyle(
                                                                             fontSize: SizeConfig.yMargin(context,
-                                                                                2),
+                                                                                1.8),
                                                                             color:
                                                                                 Color(0xFF828282)),
+                                                                        maxLines: 1,
+                                                                        overflow: TextOverflow.ellipsis,
                                                                       ),
-                                                                      Padding(
-                                                                        padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
-                                                                        child: Text(
-                                                                          item.description ??
-                                                                              '',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontSize: SizeConfig.yMargin(
-                                                                                context,
-                                                                                2.2),
-                                                                          ),
+                                                                      Text(
+                                                                        item.description ??
+                                                                            '',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontSize: SizeConfig.yMargin(
+                                                                              context,
+                                                                              2),
                                                                         ),
+                                                                        maxLines: 1,
+                                                                        overflow: TextOverflow.ellipsis,
                                                                       ),
                                                                     ],
                                                                   ),
@@ -630,7 +616,8 @@ class MainTransaction extends StatelessWidget {
                                                                 //   child:
                                                                 Container(
                                                                   //color: Colors.red,
-                                                                  //color: BrandColors.primary.withOpacity(0.03),
+                                                                  height: SizeConfig.yMargin(context, 8),
+                                                                  color: BrandColors.primary.withOpacity(0.03),
                                                                   width: SizeConfig.xMargin(
                                                                           context,
                                                                           100) *
@@ -678,7 +665,7 @@ class MainTransaction extends StatelessWidget {
                                                                               .primary,
                                                                           fontSize: SizeConfig.yMargin(
                                                                               context,
-                                                                              2.2),
+                                                                              2),
                                                                           fontFamily:
                                                                               'Roboto'),
                                                                     ),
@@ -704,17 +691,15 @@ class MainTransaction extends StatelessWidget {
                                                                     .xMargin(
                                                                         context,
                                                                         100),
+                                                                height: SizeConfig.yMargin(context, 8),
                                                                 //padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.2)),
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   border: Border(
                                                                       bottom: BorderSide(
                                                                           color:
-                                                                              Color(0xFFC4C4C4))),
-                                                                  color: BrandColors
-                                                                      .primary
-                                                                      .withOpacity(
-                                                                          0.03),
+                                                                              Color(0xFFC4C4C4).withOpacity(0.5))),
+                                                                 color:Theme.of(context).backgroundColor,
                                                                 ),
                                                                 child: Row(
                                                                   mainAxisAlignment:
@@ -724,58 +709,45 @@ class MainTransaction extends StatelessWidget {
                                                                       Widget>[
                                                                     Container(
                                                                       //color: Colors.red,
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .backgroundColor,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          vertical: SizeConfig.yMargin(
-                                                                              context,
-                                                                              2.2),
-                                                                          horizontal:
-                                                                              10),
+                                                                      padding: EdgeInsets.symmetric(horizontal: 10),
                                                                       width: SizeConfig.xMargin(
                                                                               context,
                                                                               100) *
                                                                           0.48,
                                                                       child:
                                                                           Column(
+                                                                            mainAxisAlignment: MainAxisAlignment.center,
                                                                         crossAxisAlignment:
                                                                             CrossAxisAlignment.start,
                                                                         children: <
                                                                             Widget>[
                                                                           Text(
-                                                                            item.tId,
-                                                                            style: TextStyle(
-                                                                                fontSize: SizeConfig.yMargin(context,
-                                                                                    1.3,),
-                                                                                color:
-                                                                                    Color(0xFF828282)), maxLines: 1,
-                                                                          ),
-                                                                          Text(
                                                                             model.getdDate(item.boughtdate) +
                                                                                 ' - ' +
                                                                                 model.getTime(item.boughtdate),
                                                                             style:
-                                                                                TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
+                                                                                TextStyle(fontSize: SizeConfig.yMargin(context, 1.8), color: Color(0xFF828282)),
+                                                                            maxLines: 1,
+                                                                            overflow: TextOverflow.ellipsis,
                                                                           ),
-                                                                          Padding(
-                                                                            padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
-                                                                            child: Text(
-                                                                              item.description ??
-                                                                                  '',
-                                                                              style:
-                                                                                  TextStyle(
-                                                                                fontWeight: FontWeight.bold,
-                                                                                fontSize: SizeConfig.yMargin(context, 2.2),
-                                                                              ),
+                                                                          Text(
+                                                                            item.description ??
+                                                                                '',
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: SizeConfig.yMargin(context, 2),
                                                                             ),
+                                                                            maxLines: 1,
+                                                                            overflow: TextOverflow.ellipsis,
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ),
                                                                     Container(
                                                                       //color: Colors.red,
-                                                                      //color: BrandColors.primary.withOpacity(0.03),
+                                                                      height: SizeConfig.yMargin(context, 8),
+                                                                      color: BrandColors.primary.withOpacity(0.03),
                                                                       width: SizeConfig.xMargin(
                                                                               context,
                                                                               100) *
@@ -827,16 +799,14 @@ class MainTransaction extends StatelessWidget {
                                                                         BoxDecoration(
                                                                       border: Border(
                                                                           bottom:
-                                                                              BorderSide(color: Color(0xFFC4C4C4))),
-                                                                      color: BrandColors
-                                                                          .primary
-                                                                          .withOpacity(
-                                                                              0.03),
+                                                                              BorderSide(color: Color(0xFFC4C4C4).withOpacity(0.5))),
+                                                                      color:Theme.of(context).backgroundColor,
                                                                     ),
                                                                     width: SizeConfig
                                                                         .xMargin(
                                                                             context,
                                                                             100),
+                                                                    height: SizeConfig.yMargin(context, 8),
                                                                     //padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 2.2)),
                                                                     child: Row(
                                                                       mainAxisAlignment:
@@ -845,46 +815,37 @@ class MainTransaction extends StatelessWidget {
                                                                       children: <
                                                                           Widget>[
                                                                         Container(
-                                                                          color:
-                                                                              Theme.of(context).backgroundColor,
-                                                                          padding: EdgeInsets.symmetric(
-                                                                              vertical: SizeConfig.yMargin(context, 2.2),
-                                                                              horizontal: 10),
+                                                                          padding: EdgeInsets.symmetric(horizontal: 10),
                                                                           width:
                                                                               SizeConfig.xMargin(context, 100) * 0.48,
                                                                           child:
                                                                               Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.start,
                                                                             children: <Widget>[
                                                                               Text(
-                                                                                item.tId,
-                                                                                style: TextStyle(
-                                                                                    fontSize: SizeConfig.yMargin(context,
-                                                                                        1.3),
-                                                                                    color:
-                                                                                        Color(0xFF828282)), maxLines: 1,
+                                                                                model.getdDate(item.paiddate) + ' - ' + model.getTime(item.paiddate),
+                                                                                style: TextStyle(fontSize: SizeConfig.yMargin(context, 1.8), color: Color(0xFF828282)),
+                                                                                maxLines: 1,
+                                                                                overflow: TextOverflow.ellipsis,
                                                                               ),
                                                                               Text(
-                                                                                model.getdDate(item.paiddate) + ' - ' + model.getTime(item.paiddate),
-                                                                                style: TextStyle(fontSize: SizeConfig.yMargin(context, 2), color: Color(0xFF828282)),
-                                                                              ),
-                                                                              Padding(
-                                                                                padding: EdgeInsets.only(left: SizeConfig.xMargin(context, 2)),
-                                                                                child: Text(
-                                                                                  item.description ?? '',
-                                                                                  style: TextStyle(
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontSize: SizeConfig.yMargin(context, 2.2),
-                                                                                  ),
+                                                                                item.description ?? '',
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontSize: SizeConfig.yMargin(context, 2),
                                                                                 ),
+                                                                                maxLines: 1,
+                                                                                overflow: TextOverflow.ellipsis,
                                                                               ),
                                                                             ],
                                                                           ),
                                                                         ),
                                                                         Container(
                                                                           //color: Colors.red,
-                                                                          //color: BrandColors.primary.withOpacity(0.03),
+                                                                          height: SizeConfig.yMargin(context, 8),
+                                                                          color: BrandColors.primary.withOpacity(0.03),
                                                                           width:
                                                                               SizeConfig.xMargin(context, 100) * 0.26,
                                                                           child:

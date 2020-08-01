@@ -10,7 +10,7 @@ import 'package:mycustomers/core/services/bussiness_setting_service.dart';
 
 class CurrencySettingPageViewModel extends ReactiveViewModel{
   final _bussinessSettingService = locator<BussinessSettingService>();
-  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
+  final _logService = locator<LogsLocalDataSourceImpl>();
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
   final _customerService = locator<CustomerContactService>();
   Store get currentStore => StoreRepository.currentStore;
