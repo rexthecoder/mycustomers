@@ -149,7 +149,6 @@ class EditProfileViewModel extends BaseViewModel {
       title: 'Confirmation Dialog',
       description: 'Do you want to sign out?',
       confirmationTitle: 'Sign out',
-      dialogPlatform: DialogPlatform.Cupertino,
       cancelTitle: 'Cancel',
     );
 
