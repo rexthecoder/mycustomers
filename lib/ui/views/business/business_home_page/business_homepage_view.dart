@@ -90,9 +90,7 @@ class BusinessHomePageView extends StatelessWidget {
                     opens: false,
                     // onTap: () => _displayBusinessCardModal(context, model)
                   ),
-                  Divider(
-                    color: Colors.grey[500],
-                  ),
+
                   // optionButton(
                   //   context: context,
                   //   icon: businessCard,
@@ -215,7 +213,20 @@ class BusinessHomePageView extends StatelessWidget {
         subtitle: subtitle != null
             ? Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text(subtitle),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(subtitle),
+                    Padding(
+                      padding: EdgeInsets.only(
+//                          left: SizeConfig.xMargin(context, 7),
+                          right: SizeConfig.xMargin(context, 4)),
+                      child: Divider(
+                        color: Colors.grey[300],
+                      ),
+                    ),
+                  ],
+                ),
               )
             : null,
         leading: CircleAvatar(
