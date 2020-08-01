@@ -124,8 +124,11 @@ class MessageHistoryView extends StatelessWidget {
             ),
             body: Stack(
               children: <Widget>[
-                Container(
-                  margin:  EdgeInsets.only( bottom: SizeConfig.yMargin(context, 15)+5,top: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
+                Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        margin:  EdgeInsets.only( bottom: SizeConfig.yMargin(context, 18)+5,top: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
 //                  child: ListView.builder(
 //                      itemCount: model.messages.length,
 //                      itemBuilder: (BuildContext context, int index) =>
@@ -151,55 +154,61 @@ class MessageHistoryView extends StatelessWidget {
 //                            ],
 //                          )),
 
-                child:ListView(
-                  reverse: true,
+                      child:ListView(
+                        reverse: true,
 
-                  children:  model.messagesReversed.map<Row>((e) =>
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Flexible(
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.only(
-                                  topLeft:  Radius.circular(10),
-                                  bottomRight:  Radius.circular(10),
-                                  bottomLeft:  Radius.circular(10)
-                              ),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.only(
-                                  topLeft:  Radius.circular(10),
-                                  bottomRight:  Radius.circular(10),
-                                  bottomLeft:  Radius.circular(10)
-                                ),
-                                color: ThemeColors.gray[800].withOpacity(0.5),
-                              ),
-                              padding: const EdgeInsets.all(5.0),
+                        children:  model.messagesReversed.map<Row>((e) =>
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Flexible(
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.only(
+                                        topLeft:  Radius.circular(10),
+                                        bottomRight:  Radius.circular(10),
+                                        bottomLeft:  Radius.circular(10)
+                                    ),
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.only(
+                                        topLeft:  Radius.circular(10),
+                                        bottomRight:  Radius.circular(10),
+                                        bottomLeft:  Radius.circular(10)
+                                      ),
+                                      color: ThemeColors.gray[800].withOpacity(0.5),
+                                    ),
+                                    padding: const EdgeInsets.all(5.0),
 //                            margin:  EdgeInsets.only(
 //                                top: 5, bottom: 5, left:  SizeConfig.xMargin(context, 25), right: 20),
-                              child: Text(
-                                e.message ?? '',
-                                textAlign: TextAlign.end,
+                                    child: Text(
+                                      e.message ?? '',
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )).toList(),
+                            ],
+                          )).toList(),
 //                  children:  model.messages.map<Text>((e) => Text(e.message)).toList(),
-                ),
+                      ),
+                      ),
+                    ),
+                    SizedBox(
+                      height:  MediaQuery.of(context).viewInsets.bottom,
+                    ),
+                  ],
                 ),
                 Positioned(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
                   left: 0,
                   right: 0,
                   child: Container(
-                    height:  SizeConfig.yMargin(context, 15),
+                    height:  SizeConfig.yMargin(context, 18),
                     decoration: BoxDecoration(
                         border: Border.symmetric(
                             vertical: BorderSide(color: ThemeColors.gray[700])),
@@ -229,7 +238,7 @@ class MessageHistoryView extends StatelessWidget {
                                             onPressed: () => model.setText(
                                                 model.dummyQuickText[index]),
                                             child: Container(
-                                                height: 30,
+                                                height:  SizeConfig.yMargin(context, 6),
                                                 child: Center(
                                                     child: Text(
                                                         model.dummyQuickText[
@@ -237,9 +246,9 @@ class MessageHistoryView extends StatelessWidget {
                                       ),
                                     )),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox( height:  SizeConfig.yMargin(context, 2),),
                           Container(
-                            height: 50,
+                            height:  SizeConfig.yMargin(context, 8),
                             child: Row(
                               children: <Widget>[
                                 Expanded(

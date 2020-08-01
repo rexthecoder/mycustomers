@@ -179,7 +179,7 @@ class MarketingHomePageView extends StatelessWidget {
                                 Text(
                                   AppLocalizations.of(context).customerList,
                                   style: TextStyle(
-                                      fontSize: 20.sp,
+                                      fontSize: SizeConfig.textSize(context, 5),
                                       fontWeight: FontWeight.w600),
                                 ),
                                 InkWell(
@@ -188,12 +188,12 @@ class MarketingHomePageView extends StatelessWidget {
                                     color:
                                         BrandColors.secondary.withOpacity(0.07),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding:  EdgeInsets.all(SizeConfig.xMargin(context, 2)),
                                       child: Text(
                                         AppLocalizations.of(context)
                                             .sendMessageAll,
                                         style: TextStyle(
-                                            fontSize: 14.sp,
+                                            fontSize: SizeConfig.textSize(context, 3.8),
                                             color: BrandColors.secondary),
                                       ),
                                     ),
@@ -207,7 +207,7 @@ class MarketingHomePageView extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 15.0,
+                              horizontal: 5.0,
                             ),
                             child: TextField(
                               textCapitalization: TextCapitalization.sentences,
@@ -216,7 +216,7 @@ class MarketingHomePageView extends StatelessWidget {
                               textInputAction: TextInputAction.search,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search,
-                                    size: SizeConfig.xMargin(context, 4)),
+                                    size: SizeConfig.xMargin(context, 6)),
                                 hintText: AppLocalizations.of(context)
                                     .typeCustomerName,
                                 border: InputBorder.none,
@@ -275,8 +275,8 @@ class MarketingHomePageView extends StatelessWidget {
                                                 vertical: 15.h,
                                               ),
                                               child: Row(
+                                                crossAxisAlignment:CrossAxisAlignment.center,
                                                 children: <Widget>[
-                                                  //TODO: Fix CustomerCircleAvatar
                                                   CustomerCircleAvatar(
                                                     ccustomer: customer,
                                                     action: 'debtor',
@@ -299,6 +299,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
+                                                          mainAxisAlignment:MainAxisAlignment.center,
                                                           children: <Widget>[
                                                             Text(
                                                               '${customer.name}',
@@ -308,31 +309,32 @@ class MarketingHomePageView extends StatelessWidget {
                                                                         .w600,
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            model.getmsg(customer) !=
+                                                                null
+                                                                ?SizedBox(
                                                               height: 3.sp,
-                                                            ),
-                                                            Text(
-                                                              model.getmsg(customer) !=
-                                                                      null
-                                                                  ? model
-                                                                          .getmsg(
-                                                                              customer)
-                                                                          .message ??
-                                                                      ''
-                                                                  : '',
-                                                              style: TextStyle(
+                                                            ):Container(),
+                                                            model.getmsg(customer) !=
+                                                                null
+                                                                ?   Text(
+                                                               model
+                                                                  .getmsg(customer)
+                                                                  .message ??
+                                                                  '',
+                                                              style:
+                                                              TextStyle(
                                                                 color: ThemeColors
                                                                     .gray
                                                                     .shade800,
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                FontWeight
+                                                                    .w600,
                                                               ),
                                                               maxLines: 1,
                                                               overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                            )
+                                                              TextOverflow
+                                                                  .ellipsis,
+                                                            ):Container()
                                                           ],
                                                         ),
                                                       ),
@@ -438,7 +440,6 @@ class MarketingHomePageView extends StatelessWidget {
                                                 ),
                                                 child: Row(
                                                   children: <Widget>[
-                                                    //TODO: Fix CustomerCircleAvatar
                                                     CustomerCircleAvatar(
                                                       ccustomer: customer,
                                                       action: 'debtor',
@@ -462,6 +463,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
                                                                     .start,
+                                                            mainAxisAlignment:MainAxisAlignment.center,
                                                             children: <Widget>[
                                                               Text(
                                                                 '${customer.name}',
@@ -472,17 +474,17 @@ class MarketingHomePageView extends StatelessWidget {
                                                                           .w600,
                                                                 ),
                                                               ),
-                                                              SizedBox(
+                                                              model.getmsg(customer) !=
+                                                                  null
+                                                                  ?SizedBox(
                                                                 height: 3.sp,
-                                                              ),
-                                                              Text(
-                                                                model.getmsg(customer) !=
-                                                                        null
-                                                                    ? model
-                                                                            .getmsg(customer)
+                                                              ):Container(),
+                                                              model.getmsg(customer) !=
+                                                                  null
+                                                                  ?   Text(
+                                                               model.getmsg(customer)
                                                                             .message ??
-                                                                        ''
-                                                                    : '',
+                                                                        '',
                                                                 style:
                                                                     TextStyle(
                                                                   color: ThemeColors
@@ -496,7 +498,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                                 overflow:
                                                                     TextOverflow
                                                                         .ellipsis,
-                                                              )
+                                                              ):Container()
                                                             ],
                                                           ),
                                                         ),
