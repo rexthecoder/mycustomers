@@ -70,9 +70,6 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                   fontSize: SizeConfig.textSize(context, 5),
                 ),
               ),
-              SizedBox(
-                width: SizeConfig.xMargin(context, 0.5),
-              ),
               Icon(
                 Icons.keyboard_arrow_down,
                 color: ThemeColors.background,
