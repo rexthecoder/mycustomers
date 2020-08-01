@@ -34,11 +34,12 @@ class MainViewModel extends ReactiveViewModel {
   Map<String, int> _customers = {};
 
   int _index = 0;
-
+  double _textSize = 3;
   bool isCollapsed = true;
 
   /// Getters
   int get index => _index;
+  double get textSize => _textSize;
 
   List<Store> get stores => _stores;
 
@@ -46,21 +47,22 @@ class MainViewModel extends ReactiveViewModel {
 
   Store get currStore => StoreRepository.currentStore;
 
-  bool get showdot =>_logService.shouldnotify;
+  bool get showdot => _logService.shouldnotify;
 
   Profile getProfile() {
     return _profileService.getProfile(StoreRepository?.currentStore?.id);
   }
 
-  Image imageFromBaseString(String base64String, BuildContext context){
-     return Image.memory(base64Decode(base64String),
-     width: SizeConfig.xMargin(context, 50),
+  Image imageFromBaseString(String base64String, BuildContext context) {
+    return Image.memory(
+      base64Decode(base64String),
+      width: SizeConfig.xMargin(context, 50),
       height: SizeConfig.xMargin(context, 50),
       fit: BoxFit.cover,
     );
   }
 
-  void gettransactions(){
+  void gettransactions() {
     _transactionService.getAllTransactions(currStore.id);
     _logService.dot();
     notifyListeners();
@@ -70,12 +72,12 @@ class MainViewModel extends ReactiveViewModel {
 
   /// Methods/Functions
   void addlog() {
-    print('called1');
     _logService.testfunc(DateTime.now());
   }
 
   void changeTab(int index) {
     _index = index;
+    _textSize = 5;
     notifyListeners();
   }
 
@@ -106,13 +108,13 @@ class MainViewModel extends ReactiveViewModel {
       final customers = await _customerService.getCustomers(store.id);
       customerMap.putIfAbsent(store.id, () => customers.length);
     }
-    _customers = customerMap;
+    return _customers = customerMap;
   }
 
   int getCustomerCount(String id) {
     //print(_customerContactService.getCustomerCount(id).then((value) => print(value)));
     //int tot;
-   return _customerContactService.getCustomerCount(id);
+    return _customerContactService.getCustomerCount(id);
     //return tot;
   }
 
@@ -123,11 +125,4 @@ class MainViewModel extends ReactiveViewModel {
   @override
   List<ReactiveServiceMixin> get reactiveServices =>
       [_logService, _bussinessService];
-
-  double textSize = 3;
-
-  void changeTextSize() {
-    textSize = 6;
-    notifyListeners();
-  }
 }
