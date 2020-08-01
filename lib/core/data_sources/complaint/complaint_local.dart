@@ -36,10 +36,10 @@ class ComplaintLocalDataSourceImpl implements ComplaintLocalDataSource {
   final _auth = locator<AuthService>();
   IStorageUtil _storage = locator<IStorageUtil>();
 
-  final StreamController<bool>_reloadStreamController = StreamController<bool>();
+  final StreamController<bool>_reloadStreamController = StreamController<bool>.broadcast();
 
   @override
-  Stream<bool> get reloadStream => _reloadStreamController.stream;
+  Stream<bool> get reloadStream => _reloadStreamController.stream.asBroadcastStream();
 
   static const COMPLAINT_HIVE_BOX_NAME = 'COMPLAINT';
 
