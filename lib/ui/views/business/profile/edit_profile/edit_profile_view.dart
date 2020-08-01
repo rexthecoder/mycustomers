@@ -139,26 +139,9 @@ class EditProfileView extends HookWidget {
                           SizedBox(
                             width: SizeConfig.xMargin(context, 6),
                           ),
-                          Text(
-                            (model.currentUser?.firstName?.isEmpty ?? true)
-                                ? ''
-                                : model.currentUser.firstName,
-                            style: TextStyle(
-                              color: BrandColors.primary,
-                              fontSize: SizeConfig.textSize(context, 6),
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Expanded(
+                            child: NameEditWidget(),
                           ),
-                          SizedBox(
-                            width: SizeConfig.xMargin(context, 5),
-                          ),
-                          Icon(
-                            Icons.edit,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
-                          )
                         ],
                       ),
                       SizedBox(
@@ -242,6 +225,84 @@ class EditProfileView extends HookWidget {
       onModelReady: (model) {
         // TODO: Implement init
       },
+    );
+  }
+}
+
+class NameEditWidget extends ViewModelWidget<EditProfileViewModel> {
+  const NameEditWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, EditProfileViewModel model) {
+    return model.editing ? Row(
+      children: <Widget>[
+        Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              ),
+              child: TextFormField(
+                initialValue: (model.currentUser?.firstName?.isEmpty ?? true)
+                    ? ''
+                    : model.currentUser.firstName,
+                onChanged: model.updateUserName,
+                decoration: InputDecoration.collapsed(hintText: 'Your name'),
+                autofocus: true,
+              ),
+            ),
+          ),
+
+        SizedBox(
+          width: SizeConfig.xMargin(context, 3),
+        ),
+        CustomPartialBuild<SettingManagerModel>(
+          builder: (_, __) => IconButton(
+            icon: Icon(
+              Icons.save,
+              color:
+              Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ), onPressed: () async {
+                await model.switchEditingState();
+                __.reload();
+              },
+          ),
+        ),
+      ],
+    ) : Row(
+      children: <Widget>[
+        Expanded(
+          child: Text(
+            (model.currentUser?.firstName?.isEmpty ?? true)
+                ? ''
+                : model.currentUser.firstName,
+            style: TextStyle(
+              color: BrandColors.primary,
+              fontSize: SizeConfig.textSize(context, 6),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: SizeConfig.xMargin(context, 5),
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.edit,
+            color:
+                Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+          ), onPressed: model.switchEditingState,
+        ),
+      ],
     );
   }
 }

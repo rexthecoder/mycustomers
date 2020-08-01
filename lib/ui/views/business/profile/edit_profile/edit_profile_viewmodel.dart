@@ -13,6 +13,21 @@ class EditProfileViewModel extends BaseViewModel {
   final _authService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
+  bool _editing = false;
+  bool get editing => _editing;
+
+  Future<void> switchEditingState() async {
+    if (_editing) {
+      await _authService.updateCurrentUser(User(
+        firstName: (_userName?.isNotEmpty ?? false)
+            ? _userName
+            : currentUser.firstName,
+      ));
+    }
+    _editing = !_editing;
+    notifyListeners();
+  }
+
   final _imagePicker = ImagePicker();
   String pNum,
       address,
@@ -115,9 +130,9 @@ class EditProfileViewModel extends BaseViewModel {
       await StoreRepository.updateStores();
       print(currentStore.name);
       await _authService.updateCurrentUser(User(
-        firstName: (_userName?.isNotEmpty ?? false)
-            ? _userName
-            : currentUser.firstName,
+//        firstName: (_userName?.isNotEmpty ?? false)
+//            ? _userName
+//            : currentUser.firstName,
         email: (email?.isNotEmpty ?? false)
             ? email
             : currentUser.email,
