@@ -191,7 +191,7 @@ class NotificationsView extends StatelessWidget {
                                                           color: Color(
                                                               0xFFC4C4C4)))),
                                               padding:
-                                                  const EdgeInsets.all(20.0),
+                                                  EdgeInsets.all(12.0),
                                               child: Column(
                                                 children: <Widget>[
                                                   Row(children: <Widget>[
@@ -201,7 +201,7 @@ class NotificationsView extends StatelessWidget {
                                                       style: TextStyle(
                                                           fontSize: SizeConfig
                                                               .yMargin(
-                                                                  context, 2)),
+                                                                  context, 1.7)),
                                                     )),
                                                     SizedBox(width: 20.0),
                                                     Column(
@@ -215,7 +215,7 @@ class NotificationsView extends StatelessWidget {
                                                                 0xFF333CC1),
                                                           ),
                                                         ),
-                                                        SizedBox(height: 8.0),
+                                                        SizedBox(height: 3.0),
                                                         Text(
                                                             log.timestamp.day ==
                                                                     DateTime.now()
@@ -234,7 +234,7 @@ class NotificationsView extends StatelessWidget {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              fontSize:SizeConfig.yMargin(context, 2),
+                                                              fontSize:SizeConfig.yMargin(context, 1.4),
                                                             )),
                                                       ],
                                                     ),
