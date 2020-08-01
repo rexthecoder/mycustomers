@@ -3,12 +3,18 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'complaint_h.g.dart';
 
-@HiveType(typeId: 18)
-@JsonSerializable()
+@HiveType(typeId: 19)
+@JsonSerializable(nullable: true, includeIfNull: true)
 class Complaint extends HiveObject {
+
+  static DateTime dateFromJson(String date) {
+    if (date == null) return null;
+    return DateTime.tryParse(date);
+  }
+
   @HiveField(0)
   @JsonKey(name: '_id')
-  final String id;
+  String id;
 
   @HiveField(1)
   final String subject;
@@ -17,7 +23,7 @@ class Complaint extends HiveObject {
   final String message;
 
   @HiveField(3)
-  final bool sentStatus;
+  bool sentStatus;
 
   @HiveField(4)
   final String status;
@@ -27,7 +33,7 @@ class Complaint extends HiveObject {
   final String sentFromId;
 
   @HiveField(6)
-  @JsonKey(fromJson: DateTime.parse)
+  @JsonKey(fromJson: dateFromJson)
   final DateTime date;
 
   @HiveField(7)

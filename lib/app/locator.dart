@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mycustomers/core/data_sources/business_card/business_card_local_data_source.dart';
+import 'package:mycustomers/core/data_sources/complaint/complaint_local.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
@@ -44,6 +45,8 @@ import 'package:mycustomers/core/services/permission_service.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_remote_data_source.dart';
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
+import 'package:mycustomers/core/models/hive/complaint/complaint_h.dart';
+import 'package:mycustomers/core/enums/connectivity_status.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -118,7 +121,7 @@ Future<void> setupLocator(
 
   // Local notification service
   locator.registerLazySingleton<NotificationRemindersService>(
-        () => NotificationRemindersServiceImpl(),
+    () => NotificationRemindersServiceImpl(),
   );
 
   // Repository
@@ -150,6 +153,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<BusinessCardLocalDataSource>(
     () => BusinessCardLocalDataSourceImpl(),
   );
+  locator.registerLazySingleton<ComplaintLocalDataSource>(
+    () => ComplaintLocalDataSourceImpl(),
+  );
   locator.registerLazySingleton<MessageService>(
     () => MessageService(),
   );
@@ -175,6 +181,7 @@ Future<void> setupLocator(
   print('Initializing boxes...');
   Hive.registerAdapter(TransactionAdapter());
   Hive.registerAdapter(MessageAdapter());
+  Hive.registerAdapter(ComplaintAdapter());
 
   //Initialization for all boxes
   await BusinessCardLocalDataSourceImpl().init();
@@ -184,6 +191,7 @@ Future<void> setupLocator(
   await CustomerContactService().init();
   await ProfileService().init();
   await PhoneContactService().init();
+  await locator<ComplaintLocalDataSource>().init();
   //await PhoneContactService().deleteAll();
   //await PhoneContactService().init();
   //await MessageService().init();
@@ -197,6 +205,8 @@ Future<void> setupLocator(
     await setIso();
     await openBoxes();
   }
+
+  _registerConnListeners();
 }
 
 Future<void> openBoxes() async {
@@ -210,4 +220,13 @@ Future<void> openBoxes() async {
 Future<void> _setupSharedPreferences() async {
   final storage = await SharedStorageUtil.getInstance();
   locator.registerLazySingleton<IStorageUtil>(() => storage);
+}
+
+final List<Function(ConnectivityStatus)> connectivityListeners = [
+  locator<ComplaintLocalDataSource>().syncComplaint,
+];
+
+void _registerConnListeners() {
+  locator<ConnectivityService>()
+      .registerAllListeners(connectivityListeners);
 }
