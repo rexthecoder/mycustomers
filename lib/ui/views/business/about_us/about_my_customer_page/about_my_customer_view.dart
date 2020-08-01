@@ -79,7 +79,7 @@ class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
               SizedBox(
                 height: SizeConfig.yMargin(context, 3),
               ),
-              CardTile(
+              CardTileText(
                 text: 'About CustomerPayMe',
                 func: model.changeOpenAboutCustomerPayMe,
                 controller: _controllerCustomerPayme,
@@ -90,18 +90,24 @@ class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
                 func: model.changeOpenMeetTheLeaders,
                 controller: _controllerMeetTheLeader,
                 isOpen: model.isOpenMeetTheLeaders,
+                itemsMap: model.leaderMap,
+                items: AboutMyCustomerViewModel.leader,
               ),
               CardTile(
                 text: 'Meet The Mobile Team',
                 func: model.changeOpenMeetTheMobileTeam,
                 controller: _controllerMeetTheMobileTeam,
                 isOpen: model.isOpenMeetTheMobileTeam,
+                itemsMap: model.mobileMap,
+                items: AboutMyCustomerViewModel.mobile,
               ),
               CardTile(
                 text: 'Meet The Web Team',
                 func: model.changeOpenMeetTheWebTeam,
                 controller: _controllerMeetTheWebTeam,
                 isOpen: model.isOpenMeetTheWebTeam,
+                itemsMap: model.webMap,
+                items: AboutMyCustomerViewModel.web,
               ),
             ],
           ),
@@ -113,8 +119,8 @@ class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
   }
 }
 
-class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
-  CardTile({
+class CardTileText extends ViewModelWidget<AboutMyCustomerViewModel> {
+  CardTileText({
     Key key,
     this.text,
     this.func,
@@ -138,6 +144,7 @@ class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
           : SizeConfig.yMargin(context, 10),
       duration: new Duration(milliseconds: 300),
       child: ListView(
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Container(
             padding: EdgeInsets.symmetric(
@@ -169,7 +176,84 @@ class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
               ),
             ),
           ),
-          isOpen ? DescriptionTile() : Container(),
+          isOpen
+              ? Container(
+                  child: Text('About My Customer Pay me'),
+                )
+              : Container(),
+        ],
+      ),
+    );
+  }
+}
+
+class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
+  CardTile({
+    Key key,
+    this.text,
+    this.func,
+    this.controller,
+    this.isOpen,
+    this.items,
+    this.itemsMap,
+  }) : super(key: key, reactive: true);
+
+  final String text;
+  final Function func;
+  final AnimationController controller;
+  final bool isOpen;
+  final List<List<Person>> itemsMap;
+  final List<Person> items;
+
+  @override
+  Widget build(
+    BuildContext context,
+    AboutMyCustomerViewModel model,
+  ) {
+    return AnimatedContainer(
+      height: isOpen
+          ? SizeConfig.yMargin(context, 50)
+          : SizeConfig.yMargin(context, 10),
+      duration: new Duration(milliseconds: 300),
+      child: ListView(
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: SizeConfig.yMargin(context, 1),
+            ),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  width: 1,
+                  color: Theme.of(context).cursorColor.withOpacity(0.2),
+                ),
+              ),
+            ),
+            child: ListTile(
+              onTap: () {
+                isOpen ? controller.reverse() : controller.forward();
+                func();
+              },
+              title: Text(
+                text,
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      fontSize: SizeConfig.yMargin(context, 2),
+                      color: Theme.of(context).cursorColor,
+                    ),
+              ),
+              trailing: AnimatedIcon(
+                icon: AnimatedIcons.menu_close,
+                progress: controller,
+              ),
+            ),
+          ),
+          isOpen
+              ? DescriptionTile(
+                  items: items,
+                  itemsMap: itemsMap,
+                )
+              : Container(),
         ],
       ),
     );
@@ -179,7 +263,11 @@ class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
 class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
   DescriptionTile({
     Key key,
+    this.items,
+    this.itemsMap,
   }) : super(key: key, reactive: true);
+  final List<List<Person>> itemsMap;
+  final List<Person> items;
 
   @override
   Widget build(
@@ -210,15 +298,17 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
           ),
           height: SizeConfig.yMargin(context, 30),
           child: ListView.builder(
-            itemCount: 5,
+            itemCount: itemsMap.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
+              var item = itemsMap[index];
               return index % 2 == 0
                   ? Container(
                       width: SizeConfig.xMargin(context, 25),
                       child: InkWell(
 //                        onTap: pageController.animateToPage(page, duration: null, curve: null),
                         child: CircleAvatar(
+                          backgroundImage: AssetImage(item[0].imageUrl),
 //                        backgroundColor:
 //                            (model.currentAboutCustomerPayMe % 7) % 3 == 0 &&
 //                        (model.currentAboutCustomerPayMe % 7)  == 0
@@ -226,7 +316,7 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
 //                                        (model.currentAboutCustomerPayMe % 7)
 //                                ? ThemeColors.error
 //                                : ThemeColors.black,
-                            ),
+                        ),
                       ),
                     )
                   : Column(
@@ -235,6 +325,7 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
                           child: Container(
                             width: SizeConfig.xMargin(context, 25),
                             child: CircleAvatar(
+                              backgroundImage: AssetImage(item[0].imageUrl),
 //                              backgroundColor:
 //                                  (model.currentAboutCustomerPayMe % 7) % 3 ==
 //                                              1 && index + 1 == (model.currentAboutCustomerPayMe % 7) +1
@@ -243,13 +334,14 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
 ////                                                  7)
 //                                      ? ThemeColors.error
 //                                      : ThemeColors.black,
-                                ),
+                            ),
                           ),
                         ),
                         Expanded(
                           child: Container(
                             width: SizeConfig.xMargin(context, 25),
                             child: CircleAvatar(
+                              backgroundImage: AssetImage(item[1].imageUrl),
 //                              backgroundColor:
 //                                  (model.currentAboutCustomerPayMe % 7) % 3 ==
 //                                              2 && index + 2 == (model.currentAboutCustomerPayMe % 7) +2
@@ -258,7 +350,7 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
 ////                                                  7)
 //                                      ? ThemeColors.error
 //                                      : ThemeColors.black,
-                                ),
+                            ),
                           ),
                         )
                       ],
@@ -271,15 +363,17 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
           padding: EdgeInsets.symmetric(
             horizontal: SizeConfig.xMargin(context, 2),
           ),
-          child: PageView(
+          child: PageView.builder(
             physics: ClampingScrollPhysics(),
             allowImplicitScrolling: true,
             controller: pageController,
-            children: <Widget>[
-              RichText(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              var item = items[index];
+              return RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Persons Name',
+                  text: item.name,
                   style: TextStyle(
                     fontSize: SizeConfig.textSize(context, 5),
                     fontWeight: FontWeight.bold,
@@ -287,8 +381,7 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text:
-                          "\nAbout MeLorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      text: "\n${item.about}",
                       style: TextStyle(
                         fontSize: SizeConfig.textSize(context, 3),
                         color: ThemeColors.black,
@@ -297,140 +390,8 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
                     ),
                   ],
                 ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Persons Name',
-                  style: TextStyle(
-                    fontSize: SizeConfig.textSize(context, 5),
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          "\nAbout MeLorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 3),
-                        color: ThemeColors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Persons Name',
-                  style: TextStyle(
-                    fontSize: SizeConfig.textSize(context, 5),
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          "\nAbout MeLorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 3),
-                        color: ThemeColors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Persons Name',
-                  style: TextStyle(
-                    fontSize: SizeConfig.textSize(context, 5),
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          "\nAbout MeLorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 3),
-                        color: ThemeColors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Persons Name',
-                  style: TextStyle(
-                    fontSize: SizeConfig.textSize(context, 5),
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          "\nAbout MeLorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 3),
-                        color: ThemeColors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Persons Name',
-                  style: TextStyle(
-                    fontSize: SizeConfig.textSize(context, 5),
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          "\nAbout MeLorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 3),
-                        color: ThemeColors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Persons Name',
-                  style: TextStyle(
-                    fontSize: SizeConfig.textSize(context, 5),
-                    fontWeight: FontWeight.bold,
-                    color: ThemeColors.black,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          "\nAbout MeLorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                      style: TextStyle(
-                        fontSize: SizeConfig.textSize(context, 3),
-                        color: ThemeColors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              );
+            },
           ),
         ),
       ],

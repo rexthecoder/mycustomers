@@ -18,6 +18,8 @@ import 'package:intl/intl.dart';
 
 class SendMessageViewModel extends BaseViewModel {
 
+  final _transactionService = locator<TransactionLocalDataSourceImpl>();
+  TransactionModel get transaction => _transactionService.stransaction;
 // Date field and other variables
   final dformat = new DateFormat('MMM dd, yyyy');
   DateTime selectedDate = DateTime.now();
@@ -55,12 +57,8 @@ String get singleDebt =>
       currency
           .format(getamount((bought()).toDouble()));
 
-  final _transactionService = locator<TransactionLocalDataSourceImpl>();
-  TransactionModel get transaction => _transactionService.stransaction;
-
-  final _transactionsService = locator<TransactionLocalDataSourceImpl>();
   List<TransactionModel> get transactions =>
-      _transactionsService.transactions.reversed.toList();
+      _transactionService.transactions.reversed.toList();
 
         // Local notification service
   final _reminder = locator<NotificationRemindersService>();

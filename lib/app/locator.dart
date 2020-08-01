@@ -162,6 +162,9 @@ Future<void> setupLocator(
   locator.registerLazySingleton<PhoneContactService>(
     () => PhoneContactService(),
   );
+  // locator.registerLazySingleton<LocalStorageService>(
+  //   () => LocalStorageService(),
+  // );
 
   var instance = await LocalStorageService.getInstance();
 

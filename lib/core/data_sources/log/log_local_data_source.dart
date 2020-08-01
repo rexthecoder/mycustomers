@@ -10,22 +10,41 @@ import 'package:mycustomers/core/models/hive/transaction/transaction_model_h.dar
 import 'package:intl/intl.dart';
 
 abstract class LogsLocalDataSource {
+  List<LogH> get loglist;
+
+  /// Holds if Notification should be shown or not
+  bool shouldnotify = false;
+
+  bool once = false;
+
   /// Initialize Hive DB
   Future<void> init();
 
   /// Saves all the log [values] with auto-increment keys.
   Future<void> addLog(LogH log);
+
+  /// Get all log from database;
   void getLogs();
+
+  /// Handles Logic to determin if notification dot should be shown
+  void dot();
+
+  void testfunc(DateTime time);
+
+  /// Sets notify status
+  void setnotify();
 
   /// Deletes the n-th key from the box.
   ///
   /// If it does not exist, nothing happens.
   Future<void> deleteLog(int id);
 
+  /// Set Custom Log Model
   void getValues(int price, DateTime time, String action, String name, bool update);
 }
 
-class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalDataSource {
+class LogsLocalDataSourceImpl  with ReactiveServiceMixin implements LogsLocalDataSource {
+  final _fileHelper = locator<FileHelper>();
   final _hiveService = locator<HiveInterface>();
 
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
@@ -35,9 +54,12 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
   Box<LogH> get _logsBox => _hiveService.box<LogH>(HiveBox.logs);
 
   RxValue<List<LogH>> _loglist = RxValue<List<LogH>>(initial: []);
+  @override
   List<LogH> get loglist => _loglist.value;
 
+  @override
   bool shouldnotify = false;
+  @override
   bool once = false;
 
   LogsLocalDataSourceImpl(){
@@ -55,12 +77,16 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     }
   }
 
+  @override
   void dot(){
     final dformat = new DateFormat('dd/MM/yyyy');
     for(var item in transactions){
-      print(item.duedate);
-      if(item.duedate != null) {
-        if(DateTime.now().difference(DateTime.parse(item.duedate ?? item.paiddate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate ?? item.paiddate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
+      print('o'+item.duedate.toString());
+      print('o'+(item.paiddate.toString() == 'null').toString());
+      if(item.duedate.toString() != 'null' || item.paiddate.toString() != 'null') {
+        print(item.duedate);
+      print(item.paiddate);
+        if(DateTime.now().difference(DateTime.parse(item.duedate == 'null' ? item.paiddate : item.duedate)).inDays == 0 && dformat.format(DateTime.parse(item.duedate == 'null' ? item.paiddate : item.duedate)) == dformat.format(DateTime.now()) && (item.amount > item.paid || item.paid > item.amount)){
           if(!once) {
             shouldnotify = true;
             once = true;
@@ -96,6 +122,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     addLog(newlog);
   }
 
+  @override
   void testfunc(DateTime time){
     int totallogs = _logsBox.values.toList().length; 
     String msg = 'Welcome Login at'+time.toString();
@@ -104,6 +131,7 @@ class LogsLocalDataSourceImpl with ReactiveServiceMixin implements LogsLocalData
     addLog(newlog);
   }
 
+  @override
   void setnotify(){
     shouldnotify = !shouldnotify;
   }

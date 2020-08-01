@@ -107,7 +107,7 @@ class AddDebtCreditView extends StatelessWidget {
                             //   ),
                             // ),
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              padding: EdgeInsets.symmetric(horizontal: SizeConfig.xMargin(context, 4.5)),
                               child: Column(
                                 children: <Widget>[
                                   Container(
@@ -185,11 +185,13 @@ class AddDebtCreditView extends StatelessWidget {
                                                     context, 2)),
                                             errorText: model.errormsg,
                                             prefixIcon: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: ScreenUtil()
-                                                        .setHeight(15),
-                                                    horizontal: ScreenUtil()
-                                                        .setWidth(10)),
+                                                padding: EdgeInsets.only(
+                                                    top: ScreenUtil()
+                                                        .setHeight(9),
+                                                    bottom: ScreenUtil()
+                                                        .setHeight(11),
+                                                    left: ScreenUtil()
+                                                        .setWidth(16)),
                                                 child: Text(
                                                   model.currency.symbol,
                                                   style: TextStyle(
@@ -205,7 +207,7 @@ class AddDebtCreditView extends StatelessWidget {
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     vertical: ScreenUtil()
-                                                        .setHeight(6)),
+                                                        .setHeight(16)),
                                           ),
                                           textInputAction: TextInputAction.done,
                                           onChanged: (value) =>
@@ -219,14 +221,15 @@ class AddDebtCreditView extends StatelessWidget {
                                     visible: model.show,
                                     child: Column(
                                       children: <Widget>[
-                                        // Container(
+                                        // action == 'debit' ? SizedBox() : Container(
                                         //   child: Column(
                                         //     crossAxisAlignment: CrossAxisAlignment.start,
                                         //     children: <Widget>[
                                         //       Container(
-                                        //         margin: EdgeInsets.only(bottom: 3),
+                                        //        margin: EdgeInsets.only(
+                                        //                   bottom: 5, left: 2),
                                         //         child: Text(
-                                        //           'Purchase Date',
+                                        //           action == 'debit' ? 'Purchase Date' : 'Payment Date',
                                         //           style: TextStyle(fontSize: SizeConfig.yMargin(context, 2.2), fontWeight: FontWeight.w600),
                                         //         ),
                                         //       ),
@@ -280,10 +283,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         //         },
                                         //         child: Container(
                                         //           margin: EdgeInsets.only(bottom: 15),
-                                        //           padding: EdgeInsets.symmetric(
-                                        //               vertical: ScreenUtil().setHeight(15),
-                                        //               horizontal:
-                                        //                   ScreenUtil().setWidth(15)),
+                                        //           padding: EdgeInsets.symmetric(vertical: SizeConfig.yMargin(context, 1.8), horizontal: SizeConfig.xMargin(context, 3.8)),
                                         //           decoration: BoxDecoration(
                                         //               border: Border.all(
                                         //                   color: model.date2err
@@ -316,8 +316,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         //                       .textTheme
                                         //                       .headline6
                                         //                       .copyWith(
-                                        //                         fontSize:
-                                        //                             ScreenUtil().setSp(16),
+                                        //                         fontSize: SizeConfig.yMargin(context, 2),
                                         //                         color: action == 'debit'
                                         //                             ? BrandColors.secondary
                                         //                             : Theme.of(context)
@@ -522,7 +521,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                           if (hasFocus) {
                                                             if(model.controller.position.pixels < model.controller.position.maxScrollExtent/2){
                                                               model.controller.animateTo(
-                                                                model.controller.position.pixels + 100,
+                                                                model.controller.position.pixels + 200,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:
@@ -604,7 +603,7 @@ class AddDebtCreditView extends StatelessWidget {
                               child: Container(
                                 //margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: SizeConfig.xMargin(context, 3), vertical: SizeConfig.yMargin(context, 1.6)),
+                                    horizontal: SizeConfig.xMargin(context, 4.5), vertical: SizeConfig.yMargin(context, 1.6)),
                                 child: Column(
                                   children: <Widget>[
                                     Container(
@@ -630,12 +629,14 @@ class AddDebtCreditView extends StatelessWidget {
                                             onFocusChange: (hasFocus) {
                                               if (hasFocus) {
                                                 if(model.controller.position.pixels < model.controller.position.pixels + SizeConfig.yMargin(context, 30)) {
-                                                  model.controller.animateTo(
+                                                  Future.delayed(Duration(milliseconds: 600), () {
+                                                    model.controller.animateTo(
                                                     model.controller.position
-                                                        .maxScrollExtent,
+                                                        .pixels + SizeConfig.yMargin(context, 30),
                                                     duration: new Duration(
                                                         milliseconds: 500),
                                                     curve: Curves.easeInOut);
+                                                  });
                                                 }
                                                 model.setShowName();
                                                 model.resetContact();

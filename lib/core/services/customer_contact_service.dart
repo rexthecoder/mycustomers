@@ -12,12 +12,56 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:uuid/uuid.dart';
 import '../extensions/transaction_extension.dart';
 
-abstract class CustomerContactDataSource{
+abstract class CustomerContactDataSource {
+  List<CustomerContact> get contacts;
+
+  List<CustomerContact> get contactsm;
+
+  List<CustomerContact> get selectedC;
+
+  List<CustomerContact> get allC;
+
+  CustomerContact get contact;
+
+  double get totaldebt;
+
+  double get totalcredit;
+
   Future<void> init();
+
+  void getContacts(String id);
+
+  int getCustomerCount(String stid);
+
+  void getCustomermarket(String stid);
+
+  void setContact(CustomerContact cont);
+
+  void addSelected(CustomerContact cus);
+
+  void removeSelected(CustomerContact cus);
+
+  void removeSelectedS(CustomerContact cus);
+
+  void selectAll(List<CustomerContact> custt);
+
+  void allCustomers(List<CustomerContact> custt);
+
+  void deselectAll();
+
+  void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String action, TransactionModel transaction, String stid);
+
+  Future<void> addContactmarket(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String stid);
+
+  void updateContact(CustomerContact cnt);
+
+  void deleteContactMarket(CustomerContact cus, CustomerContact cust);
+
+  void deleteContact(CustomerContact cus, String id);
 }
 
 @lazySingleton
-class CustomerContactService extends CustomerContactDataSource with ReactiveServiceMixin {
+class CustomerContactService with ReactiveServiceMixin implements CustomerContactDataSource {
   //static const String _boxname = "contactBox";
   final _hiveService = locator<HiveInterface>();
 
@@ -26,14 +70,18 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   
   //Contacts
   RxValue<List<CustomerContact>> _contacts = RxValue<List<CustomerContact>>(initial: []);
+  @override
   List<CustomerContact> get contacts => _contacts.value;
 
   RxValue<List<CustomerContact>> _contactsm = RxValue<List<CustomerContact>>(initial: []);
+  @override
   List<CustomerContact> get contactsm => _contactsm.value;
 
   RxValue<List<CustomerContact>> _selectedC = RxValue<List<CustomerContact>>(initial: []);
   RxValue<List<CustomerContact>> _allC = RxValue<List<CustomerContact>>(initial: []);
+  @override
   List<CustomerContact> get selectedC => _selectedC.value;
+  @override
   List<CustomerContact> get allC => _allC.value;
 
   List<CustomerContact> temp = [];
@@ -43,12 +91,15 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
   //var box = Hive.openBox<CustomerContact>(_boxname);
 
   RxValue<CustomerContact> _contact = RxValue<CustomerContact> (initial: null);
+  @override
   CustomerContact get contact => _contact.value;
 
   RxValue<double> _totaldebt = RxValue<double> (initial: null);
+  @override
   double get totaldebt =>_totaldebt.value;
 
   RxValue<double> _totalcredit = RxValue<double> (initial: null);
+  @override
   double get totalcredit =>_totalcredit.value;
 
   final _transactionService = locator<TransactionLocalDataSourceImpl>();
@@ -68,6 +119,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     }
   }
 
+  @override
   void getContacts(String id) async {
     //final bbox = await box;
     _contacts.value = _contactBox.values.toList().where((element) => element.storeid == id).toList();
@@ -106,6 +158,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
       return sum.abs();
     }
 
+  @override
   int getCustomerCount(String stid) {
     int sum = 0;
     for(var item in _contactBox.values.toList()) {
@@ -119,6 +172,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     return sum;
   }
 
+  @override
   void getCustomermarket(String stid) {
     //List<CustomerContact> temp = [];
     _contactsm.value = [];
@@ -131,29 +185,34 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     }
   }
 
+  @override
   void setContact(CustomerContact cont){
     _contact.value = cont;
     print(cont.id);
     //_navigationService.navigateTo(Routes.mainTransaction);
   }
 
+  @override
   void addSelected(CustomerContact cus) {
     _allC.value =[];
     temp.add(cus);
     _selectedC.value = [...temp];
   }
 
+  @override
   void removeSelected(CustomerContact cus) {
     temp.removeAt(temp.indexOf(cus));
     _selectedC.value = [...temp];
   }
 
+  @override
   void removeSelectedS(CustomerContact cus) {
     CustomerContact ccus = temp.where((element) => element.name == cus.name && element.phoneNumber == cus.phoneNumber).toList()[0];
     temp.removeAt(temp.indexOf(ccus));
     _selectedC.value = [...temp];
   }
 
+  @override
   void selectAll(List<CustomerContact> custt) {
     _selectedC.value = [];
     _allC.value =[];
@@ -161,6 +220,8 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     _selectedC.value = custt;
     temp = custt;
   }
+
+  @override
   void allCustomers(List<CustomerContact> custt) {
     _selectedC.value = [];
     temp = [];
@@ -169,12 +230,14 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
 //    temp = custt;
   }
 
+  @override
   void deselectAll() {
     temp = [];
     _allC.value =[];
     _selectedC.value = [];
   }
 
+  @override
   void addContact(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String action, TransactionModel transaction, String stid)async {
     print(customerPhoneNumber);
     print(customerName);
@@ -246,6 +309,7 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     }
   }
 
+  @override
   Future<void> addContactmarket(String customerPhoneNumber, String customerName, String dropDownValue, String initials, String stid)async {
     print(customerPhoneNumber);
     print(customerName);
@@ -315,15 +379,18 @@ class CustomerContactService extends CustomerContactDataSource with ReactiveServ
     }
   }
 
+  @override
   void updateContact(CustomerContact cnt)async{
     CustomerContact temp = _contactBox.values.toList().where((element) => element.id == _contact.value.id).toList()[0];
     await _contactBox.putAt(_contactBox.values.toList().indexOf(temp), cnt);
   }
 
+  @override
   void deleteContactMarket(CustomerContact cus, CustomerContact cust) async {
     await _contactBox.putAt(_contactBox.values.toList().indexOf(cus), cust);
   }
 
+  @override
   void deleteContact(CustomerContact cus, String id) async {
     print(_contactBox.values.toList().indexOf(cus));
     await _contactBox.deleteAt(_contactBox.values.toList().indexOf(cus));
