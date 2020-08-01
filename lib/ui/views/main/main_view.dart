@@ -97,11 +97,21 @@ class MainView extends StatelessWidget {
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              title: Text(AppLocalizations.of(context).home),
-              icon: SvgPicture.asset(
-                home,
-                color: ThemeColors.inactive,
-                semanticsLabel: 'Home',
+              title: Text(
+                AppLocalizations.of(context).home,
+                style: TextStyle(
+                  fontSize: SizeConfig.textSize(context, model.textSize),
+                ),
+              ),
+              icon: GestureDetector(
+                onTap: () {
+                  model.changeTextSize();
+                },
+                child: SvgPicture.asset(
+                  home,
+                  color: ThemeColors.inactive,
+                  semanticsLabel: 'Home',
+                ),
               ),
               activeIcon: SvgPicture.asset(
                 home,

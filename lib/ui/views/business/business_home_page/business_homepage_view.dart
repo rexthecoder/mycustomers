@@ -134,7 +134,7 @@ class BusinessHomePageView extends StatelessWidget {
                             SizedBox(height: SizeConfig.yMargin(context, 2)),
                             Container(
                               height: SizeConfig.yMargin(context, 5),
-                              width: SizeConfig.xMargin(context, 70),
+                              width: SizeConfig.xMargin(context, 55),
                               child: CustomShareRaisedButton(
                                 txtColor: ThemeColors.background,
                                 btnColor: BrandColors.primary,
@@ -142,7 +142,7 @@ class BusinessHomePageView extends StatelessWidget {
                                 borderColor: BrandColors.primary,
                                 child: SvgPicture.asset(
                                   share,
-                                  height: SizeConfig.xMargin(context, 6),
+                                  height: SizeConfig.xMargin(context, 5),
                                   color: ThemeColors.background,
                                 ),
                                 onPressed: () {
@@ -161,7 +161,7 @@ class BusinessHomePageView extends StatelessWidget {
                                       businessCardModel.shareImageAndText();
                                       FlushbarHelper.createSuccess(
                                         duration: const Duration(seconds: 5),
-                                        message: 'Successful',
+                                        message: 'Loading...',
                                       ).show(context);
                                     },
                                   ).catchError(
@@ -222,7 +222,7 @@ class BusinessHomePageView extends StatelessWidget {
 //                          left: SizeConfig.xMargin(context, 7),
                           right: SizeConfig.xMargin(context, 4)),
                       child: Divider(
-                        color: Colors.grey[300],
+                        color: Colors.grey[500],
                       ),
                     ),
                   ],

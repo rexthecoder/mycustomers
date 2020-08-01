@@ -229,8 +229,8 @@ class EditProfileView extends HookWidget {
                     ],
                   ),
                   onPressed: () {
-                    model.save();
-                    flusher(AppLocalizations.of(context).save, context);
+                    model.showConfirmationDialog();
+//                    flusher(AppLocalizations.of(context).save, context);
                   },
                 ),
               ],

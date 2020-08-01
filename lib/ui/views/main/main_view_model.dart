@@ -123,4 +123,11 @@ class MainViewModel extends ReactiveViewModel {
   @override
   List<ReactiveServiceMixin> get reactiveServices =>
       [_logService, _bussinessService];
+
+  double textSize = 3;
+
+  void changeTextSize() {
+    textSize = 6;
+    notifyListeners();
+  }
 }
