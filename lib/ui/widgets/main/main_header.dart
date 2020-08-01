@@ -71,7 +71,7 @@ class MainHeader extends HookViewModelWidget<MainViewModel> {
                 ),
               ),
               SizedBox(
-                width: SizeConfig.xMargin(context, 2),
+                width: SizeConfig.xMargin(context, 0.5),
               ),
               Icon(
                 Icons.keyboard_arrow_down,

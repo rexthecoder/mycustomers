@@ -37,7 +37,7 @@ class BusinessHomePageView extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: SizeConfig.yMargin(context, 11),
+                    height: SizeConfig.yMargin(context, 10),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color:
@@ -48,7 +48,7 @@ class BusinessHomePageView extends StatelessWidget {
                     ),
                     child: ListTile(
                       title: Text(
-                        AppLocalizations.of(context).profile,
+                        AppLocalizations.of(context).editProfile,
                         style: TextStyle(
                           fontSize: SizeConfig.textSize(context, 5),
                           fontWeight: FontWeight.bold,
@@ -89,6 +89,9 @@ class BusinessHomePageView extends StatelessWidget {
                     subtitle: '${model.pNum}',
                     opens: false,
                     // onTap: () => _displayBusinessCardModal(context, model)
+                  ),
+                  Divider(
+                    color: Colors.grey[500],
                   ),
                   // optionButton(
                   //   context: context,

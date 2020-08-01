@@ -21,7 +21,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
       (_) async {
         businessCardController.animateToPage(
           int.parse(model.businessCard.cardDesign),
-          duration: new Duration(milliseconds: 800),
+          duration: new Duration(milliseconds: 80),
           curve: Curves.easeIn,
         );
         await Future.delayed(new Duration(milliseconds: 500));
@@ -37,7 +37,7 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
           blurRadius: 6,
         )
       ]),
-      height: SizeConfig.yMargin(context, 30),
+      height: SizeConfig.yMargin(context, 25),
       child: Stack(
         children: <Widget>[
           Screenshot(
@@ -61,23 +61,23 @@ class BusinessCardWidget extends ViewModelWidget<BusinessCardPageViewModel> {
               ],
             ),
           ),
-          showArrow
-              ? Container()
-              : Positioned(
-                  top: SizeConfig.yMargin(context, 0.8),
-                  right: SizeConfig.xMargin(context, 4),
-                  child: RoundIconButton(
-                    icon: Icons.edit,
-                    onTap: () {
-//                      model.navigateToBusinessCardPage();
-//                    Flushbar(
-//                      message: 'Editing your profile updates this. Do that instead.',
-//                      duration: Duration(seconds: 2),
-//                      icon: Icon(Icons.info_outline),
-//                    ).show(context);
-                    },
-                  ),
-                ),
+//           showArrow
+//               ? Container()
+//               : Positioned(
+//                   top: SizeConfig.yMargin(context, 0.8),
+//                   right: SizeConfig.xMargin(context, 4),
+//                   child: RoundIconButton(
+//                     icon: Icons.edit,
+//                     onTap: () {
+// //                      model.navigateToBusinessCardPage();
+// //                    Flushbar(
+// //                      message: 'Editing your profile updates this. Do that instead.',
+// //                      duration: Duration(seconds: 2),
+// //                      icon: Icon(Icons.info_outline),
+// //                    ).show(context);
+//                     },
+//                   ),
+//                 ),
           showArrow
               ? Positioned(
                   left: SizeConfig.xMargin(context, 2),
@@ -142,7 +142,8 @@ class _BusinessCard1 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_cards/business_card_1.png"),
+                image: AssetImage(
+                    "assets/images/business_cards/business_card_1.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -298,14 +299,15 @@ class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_cards/business_card_2.png"),
+                image: AssetImage(
+                    "assets/images/business_cards/business_card_2.png"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Positioned(
-            top: SizeConfig.yMargin(context, 4),
-            left: SizeConfig.xMargin(context, 25),
+            top: SizeConfig.yMargin(context, 7),
+            left: SizeConfig.xMargin(context, 13),
             child: RichText(
               textAlign: TextAlign.left,
               text: TextSpan(
@@ -330,8 +332,8 @@ class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
             ),
           ),
           Positioned(
-            left: SizeConfig.xMargin(context, 25),
-            top: SizeConfig.yMargin(context, 12),
+            left: SizeConfig.xMargin(context, 13),
+            top: SizeConfig.yMargin(context, 11),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -377,8 +379,8 @@ class _BusinessCard2 extends ViewModelWidget<BusinessCardPageViewModel> {
             ),
           ),
           Positioned(
-            bottom: SizeConfig.yMargin(context, 2),
-            left: SizeConfig.xMargin(context, 25),
+            bottom: SizeConfig.yMargin(context, 3),
+            left: SizeConfig.xMargin(context, 13),
             child: Text(
               model.businessCard.address,
               style: TextStyle(
@@ -414,7 +416,8 @@ class _BusinessCard3 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_cards/business_card_3.png"),
+                image: AssetImage(
+                    "assets/images/business_cards/business_card_3.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -553,7 +556,8 @@ class _BusinessCard4 extends ViewModelWidget<BusinessCardPageViewModel> {
               borderRadius: BorderRadius.circular(10),
               shape: BoxShape.rectangle,
               image: DecorationImage(
-                image: AssetImage("assets/images/business_cards/business_card_4.png"),
+                image: AssetImage(
+                    "assets/images/business_cards/business_card_4.png"),
                 fit: BoxFit.cover,
               ),
             ),

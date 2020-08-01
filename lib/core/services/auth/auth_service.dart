@@ -22,4 +22,6 @@ abstract class AuthService {
   Future<void> signOut();
 
   Future<bool> get isUserLoggedIn;
+
+  static Future<void> refreshToken() {}
 }
