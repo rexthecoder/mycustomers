@@ -207,9 +207,8 @@ Future<void> setupLocator(
   if (!test) {
     await setIso();
     await openBoxes();
+    _registerConnListeners();
   }
-
-  _registerConnListeners();
 }
 
 Future<void> openBoxes() async {
