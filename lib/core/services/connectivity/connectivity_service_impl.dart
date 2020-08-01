@@ -91,12 +91,12 @@ class ConnectivityServiceImpl implements ConnectivityService {
   Future<void> _resumeSignal() async => true;
 
   @override
-  void registerListener(Function(ConnectivityStatus p1) callback) {
+  void registerListener(Function(ConnectivityStatus status) callback) {
     _listeners.add(callback);
   }
 
   @override
-  void registerAllListeners(List<Function(ConnectivityStatus)> callbacks) {
+  void registerAllListeners(List<Function(ConnectivityStatus status)> callbacks) {
     _listeners.addAll(callbacks);
   }
 }
