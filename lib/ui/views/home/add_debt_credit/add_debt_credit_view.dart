@@ -331,7 +331,7 @@ class AddDebtCreditView extends StatelessWidget {
                                         //     ],
                                         //   ),
                                         // ),
-                                        action == 'xx' //'Credit'
+                                        action == 'credit' //'Credit'
                                             ? SizedBox()
                                             : Container(
                                                 child: Column(
@@ -521,7 +521,7 @@ class AddDebtCreditView extends StatelessWidget {
                                                           if (hasFocus) {
                                                             if(model.controller.position.pixels < model.controller.position.maxScrollExtent/2){
                                                               model.controller.animateTo(
-                                                                model.controller.position.pixels + 200,
+                                                                action == 'credit' ? model.controller.position.pixels + 100 : model.controller.position.pixels + 200,
                                                                 duration:
                                                                     new Duration(
                                                                         milliseconds:

@@ -32,7 +32,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   bool save = false;
   DateTime selectedDate = DateTime.now(); // = DateTime.now()
   DateTime dueDate;
-  DateTime otherDate;
+  DateTime otherDate = DateTime.now();
   String newDate;
   //String newODate; //
   String get newODate => dformat.format(DateTime.now());
