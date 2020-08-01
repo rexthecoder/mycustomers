@@ -5,6 +5,7 @@ import 'package:mycustomers/core/constants/hive_boxes.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/models/country_currency_model.dart';
 import 'package:mycustomers/core/models/hive/business_card/business_card_h.dart';
+import 'package:mycustomers/core/models/hive/complaint/complaint_h.dart';
 import 'package:mycustomers/core/models/hive/log/log_h.dart';
 import 'package:mycustomers/core/models/hive/store/store_h.dart';
 import 'package:mycustomers/core/models/hive/user_profile/profile_h.dart';
@@ -81,6 +82,7 @@ void main() {
     final contactmockBox = MockBox<CustomerContact>();
     final profilemockBox = MockBox<Profile>();
     final phonecontactmockBox = MockBox<Customer>();
+    final complaintmockBox = MockBox<Complaint>();
     //final messagemockBox = MockBox<Message>();
 
     final mockhive = MockHive();
@@ -92,6 +94,7 @@ void main() {
     when(mockhive.isBoxOpen(HiveBox.contact)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.profile)).thenAnswer((_) => false);
     when(mockhive.isBoxOpen(HiveBox.phoneContact)).thenAnswer((_) => false);
+    when(mockhive.isBoxOpen('COMPLAINT')).thenAnswer((_) => false);
     //when(mockhive.isBoxOpen(HiveBox.message)).thenAnswer((_) => false);
 
     //when(mockhive.openBox<TransactionModel>(HiveBox.transaction))
@@ -110,6 +113,8 @@ void main() {
         .thenAnswer((_) async => Future.value(profilemockBox));
     when(mockhive.openBox<Customer>(HiveBox.phoneContact))
         .thenAnswer((_) async => Future.value(phonecontactmockBox));
+    when(mockhive.openBox<Complaint>('COMPLAINT'))
+        .thenAnswer((_) async => Future.value(complaintmockBox));
     // when(mockhive.openBox<Message>(HiveBox.message))
     //     .thenAnswer((_) async => Future.value(messagemockBox));
 
