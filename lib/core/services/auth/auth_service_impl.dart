@@ -10,13 +10,11 @@ import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/services/http/http_service.dart';
 import 'package:mycustomers/core/services/storage_util_service.dart';
 import 'package:mycustomers/core/utils/logger.dart';
-import 'package:mycustomers/core/services/profile_service.dart';
 import 'package:stacked_services/stacked_services.dart';
-
 import 'auth_service.dart';
 
 class AuthServiceImpl implements AuthService {
-  User _currentUser;
+  static User _currentUser;
   @override
   User get currentUser => _currentUser;
 
@@ -44,8 +42,6 @@ class AuthServiceImpl implements AuthService {
   // The service for directing user to the home screen
  NavigationService _navigationService = locator<NavigationService>();
  final LogsLocalDataSourceImpl _logService = locator<LogsLocalDataSourceImpl>();
- final _profileService = locator<ProfileService>();
-
 
   Future authUser(String url, Map<String, dynamic> params) async {
     try {
@@ -185,5 +181,23 @@ class AuthServiceImpl implements AuthService {
   Future<void> signUpWithGoogle() {
     // TODO: implement signUpWithGoogle
     throw UnimplementedError();
+  }
+
+  @override
+  static Future<void> refreshToken() async {
+    HttpService _http = locator<HttpService>();
+    IStorageUtil _storage = locator<IStorageUtil>();
+    Map response = await _http.postHttp(ApiRoutes.authentication_login, {
+      'phone_number': int.parse(_storage.getString(AppPreferenceKey.USER_PHONE)),
+      'password': _storage.getString(AppPreferenceKey.USER_PASS),
+    });
+    Logger.d('Response from auth is: $response');
+    if (response.containsKey('success') && response['success']) {
+      _http.setHeader({'x-access-token': response['data']['user']['api_token']});
+    } else {
+      throw AuthException(response.containsKey('message')
+          ? response['message']
+          : 'Bad response from server');
+    }
   }
 }
