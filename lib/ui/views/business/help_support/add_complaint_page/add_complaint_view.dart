@@ -83,10 +83,10 @@ class AddComplaintView extends StatelessWidget {
                   btnText: AppLocalizations.of(context).send,
                   borderColor: BrandColors.primary,
                   child: Container(),
-                  onPressed: () {
-                    model.sendComplaint();
+                  onPressed: () async {
+                    await model.sendComplaint();
                     FlushbarHelper.createInformation(
-                      message: AppLocalizations.of(context).comingSoon,
+                      message: 'Complaint sent',
                       duration: new Duration(seconds: 5),
                     ).show(context);
                   },

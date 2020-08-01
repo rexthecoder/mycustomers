@@ -95,7 +95,8 @@ class MessageView extends StatelessWidget {
                     height: 10.h,
                   ),
                   Container(
-                    height: 120.h,
+                    height: SizeConfig.yMargin(context, 30),
+//                    height: SizeConfig.yMargin(context, 30),
                     decoration: BoxDecoration(
                       border: Border.all(color: ThemeColors.gray),
                       borderRadius: BorderRadius.circular(5),
@@ -103,6 +104,7 @@ class MessageView extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,56 +118,58 @@ class MessageView extends StatelessWidget {
                                       AppLocalizations.of(context)
                                           .selectedCustomer +
                                       's',
-                              style: TextStyle(fontSize: 16.sp),
+                              style: TextStyle(fontSize: SizeConfig.textSize(context, 4.3)),
                             ),
-                            FlatButton.icon(
-                              onPressed: () async {
-                                final bool isPermitted =
-                                    await model.checkPermission();
-                                if (!isPermitted) {
-                                  permissionDialog(context, model);
-                                } else {
-                                  showModalBottomSheet(
-                                    enableDrag: true,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
+                            Flexible(
+                              child: FlatButton.icon(
+                                onPressed: () async {
+                                  final bool isPermitted =
+                                      await model.checkPermission();
+                                  if (!isPermitted) {
+                                    permissionDialog(context, model);
+                                  } else {
+                                    showModalBottomSheet(
+                                      enableDrag: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
                                       ),
-                                    ),
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return BottomSheetView(
-                                          //model.selectedCustomers,
-                                          height,
-                                          model);
-                                    },
-                                  );
-                                }
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return BottomSheetView(
+                                            //model.selectedCustomers,
+                                            height,
+                                            model);
+                                      },
+                                    );
+                                  }
 //                                await model.initSelected(selectedCustomers);
-                                // showModalBottomSheet(
-                                //   enableDrag: true,
-                                //   shape: RoundedRectangleBorder(
-                                //     borderRadius: BorderRadius.only(
-                                //       topLeft: Radius.circular(20),
-                                //       topRight: Radius.circular(20),
-                                //     ),
-                                //   ),
-                                //   context: context,
-                                //   builder: (BuildContext context) {
-                                //     return BottomSheetView(model.selectedCustomers,height, model);
-                                //   },
-                                // );
-                              },
-                              icon: Icon(
-                                Icons.add,
-                                color: BrandColors.primary,
-                              ),
-                              label: Text(
-                                AppLocalizations.of(context).add,
-                                style: TextStyle(
-                                  fontSize: 16.sp,
+                                  // showModalBottomSheet(
+                                  //   enableDrag: true,
+                                  //   shape: RoundedRectangleBorder(
+                                  //     borderRadius: BorderRadius.only(
+                                  //       topLeft: Radius.circular(20),
+                                  //       topRight: Radius.circular(20),
+                                  //     ),
+                                  //   ),
+                                  //   context: context,
+                                  //   builder: (BuildContext context) {
+                                  //     return BottomSheetView(model.selectedCustomers,height, model);
+                                  //   },
+                                  // );
+                                },
+                                icon: Icon(
+                                  Icons.add,
                                   color: BrandColors.primary,
+                                ),
+                                label: Text(
+                                  AppLocalizations.of(context).add,
+                                  style: TextStyle(
+                                    fontSize: SizeConfig.textSize(context, 4),
+                                    color: BrandColors.primary,
+                                  ),
                                 ),
                               ),
                             ),
@@ -173,13 +177,23 @@ class MessageView extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
+                            scrollDirection: Axis.vertical,
                             itemCount: model.selectedCustomers.length,
                             itemBuilder: (BuildContext context, int index) =>
-                                CustomerCircleAvatar(
-                              ccustomer: model.selectedCustomers[index],
-                              action: 'debtor',
-                            ),
+                                Padding(
+                                  padding:  EdgeInsets.only(top: SizeConfig.yMargin(context, 1.5)),
+                                  child: Row(
+                                    children: <Widget>[
+                                      CustomerCircleAvatar(
+                                        ccustomer: model.selectedCustomers[index],
+                                        action: 'debtor',
+                                      ),
+                                      SizedBox(width: SizeConfig.xMargin(context, 5),),
+                                      Text(model.selectedCustomers[index].name,
+                                        style: TextStyle(fontSize: SizeConfig.textSize(context, 4))),
+                                    ],
+                                  ),
+                                ),
                           ),
                         ),
                       ],

@@ -8,7 +8,7 @@ part of 'complaint_h.dart';
 
 class ComplaintAdapter extends TypeAdapter<Complaint> {
   @override
-  final typeId = 18;
+  final typeId = 19;
 
   @override
   Complaint read(BinaryReader reader) {
@@ -24,13 +24,13 @@ class ComplaintAdapter extends TypeAdapter<Complaint> {
       fields[4] as String,
       fields[5] as String,
       fields[6] as DateTime,
-    );
+    )..deleted = fields[7] as bool;
   }
 
   @override
   void write(BinaryWriter writer, Complaint obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,10 +41,12 @@ class ComplaintAdapter extends TypeAdapter<Complaint> {
       ..write(obj.sentStatus)
       ..writeByte(4)
       ..write(obj.status)
+      ..writeByte(5)
+      ..write(obj.sentFromId)
       ..writeByte(6)
       ..write(obj.date)
-      ..writeByte(5)
-      ..write(obj.sentFromId);
+      ..writeByte(7)
+      ..write(obj.deleted);
   }
 }
 
@@ -60,8 +62,8 @@ Complaint _$ComplaintFromJson(Map<String, dynamic> json) {
     json['sentStatus'] as bool,
     json['status'] as String,
     json['storeOwner'] as String,
-    DateTime.parse(json['date'] as String),
-  );
+    Complaint.dateFromJson(json['date'] as String),
+  )..deleted = json['deleted'] as bool;
 }
 
 Map<String, dynamic> _$ComplaintToJson(Complaint instance) => <String, dynamic>{
@@ -70,6 +72,7 @@ Map<String, dynamic> _$ComplaintToJson(Complaint instance) => <String, dynamic>{
       'message': instance.message,
       'sentStatus': instance.sentStatus,
       'status': instance.status,
-      'date': instance.date?.toIso8601String(),
       'storeOwner': instance.sentFromId,
+      'date': instance.date?.toIso8601String(),
+      'deleted': instance.deleted,
     };

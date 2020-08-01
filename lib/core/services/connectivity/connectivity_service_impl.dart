@@ -13,6 +13,8 @@ class ConnectivityServiceImpl implements ConnectivityService {
   final _connectivity = Connectivity();
   final _connection = ConnectionChecker();
 
+  List<Function(ConnectivityStatus)> _listeners = [];
+
   StreamSubscription<ConnectivityResult> _subscription;
   StreamSubscription<DataConnectionStatus> _connectionlistener;
   ConnectivityResult _lastResult;
@@ -67,6 +69,9 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     Logger.d('Connectivity status changed to $event');
     _connectivityResultController.add(_convertResult(event));
+    _listeners.forEach((element) {
+      element(_convertResult(event));
+    });
     _lastResult = event;
   }
 
@@ -84,4 +89,14 @@ class ConnectivityServiceImpl implements ConnectivityService {
   }
 
   Future<void> _resumeSignal() async => true;
+
+  @override
+  void registerListener(Function(ConnectivityStatus status) callback) {
+    _listeners.add(callback);
+  }
+
+  @override
+  void registerAllListeners(List<Function(ConnectivityStatus status)> callbacks) {
+    _listeners.addAll(callbacks);
+  }
 }
