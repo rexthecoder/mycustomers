@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/models/store.dart';
 import 'package:mycustomers/core/models/user.dart';
@@ -14,6 +13,21 @@ class EditProfileViewModel extends BaseViewModel {
   final _authService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final _dialogService = locator<DialogService>();
+
+  bool _editing = false;
+  bool get editing => _editing;
+
+  Future<void> switchEditingState() async {
+    if (_editing) {
+      await _authService.updateCurrentUser(User(
+        firstName: (_userName?.isNotEmpty ?? false)
+            ? _userName
+            : currentUser.firstName,
+      ));
+    }
+    _editing = !_editing;
+    notifyListeners();
+  }
 
   final _imagePicker = ImagePicker();
   String pNum,
@@ -101,26 +115,33 @@ class EditProfileViewModel extends BaseViewModel {
   }
 
   Future<void> save() async {
-    await _ss.updateStore(
-      currentStore.id,
-      currentStore
-        ..name = (_businessName?.isNotEmpty ?? false)
-            ? _businessName
-            : currentStore.name
-        ..address =
-            (address?.isNotEmpty ?? false) ? address : currentStore.address
-        ..tagline =
-            (tagline?.isNotEmpty ?? false) ? tagline : currentStore.tagline,
-    );
-    await StoreRepository.updateStores();
-    print(currentStore.name);
-    await _authService.updateCurrentUser(User(
-      firstName:
-          (_userName?.isNotEmpty ?? false) ? _userName : currentUser.firstName,
-      email: (email?.isNotEmpty ?? false) ? email : currentUser.email,
-      phoneNumber: (pNum?.isNotEmpty ?? false) ? pNum : currentUser.phoneNumber,
-    ));
-    _navigationService.back();
+      await _ss.updateStore(
+        currentStore.id,
+        currentStore
+          ..name = (_businessName?.isNotEmpty ?? false)
+              ? _businessName
+              : currentStore.name
+          ..address = (address?.isNotEmpty ?? false)
+              ? address
+              : currentStore.address
+          ..tagline = (tagline?.isNotEmpty ?? false)
+              ? tagline
+              : currentStore.tagline,
+      );
+      await StoreRepository.updateStores();
+      print(currentStore.name);
+      await _authService.updateCurrentUser(User(
+//        firstName: (_userName?.isNotEmpty ?? false)
+//            ? _userName
+//            : currentUser.firstName,
+        email: (email?.isNotEmpty ?? false)
+            ? email
+            : currentUser.email,
+        phoneNumber: (pNum?.isNotEmpty ?? false)
+            ? pNum
+            : currentUser.phoneNumber,
+      ));
+      _navigationService.back();
   }
 
   Future showConfirmationDialog() async {
