@@ -12,6 +12,7 @@ class EditProfileViewModel extends BaseViewModel {
   final StoresLocalDataSource _ss = locator<StoresLocalDataSource>();
   final _authService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
 
   bool _editing = false;
   bool get editing => _editing;
@@ -141,5 +142,20 @@ class EditProfileViewModel extends BaseViewModel {
             : currentUser.phoneNumber,
       ));
       _navigationService.back();
+  }
+
+  Future showConfirmationDialog() async {
+    var response = await _dialogService.showConfirmationDialog(
+      title: 'Confirmation Dialog',
+      description: 'Do you want to sign out?',
+      confirmationTitle: 'Sign out',
+      dialogPlatform: DialogPlatform.Cupertino,
+      cancelTitle: 'Cancel',
+    );
+
+    if (response.confirmed) {
+      await _authService.signOut();
+    }
+    notifyListeners();
   }
 }
