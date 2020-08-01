@@ -91,7 +91,7 @@ class BusinessHomePageView extends StatelessWidget {
                     // onTap: () => _displayBusinessCardModal(context, model)
                   ),
                   Divider(
-                    color: Colors.grey[500],
+                    color: Colors.grey[300],
                   ),
                   // optionButton(
                   //   context: context,

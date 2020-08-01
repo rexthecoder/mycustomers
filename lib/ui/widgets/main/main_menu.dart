@@ -24,7 +24,7 @@ class MainMenu extends HookViewModelWidget<MainViewModel> {
           }
         },
         onHorizontalDragEnd: (DragEndDetails details) {
-          //  TODO ... MOVEMENT ANIMATION
+          //  TODO: ... MOVEMENT ANIMATION
         },
         onTap: () => model.updateMenu(),
         child: Scaffold(

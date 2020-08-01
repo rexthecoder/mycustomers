@@ -77,8 +77,7 @@ class MainView extends StatelessWidget {
   }
 
   Widget mainView(BuildContext context, MainViewModel model) {
-    return AnimatedPositioned(
-      duration: model.duration,
+    return Positioned(
       top: model.index == 1
           ? SizeConfig.yMargin(context, 0)
           : SizeConfig.yMargin(context, 12),

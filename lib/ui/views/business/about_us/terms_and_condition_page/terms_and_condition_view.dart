@@ -23,39 +23,39 @@ class TermsAndConditionView extends StatelessWidget {
         appBar: customizeAppBar(context, 1,
             title: 'TERMS & CONDITIONS',
             backgroundColor: Theme.of(context).backgroundColor),
-        body: model.checkbusy == true
-            ? Center(child: LoadingAnimation())
-            : Container(
-                margin: EdgeInsets.only(
-                    right: SizeConfig.xMargin(context, 5),
-                    left: SizeConfig.xMargin(context, 5),
-                    top: SizeConfig.yMargin(context, 2),
-                    bottom: SizeConfig.yMargin(context, 2)),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: SvgPicture.asset(
-                        myCustomerLogo,
+        body: Container(
+          margin: EdgeInsets.only(
+              right: SizeConfig.xMargin(context, 5),
+              left: SizeConfig.xMargin(context, 5),
+              top: SizeConfig.yMargin(context, 2),
+              bottom: SizeConfig.yMargin(context, 2)),
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: SvgPicture.asset(
+                  myCustomerLogo,
 //                  color: ThemeColors.background,
-                        height: SizeConfig.yMargin(context, 14),
-                      ),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.yMargin(context, 3),
-                    ),
-                    Text(
-                      'TERMS & CONDITIONS OF USE',
-                      style: TextStyle(
-                          color: Theme.of(context).cursorColor,
-                          fontSize: SizeConfig.textSize(context, 5),
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.yMargin(context, 1),
-                    ),
-                    Text('DATE OF LAST UPDATE: [31st July, 2020]'),
-                    Expanded(
-                      child: Container(
+                  height: SizeConfig.yMargin(context, 14),
+                ),
+              ),
+              SizedBox(
+                height: SizeConfig.yMargin(context, 3),
+              ),
+              Text(
+                'TERMS & CONDITIONS OF USE',
+                style: TextStyle(
+                    color: Theme.of(context).cursorColor,
+                    fontSize: SizeConfig.textSize(context, 5),
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: SizeConfig.yMargin(context, 1),
+              ),
+              Text('DATE OF LAST UPDATE: [31st July, 2020]'),
+              Expanded(
+                child: model.checkbusy == true
+                    ? Center(child: LoadingAnimation())
+                    : Container(
                         margin: EdgeInsets.only(
                           top: SizeConfig.yMargin(context, 3),
                         ),
@@ -600,10 +600,10 @@ class TermsAndConditionView extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
               ),
+            ],
+          ),
+        ),
       ),
       viewModelBuilder: () => TermsAndConditionViewModel(),
     );
