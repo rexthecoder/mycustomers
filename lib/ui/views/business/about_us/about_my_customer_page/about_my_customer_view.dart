@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -16,19 +17,20 @@ class AboutMyCustomerView extends StatefulWidget {
 
 class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
     with TickerProviderStateMixin {
-  AnimationController _controllerCustomerPayme;
-  AnimationController _controllerMeetTheLeader;
+  AnimationController _controllerCustomerPayMe;
+  AnimationController _controllerMeetTheInvestors;
+  AnimationController _controllerMeetTheDesigners;
   AnimationController _controllerMeetTheMobileTeam;
   AnimationController _controllerMeetTheWebTeam;
   final String myCustomerLogo = 'assets/icons/svg/customerpaymelogo.svg';
 
   @override
   void initState() {
-    _controllerCustomerPayme = AnimationController(
+    _controllerCustomerPayMe = AnimationController(
       vsync: this,
       duration: new Duration(milliseconds: 300),
     );
-    _controllerMeetTheLeader = AnimationController(
+    _controllerMeetTheInvestors = AnimationController(
       vsync: this,
       duration: new Duration(milliseconds: 300),
     );
@@ -40,13 +42,17 @@ class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
       vsync: this,
       duration: new Duration(milliseconds: 300),
     );
+    _controllerMeetTheDesigners = AnimationController(
+      vsync: this,
+      duration: new Duration(milliseconds: 300),
+    );
     super.initState();
   }
 
   @override
   void dispose() {
-    _controllerCustomerPayme.dispose();
-    _controllerMeetTheLeader.dispose();
+    _controllerCustomerPayMe.dispose();
+    _controllerMeetTheInvestors.dispose();
     _controllerMeetTheMobileTeam.dispose();
     _controllerMeetTheWebTeam.dispose();
     super.dispose();
@@ -79,35 +85,47 @@ class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
               SizedBox(
                 height: SizeConfig.yMargin(context, 3),
               ),
-              CardTileText(
+              CardTile(
                 text: 'About CustomerPayMe',
                 func: model.changeOpenAboutCustomerPayMe,
-                controller: _controllerCustomerPayme,
+                controller: _controllerCustomerPayMe,
                 isOpen: model.isOpenAboutCustomerPayMe,
+                type: 'CustomerPayMe',
               ),
               CardTile(
-                text: 'Meet The Leaders',
-                func: model.changeOpenMeetTheLeaders,
-                controller: _controllerMeetTheLeader,
-                isOpen: model.isOpenMeetTheLeaders,
-                itemsMap: model.leaderMap,
-                items: AboutMyCustomerViewModel.leader,
+                text: 'Meet The Investors',
+                func: model.changeOpenMeetTheInvestors,
+                controller: _controllerMeetTheInvestors,
+                isOpen: model.isOpenMeetTheInvestors,
+//                itemsMap: model.investorsMap,
+                items: AboutMyCustomerViewModel.investors,
+                type: 'Web/Mobile/Investors',
+              ),
+              CardTile(
+                text: 'Meet The Design Team',
+                func: model.changeOpenMeetTheDesigner,
+                controller: _controllerMeetTheDesigners,
+                isOpen: model.isOpenMeetTheDesigners,
+                type: 'Designer',
+                items: AboutMyCustomerViewModel.designers,
               ),
               CardTile(
                 text: 'Meet The Mobile Team',
                 func: model.changeOpenMeetTheMobileTeam,
                 controller: _controllerMeetTheMobileTeam,
                 isOpen: model.isOpenMeetTheMobileTeam,
-                itemsMap: model.mobileMap,
+//                itemsMap: model.mobileMap,
                 items: AboutMyCustomerViewModel.mobile,
+                type: 'Web/Mobile/Investors',
               ),
               CardTile(
                 text: 'Meet The Web Team',
                 func: model.changeOpenMeetTheWebTeam,
                 controller: _controllerMeetTheWebTeam,
                 isOpen: model.isOpenMeetTheWebTeam,
-                itemsMap: model.webMap,
+//                itemsMap: model.webMap,
                 items: AboutMyCustomerViewModel.web,
+                type: 'Web/Mobile/Investors',
               ),
             ],
           ),
@@ -115,74 +133,6 @@ class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
       ),
       viewModelBuilder: () => AboutMyCustomerViewModel(),
       onModelReady: (model) => model.openDoc(),
-    );
-  }
-}
-
-class CardTileText extends ViewModelWidget<AboutMyCustomerViewModel> {
-  CardTileText({
-    Key key,
-    this.text,
-    this.func,
-    this.controller,
-    this.isOpen,
-  }) : super(key: key, reactive: true);
-
-  final String text;
-  final Function func;
-  final AnimationController controller;
-  final bool isOpen;
-
-  @override
-  Widget build(
-    BuildContext context,
-    AboutMyCustomerViewModel model,
-  ) {
-    return AnimatedContainer(
-      height: isOpen
-          ? SizeConfig.yMargin(context, 50)
-          : SizeConfig.yMargin(context, 10),
-      duration: new Duration(milliseconds: 300),
-      child: ListView(
-        physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.yMargin(context, 1),
-            ),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: 1,
-                  color: Theme.of(context).cursorColor.withOpacity(0.2),
-                ),
-              ),
-            ),
-            child: ListTile(
-              onTap: () {
-                isOpen ? controller.reverse() : controller.forward();
-                func();
-              },
-              title: Text(
-                text,
-                style: Theme.of(context).textTheme.headline6.copyWith(
-                      fontSize: SizeConfig.yMargin(context, 2),
-                      color: Theme.of(context).cursorColor,
-                    ),
-              ),
-              trailing: AnimatedIcon(
-                icon: AnimatedIcons.menu_close,
-                progress: controller,
-              ),
-            ),
-          ),
-          isOpen
-              ? Container(
-                  child: Text('About My Customer Pay me'),
-                )
-              : Container(),
-        ],
-      ),
     );
   }
 }
@@ -196,6 +146,7 @@ class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
     this.isOpen,
     this.items,
     this.itemsMap,
+    this.type,
   }) : super(key: key, reactive: true);
 
   final String text;
@@ -204,6 +155,7 @@ class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
   final bool isOpen;
   final List<List<Person>> itemsMap;
   final List<Person> items;
+  final String type;
 
   @override
   Widget build(
@@ -249,7 +201,8 @@ class CardTile extends ViewModelWidget<AboutMyCustomerViewModel> {
             ),
           ),
           isOpen
-              ? DescriptionTile(
+              ? getDescription(
+                  type: type,
                   items: items,
                   itemsMap: itemsMap,
                 )
@@ -294,68 +247,99 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.symmetric(
+            vertical: SizeConfig.yMargin(context, 1),
             horizontal: SizeConfig.xMargin(context, 4),
           ),
           height: SizeConfig.yMargin(context, 30),
-          child: ListView.builder(
-            itemCount: itemsMap.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) {
-              var item = itemsMap[index];
-              return index % 2 == 0
-                  ? Container(
-                      width: SizeConfig.xMargin(context, 25),
-                      child: InkWell(
-//                        onTap: pageController.animateToPage(page, duration: null, curve: null),
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage(item[0].imageUrl),
-//                        backgroundColor:
-//                            (model.currentAboutCustomerPayMe % 7) % 3 == 0 &&
-//                        (model.currentAboutCustomerPayMe % 7)  == 0
-//                                    (index + (index / 2) + 0).floor() ==
-//                                        (model.currentAboutCustomerPayMe % 7)
-//                                ? ThemeColors.error
-//                                : ThemeColors.black,
-                        ),
-                      ),
-                    )
-                  : Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
+          child: Center(
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: (items.length / 2).floor() + 1,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return index % 2 == 0
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            height: SizeConfig.yMargin(context, 12),
                             width: SizeConfig.xMargin(context, 25),
-                            child: CircleAvatar(
-                              backgroundImage: AssetImage(item[0].imageUrl),
-//                              backgroundColor:
-//                                  (model.currentAboutCustomerPayMe % 7) % 3 ==
-//                                              1 && index + 1 == (model.currentAboutCustomerPayMe % 7) +1
-////                                          (index + (index / 2) + 1).floor() ==
-////                                              (model.currentAboutCustomerPayMe %
-////                                                  7)
-//                                      ? ThemeColors.error
-//                                      : ThemeColors.black,
+                            decoration: BoxDecoration(
+                              color: ThemeColors.black,
+                              borderRadius: BorderRadius.circular(5),
+                              shape: BoxShape.rectangle,
+                              image: DecorationImage(
+                                image: AssetImage(items[index * 2].imageUrl),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            width: SizeConfig.xMargin(context, 25),
-                            child: CircleAvatar(
-                              backgroundImage: AssetImage(item[1].imageUrl),
-//                              backgroundColor:
-//                                  (model.currentAboutCustomerPayMe % 7) % 3 ==
-//                                              2 && index + 2 == (model.currentAboutCustomerPayMe % 7) +2
-////                                          (index + (index / 2) + 2).floor() ==
-////                                              (model.currentAboutCustomerPayMe %
-////                                                  7)
-//                                      ? ThemeColors.error
-//                                      : ThemeColors.black,
+                          (index * 2) + 1 != items.length
+                              ? Container(
+                                  height: SizeConfig.yMargin(context, 12),
+                                  width: SizeConfig.xMargin(context, 25),
+                                  decoration: BoxDecoration(
+                                    color: ThemeColors.error,
+                                    borderRadius: BorderRadius.circular(5),
+                                    shape: BoxShape.rectangle,
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          items[(index * 2) + 1].imageUrl),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      )
+                    : Column(
+                        children: <Widget>[
+                          Expanded(
+                            flex: (index - 1) % 4 != 0 ? 2 : 1,
+                            child: Container(
+                              height: SizeConfig.yMargin(context, 10),
+                              width: SizeConfig.xMargin(context, 25),
+                              decoration: BoxDecoration(
+                                color: ThemeColors.error,
+                                borderRadius: BorderRadius.circular(5),
+                                shape: BoxShape.rectangle,
+                                image: DecorationImage(
+                                  image: AssetImage(items[index * 2].imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
-                        )
-                      ],
-                    );
-            },
+                          SizedBox(
+                            height: SizeConfig.yMargin(context, 1),
+                          ),
+                          (index * 2) + 1 != items.length
+                              ? Expanded(
+                                  flex: (index - 1) % 4 == 0 ? 2 : 1,
+                                  child: Container(
+                                    height: SizeConfig.yMargin(context, 10),
+                                    width: SizeConfig.xMargin(context, 25),
+                                    decoration: BoxDecoration(
+                                      color: ThemeColors.black,
+                                      borderRadius: BorderRadius.circular(5),
+                                      shape: BoxShape.rectangle,
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            items[(index * 2) + 1].imageUrl),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      );
+              },
+              separatorBuilder: (BuildContext context, int index) => SizedBox(
+                width: SizeConfig.xMargin(context, 2),
+              ),
+            ),
           ),
         ),
         Container(
@@ -396,5 +380,143 @@ class DescriptionTile extends ViewModelWidget<AboutMyCustomerViewModel> {
         ),
       ],
     );
+  }
+}
+
+class DesignersDescriptionTile
+    extends ViewModelWidget<AboutMyCustomerViewModel> {
+  DesignersDescriptionTile({
+    Key key,
+    this.items,
+  }) : super(key: key, reactive: true);
+  final List<Person> items;
+
+  @override
+  Widget build(
+    BuildContext context,
+    AboutMyCustomerViewModel model,
+  ) {
+    PageController pageController = PageController(initialPage: 0);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Timer.periodic(new Duration(seconds: 5), (Timer timer) {
+        if (pageController.hasClients) {
+          pageController.animateToPage(
+            model.currentMeetTheDesignTeam % items.length,
+            duration: new Duration(milliseconds: 500),
+            curve: Curves.easeIn,
+          );
+          model.increment();
+        }
+      });
+    });
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.xMargin(context, 4),
+          ),
+          height: SizeConfig.yMargin(context, 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: List.generate(items.length, (index) {
+              var item = items[index];
+              return index % 2 == 0
+                  ? AnimatedContainer(
+                      decoration: BoxDecoration(
+                        color: ThemeColors.error,
+                        borderRadius: BorderRadius.circular(5),
+                        shape: BoxShape.rectangle,
+                        image: DecorationImage(
+                          image: AssetImage(item.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      height: index == model.currentMeetTheDesignTeam ? SizeConfig.yMargin(context, 21): SizeConfig.yMargin(context, 20),
+                      width: index == model.currentMeetTheDesignTeam ? SizeConfig.xMargin(context, 31) : SizeConfig.xMargin(context, 30),
+                      duration: new Duration(milliseconds: 300),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        color: ThemeColors.black,
+                        borderRadius: BorderRadius.circular(5),
+                        shape: BoxShape.rectangle,
+                        image: DecorationImage(
+                          image: AssetImage(item.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                height: index == model.currentAboutCustomerPayMe ? SizeConfig.yMargin(context, 26): SizeConfig.yMargin(context, 25),
+                width: index == model.currentAboutCustomerPayMe ? SizeConfig.xMargin(context, 31) : SizeConfig.xMargin(context, 30),
+                    );
+            }),
+          ),
+        ),
+        Container(
+          height: SizeConfig.yMargin(context, 10),
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.xMargin(context, 2),
+          ),
+          child: PageView.builder(
+            physics: ClampingScrollPhysics(),
+            allowImplicitScrolling: true,
+            controller: pageController,
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              var item = items[index];
+              return RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: item.name,
+                  style: TextStyle(
+                    fontSize: SizeConfig.textSize(context, 5),
+                    fontWeight: FontWeight.bold,
+                    color: ThemeColors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "\n${item.about}",
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, 3),
+                        color: ThemeColors.black,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+Widget getDescription({
+  String type,
+  List<List<Person>> itemsMap,
+  List<Person> items,
+}) {
+  switch (type) {
+    case 'Designer':
+      return DesignersDescriptionTile(
+        items: items,
+      );
+    case 'CustomerPayMe':
+      return Container(
+        child: Text('About My Customer'),
+      );
+    case 'Web/Mobile/Investors':
+      return DescriptionTile(
+        items: items,
+        itemsMap: itemsMap,
+      );
+    default:
+      return Container();
   }
 }
