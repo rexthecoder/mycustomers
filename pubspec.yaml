@@ -152,6 +152,10 @@ flutter:
     - assets/icons/svg/
     - assets/images/onboarding/
     - assets/images/business_cards/
+    - assets/images/about_us/design/
+    - assets/images/about_us/mobile/
+    - assets/images/about_us/investors/
+    - assets/images/about_us/web/
     - assets/animations/
     - assets/languages/
     - assets/languages/icons/

@@ -128,7 +128,7 @@ class _BusinessCard1 extends ViewModelWidget<BusinessCardPageViewModel> {
     BuildContext context,
     BusinessCardPageViewModel model,
   ) {
-    print('Building');
+
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.xMargin(context, 1),
