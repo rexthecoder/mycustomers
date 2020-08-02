@@ -31,7 +31,7 @@ Widget buildLoaderDialog(BuildContext context, DialogRequest request) {
               : Container(),
           SizedBox(height: SizeConfig.yMargin(context, 2)),
           Container(
-            height: SizeConfig.yMargin(context, 10),
+            height: SizeConfig.yMargin(context, 40),
             // width: SizeConfig.xMargin(context, 3),
             child: LoadingAnimation(),
           ),
