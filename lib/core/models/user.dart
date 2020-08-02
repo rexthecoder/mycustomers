@@ -21,7 +21,7 @@ class User {
   @JsonKey(name: 'phone_number', fromJson: phoneFromJson, toJson: phoneToJson)
   String phoneNumber;
 
-  static String phoneFromJson(val) => val.toString();
+  static String phoneFromJson(val) => (val?.isNotEmpty ?? false) ? '+${val.toString()}' : null;
   static phoneToJson(String val) => int.parse(val);
   
 
