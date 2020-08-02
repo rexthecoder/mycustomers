@@ -218,11 +218,6 @@ class AboutMyCustomerViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<void> openDoc() async {
-    final result = await OpenFile.open("assets/files/App details.docx");
-    text = result.message;
-  }
-
   void increment() {
     currentAboutCustomerPayMe++;
     currentMeetTheInvestors++;

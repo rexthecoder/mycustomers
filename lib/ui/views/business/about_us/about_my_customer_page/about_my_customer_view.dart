@@ -132,7 +132,6 @@ class _AboutMyCustomerViewState extends State<AboutMyCustomerView>
         ),
       ),
       viewModelBuilder: () => AboutMyCustomerViewModel(),
-      onModelReady: (model) => model.openDoc(),
     );
   }
 }
