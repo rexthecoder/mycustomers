@@ -319,7 +319,7 @@ class TransactionDetails extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                model.transaction.description,
+                                                model.transaction.description ?? '',
                                                 // textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                     color: Colors.grey[600],

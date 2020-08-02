@@ -134,7 +134,7 @@ class BusinessHomePageView extends StatelessWidget {
                             SizedBox(height: SizeConfig.yMargin(context, 2)),
                             Container(
                               height: SizeConfig.yMargin(context, 5),
-                              width: SizeConfig.xMargin(context, 55),
+//                              width: SizeConfig.xMargin(context, 55),
                               child: CustomShareRaisedButton(
                                 txtColor: ThemeColors.background,
                                 btnColor: BrandColors.primary,
@@ -174,6 +174,9 @@ class BusinessHomePageView extends StatelessWidget {
                                   );
                                   return;
                                 },
+                              ),
+                              constraints: BoxConstraints(
+                                maxWidth: SizeConfig.xMargin(context, 68),
                               ),
                             )
                           ],

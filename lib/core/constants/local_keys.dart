@@ -215,7 +215,7 @@ class LocalKeys {
   static const reminders = 'reminders';
   static const activities = 'activities';
   static const no_reminders_yet = 'no-reminders-yet';
-  static const no_activities_yet = 'no-activites-yet';
+  static const no_activities_yet = 'no-activities-yet';
   static const field_should_not_be_empty = 'field-should-not-be-empty';
   static const you_have_a_pending_message_to_send =
       'you-have-a-pending-message-to-send';
