@@ -32,7 +32,7 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
   bool save = false;
   DateTime selectedDate = DateTime.now(); // = DateTime.now()
   DateTime dueDate;
-  DateTime otherDate;
+  DateTime otherDate = DateTime.now();
   String newDate;
   //String newODate; //
   String get newODate => dformat.format(DateTime.now());
@@ -191,12 +191,12 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
         inputNumberController.clear();
       }
       action == 'debit'
-          ? amount != null &&
+          ? amount != null && amount != 0 &&
                   newDate != null &&
                   name.length != 0 //&& number != null
               ? save = true
               : save = false
-          : amount != null &&
+          : amount != null && amount != 0 &&
                   newODate != null &&
                   name.length != 0 //&& number != null
               ? save = true
@@ -243,12 +243,12 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     _name = cus.displayName;
     selectedCustomer = cus;
     action == 'debit'
-          ? amount != null &&
+          ? amount != null && amount != 0 &&
                   newDate != null &&
                   name.length != 0 //&& number != null
               ? save = true
               : save = false
-          : amount != null &&
+          : amount != null && amount != 0 &&
                   newODate != null &&
                   name.length != 0 //&& number != null
               ? save = true
@@ -273,29 +273,29 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
             val = val.toString() + value[i].toString();
           }
         }
-        if (isNumeric(val)) {
+        if (isNumeric(val) && int.parse(value) != 0) {
           _error = null;
           _amount = double.parse(val);
           show = true;
           update
-              ? amount != null && newODate != null ? save = true : save = false
+              ? amount != null && amount != 0 && newODate != null ? save = true : save = false
               : newCus
                   ? action == 'debit'
-                      ? amount != null &&
+                      ? amount != null && amount != 0 &&
                               newDate != null &&
                               name != null //&& number != null
                           ? save = true
                           : save = false
-                      : amount != null &&
+                      : amount != null && amount != 0 &&
                               newODate != null &&
                               name != null //&& number != null
                           ? save = true
                           : save = false
                   : action == 'debit'
-                      ? amount != null && newDate != null
+                      ? amount != null && amount != 0 && newDate != null
                           ? save = true
                           : save = false
-                      : amount != null && newODate != null
+                      : amount != null && amount != 0 && newODate != null
                           ? save = true
                           : save = false;
           notifyListeners();
@@ -319,21 +319,21 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
     descFocus.requestFocus();
     newCus
         ? action == 'debit'
-            ? amount != null &&
+            ? amount != null && amount != 0 &&
                     newDate != null &&
                     name != null //&& number != null
                 ? save = true
                 : save = false
-            : amount != null &&
+            : amount != null && amount != 0 &&
                     newODate != null &&
                     name != null //&& number != null
                 ? save = true
                 : save = false
         : action == 'debit'
-            ? amount != null && newDate != null
+            ? amount != null && amount != 0&& newDate != null
                 ? save = true
                 : save = false
-            : amount != null && newODate != null ? save = true : save = false;
+            : amount != null && amount != 0 && newODate != null ? save = true : save = false;
     notifyListeners();
   }
 
@@ -374,12 +374,12 @@ class AddDebtCreditViewModel extends ReactiveViewModel {
 
   void updateNumber(String action) {
     action == 'debit'
-        ? amount != null &&
+        ? amount != null && amount != 0 &&
                 newDate != null &&
                 name != null && number != null
             ? save = true
             : save = false
-        : amount != null && newODate != null && name != null && number != null
+        : amount != null && amount != 0 && newODate != null && name != null && number != null
             ? save = true
             : save = false;
     notifyListeners();

@@ -118,7 +118,8 @@ class MessageView extends StatelessWidget {
                                       AppLocalizations.of(context)
                                           .selectedCustomer +
                                       's',
-                              style: TextStyle(fontSize: SizeConfig.textSize(context, 4.3)),
+                              style: TextStyle(
+                                  fontSize: SizeConfig.textSize(context, 4.3)),
                             ),
                             Flexible(
                               child: FlatButton.icon(
@@ -181,19 +182,24 @@ class MessageView extends StatelessWidget {
                             itemCount: model.selectedCustomers.length,
                             itemBuilder: (BuildContext context, int index) =>
                                 Padding(
-                                  padding:  EdgeInsets.only(top: SizeConfig.yMargin(context, 1.5)),
-                                  child: Row(
-                                    children: <Widget>[
-                                      CustomerCircleAvatar(
-                                        ccustomer: model.selectedCustomers[index],
-                                        action: 'debtor',
-                                      ),
-                                      SizedBox(width: SizeConfig.xMargin(context, 5),),
-                                      Text(model.selectedCustomers[index].name,
-                                        style: TextStyle(fontSize: SizeConfig.textSize(context, 4))),
-                                    ],
+                              padding: EdgeInsets.only(
+                                  top: SizeConfig.yMargin(context, 1.5)),
+                              child: Row(
+                                children: <Widget>[
+                                  CustomerCircleAvatar(
+                                    ccustomer: model.selectedCustomers[index],
+                                    action: 'debtor',
                                   ),
-                                ),
+                                  SizedBox(
+                                    width: SizeConfig.xMargin(context, 5),
+                                  ),
+                                  Text(model.selectedCustomers[index].name,
+                                      style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.textSize(context, 4))),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -204,7 +210,7 @@ class MessageView extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(vertical: 30.0, horizontal: 10),
                     child: FlatButton(
-                      onPressed: () {
+                      onPressed: () async {
                         model.send();
                         successDialog(context, model);
                       },
@@ -235,7 +241,6 @@ class MessageView extends StatelessWidget {
       },
       onModelReady: (model) {
         Future.microtask(model.init);
-//        model.init();
       },
     );
   }
@@ -591,15 +596,18 @@ class BottomSheetView extends StatelessWidget {
                                       child: LoadingAnimation(),
                                     ),
                                   )
-                                :
-                                SliverPadding(
+                                : SliverPadding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: 8.w),
                                     sliver: SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (BuildContext context, int index) {
-                                          Customer customer = model.allCustomers[index];
-                                          bool _isSelected = model.checkselected(customer.displayName, customer.phone);
+                                          Customer customer =
+                                              model.allCustomers[index];
+                                          bool _isSelected =
+                                              model.checkselected(
+                                                  customer.displayName,
+                                                  customer.phone);
                                           return Container(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 15.h,
@@ -652,8 +660,10 @@ class BottomSheetView extends StatelessWidget {
                                                     value: _isSelected,
                                                     onChanged: (value) {
                                                       _isSelected
-                                                          ? model.deselect(customer)
-                                                          : model.select(customer);
+                                                          ? model.deselect(
+                                                              customer)
+                                                          : model
+                                                              .select(customer);
                                                     })
                                               ],
                                             ),

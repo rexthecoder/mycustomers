@@ -77,8 +77,7 @@ class MainView extends StatelessWidget {
   }
 
   Widget mainView(BuildContext context, MainViewModel model) {
-    return AnimatedPositioned(
-      duration: model.duration,
+    return Positioned(
       top: model.index == 1
           ? SizeConfig.yMargin(context, 0)
           : SizeConfig.yMargin(context, 12),
@@ -98,7 +97,16 @@ class MainView extends StatelessWidget {
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              title: Text(AppLocalizations.of(context).home),
+              title: model.index == 1 || model.index == 2
+                  ? Text(
+                      AppLocalizations.of(context).home,
+                    )
+                  : Text(
+                      AppLocalizations.of(context).home,
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, model.textSize),
+                      ),
+                    ),
               icon: SvgPicture.asset(
                 home,
                 color: ThemeColors.inactive,
@@ -111,7 +119,14 @@ class MainView extends StatelessWidget {
               ),
             ),
             BottomNavigationBarItem(
-              title: Text(AppLocalizations.of(context).marketing),
+              title: model.index == 0 || model.index == 2
+                  ? Text(AppLocalizations.of(context).marketing)
+                  : Text(
+                      AppLocalizations.of(context).marketing,
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, model.textSize),
+                      ),
+                    ),
               icon: SvgPicture.asset(
                 marketing,
                 color: ThemeColors.inactive,
@@ -124,7 +139,14 @@ class MainView extends StatelessWidget {
               ),
             ),
             BottomNavigationBarItem(
-              title: Text(AppLocalizations.of(context).business),
+              title: model.index == 0 || model.index == 1
+                  ? Text(AppLocalizations.of(context).business)
+                  : Text(
+                      AppLocalizations.of(context).business,
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, model.textSize),
+                      ),
+                    ),
               icon: SvgPicture.asset(
                 business,
                 color: ThemeColors.inactive,

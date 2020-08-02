@@ -212,7 +212,8 @@ class HomePageViewModel extends ReactiveViewModel {
   }
 
   String getcreditduedate(CustomerContact cus) {
-    return cus.transactions.helperToList().where((element) => element.paid != 0).toList().last.duedate;
+    //return cus.transactions.helperToList().where((element) => element.paid != 0).toList().last.duedate;
+    return DateTime.now().toString();
   }
 
   double paid(){

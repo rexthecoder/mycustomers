@@ -12,6 +12,22 @@ class EditProfileViewModel extends BaseViewModel {
   final StoresLocalDataSource _ss = locator<StoresLocalDataSource>();
   final _authService = locator<AuthService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
+
+  bool _editing = false;
+  bool get editing => _editing;
+
+  Future<void> switchEditingState() async {
+    if (_editing) {
+      await _authService.updateCurrentUser(User(
+        firstName: (_userName?.isNotEmpty ?? false)
+            ? _userName
+            : currentUser.firstName,
+      ));
+    }
+    _editing = !_editing;
+    notifyListeners();
+  }
 
   final _imagePicker = ImagePicker();
   String pNum,
@@ -115,9 +131,9 @@ class EditProfileViewModel extends BaseViewModel {
       await StoreRepository.updateStores();
       print(currentStore.name);
       await _authService.updateCurrentUser(User(
-        firstName: (_userName?.isNotEmpty ?? false)
-            ? _userName
-            : currentUser.firstName,
+//        firstName: (_userName?.isNotEmpty ?? false)
+//            ? _userName
+//            : currentUser.firstName,
         email: (email?.isNotEmpty ?? false)
             ? email
             : currentUser.email,
@@ -126,5 +142,20 @@ class EditProfileViewModel extends BaseViewModel {
             : currentUser.phoneNumber,
       ));
       _navigationService.back();
+  }
+
+  Future showConfirmationDialog() async {
+    var response = await _dialogService.showConfirmationDialog(
+      title: 'Confirmation Dialog',
+      description: 'Do you want to sign out?',
+      confirmationTitle: 'Sign out',
+      dialogPlatform: DialogPlatform.Cupertino,
+      cancelTitle: 'Cancel',
+    );
+
+    if (response.confirmed) {
+      await _authService.signOut();
+    }
+    notifyListeners();
   }
 }
