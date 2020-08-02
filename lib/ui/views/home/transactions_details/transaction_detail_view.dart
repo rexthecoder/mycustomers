@@ -187,7 +187,7 @@ class TransactionDetails extends StatelessWidget {
                                                 SizedBox(
                                                   height: SizeConfig.yMargin(context, 2),
                                                 ),
-                                                Text(
+                                                model.transaction.paiddate != null ? SizedBox() : Text(
                                                   'Due Date',
                                                   // textAlign: TextAlign.end,
                                                   style: TextStyle(
@@ -195,7 +195,7 @@ class TransactionDetails extends StatelessWidget {
                                                       fontSize: SizeConfig.yMargin(context, 2)),
                                                 ),
                                                 SizedBox(
-                                                  height: SizeConfig.yMargin(context, 2),
+                                                  height: SizeConfig.yMargin(context, model.transaction.paiddate != null ? 0 : 2),
                                                 ),
                                                 Text(
                                                   AppLocalizations.of(context)
@@ -237,7 +237,7 @@ class TransactionDetails extends StatelessWidget {
                                                   height: SizeConfig.yMargin(context, 2.1),
                                                 ),
                                                 Text(
-                                                  model.dformat.format(DateTime.parse(model.transaction.boughtdate ?? model.transaction.paiddate)),
+                                                  model.dformat.format(DateTime.parse(model.transaction.boughtdate == null ? model.transaction.paiddate : model.transaction.boughtdate)),
                                                   style: TextStyle(
                                                       color: Theme.of(context)
                                                           .textSelectionColor,
@@ -247,7 +247,7 @@ class TransactionDetails extends StatelessWidget {
                                                 SizedBox(
                                                   height: SizeConfig.yMargin(context, 2),
                                                 ),
-                                                Text(
+                                                model.transaction.paiddate != null ? SizedBox() : Text(
                                                   model.dformat.format(DateTime.parse(model.transaction.duedate)),
                                                   style: TextStyle(
                                                       color: Theme.of(context)
@@ -256,7 +256,7 @@ class TransactionDetails extends StatelessWidget {
                                                       fontSize: SizeConfig.yMargin(context, 2)),
                                                 ),
                                                 SizedBox(
-                                                  height: SizeConfig.yMargin(context, 2),
+                                                  height: SizeConfig.yMargin(context, model.transaction.paiddate != null ? 0 : 2),
                                                 ),
                                                 Text(
                                                   model.transaction.amount != null

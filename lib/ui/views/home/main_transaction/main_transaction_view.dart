@@ -38,7 +38,7 @@ class MainTransaction extends StatelessWidget {
                     elevation: 0.0,
                     title: Container(
                       margin: EdgeInsets.only(
-                          right: ScreenUtil().setWidth(15), top: 6),
+                          right: ScreenUtil().setWidth(15), top: 4),
                       child: Row(
                         children: <Widget>[
                           model.contact.initials != null
@@ -110,9 +110,11 @@ class MainTransaction extends StatelessWidget {
                     leading: InkWell(
                       onTap: () => model.navigateToHome(),
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.xMargin(context, 4.5),
-                            vertical: SizeConfig.yMargin(context, 1.8)),
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.xMargin(context, 6.3),
+                            right: SizeConfig.xMargin(context, 1.5),
+                            top: SizeConfig.yMargin(context, 1.8),
+                            bottom: SizeConfig.yMargin(context, 1.8)),
                         child: SvgPicture.asset(
                           'assets/icons/backarrow.svg',
                           color: Colors.white,
