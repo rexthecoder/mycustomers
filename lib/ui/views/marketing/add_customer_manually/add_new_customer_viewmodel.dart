@@ -6,6 +6,7 @@ import 'package:mycustomers/core/services/customer_contact_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/app/router.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class AddNewCustomerViewModel extends BaseViewModel {
   TextEditingController name = TextEditingController();
@@ -38,8 +39,9 @@ class AddNewCustomerViewModel extends BaseViewModel {
        notifyListeners();
   }
 
-  void updateContact(String phoneNumber){
-    _customerPhoneNumber=phoneNumber;
+  void updateContact(PhoneNumber phoneNumber){
+    _customerPhoneNumber = phoneNumber.phoneNumber;
+    _dropDownValue = phoneNumber.dialCode;
     notifyListeners();
 
   }
