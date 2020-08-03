@@ -136,7 +136,7 @@ class AuthServiceImpl implements AuthService {
       Logger.e('AuthService: Error signing in', e: e, s: s);
       throw e;
     } catch(e, s) {
-      Logger.e('Unknown Exception while authenticating', e: e, s: s);
+      Logger.e('Unknown Exception while authenticating\nException: $e\nStacktrace\n$s', e: e, s: s);
       throw AuthException('Error signing in');
     }
 
