@@ -150,7 +150,7 @@ class AboutMyCustomerViewModel extends BaseViewModel {
       name: 'Collins Enebeli [Kadet]',
     ),
     Person(
-      about: 'Backend Engineer <Tester and Manager>',
+      about: 'Backend Engineer, Tester and Project Manager',
       imageUrl: 'assets/images/about_us/web/naza.jpg',
       name: 'Chinaza Obiekwe [Naza]',
     ),
