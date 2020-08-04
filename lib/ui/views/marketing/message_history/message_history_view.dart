@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -11,30 +10,26 @@ import 'package:stacked/stacked.dart';
 class MessageHistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    ScreenUtil.init(context, width: width, height: height);
     return ViewModelBuilder<MessageHistoryViewModel>.reactive(
         onModelReady: (model) => model.getMessages(),
         builder: (context, model, child) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(140.0),
+              preferredSize: Size.fromHeight(SizeConfig.yMargin(context, 15)),
               child: AppBar(
                 brightness: Brightness.dark,
                 elevation: 0.0,
                 title: Container(
                   margin:
-                      EdgeInsets.only(right: ScreenUtil().setWidth(15), top: 6),
+                      EdgeInsets.only(right: SizeConfig.xMargin(context, 2), top: 6),
                   child: Row(
                     children: <Widget>[
-                      //TODO: Fix CustomerCircleAvatar
                       CustomerCircleAvatar(
                         ccustomer: model.customer,
                       ),
                       SizedBox(
-                        width: 5.w,
+                        width: SizeConfig.xMargin(context, 2),
                       ),
                       Expanded(
                         child: Column(
@@ -76,12 +71,12 @@ class MessageHistoryView extends StatelessWidget {
                 leading: InkWell(
                   onTap: () => model.popView(),
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(18),
-                        vertical: ScreenUtil().setHeight(10)),
+                    alignment: Alignment.center,
                     child: SvgPicture.asset(
                       'assets/icons/backarrow.svg',
                       color: Colors.white,
+                      height: SizeConfig.yMargin(context, 2),
+                      width: SizeConfig.xMargin(context, 4),
                     ),
                   ),
                 ),
@@ -90,19 +85,19 @@ class MessageHistoryView extends StatelessWidget {
                 backgroundColor: BrandColors.primary,
                 centerTitle: true,
                 bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(70.0),
+                    preferredSize: Size.fromHeight(SizeConfig.yMargin(context, 8)),
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: ScreenUtil().setWidth(20),
-                          vertical: ScreenUtil().setHeight(10)),
-                      height: 70,
+                          horizontal:SizeConfig.xMargin(context, 3),
+                          vertical: SizeConfig.yMargin(context, 1.5)),
+                      height: SizeConfig.yMargin(context, 8),
                       child: Container(
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: Colors.white,
                           ),
-                          height: 50,
+                          height: SizeConfig.yMargin(context, 8),
                           child: FlatButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
@@ -114,6 +109,7 @@ class MessageHistoryView extends StatelessWidget {
                               'View Transactions',
                               style: TextStyle(
                                   color: BrandColors.primary,
+                                  fontSize: SizeConfig.textSize(context, 4),
                                   fontWeight: FontWeight.bold),
                             )),
                           ),
@@ -156,7 +152,6 @@ class MessageHistoryView extends StatelessWidget {
 
                       child:ListView(
                         reverse: true,
-
                         children:  model.messagesReversed.map<Row>((e) =>
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -188,14 +183,15 @@ class MessageHistoryView extends StatelessWidget {
                                     child: Text(
                                       e.message ?? '',
                                       textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontSize: SizeConfig.textSize(context, 3.5)
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ],
-                          )).toList(),
-//                  children:  model.messages.map<Text>((e) => Text(e.message)).toList(),
-                      ),
+                          )).toList(),),
                       ),
                     ),
                     SizedBox(
@@ -242,7 +238,10 @@ class MessageHistoryView extends StatelessWidget {
                                                 child: Center(
                                                     child: Text(
                                                         model.dummyQuickText[
-                                                            index])))),
+                                                            index],
+                                                    style: TextStyle(
+                                                      fontSize: SizeConfig.textSize(context, 3.5)
+                                                    ),)))),
                                       ),
                                     )),
                           ),
@@ -256,6 +255,9 @@ class MessageHistoryView extends StatelessWidget {
                                     controller: model.messageController,
                                     textInputAction: TextInputAction.newline,
                                     keyboardType: TextInputType.multiline,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.textSize(context, 3.5)
+                                    ),
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -270,15 +272,15 @@ class MessageHistoryView extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 10.w,
+                                  width: SizeConfig.xMargin(context, 2)
                                 ),
                                 InkWell(
                                   onTap: () {
                                     model.send();
                                   },
                                   child: Container(
-                                    width: 50.w,
-                                    height: 50.h,
+                                    width:  SizeConfig.xMargin(context, 8),
+                                    height: SizeConfig.xMargin(context, 8),
                                     decoration: BoxDecoration(
                                       color: BrandColors.primary,
                                       borderRadius: BorderRadius.circular(30),
@@ -287,6 +289,7 @@ class MessageHistoryView extends StatelessWidget {
                                         child: Icon(
                                       Icons.send,
                                       color: Colors.white,
+                                      size: SizeConfig.xMargin(context, 4),
                                     )),
                                   ),
                                 ),

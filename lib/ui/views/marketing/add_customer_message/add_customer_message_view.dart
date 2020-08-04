@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/core/models/customer.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:mycustomers/ui/views/marketing/widgets/customer_circle_avatar.dart';
 import 'package:mycustomers/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 
 import 'add_customer_message_viewmodel.dart';
@@ -42,7 +42,7 @@ class AddCustomerMessageView extends StatelessWidget {
             body: Column(
               children: <Widget>[
                 SizedBox(
-                  height: 5.h,
+                  height: SizeConfig.yMargin(context, 0.8),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -52,15 +52,19 @@ class AddCustomerMessageView extends StatelessWidget {
                         color: ThemeColors.gray.shade700,
                         width: 1.5,
                       ),
-                      borderRadius: BorderRadius.circular(5.w),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     clipBehavior: Clip.hardEdge,
                     child: TextField(
                       textCapitalization: TextCapitalization.sentences,
                       controller: model.searchController,
+                      textAlignVertical: TextAlignVertical.center,
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, 4),
+                      ),
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context).typeCustomerName,
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: Icon(Icons.search, size: SizeConfig.xMargin(context, 6),),
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
@@ -80,7 +84,7 @@ class AddCustomerMessageView extends StatelessWidget {
                         context, '/addNewCustomerMarketing'),
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                          vertical: 15.h, horizontal: 10.w),
+                          vertical: 15, horizontal: 10),
 //
 
                       child: Row(
@@ -94,19 +98,14 @@ class AddCustomerMessageView extends StatelessWidget {
                           ),
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 30.w
-//                                  : 10.w
-                                  ),
+                              margin: EdgeInsets.symmetric(horizontal: 30),
                               child: Text(
-                                'Add customer Manually',
-//                              AppLocalizations.of(context).add,
+//                              TODO:  'Add customer Manually',
+                              AppLocalizations.of(context).addNewCustomer,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: BrandColors.secondary,
-                                  fontSize: 16.sp,
-//                                        color: model.allSelected
-//                                            ? ThemeColors.gray.shade800
-//                                            : ThemeColors.cta,
+                                  fontSize: SizeConfig.textSize(context, 4),
                                 ),
                               ),
                             ),
@@ -119,117 +118,6 @@ class AddCustomerMessageView extends StatelessWidget {
                 Expanded(
                   child: CustomScrollView(
                     slivers: <Widget>[
-                      model.allFrequentCustomers.length == 0
-                          ? SliverToBoxAdapter(
-                              child: Container(),
-                            )
-                          : SliverToBoxAdapter(
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                width: double.infinity,
-                                height: 40,
-                                color: backgroundColor,
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .frequentCustomers,
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            ),
-                      model.allFrequentCustomers.length == 0
-                          ? SliverToBoxAdapter(
-                              child: Container(),
-                            )
-                          : SliverToBoxAdapter(
-                              child: SizedBox(height: 10.h),
-                            ),
-                      model.allFrequentCustomers.length == 0
-                          ? SliverToBoxAdapter(
-                              child: Container(),
-                            )
-                          : SliverPadding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8.w, horizontal: 10),
-                              sliver: SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                    Customer customer =
-                                        model.allFrequentCustomers[index];
-                                    bool _isSelected =
-                                        model.isSelected(customer);
-                                    return Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 15.h, horizontal: 10.w),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(
-                                            children: <Widget>[
-                                              CustomerCircleAvatar(
-                                                customer: customer,
-                                                action: 'debtor',
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 30.w),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: <Widget>[
-                                                      Text(
-                                                        '${customer.name} '
-                                                        '${customer.lastName}',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 3.sp,
-                                                      ),
-                                                      Text(
-                                                        '${customer.phone}',
-                                                        style: TextStyle(
-                                                          color: ThemeColors
-                                                              .gray.shade800,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Checkbox(
-                                                  activeColor:
-                                                      BrandColors.primary,
-                                                  value: _isSelected,
-                                                  onChanged: (value) {
-                                                    _isSelected
-                                                        ? model
-                                                            .deselectCustomer(
-                                                                customer)
-                                                        : model.selectCustomer(
-                                                            customer);
-                                                  })
-                                            ],
-                                          ),
-                                          Divider(
-                                            color: Colors.grey[500],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  childCount: 4,
-                                ),
-                              ),
-                            ),
                       SliverToBoxAdapter(
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -239,11 +127,12 @@ class AddCustomerMessageView extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             AppLocalizations.of(context).phoneContacts,
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: TextStyle(fontWeight: FontWeight.w600,
+                              fontSize: SizeConfig.textSize(context, 4),),
                           ),
                         ),
                       ),
-                      SliverToBoxAdapter(child: SizedBox(height: 10.h)),
+                      SliverToBoxAdapter(child: SizedBox(height: 10)),
                       model.isLoadBusy || !model.dataReady
                           ? SliverToBoxAdapter(
                               child: Center(
@@ -252,7 +141,7 @@ class AddCustomerMessageView extends StatelessWidget {
                             )
                           : SliverPadding(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 8.w, horizontal: 10),
+                                  vertical: 8, horizontal: 10),
                               sliver: SliverList(
                                 delegate: SliverChildBuilderDelegate(
                                   (BuildContext context, int index) {
@@ -261,7 +150,7 @@ class AddCustomerMessageView extends StatelessWidget {
                                         model.isSelected(customer);
                                     return Container(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 10.w),
+                                          horizontal: 10),
                                       child: Column(
                                         children: <Widget>[
                                           Row(
@@ -273,7 +162,7 @@ class AddCustomerMessageView extends StatelessWidget {
                                               Expanded(
                                                 child: Container(
                                                   margin: EdgeInsets.symmetric(
-                                                      horizontal: 10.w),
+                                                      horizontal: 10),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -285,18 +174,20 @@ class AddCustomerMessageView extends StatelessWidget {
                                                         '${customer.name} '
                                                         '${customer.lastName}',
                                                         style: TextStyle(
+                                                          fontSize: SizeConfig.textSize(context, 4),
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
                                                       ),
                                                       SizedBox(
-                                                        height: 3.sp,
+                                                        height: SizeConfig.yMargin(context, 1),
                                                       ),
                                                       Text(
                                                         '${customer.phone}',
                                                         style: TextStyle(
                                                           color: ThemeColors
                                                               .gray.shade800,
+                                                          fontSize: SizeConfig.textSize(context, 4),
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -334,7 +225,7 @@ class AddCustomerMessageView extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(30.w),
+                  margin: EdgeInsets.all(30),
                   child: FlatButton(
                     onPressed: () {
                       model.selectedCustomers.length != 0
@@ -355,6 +246,7 @@ class AddCustomerMessageView extends StatelessWidget {
                         Text(
                           AppLocalizations.of(context).add,
                           style: TextStyle(
+                            fontSize: SizeConfig.textSize(context, 4),
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -376,55 +268,55 @@ class AddCustomerMessageView extends StatelessWidget {
   }
 }
 
-class NewContactsHeader extends SliverPersistentHeaderDelegate {
-  final double height;
-
-  NewContactsHeader(this.height);
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 10),
-      child: InkWell(
-        onTap: () => Navigator.pushNamed(context, '/addNewCustomerMarketing'),
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
-
-          child: Row(
-            children: <Widget>[
-              CustomerCircleAvatar(
-                child: Icon(
-                  Icons.person_add,
-                  color: ThemeColors.cta,
-                ),
-                bgColor: ThemeColors.gray.shade500,
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 30.w
-                      ),
-                  child: Text(
-                    AppLocalizations.of(context).addNewCustomer,
-
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => this.height;
-
-  @override
-  double get minExtent => this.height;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
-  }
-}
+//class NewContactsHeader extends SliverPersistentHeaderDelegate {
+//  final double height;
+//
+//  NewContactsHeader(this.height);
+//
+//  @override
+//  Widget build(
+//      BuildContext context, double shrinkOffset, bool overlapsContent) {
+//    return Padding(
+//      padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 10),
+//      child: InkWell(
+//        onTap: () => Navigator.pushNamed(context, '/addNewCustomerMarketing'),
+//        child: Container(
+//          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
+//
+//          child: Row(
+//            children: <Widget>[
+//              CustomerCircleAvatar(
+//                child: Icon(
+//                  Icons.person_add,
+//                  color: ThemeColors.cta,
+//                ),
+//                bgColor: ThemeColors.gray.shade500,
+//              ),
+//              Expanded(
+//                child: Container(
+//                  margin: EdgeInsets.symmetric(horizontal: 30.w
+//                      ),
+//                  child: Text(
+//                    AppLocalizations.of(context).addNewCustomer,
+//
+//                  ),
+//                ),
+//              ),
+//            ],
+//          ),
+//        ),
+//      ),
+//    );
+//  }
+//
+//  @override
+//  double get maxExtent => this.height;
+//
+//  @override
+//  double get minExtent => this.height;
+//
+//  @override
+//  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+//    return true;
+//  }
+//}
