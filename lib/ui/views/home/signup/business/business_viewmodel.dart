@@ -22,6 +22,8 @@ class BusinessViewModel extends BaseViewModel with Validators {
   final IStorageUtil _storage = locator<IStorageUtil>();
   final AuthService _auth = locator<AuthService>();
 
+  String get pNum => _auth.currentUser.phoneNumber;
+
   Future<void> navigateToNext() async {
     await _navigationService.replaceWithTransition(MainView(),
         opaque: true,
