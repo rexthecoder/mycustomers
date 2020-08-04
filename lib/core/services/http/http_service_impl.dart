@@ -13,7 +13,7 @@ import 'http_service.dart';
 /// Helper service that abstracts away common HTTP Requests
 class HttpServiceImpl implements HttpService {
 
-  final _dio = Dio(BaseOptions(connectTimeout: 6000));
+  final _dio = Dio(BaseOptions(connectTimeout: 10000));
 
   setHeader(Map<String, dynamic> header) {
     _dio.options.headers.addAll(header);
@@ -22,6 +22,7 @@ class HttpServiceImpl implements HttpService {
   @override
   Future<dynamic> getHttp(String route, {Map<String, dynamic> params, bool refreshed: false}) async {
     Response response;
+    params?.removeWhere((key, value) => value == null);
 
     Logger.d('[GET] Sending $params to $route');
 
@@ -58,6 +59,8 @@ class HttpServiceImpl implements HttpService {
   @override
   Future<dynamic> postHttp(String route, dynamic body, {Map<String, dynamic> params, refreshed: false}) async {
     Response response;
+    params?.removeWhere((key, value) => value == null);
+    body?.removeWhere((key, value) => value == null);
 
     Logger.d('[POST] Sending $body to $route');
 
@@ -108,6 +111,8 @@ class HttpServiceImpl implements HttpService {
   @override
   Future putHttp(String route, body, {Map<String, dynamic> params, refreshed: false}) async {
     Response response;
+    params?.removeWhere((key, value) => value == null);
+    body?.removeWhere((key, value) => value == null);
 
     Logger.d('[PUT] Sending $body to $route');
 
@@ -145,6 +150,7 @@ class HttpServiceImpl implements HttpService {
   @override
   Future deleteHttp(String route, {Map<String, dynamic> params, refreshed: false}) async {
     Response response;
+    params?.removeWhere((key, value) => value == null);
 
     Logger.d('[DELETE] Sending $params to $route');
 

@@ -26,13 +26,16 @@ class StoreHAdapter extends TypeAdapter<StoreH> {
       fields[6] as String,
       fields[7] as String,
       fields[8] as Uint8List,
-    );
+    )
+      ..isDirty = fields[9] as bool
+      ..deleted = fields[10] as bool
+      ..lastUpdated = fields[11] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, StoreH obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -50,6 +53,12 @@ class StoreHAdapter extends TypeAdapter<StoreH> {
       ..writeByte(7)
       ..write(obj.email)
       ..writeByte(8)
-      ..write(obj.storePic);
+      ..write(obj.storePic)
+      ..writeByte(9)
+      ..write(obj.isDirty)
+      ..writeByte(10)
+      ..write(obj.deleted)
+      ..writeByte(11)
+      ..write(obj.lastUpdated);
   }
 }

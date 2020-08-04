@@ -36,6 +36,15 @@ class StoreH {
   @HiveField(8)
   final Uint8List storePic;
 
+  @HiveField(9)
+  bool isDirty = false;
+
+  @HiveField(10)
+  bool deleted = false;
+
+  @HiveField(11)
+  DateTime lastUpdated;
+
   StoreH(this.id, this.address, this.name, this.pNum, this.ctyCode,
       this.tagline, this.ownerId, this.email, this.storePic);
 }

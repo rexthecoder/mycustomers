@@ -39,7 +39,7 @@ class CreateBusinessViewModel extends BaseViewModel {
     try {
       await _storeService.createStore(
         Store.fromJson(
-          {'store_name': storeName, 'shop_address': storeAddress},
+          {'store_name': storeName, 'shop_address': storeAddress, 'tagline': '-'},
         ),
       );
 

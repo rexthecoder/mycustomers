@@ -117,16 +117,17 @@ class EditProfileViewModel extends BaseViewModel {
   Future<void> save() async {
       await _ss.updateStore(
         currentStore.id,
-        currentStore
-          ..name = (_businessName?.isNotEmpty ?? false)
-              ? _businessName
-              : currentStore.name
-          ..address = (address?.isNotEmpty ?? false)
-              ? address
-              : currentStore.address
-          ..tagline = (tagline?.isNotEmpty ?? false)
+        Store(
+          null,null,null
+          , (tagline?.isNotEmpty ?? false)
               ? tagline
-              : currentStore.tagline,
+              : currentStore.tagline
+          , (address?.isNotEmpty ?? false)
+              ? address
+              : currentStore.address,
+            name: (_businessName?.isNotEmpty ?? false)
+            ? _businessName
+            : currentStore.name)
       );
       await StoreRepository.updateStores();
       print(currentStore.name);

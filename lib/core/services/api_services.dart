@@ -29,14 +29,11 @@ abstract class IApi {
 
   /* STORE SERVICES */
 
-  Future newStore(
-      String name,
-      String address);
+  Future newStore(String name, String address, String tagline,
+      {String phoneNumer, String email});
 
-  Future updateStoreDetails(String storeId,
-      String onwnerId,
-      {String name,
-      String address});
+  Future updateStoreDetails(String storeId, String onwnerId,
+      {String name, String address});
 
   Future<Map> getStore(String storeId);
 
@@ -94,8 +91,7 @@ abstract class IApi {
 
   Future callCustomer(String custId, String phoneNumber);
 
-  Future remindWithSms(
-      String custId, String message);
+  Future remindWithSms(String custId, String message);
 
   Future remindWithEmail(
       String custId, String message, String subject, String storeId);
@@ -125,7 +121,7 @@ abstract class IApi {
 class ApiServices extends IApi {
   static const BASE_URL = 'https://dev.api.customerpay.me';
 
-  HttpService _serviceImpl =  locator<HttpService>();
+  HttpService _serviceImpl = locator<HttpService>();
 
   @override
   Future addCustomer(
@@ -220,16 +216,11 @@ class ApiServices extends IApi {
   }
 
   @override
-  Future newStore(
-      String name,
-      String address) async {
-    var body = {
-      'store_name': name,
-      'shop_address': address
-    };
-    print('Got here');
+  Future newStore(String name, String address, String tagline,
+      {String phoneNumer, String email}) async {
+    var body = {'store_name': name, 'shop_address': address, 'tagline': tagline, 'email': email, 'phone_number': phoneNumer};
     try {
-    var store = await _serviceImpl.postHttp('$BASE_URL/store/new', body);
+      var store = await _serviceImpl.postHttp('$BASE_URL/store/new', body);
       Logger.d('$store');
       return store;
     } catch (e, s) {
@@ -249,17 +240,16 @@ class ApiServices extends IApi {
       String transactionRole,
       String phoneNumber,
       String storeName) async {
-
     var body = {
-    'amount': amount,
-    'interest': interest,
-    'total_amount': totalAmount,
-    'description': description,
-    'phone_number': phoneNumber,
-    'store_name': storeName,
-    'type': type,
-    'transaction_name': transactionName,
-    'transaction_role': transactionRole,
+      'amount': amount,
+      'interest': interest,
+      'total_amount': totalAmount,
+      'description': description,
+      'phone_number': phoneNumber,
+      'store_name': storeName,
+      'type': type,
+      'transaction_name': transactionName,
+      'transaction_role': transactionRole,
     };
     var trx = await _serviceImpl.postHttp('$BASE_URL/transaction/new', body);
     Logger.d('$trx');
@@ -276,21 +266,18 @@ class ApiServices extends IApi {
   @override
   Future remindWithEmail(
       String custId, String message, String subject, String storeId) async {
-    var body = {
-      'text': message,
-      'subject': subject,
-      'store_id': storeId
-    };
-    var res = await _serviceImpl.postHttp('$BASE_URL/reminder/email/$custId', body);
+    var body = {'text': message, 'subject': subject, 'store_id': storeId};
+    var res =
+        await _serviceImpl.postHttp('$BASE_URL/reminder/email/$custId', body);
     Logger.d('$res');
     return res;
   }
 
   @override
-  Future remindWithSms(
-      String custId, String message) async {
-     var res = await _serviceImpl.postHttp('$BASE_URL/reminder/sms/$custId', {'message': message});
-     return res;
+  Future remindWithSms(String custId, String message) async {
+    var res = await _serviceImpl
+        .postHttp('$BASE_URL/reminder/sms/$custId', {'message': message});
+    return res;
   }
 
   @override
@@ -336,16 +323,15 @@ class ApiServices extends IApi {
   }
 
   @override
-  Future updateStoreDetails(String storeId,
-      String ownerId,
-      {String name,
-      String address}) async {
+  Future updateStoreDetails(String storeId, String ownerId,
+      {String name, String address}) async {
     var body = {
       'current_user': ownerId,
       'store_name': name,
       'shop_address': address
     };
-    var update = await _serviceImpl.putHttp('$BASE_URL/store/update/$storeId', body);
+    var update =
+        await _serviceImpl.putHttp('$BASE_URL/store/update/$storeId', body);
     Logger.d('$update');
     return update;
   }
@@ -361,17 +347,18 @@ class ApiServices extends IApi {
       String transactionRole,
       String storeName}) async {
     var body = {
-    amount ?? 'amount': amount,
-    interest ?? 'interest': interest,
-    totalAmount ?? 'total_amount': totalAmount,
-    description ?? 'description': description,
-    storeName ?? 'store_name': storeName,
-    type ?? 'type': type,
-    transactionName ?? 'transaction_name': transactionName,
-    transactionRole ?? 'transaction_role': transactionRole,
+      amount ?? 'amount': amount,
+      interest ?? 'interest': interest,
+      totalAmount ?? 'total_amount': totalAmount,
+      description ?? 'description': description,
+      storeName ?? 'store_name': storeName,
+      type ?? 'type': type,
+      transactionName ?? 'transaction_name': transactionName,
+      transactionRole ?? 'transaction_role': transactionRole,
     };
 
-    var trx = await _serviceImpl.postHttp('$BASE_URL/transaction/update/$transactionId', body);
+    var trx = await _serviceImpl.postHttp(
+        '$BASE_URL/transaction/update/$transactionId', body);
     Logger.d('$trx');
     return trx;
   }

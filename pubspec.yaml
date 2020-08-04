@@ -74,6 +74,7 @@ dependencies:
   open_file: ^3.0.1
   sticky_headers: ^0.1.8+1
   intl: ^0.16.1
+  equatable: ^1.2.3
 
   # ScreenShot
   screenshot: ^0.2.0
@@ -153,7 +154,7 @@ flutter:
     - assets/images/onboarding/
     - assets/images/business_cards/
     - assets/images/about_us/design/
-    - assets/images/about_us/mobile/
+#    - assets/images/about_us/mobile/
     - assets/images/about_us/investors/
     - assets/images/about_us/web/
     - assets/animations/
