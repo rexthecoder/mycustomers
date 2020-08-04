@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
+import 'package:mycustomers/ui/shared/size_config.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
 import 'package:mycustomers/ui/shared/const_text.dart';
 import 'package:mycustomers/ui/views/marketing/send_message_page/quick_message/quick_message_viewmodel.dart';
@@ -12,13 +12,6 @@ class QuickMessageView extends StatelessWidget {
   final List<Customer> selectedCustomers = [];
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    ScreenUtil.init(
-      context,
-      height: height,
-      width: width,
-    );
     return ViewModelBuilder<QuickMessageViewModel>.reactive(
       viewModelBuilder: () => QuickMessageViewModel(),
       builder: (context, model, child) {
@@ -32,6 +25,7 @@ class QuickMessageView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                //TODO: Localize quickText
                 ListView.builder(
                   shrinkWrap: true,
                   padding: EdgeInsets.all(0.0),
@@ -39,7 +33,7 @@ class QuickMessageView extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) => Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 20.h,
+                        height: SizeConfig.yMargin(context, 2),
                       ),
                       FlatButton(
                         onPressed: () => model.navigateToMessageView(
@@ -51,9 +45,12 @@ class QuickMessageView extends StatelessWidget {
                             side: BorderSide(
                                 color: BrandColors.secondary.withOpacity(0.5))),
                         child: Container(
-                          height: 100.h,
+
+                          height: SizeConfig.yMargin(context, 15),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -66,25 +63,29 @@ class QuickMessageView extends StatelessWidget {
                                       Text(
                                         quickMessageTitle[index],
                                         style: TextStyle(
-                                          fontSize: 16.sp,
+                                          fontSize: SizeConfig.textSize(context, 4.2),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 5.h,
+                                        height:  SizeConfig.yMargin(context, 1),
                                       ),
                                       Text(
                                         quickMessageText[index],
                                         style: TextStyle(
-                                          fontSize: 16.sp,
+                                          fontSize:SizeConfig.textSize(context, 4.2),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+                                SizedBox(
+                                  height:  SizeConfig.yMargin(context, 0.5),
+                                ),
                                 Icon(
                                   Icons.navigate_next,
+                                  size:  SizeConfig.xMargin(context, 5),
                                 ),
                               ],
                             ),
@@ -94,7 +95,7 @@ class QuickMessageView extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height:  SizeConfig.yMargin(context, 1),),
                 InkWell(
                   onTap: () {},
                   child: Text(
@@ -103,11 +104,11 @@ class QuickMessageView extends StatelessWidget {
                       decoration: TextDecoration.underline,
                       color: BrandColors.primary,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
+                      fontSize: SizeConfig.textSize(context, 4),
                     ),
                   ),
                 ),
-                SizedBox(height: 50.h),
+                SizedBox(height:  SizeConfig.yMargin(context, 6),),
                 FlatButton(
                   color: BrandColors.primary,
                   onPressed: () {
@@ -118,14 +119,14 @@ class QuickMessageView extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)),
                   child: Container(
-                    height: 50.h,
+                    height: 50,
                     child: Center(
                       child: Text(
                         AppLocalizations.of(context).composeMessage,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
+                          fontSize: SizeConfig.textSize(context, 4),
                         ),
                       ),
                     ),

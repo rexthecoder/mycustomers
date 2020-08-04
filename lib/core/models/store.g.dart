@@ -13,7 +13,9 @@ Store _$StoreFromJson(Map<String, dynamic> json) {
     json['phone_number'] as String,
     json['tagline'] as String,
     json['shop_address'] as String,
-  )..name = json['store_name'] as String;
+    name: json['store_name'] as String,
+    ownerId: Store.ownerIdFromJson(json['store_admin_ref']),
+  )..lastUpdated = Store.dateFromJson(json['updatedAt'] as String);
 }
 
 Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
@@ -23,4 +25,6 @@ Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'phone_number': instance.phone,
       'shop_address': instance.address,
       'store_name': instance.name,
+      'store_admin_ref': instance.ownerId,
+      'updatedAt': Store.dateToJson(instance.lastUpdated),
     };

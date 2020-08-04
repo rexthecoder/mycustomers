@@ -26,7 +26,11 @@ class ProfileService {
         return item;
       }
     }
-    return _profileBox.values.toList()[0];
+    try {
+      return _profileBox.values.first;
+    } on StateError {
+      return null;
+    }
   }
 
   void addProfile(Profile profile)async{

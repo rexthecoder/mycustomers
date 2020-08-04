@@ -1,7 +1,10 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:mycustomers/app/locator.dart';
 import 'package:mycustomers/app/router.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
+import 'package:mycustomers/core/enums/connectivity_status.dart';
 import 'package:mycustomers/core/exceptions/auth_exception.dart';
 import 'package:mycustomers/core/models/user.dart';
 import 'package:mycustomers/core/repositories/store/store_repository.dart';
@@ -32,7 +35,7 @@ class StartupViewModel extends BaseViewModel {
   PermissionService _permission = new PermissionService();
 
   Future setup({String query}) async {
-    Future.delayed(Duration(seconds: 10));
+//    Future.delayed(Duration(seconds: 10));
     await locator.allReady();
     if (await checkLoggedIn()) {
       if (confirmHasStore()) {
@@ -93,6 +96,7 @@ class StartupViewModel extends BaseViewModel {
       ));
       print(_auth.currentUser.firstName);
       await StoreRepository.updateStores();
+      await locator<StoresLocalDataSource>().syncStores(_convertResult(await Connectivity().checkConnectivity()));
       // await _auth.signInWithPhoneNumber(deets['phone_number'], deets['password']);
       return true;
     } on AuthException catch (e, s) {
@@ -102,5 +106,18 @@ class StartupViewModel extends BaseViewModel {
     }
 
     return false;
+  }
+
+  ConnectivityStatus _convertResult(ConnectivityResult result) {
+    switch (result) {
+      case ConnectivityResult.mobile:
+        return ConnectivityStatus.Cellular;
+      case ConnectivityResult.wifi:
+        return ConnectivityStatus.WiFi;
+      case ConnectivityResult.none:
+        return ConnectivityStatus.Offline;
+      default:
+        return ConnectivityStatus.Offline;
+    }
   }
 }

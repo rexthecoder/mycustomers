@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/models/hive/customer_contacts/customer_contact_h.dart';
 import 'package:mycustomers/ui/shared/const_color.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:mycustomers/ui/shared/size_config.dart';
@@ -15,10 +14,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 class MarketingHomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    ScreenUtil.init(context,
-        width: width, height: height, allowFontScaling: true);
     return ViewModelBuilder<MarketingHomePageViewModel>.reactive(
       onModelReady: (model) => model.getContacts(),
       builder: (context, model, child) => Scaffold(
@@ -29,34 +24,15 @@ class MarketingHomePageView extends StatelessWidget {
             AppLocalizations.of(context).marketing,
             style: TextStyle(
               color: ThemeColors.background,
-              fontSize: SizeConfig.textSize(context, 7),
+              fontSize: SizeConfig.textSize(context, 6),
               fontWeight: FontWeight.normal
              ),
           ),
           elevation: 0,
         ),
-        // customizeAppBar(
-        //   context,
-        //   0,
-        //   title: AppLocalizations.of(context).marketing,
-        //   backgroundColor: BrandColors.primary,
-        // ),
         body: Container(
           color: Theme.of(context).backgroundColor,
           child: Column(children: <Widget>[
-            // Container(
-            //   width: SizeConfig.xMargin(context, 110),
-            //   padding: EdgeInsets.symmetric(
-            //       horizontal: SizeConfig.xMargin(context, 3),
-            //       vertical: SizeConfig.xMargin(context, 3)),
-            //   decoration: BoxDecoration(
-            //     color: BrandColors.primary,
-            //   ),
-            //   child: Text(AppLocalizations.of(context).marketing,
-            //       style: TextStyle(
-            //           fontSize: SizeConfig.textSize(context, 6),
-            //           color: ThemeColors.background)),
-            // ),
             Card(
               margin: EdgeInsets.only(bottom: SizeConfig.yMargin(context, 2)),
               elevation: 4,
@@ -71,25 +47,27 @@ class MarketingHomePageView extends StatelessWidget {
                       final bool isPermitted = await model.checkPermission();
                       if (isPermitted) {
                         model.navigateToAddCustomers(context);
-                        return;
+
                       } else {
                         permissionDialog(context, model);
                       }
-                      model.navigateToAddCustomer();
                     },
-                    child: Center(
+                        child: Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Icon(
                               Icons.person_add,
+                              size: SizeConfig.xMargin(context, 8),
                               color: Theme.of(context).textSelectionColor,
                             ),
                             SizedBox(
-                              height: 5.h,
+                              height: SizeConfig.yMargin(context, 0.8),
                             ),
                             Text(AppLocalizations.of(context).addNewCustomer,
                                 style: TextStyle(
+                                  fontSize: SizeConfig.textSize(context, 4),
                                     color:
                                         Theme.of(context).textSelectionColor)),
                           ]),
@@ -109,16 +87,19 @@ class MarketingHomePageView extends StatelessWidget {
                     child: Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Icon(
                               Icons.message,
+                              size: SizeConfig.xMargin(context, 8),
                               color: Theme.of(context).textSelectionColor,
                             ),
                             SizedBox(
-                              height: 5.h,
+                              height: SizeConfig.yMargin(context, 0.8),
                             ),
                             Text(AppLocalizations.of(context).sendMessage,
                                 style: TextStyle(
+                                    fontSize: SizeConfig.textSize(context, 4),
                                     color:
                                         Theme.of(context).textSelectionColor)),
                           ]),
@@ -131,7 +112,7 @@ class MarketingHomePageView extends StatelessWidget {
                 ? Expanded(
                     child: Container(
                       color: Theme.of(context).backgroundColor,
-                      width: width,
+                      width: double.infinity,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 20.0),
@@ -142,6 +123,7 @@ class MarketingHomePageView extends StatelessWidget {
                               children: <Widget>[
                                 SvgPicture.asset(
                                   'assets/icons/svg/marketing_home.svg',
+                                    height: SizeConfig.yMargin(context, 18)
                                 ),
                                 SizedBox(
                                   height: SizeConfig.yMargin(context, 3),
@@ -150,7 +132,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   AppLocalizations.of(context)
                                       .itsAllAboutSendingMessagesToCustomers,
                                   style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize:  SizeConfig.textSize(context, 4),
                                       fontWeight: FontWeight.w400,
                                       color:
                                           Theme.of(context).textSelectionColor),
@@ -203,7 +185,7 @@ class MarketingHomePageView extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 5.h,
+                            height: SizeConfig.yMargin(context, 1),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(
@@ -214,11 +196,15 @@ class MarketingHomePageView extends StatelessWidget {
                               controller: model.searchController,
                               onChanged: model.search,
                               textInputAction: TextInputAction.search,
+                              style: TextStyle(
+                                fontSize: SizeConfig.textSize(context, 3),
+                              ),
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.search,
                                     size: SizeConfig.xMargin(context, 6)),
                                 hintText: AppLocalizations.of(context)
                                     .typeCustomerName,
+
                                 border: InputBorder.none,
                                 focusColor: BrandColors.primary,
                               ),
@@ -228,7 +214,7 @@ class MarketingHomePageView extends StatelessWidget {
                             color: Colors.grey[500],
                           ),
                           SizedBox(
-                            height: 12.h,
+                            height: SizeConfig.yMargin(context, 2),
                           ),
                           model.frequents.length == 0 ||
                                   model.searchTerm.length > 0
@@ -248,7 +234,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   ),
                                 ),
                           SizedBox(
-                            height: 5.h,
+                            height: SizeConfig.yMargin(context, 0.8),
                           ),
                           model.frequents.length == 0 ||
                                   model.searchTerm.length > 0
@@ -272,7 +258,7 @@ class MarketingHomePageView extends StatelessWidget {
                                           children: <Widget>[
                                             Container(
                                               padding: EdgeInsets.symmetric(
-                                                vertical: 15.h,
+                                                vertical: 15,
                                               ),
                                               child: Row(
                                                 crossAxisAlignment:CrossAxisAlignment.center,
@@ -292,7 +278,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                         margin: EdgeInsets
                                                             .symmetric(
                                                                 horizontal:
-                                                                    10.w),
+                                                                    10),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.min,
@@ -303,26 +289,26 @@ class MarketingHomePageView extends StatelessWidget {
                                                           children: <Widget>[
                                                             Text(
                                                               '${customer.name}',
-                                                              style: TextStyle(
+                                                              style:
+                                                              TextStyle(
+                                                                fontSize: SizeConfig.textSize(context, 4),
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                FontWeight
+                                                                    .w600,
                                                               ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: SizeConfig.yMargin(context, 0.8),
                                                             ),
                                                             model.getmsg(customer) !=
                                                                 null
-                                                                ?SizedBox(
-                                                              height: 3.sp,
-                                                            ):Container(),
-                                                            model.getmsg(customer) !=
-                                                                null
                                                                 ?   Text(
-                                                               model
-                                                                  .getmsg(customer)
+                                                              model.getmsg(customer)
                                                                   .message ??
                                                                   '',
                                                               style:
                                                               TextStyle(
+                                                                fontSize: SizeConfig.textSize(context, 3.5),
                                                                 color: ThemeColors
                                                                     .gray
                                                                     .shade800,
@@ -335,6 +321,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                               TextOverflow
                                                                   .ellipsis,
                                                             ):Container()
+
                                                           ],
                                                         ),
                                                       ),
@@ -365,13 +352,13 @@ class MarketingHomePageView extends StatelessWidget {
                                       }),
                                 ),
                           SizedBox(
-                            height: 10.h,
+                            height: SizeConfig.yMargin(context, 2),
                           ),
                           model.customers.length == 0
                               ? Container()
                               : Container(
                                   width: double.infinity,
-                                  height: 15.h,
+                                  height: SizeConfig.yMargin(context, 4),
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -379,13 +366,14 @@ class MarketingHomePageView extends StatelessWidget {
                                     child: Text(
                                       AppLocalizations.of(context).all,
                                       style: TextStyle(
+                                        fontSize: SizeConfig.textSize(context, 3.5),
                                           fontWeight: FontWeight.w600,
                                           color: BrandColors.primary),
                                     ),
                                   ),
                                 ),
                           SizedBox(
-                            height: 5.h,
+                            height: SizeConfig.yMargin(context, 0.8),
                           ),
                           model.customers.length == 0
                               ? Center(
@@ -422,6 +410,7 @@ class MarketingHomePageView extends StatelessWidget {
                                             child: Align(
                                               alignment: Alignment.centerRight,
                                               child: Icon(Icons.delete,
+                                                  size: SizeConfig.xMargin(context, 5),
                                                   color: Colors.white),
                                             ),
                                           ),
@@ -436,7 +425,7 @@ class MarketingHomePageView extends StatelessWidget {
                                             children: <Widget>[
                                               Container(
                                                 padding: EdgeInsets.symmetric(
-                                                  vertical: 15.h,
+                                                  vertical: 15,
                                                 ),
                                                 child: Row(
                                                   children: <Widget>[
@@ -455,7 +444,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                           margin: EdgeInsets
                                                               .symmetric(
                                                                   horizontal:
-                                                                      10.w),
+                                                                      10),
                                                           child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -469,6 +458,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                                 '${customer.name}',
                                                                 style:
                                                                     TextStyle(
+                                                                      fontSize: SizeConfig.textSize(context, 4),
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -477,7 +467,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                               model.getmsg(customer) !=
                                                                   null
                                                                   ?SizedBox(
-                                                                height: 3.sp,
+                                                                  height: SizeConfig.yMargin(context, 0.8),
                                                               ):Container(),
                                                               model.getmsg(customer) !=
                                                                   null
@@ -487,6 +477,7 @@ class MarketingHomePageView extends StatelessWidget {
                                                                         '',
                                                                 style:
                                                                     TextStyle(
+                                                                      fontSize: SizeConfig.textSize(context, 3.5),
                                                                   color: ThemeColors
                                                                       .gray
                                                                       .shade800,
@@ -559,26 +550,24 @@ class MarketingHomePageView extends StatelessWidget {
                       AppLocalizations.of(context).accessDenied,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20.sp,
+                        fontSize: SizeConfig.textSize(context, 4),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: SizeConfig.yMargin(context, 2),
                   ),
-                  Container(
-                    child: Text(
-                      AppLocalizations.of(context)
-                          .myCustomerNeedsAccessToYourContacts,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                      ),
+                  Text(
+                    AppLocalizations.of(context)
+                        .myCustomerNeedsAccessToYourContacts,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: SizeConfig.textSize(context, 4),
                     ),
                   ),
                   SizedBox(
-                    height: 25.h,
+                    height: SizeConfig.yMargin(context, 4),
                   ),
                   Row(
                     children: <Widget>[
@@ -590,7 +579,7 @@ class MarketingHomePageView extends StatelessWidget {
                               model.navigateToAddNewCustomer(context);
                             },
                             child: Container(
-                              height: 50.h,
+                              height: 50,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(5),
@@ -600,7 +589,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   AppLocalizations.of(context).deny,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
-                                    fontSize: 16.sp,
+                                    fontSize: SizeConfig.textSize(context, 3),
                                   ),
                                 ),
                               ),
@@ -609,7 +598,7 @@ class MarketingHomePageView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 10.h,
+                        width: SizeConfig.xMargin(context, 1),
                       ),
                       Expanded(
                         child: Container(
@@ -619,7 +608,7 @@ class MarketingHomePageView extends StatelessWidget {
                               model.requestPermission();
                             },
                             child: Container(
-                              height: 50.h,
+                              height: 50,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(5),
@@ -629,7 +618,7 @@ class MarketingHomePageView extends StatelessWidget {
                                   AppLocalizations.of(context).allow,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
-                                    fontSize: 16.sp,
+                                    fontSize: SizeConfig.textSize(context, 3),
                                   ),
                                 ),
                               ),

@@ -226,6 +226,7 @@ Future<void> _setupSharedPreferences() async {
 
 final List<Function(ConnectivityStatus)> connectivityListeners = [
   locator<ComplaintLocalDataSource>().syncComplaint,
+  locator<StoresLocalDataSource>().syncStores,
 ];
 
 void _registerConnListeners() {

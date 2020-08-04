@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mycustomers/core/constants/app_preference_keys.dart';
 import 'package:mycustomers/core/data_sources/complaint/complaint_local.dart';
+import 'package:mycustomers/core/data_sources/stores/stores_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/log/log_local_data_source.dart';
 import 'package:mycustomers/core/data_sources/transaction/transaction_local_data_source.dart';
 import 'package:mycustomers/core/services/customer_contact_service.dart';
@@ -75,5 +76,6 @@ class SettingManagerModel extends MultipleStreamViewModel {
   // TODO: implement streamsMap
   Map<String, StreamData> get streamsMap => {
     'complaintSync': StreamData(locator<ComplaintLocalDataSource>().reloadStream),
+    'storeSync': StreamData(locator<StoresLocalDataSource>().reloadStream),
   };
 }

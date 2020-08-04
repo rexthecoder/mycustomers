@@ -18,8 +18,6 @@ abstract class StoreDataSource {
 
 class StoreDataSourceImpl implements StoreDataSource {
   static String baseStoreRoute = ApiRoutes.user;
-  HttpService _http = locator<HttpService>();
-  String _newRoute = '$baseStoreRoute/new';
   IApi _api = locator<IApi>();
 
   @override
@@ -29,7 +27,7 @@ class StoreDataSourceImpl implements StoreDataSource {
       await Future.delayed(Duration(milliseconds: 250));
 
       // Send the request to the API with the data
-      Map response = await _api.newStore(storeName, shopAddress);
+      Map response = await _api.newStore(storeName, shopAddress, '');
 
       // Check if the status is true
       if (response.containsKey('success') && response['success']) {

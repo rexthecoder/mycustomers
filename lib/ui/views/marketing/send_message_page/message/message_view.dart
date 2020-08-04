@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mycustomers/core/localization/app_localization.dart';
 import 'package:mycustomers/ui/shared/const_widget.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'message_viewmodel.dart';
 
 import 'package:mycustomers/ui/shared/const_color.dart';
@@ -19,14 +18,7 @@ class MessageView extends StatelessWidget {
   MessageView(this.arguments);
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
 
-    ScreenUtil.init(
-      context,
-      height: height,
-      width: width,
-    );
     return ViewModelBuilder<MessageViewModel>.reactive(
       viewModelBuilder: () => MessageViewModel(),
       builder: (context, model, child) {
@@ -68,18 +60,23 @@ class MessageView extends StatelessWidget {
 //                    textInputAction: TextInputAction.next,
 //                  ),
                   SizedBox(
-                    height: 10.h,
+                    height:  SizeConfig.yMargin(context, 1),
                   ),
-                  Text(AppLocalizations.of(context).message),
+                  //TODO: fix Message Localization
+                  Text(AppLocalizations.of(context).message,style: TextStyle(
+                    fontSize:  SizeConfig.textSize(context, 4),
+                  ),),
                   SizedBox(
-                    height: 10.h,
+                    height:  SizeConfig.yMargin(context, 1),
                   ),
                   TextField(
+
+                    style: TextStyle(fontSize:  SizeConfig.textSize(context, 4)),
                     textCapitalization: TextCapitalization.sentences,
                     controller: model.messageController,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context).enterMessage,
-                      hintStyle: TextStyle(fontSize: 16.sp),
+
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: ThemeColors.gray)),
                       focusedBorder: OutlineInputBorder(
@@ -92,11 +89,10 @@ class MessageView extends StatelessWidget {
                     textInputAction: TextInputAction.next,
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height:  SizeConfig.yMargin(context, 1),
                   ),
                   Container(
                     height: SizeConfig.yMargin(context, 30),
-//                    height: SizeConfig.yMargin(context, 30),
                     decoration: BoxDecoration(
                       border: Border.all(color: ThemeColors.gray),
                       borderRadius: BorderRadius.circular(5),
@@ -140,29 +136,15 @@ class MessageView extends StatelessWidget {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return BottomSheetView(
-                                            //model.selectedCustomers,
-                                            height,
+                                            SizeConfig.yMargin(context, 50),
                                             model);
                                       },
                                     );
                                   }
-//                                await model.initSelected(selectedCustomers);
-                                  // showModalBottomSheet(
-                                  //   enableDrag: true,
-                                  //   shape: RoundedRectangleBorder(
-                                  //     borderRadius: BorderRadius.only(
-                                  //       topLeft: Radius.circular(20),
-                                  //       topRight: Radius.circular(20),
-                                  //     ),
-                                  //   ),
-                                  //   context: context,
-                                  //   builder: (BuildContext context) {
-                                  //     return BottomSheetView(model.selectedCustomers,height, model);
-                                  //   },
-                                  // );
                                 },
                                 icon: Icon(
                                   Icons.add,
+                                  size:  SizeConfig.xMargin(context, 5),
                                   color: BrandColors.primary,
                                 ),
                                 label: Text(
@@ -220,12 +202,13 @@ class MessageView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                       child: Container(
-                        width: width,
+                        width: double.infinity,
                         child: Center(
                           child: Text(
                             AppLocalizations.of(context).send,
                             style: TextStyle(
                               color: Colors.white,
+                              fontSize:  SizeConfig.textSize(context, 4),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -245,6 +228,7 @@ class MessageView extends StatelessWidget {
     );
   }
 
+
   Future<void> permissionDialog(
       BuildContext context, MessageViewModel model) async {
     return showDialog<void>(
@@ -254,7 +238,7 @@ class MessageView extends StatelessWidget {
           return AlertDialog(
             backgroundColor: Color(0xFF333CC1),
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             content: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -263,26 +247,24 @@ class MessageView extends StatelessWidget {
                       AppLocalizations.of(context).accessDenied,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20.sp,
+                        fontSize: SizeConfig.textSize(context, 4),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: SizeConfig.yMargin(context, 2),
                   ),
-                  Container(
-                    child: Text(
-                      AppLocalizations.of(context)
-                          .myCustomerNeedsAccessToYourContacts,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                      ),
+                  Text(
+                    AppLocalizations.of(context)
+                        .myCustomerNeedsAccessToYourContacts,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: SizeConfig.textSize(context, 4),
                     ),
                   ),
                   SizedBox(
-                    height: 25.h,
+                    height: SizeConfig.yMargin(context, 4),
                   ),
                   Row(
                     children: <Widget>[
@@ -297,7 +279,7 @@ class MessageView extends StatelessWidget {
                                   context);
                             },
                             child: Container(
-                              height: 50.h,
+                              height: 50,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(5),
@@ -307,7 +289,7 @@ class MessageView extends StatelessWidget {
                                   AppLocalizations.of(context).deny,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
-                                    fontSize: 16.sp,
+                                    fontSize: SizeConfig.textSize(context, 3),
                                   ),
                                 ),
                               ),
@@ -316,18 +298,17 @@ class MessageView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 10.h,
+                        width: SizeConfig.xMargin(context, 1),
                       ),
                       Expanded(
                         child: Container(
                           child: InkWell(
                             onTap: () {
                               Navigator.pop(context);
-
                               model.requestPermission();
                             },
                             child: Container(
-                              height: 50.h,
+                              height: 50,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(5),
@@ -337,7 +318,7 @@ class MessageView extends StatelessWidget {
                                   AppLocalizations.of(context).allow,
                                   style: TextStyle(
                                     color: Color(0xFF333CC1),
-                                    fontSize: 16.sp,
+                                    fontSize: SizeConfig.textSize(context, 3),
                                   ),
                                 ),
                               ),
@@ -371,23 +352,23 @@ class MessageView extends StatelessWidget {
                     child: Icon(
                       Icons.check_circle,
                       color: Colors.white,
-                      size: 70,
+                      size: SizeConfig.xMargin(context, 8),
                     ),
                   ),
                   SizedBox(
-                    height: 15.h,
+                    height: SizeConfig.yMargin(context, 2),
                   ),
                   Container(
                     child: Text(
                       AppLocalizations.of(context).messageSent,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.sp,
+                        fontSize: SizeConfig.textSize(context, 4),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 25.h,
+                    height: SizeConfig.yMargin(context, 8),
                   ),
                   Container(
                     child: InkWell(
@@ -395,7 +376,7 @@ class MessageView extends StatelessWidget {
                         model.returnHome();
                       },
                       child: Container(
-                        height: 50.h,
+                        height: 50,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5),
@@ -407,7 +388,7 @@ class MessageView extends StatelessWidget {
                               AppLocalizations.of(context).continueButton,
                               style: TextStyle(
                                 color: Color(0xFF333CC1),
-                                fontSize: 16.sp,
+                                fontSize: SizeConfig.textSize(context, 4),
                               ),
                             )
                           ],
@@ -438,31 +419,31 @@ class MessageView extends StatelessWidget {
                     child: Icon(
                       Icons.cancel,
                       color: Colors.red,
-                      size: 70,
+                      size: SizeConfig.xMargin(context, 8),
                     ),
                   ),
                   SizedBox(
-                    height: 15.h,
+                    height: SizeConfig.yMargin(context, 2),
                   ),
                   Container(
                     child: Text(
                       AppLocalizations.of(context).failedToSend,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16.sp,
+                        fontSize: SizeConfig.textSize(context, 4),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 25.h,
+                    height: SizeConfig.yMargin(context, 8),
                   ),
                   Container(
                     child: InkWell(
                       onTap: () {
-                        //TODO: route to screen
+                        //route to screen
                       },
                       child: Container(
-                        height: 50.h,
+                        height: 50,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5),
@@ -474,7 +455,7 @@ class MessageView extends StatelessWidget {
                               AppLocalizations.of(context).retry,
                               style: TextStyle(
                                 color: Color(0xFF333CC1),
-                                fontSize: 16.sp,
+                                fontSize: SizeConfig.textSize(context, 4),
                               ),
                             )
                           ],
@@ -513,7 +494,10 @@ class BottomSheetView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(AppLocalizations.of(context).selectContacts),
+                    Text(AppLocalizations.of(context).selectContacts,
+                      style: TextStyle(
+                        fontSize: SizeConfig.textSize(context, 4),
+                      ),),
                     FlatButton(
                       color: const Color(0xFFDEE9FF),
                       shape: RoundedRectangleBorder(
@@ -525,7 +509,7 @@ class BottomSheetView extends StatelessWidget {
                       child: Text(
                         AppLocalizations.of(context).done,
                         style: TextStyle(
-                          fontSize: SizeConfig.textSize(context, 3.5),
+                          fontSize: SizeConfig.textSize(context, 3.8),
                           color: BrandColors.primary,
                         ),
                       ),
@@ -536,7 +520,7 @@ class BottomSheetView extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 5.h,
+                        height: SizeConfig.yMargin(context, 1),
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -544,16 +528,19 @@ class BottomSheetView extends StatelessWidget {
                             color: ThemeColors.gray.shade700,
                             width: 1.5,
                           ),
-                          borderRadius: BorderRadius.circular(5.w),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                         clipBehavior: Clip.hardEdge,
                         child: TextField(
                           textCapitalization: TextCapitalization.sentences,
                           controller: model.searchController,
+                          style: TextStyle(
+                            fontSize: SizeConfig.textSize(context, 4),
+                          ),
                           decoration: InputDecoration(
                             hintText:
                                 AppLocalizations.of(context).typeCustomerName,
-                            prefixIcon: Icon(Icons.search),
+                            prefixIcon: Icon(Icons.search, size: SizeConfig.xMargin(context, 5),),
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             enabledBorder: InputBorder.none,
@@ -570,7 +557,7 @@ class BottomSheetView extends StatelessWidget {
                             SliverToBoxAdapter(
                               child: Container(
                                 width: double.infinity,
-                                height: 40,
+                                height:SizeConfig.yMargin(context, 5),
                                 color: Theme.of(context).brightness ==
                                         Brightness.dark
                                     ? Theme.of(context).backgroundColor
@@ -584,12 +571,13 @@ class BottomSheetView extends StatelessWidget {
                                         .phoneContacts
                                         .toUpperCase(),
                                     style:
-                                        TextStyle(fontWeight: FontWeight.w600),
+                                        TextStyle(fontWeight: FontWeight.w600,
+                                          fontSize: SizeConfig.textSize(context, 4),),
                                   ),
                                 ),
                               ),
                             ),
-                            SliverToBoxAdapter(child: SizedBox(height: 10.h)),
+                            SliverToBoxAdapter(child: SizedBox( height: SizeConfig.yMargin(context, 1),)),
                             model.isLoadBusy /* || !model.dataReady*/
                                 ? SliverToBoxAdapter(
                                     child: Center(
@@ -598,7 +586,7 @@ class BottomSheetView extends StatelessWidget {
                                   )
                                 : SliverPadding(
                                     padding:
-                                        EdgeInsets.symmetric(vertical: 8.w),
+                                        EdgeInsets.symmetric(vertical: 8),
                                     sliver: SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (BuildContext context, int index) {
@@ -610,8 +598,8 @@ class BottomSheetView extends StatelessWidget {
                                                   customer.phone);
                                           return Container(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: 15.h,
-                                                horizontal: 10.w),
+                                                vertical: 15,
+                                                horizontal: 10),
                                             child: Row(
                                               children: <Widget>[
                                                 CustomerCircleAvatar(
@@ -622,7 +610,7 @@ class BottomSheetView extends StatelessWidget {
                                                   child: Container(
                                                     margin:
                                                         EdgeInsets.symmetric(
-                                                            horizontal: 30.w),
+                                                            horizontal: 30),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -636,10 +624,11 @@ class BottomSheetView extends StatelessWidget {
                                                           style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w600,
+                                                            fontSize:SizeConfig.textSize(context, 4),
                                                           ),
                                                         ),
                                                         SizedBox(
-                                                          height: 3.sp,
+                                                          height: SizeConfig.yMargin(context, 0.8),
                                                         ),
                                                         Text(
                                                           '${customer.phone}',
@@ -648,6 +637,7 @@ class BottomSheetView extends StatelessWidget {
                                                                 .gray.shade600,
                                                             fontWeight:
                                                                 FontWeight.w600,
+                                                            fontSize: SizeConfig.textSize(context, 4),
                                                           ),
                                                         )
                                                       ],
