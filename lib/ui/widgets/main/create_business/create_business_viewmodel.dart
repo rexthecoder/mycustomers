@@ -11,16 +11,20 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:mycustomers/core/exceptions/update_exception.dart';
 import 'package:mycustomers/core/exceptions/create_exception.dart';
 import 'package:mycustomers/ui/shared/toast_widget.dart';
+import 'package:mycustomers/core/services/auth/auth_service.dart';
 
 class CreateBusinessViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final StoresLocalDataSource _storeService = locator<StoresLocalDataSource>();
   final DialogService _dialogService = locator<DialogService>();
-  final _logService =
-      locator<LogsLocalDataSourceImpl>();
+  final _logService = locator<LogsLocalDataSourceImpl>();
+  final AuthService _auth = locator<AuthService>();
+
 
   String storeAddress = '';
   String storeName = '';
+
+  String get pNum => _auth.currentUser.phoneNumber;
 
   Future<void> navigateToNext() async {
     await _navigationService.clearStackAndShow(Routes.mainViewRoute);
