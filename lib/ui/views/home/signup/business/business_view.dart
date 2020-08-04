@@ -262,6 +262,7 @@ class _PartialBuildForm extends HookViewModelWidget<BusinessViewModel> {
                     ),
                     child: InternationalPhoneNumberInput(
                       textFieldController: _phoneNUmber,
+                      errorMessage: AppLocalizations.of(context).phoneNumber,
 //                onInputChanged: onChange,
                       textStyle: TextStyle(
                         color: Theme.of(context).cursorColor,

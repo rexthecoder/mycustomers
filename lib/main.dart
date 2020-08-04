@@ -126,7 +126,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
       localeResolutionCallback: loadSupportedLocals,
-      initialRoute: Routes.startupViewRoute,
+      initialRoute: Routes.businessViewSignIn,
       onGenerateRoute: Router().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
